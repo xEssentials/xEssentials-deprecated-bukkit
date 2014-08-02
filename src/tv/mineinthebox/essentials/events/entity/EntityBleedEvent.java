@@ -5,11 +5,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
+
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -44,20 +44,22 @@ public class EntityBleedEvent implements Listener {
 
 			Location newloc = loc.add(x, 5, z);
 
-			Item item = newloc.getWorld().dropItemNaturally(newloc, new ItemStack(Material.STAINED_GLASS, 64, DyeColor.RED.getWoolData()));
-			item.setMetadata("bleed", new FixedMetadataValue(xEssentials.getPlugin(), e.getEntity().getUniqueId()));
-			
 
-			Location loca = newloc.getWorld().getHighestBlockAt(newloc).getRelative(BlockFace.DOWN).getLocation();
+			Location newloc2 = newloc.clone();
+			newloc2.setY(newloc.getY()-4);
+			//Location loca = newloc.getWorld().getHighestBlockAt(newloc).getRelative(BlockFace.DOWN).getLocation();
 
 			for(Entity entity : e.getEntity().getNearbyEntities(14, 120, 14)) {
 				if(entity instanceof Player) {
-					Player p = (Player) entity;
-					p.sendBlockChange(loca, Material.STAINED_GLASS, DyeColor.RED.getWoolData());
+					if(newloc2.getBlock().getType() != Material.AIR && !newloc2.getBlock().getType().isTransparent()) {
+						Player p = (Player) entity;
+						p.sendBlockChange(newloc2, Material.STAINED_GLASS, DyeColor.RED.getWoolData());
+						Item item = newloc.getWorld().dropItemNaturally(newloc, new ItemStack(Material.STAINED_GLASS, 64, DyeColor.RED.getWoolData()));
+						item.setMetadata("bleed", new FixedMetadataValue(xEssentials.getPlugin(), e.getEntity().getUniqueId()));
+						hash.put(newloc2, item);
+					}
 				}
 			}
-
-			hash.put(loca, item);
 		}
 		BleedRegen regen = new BleedRegen(hash);
 		regen.startRegen();
@@ -85,14 +87,14 @@ class BleedRegen {
 
 			private Iterator<Map.Entry<Location, Item>> it; 
 			private boolean isCleaned = false;
-			
+
 			public Iterator<Map.Entry<Location, Item>> getIterator() {
 				if(!(it instanceof Iterator)) {
 					this.it = hash.entrySet().iterator();
 				}
 				return it;
 			}
-			
+
 			public void cleanup(World w) {
 				if(!isCleaned) {
 					for(Item item : w.getEntitiesByClass(Item.class)) {
