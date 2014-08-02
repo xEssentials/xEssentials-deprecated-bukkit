@@ -11,7 +11,6 @@ import org.bukkit.inventory.ItemStack;
 
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.enums.PermissionKey;
-import tv.mineinthebox.essentials.instances.BackPack;
 
 public class CmdClear {
 
@@ -27,8 +26,8 @@ public class CmdClear {
 							if(stack != null) {
 								if(isBackPack(stack)) {
 									try {
-										BackPack pack = new BackPack(stack);
-										pack.remove();
+										//BackPack pack = new BackPack(stack);
+										//pack.remove();
 									} catch (Exception e) {
 										sender.sendMessage(ChatColor.RED + "there is a backpack conflict with a other plugin, if this persist please disable the /clear command in commands.yml.");
 									}
@@ -40,8 +39,8 @@ public class CmdClear {
 							if(stack != null) {
 								if(isBackPack(stack)) {
 									try {
-										BackPack pack = new BackPack(stack);
-										pack.remove();
+										//BackPack pack = new BackPack(stack);
+									//	pack.remove();
 									} catch (Exception e) {
 										sender.sendMessage(ChatColor.RED + "there is a backpack conflict with a other plugin, if this persist please disable the /clear command in commands.yml.");
 									}
@@ -65,8 +64,8 @@ public class CmdClear {
 						if(stack != null) {
 							if(isBackPack(stack)) {
 								try {
-									BackPack pack = new BackPack(stack);
-									pack.remove();
+									//BackPack pack = new BackPack(stack);
+									//pack.remove();
 								} catch (Exception e) {
 									sender.sendMessage(ChatColor.RED + "there is a backpack conflict with a other plugin, if this persist please disable the /clear command in commands.yml.");
 								}
@@ -78,8 +77,8 @@ public class CmdClear {
 						if(stack != null) {
 							if(isBackPack(stack)) {
 								try {
-									BackPack pack = new BackPack(stack);
-									pack.remove();
+									//BackPack pack = new BackPack(stack);
+									//pack.remove();
 								} catch (Exception e) {
 									sender.sendMessage(ChatColor.RED + "there is a backpack conflict with a other plugin, if this persist please disable the /clear command in commands.yml.");
 								}

@@ -22,7 +22,6 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.hook.Hooks;
-import tv.mineinthebox.essentials.instances.BackPack;
 import tv.mineinthebox.essentials.instances.ShopSign;
 import tv.mineinthebox.essentials.instances.xEssentialsPlayer;
 
@@ -218,8 +217,8 @@ public class SignAdminShopOpenEvent implements Listener {
 						if((xp.getTotalEssentialsMoney()-cost) > -1) {
 							xp.payEssentialsMoney(cost);
 							ItemStack item = e.getCurrentItem().clone();
-							BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
-							p.getInventory().addItem(backpack);
+							//BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
+							//p.getInventory().addItem(backpack);
 							p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1F, 1F);
 							p.sendMessage(ChatColor.GREEN + "you have successfully bought " + ChatColor.GRAY + item.getType().name() + "(" + sign.getLine(1) + "x)" + ChatColor.GREEN + " from the " + Configuration.getShopConfig().getAdminPrefix() + "!");
 						} else {
@@ -233,8 +232,8 @@ public class SignAdminShopOpenEvent implements Listener {
 							if(xEssentials.getManagers().getVaultManager().hasEnough(p.getName(), cost)) {
 								xEssentials.getManagers().getVaultManager().withdraw(p.getName(), cost);
 								ItemStack item = e.getCurrentItem().clone();
-								BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
-								p.getInventory().addItem(backpack);
+								//BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
+								//p.getInventory().addItem(backpack);
 								p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1F, 1F);
 								p.sendMessage(ChatColor.GREEN + "you have successfully bought " + ChatColor.GRAY + item.getType().name() + "(" + sign.getLine(1) + "x)" + ChatColor.GREEN + " from the " + Configuration.getShopConfig().getAdminPrefix() + "!");
 							} else {

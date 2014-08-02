@@ -14,7 +14,6 @@ import org.bukkit.inventory.ItemStack;
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.enums.PermissionKey;
-import tv.mineinthebox.essentials.instances.BackPack;
 
 public class CmdBackpack {
 
@@ -80,8 +79,8 @@ public class CmdBackpack {
 									item.setDurability(dura);
 									sender.sendMessage(ChatColor.GRAY + "giving " + item.getType().name() + ":"+dura + " amount: 1 to player " + p.getName());
 									try {
-										BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
-										p.getInventory().addItem(backpack);
+										//BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
+										//p.getInventory().addItem(backpack);
 										p.sendMessage(ChatColor.GREEN + "you retrieved items from " + sender.getName());
 									} catch(IllegalArgumentException e) {
 										sender.sendMessage(ChatColor.RED + p.getName() + " is to full");
@@ -95,9 +94,9 @@ public class CmdBackpack {
 									Short dura = Short.parseShort(data[1]);
 									ItemStack item = new ItemStack(mat, 1);
 									item.setDurability(dura);
-									BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
+									//BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
 									try {
-										p.getInventory().addItem(backpack);
+										//p.getInventory().addItem(backpack);
 										p.sendMessage(ChatColor.GREEN + "you retrieved items from " + sender.getName());
 									} catch(IllegalArgumentException e) {
 										sender.sendMessage(ChatColor.RED + p.getName() + " is to full");
@@ -107,9 +106,9 @@ public class CmdBackpack {
 								if(isNumberic(args[1])) {
 									Material mat = Material.getMaterial(Integer.parseInt(args[1]));
 									ItemStack item = new ItemStack(mat, 1);
-									BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
+									//BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
 									try {
-										p.getInventory().addItem(backpack);
+										//p.getInventory().addItem(backpack);
 										p.sendMessage(ChatColor.GREEN + "you retrieved items from " + sender.getName());
 									} catch(IllegalArgumentException e) {
 										sender.sendMessage(ChatColor.RED + p.getName() + " is to full");
@@ -117,9 +116,9 @@ public class CmdBackpack {
 								} else {
 									Material mat = Material.getMaterial(args[1].toUpperCase());
 									ItemStack item = new ItemStack(mat, 1);
-									BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
+									//BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
 									try {
-										p.getInventory().addItem(backpack);
+									//	p.getInventory().addItem(backpack);
 										p.sendMessage(ChatColor.GREEN + "you retrieved items from " + sender.getName());
 									} catch(IllegalArgumentException e) {
 										sender.sendMessage(ChatColor.RED + p.getName() + " is to full");
@@ -150,9 +149,9 @@ public class CmdBackpack {
 										ItemStack item = new ItemStack(mat, amount);
 										item.setDurability(dura);
 										sender.sendMessage(ChatColor.GRAY + "giving " + item.getType().name() + ":"+dura + " amount: 1 to player " + p.getName());
-										BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
+										//BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
 										try {
-											p.getInventory().addItem(backpack);
+											//p.getInventory().addItem(backpack);
 											p.sendMessage(ChatColor.GREEN + "you retrieved items from " + sender.getName());
 										} catch(IllegalArgumentException e) {
 											sender.sendMessage(ChatColor.RED + p.getName() + " is to full");
@@ -166,9 +165,9 @@ public class CmdBackpack {
 										Short dura = Short.parseShort(data[1]);
 										ItemStack item = new ItemStack(mat, amount);
 										item.setDurability(dura);
-										BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
+										//BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
 										try {
-											p.getInventory().addItem(backpack);
+											//p.getInventory().addItem(backpack);
 											p.sendMessage(ChatColor.GREEN + "you retrieved items from " + sender.getName());
 										} catch(IllegalArgumentException e) {
 											sender.sendMessage(ChatColor.RED + p.getName() + " is to full");
@@ -178,9 +177,9 @@ public class CmdBackpack {
 									if(isNumberic(args[1])) {
 										Material mat = Material.getMaterial(Integer.parseInt(args[1]));
 										ItemStack item = new ItemStack(mat, amount);
-										BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
+										//BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
 										try {
-											p.getInventory().addItem(backpack);
+										//	p.getInventory().addItem(backpack);
 											p.sendMessage(ChatColor.GREEN + "you retrieved items from " + sender.getName());
 										} catch(IllegalArgumentException e) {
 											sender.sendMessage(ChatColor.RED + p.getName() + " is to full");
@@ -188,9 +187,9 @@ public class CmdBackpack {
 									} else {
 										Material mat = Material.getMaterial(args[1].toUpperCase());
 										ItemStack item = new ItemStack(mat, amount);
-										BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
+										//BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
 										try {
-											p.getInventory().addItem(backpack);
+											//p.getInventory().addItem(backpack);
 											p.sendMessage(ChatColor.GREEN + "you retrieved items from " + sender.getName());
 										} catch(IllegalArgumentException e) {
 											sender.sendMessage(ChatColor.RED + p.getName() + " is to full");
