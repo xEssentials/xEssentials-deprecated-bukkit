@@ -86,36 +86,43 @@
 		<dependency>
 			<groupId>org.bukkit</groupId>
 			<artifactId>bukkit</artifactId>
+			<scope>provided</scope>
 			<version>LATEST</version>
 		</dependency>
 		<dependency>
 			<groupId>org.bukkit</groupId>
 			<artifactId>craftbukkit</artifactId>
+			<scope>provided</scope>
 			<version>LATEST</version>
+		</dependency>
+				<dependency>
+			<groupId>com.sk89q</groupId>
+			<artifactId>worldedit</artifactId>
+			<scope>provided</scope>
+			<version>5.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sk89q</groupId>
 			<artifactId>worldguard</artifactId>
-			<version>LATEST</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sk89q</groupId>
-			<artifactId>worldedit</artifactId>
+			<scope>provided</scope>
 			<version>LATEST</version>
 		</dependency>
 		<dependency>
 			<groupId>com.comphenix.protocol</groupId>
 			<artifactId>ProtocolLib</artifactId>
+			<scope>provided</scope>
 			<version>LATEST</version>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
+			<scope>provided</scope>
 			<version>LATEST</version>
 		</dependency>
 		<dependency>
 			<groupId>net.milkbowl.vault</groupId>
 			<artifactId>Vault</artifactId>
+			<scope>provided</scope>
 			<version>1.2.30</version>
 		</dependency>
 		<dependency>

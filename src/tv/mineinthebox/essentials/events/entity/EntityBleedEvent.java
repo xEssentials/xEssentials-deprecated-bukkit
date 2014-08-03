@@ -51,7 +51,7 @@ public class EntityBleedEvent implements Listener {
 
 			for(Entity entity : e.getEntity().getNearbyEntities(14, 120, 14)) {
 				if(entity instanceof Player) {
-					if(newloc2.getBlock().getType() != Material.AIR && !newloc2.getBlock().getType().isTransparent()) {
+					if(newloc2.getBlock().getType() != Material.AIR && !newloc2.getBlock().getType().isTransparent() && !newloc2.getBlock().isLiquid()) {
 						Player p = (Player) entity;
 						p.sendBlockChange(newloc2, Material.STAINED_GLASS, DyeColor.RED.getWoolData());
 						Item item = newloc.getWorld().dropItemNaturally(newloc, new ItemStack(Material.STAINED_GLASS, 64, DyeColor.RED.getWoolData()));

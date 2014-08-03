@@ -11,14 +11,14 @@ import org.bukkit.entity.Player;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.xEssentialsPlayer;
 
-import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.flags.DefaultFlag;
 import com.sk89q.worldguard.protection.flags.StateFlag.State;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 public class WorldGuardHook {
-	
+
 	/**
 	 * @author xize
 	 * @param gets the region location by using the region name
@@ -31,7 +31,7 @@ public class WorldGuardHook {
 		Location loc = new Location(w, reg.getMaximumPoint().getX(), 70, reg.getMinimumPoint().getZ(), 0,0);
 		return loc;
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param region name
@@ -45,7 +45,7 @@ public class WorldGuardHook {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param disables the worldedit //wand
@@ -53,18 +53,20 @@ public class WorldGuardHook {
 	 */
 	public static void turnOffWand(Player player) {
 		if(Bukkit.getPluginManager().isPluginEnabled("WorldEdit")) {
-			WorldEdit we = (WorldEdit) Bukkit.getPluginManager().getPlugin("WorldEdit");
+
+			WorldEditPlugin we = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
+
 			if(player.hasPermission("worldedit.wand")) {	
 				if(player.getGameMode() == GameMode.SURVIVAL) {
-					if(we.getSession(player.getName()).isToolControlEnabled()) {
-						we.getSession(player.getName()).setToolControl(false);
+					if(we.getSession(player).isToolControlEnabled()) {
+						we.getSession(player).setToolControl(false);
 						player.sendMessage(ChatColor.GOLD + ".oO___[Gamemode alert]___Oo.");
 						player.sendMessage(ChatColor.GRAY + "your worldedit wand has been " + ChatColor.GREEN + "disabled!");
 						player.sendMessage(ChatColor.GRAY + "if you want to renable it switch to creative or use /toggleeditwand");
 					}
 				} else if(player.getGameMode() == GameMode.CREATIVE) {
-					if(!we.getSession(player.getName()).isToolControlEnabled()) {
-						we.getSession(player.getName()).setToolControl(true);
+					if(!we.getSession(player).isToolControlEnabled()) {
+						we.getSession(player).setToolControl(true);
 						player.sendMessage(ChatColor.GOLD + ".oO___[Gamemode alert]___Oo.");
 						player.sendMessage(ChatColor.GRAY + "your worldedit wand has been " + ChatColor.GREEN + "Enabled!");
 						player.sendMessage(ChatColor.GRAY + "if you want to redisable it switch to survival or use /toggleeditwand");
@@ -73,7 +75,7 @@ public class WorldGuardHook {
 			}
 		}
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param sends the quit message for fake quiting
@@ -98,7 +100,7 @@ public class WorldGuardHook {
 			p.sendMessage(ChatColor.RED + "you are allready vanished so you can't fake quit, use /vanish fakejoin instead or /vanish");
 		}
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param sends a fake join message
@@ -123,7 +125,7 @@ public class WorldGuardHook {
 			p.sendMessage(ChatColor.RED + "you are allready are unvanished so you can't fake join, use /vanish fakequit instead or /vanish");
 		}
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param sends normal join message and if they are joined in the wild or in the spawn
@@ -161,7 +163,7 @@ public class WorldGuardHook {
 			return message;
 		}
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param sends normal quit message and if they are joined in the wild or in the spawn
@@ -189,24 +191,24 @@ public class WorldGuardHook {
 			return message;
 		}
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param checks whenever location is inside a region
 	 * @return boolean
 	 */
 	public static boolean isInRegion(Location loc) {
-			WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
-			for(ProtectedRegion region : wg.getRegionManager(loc.getWorld()).getApplicableRegions(loc)) {
-				if(region.getFlag(DefaultFlag.MOB_SPAWNING) == State.DENY || region.getFlag(DefaultFlag.PVP) == State.DENY) {
-					//player has entered
-					return true;
-				}
+		WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
+		for(ProtectedRegion region : wg.getRegionManager(loc.getWorld()).getApplicableRegions(loc)) {
+			if(region.getFlag(DefaultFlag.MOB_SPAWNING) == State.DENY || region.getFlag(DefaultFlag.PVP) == State.DENY) {
+				//player has entered
+				return true;
 			}
-			return false;
+		}
+		return false;
 	}
-	
-	
+
+
 	/**
 	 * @author xize
 	 * @param p
