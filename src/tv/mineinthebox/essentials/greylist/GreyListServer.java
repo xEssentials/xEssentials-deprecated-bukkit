@@ -47,8 +47,8 @@ public class GreyListServer implements Runnable {
 	 */
 	
 	private final int port;
-	private ServerSocket server;
-	private Thread thread;
+	private volatile ServerSocket server;
+	private volatile Thread thread;
 	
 	public GreyListServer(int port) {
 		this.port = port;

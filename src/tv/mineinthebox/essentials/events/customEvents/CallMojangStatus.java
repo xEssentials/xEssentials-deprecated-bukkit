@@ -23,7 +23,7 @@ import tv.mineinthebox.essentials.instances.MojangStatus;
 
 public class CallMojangStatus {
 	
-	private boolean stop = false;
+	private volatile boolean stop = false;
 
 	private void startMojangCheck() {
 		new BukkitRunnable() {

@@ -20,8 +20,8 @@ import tv.mineinthebox.essentials.instances.RssFeed;
 
 public class CallRssFeedEvent  {
 
-	private RssFeed feed;
-	private boolean stop = false;
+	private volatile RssFeed feed;
+	private volatile boolean stop = false;
 	
 	/**
 	 * @author xize

@@ -56,7 +56,7 @@ public class CallEssentialsBroadcastEvent {
 			public void run() {
 				if(it.hasNext()) {
 					String message = it.next();
-					for(Player p : Bukkit.getOnlinePlayers()) {
+					for(Player p : xEssentials.getOnlinePlayers()) {
 						if(message.contains("%p")) {
 							p.sendMessage(prefix + suffix + message.replaceAll("%p",ChatColor.GREEN + Configuration.getChatConfig().getHashTag() + p.getName() + suffix));
 							p.getWorld().playSound(p.getPlayer().getLocation(), Sound.NOTE_PIANO, 10, 100);
@@ -72,7 +72,7 @@ public class CallEssentialsBroadcastEvent {
 					while(it.hasPrevious()) {it.previous();}
 					if(it.hasNext()) {
 						String message = it.next();
-						for(Player p : Bukkit.getOnlinePlayers()) {
+						for(Player p : xEssentials.getOnlinePlayers()) {
 							if(message.contains("%p")) {
 								p.sendMessage(prefix + suffix + message.replaceAll("%p",ChatColor.GREEN + p.getName() + suffix));
 								p.getWorld().playSound(p.getPlayer().getLocation(), Sound.NOTE_PIANO, 10, 100);
