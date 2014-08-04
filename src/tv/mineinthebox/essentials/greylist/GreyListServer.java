@@ -166,7 +166,6 @@ public class GreyListServer implements Runnable {
 							//invalid url.
 							response.writeBytes("HTTP/1.1 404 Not Found\r\n");
 						}
-						break;
 					}
 				}
 				response.close();
