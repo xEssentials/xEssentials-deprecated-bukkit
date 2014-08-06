@@ -29,6 +29,8 @@ public class Manager {
 	private MinigameManager minigame;
 	private BridgeManager bridge;
 	private ChairManager chair;
+	private ManCoManager manco;
+	private RealisticWaterManager water;
 	
 	/**
 	 * @author xize
@@ -256,6 +258,30 @@ public class Manager {
 			this.chair = new ChairManager();
 		}
 		return chair;
+	}
+	
+	/**
+	 * @author xize
+	 * @param returns the ManCo manager
+	 * @return ManCoManager
+	 */
+	public ManCoManager getManCoManager() {
+		if(!(manco instanceof ManCoManager)) {
+			this.manco = new ManCoManager();
+		}
+		return manco;
+	}
+	
+	/**
+	 * @author xize
+	 * @param returns the water manager
+	 * @return RealisticWaterManager
+	 */
+	public RealisticWaterManager getRealisticWaterManager() {
+		if(!(water instanceof RealisticWaterManager)) {
+			this.water = new RealisticWaterManager();
+		}
+		return water;
 	}
 
 }

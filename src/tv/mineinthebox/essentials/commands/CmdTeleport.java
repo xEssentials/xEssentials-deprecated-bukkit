@@ -15,7 +15,6 @@ import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.hook.Hooks;
-import tv.mineinthebox.essentials.hook.ManCoHook;
 import tv.mineinthebox.essentials.hook.WorldGuardHook;
 import tv.mineinthebox.essentials.instances.xEssentialsOfflinePlayer;
 import tv.mineinthebox.essentials.instances.xEssentialsPlayer;
@@ -104,8 +103,8 @@ public class CmdTeleport {
 							Player p = (Player) sender;
 							if(to instanceof Player) {
 								if(Hooks.isManCoEnabled()) {
-									if(ManCoHook.hasCrate(to)) {
-										Location loc = ManCoHook.getCrateLocation(to);
+									if(xEssentials.getManagers().getManCoManager().hasCrate(to)) {
+										Location loc = xEssentials.getManagers().getManCoManager().getCrateLocation(to);
 										p.teleport(loc);
 										sender.sendMessage(ChatColor.GREEN + "teleporting to " + to.getName() + " his ManCo crate ;-)");
 									} else {

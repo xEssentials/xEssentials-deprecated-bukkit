@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.command.PluginCommand;
@@ -42,6 +43,7 @@ import tv.mineinthebox.essentials.configurations.PvpConfig;
 import tv.mineinthebox.essentials.configurations.RulesConfig;
 import tv.mineinthebox.essentials.configurations.ShopConfig;
 import tv.mineinthebox.essentials.configurations.SignConfig;
+import tv.mineinthebox.essentials.configurations.VoteConfig;
 import tv.mineinthebox.essentials.enums.ConfigType;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.enums.MinigameType;
@@ -77,6 +79,7 @@ public class Configuration {
 	private static ShopConfig shopconfig;
 	private static MiscConfig miscconfig;
 	private static SignConfig signconfig;
+	private static VoteConfig voteconfig;
 
 
 
@@ -106,6 +109,7 @@ public class Configuration {
 		createPortalConfig();
 		createMiscConfig();
 		createSignConfig();
+		createVoteConfig();
 		loadSystemPresets(ConfigType.BAN);
 		loadSystemPresets(ConfigType.BROADCAST);
 		loadSystemPresets(ConfigType.CHAT);
@@ -124,6 +128,7 @@ public class Configuration {
 		loadSystemPresets(ConfigType.PORTAL);
 		loadSystemPresets(ConfigType.MISC);
 		loadSystemPresets(ConfigType.SIGN);
+		loadSystemPresets(ConfigType.VOTE);
 		for(Material mat : Material.values()) {
 			materials.add(mat.name());
 		}
@@ -131,6 +136,24 @@ public class Configuration {
 
 	private String serialize_name(String mob) {
 		return mob.toString().toLowerCase();
+	}
+	
+	private void createVoteConfig() {
+		try {
+			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "vote.yml");
+			if(!f.exists()) {
+				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
+				con.set("vote.enable", false);
+				con.set("vote.personal-message", "&6[&3VOTE&6]: &3you have been voted to mineinthebox!, because you did enjoy your %reward%!");
+				con.set("vote.broadcast", "&6[&3VOTE&6]&3: %player% has voted for mineinthebox and earned %reward%, you can do to by visiting %uri%");
+				con.set("vote.reward-type.money.enable", false);
+				con.set("vote.reward-type.money.price", 80.0);
+				con.set("vote.reward-type.crate.enable", false);
+				con.save(f);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void createMiscConfig() {
@@ -345,6 +368,7 @@ public class Configuration {
 				con.set("cleanup-on-chunkunload", false);
 				con.set("remove-flying-projectiles-on-chunkload", false);
 				con.set("disable-stone-pressureplates-for-mobs", false);
+				con.set("realistic-water", false);
 				for(EntityType entity : EntityType.values()) {
 					if(entity.isAlive()) {
 						if(entity != EntityType.PLAYER) {
@@ -664,6 +688,7 @@ public class Configuration {
 				hash.put("cleanup", con.getBoolean("cleanup-on-chunkunload"));
 				hash.put("AntiFireball", con.getBoolean("remove-flying-projectiles-on-chunkload"));
 				hash.put("plates", con.getBoolean("disable-stone-pressureplates-for-mobs"));
+				hash.put("realisticwater", con.getBoolean("realistic-water"));
 				HashMap<String, Map<Boolean, String[]>> entitys = new HashMap<String, Map<Boolean, String[]>>();
 				for(String key : con.getConfigurationSection("mobs.allowToSpawn").getKeys(false)) {
 					Map<Boolean, String[]> map = new HashMap<Boolean, String[]>();
@@ -832,6 +857,17 @@ public class Configuration {
 			hash.put("warp", con.getBoolean("signs.warpsign.enable"));
 			hash.put("wild", con.getBoolean("signs.wildsign.enable"));
 			configure.put(ConfigType.SIGN, hash);
+		} else if(cfg == ConfigType.VOTE) {
+			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "vote.yml");
+			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
+			HashMap<String, Object> hash = new HashMap<String, Object>();
+			hash.put("enable", con.getBoolean("vote.enable"));
+			hash.put("personalmsg", ChatColor.translateAlternateColorCodes('&', con.getString("vote.personal-message")));
+			hash.put("broadcast", ChatColor.translateAlternateColorCodes('&', con.getString("vote.broadcast")));
+			hash.put("moneyrewardenable", con.getBoolean("vote.reward-type.money.enable"));
+			hash.put("moneyrewardprice", con.getDouble("vote.reward-type.money.price"));
+			hash.put("rewardcrateenabled", con.getBoolean("vote.reward-type.crate.enable"));
+			configure.put(ConfigType.VOTE, hash);
 		}
 	}
 
@@ -1259,6 +1295,20 @@ public class Configuration {
 			return signconfig;
 		}
 	}
+	
+	/**
+	 * @author xize
+	 * @param returns the full memory configuration for votes
+	 * @return VoteConfig
+	 */
+	public static VoteConfig getVoteConfig() {
+		if(voteconfig instanceof VoteConfig) {
+			return voteconfig;
+		} else {
+			voteconfig = new VoteConfig();
+			return voteconfig;
+		}
+	}
 
 	public static boolean isSilenceToggled = false;
 
@@ -1273,6 +1323,9 @@ public class Configuration {
 			if(xEssentials.getManagers().getGreylistManager().isRunning()) {
 				xEssentials.getManagers().getGreylistManager().stop();
 			}
+		}
+		if(xEssentials.getManagers().getRealisticWaterManager().isRunning()) {
+			xEssentials.getManagers().getRealisticWaterManager().stop();
 		}
 		//clear responsible from the deepest tree in the HashMap in case things could get persistent in the jvm things need to be better safe than not.
 		for(ConfigType aEnum : ConfigType.values()) {
@@ -1291,6 +1344,9 @@ public class Configuration {
 		}
 		if(Configuration.getMiscConfig().isBridgesEnabled()) {
 			xEssentials.getManagers().getBridgeManager().reloadBridges();
+		}
+		if(Configuration.getEntityConfig().isRealisticWaterEnabled()) {
+			xEssentials.getManagers().getRealisticWaterManager().start();
 		}
 		xEssentials.getManagers().getPlayerManager().reloadPlayerBase(); 
 		handler.start();

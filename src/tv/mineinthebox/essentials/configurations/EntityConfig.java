@@ -175,5 +175,14 @@ public class EntityConfig {
 	public boolean isStonePressurePlate() {
 		return (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "plates");
 	}
+	
+	/**
+	 * @author xize
+	 * @param when enabled, fish entity will spawn in water.
+	 * @return Boolean
+	 */
+	public boolean isRealisticWaterEnabled() {
+		return (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "realisticwater");
+	}
 
 }

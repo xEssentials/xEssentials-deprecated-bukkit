@@ -73,6 +73,9 @@ public class xEssentials extends JavaPlugin {
 		if(Configuration.getMiscConfig().isBridgesEnabled()) {
 			xEssentials.getManagers().getBridgeManager().reloadBridges();
 		}
+		if(Configuration.getEntityConfig().isRealisticWaterEnabled()) {
+			xEssentials.getManagers().getRealisticWaterManager().start();
+		}
 	}
 
 	public void onDisable() {
@@ -109,6 +112,9 @@ public class xEssentials extends JavaPlugin {
 			if(Configuration.getMiscConfig().isChairsEnabled()) {
 				xEssentials.getManagers().getChairManager().killAll();	
 			}
+		}
+		if(Configuration.getEntityConfig().isRealisticWaterEnabled()) {
+			xEssentials.getManagers().getRealisticWaterManager().stop();
 		}
 	}
 

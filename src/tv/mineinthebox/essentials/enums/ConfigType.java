@@ -18,5 +18,6 @@ public enum ConfigType {
 	PROTECTION,
 	PORTAL,
 	MISC,
-	SIGN
+	SIGN,
+	VOTE
 }

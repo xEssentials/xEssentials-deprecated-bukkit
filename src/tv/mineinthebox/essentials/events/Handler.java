@@ -50,6 +50,7 @@ import tv.mineinthebox.essentials.events.entity.EntityBleedEvent;
 import tv.mineinthebox.essentials.events.entity.EntityPressurePlateInteractEvent;
 import tv.mineinthebox.essentials.events.entity.EntitySpawnEventManager;
 import tv.mineinthebox.essentials.events.entity.ExplosionRegen;
+import tv.mineinthebox.essentials.events.entity.RealisticWaterEvent;
 import tv.mineinthebox.essentials.events.entity.SpawnEggLogEvent;
 import tv.mineinthebox.essentials.events.gates.GateBreakEvent;
 import tv.mineinthebox.essentials.events.gates.GateCreateEvent;
@@ -134,6 +135,8 @@ import tv.mineinthebox.essentials.events.signs.SignBoom;
 import tv.mineinthebox.essentials.events.signs.WarpSign;
 import tv.mineinthebox.essentials.events.signs.WildSign;
 import tv.mineinthebox.essentials.events.spleef.CreateSpleefArenaEvent;
+import tv.mineinthebox.essentials.events.vote.VoteCrateListener;
+import tv.mineinthebox.essentials.events.vote.VoteMoneyListener;
 import tv.mineinthebox.essentials.hook.Hooks;
 
 public class Handler {
@@ -171,6 +174,7 @@ public class Handler {
 		}
 		//entity yml
 		setListener(new EntitySpawnEventManager());
+		if(Configuration.getEntityConfig().isRealisticWaterEnabled()) {setListener(new RealisticWaterEvent());}
 		if(Configuration.getEntityConfig().isStonePressurePlate()) {setListener(new EntityPressurePlateInteractEvent());}
 		if(Configuration.getEntityConfig().isCleanUpOnChunkUnloadEnabled()) {setListener(new CleanupUnloadedChunkEvent());}
 		if(Configuration.getEntityConfig().isChunkProtectionEnabled()) {setListener(new ChunkProtection());}
@@ -352,7 +356,13 @@ public class Handler {
 		setListener(new PlayerQuitHandle());
 		setListener(new PlayerTeleportCheck());
 		
-		//spleef
+		//vote
+		if(Configuration.getVoteConfig().isVoteEnabled()) {
+			if(Configuration.getVoteConfig().isMoneyRewardEnabled() && Hooks.isVaultEnabled()) {setListener(new VoteMoneyListener());}
+			if(Configuration.getVoteConfig().isRewardCrateEnabled() && Hooks.isManCoEnabled()) {setListener(new VoteCrateListener());}
+		}
+		
+		//spleef    
 		setListener(new CreateSpleefArenaEvent());
 			
 		setListener(new RemoveMemory());
