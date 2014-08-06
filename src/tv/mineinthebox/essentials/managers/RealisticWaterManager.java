@@ -6,10 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Item;
@@ -20,6 +18,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ParticleEffect;
+import tv.mineinthebox.essentials.instances.xEssentialsPlayer;
 
 public class RealisticWaterManager {
 
@@ -46,8 +45,9 @@ public class RealisticWaterManager {
 					cancel();
 				}
 				for(Player p : xEssentials.getOnlinePlayers()) {
+					xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 					if(hasWaterBlocksNearby(p)) {
-						if(p.getLocation().getBlock().getRelative(BlockFace.UP).getRelative(BlockFace.UP).getType() != Material.STATIONARY_WATER) {
+						if(p.getLocation().getBlock().getRelative(BlockFace.UP).getRelative(BlockFace.UP).getType() != Material.STATIONARY_WATER && !xp.isVanished()) {
 							Block[] water = getWaterBlocks(p);
 							Block b = water[rand.nextInt(water.length)];
 							ParticleEffect.SPLASH.display(b.getLocation().getBlock().getRelative(BlockFace.UP).getLocation(), 5, 2, 5, 100, 10);
