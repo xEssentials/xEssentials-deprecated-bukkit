@@ -2,11 +2,14 @@ package tv.mineinthebox.essentials.managers;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Item;
@@ -31,7 +34,7 @@ public class RealisticWaterManager {
 		return !cancel;
 	}
 	
-	private final List<Item> fishes = new ArrayList<Item>();
+	private final LinkedList<Item> fishes = new LinkedList<Item>();
 
 	public void start() {
 		this.cancel = false;
@@ -59,15 +62,20 @@ public class RealisticWaterManager {
 				}
 				//iterate
 				Iterator<Item> items = fishes.iterator();
+				
 				while(items.hasNext()) {
 					Item item = items.next();
 					if(item.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
-						item.teleport(item.getLocation().add(0, -180,0));
+						item.teleport(item.getLocation().add(0, -180, 0));
 						items.remove();
-						fishes.remove(item);
+					} else {
+						if(item.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.STATIONARY_WATER && item.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR) {
+							item.teleport(item.getLocation().add(0, -180, 0));
+							items.remove();
+						}
 					}
 				}
-				fishes.clear(); //fixes mutation glitch when a stack passes a other item and is changed to a other object, this clears it all and we will wait for natural despawn.
+				//fishes.clear(); //fixes mutation glitch when a stack passes a other item and is changed to a other object, this clears it all and we will wait for natural despawn.
 			}
 
 		}.runTaskTimer(xEssentials.getPlugin(), 0L, 10L);
