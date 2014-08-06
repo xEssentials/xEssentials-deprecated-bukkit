@@ -67,6 +67,7 @@ public class RealisticWaterManager {
 						fishes.remove(item);
 					}
 				}
+				fishes.clear(); //fixes mutation glitch when a stack passes a other item and is changed to a other object, this clears it all and we will wait for natural despawn.
 			}
 
 		}.runTaskTimer(xEssentials.getPlugin(), 0L, 10L);
