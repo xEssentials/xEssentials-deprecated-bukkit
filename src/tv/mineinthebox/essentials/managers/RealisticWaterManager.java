@@ -49,14 +49,16 @@ public class RealisticWaterManager {
 					if(hasWaterBlocksNearby(p)) {
 						if(p.getLocation().getBlock().getRelative(BlockFace.UP).getRelative(BlockFace.UP).getType() != Material.STATIONARY_WATER && !xp.isVanished()) {
 							Block[] water = getWaterBlocks(p);
-							Block b = water[rand.nextInt(water.length)];
-							ParticleEffect.SPLASH.display(b.getLocation().getBlock().getRelative(BlockFace.UP).getLocation(), 5, 2, 5, 100, 10);
-							Location loc = b.getLocation();
-							int y = rand.nextInt(4);
-							loc.setY(loc.getY()+(y > 0 ? y : 4));
-							Item fish = b.getWorld().dropItem(loc, new ItemStack(Material.RAW_FISH, 1, (short)rand.nextInt(4)));
-							fish.setMetadata("fakefish", new FixedMetadataValue(xEssentials.getPlugin(), "its fake"));
-							fishes.add(fish);
+							if(water.length > 16) {
+								Block b = water[rand.nextInt(water.length)];
+								ParticleEffect.SPLASH.display(b.getLocation().getBlock().getRelative(BlockFace.UP).getLocation(), 5, 2, 5, 100, 10);
+								Location loc = b.getLocation();
+								int y = rand.nextInt(4);
+								loc.setY(loc.getY()+(y > 0 ? y : 4));
+								Item fish = b.getWorld().dropItem(loc, new ItemStack(Material.RAW_FISH, 1, (short)rand.nextInt(4)));
+								fish.setMetadata("fakefish", new FixedMetadataValue(xEssentials.getPlugin(), "its fake"));
+								fishes.add(fish);	
+							}
 						}
 					}
 				}
@@ -99,7 +101,7 @@ public class RealisticWaterManager {
 		for(int x = 0; x < range; x++) {
 				for(int z = 0; z < range; z++) {
 					Block block = loc.getWorld().getBlockAt(loc.getBlockX()+x, loc.getBlockY(), loc.getBlockZ()+z);
-					if(block.getType() == Material.STATIONARY_WATER) {
+					if(block.getType() == Material.STATIONARY_WATER && block.getRelative(BlockFace.DOWN).getType() == Material.STATIONARY_WATER) {
 						blocks.add(block);
 					}
 			}
