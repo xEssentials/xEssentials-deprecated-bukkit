@@ -340,3 +340,7 @@ commands:
      description: changes a player name
      aliases: [nickname]
      permission: xEssentials.command.nick
+  spectate:
+     description: spectate a player
+     aliases: [sp]
+     permission: xEssentials.command.spectate

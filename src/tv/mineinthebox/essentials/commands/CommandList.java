@@ -84,7 +84,8 @@ public class CommandList {
 			"clear",
 			"fire",
 			"doublejump",
-			"nick"
+			"nick",
+			"spectate"
 	};
 
 }

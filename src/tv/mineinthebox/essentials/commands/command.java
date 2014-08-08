@@ -257,6 +257,9 @@ public class command implements CommandExecutor, TabCompleter {
 		} else if(cmd.getName().equalsIgnoreCase("nick")) {
 			CmdNick nick = new CmdNick();
 			return nick.execute(sender, cmd, args);
+		} else if(cmd.getName().equalsIgnoreCase("spectate")) {
+			CmdSpectate spectate = new CmdSpectate();
+			return spectate.execute(sender, cmd, args);
 		}
 		return false;
 	}

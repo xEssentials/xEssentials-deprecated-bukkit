@@ -31,6 +31,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
@@ -48,6 +50,7 @@ public class xEssentialsPlayer {
 	private FileConfiguration con;
 	private Item Potato;
 	private AlternateAccount accounts;
+	private BukkitTask spectate;
 
 	/**
 	 * 
@@ -2490,6 +2493,74 @@ public class xEssentialsPlayer {
 			return con.getBoolean("doublejump");
 		}
 		return false;
+	}
+	
+	/**
+	 * @author xize
+	 * @param returns true if the player has spectate on
+	 * @return Boolean
+	 */
+	public boolean isSpectate() {
+		if(spectate instanceof BukkitTask) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * @author xize
+	 * @param stops the spectate
+	 */
+	@SuppressWarnings("unchecked")
+	public void stopSpectate() {
+		if(isSpectate()) {
+			spectate.cancel();
+			spectate = null;
+			player.performCommand("spawn");
+			ItemStack[] cotents = ((List<ItemStack>)con.get("spectate-inventory")).toArray(new ItemStack[0]);
+			player.getInventory().setContents(cotents);
+			con.set("spectate-inventory", null);
+			try {
+				con.save(f);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			update();
+			unvanish(true);
+		}
+	}
+	
+	/**
+	 * @author xize
+	 * @param spectates a player.
+	 * @param p
+	 */
+	public void spectate(final Player pa) {
+		vanish();
+		con.set("spectate-inventory", player.getInventory().getContents());
+		try {
+			con.save(f);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update();
+		player.hidePlayer(pa);
+		this.spectate = new BukkitRunnable() {
+
+			@Override
+			public void run() {
+				if(pa.isOnline()) {
+					player.teleport(pa);	
+					player.getInventory().setContents(pa.getInventory().getContents());
+					player.getInventory().setHeldItemSlot(pa.getInventory().getHeldItemSlot());
+				} else {
+					player.sendMessage(ChatColor.GREEN + "player is not longer online, cancelling spectate");
+					stopSpectate();
+				}
+			}
+		}.runTaskTimer(xEssentials.getPlugin(), 0L, 1L);
 	}
 
 	/**
