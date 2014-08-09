@@ -22,6 +22,7 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.hook.Hooks;
+import tv.mineinthebox.essentials.instances.Backpack;
 import tv.mineinthebox.essentials.instances.ShopSign;
 import tv.mineinthebox.essentials.instances.xEssentialsPlayer;
 
@@ -165,11 +166,16 @@ public class SignAdminShopOpenEvent implements Listener {
 					xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 					if(e.getCurrentItem().getType() == mat && e.getCurrentItem().getDurability() == subValue && e.getCurrentItem().getAmount() == amount) {
 						if((xp.getTotalEssentialsMoney()-cost) > -1) {
-							xp.payEssentialsMoney(cost);
-							ItemStack item = e.getCurrentItem().clone();
-							p.getInventory().addItem(item);
-							p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1F, 1F);
-							p.sendMessage(ChatColor.GREEN + "you have successfully bought " + ChatColor.GRAY + item.getType().name() + "(" + sign.getLine(1) + "x)" + ChatColor.GREEN + " from the " + Configuration.getShopConfig().getAdminPrefix() + "!");
+							if(p.getInventory().firstEmpty() != -1) {
+								xp.payEssentialsMoney(cost);
+								ItemStack item = e.getCurrentItem().clone();
+								p.getInventory().addItem(item);
+								p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1F, 1F);
+								p.sendMessage(ChatColor.GREEN + "you have successfully bought " + ChatColor.GRAY + item.getType().name() + "(" + sign.getLine(1) + "x)" + ChatColor.GREEN + " from the " + Configuration.getShopConfig().getAdminPrefix() + "!");
+							} else {
+								p.closeInventory();
+								p.sendMessage(ChatColor.RED + "you don't have inventory space.");
+							}
 						} else {
 							p.closeInventory();
 							p.sendMessage(ChatColor.RED + "you don't have enough money to afford this!");
@@ -179,15 +185,19 @@ public class SignAdminShopOpenEvent implements Listener {
 					if(Hooks.isVaultEnabled()) {
 						if(e.getCurrentItem().getType() == mat && e.getCurrentItem().getDurability() == subValue && e.getCurrentItem().getAmount() == amount) {
 							if(xEssentials.getManagers().getVaultManager().hasEnough(p.getName(), cost)) {
-								xEssentials.getManagers().getVaultManager().withdraw(p.getName(), cost);
+								if(p.getInventory().firstEmpty() != -1)
+									xEssentials.getManagers().getVaultManager().withdraw(p.getName(), cost);
 								ItemStack item = e.getCurrentItem().clone();
 								p.getInventory().addItem(item);
 								p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1F, 1F);
 								p.sendMessage(ChatColor.GREEN + "you have successfully bought " + ChatColor.GRAY + item.getType().name() + "(" + sign.getLine(1) + "x)" + ChatColor.GREEN + " from the " + Configuration.getShopConfig().getAdminPrefix() + "!");
 							} else {
 								p.closeInventory();
-								p.sendMessage(ChatColor.RED + "you don't have enough money to afford this!");
+								p.sendMessage(ChatColor.RED + "you don't have inventory space.");
 							}
+						} else {
+							p.closeInventory();
+							p.sendMessage(ChatColor.RED + "you don't have enough money to afford this!");
 						}
 					} else {
 						xEssentials.getPlugin().log(p.getName() + " tried to buy something, but failed because there whas no Economy plugin found!, is Vault installed?", LogType.SEVERE);
@@ -215,12 +225,17 @@ public class SignAdminShopOpenEvent implements Listener {
 					xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 					if(e.getCurrentItem().getType() == mat && e.getCurrentItem().getDurability() == subValue && e.getCurrentItem().getAmount() == amount) {
 						if((xp.getTotalEssentialsMoney()-cost) > -1) {
-							xp.payEssentialsMoney(cost);
-							ItemStack item = e.getCurrentItem().clone();
-							//BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
-							//p.getInventory().addItem(backpack);
-							p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1F, 1F);
-							p.sendMessage(ChatColor.GREEN + "you have successfully bought " + ChatColor.GRAY + item.getType().name() + "(" + sign.getLine(1) + "x)" + ChatColor.GREEN + " from the " + Configuration.getShopConfig().getAdminPrefix() + "!");
+							if(p.getInventory().firstEmpty() != -1) {
+								xp.payEssentialsMoney(cost);
+								ItemStack item = e.getCurrentItem().clone();
+								Backpack backpack = xEssentials.getManagers().getBackPackManager().createBackpack(item.getType(), item.getDurability());
+								p.getInventory().addItem(backpack.getBackPackItem());
+								p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1F, 1F);
+								p.sendMessage(ChatColor.GREEN + "you have successfully bought " + ChatColor.GRAY + item.getType().name() + "(" + sign.getLine(1) + "x)" + ChatColor.GREEN + " from the " + Configuration.getShopConfig().getAdminPrefix() + "!");
+							} else {
+								p.closeInventory();
+								p.sendMessage(ChatColor.RED + "you don't have inventory space.");
+							}
 						} else {
 							p.closeInventory();
 							p.sendMessage(ChatColor.RED + "you don't have enough money to afford this!");
@@ -230,12 +245,17 @@ public class SignAdminShopOpenEvent implements Listener {
 					if(Hooks.isVaultEnabled()) {
 						if(e.getCurrentItem().getType() == mat && e.getCurrentItem().getDurability() == subValue && e.getCurrentItem().getAmount() == amount) {
 							if(xEssentials.getManagers().getVaultManager().hasEnough(p.getName(), cost)) {
-								xEssentials.getManagers().getVaultManager().withdraw(p.getName(), cost);
-								ItemStack item = e.getCurrentItem().clone();
-								//BackPack backpack = new BackPack(item.getType(), item.getDurability(), item.getAmount());
-								//p.getInventory().addItem(backpack);
-								p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1F, 1F);
-								p.sendMessage(ChatColor.GREEN + "you have successfully bought " + ChatColor.GRAY + item.getType().name() + "(" + sign.getLine(1) + "x)" + ChatColor.GREEN + " from the " + Configuration.getShopConfig().getAdminPrefix() + "!");
+								if(p.getInventory().firstEmpty() != -1) {
+									xEssentials.getManagers().getVaultManager().withdraw(p.getName(), cost);
+									ItemStack item = e.getCurrentItem().clone();
+									Backpack backpack = xEssentials.getManagers().getBackPackManager().createBackpack(item.getType(), item.getDurability());
+									p.getInventory().addItem(backpack.getBackPackItem());
+									p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1F, 1F);
+									p.sendMessage(ChatColor.GREEN + "you have successfully bought " + ChatColor.GRAY + item.getType().name() + "(" + sign.getLine(1) + "x)" + ChatColor.GREEN + " from the " + Configuration.getShopConfig().getAdminPrefix() + "!");
+								} else {
+									p.closeInventory();
+									p.sendMessage(ChatColor.RED + "you don't have inventory space.");
+								}
 							} else {
 								p.closeInventory();
 								p.sendMessage(ChatColor.RED + "you don't have enough money to afford this!");
