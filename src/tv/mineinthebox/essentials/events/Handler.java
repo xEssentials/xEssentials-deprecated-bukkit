@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.events.backpack.BackpackDespawningEvent;
+import tv.mineinthebox.essentials.events.backpack.OpenBackPackEvent;
 import tv.mineinthebox.essentials.events.ban.FloodSpamEvent;
 import tv.mineinthebox.essentials.events.ban.HumanSpamCommandEvent;
 import tv.mineinthebox.essentials.events.ban.HumanSpamEvent;
@@ -311,6 +312,7 @@ public class Handler {
 		
 		//backpack events
 		setListener(new BackpackDespawningEvent());
+		setListener(new OpenBackPackEvent());
 		
 		//gate events
 		if(Configuration.getMiscConfig().isGatesEnabled()) {

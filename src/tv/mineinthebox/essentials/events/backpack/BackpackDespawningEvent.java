@@ -30,5 +30,4 @@ public class BackpackDespawningEvent implements Listener {
 			}
 		}
 	}
-	
 }

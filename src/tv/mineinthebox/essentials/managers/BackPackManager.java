@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -28,8 +27,8 @@ public class BackPackManager {
 	
 	public boolean isBackpack(ItemStack stack) {
 		if(stack.hasItemMeta()) {
-			if(stack.getItemMeta().getLore().size() >= 6) {
-				if(getBackpackById(stack.getItemMeta().getLore().get(6).replace(""+ChatColor.COLOR_CHAR, "")) != null) {
+			if(stack.getItemMeta().getLore().size() >= 5) {
+				if(getBackpackById(stack.getItemMeta().getLore().get(5).replaceAll(ChatColor.COLOR_CHAR+"", "")) != null) {
 					return true;
 				}
 			}
@@ -56,9 +55,9 @@ public class BackPackManager {
 	
 	public Backpack getBackpackByItem(ItemStack item) {
 		if(item.hasItemMeta()) {
-			if(item.getItemMeta().getLore().size() >= 6) {
-				if(getBackpackById(item.getItemMeta().getLore().get(6).replace(""+ChatColor.COLOR_CHAR, "")) != null) {
-					return getBackpackById(item.getItemMeta().getLore().get(6).replace(""+ChatColor.COLOR_CHAR, ""));
+			if(item.getItemMeta().getLore().size() >= 5) {
+				if(getBackpackById(item.getItemMeta().getLore().get(5).replaceAll(ChatColor.COLOR_CHAR+"", "")) != null) {
+					return getBackpackById(item.getItemMeta().getLore().get(5).replaceAll(ChatColor.COLOR_CHAR+"", ""));
 				}
 			}
 		}
@@ -109,7 +108,7 @@ public class BackPackManager {
 		FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 		con.set("id", id.toString().replaceAll("-", ""));
 		con.set("backpack-item", stack);
-		con.set("contents", Bukkit.createInventory(null, 36).getContents());
+		con.set("contents", new ItemStack[0]);
 		try {
 			con.save(f);
 		} catch (IOException e) {
@@ -125,7 +124,7 @@ public class BackPackManager {
 		String stripped = s.replaceAll("-", "");
 		String invis = "";
 		for(char c : stripped.toCharArray()) {
-			invis += ChatColor.COLOR_CHAR + "" + c;
+			invis += ChatColor.COLOR_CHAR +""+ c;
 		}
 		return invis;
 	}

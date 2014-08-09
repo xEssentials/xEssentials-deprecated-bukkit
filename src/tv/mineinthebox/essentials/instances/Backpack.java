@@ -3,6 +3,7 @@ package tv.mineinthebox.essentials.instances;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -54,7 +55,7 @@ public class Backpack {
 		ItemStack item = (ItemStack)con.get("backpack-item");
 		ItemMeta meta = item.getItemMeta();
 		List<String> lores = meta.getLore();
-		lores.set(6, "amount: "+ getContents().length);
+		lores.set(6, "amount: "+ getSize());
 		meta.setLore(lores);
 		item.setItemMeta(meta);
 		return item;
@@ -71,6 +72,16 @@ public class Backpack {
 		return inv;
 	}
 	
+	public int getSize() {
+		int num = 0;
+		for(ItemStack stack : getContents()) {
+			if(stack != null && stack instanceof ItemStack) {
+				num++;	
+			}
+		}
+		return num;
+	}
+	
 	/**
 	 * @author xize
 	 * @param returns safely the contents of the inventory.
@@ -79,12 +90,7 @@ public class Backpack {
 	@SuppressWarnings("unchecked")
 	public ItemStack[] getContents() {
 		update();
-		ItemStack[] stack = new ItemStack[((List<ItemStack>)con.get("contents")).size()];
-		int i = 0;
-		for(ItemStack item : ((List<ItemStack>)con.get("contents"))) {
-			stack[i] = item;
-		}
-		return stack;
+		return ((List<ItemStack>)con.get("contents")).toArray(new ItemStack[0]);
 	}
 	
 	/**

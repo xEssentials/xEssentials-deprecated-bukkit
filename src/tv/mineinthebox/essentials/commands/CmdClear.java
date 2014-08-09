@@ -1,7 +1,5 @@
 package tv.mineinthebox.essentials.commands;
 
-import java.util.regex.Pattern;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -10,7 +8,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import tv.mineinthebox.essentials.Warnings;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.instances.Backpack;
 
 public class CmdClear {
 
@@ -24,10 +24,10 @@ public class CmdClear {
 						int i = 0;
 						for(ItemStack stack : p.getInventory().getContents()) {
 							if(stack != null) {
-								if(isBackPack(stack)) {
+								if(xEssentials.getManagers().getBackPackManager().isBackpack(stack)) {
 									try {
-										//BackPack pack = new BackPack(stack);
-										//pack.remove();
+										Backpack pack = xEssentials.getManagers().getBackPackManager().getBackpackByItem(stack);
+										pack.remove();
 									} catch (Exception e) {
 										sender.sendMessage(ChatColor.RED + "there is a backpack conflict with a other plugin, if this persist please disable the /clear command in commands.yml.");
 									}
@@ -37,10 +37,10 @@ public class CmdClear {
 						}
 						for(ItemStack stack : p.getInventory().getArmorContents()) {
 							if(stack != null) {
-								if(isBackPack(stack)) {
+								if(xEssentials.getManagers().getBackPackManager().isBackpack(stack)) {
 									try {
-										//BackPack pack = new BackPack(stack);
-									//	pack.remove();
+										Backpack pack = xEssentials.getManagers().getBackPackManager().getBackpackByItem(stack);
+									    pack.remove();
 									} catch (Exception e) {
 										sender.sendMessage(ChatColor.RED + "there is a backpack conflict with a other plugin, if this persist please disable the /clear command in commands.yml.");
 									}
@@ -62,10 +62,10 @@ public class CmdClear {
 					int i = 0;
 					for(ItemStack stack : p.getInventory().getContents()) {
 						if(stack != null) {
-							if(isBackPack(stack)) {
+							if(xEssentials.getManagers().getBackPackManager().isBackpack(stack)) {
 								try {
-									//BackPack pack = new BackPack(stack);
-									//pack.remove();
+									Backpack pack = xEssentials.getManagers().getBackPackManager().getBackpackByItem(stack);
+									pack.remove();
 								} catch (Exception e) {
 									sender.sendMessage(ChatColor.RED + "there is a backpack conflict with a other plugin, if this persist please disable the /clear command in commands.yml.");
 								}
@@ -75,10 +75,10 @@ public class CmdClear {
 					}
 					for(ItemStack stack : p.getInventory().getArmorContents()) {
 						if(stack != null) {
-							if(isBackPack(stack)) {
+							if(xEssentials.getManagers().getBackPackManager().isBackpack(stack)) {
 								try {
-									//BackPack pack = new BackPack(stack);
-									//pack.remove();
+									Backpack pack = xEssentials.getManagers().getBackPackManager().getBackpackByItem(stack);
+									pack.remove();
 								} catch (Exception e) {
 									sender.sendMessage(ChatColor.RED + "there is a backpack conflict with a other plugin, if this persist please disable the /clear command in commands.yml.");
 								}
@@ -95,27 +95,6 @@ public class CmdClear {
 				}
 			} else {
 				Warnings.getWarnings(sender).noPermission();
-			}
-		}
-		return false;
-	}
-
-	private boolean doesMatch(String s) {
-		String regex = ChatColor.GOLD + "Backpack";
-		return s.equalsIgnoreCase(regex);
-	}
-
-	private boolean isBackPack(ItemStack stack) {
-		if(stack.hasItemMeta()) {
-			if(stack.getItemMeta().hasDisplayName()) {
-				if(stack.getItemMeta().hasLore()) {
-					if(stack.getItemMeta().getLore().size() >= 5) {
-						Pattern pat = Pattern.compile("^[a-f-0-9"+ChatColor.COLOR_CHAR+"]*$", Pattern.CASE_INSENSITIVE);
-						if(stack.getItemMeta().getLore().get(5).matches(pat.pattern())) {
-							return doesMatch(stack.getItemMeta().getDisplayName());	
-						}
-					}
-				}
 			}
 		}
 		return false;

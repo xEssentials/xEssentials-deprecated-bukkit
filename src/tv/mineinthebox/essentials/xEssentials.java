@@ -76,6 +76,7 @@ public class xEssentials extends JavaPlugin {
 		if(Configuration.getEntityConfig().isRealisticWaterEnabled()) {
 			xEssentials.getManagers().getRealisticWaterManager().start();
 		}
+		xEssentials.getManagers().getBackPackManager().loadBackpacks();
 	}
 
 	public void onDisable() {
