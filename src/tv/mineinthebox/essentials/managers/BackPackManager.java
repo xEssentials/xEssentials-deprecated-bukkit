@@ -18,32 +18,34 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.Backpack;
 
 public class BackPackManager {
-	
+
 	private final Set<Backpack> backpacks = new HashSet<Backpack>();
-	
+
 	public boolean isBackpack(Backpack pack) {
 		return backpacks.contains(pack);
 	}
-	
+
 	public boolean isBackpack(ItemStack stack) {
 		if(stack.hasItemMeta()) {
-			if(stack.getItemMeta().getLore().size() >= 5) {
-				if(getBackpackById(stack.getItemMeta().getLore().get(5).replaceAll(ChatColor.COLOR_CHAR+"", "")) != null) {
-					return true;
+			if(stack.getItemMeta().hasLore()) {
+				if(stack.getItemMeta().getLore().size() >= 5) {
+					if(getBackpackById(stack.getItemMeta().getLore().get(5).replaceAll(ChatColor.COLOR_CHAR+"", "")) != null) {
+						return true;
+					}
 				}
 			}
 		}
 		return false;
 	}
-	
+
 	public void addBackpack(Backpack pack) {
 		backpacks.add(pack);
 	}
-	
+
 	public void removeBackpack(Backpack pack) {
 		backpacks.remove(pack);
 	}
-	
+
 	public Backpack getBackpackById(String id) {
 		for(Backpack pack : backpacks) {
 			if(id.equals(pack.getUniqueId())) {
@@ -52,7 +54,7 @@ public class BackPackManager {
 		}
 		return null;
 	}
-	
+
 	public Backpack getBackpackByItem(ItemStack item) {
 		if(item.hasItemMeta()) {
 			if(item.getItemMeta().getLore().size() >= 5) {
@@ -63,7 +65,7 @@ public class BackPackManager {
 		}
 		return null;
 	}
-	
+
 	public Backpack[] getBackpacks() {
 		Backpack[] packs = new Backpack[backpacks.size()];
 		int i = 0;
@@ -73,7 +75,7 @@ public class BackPackManager {
 		}
 		return packs;
 	}
-	
+
 	public void loadBackpacks() {
 		try {
 			File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "backpacks");
@@ -89,7 +91,7 @@ public class BackPackManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Backpack createBackpack(Material mat, short sub) {
 		ItemStack stack = new ItemStack(mat, 1, sub);
 		ItemMeta meta = stack.getItemMeta();
@@ -102,7 +104,7 @@ public class BackPackManager {
 				ChatColor.GREEN + "note if you die you can loose your backpack!",
 				"",
 				convertToInvisibleString(id.toString()),
-				"amount: 0"}));
+		"amount: 0"}));
 		stack.setItemMeta(meta);
 		File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "backpacks" + File.separator + id.toString().replaceAll("-", "")+".yml");
 		FileConfiguration con = YamlConfiguration.loadConfiguration(f);
@@ -114,12 +116,12 @@ public class BackPackManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		Backpack pack = new Backpack(f, con);
 		addBackpack(pack);
 		return pack;
 	}
-	
+
 	private String convertToInvisibleString(String s) {
 		String stripped = s.replaceAll("-", "");
 		String invis = "";
