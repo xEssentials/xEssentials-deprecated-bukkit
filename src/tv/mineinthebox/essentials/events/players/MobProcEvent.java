@@ -28,7 +28,7 @@ public class MobProcEvent implements Listener, Runnable {
 
 	private final static HashMap<String, Long> player = new HashMap<String, Long>();
 
-	private final int proctime = 3;
+	private final int proctime = 5;
 
 	private static BukkitTask task; 
 
@@ -63,7 +63,9 @@ public class MobProcEvent implements Listener, Runnable {
 				if(xp.hasProc()) {
 					Random rand = new Random();
 					p.getWorld().playSound(p.getLocation(), Sound.ENDERDRAGON_GROWL, 1F, 1F);
-					ParticleEffect.HAPPY_VILLAGER.display(p.getLocation(), rand.nextInt(3), 1, rand.nextInt(3), 1, 30);
+					for(int i =0; i < 5; i++) {
+						ParticleEffect.HAPPY_VILLAGER.display(p.getLocation(), rand.nextInt(10), rand.nextInt(4), rand.nextInt(10), 100, 10);	
+					}
 					p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 3));
 					Date date = new Date(System.currentTimeMillis());
 					date.setSeconds(date.getSeconds() + proctime);
