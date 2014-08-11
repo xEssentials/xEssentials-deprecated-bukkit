@@ -13,6 +13,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -55,7 +56,11 @@ public class RealisticWaterManager {
 								Location loc = b.getLocation();
 								int y = rand.nextInt(4);
 								loc.setY(loc.getY()+(y > 0 ? y : 4));
-								Item fish = b.getWorld().dropItem(loc, new ItemStack(Material.RAW_FISH, 1, (short)rand.nextInt(4)));
+								ItemStack stack = new ItemStack(Material.RAW_FISH, 1, (short)rand.nextInt(4));
+								ItemMeta meta = stack.getItemMeta();
+								meta.setDisplayName("fakefish");
+								stack.setItemMeta(meta);
+								Item fish = b.getWorld().dropItem(loc, stack);
 								fish.setMetadata("fakefish", new FixedMetadataValue(xEssentials.getPlugin(), "its fake"));
 								fishes.add(fish);	
 							}
