@@ -17,9 +17,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
+import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -56,11 +56,7 @@ public class EntityBleedEvent implements Listener {
 					if(newloc2.getBlock().getType() != Material.AIR && !newloc2.getBlock().getType().isTransparent() && !newloc2.getBlock().isLiquid()) {
 						Player p = (Player) entity;
 						p.sendBlockChange(newloc2, Material.STAINED_GLASS, DyeColor.RED.getWoolData());
-						ItemStack stack = new ItemStack(Material.STAINED_GLASS, 64, DyeColor.RED.getWoolData());
-						ItemMeta meta = stack.getItemMeta();
-						meta.setDisplayName("bleed");
-						stack.setItemMeta(meta);
-						Item item = newloc.getWorld().dropItemNaturally(newloc, stack);
+						Item item = newloc.getWorld().dropItemNaturally(newloc, new ItemStack(Material.STAINED_GLASS, 64, DyeColor.RED.getWoolData()));
 						item.setMetadata("bleed", new FixedMetadataValue(xEssentials.getPlugin(), e.getEntity().getUniqueId()));
 						hash.put(newloc2, item);
 					}
@@ -79,15 +75,9 @@ public class EntityBleedEvent implements Listener {
 	}
 	
 	@EventHandler
-	public void onInventoryMove(InventoryMoveItemEvent e) {
-		if(e.getSource() == null) {
-			if(e.getItem().hasItemMeta()) {
-				if(e.getItem().getItemMeta().hasDisplayName()) {
-					if(e.getItem().getItemMeta().getDisplayName().equalsIgnoreCase("bleed")) {
-						e.setCancelled(true);
-					}
-				}
-			}
+	public void onInventoryMove(InventoryPickupItemEvent e) {
+		if(e.getItem().hasMetadata("bleed")) {
+			e.setCancelled(true);
 		}
 	}
 
