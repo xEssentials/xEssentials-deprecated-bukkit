@@ -74,12 +74,12 @@
 			<url>http://repo.comphenix.net/content/groups/public</url>
 		</repository>
 		<repository>
-			<id>vexsoftware</id>
-			<url>http://repo.sacredlabyrinth.net:8081/artifactory/remote-repos/</url>
-		</repository>
-		<repository>
 			<id>lwc</id>
 			<url>http://andune.com/nexus/content/repositories/public/</url>
+		</repository>
+		<repository>
+			<id>vault-repo</id>
+			<url>http://nexus.theyeticave.net/content/repositories/pub_releases</url>
 		</repository>
 	</repositories>
 	<dependencies>
@@ -126,12 +126,6 @@
 			<version>1.2.30</version>
 		</dependency>
 		<dependency>
-			<groupId>com.vexsoftware</groupId>
-			<artifactId>votifier</artifactId>
-			<version>1.9</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>com.griefcraft</groupId>
 			<artifactId>LWC</artifactId>
 			<version>4.2.0</version>
@@ -143,6 +137,13 @@
 			<version>2.0</version>
 			<scope>system</scope>
 			<systemPath>${project.basedir}${file.separator}repo${file.separator}ManCo-2.0.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.vexsoftware</groupId>
+			<artifactId>votifier</artifactId>
+			<version>1.9</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}${file.separator}repo${file.separator}Votifier.jar</systemPath>
 		</dependency>
 	</dependencies>
 	<scm>

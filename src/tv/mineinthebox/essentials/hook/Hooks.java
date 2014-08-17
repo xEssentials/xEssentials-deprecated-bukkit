@@ -38,5 +38,12 @@ public class Hooks {
 		}
 		return false;
 	}
+	
+	public static boolean isLWCEnabled() {
+		if(Bukkit.getPluginManager().isPluginEnabled("LWC")) {
+			return true;
+		}
+		return false;
+	}
 
 }
