@@ -1051,7 +1051,7 @@ public class xEssentialsPlayer {
 			final LinkedList<Block> list = new LinkedList<Block>();
 			for(double i = 0.0; i < 360.0; i += 20.0) {
 				LinkedList<Block> pilars = new LinkedList<Block>();
-				for(int y = 0; y < 3; y++) {
+				for(int y = 0; y < 4; y++) {
 					double angle = (i*Math.PI / 180);
 					int x = (int) (6*Math.cos(angle));
 					int z = (int) (6*Math.sin(angle));
