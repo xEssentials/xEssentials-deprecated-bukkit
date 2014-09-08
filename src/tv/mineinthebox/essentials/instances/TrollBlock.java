@@ -57,7 +57,6 @@ public class TrollBlock implements Block, Runnable {
 	@Override
 	public void run() {
 		if(block.getType() == Material.AIR) {
-			System.out.print("the material is air, and probably broken.");
 			block.getWorld().playEffect(block.getLocation(), Effect.MOBSPAWNER_FLAMES, 100);
 			Block block2 = block.getLocation().getBlock().getRelative(BlockFace.UP).getLocation().getBlock();
 			for(int i = 0; i < 16; i++) {
@@ -70,14 +69,10 @@ public class TrollBlock implements Block, Runnable {
 			skull.setOwner("IronicTroll");
 			block2.getState().update();
 			block2.getWorld().dropItemNaturally(block2.getLocation(), funDrop);
-			System.out.print("the troll block should be stopped.");
 			stopTroll();
 		} else {
-			System.out.print("the block is not broken and is also not air.");
 			for(Player p : getNearbyPlayers(15)) {
-				System.out.print("the player " + p.getName() + " is in the same chunk as the block");
 				if(!isBlockVisible(p)) {
-					System.out.print("the block is not visible for this player.");
 					int n = rand.nextInt(6);
 					if(n == 1) {
 						paranoidSounds_1(p);

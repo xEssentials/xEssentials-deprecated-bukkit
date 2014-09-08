@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import tv.mineinthebox.essentials.commands.CommandList;
-import tv.mineinthebox.essentials.commands.command;
+import tv.mineinthebox.essentials.commands.SimpleCommand;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.events.CustomEventHandler;
 import tv.mineinthebox.essentials.events.Handler;
@@ -46,7 +46,7 @@ public class xEssentials extends JavaPlugin {
 			xEssentials.getManagers().getPlayerManager().reloadPlayerBase();
 		}
 		for(String cmd : cmdlist.getAllCommands) {
-			getCommand(cmd).setExecutor(new command());	
+			getCommand(cmd).setExecutor(new SimpleCommand());	
 		}
 		if(Configuration.getPlayerConfig().isRealisticGlassEnabled()) {
 			xEssentials.getManagers().getRealisticGlassManager().loadGlassBlocks();
