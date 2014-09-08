@@ -29,7 +29,7 @@ public class LavaPilar implements Runnable {
 	
 	public void startTask() {
 		if(!isRunning()) {
-			this.task = Bukkit.getScheduler().runTaskTimer(xEssentials.getPlugin(), this, 0L, 10L);
+			this.task = Bukkit.getScheduler().runTaskTimer(xEssentials.getPlugin(), this, 0L, 20L);
 		}
 	}
 	
