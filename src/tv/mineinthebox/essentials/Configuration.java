@@ -24,7 +24,7 @@ import org.bukkit.plugin.Plugin;
 
 import tv.mineinthebox.essentials.arenas.Minigame;
 import tv.mineinthebox.essentials.commands.CommandList;
-import tv.mineinthebox.essentials.commands.command;
+import tv.mineinthebox.essentials.commands.SimpleCommand;
 import tv.mineinthebox.essentials.configurations.BanConfig;
 import tv.mineinthebox.essentials.configurations.BlockConfig;
 import tv.mineinthebox.essentials.configurations.BroadcastConfig;
@@ -384,10 +384,11 @@ public class Configuration {
 				con.set("disable-spawneggs", false);
 				con.set("log.spawnEggs", false);
 				con.set("realistic-blood", false);
+	            con.set("realistic-trees", false);
+	        	con.set("realistic-water", false);
 				con.set("cleanup-on-chunkunload", false);
 				con.set("remove-flying-projectiles-on-chunkload", false);
 				con.set("disable-stone-pressureplates-for-mobs", false);
-				con.set("realistic-water", false);
 				for(EntityType entity : EntityType.values()) {
 					if(entity.isAlive()) {
 						if(entity != EntityType.PLAYER) {
@@ -709,6 +710,7 @@ public class Configuration {
 				hash.put("AntiFireball", con.getBoolean("remove-flying-projectiles-on-chunkload"));
 				hash.put("plates", con.getBoolean("disable-stone-pressureplates-for-mobs"));
 				hash.put("realisticwater", con.getBoolean("realistic-water"));
+				 hash.put("realistictrees", con.getBoolean("realistic-trees"));
 				HashMap<String, Map<Boolean, String[]>> entitys = new HashMap<String, Map<Boolean, String[]>>();
 				for(String key : con.getConfigurationSection("mobs.allowToSpawn").getKeys(false)) {
 					Map<Boolean, String[]> map = new HashMap<Boolean, String[]>();
@@ -1430,7 +1432,7 @@ public class Configuration {
 					mf.setInt(constructor, constructor.getModifiers() &~Modifier.PROTECTED);
 
 					PluginCommand command = (PluginCommand) constructor.newInstance(cmd, xEssentials.getPlugin());
-					command.setExecutor(new command());
+					command.setExecutor(new SimpleCommand());
 					List<String> aliases = (List<String>) xEssentials.getPlugin().getDescription().getCommands().get(command.getName()).get("aliases");
 					command.setAliases(aliases);
 
