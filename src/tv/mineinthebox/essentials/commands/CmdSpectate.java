@@ -35,6 +35,10 @@ public class CmdSpectate {
 						} else {
 							Player target = Bukkit.getPlayer(args[0]);
 							if(target instanceof Player) {
+								if(sender.getName().equalsIgnoreCase(target.getName())) {
+									sender.sendMessage(ChatColor.RED + "you cannot spectate yourself!");
+									return false;
+								}
 								xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 								xp.spectate(target);
 								sender.sendMessage(ChatColor.GREEN + "successfully spectating player " + target.getName());
