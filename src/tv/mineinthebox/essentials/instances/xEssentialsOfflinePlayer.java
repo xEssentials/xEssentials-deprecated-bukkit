@@ -1652,6 +1652,33 @@ public class xEssentialsOfflinePlayer {
 	
 	/**
 	 * @author xize
+	 * @param returns true when edit mode is enabled
+	 * @return Boolean
+	 */
+	public boolean isEditSignEnabled() {
+		if(con.contains("signedit")) {
+			return con.getBoolean("signedit");
+		}
+		return false;
+	}
+	
+	/**
+	 * @author xize
+	 * @param bol - sets the mode whenever a player edits a sign
+	 */
+	public void setEditSign(Boolean bol) {
+		con.set("signedit", bol);
+		try {
+			con.save(f);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update();
+	}
+	
+	/**
+	 * @author xize
 	 * @param returns true when player is in drunk mode
 	 * @return Boolean
 	 */
