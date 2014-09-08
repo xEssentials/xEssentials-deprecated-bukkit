@@ -141,5 +141,15 @@ public class PlayerConfig {
 	public boolean isAutoAnvilEnabled() {
 		return (Boolean) Configuration.getConfigValue(ConfigType.PLAYER, "anvil");
 	}
+	
+	/**
+	 * @author xize
+	 * @param returns true if auto respawn is enabled
+	 * @return boolean
+	 * @return
+	 */
+	public boolean isAutoRespawnEnabled() {
+		return (Boolean) Configuration.getConfigValue(ConfigType.PLAYER, "force-respawn");
+	}
 
 }

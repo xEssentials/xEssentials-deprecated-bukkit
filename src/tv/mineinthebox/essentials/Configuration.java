@@ -55,7 +55,7 @@ public class Configuration {
 
 	//this will be the configs loaded in the memory
 	//this will used by events and in events without instancing every time a new object this will be painfully awful in PlayerMoveEvent.
-	public final static EnumMap<ConfigType, HashMap<String, Object>> configure = new EnumMap<ConfigType, HashMap<String, Object>>(ConfigType.class);
+	private final static EnumMap<ConfigType, HashMap<String, Object>> configure = new EnumMap<ConfigType, HashMap<String, Object>>(ConfigType.class);
 	private final static EnumMap<MinigameType, HashMap<String, Minigame>> minigames = new EnumMap<MinigameType, HashMap<String, Minigame>>(MinigameType.class);
 
 	//use these configuration files as a singleton, this prevent smilliar problems for inside the jvm.
@@ -481,6 +481,7 @@ public class Configuration {
 				con.set("CancelHunger", false);
 				con.set("PortalCreation.DisableCustomSizes", false);
 				con.set("PortalCreation.DisablePortalCreation", false);
+				con.set("force-respawn", false);
 				con.save(f);
 			}
 		} catch(Exception e) {
@@ -731,6 +732,7 @@ public class Configuration {
 			hash.put("hunger", con.getBoolean("CancelHunger"));
 			hash.put("DisableCustomSize", con.getBoolean("PortalCreation.DisableCustomSizes"));
 			hash.put("DisablePortals", con.getBoolean("PortalCreation.DisablePortalCreation"));
+			hash.put("force-respawn", con.getBoolean("force-respawn"));
 			configure.put(ConfigType.PLAYER, hash);
 
 		} else if(cfg == ConfigType.PVP) {
@@ -1415,5 +1417,14 @@ public class Configuration {
 	public static boolean reloadConfiguration() {
 		Configuration conf = new Configuration();
 		return conf.reload();
+	}
+	
+	/**
+	 * @author xize
+	 * @param makes sure the static fields will be finalized and no duplicates will be created on a /reload.
+	 */
+	@Override
+	public void finalize() throws Throwable {
+		super.finalize();
 	}
 }
