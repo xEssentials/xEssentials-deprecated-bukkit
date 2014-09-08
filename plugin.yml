@@ -8,7 +8,7 @@ website:
 main: tv.mineinthebox.essentials.xEssentials
 database: false
 depend: []
-softdepend: [ManCo, Vault, WorldEdit, WorldGuard]
+softdepend: [ManCo, Vault, WorldEdit, WorldGuard, LWC]
 loadbefore: [Towny]
 
 commands:
@@ -344,3 +344,14 @@ commands:
      description: spectate a player
      aliases: [sp]
      permission: xEssentials.command.spectate
+  editsign:
+     description: edit a sign
+     aliases: [es]
+  drunk:
+     description: talk drunk and derpish
+     aliases: [derp]
+     permission: xEssentials.command.drunk
+  spawnerblock:
+     description: creates a tempory spawner
+     aliases: [sb]
+     permission: xEssentials.command.spawnerblock

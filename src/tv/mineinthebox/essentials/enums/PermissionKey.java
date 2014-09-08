@@ -20,6 +20,8 @@ public enum PermissionKey {
 	CMD_AFK("xEssentials.command.afk"),
 	CMD_BAN("xEssentials.command.ban"),
 	CMD_GREYLIST("xEssentials.command.greylist"),
+	CMD_SPAWNER_BLOCK("xEssentials.command.spawnerblock"),
+	CMD_DRUNK("xEssentials.command.drunk"),
 	CMD_KIT("xEssentials.command.kit"),
 	CMD_KITS("xEssentials.command.kits"),
 	CMD_CHECK("xEssentials.command.check"),
