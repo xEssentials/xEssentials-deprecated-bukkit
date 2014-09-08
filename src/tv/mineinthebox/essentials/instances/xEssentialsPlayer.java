@@ -2563,6 +2563,94 @@ public class xEssentialsPlayer {
 			}
 		}.runTaskTimer(xEssentials.getPlugin(), 0L, 1L);
 	}
+	
+	/**
+	 * @author xize
+	 * @param returns true when player is in drunk mode
+	 * @return Boolean
+	 */
+	public boolean isDrunk() {
+		if(con.contains("drunk")) {
+			return con.getBoolean("drunk");
+		}
+		return false;
+	}
+	
+	/**
+	 * @author xize
+	 * @param bol - sets the drunk state
+	 */
+	public void setDrunk(Boolean bol) {
+		con.set("drunk", bol);
+		try {
+			con.save(f);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update();
+	}
+	
+	/**
+	 * @author xize
+	 * @param message - converts a normal message in a derpish message :)
+	 * @return String
+	 */
+	public String getDrunkMessageFrom(String message, boolean bol) {
+		boolean posneg = bol;
+		boolean isSpace = false;
+		String newmsg = "";
+		for(char chr : message.toCharArray()) {
+			if(isLitteral(chr)) {
+				if(posneg) {
+					//don't add chr, only make sure the next char will be accepted.
+					posneg = false;
+				} else {
+					newmsg += chr;
+					posneg = true;
+				}
+			} else {
+				if(isSpace) {
+					if(!isSpace(chr)) {
+						isSpace = false;
+						newmsg += chr;
+					}
+				} else {
+					if(isSpace(chr)) {
+						isSpace = true;
+						newmsg += chr;
+					} else {
+						newmsg += chr;
+						isSpace = false;
+					}
+				}
+			}
+		}
+		return newmsg;
+	}
+
+	private boolean isSpace(char chr) {
+		switch(chr) {
+		case ' ' : return true;
+		default : return false;
+		}
+	}
+
+	private boolean isLitteral(char chr) {
+		switch(chr) {
+		case 'a': return true; 
+		case 'e': return true;
+		case 'i': return true;
+		case 'o': return true;
+		case 'u': return true;
+		case 'A': return true;
+		case 'E': return true;
+		case 'I': return true;
+		case 'O': return true;
+		case 'U': return true;
+		default : return false; 
+		}
+	}
 
 	/**
 	 * @author xize

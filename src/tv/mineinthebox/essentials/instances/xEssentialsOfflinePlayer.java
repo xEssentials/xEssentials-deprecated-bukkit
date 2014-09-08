@@ -1649,6 +1649,33 @@ public class xEssentialsOfflinePlayer {
 		}
 		return false;
 	}
+	
+	/**
+	 * @author xize
+	 * @param returns true when player is in drunk mode
+	 * @return Boolean
+	 */
+	public boolean isDrunk() {
+		if(con.contains("drunk")) {
+			return con.getBoolean("drunk");
+		}
+		return false;
+	}
+	
+	/**
+	 * @author xize
+	 * @param bol - sets the drunk state
+	 */
+	public void setDrunk(Boolean bol) {
+		con.set("drunk", bol);
+		try {
+			con.save(f);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update();
+	}
 
 	/**
 	 * @author xize
