@@ -26,6 +26,7 @@ public class OpenBackPackEvent implements Listener {
 					e.getPlayer().sendMessage(ChatColor.GREEN + "opening backpack");
 					e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.CHEST_OPEN, 1F, 1F);
 					e.getPlayer().openInventory(pack.getInventory());
+					e.setCancelled(true);
 				}
 			}
 		}
