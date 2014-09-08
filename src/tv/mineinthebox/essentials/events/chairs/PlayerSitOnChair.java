@@ -62,16 +62,18 @@ public class PlayerSitOnChair implements Listener, Runnable {
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
 		if(xEssentials.getManagers().getChairManager().containsPlayer(e.getPlayer().getName())) {
-			e.getPlayer().eject();
 			xEssentials.getManagers().getChairManager().removeChicken(e.getPlayer().getName());
+			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			xp.setInChair(false);
 		}
 	}
 
 	@EventHandler
 	public void onQuit(PlayerKickEvent e) {
 		if(xEssentials.getManagers().getChairManager().containsPlayer(e.getPlayer().getName())) {
-			e.getPlayer().eject();
 			xEssentials.getManagers().getChairManager().removeChicken(e.getPlayer().getName());
+			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			xp.setInChair(false);
 		}
 	}
 
