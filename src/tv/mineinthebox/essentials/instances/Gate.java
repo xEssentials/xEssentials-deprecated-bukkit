@@ -116,9 +116,9 @@ public class Gate {
 
 	public void remove() {
 		if(isToggled()) {
+			toggleGate();
 			f.delete();
 		} else {
-			toggleGate();
 			f.delete();
 		}
 		if(xEssentials.getManagers().getGateManager().contains(this)) {
