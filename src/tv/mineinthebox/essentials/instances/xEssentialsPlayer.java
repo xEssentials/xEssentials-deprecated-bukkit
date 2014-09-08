@@ -2517,8 +2517,8 @@ public class xEssentialsPlayer {
 			spectate.cancel();
 			spectate = null;
 			player.performCommand("spawn");
-			ItemStack[] cotents = ((List<ItemStack>)con.get("spectate-inventory")).toArray(new ItemStack[0]);
-			player.getInventory().setContents(cotents);
+			ItemStack[] contents = ((List<ItemStack>)con.get("spectate-inventory")).toArray(new ItemStack[0]);
+			player.getInventory().setContents(contents);
 			con.set("spectate-inventory", null);
 			try {
 				con.save(f);
@@ -2546,12 +2546,13 @@ public class xEssentialsPlayer {
 			e.printStackTrace();
 		}
 		update();
-		player.hidePlayer(pa);
 		this.spectate = new BukkitRunnable() {
 
 			@Override
 			public void run() {
 				if(pa.isOnline()) {
+					player.hidePlayer(pa);
+					pa.hidePlayer(player);
 					player.teleport(pa);	
 					player.getInventory().setContents(pa.getInventory().getContents());
 					player.getInventory().setHeldItemSlot(pa.getInventory().getHeldItemSlot());
