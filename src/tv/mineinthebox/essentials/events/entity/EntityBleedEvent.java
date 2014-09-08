@@ -12,8 +12,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.inventory.InventoryPickupItemEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import tv.mineinthebox.essentials.xEssentials;
@@ -58,20 +56,6 @@ public class EntityBleedEvent implements Listener {
 		}
 		BleedRegen regen = new BleedRegen(list);
 		regen.startRegen();
-	}
-
-	@EventHandler
-	public void onPickUp(PlayerPickupItemEvent e) {
-		if(e.getItem().hasMetadata("bleed")) {
-			e.setCancelled(true);
-		}
-	}
-	
-	@EventHandler
-	public void onInventoryMove(InventoryPickupItemEvent e) {
-		if(e.getItem().hasMetadata("bleed")) {
-			e.setCancelled(true);
-		}
 	}
 
 }
