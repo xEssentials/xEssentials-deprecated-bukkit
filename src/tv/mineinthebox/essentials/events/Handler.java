@@ -31,6 +31,7 @@ import tv.mineinthebox.essentials.events.chat.AntiAddvertiseEvent;
 import tv.mineinthebox.essentials.events.chat.BroadcastSiteNewsEvent;
 import tv.mineinthebox.essentials.events.chat.ChatHighLightEvent;
 import tv.mineinthebox.essentials.events.chat.ChatSmilleyEvent;
+import tv.mineinthebox.essentials.events.chat.DrunkChatEvent;
 import tv.mineinthebox.essentials.events.chat.MuteEvent;
 import tv.mineinthebox.essentials.events.chat.PlayerIgnorePlayerChatEvent;
 import tv.mineinthebox.essentials.events.chat.PublishMojangStatus;
@@ -51,6 +52,7 @@ import tv.mineinthebox.essentials.events.entity.EntityBleedEvent;
 import tv.mineinthebox.essentials.events.entity.EntityPressurePlateInteractEvent;
 import tv.mineinthebox.essentials.events.entity.EntitySpawnEventManager;
 import tv.mineinthebox.essentials.events.entity.ExplosionRegen;
+import tv.mineinthebox.essentials.events.entity.RealisticTreeEvent;
 import tv.mineinthebox.essentials.events.entity.RealisticWaterEvent;
 import tv.mineinthebox.essentials.events.entity.SpawnEggLogEvent;
 import tv.mineinthebox.essentials.events.gates.GateBreakEvent;
@@ -100,6 +102,7 @@ import tv.mineinthebox.essentials.events.players.RealisticGlass;
 import tv.mineinthebox.essentials.events.players.RemoveMemory;
 import tv.mineinthebox.essentials.events.players.SaveLastInventory;
 import tv.mineinthebox.essentials.events.players.SaveLastLocation;
+import tv.mineinthebox.essentials.events.players.SignEditEvent;
 import tv.mineinthebox.essentials.events.players.StaffSafeTeleport;
 import tv.mineinthebox.essentials.events.players.SteveHurtSound;
 import tv.mineinthebox.essentials.events.players.TeleportBackEvent;
@@ -192,6 +195,7 @@ public class Handler {
 		if(Configuration.getEntityConfig().isExplosionRegenEnabled()) {setListener(new ExplosionRegen());}
 		if(Configuration.getEntityConfig().isBloodEnabled()) {setListener(new EntityBleedEvent());}
 		//chat.yml
+		setListener(new DrunkChatEvent());
 		setListener(new SilenceChatEvent());
 		setListener(new PlayerIgnorePlayerChatEvent());
 		if(Configuration.getChatConfig().isMojangStatusEnabled()) {setListener(new PublishMojangStatus());}
@@ -200,6 +204,7 @@ public class Handler {
 		if(Configuration.getChatConfig().isAntiAdvertiseEnabled()) {setListener(new AntiAddvertiseEvent());}
 		setListener(new MuteEvent());
 		//player.yml
+		setListener(new SignEditEvent());
 		if(Configuration.getPlayerConfig().isAutoRespawnEnabled()) {setListener(new PlayerForceRespawnEvent());}
 		setListener(new AntiKnockBackEvent());
 		setListener(new FirstJoinTeleportEvent());
@@ -234,6 +239,7 @@ public class Handler {
 			glass.startRegen();
 		}
 		if(Configuration.getPlayerConfig().isAutoAnvilEnabled()) {setListener(new AnvilResetEvent());}
+		if(Configuration.getEntityConfig().isRealisticTreesEnabled()) {setListener(new RealisticTreeEvent());}
 		//pvp.yml
 		if(Configuration.getPvpConfig().isPvpDisabled()) {setListener(new PvpEvent());}
 		if(Configuration.getPvpConfig().isClientGravesEnabled()) {

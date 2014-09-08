@@ -266,6 +266,9 @@ public class SimpleCommand implements CommandExecutor, TabCompleter {
 		} else if(cmd.getName().equalsIgnoreCase("drunk")) {
 			CmdDrunk drunk = new CmdDrunk();
 			return drunk.execute(sender, cmd, args);
+		} else if(cmd.getName().equalsIgnoreCase("spawnerblock")) {
+			CmdSpawnerBlock spawner = new CmdSpawnerBlock();
+			return spawner.execute(sender, cmd, args);
 		}
 		return false;
 	}
