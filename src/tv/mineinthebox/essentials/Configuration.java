@@ -132,6 +132,7 @@ public class Configuration {
 		loadSystemPresets(ConfigType.MISC);
 		loadSystemPresets(ConfigType.SIGN);
 		loadSystemPresets(ConfigType.VOTE);
+		loadSystemPresets(ConfigType.DEBUG);
 		for(Material mat : Material.values()) {
 			materials.add(mat.name());
 		}
