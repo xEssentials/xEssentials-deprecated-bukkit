@@ -68,13 +68,19 @@ public class RealisticWaterManager {
 				while(items.hasNext()) {
 					Item item = items.next();
 					if(item.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
-						item.teleport(item.getLocation().add(0, -180, 0));
+						item.teleport(item.getLocation().add(0,-180,0));
+						item.remove();
+						items.remove();
+					} else if(item.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR) {
+						item.teleport(item.getLocation().add(0,-180,0));
+						item.remove();
 						items.remove();
 					} else {
-						if(item.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.STATIONARY_WATER && item.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR) {
-							item.teleport(item.getLocation().add(0, -180, 0));
-							items.remove();
-						}
+						Location loc = item.getLocation();
+						loc.setX(loc.getBlockX());
+						loc.setY(loc.getBlockY());
+						loc.setZ(loc.getBlockZ());
+						item.teleport(loc);
 					}
 				}
 				//fishes.clear(); //fixes mutation glitch when a stack passes a other item and is changed to a other object, this clears it all and we will wait for natural despawn.
