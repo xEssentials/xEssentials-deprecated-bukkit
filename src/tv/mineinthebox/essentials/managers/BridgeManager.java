@@ -2,11 +2,13 @@ package tv.mineinthebox.essentials.managers;
 
 import java.io.File;
 import java.util.HashMap;
+
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.instances.Bridge;
@@ -86,10 +88,14 @@ public class BridgeManager {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				Bridge bridge = new Bridge(f, con);
 				if(bridge.getWorld() instanceof World) {
-					xEssentials.getPlugin().log("bridge " + bridge.getId() + " has been registered at: (" + bridge.getSigns()[0].getWorld().getName() + " x:" + bridge.getSigns()[0].getX()+" y:" + bridge.getSigns()[0].getY() + " z:" + bridge.getSigns()[0].getZ()+")", LogType.INFO);
+					if(Configuration.getDebugConfig().isEnabled()) {
+						xEssentials.getPlugin().log("bridge " + bridge.getId() + " has been registered at: (" + bridge.getSigns()[0].getWorld().getName() + " x:" + bridge.getSigns()[0].getX()+" y:" + bridge.getSigns()[0].getY() + " z:" + bridge.getSigns()[0].getZ()+")", LogType.DEBUG);	
+					}
 					addBridge(bridge);
 				} else {
-					xEssentials.getPlugin().log("unregistering gate " + bridge.getId() + " world is not active.", LogType.SEVERE);
+					if(Configuration.getDebugConfig().isEnabled()) {
+						xEssentials.getPlugin().log("unregistering gate " + bridge.getId() + " world is not active.", LogType.DEBUG);	
+					}
 					bridge.remove();
 				}
 			}

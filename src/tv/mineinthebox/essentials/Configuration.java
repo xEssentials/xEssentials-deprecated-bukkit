@@ -30,6 +30,7 @@ import tv.mineinthebox.essentials.configurations.BlockConfig;
 import tv.mineinthebox.essentials.configurations.BroadcastConfig;
 import tv.mineinthebox.essentials.configurations.ChatConfig;
 import tv.mineinthebox.essentials.configurations.CommandConfig;
+import tv.mineinthebox.essentials.configurations.DebugConfig;
 import tv.mineinthebox.essentials.configurations.EconomyConfig;
 import tv.mineinthebox.essentials.configurations.EntityConfig;
 import tv.mineinthebox.essentials.configurations.GreylistConfig;
@@ -80,6 +81,7 @@ public class Configuration {
 	private static MiscConfig miscconfig;
 	private static SignConfig signconfig;
 	private static VoteConfig voteconfig;
+	private static DebugConfig debugconfig;
 
 
 
@@ -110,6 +112,7 @@ public class Configuration {
 		createMiscConfig();
 		createSignConfig();
 		createVoteConfig();
+		createDebugConfig();
 		loadSystemPresets(ConfigType.BAN);
 		loadSystemPresets(ConfigType.BROADCAST);
 		loadSystemPresets(ConfigType.CHAT);
@@ -136,6 +139,21 @@ public class Configuration {
 
 	private String serialize_name(String mob) {
 		return mob.toString().toLowerCase();
+	}
+	
+	private void createDebugConfig() {
+		try {
+			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "debug.yml");
+			if(!f.exists()) {
+				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
+				FileConfigurationOptions opt = con.options();
+				opt.header("when enabled, your server might run a bit slower than expected\nthis is because the logger cause slight lag when printing out debugging info.");
+				con.set("debug-mode", false);
+				con.save(f);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void createVoteConfig() {
@@ -870,6 +888,12 @@ public class Configuration {
 			hash.put("moneyrewardprice", con.getDouble("vote.reward-type.money.price"));
 			hash.put("rewardcrateenabled", con.getBoolean("vote.reward-type.crate.enable"));
 			configure.put(ConfigType.VOTE, hash);
+		} else if(cfg == ConfigType.DEBUG) {
+			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "debug.yml");
+			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
+			HashMap<String, Object> hash = new HashMap<String, Object>();
+			hash.put("debug", con.getBoolean("debug-mode"));
+			configure.put(ConfigType.DEBUG, hash);
 		}
 	}
 
@@ -1309,6 +1333,20 @@ public class Configuration {
 		} else {
 			voteconfig = new VoteConfig();
 			return voteconfig;
+		}
+	}
+	
+	/**
+	 * @author xize
+	 * @param returns the debug configuration
+	 * @return DebugConfig
+	 */
+	public static DebugConfig getDebugConfig() {
+		if(debugconfig instanceof DebugConfig) {
+			return debugconfig;
+		} else {
+		    debugconfig = new DebugConfig();
+		    return debugconfig;
 		}
 	}
 

@@ -9,6 +9,7 @@ import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.instances.Gate;
@@ -94,10 +95,14 @@ public class GateManager {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				Gate gate = new Gate(f, con);
 				if(gate.getWorld() instanceof World) {
-					xEssentials.getPlugin().log("gate " + gate.getId() + " has been registered at: (" + gate.getSignBlock().getWorld().getName() + " x:" + gate.getSignBlock().getX()+" y:" + gate.getSignBlock().getY() + " z:" + gate.getSignBlock().getZ()+")", LogType.INFO);
+					if(Configuration.getDebugConfig().isEnabled()) {
+						xEssentials.getPlugin().log("gate " + gate.getId() + " has been registered at: (" + gate.getSignBlock().getWorld().getName() + " x:" + gate.getSignBlock().getX()+" y:" + gate.getSignBlock().getY() + " z:" + gate.getSignBlock().getZ()+")", LogType.DEBUG);	
+					}
 					addGate(gate);
 				} else {
-					xEssentials.getPlugin().log("unregistering gate " + gate.getId() + " world is not active.", LogType.SEVERE);
+					if(Configuration.getDebugConfig().isEnabled()) {
+						xEssentials.getPlugin().log("unregistering gate " + gate.getId() + " world is not active.", LogType.DEBUG);	
+					}
 					gate.remove();
 				}
 			}
