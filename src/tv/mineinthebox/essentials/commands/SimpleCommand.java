@@ -7,7 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 
-public class command implements CommandExecutor, TabCompleter {
+public class SimpleCommand implements CommandExecutor, TabCompleter {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
@@ -260,6 +260,12 @@ public class command implements CommandExecutor, TabCompleter {
 		} else if(cmd.getName().equalsIgnoreCase("spectate")) {
 			CmdSpectate spectate = new CmdSpectate();
 			return spectate.execute(sender, cmd, args);
+		} else if(cmd.getName().equalsIgnoreCase("editsign")) {
+			CmdEditSign sign = new CmdEditSign();
+			return sign.execute(sender, cmd, args);
+		} else if(cmd.getName().equalsIgnoreCase("drunk")) {
+			CmdDrunk drunk = new CmdDrunk();
+			return drunk.execute(sender, cmd, args);
 		}
 		return false;
 	}
