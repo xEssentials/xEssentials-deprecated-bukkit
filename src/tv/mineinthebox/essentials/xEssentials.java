@@ -66,7 +66,7 @@ public class xEssentials extends JavaPlugin {
 		if(Configuration.getEntityConfig().isExplosionRegenEnabled()) {
 			xEssentials.getManagers().getExplosionRegenManager().loadRegenObjects();
 		}
-		
+
 		if(Configuration.getMiscConfig().isGatesEnabled()) {
 			xEssentials.getManagers().getGateManager().reloadGates();
 		}
@@ -116,6 +116,13 @@ public class xEssentials extends JavaPlugin {
 		}
 		if(Configuration.getEntityConfig().isRealisticWaterEnabled()) {
 			xEssentials.getManagers().getRealisticWaterManager().stop();
+		}
+
+		try {
+			conf.finalize();
+			finalize();
+		} catch(Throwable e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -188,5 +195,10 @@ public class xEssentials extends JavaPlugin {
 			e.printStackTrace();
 		}
 		throw new NullPointerException("a fatal error has been occuried, please restart your server.");
+	}
+
+	@Override
+	public void finalize() throws Throwable {
+		super.finalize();
 	}
 }
