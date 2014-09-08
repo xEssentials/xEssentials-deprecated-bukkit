@@ -1,26 +1,19 @@
 package tv.mineinthebox.essentials.events.entity;
 
 import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.LinkedList;
 import java.util.Random;
 
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import tv.mineinthebox.essentials.xEssentials;
@@ -33,7 +26,7 @@ public class EntityBleedEvent implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onBleed(EntityDamageEvent e) {
-		LinkedHashMap<Location, Item> hash = new LinkedHashMap<Location, Item>();
+		LinkedList<Location> list = new LinkedList<Location>();
 		for(int i = 0; i < e.getDamage()*3; i++) {
 
 			Location loc = e.getEntity().getLocation();
@@ -56,14 +49,14 @@ public class EntityBleedEvent implements Listener {
 					if(newloc2.getBlock().getType() != Material.AIR && !newloc2.getBlock().getType().isTransparent() && !newloc2.getBlock().isLiquid()) {
 						Player p = (Player) entity;
 						p.sendBlockChange(newloc2, Material.STAINED_GLASS, DyeColor.RED.getWoolData());
-						Item item = newloc.getWorld().dropItemNaturally(newloc, new ItemStack(Material.STAINED_GLASS, 64, DyeColor.RED.getWoolData()));
-						item.setMetadata("bleed", new FixedMetadataValue(xEssentials.getPlugin(), e.getEntity().getUniqueId()));
-						hash.put(newloc2, item);
+						//Item item = newloc.getWorld().dropItemNaturally(newloc, new ItemStack(Material.STAINED_GLASS, 64, DyeColor.RED.getWoolData()));
+						//item.setMetadata("bleed", new FixedMetadataValue(xEssentials.getPlugin(), e.getEntity().getUniqueId()));
+						list.add(newloc2);
 					}
 				}
 			}
 		}
-		BleedRegen regen = new BleedRegen(hash);
+		BleedRegen regen = new BleedRegen(list);
 		regen.startRegen();
 	}
 
@@ -85,49 +78,32 @@ public class EntityBleedEvent implements Listener {
 
 class BleedRegen {
 
-	private final LinkedHashMap<Location, Item> hash;
+	private final LinkedList<Location> list;
 
-	public BleedRegen(LinkedHashMap<Location, Item> hash) {
-		this.hash = hash;
+	public BleedRegen(LinkedList<Location> list) {
+		this.list = list;
 	}
 
 	public void startRegen() {
 		new BukkitRunnable() {
 
-			private Iterator<Map.Entry<Location, Item>> it; 
-			private boolean isCleaned = false;
+			private Iterator<Location> it; 
 
-			public Iterator<Map.Entry<Location, Item>> getIterator() {
+			public Iterator<Location> getIterator() {
 				if(!(it instanceof Iterator)) {
-					this.it = hash.entrySet().iterator();
+					this.it = list.iterator();
 				}
 				return it;
-			}
-
-			public void cleanup(World w) {
-				if(!isCleaned) {
-					for(Item item : w.getEntitiesByClass(Item.class)) {
-						if(item.hasMetadata("bleed")) {
-							if(!hash.containsValue(item)) {
-								item.remove();
-							}
-						}
-					}
-				}
-				isCleaned = true;
 			}
 
 			@Override
 			public void run() {
 				if(getIterator().hasNext()) {
-					Entry<Location, Item> entry = getIterator().next();
-					cleanup(entry.getKey().getWorld());
-					entry.getKey().getBlock().getState().update(true);
-					entry.getValue().remove();
+					Location loc = getIterator().next();
+					loc.getBlock().getState().update(true);
 					getIterator().remove();
-					hash.remove(entry.getKey());
 				} else {
-					hash.clear();
+					list.clear();
 					cancel();
 				}
 			}
