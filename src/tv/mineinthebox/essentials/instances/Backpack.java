@@ -1,9 +1,10 @@
 package tv.mineinthebox.essentials.instances;
 
+import static tv.mineinthebox.essentials.xEssentials.getManagers;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -12,8 +13,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import static tv.mineinthebox.essentials.xEssentials.getManagers;
 
 public class Backpack {
 	
