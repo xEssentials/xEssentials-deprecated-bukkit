@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.MojangUUID;
 import tv.mineinthebox.essentials.instances.xEssentialsPlayer;

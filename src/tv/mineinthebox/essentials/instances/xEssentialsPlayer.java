@@ -29,12 +29,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
-import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.Team;
 
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
@@ -1002,22 +998,9 @@ public class xEssentialsPlayer {
 	 * @return void
 	 */
 	public void vanish() {
-		Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
-		Team vanishTeam = board.registerNewTeam("vanish");
-		vanishTeam.setPrefix(ChatColor.GOLD+""+ChatColor.BOLD+"[vn]" + ChatColor.RESET);
-		vanishTeam.setCanSeeFriendlyInvisibles(true);
-		vanishTeam.addPlayer(player);
-		player.setScoreboard(board);
-		player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 100));
 		for(Player p : xEssentials.getOnlinePlayers()) {
 			if(!player.equals(p)) {
-				if(p.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-					vanishTeam.addPlayer(p);
-					p.setScoreboard(board);
-					p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 100));
-				} else {
 					p.hidePlayer(player);
-				}
 			}
 		}
 		con.set("isVanished", true);
@@ -1039,9 +1022,6 @@ public class xEssentialsPlayer {
 	@SuppressWarnings("deprecation")
 	public void unvanish() {
 		update();
-		player.getScoreboard().getTeam("vanish").removePlayer(player);
-		player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
-		player.removePotionEffect(PotionEffectType.INVISIBILITY);
 		for(Player p : xEssentials.getOnlinePlayers()) {
 			if(!player.equals(p)) {
 				p.showPlayer(player);
@@ -1091,9 +1071,6 @@ public class xEssentialsPlayer {
 	 */
 	public void unvanish(boolean sillenced) {
 		update();
-		player.getScoreboard().getTeam("vanish").removePlayer(player);
-		player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
-		player.removePotionEffect(PotionEffectType.INVISIBILITY);
 		for(Player p : xEssentials.getOnlinePlayers()) {
 			if(!player.equals(p)) {
 				p.showPlayer(player);
@@ -2527,7 +2504,6 @@ public class xEssentialsPlayer {
 				e.printStackTrace();
 			}
 			update();
-			unvanish(true);
 		}
 	}
 	
@@ -2537,7 +2513,6 @@ public class xEssentialsPlayer {
 	 * @param p
 	 */
 	public void spectate(final Player pa) {
-		vanish();
 		con.set("spectate-inventory", player.getInventory().getContents());
 		try {
 			con.save(f);
