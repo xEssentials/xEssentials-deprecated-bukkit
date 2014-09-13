@@ -4,7 +4,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
-import tv.mineinthebox.essentials.events.customEvents.PlayerChatSmilleyEvent;
+import tv.mineinthebox.essentials.events.customevents.PlayerChatSmilleyEvent;
 
 public class ChatSmilleyEvent implements Listener {
 	

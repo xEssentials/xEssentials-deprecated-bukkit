@@ -20,7 +20,7 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
-import tv.mineinthebox.essentials.events.customEvents.EssentialsPortalCreateEvent;
+import tv.mineinthebox.essentials.events.customevents.EssentialsPortalCreateEvent;
 import tv.mineinthebox.essentials.instances.Portal;
 
 public class PortalSelectedCreateEvent implements Listener {

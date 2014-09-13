@@ -1,9 +1,9 @@
 package tv.mineinthebox.essentials.managers;
 
 import tv.mineinthebox.essentials.Configuration;
-import tv.mineinthebox.essentials.events.customEvents.CallEssentialsBroadcastEvent;
-import tv.mineinthebox.essentials.events.customEvents.CallMojangStatus;
-import tv.mineinthebox.essentials.events.customEvents.CallRssFeedEvent;
+import tv.mineinthebox.essentials.events.customevents.CallEssentialsBroadcastEvent;
+import tv.mineinthebox.essentials.events.customevents.CallMojangStatus;
+import tv.mineinthebox.essentials.events.customevents.CallRssFeedEvent;
 import tv.mineinthebox.essentials.events.players.RealisticGlass;
 import tv.mineinthebox.essentials.greylist.GreyListServer;
 import tv.mineinthebox.essentials.hook.VaultHook;

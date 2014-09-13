@@ -16,7 +16,7 @@ import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.GreyListCause;
 import tv.mineinthebox.essentials.enums.LogType;
-import tv.mineinthebox.essentials.events.customEvents.PlayerGreyListedEvent;
+import tv.mineinthebox.essentials.events.customevents.PlayerGreyListedEvent;
 import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.instances.xEssentialsOfflinePlayer;
 

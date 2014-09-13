@@ -3,7 +3,7 @@ package tv.mineinthebox.essentials.events.players;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import tv.mineinthebox.essentials.events.customEvents.PlayerChunkMoveEvent;
+import tv.mineinthebox.essentials.events.customevents.PlayerChunkMoveEvent;
 import tv.mineinthebox.essentials.hook.WorldGuardHook;
 
 public class PlayerZone implements Listener {

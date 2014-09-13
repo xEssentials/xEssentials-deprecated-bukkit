@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerChatTabCompleteEvent;
 
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
-import tv.mineinthebox.essentials.events.customEvents.PlayerChatHighLightEvent;
+import tv.mineinthebox.essentials.events.customevents.PlayerChatHighLightEvent;
 import tv.mineinthebox.essentials.instances.xEssentialsOfflinePlayer;
 import tv.mineinthebox.essentials.instances.xEssentialsPlayer;
 

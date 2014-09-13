@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
-import tv.mineinthebox.essentials.events.customEvents.PlayerAfkEvent;
+import tv.mineinthebox.essentials.events.customevents.PlayerAfkEvent;
 import tv.mineinthebox.essentials.instances.xEssentialsPlayer;
 
 public class AfkChecks implements Listener {

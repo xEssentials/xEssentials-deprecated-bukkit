@@ -36,7 +36,7 @@ import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.enums.PlayerTaskEnum;
-import tv.mineinthebox.essentials.events.customEvents.PlayerNameChangeEvent;
+import tv.mineinthebox.essentials.events.customevents.PlayerNameChangeEvent;
 import tv.mineinthebox.essentials.events.players.FakeNukeEvent;
 
 public class xEssentialsPlayer {

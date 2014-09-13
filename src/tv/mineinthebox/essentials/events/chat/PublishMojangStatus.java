@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import tv.mineinthebox.essentials.enums.MojangStatusResponse;
-import tv.mineinthebox.essentials.events.customEvents.MojangStatusEvent;
+import tv.mineinthebox.essentials.events.customevents.MojangStatusEvent;
 
 public class PublishMojangStatus implements Listener {
 	

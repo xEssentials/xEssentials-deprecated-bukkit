@@ -1,4 +1,4 @@
-package tv.mineinthebox.essentials.events.customEvents;
+package tv.mineinthebox.essentials.events.customevents;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;

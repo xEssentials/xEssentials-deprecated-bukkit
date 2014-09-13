@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
-import tv.mineinthebox.essentials.events.customEvents.VanishChangeEvent;
+import tv.mineinthebox.essentials.events.customevents.VanishChangeEvent;
 import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.hook.WorldGuardHook;
 import tv.mineinthebox.essentials.instances.xEssentialsPlayer;

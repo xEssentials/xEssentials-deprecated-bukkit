@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.inventory.ItemStack;
 
 import tv.mineinthebox.essentials.xEssentials;
-import tv.mineinthebox.essentials.events.customEvents.GameModeInventoryChangeEvent;
+import tv.mineinthebox.essentials.events.customevents.GameModeInventoryChangeEvent;
 import tv.mineinthebox.essentials.instances.xEssentialsPlayer;
 
 public class GameModeInvChange implements Listener {

@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerEditBookEvent;
 import org.bukkit.inventory.meta.BookMeta;
 
 import tv.mineinthebox.essentials.xEssentials;
-import tv.mineinthebox.essentials.events.customEvents.PlayerOpenBookEvent;
+import tv.mineinthebox.essentials.events.customevents.PlayerOpenBookEvent;
 import tv.mineinthebox.essentials.instances.xEssentialsOfflinePlayer;
 import tv.mineinthebox.essentials.instances.xEssentialsPlayer;
 

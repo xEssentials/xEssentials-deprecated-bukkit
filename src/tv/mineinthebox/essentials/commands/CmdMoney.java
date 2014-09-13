@@ -17,7 +17,7 @@ import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
-import tv.mineinthebox.essentials.events.customEvents.PlayerTransactionEvent;
+import tv.mineinthebox.essentials.events.customevents.PlayerTransactionEvent;
 import tv.mineinthebox.essentials.instances.xEssentialsOfflinePlayer;
 import tv.mineinthebox.essentials.instances.xEssentialsPlayer;
 

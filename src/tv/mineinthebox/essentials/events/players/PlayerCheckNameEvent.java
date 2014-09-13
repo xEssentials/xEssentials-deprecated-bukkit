@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import tv.mineinthebox.essentials.events.customEvents.PlayerNameChangeEvent;
+import tv.mineinthebox.essentials.events.customevents.PlayerNameChangeEvent;
 
 public class PlayerCheckNameEvent implements Listener {
 	

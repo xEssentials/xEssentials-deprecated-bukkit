@@ -5,11 +5,11 @@ import org.bukkit.event.Listener;
 
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
-import tv.mineinthebox.essentials.events.customEvents.CallAfkSchedulerEvent;
-import tv.mineinthebox.essentials.events.customEvents.CallChunkMoveEvent;
-import tv.mineinthebox.essentials.events.customEvents.CallPlayerChatSmilleyEvent;
-import tv.mineinthebox.essentials.events.customEvents.CallPlayerHighLightEvent;
-import tv.mineinthebox.essentials.events.customEvents.CallPlayerOpenBookEvent;
+import tv.mineinthebox.essentials.events.customevents.CallAfkSchedulerEvent;
+import tv.mineinthebox.essentials.events.customevents.CallChunkMoveEvent;
+import tv.mineinthebox.essentials.events.customevents.CallPlayerChatSmilleyEvent;
+import tv.mineinthebox.essentials.events.customevents.CallPlayerHighLightEvent;
+import tv.mineinthebox.essentials.events.customevents.CallPlayerOpenBookEvent;
 
 public class CustomEventHandler {
 

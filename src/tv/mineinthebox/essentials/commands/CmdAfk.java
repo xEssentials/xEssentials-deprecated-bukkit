@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
-import tv.mineinthebox.essentials.events.customEvents.PlayerAfkEvent;
+import tv.mineinthebox.essentials.events.customevents.PlayerAfkEvent;
 import tv.mineinthebox.essentials.instances.xEssentialsPlayer;
 
 public class CmdAfk {

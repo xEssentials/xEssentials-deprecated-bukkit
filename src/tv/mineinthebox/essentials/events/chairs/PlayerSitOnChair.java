@@ -25,7 +25,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import tv.mineinthebox.essentials.xEssentials;
-import tv.mineinthebox.essentials.events.customEvents.ChairExitEvent;
+import tv.mineinthebox.essentials.events.customevents.ChairExitEvent;
 import tv.mineinthebox.essentials.instances.xEssentialsPlayer;
 
 public class PlayerSitOnChair implements Listener, Runnable {

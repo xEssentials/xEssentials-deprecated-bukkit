@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
-import tv.mineinthebox.essentials.events.customEvents.ModreqDoneEvent;
+import tv.mineinthebox.essentials.events.customevents.ModreqDoneEvent;
 import tv.mineinthebox.essentials.instances.Modreq;
 import tv.mineinthebox.essentials.instances.xEssentialsOfflinePlayer;
 import tv.mineinthebox.essentials.instances.xEssentialsPlayer;

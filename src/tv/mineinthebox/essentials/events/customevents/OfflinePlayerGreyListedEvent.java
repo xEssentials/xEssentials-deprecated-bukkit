@@ -1,27 +1,27 @@
-package tv.mineinthebox.essentials.events.customEvents;
+package tv.mineinthebox.essentials.events.customevents;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
+import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.player.PlayerEvent;
-
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.GreyListCause;
-import tv.mineinthebox.essentials.instances.xEssentialsPlayer;
-public class PlayerGreyListedEvent extends PlayerEvent implements Cancellable {
+import tv.mineinthebox.essentials.instances.xEssentialsOfflinePlayer;
+
+public class OfflinePlayerGreyListedEvent extends Event implements Cancellable {
 
 	private static final HandlerList handlers = new HandlerList();
 
 	private String group;
+	private String p;
 	private String OldGroup;
 	private boolean cancel;
 	private GreyListCause cause;
 
-	public PlayerGreyListedEvent(Player who, String group, String OldGroup, GreyListCause cause) {
-		super(who);
+	public OfflinePlayerGreyListedEvent(String p, String group, String OldGroup, GreyListCause cause) {
 		this.group = group;
 		this.OldGroup = OldGroup;
+		this.p = p;
 		this.cause = cause;
 	}
 
@@ -36,15 +36,6 @@ public class PlayerGreyListedEvent extends PlayerEvent implements Cancellable {
 
 	/**
 	 * @author xize
-	 * @param returns the type of cause why this event has been triggered
-	 * @return
-	 */
-	public GreyListCause getCause() {
-		return cause;
-	}
-
-	/**
-	 * @author xize
 	 * @param get the old group the player whas in
 	 * @return String
 	 */
@@ -54,11 +45,20 @@ public class PlayerGreyListedEvent extends PlayerEvent implements Cancellable {
 
 	/**
 	 * @author xize
-	 * @param returns the xEssentials player!
-	 * @return xEssentialsPlayer
+	 * @param returns the type of cause why this event has been triggered
+	 * @return
 	 */
-	public xEssentialsPlayer getEssentialsPlayer() {
-		return xEssentials.getManagers().getPlayerManager().getPlayer(player.getName());
+	public GreyListCause getCause() {
+		return cause;
+	}
+
+	/**
+	 * @author xize
+	 * @param returns the offline player instance
+	 * @return xEssentialsOfflinePlayer
+	 */
+	public xEssentialsOfflinePlayer getEssentialsOfflinePlayer() {
+		return xEssentials.getManagers().getPlayerManager().getOfflinePlayer(p);
 	}
 
 	public HandlerList getHandlers() {
@@ -76,7 +76,7 @@ public class PlayerGreyListedEvent extends PlayerEvent implements Cancellable {
 	public void setCancelled(boolean bol) {
 		if(bol) {
 			cancel = true;
-			xEssentials.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), player.getName(), OldGroup);
+			xEssentials.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0),p, OldGroup);
 		}
 	}
 

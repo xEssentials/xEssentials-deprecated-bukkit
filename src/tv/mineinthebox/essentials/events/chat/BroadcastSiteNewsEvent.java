@@ -4,7 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import tv.mineinthebox.essentials.events.customEvents.RssFeedEvent;
+import tv.mineinthebox.essentials.events.customevents.RssFeedEvent;
 
 public class BroadcastSiteNewsEvent implements Listener {
 	
