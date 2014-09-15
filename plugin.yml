@@ -5,7 +5,7 @@ author: Xeph0re
 authors: [] 
 website:
 
-main: tv.mineinthebox.essentials.xEssentials
+main: tv.mineinthebox.bukkit.essentials.xEssentials
 database: false
 depend: []
 softdepend: [ManCo, Vault, WorldEdit, WorldGuard, LWC]
