@@ -27,8 +27,12 @@ public class MojangUUID {
 		try {
 			Class.forName("net.minecraft.util.com.mojang.authlib.GameProfile");
 			return true;
-		} catch (ClassNotFoundException e) {}
-		return false;
+		} catch (ClassNotFoundException e) {
+			try {
+				Class.forName("net.glowstone.GlowServer");
+				return true;
+			} catch(ClassNotFoundException r) {return false;}
+		}
 	}
 	
 	/**
