@@ -91,12 +91,6 @@
 			<version>LATEST</version>
 		</dependency>
 		<dependency>
-			<groupId>org.bukkit</groupId>
-			<artifactId>craftbukkit</artifactId>
-			<scope>provided</scope>
-			<version>LATEST</version>
-		</dependency>
-		<dependency>
 			<groupId>com.sk89q</groupId>
 			<artifactId>worldedit</artifactId>
 			<scope>provided</scope>

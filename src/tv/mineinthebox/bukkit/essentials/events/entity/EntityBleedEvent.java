@@ -95,7 +95,7 @@ class BleedRegen {
 				}
 			}
 
-		}.runTaskTimer(xEssentials.getPlugin(), 0L, 20L);
+		}.runTaskTimer(xEssentials.getPlugin(), 0L, 80L);
 	}
 
 

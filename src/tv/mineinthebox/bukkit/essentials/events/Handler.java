@@ -93,6 +93,7 @@ import tv.mineinthebox.bukkit.essentials.events.players.PlayerHoldItemsEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerJoinMessage;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerQuitMessage;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerRespawnTeleport;
+import tv.mineinthebox.bukkit.essentials.events.players.PlayerShootbowSoundEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerTaskLogin;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerZone;
 import tv.mineinthebox.bukkit.essentials.events.players.PortalSizeEvent;
@@ -204,6 +205,7 @@ public class Handler {
 		if(Configuration.getChatConfig().isAntiAdvertiseEnabled()) {setListener(new AntiAddvertiseEvent());}
 		setListener(new MuteEvent());
 		//player.yml
+		setListener(new PlayerShootbowSoundEvent());
 		setListener(new SignEditEvent());
 		if(Configuration.getPlayerConfig().isAutoRespawnEnabled()) {setListener(new PlayerForceRespawnEvent());}
 		setListener(new AntiKnockBackEvent());
