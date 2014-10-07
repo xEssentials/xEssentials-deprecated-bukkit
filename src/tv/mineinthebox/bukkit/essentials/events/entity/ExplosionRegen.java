@@ -37,6 +37,7 @@ public class ExplosionRegen implements Listener {
 			return;
 		}
 		
+		e.setCancelled(true);
 		List<Block> blocks = new ArrayList<Block>();
 		blocks.addAll(e.blockList());
 		
@@ -65,7 +66,6 @@ public class ExplosionRegen implements Listener {
 		
 		RegenObject regen = new RegenObject(data);
 		xEssentials.getManagers().getExplosionRegenManager().getList.add(regen);
-		e.setCancelled(true);
 	}
 
 	@SuppressWarnings("deprecation")

@@ -26,6 +26,7 @@ public class MotdVanishEvent {
 	public static void initPacketListener(){
 		ProtocolLibrary.getProtocolManager().addPacketListener(
 				new PacketAdapter(xEssentials.getPlugin(), PacketType.Status.Server.OUT_SERVER_INFO) {
+					@SuppressWarnings("deprecation")
 					@Override
 					public void onPacketSending(PacketEvent event) {
 						event.getPacket().getServerPings().getValues().get(0).setPlayersOnline(getOnlinePlayers());

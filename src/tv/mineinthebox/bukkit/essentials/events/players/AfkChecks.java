@@ -22,8 +22,25 @@ public class AfkChecks implements Listener {
 
 	@EventHandler
 	public void removeAfk(PlayerMoveEvent e) {
-		if(e.getFrom().distanceSquared(e.getTo()) > 0) {
-			if(!(e.getFrom().getX() == e.getTo().getX() && e.getFrom().getZ() == e.getTo().getZ())) {
+
+		if(e.getFrom().distanceSquared(e.getTo()) > 0.04) {
+			double distanceXmin = Math.min(e.getFrom().getX(), e.getTo().getX());
+			double distanceXmax = Math.max(e.getFrom().getX(), e.getTo().getX());
+
+			double distanceZmin = Math.min(e.getFrom().getZ(), e.getTo().getZ());
+			double distanceZmax = Math.max(e.getFrom().getZ(), e.getTo().getZ());
+
+			double destx = (distanceXmax - distanceXmin);
+			double destz = (distanceZmax - distanceZmin);
+
+			if(destx > 0.0) {
+				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+				if(xp.isAfk()) {
+					xp.removeAfk();
+					Bukkit.broadcastMessage(ChatColor.GREEN + e.getPlayer().getName() + " is no longer afk");
+					Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), false, true));
+				}
+			} else if(destz > 0.0) {
 				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 				if(xp.isAfk()) {
 					xp.removeAfk();
@@ -54,6 +71,7 @@ public class AfkChecks implements Listener {
 			if(Configuration.getPlayerConfig().isGodModeInAfkEnabled()) {
 				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.isAfk()) {
+					e.setDamage(0.0F);
 					e.setCancelled(true);
 				}
 			}
