@@ -4,6 +4,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
 
+//wip.
+
+@SuppressWarnings("unused")
+@Deprecated
 public class FakeItem {
 	
 	private final ItemStack stack;
