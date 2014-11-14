@@ -105,7 +105,6 @@ import tv.mineinthebox.bukkit.essentials.events.players.StaffSafeTeleport;
 import tv.mineinthebox.bukkit.essentials.events.players.SteveHurtSound;
 import tv.mineinthebox.bukkit.essentials.events.players.TeleportBackEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.TeleportEvent;
-import tv.mineinthebox.bukkit.essentials.events.players.TestEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.TorchEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.TrollModeEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.VanishEvent;
@@ -202,7 +201,6 @@ public class Handler {
 		if(Configuration.getChatConfig().isAntiAdvertiseEnabled()) {setListener(new AntiAddvertiseEvent());}
 		setListener(new MuteEvent());
 		//player.yml
-		setListener(new TestEvent());
 		setListener(new PlayerShootbowSoundEvent());
 		setListener(new SignEditEvent());
 		if(Configuration.getPlayerConfig().isAutoRespawnEnabled()) {setListener(new PlayerForceRespawnEvent());}
