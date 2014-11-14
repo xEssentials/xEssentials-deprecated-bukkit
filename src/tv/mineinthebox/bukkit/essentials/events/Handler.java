@@ -61,9 +61,6 @@ import tv.mineinthebox.bukkit.essentials.events.gates.GateGriefPrevention;
 import tv.mineinthebox.bukkit.essentials.events.gates.GateInteractEvent;
 import tv.mineinthebox.bukkit.essentials.events.gates.GateRedstone;
 import tv.mineinthebox.bukkit.essentials.events.gates.RemoveGateEvent;
-import tv.mineinthebox.bukkit.essentials.events.minigames.PlayerJoinCheckInventory;
-import tv.mineinthebox.bukkit.essentials.events.minigames.PlayerQuitHandle;
-import tv.mineinthebox.bukkit.essentials.events.minigames.PlayerTeleportCheck;
 import tv.mineinthebox.bukkit.essentials.events.motd.MotdEvent;
 import tv.mineinthebox.bukkit.essentials.events.motd.MotdVanishEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.AchievementEvent;
@@ -108,6 +105,7 @@ import tv.mineinthebox.bukkit.essentials.events.players.StaffSafeTeleport;
 import tv.mineinthebox.bukkit.essentials.events.players.SteveHurtSound;
 import tv.mineinthebox.bukkit.essentials.events.players.TeleportBackEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.TeleportEvent;
+import tv.mineinthebox.bukkit.essentials.events.players.TestEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.TorchEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.TrollModeEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.VanishEvent;
@@ -140,7 +138,6 @@ import tv.mineinthebox.bukkit.essentials.events.signs.GetYourHeadSign;
 import tv.mineinthebox.bukkit.essentials.events.signs.SignBoom;
 import tv.mineinthebox.bukkit.essentials.events.signs.WarpSign;
 import tv.mineinthebox.bukkit.essentials.events.signs.WildSign;
-import tv.mineinthebox.bukkit.essentials.events.spleef.CreateSpleefArenaEvent;
 import tv.mineinthebox.bukkit.essentials.events.vote.VoteCrateListener;
 import tv.mineinthebox.bukkit.essentials.events.vote.VoteMoneyListener;
 import tv.mineinthebox.bukkit.essentials.hook.Hooks;
@@ -205,6 +202,7 @@ public class Handler {
 		if(Configuration.getChatConfig().isAntiAdvertiseEnabled()) {setListener(new AntiAddvertiseEvent());}
 		setListener(new MuteEvent());
 		//player.yml
+		setListener(new TestEvent());
 		setListener(new PlayerShootbowSoundEvent());
 		setListener(new SignEditEvent());
 		if(Configuration.getPlayerConfig().isAutoRespawnEnabled()) {setListener(new PlayerForceRespawnEvent());}
@@ -363,19 +361,11 @@ public class Handler {
 			setListener(new BookInteractEvent());
 		}
 		
-		//arena events
-		setListener(new PlayerJoinCheckInventory());
-		setListener(new PlayerQuitHandle());
-		setListener(new PlayerTeleportCheck());
-		
 		//vote
 		if(Configuration.getVoteConfig().isVoteEnabled()) {
 			if(Configuration.getVoteConfig().isMoneyRewardEnabled() && Hooks.isVaultEnabled()) {setListener(new VoteMoneyListener());}
 			if(Configuration.getVoteConfig().isRewardCrateEnabled() && Hooks.isManCoEnabled()) {setListener(new VoteCrateListener());}
 		}
-		
-		//spleef    
-		setListener(new CreateSpleefArenaEvent());
 			
 		setListener(new RemoveMemory());
 	}

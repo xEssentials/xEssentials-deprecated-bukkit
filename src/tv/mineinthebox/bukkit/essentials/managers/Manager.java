@@ -26,7 +26,6 @@ public class Manager {
 	private CallRssFeedEvent rss;
 	private CallMojangStatus moj;
 	private CallEssentialsBroadcastEvent broadcast;
-	private MinigameManager minigame;
 	private BridgeManager bridge;
 	private ChairManager chair;
 	private ManCoManager manco;
@@ -222,18 +221,6 @@ public class Manager {
 			this.broadcast = new CallEssentialsBroadcastEvent();
 		}
 		return broadcast;
-	}
-	
-	/**
-	 * @author xize
-	 * @param returns the  minigame manager
-	 * @return MinigameManager
-	 */
-	public MinigameManager getMinigameManager() {
-		if(!(minigame instanceof MinigameManager)) {
-			this.minigame = new MinigameManager();
-		}
-		return minigame;
 	}
 	
 	/**

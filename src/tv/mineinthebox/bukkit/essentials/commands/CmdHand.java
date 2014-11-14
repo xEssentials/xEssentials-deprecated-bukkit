@@ -16,7 +16,7 @@ public class CmdHand {
 			if(sender.hasPermission(PermissionKey.CMD_HAND.getPermission())) {
 				if(sender instanceof Player) {
 					Player p = (Player) sender;
-					p.sendMessage(ChatColor.GRAY + "the item in your hand has a data value of: " + ChatColor.GREEN + p.getItemInHand().getType().getId() + ChatColor.GRAY + " and has a sub data value of: " + ChatColor.GREEN + p.getItemInHand().getDurability());
+					p.sendMessage(ChatColor.GRAY + "the item in your hand has a data value of: " + ChatColor.GREEN + p.getItemInHand().getType().getId() + "("+p.getItemInHand().getType().name()+")" + ChatColor.GRAY + " and has a sub data value of: " + ChatColor.GREEN + p.getItemInHand().getDurability());
 				} else {
 					Warnings.getWarnings(sender).consoleMessage();
 				}

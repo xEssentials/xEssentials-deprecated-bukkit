@@ -75,7 +75,6 @@ public class CommandList {
 		   "portals",
 		   "arrow",
 		   "test",
-		   "spleef",
 		   "lookup",
 		   "proc",
 		   "kill",

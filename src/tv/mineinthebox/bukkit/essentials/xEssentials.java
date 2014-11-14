@@ -39,7 +39,6 @@ public class xEssentials extends JavaPlugin {
 		log("has been enabled", LogType.INFO);
 		conf.createConfigs();
 		manager = new Manager();
-		conf.loadMiniGames();
 		Handler.start();
 		customhandler.startCustomEvents();
 		if(xEssentials.getOnlinePlayers().length > 0) {

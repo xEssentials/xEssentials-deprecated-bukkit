@@ -22,7 +22,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
-import tv.mineinthebox.bukkit.essentials.arenas.Minigame;
 import tv.mineinthebox.bukkit.essentials.commands.CommandList;
 import tv.mineinthebox.bukkit.essentials.commands.SimpleCommand;
 import tv.mineinthebox.bukkit.essentials.configurations.BanConfig;
@@ -47,7 +46,6 @@ import tv.mineinthebox.bukkit.essentials.configurations.SignConfig;
 import tv.mineinthebox.bukkit.essentials.configurations.VoteConfig;
 import tv.mineinthebox.bukkit.essentials.enums.ConfigType;
 import tv.mineinthebox.bukkit.essentials.enums.LogType;
-import tv.mineinthebox.bukkit.essentials.enums.MinigameType;
 import tv.mineinthebox.bukkit.essentials.events.CustomEventHandler;
 import tv.mineinthebox.bukkit.essentials.events.Handler;
 import tv.mineinthebox.bukkit.essentials.instances.Kit;
@@ -57,11 +55,7 @@ public class Configuration {
 	//this will be the configs loaded in the memory
 	//this will used by events and in events without instancing every time a new object this will be painfully awful in PlayerMoveEvent.
 	private final static EnumMap<ConfigType, HashMap<String, Object>> configure = new EnumMap<ConfigType, HashMap<String, Object>>(ConfigType.class);
-	private final static EnumMap<MinigameType, HashMap<String, Minigame>> minigames = new EnumMap<MinigameType, HashMap<String, Minigame>>(MinigameType.class);
-
-	//use these configuration files as a singleton, this prevent smilliar problems for inside the jvm.
-	//one of these problems is that CreatureSpawnEvent runs at every tick, its bad to use this for a factory method
-	//which only returns a new instance of that config instead we only instance it as it isn't,
+	
 	private static BanConfig banconfig;
 	private static BlockConfig blockconfig;
 	private static BroadcastConfig broadcastconfig;
@@ -900,10 +894,6 @@ public class Configuration {
 		}
 	}
 
-	public static EnumMap<MinigameType, HashMap<String, Minigame>> getMinigameMap() {
-		return minigames;
-	}
-
 	/**
 	 * @author xize
 	 * @param parse the kits from the kits.yml config
@@ -1028,21 +1018,6 @@ public class Configuration {
 	 */
 	public static List<String> getMaterials() {
 		return materials;
-	}
-
-	public void loadMiniGames() {
-		for(MinigameType type : MinigameType.values()) {
-			File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "minigames" + File.separator + type.name().toLowerCase());
-			if(dir.isDirectory()) {
-				for(File f : dir.listFiles()) {
-					FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-					Minigame game = new Minigame(f, con);
-					HashMap<String, Minigame> hash = new HashMap<String, Minigame>();
-					hash.put(game.getArenaName().toLowerCase(), game);
-					minigames.put(type, hash);
-				}
-			}
-		}
 	}
 
 	private static List<String> materials = new ArrayList<String>();

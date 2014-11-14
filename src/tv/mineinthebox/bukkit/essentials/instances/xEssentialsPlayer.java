@@ -36,11 +36,10 @@ import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.enums.PlayerTaskEnum;
-import tv.mineinthebox.bukkit.essentials.events.customevents.PlayerNameChangeEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.FakeNukeEvent;
 
 public class xEssentialsPlayer {
-
+	
 	private Player player;
 	private File f;
 	private FileConfiguration con;
@@ -75,7 +74,7 @@ public class xEssentialsPlayer {
 					e.printStackTrace();
 				}
 				//call the custom event whenever we noticed the name has been changed!
-				Bukkit.getPluginManager().callEvent(new PlayerNameChangeEvent(oldName, player.getName(), player, this));
+				//Bukkit.getPluginManager().callEvent(new PlayerNameChangeEvent(oldName, player.getName(), player, this));
 				setNameHistory(oldName);
 				if(Configuration.getProtectionConfig().isProtectionEnabled()) {
 					xEssentials.getManagers().getProtectionDBManager().updatePlayer(oldName, player.getName());
@@ -1576,7 +1575,7 @@ public class xEssentialsPlayer {
 		if(accounts instanceof AlternateAccount) {
 			return accounts;
 		} else {
-			this.accounts = new AlternateAccount(this);
+			//this.accounts = new AlternateAccount(this);
 			return accounts;
 		}
 	}
@@ -2716,5 +2715,4 @@ public class xEssentialsPlayer {
 			return false;
 		return true;
 	}
-
 }

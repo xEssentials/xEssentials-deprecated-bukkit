@@ -93,7 +93,7 @@ public class CallRssFeedEvent  {
 							}
 						}
 					}
-					RssFeed afeed = new RssFeed(title, author.replaceAll("[^a-zA-Z0-9]", ""), link);
+					RssFeed afeed = new RssFeed(title, author.replaceAll("[^a-zA-Z0-9]", "").replace("(invalid@example.com)", ""), link);
 					if(feed != null) {
 						if(!feed.getTitle().equalsIgnoreCase(afeed.getTitle())) {
 							feed = afeed;

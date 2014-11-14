@@ -12,7 +12,7 @@ import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
 import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
 
 public class CmdTphere {
-	
+
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("tphere")) {
 			if(sender.hasPermission(PermissionKey.CMD_TP_HERE.getPermission())) {
@@ -31,10 +31,10 @@ public class CmdTphere {
 							xEssentialsOfflinePlayer victem = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							if(victem.getPlayer() instanceof Player) {
 								if(p.isVanished()) {
-								if(victem.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-									victem.getEssentialsPlayer().vanish();
-									victem.getPlayer().sendMessage(ChatColor.GREEN + "the player you teleported to has been vanished, now you are vanished to!");	
-								}
+									if(victem.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
+										victem.getEssentialsPlayer().vanish();
+										victem.getPlayer().sendMessage(ChatColor.GREEN + "the player you teleported to has been vanished, now you are vanished to!");	
+									}
 								}
 								sender.sendMessage(ChatColor.GREEN + "teleported " + victem.getPlayer().getName() + " to you!");
 								victem.getPlayer().sendMessage(ChatColor.GREEN + sender.getName() + " has teleported you to his location!");
