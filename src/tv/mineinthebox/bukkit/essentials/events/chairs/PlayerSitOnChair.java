@@ -34,6 +34,9 @@ public class PlayerSitOnChair implements Listener, Runnable {
 		if(e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if(e.getClickedBlock().getType() == Material.WOOD_STAIRS || e.getClickedBlock().getType() == Material.COBBLESTONE_STAIRS || e.getClickedBlock().getType() == Material.SMOOTH_STAIRS || e.getClickedBlock().getType() == Material.BRICK_STAIRS) {
 				if(isChair(e.getClickedBlock())) {
+					if(e.getPlayer().getItemInHand() != null) {
+						return;
+					}
 					Chicken chicken = (Chicken)e.getClickedBlock().getWorld().spawnEntity(e.getClickedBlock().getLocation().add(0.5, 0, 0.5), EntityType.CHICKEN);
 					chicken.setMetadata("chair", new FixedMetadataValue(xEssentials.getPlugin(), e.getPlayer().getName()));
 					chicken.setPassenger(e.getPlayer());
