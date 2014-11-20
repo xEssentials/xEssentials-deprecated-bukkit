@@ -74,6 +74,8 @@ public class PlayerWallEvent implements Listener {
 						}
 					}
 				}
+			} else {
+				e.setCancelled(true);
 			}
 			xp.setWallMode(true, xp.getWallModeRange());
 		}
