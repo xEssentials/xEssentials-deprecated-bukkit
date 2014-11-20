@@ -266,6 +266,12 @@ public class SimpleCommand implements CommandExecutor, TabCompleter {
 		} else if(cmd.getName().equalsIgnoreCase("spawnerblock")) {
 			CmdSpawnerBlock spawner = new CmdSpawnerBlock();
 			return spawner.execute(sender, cmd, args);
+		} else if(cmd.getName().equalsIgnoreCase("floor")) {
+			CmdFloor floor = new CmdFloor();
+			return floor.execute(sender, cmd, args);
+		} else if(cmd.getName().equalsIgnoreCase("wall")) {
+			CmdWall wall = new CmdWall();
+			return wall.execute(sender, cmd, args);
 		}
 		return false;
 	}

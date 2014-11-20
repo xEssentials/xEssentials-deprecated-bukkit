@@ -342,7 +342,7 @@ commands:
      permission: xEssentials.command.nick
   spectate:
      description: spectate a player
-     aliases: [sp]
+     aliases: []
      permission: xEssentials.command.spectate
   editsign:
      description: edit a sign
@@ -355,3 +355,11 @@ commands:
      description: creates a tempory spawner
      aliases: [sb]
      permission: xEssentials.command.spawnerblock
+  floor:
+     description: makes a floor like a fast place!
+     aliases: [fl]
+     permission: xEssentials.command.floor
+  wall:
+     description: makes a wall like a fast place!
+     aliases: [wl]
+     permission: xEssentials.command.wall

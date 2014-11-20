@@ -85,6 +85,7 @@ import tv.mineinthebox.bukkit.essentials.events.players.MobProcEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.ModreqJoinEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerCheckNameEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerDeathBackEvent;
+import tv.mineinthebox.bukkit.essentials.events.players.PlayerFloorEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerForceRespawnEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerHoldItemsEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerJoinMessage;
@@ -92,6 +93,7 @@ import tv.mineinthebox.bukkit.essentials.events.players.PlayerQuitMessage;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerRespawnTeleport;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerShootbowSoundEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerTaskLogin;
+import tv.mineinthebox.bukkit.essentials.events.players.PlayerWallEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerZone;
 import tv.mineinthebox.bukkit.essentials.events.players.PortalSizeEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PotatoMoveEvent;
@@ -223,6 +225,8 @@ public class Handler {
 		setListener(new TeleportEvent());
 		setListener(new AfkChecks());
 		setListener(new PlayerCheckNameEvent());
+		setListener(new PlayerFloorEvent());
+		setListener(new PlayerWallEvent());
 		setListener(new DoubleJumpEvent());
 		if(Configuration.getPlayerConfig().isCustomPortalSizeDisabled()) {setListener(new PortalSizeEvent());}
 		if(Configuration.getPlayerConfig().isPortalsDisabled()) {setListener(new DisablePortalCreation());}

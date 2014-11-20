@@ -88,6 +88,8 @@ public class CommandList {
 		   "spectate",
 		   "editsign",
 		   "drunk",
-		   "spawnerblock"
+		   "spawnerblock",
+		   "floor",
+		   "wall"
 		   };
 }

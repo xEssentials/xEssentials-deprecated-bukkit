@@ -44,6 +44,8 @@ public enum PermissionKey {
 	CMD_IGNORE("xEssentials.command.ignore"),
 	CMD_TROLLBLOCK("xEssentials.command.trollblock"),
 	CMD_RULES("xEssentials.command.rules"),
+	CMD_FLOOR("xEssentials.command.floor"),
+	CMD_WALL("xEssentials.command.wall"),
 	CMD_HOME("xEssentials.command.home"),
 	CMD_HOME_INVITE("xEssentials.command.homeinvite"),
 	CMD_INVSEE("xEssentials.command.invsee"),

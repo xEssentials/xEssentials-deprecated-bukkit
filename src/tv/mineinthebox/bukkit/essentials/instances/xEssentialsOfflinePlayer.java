@@ -1703,7 +1703,83 @@ public class xEssentialsOfflinePlayer {
 		}
 		update();
 	}
-
+	
+	/**
+	 * @author xize
+	 * @param returns true if floor mode is true
+	 * @return boolean
+	 */
+	public boolean isFloorMode() {
+		if(con.contains("floormode.enable")) {
+			return con.getBoolean("floormode.enable");
+		}
+		return false;
+	}
+	
+	/**
+	 * @author xize
+	 * @param bol - when true build mode is activated, else its not.
+	 * @param range - the range of the floor mode
+	 */
+	public void setFloorMode(boolean bol, int range) {
+		con.set("floormode.enable", bol);
+		con.set("floormode.range", range);
+		try {
+			con.save(f);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update();
+	}
+	
+	/**
+	 * @author xize
+	 * @param returns the range of the floor
+	 * @return int
+	 */
+	public int getFloorModeRange() {
+		return con.getInt("floormode.range");
+	}
+	
+	/**
+	 * @author xize
+	 * @param returns true if the wall mode is activated
+	 * @return
+	 */
+	public boolean isWallMode() {
+		if(con.contains("wallmode.enable")) {
+			return con.getBoolean("wallmode.enable");
+		}
+		return false;
+	}
+	
+	/**
+	 * @author xize
+	 * @param bol - activates the wall mode
+	 * @param range - the range how heigh the wall should be.
+	 */
+	public void setWallMode(boolean bol, int range) {
+		con.set("wallmode.enable", bol);
+		con.set("wallmode.range", range);
+		try {
+			con.save(f);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update();
+	}
+	
+	/**
+	 * @author xize
+	 * @param returns the wall size
+	 * @return int
+	 */
+	public int getWallModeRange() {
+		return con.getInt("wallmode.range");
+	}
+	
 	/**
 	 * @author xize
 	 * @param gets updated at every call so we know that the configuration stored in the memory is still recent with the flat saved file!
