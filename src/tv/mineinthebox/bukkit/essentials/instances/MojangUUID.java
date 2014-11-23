@@ -15,6 +15,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 
+import tv.mineinthebox.bukkit.essentials.Configuration;
+import tv.mineinthebox.bukkit.essentials.xEssentials;
+import tv.mineinthebox.bukkit.essentials.enums.LogType;
+
 public class MojangUUID {
 
 	private Player p;
@@ -44,8 +48,14 @@ public class MojangUUID {
 	 */
 	public String getUniqueId() throws Exception {
 		if(isVersionSupported()) {
+			if(Configuration.getDebugConfig().isEnabled()) {
+				xEssentials.getPlugin().log("version is supported, we use the bukkit build in uuid system instead", LogType.DEBUG);
+			}
 			return p.getUniqueId().toString().replaceAll("-", "");
 		} else {
+			if(Configuration.getDebugConfig().isEnabled()) {
+				xEssentials.getPlugin().log("this version of bukkit does not have a inbuild version of the uuid system, so we will fetch the uuid manually", LogType.DEBUG);
+			}
 			Callable<UUID> getUUID = new CompatUUID(p);
 			return getUUID.call().toString().replaceAll("-", "");
 		}

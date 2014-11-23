@@ -34,6 +34,7 @@ import org.bukkit.scheduler.BukkitTask;
 
 import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
+import tv.mineinthebox.bukkit.essentials.enums.LogType;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.enums.PlayerTaskEnum;
 import tv.mineinthebox.bukkit.essentials.events.players.FakeNukeEvent;
@@ -55,6 +56,9 @@ public class xEssentialsPlayer {
 	 * 
 	 */
 	public xEssentialsPlayer(Player player, String UUID) {
+		if(Configuration.getDebugConfig().isEnabled()) {
+			xEssentials.getPlugin().log("setting profile for player " + player.getName(), LogType.DEBUG);
+		}
 		this.player = player;
 		if(Bukkit.getOnlineMode()) {
 			this.f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players"+File.separator+UUID+".yml");	
@@ -62,8 +66,14 @@ public class xEssentialsPlayer {
 			this.f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players"+File.separator+player.getName().toLowerCase()+".yml");
 		}
 		if(this.f.exists()){
+			if(Configuration.getDebugConfig().isEnabled()) {
+				xEssentials.getPlugin().log("profile found, checking for a possible name change!", LogType.DEBUG);
+			}
 			this.con = YamlConfiguration.loadConfiguration(this.f);
 			if(!this.con.getString("user").equalsIgnoreCase(player.getName())) {
+				if(Configuration.getDebugConfig().isEnabled()) {
+					xEssentials.getPlugin().log("the players name is changed from " + this.con.getString("user") + " to " + player.getName(), LogType.DEBUG);
+				}
 				String oldName = this.con.getString("user");
 				this.con.set("user", player.getName());
 				this.con.set("ip", player.getAddress().getAddress().getHostAddress());
@@ -80,6 +90,9 @@ public class xEssentialsPlayer {
 					xEssentials.getManagers().getProtectionDBManager().updatePlayer(oldName, player.getName());
 				}
 			} else {
+				if(Configuration.getDebugConfig().isEnabled()) {
+					xEssentials.getPlugin().log("players name is still intact and matches with: " + UUID, LogType.DEBUG);
+				}
 				this.con.set("ip", player.getAddress().getAddress().getHostAddress());
 				try {
 					this.con.save(f);
@@ -90,8 +103,14 @@ public class xEssentialsPlayer {
 			}
 		} else {
 			//check if the player file is just a normal name if it is we rename the file to the UUID spec, then cancelling futher code execution.
+			if(Configuration.getDebugConfig().isEnabled()) {
+				xEssentials.getPlugin().log("profile not found, checking for non converted names in order to convert...", LogType.DEBUG);
+			}
 			File possiblename = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players" + File.separator + player.getName().toLowerCase() + ".yml");
 			if(possiblename.exists()) {
+				if(Configuration.getDebugConfig().isEnabled()) {
+					xEssentials.getPlugin().log("profile of "+player.getName()+" has been successfull found and renamed to the uuid spec", LogType.DEBUG);
+				}
 				possiblename.renameTo(this.f);
 				this.con = YamlConfiguration.loadConfiguration(this.f);
 				return;

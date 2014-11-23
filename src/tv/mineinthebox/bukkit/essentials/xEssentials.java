@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -133,14 +132,7 @@ public class xEssentials extends JavaPlugin {
 	 * 
 	 */
 	public void log(String message, LogType type) {
-		String prefix = "&2[&8xEssentials&2]&f";
-		if(type == LogType.INFO) {
-			Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefix+":"+message));
-		} else if(type == LogType.SEVERE) {
-			Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&c[Error]"+prefix+":"+message));
-		} else if(type == LogType.DEBUG) {
-			Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[Debug]"+prefix+":"+message));
-		}
+		Bukkit.getConsoleSender().sendMessage(type.getPrefix() + message);
 	}
 
 	/**
