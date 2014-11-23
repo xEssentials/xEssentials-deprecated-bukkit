@@ -13,6 +13,7 @@ public enum PermissionKey {
 	CMD_SPLEEF("xEssentials.command.spleef"),
 	CMD_CREMOVE("xEssentials.command.cremove"),
 	CMD_CMODIFY("xEssentials.command.cmodify"),
+	CMD_NETHER("xEssentials.command.nether"),
 	CMD_PROC("xEssentials.command.proc"),
 	MULTIPLE_HOMES("xEssentials.MultipleHomes"),
 	CMD_ARROW("xEssentials.command.arrow"),

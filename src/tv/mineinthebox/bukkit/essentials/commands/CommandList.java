@@ -90,6 +90,7 @@ public class CommandList {
 		   "drunk",
 		   "spawnerblock",
 		   "floor",
-		   "wall"
+		   "wall",
+		   "nether"
 		   };
 }
