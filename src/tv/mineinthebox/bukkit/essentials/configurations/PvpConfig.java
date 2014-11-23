@@ -11,8 +11,17 @@ public class PvpConfig {
 	 * @return boolean
 	 */
 	public boolean isPvpDisabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.PVP, "disablePvp");
+		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.PVP, "disablepvp");
 		return bol;
+	}
+	
+	/**
+	 * @author xize
+	 * @param returns true when fake pvp is enabled
+	 * @return boolean
+	 */
+	public boolean isFakePvpEnabled() {
+		return (Boolean) Configuration.getConfigValue(ConfigType.PVP, "fakepvp");
 	}
 	
 	/**

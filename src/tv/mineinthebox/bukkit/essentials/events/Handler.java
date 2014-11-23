@@ -124,6 +124,7 @@ import tv.mineinthebox.bukkit.essentials.events.protection.SignProtectedEvent;
 import tv.mineinthebox.bukkit.essentials.events.protection.UnregisterProtectionEvent;
 import tv.mineinthebox.bukkit.essentials.events.pvp.ClientSideGraveYard;
 import tv.mineinthebox.bukkit.essentials.events.pvp.ClientSideGraveYard_ProtocolLib;
+import tv.mineinthebox.bukkit.essentials.events.pvp.FakePvpEvent;
 import tv.mineinthebox.bukkit.essentials.events.pvp.KillBountys;
 import tv.mineinthebox.bukkit.essentials.events.pvp.NpcReplacePlayer;
 import tv.mineinthebox.bukkit.essentials.events.pvp.PvpEvent;
@@ -243,6 +244,7 @@ public class Handler {
 		if(Configuration.getPlayerConfig().isAutoAnvilEnabled()) {setListener(new AnvilResetEvent());}
 		if(Configuration.getEntityConfig().isRealisticTreesEnabled()) {setListener(new RealisticTreeEvent());}
 		//pvp.yml
+		if(Configuration.getPvpConfig().isFakePvpEnabled()) {setListener(new FakePvpEvent());}
 		if(Configuration.getPvpConfig().isPvpDisabled()) {setListener(new PvpEvent());}
 		if(Configuration.getPvpConfig().isClientGravesEnabled()) {
 			if(Hooks.isProtocolLibEnabled()) {

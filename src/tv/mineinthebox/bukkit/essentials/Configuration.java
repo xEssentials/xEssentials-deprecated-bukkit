@@ -588,7 +588,8 @@ public class Configuration {
 			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "pvp.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-				con.set("disable-pvp", false);
+				con.set("disable-pvp.enable", false);
+				con.set("disable-pvp.fakepvp", false);
 				con.set("createClientSideGraveyard", false);
 				con.set("killBounty.enable", false);
 				con.set("killBounty.earn", 5.0);
@@ -754,7 +755,8 @@ public class Configuration {
 			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "pvp.yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			HashMap<String, Object> hash = new HashMap<String, Object>();
-			hash.put("disablePvp", con.getBoolean("disable-pvp"));
+			hash.put("disablepvp", con.getBoolean("disable-pvp.enable"));
+			hash.put("fakepvp", con.getBoolean("disable-pvp.fakepvp"));
 			hash.put("createClientSideGraveyard", con.getBoolean("createClientSideGraveyard"));
 			hash.put("killBountyEnable", con.getBoolean("killBounty.enable"));
 			hash.put("killBountyEarn", con.getDouble("killBounty.earn"));

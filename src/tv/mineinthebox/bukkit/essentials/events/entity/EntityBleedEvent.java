@@ -12,6 +12,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -24,8 +25,11 @@ public class EntityBleedEvent implements Listener {
 	private final int range = 4;
 
 	@SuppressWarnings("deprecation")
-	@EventHandler
+	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled=true)
 	public void onBleed(EntityDamageEvent e) {
+		if(e.isCancelled()) {
+			return;
+		}
 		LinkedList<Location> list = new LinkedList<Location>();
 		for(int i = 0; i < e.getDamage()*3; i++) {
 
