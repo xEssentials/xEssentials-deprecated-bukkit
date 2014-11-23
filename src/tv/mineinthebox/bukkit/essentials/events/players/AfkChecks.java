@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -53,6 +54,9 @@ public class AfkChecks implements Listener {
 
 	@EventHandler
 	public void isGodModeAfk(EntityDamageEvent e) {
+		if(e.isCancelled()) {
+			return;
+		}
 		if(e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
 			if(Configuration.getPlayerConfig().isGodModeInAfkEnabled()) {
@@ -64,8 +68,11 @@ public class AfkChecks implements Listener {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOW)
 	public void isGodModeAfk(EntityDamageByEntityEvent e) {
+		if(e.isCancelled()) {
+			return;
+		}
 		if(e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
 			if(Configuration.getPlayerConfig().isGodModeInAfkEnabled()) {
