@@ -1,4 +1,4 @@
-<h1>xEssentials v3.5</h1>
+<h1>xEssentials</h1>
 
 a new bukkit plugin with alot of new features this plugin is still sort of unofficial and it will not be encouraged to use this on your server as its still not stable to use on a production server.
 
