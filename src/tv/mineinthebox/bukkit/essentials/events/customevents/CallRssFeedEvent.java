@@ -112,10 +112,12 @@ public class CallRssFeedEvent  {
 				} catch (MalformedURLException e1) {
 					xEssentials.getPlugin().log("the url is wrong for the RSS!", LogType.SEVERE);
 				} catch (IOException e1) {
-					xEssentials.getPlugin().log("connection timeout for the RSS event!", LogType.SEVERE);
-					if(Configuration.getDebugConfig().isEnabled()) {
-						xEssentials.getPlugin().log("since the RSS timed out we want to be sure what is going on, error stack:", LogType.DEBUG);
-						e1.printStackTrace();
+					if(!e1.getMessage().contains("502")) {
+						xEssentials.getPlugin().log("connection timeout for the RSS event!", LogType.SEVERE);	
+						if(Configuration.getDebugConfig().isEnabled()) {
+							xEssentials.getPlugin().log("since the RSS timed out we want to be sure what is going on, error stack:", LogType.DEBUG);
+							e1.printStackTrace();
+						}
 					}
 				} finally {
 					try {
