@@ -1804,31 +1804,20 @@ public class xEssentialsOfflinePlayer {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((con == null) ? 0 : con.hashCode());
-		result = prime * result + ((f == null) ? 0 : f.hashCode());
+		result = prime * result + ((getUser() == null) ? 0 : getUser().hashCode());
+		result = prime * result + ((getUniqueId() == null) ? 0 : getUniqueId().hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		xEssentialsOfflinePlayer other = (xEssentialsOfflinePlayer) obj;
-		if (con == null) {
-			if (other.con != null)
-				return false;
-		} else if (!con.equals(other.con))
-			return false;
-		if (f == null) {
-			if (other.f != null)
-				return false;
-		} else if (!f.equals(other.f))
-			return false;
-		return true;
+		if(obj.getClass() == this.getClass()) {
+			if(obj instanceof xEssentialsOfflinePlayer) {
+				xEssentialsPlayer xp = (xEssentialsPlayer) obj;
+				return xp.getUser().equalsIgnoreCase(this.getUser()) && xp.getUniqueId().equals(this.getUniqueId());
+			}
+		}
+		return false;
 	}
 
 }

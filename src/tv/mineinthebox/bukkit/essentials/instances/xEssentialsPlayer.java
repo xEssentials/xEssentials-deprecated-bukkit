@@ -2772,42 +2772,20 @@ public class xEssentialsPlayer {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Potato == null) ? 0 : Potato.hashCode());
-		result = prime * result + ((con == null) ? 0 : con.hashCode());
-		result = prime * result + ((f == null) ? 0 : f.hashCode());
-		result = prime * result + ((player == null) ? 0 : player.hashCode());
+		result = prime * result + ((getUser() == null) ? 0 : getUser().hashCode());
+		result = prime * result + ((getUniqueId() == null) ? 0 : getUniqueId().hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		xEssentialsPlayer other = (xEssentialsPlayer) obj;
-		if (Potato == null) {
-			if (other.Potato != null)
-				return false;
-		} else if (!Potato.equals(other.Potato))
-			return false;
-		if (con == null) {
-			if (other.con != null)
-				return false;
-		} else if (!con.equals(other.con))
-			return false;
-		if (f == null) {
-			if (other.f != null)
-				return false;
-		} else if (!f.equals(other.f))
-			return false;
-		if (player == null) {
-			if (other.player != null)
-				return false;
-		} else if (!player.equals(other.player))
-			return false;
-		return true;
+		if(obj.getClass() == this.getClass()) {
+			if(obj instanceof xEssentialsPlayer) {
+				xEssentialsPlayer xp = (xEssentialsPlayer) obj;
+				//make sure name and uuid matches, now these objects will be detected in HashMaps even though a field may differentates see older commit.
+				return xp.getUser().equalsIgnoreCase(this.getUser()) && xp.getUniqueId().equals(this.getUniqueId());
+			}
+		}
+		return false;
 	}
 }
