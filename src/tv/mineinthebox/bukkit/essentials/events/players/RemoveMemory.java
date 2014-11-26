@@ -15,26 +15,26 @@ public class RemoveMemory implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onQuitMemory(PlayerQuitEvent e) {
 		if(Configuration.getDebugConfig().isEnabled()) {
-			xEssentials.getPlugin().log("preparing to remove player on normal quit." + e.getPlayer().getName(), LogType.DEBUG);
+			xEssentials.getPlugin().log("preparing to remove player on normal quit: " + e.getPlayer().getName(), LogType.DEBUG);
 		}
 		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			if(Configuration.getDebugConfig().isEnabled()) {
-				xEssentials.getPlugin().log("player found and removed!, check returns: " + xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName()), LogType.DEBUG);
-			}
 			xEssentials.getManagers().getPlayerManager().removePlayer(e.getPlayer().getName());
+			if(Configuration.getDebugConfig().isEnabled()) {
+				xEssentials.getPlugin().log("player found and removed!, online check returns: " + xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName()), LogType.DEBUG);
+			}
 		}
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onQuitMemory(PlayerKickEvent e) {
 		if(Configuration.getDebugConfig().isEnabled()) {
-			xEssentials.getPlugin().log("preparing to remove player on normal kick." + e.getPlayer().getName(), LogType.DEBUG);
+			xEssentials.getPlugin().log("preparing to remove player on normal kick: " + e.getPlayer().getName(), LogType.DEBUG);
 		}
 		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			if(Configuration.getDebugConfig().isEnabled()) {
-				xEssentials.getPlugin().log("player found and removed!, check returns: " + xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName()), LogType.DEBUG);
-			}
 			xEssentials.getManagers().getPlayerManager().removePlayer(e.getPlayer().getName());
+			if(Configuration.getDebugConfig().isEnabled()) {
+				xEssentials.getPlugin().log("player found and removed!, online check returns: " + xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName()), LogType.DEBUG);
+			}
 		}
 	}
 }
