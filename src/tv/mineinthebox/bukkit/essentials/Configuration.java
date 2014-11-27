@@ -580,6 +580,10 @@ public class Configuration {
 						"shit",
 						"ass"
 				});
+				con.set("swearfilter.warning.enable", false);
+				con.set("swearfilter.warning.level", 3);
+				con.set("swearfilter.warning.punish-command", "/kick %p you shouldn't spam people!");
+				con.set("swearfilter.warning.message", "&cplease dont swear, you are now at warning %w");
 				con.set("rss.useRssBroadcast", false);
 				con.set("rss.useRssUrl", "https://mojang.com/feed/");
 				con.set("checkMojangStatus", false);
@@ -687,6 +691,10 @@ public class Configuration {
 				hash.put("MojangStatus", con.getBoolean("checkMojangStatus"));
 				hash.put("swearenable", con.getBoolean("swearfilter.enable"));
 				hash.put("swearwords", con.getStringList("swearfilter.words"));
+				hash.put("swearwarningenable", con.getBoolean("swearfilter.warning.enable"));
+				hash.put("swearwarninglevel", con.getInt("swearfilter.warning.level"));
+				hash.put("swearwarningpunish", con.getString("swearfilter.warning.punish-command"));
+				hash.put("swearwarningmessage", con.getString("swearfilter.warning.message"));
 				configure.put(ConfigType.CHAT, hash);
 
 			} catch(Exception e) {

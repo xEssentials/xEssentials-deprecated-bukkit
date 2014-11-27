@@ -100,5 +100,42 @@ public class ChatConfig {
 		badword += ")";
 		return badword;
 	}
+	
+	/**
+	 * @author xize
+	 * @param returns the warning mode of the censor system
+	 * @return boolean
+	 */
+	public boolean isSwearWarningEnabled() {
+		return (Boolean) Configuration.getConfigValue(ConfigType.CHAT, "swearwarningenable");
+	}
+	
+	/**
+	 * @author xize
+	 * @param returns the max level of warnings a player could get before getting punished.
+	 * @return int
+	 */
+	public int getMaxWarningLevel() {
+		return (Integer) Configuration.getConfigValue(ConfigType.CHAT, "swearwarninglevel");
+	}
+	
+	/**
+	 * @author xize
+	 * @param returns the punish command, when the user is getting over the warning limit
+	 * @return String
+	 */
+	public String getWarningCommand() {
+		return ((String) Configuration.getConfigValue(ConfigType.CHAT, "swearwarningpunish")).replace("/", "");
+	}
+	
+	/**
+	 * @author xize
+	 * @param returns the warning message
+	 * @return String
+	 */
+	public String getWarningMessage() {
+		return ChatColor.translateAlternateColorCodes('&', (String)Configuration.getConfigValue(ConfigType.CHAT, "swearwarningmessage"));
+	}
 
+	
 }
