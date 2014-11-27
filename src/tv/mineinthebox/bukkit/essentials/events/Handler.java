@@ -28,6 +28,7 @@ import tv.mineinthebox.bukkit.essentials.events.bridges.RemoveBridgeEvent;
 import tv.mineinthebox.bukkit.essentials.events.chairs.ChairDisableMonster;
 import tv.mineinthebox.bukkit.essentials.events.chairs.PlayerSitOnChair;
 import tv.mineinthebox.bukkit.essentials.events.chat.AntiAddvertiseEvent;
+import tv.mineinthebox.bukkit.essentials.events.chat.AntiSwearEvent;
 import tv.mineinthebox.bukkit.essentials.events.chat.BroadcastSiteNewsEvent;
 import tv.mineinthebox.bukkit.essentials.events.chat.ChatHighLightEvent;
 import tv.mineinthebox.bukkit.essentials.events.chat.ChatSmilleyEvent;
@@ -195,6 +196,9 @@ public class Handler {
 		if(Configuration.getEntityConfig().isExplosionRegenEnabled()) {setListener(new ExplosionRegen());}
 		if(Configuration.getEntityConfig().isBloodEnabled()) {setListener(new EntityBleedEvent());}
 		//chat.yml
+		if(Configuration.getChatConfig().isSwearFilterEnabled()) {
+			setListener(new AntiSwearEvent());
+		}
 		setListener(new DrunkChatEvent());
 		setListener(new SilenceChatEvent());
 		setListener(new PlayerIgnorePlayerChatEvent());

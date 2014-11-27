@@ -573,6 +573,13 @@ public class Configuration {
 				con.set("chat.enable.smilleys", false);
 				con.set("chat.enable.hashtag", "&e@");
 				con.set("chat.enable.antiAddvertise", false);
+				con.set("swearfilter.enable", false);
+				con.set("swearfilter.words", new String[] {
+						"fuck",
+						"suck",
+						"shit",
+						"ass"
+				});
 				con.set("rss.useRssBroadcast", false);
 				con.set("rss.useRssUrl", "https://mojang.com/feed/");
 				con.set("checkMojangStatus", false);
@@ -678,6 +685,8 @@ public class Configuration {
 				hash.put("RssEnabled", con.getBoolean("rss.useRssBroadcast"));
 				hash.put("RssUrl", con.getString("rss.useRssUrl"));
 				hash.put("MojangStatus", con.getBoolean("checkMojangStatus"));
+				hash.put("swearenable", con.getBoolean("swearfilter.enable"));
+				hash.put("swearwords", con.getStringList("swearfilter.words"));
 				configure.put(ConfigType.CHAT, hash);
 
 			} catch(Exception e) {

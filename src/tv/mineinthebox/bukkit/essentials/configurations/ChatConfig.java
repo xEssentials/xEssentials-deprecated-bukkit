@@ -1,5 +1,8 @@
 package tv.mineinthebox.bukkit.essentials.configurations;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.ChatColor;
 
 import tv.mineinthebox.bukkit.essentials.Configuration;
@@ -73,6 +76,30 @@ public class ChatConfig {
 	 */
 	public boolean isMojangStatusEnabled() {
 		return (Boolean)Configuration.getConfigValue(ConfigType.CHAT, "MojangStatus");
+	}
+	
+	/**
+	 * @author xize
+	 * @param returns true if the anti swear system is enabled
+	 * @return boolean
+	 */
+	public boolean isSwearFilterEnabled() {
+		return (Boolean) Configuration.getConfigValue(ConfigType.CHAT, "swearenable");
+	}
+	
+	/**
+	 * @author xize
+	 * @param returns the list of swear words as lowercase
+	 * @return List<String>
+	 */
+	@SuppressWarnings("unchecked")
+	public List<String> getSwearWords() {
+		List<String> badwords = new ArrayList<String>();
+		List<String> swears = (List<String>)Configuration.getConfigValue(ConfigType.CHAT, "swearwords");
+		for(String badword : swears) {
+			badwords.add(badword.toLowerCase());
+		}
+		return badwords;
 	}
 
 }
