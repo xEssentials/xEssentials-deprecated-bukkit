@@ -1,5 +1,8 @@
 package tv.mineinthebox.bukkit.essentials.events.chat;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -14,26 +17,19 @@ public class AntiSwearEvent implements Listener {
 			return;
 		}
 		
-		String[] split = e.getMessage().split(" ");
+		Pattern pat = Pattern.compile("[A-Za-z]");
+		Pattern p = Pattern.compile(Configuration.getChatConfig().getSwearWords(), Pattern.CASE_INSENSITIVE);
 		
-		String message = e.getMessage();
+		StringBuilder build = new StringBuilder(e.getMessage());
 		
-		for(String partialmsg : split) {
-			for(String badword : Configuration.getChatConfig().getSwearWords()) {
-				if(partialmsg.startsWith(badword) || partialmsg.equalsIgnoreCase(badword)) {
-					message = message.replace(badword, getCensor(badword));
-				}
-			}
+		Matcher match = p.matcher(e.getMessage());
+		
+		while(match.find()) {
+			build.replace(match.start(), match.end(), pat.matcher(match.group()).replaceAll("*"));
 		}
 		
-	}
-	
-	public String getCensor(String badword) {
-		String censor = "";
-		for(int i = 0; i < badword.length(); i++) {
-			censor += "*";
-		}
-		return censor;
+		e.setMessage(build.toString());
+		
 	}
 
 }

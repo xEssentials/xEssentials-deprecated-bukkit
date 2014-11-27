@@ -1,6 +1,5 @@
 package tv.mineinthebox.bukkit.essentials.configurations;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
@@ -90,16 +89,16 @@ public class ChatConfig {
 	/**
 	 * @author xize
 	 * @param returns the list of swear words as lowercase
-	 * @return List<String>
+	 * @return String
 	 */
 	@SuppressWarnings("unchecked")
-	public List<String> getSwearWords() {
-		List<String> badwords = new ArrayList<String>();
-		List<String> swears = (List<String>)Configuration.getConfigValue(ConfigType.CHAT, "swearwords");
-		for(String badword : swears) {
-			badwords.add(badword.toLowerCase());
+	public String getSwearWords() {
+		String badword = "(";
+		for(String word : (List<String>)Configuration.getConfigValue(ConfigType.CHAT, "swearwords")) {
+			badword += word +"|";
 		}
-		return badwords;
+		badword += ")";
+		return badword;
 	}
 
 }
