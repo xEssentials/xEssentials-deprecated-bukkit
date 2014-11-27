@@ -17,7 +17,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
+import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
+import tv.mineinthebox.bukkit.essentials.enums.LogType;
 import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
 
 public class PotatoMoveEvent implements Listener {
@@ -91,34 +93,44 @@ public class PotatoMoveEvent implements Listener {
 
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
-		if(xp instanceof xEssentialsPlayer) {	
-			if(xp.isPotato()) {
-				xp.unvanish();
-				xp.getPlayer().removePotionEffect(PotionEffectType.BLINDNESS);
-				xp.getPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
-				xp.getPlayer().removePotionEffect(PotionEffectType.SPEED);
-				Item potato = xp.getPotato();
-				potato.remove();
-				xp.removePotato();
-			}	
+		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+			if(Configuration.getDebugConfig().isEnabled()) {
+				xEssentials.getPlugin().log("player "+ e.getPlayer().getName() +" is still online for quit event for potato event", LogType.DEBUG);
+			}
+			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			if(xp instanceof xEssentialsPlayer) {	
+				if(xp.isPotato()) {
+					xp.unvanish();
+					xp.getPlayer().removePotionEffect(PotionEffectType.BLINDNESS);
+					xp.getPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
+					xp.getPlayer().removePotionEffect(PotionEffectType.SPEED);
+					Item potato = xp.getPotato();
+					potato.remove();
+					xp.removePotato();
+				}	
+			}
 		}
 	}
 
 	@EventHandler
 	public void onQuit(PlayerKickEvent e) {
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
-		if(xp instanceof xEssentialsPlayer) {	
-			if(xp.isPotato()) {
-				xp.unvanish();
-				xp.getPlayer().removePotionEffect(PotionEffectType.BLINDNESS);
-				xp.getPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
-				xp.getPlayer().removePotionEffect(PotionEffectType.SPEED);
-				Item potato = xp.getPotato();
-				potato.remove();
-				xp.removePotato();
+		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+			if(Configuration.getDebugConfig().isEnabled()) {
+				xEssentials.getPlugin().log("player "+ e.getPlayer().getName() +" is still online for kick event for potato event", LogType.DEBUG);
 			}
-		}	
+			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			if(xp instanceof xEssentialsPlayer) {	
+				if(xp.isPotato()) {
+					xp.unvanish();
+					xp.getPlayer().removePotionEffect(PotionEffectType.BLINDNESS);
+					xp.getPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
+					xp.getPlayer().removePotionEffect(PotionEffectType.SPEED);
+					Item potato = xp.getPotato();
+					potato.remove();
+					xp.removePotato();
+				}
+			}	
+		}
 	}
 
 }
