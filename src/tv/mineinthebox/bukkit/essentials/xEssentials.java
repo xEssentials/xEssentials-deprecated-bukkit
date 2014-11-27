@@ -46,7 +46,7 @@ public class xEssentials extends JavaPlugin {
 		for(String cmd : cmdlist.getAllCommands) {
 			getCommand(cmd).setExecutor(new SimpleCommand());	
 		}
-		if(Configuration.getPlayerConfig().isRealisticGlassEnabled()) {
+		if(Configuration.getEntityConfig().isRealisticGlassEnabled()) {
 			xEssentials.getManagers().getRealisticGlassManager().loadGlassBlocks();
 		}
 		xEssentials.getManagers().getTPSManager().startTps();
@@ -79,7 +79,7 @@ public class xEssentials extends JavaPlugin {
 
 	public void onDisable() {
 		xEssentials.getManagers().getPlayerManager().clear();
-		if(Configuration.getPlayerConfig().isRealisticGlassEnabled()) {
+		if(Configuration.getEntityConfig().isRealisticGlassEnabled()) {
 			xEssentials.getManagers().getRealisticGlassManager().saveGlassBlocks();
 		}
 		log("has been disabled!", LogType.INFO);

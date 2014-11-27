@@ -236,7 +236,7 @@ public class Handler {
 		if(Configuration.getPlayerConfig().isSteveHurtSoundEnabled()) {setListener(new SteveHurtSound());}
 		if(Configuration.getPlayerConfig().isCanEntityStealHatOnPlayersDeath()) {setListener(new EntityUseHeadOnPlayerDeath());}
 		if(!Configuration.getPlayerConfig().isBroadcastAchievementsEnabled()) {setListener(new AchievementEvent());}
-		if(Configuration.getPlayerConfig().isRealisticGlassEnabled()) {
+		if(Configuration.getEntityConfig().isRealisticGlassEnabled()) {
 			RealisticGlass glass = new RealisticGlass();
 			setListener(glass);
 			glass.startRegen();

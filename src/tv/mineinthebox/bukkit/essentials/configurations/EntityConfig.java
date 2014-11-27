@@ -28,6 +28,15 @@ public class EntityConfig {
 		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "disableFirespread");
 		return bol;
 	}
+	
+	/**
+	 * @author xize
+	 * @param returns true if realisticglass is enabled
+	 * @return boolean
+	 */
+	public boolean isRealisticGlassEnabled() {
+		return (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "realisticglass");
+	}
 
 	/**
 	 * @author xize

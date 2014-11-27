@@ -78,16 +78,6 @@ public class PlayerConfig {
 	
 	/**
 	 * @author xize
-	 * @param when enabled we can use realistic glass this feature means that velocity's can break glass.
-	 * @return boolean
-	 */
-	public boolean isRealisticGlassEnabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.PLAYER, "enableRealisticGlass");
-		return bol;
-	}
-	
-	/**
-	 * @author xize
 	 * @param returns true whenever the option is enabled and players are allowed to set custom homes till the max
 	 * @return boolean
 	 */

@@ -380,6 +380,7 @@ public class Configuration {
 				con.set("realistic-blood", false);
 	            con.set("realistic-trees", false);
 	        	con.set("realistic-water", false);
+	        	con.set("enable-realistic-glass", false);
 				con.set("cleanup-on-chunkunload", false);
 				con.set("remove-flying-projectiles-on-chunkload", false);
 				con.set("disable-stone-pressureplates-for-mobs", false);
@@ -486,7 +487,6 @@ public class Configuration {
 				con.set("godmode-inAfk", false);
 				con.set("steve-hurt-sound.enable", false);
 				con.set("entitysCanUseHeadOnPlayerDeath", false);
-				con.set("enable-realistic-glass", false);
 				con.set("canDefaultUseMoreHomes", false);
 				con.set("maxHomes", 3);
 				con.set("broadcast-achievements", false);
@@ -705,7 +705,8 @@ public class Configuration {
 				hash.put("AntiFireball", con.getBoolean("remove-flying-projectiles-on-chunkload"));
 				hash.put("plates", con.getBoolean("disable-stone-pressureplates-for-mobs"));
 				hash.put("realisticwater", con.getBoolean("realistic-water"));
-				 hash.put("realistictrees", con.getBoolean("realistic-trees"));
+				hash.put("realistictrees", con.getBoolean("realistic-trees"));
+				hash.put("realisticglass", con.getBoolean("enable-realistic-glass"));
 				HashMap<String, Map<Boolean, String[]>> entitys = new HashMap<String, Map<Boolean, String[]>>();
 				for(String key : con.getConfigurationSection("mobs.allowToSpawn").getKeys(false)) {
 					Map<Boolean, String[]> map = new HashMap<Boolean, String[]>();
@@ -739,7 +740,6 @@ public class Configuration {
 			hash.put("godmodeInAfk", con.getBoolean("godmode-inAfk"));
 			hash.put("steve-hurt-sound", con.getBoolean("steve-hurt-sound.enable"));
 			hash.put("entitysCanUseHeadOnPlayerDeath", con.getBoolean("entitysCanUseHeadOnPlayerDeath"));
-			hash.put("enableRealisticGlass", con.getBoolean("enable-realistic-glass"));
 			hash.put("canDefaultUseMoreHomes", con.getBoolean("canDefaultUseMoreHomes"));
 			hash.put("maxHomes", con.getInt("maxHomes"));
 			hash.put("PlayerAchievements", con.getBoolean("broadcast-achievements"));
