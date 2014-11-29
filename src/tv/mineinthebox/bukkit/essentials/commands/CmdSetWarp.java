@@ -19,7 +19,9 @@ public class CmdSetWarp {
 					sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/setwarp help " + ChatColor.WHITE + ": shows help");
 					sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/setwarp <warp> " + ChatColor.WHITE + ": set the warp");
 				} else if(args.length == 1) {
-					if(!xEssentials.getManagers().getWarpManager().doesWarpExist(args[0])) {
+					if(args[0].equalsIgnoreCase("help")) {
+						sender.sendMessage(ChatColor.RED + "you cannot make a warp named help.");
+					} else if(!xEssentials.getManagers().getWarpManager().doesWarpExist(args[0])) {
 						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(sender.getName())) {
 							xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 							xp.setWarp(args[0].toLowerCase(), xp.getPlayer().getLocation());
