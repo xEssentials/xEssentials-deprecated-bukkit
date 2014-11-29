@@ -100,7 +100,7 @@
 			<groupId>com.sk89q</groupId>
 			<artifactId>worldguard</artifactId>
 			<scope>provided</scope>
-			<version>5.9</version>
+			<version>LATEST</version>
 		</dependency>
 		<dependency>
 			<groupId>com.comphenix.protocol</groupId>
