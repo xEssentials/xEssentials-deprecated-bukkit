@@ -12,7 +12,7 @@ import tv.mineinthebox.bukkit.essentials.enums.ConfigType;
 import tv.mineinthebox.bukkit.essentials.instances.Portal;
 
 public class PortalConfig {
-	
+
 	/**
 	 * @author xize
 	 * @param returns true whenever the portal is enabled
@@ -21,7 +21,7 @@ public class PortalConfig {
 	public boolean isPortalEnabled() {
 		return (Boolean) Configuration.getConfigValue(ConfigType.PORTAL, "enable");
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param returns the cooldown time
@@ -30,9 +30,9 @@ public class PortalConfig {
 	public int getCooldown() {
 		return (Integer) Configuration.getConfigValue(ConfigType.PORTAL, "cooldown");
 	}
-	
+
 	private HashMap<String, Portal> portals;
-	
+
 	/**
 	 * @author xize
 	 * @param returns a HashMap of Portals
@@ -52,21 +52,23 @@ public class PortalConfig {
 			}
 		} else {
 			File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "portals");
-			File[] list = dir.listFiles();
-			if(list.length == portals.size()) {
-				return portals;
-			} else {
-				portals.clear();
-				for(File f : list) {
-					FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-					Portal portal = new Portal(con, f);
-					portals.put(portal.getPortalName(), portal);
+			if(dir.isDirectory()) {
+				File[] list = dir.listFiles();
+				if(list.length == portals.size()) {
+					return portals;
+				} else {
+					portals.clear();
+					for(File f : list) {
+						FileConfiguration con = YamlConfiguration.loadConfiguration(f);
+						Portal portal = new Portal(con, f);
+						portals.put(portal.getPortalName(), portal);
+					}
 				}
 			}
 		}
 		return portals;
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param name - the name of the portal
