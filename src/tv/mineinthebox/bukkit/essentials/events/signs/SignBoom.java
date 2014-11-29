@@ -1,8 +1,8 @@
 package tv.mineinthebox.bukkit.essentials.events.signs;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
@@ -16,6 +16,7 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.util.Vector;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
@@ -65,6 +66,9 @@ public class SignBoom implements Listener {
 	public void signRightClickBoom(PlayerInteractEvent s) {
 		if(s.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if(s.getClickedBlock().getState().getType() == Material.SIGN || s.getClickedBlock().getState().getType() == Material.SIGN_POST || s.getClickedBlock().getState().getType() == Material.WALL_SIGN) {
+				if(s.isCancelled()) {
+					return;
+				}
 				//log.info("This is a sign...");
 				Sign sign = (Sign) s.getClickedBlock().getState();
 				if(sign.getLine(0).contains("[Boom]")) {
@@ -74,8 +78,16 @@ public class SignBoom implements Listener {
 						s.setCancelled(true);
 					} else {
 						//log.info("This player has interacted with this sign");
-						s.getPlayer().getServer().dispatchCommand(Bukkit.getConsoleSender(), "boom " + s.getPlayer().getName());
+						//s.getPlayer().getServer().dispatchCommand(Bukkit.getConsoleSender(), "boom " + s.getPlayer().getName());
 						s.getPlayer().sendMessage(ChatColor.GOLD + "[Boom] " + ChatColor.GREEN + "boooooom!");
+						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(s.getPlayer().getName());
+						xp.setBoom();
+						Location loc = s.getPlayer().getLocation();
+						loc.setY(loc.getY() + 100);
+						int speed = 10;
+						Vector vector = loc.toVector().subtract(s.getPlayer().getLocation().toVector()).normalize();
+						s.getPlayer().setVelocity(vector.multiply(speed));
+						s.setCancelled(true);
 					}
 				}
 			}
