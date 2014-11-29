@@ -8,6 +8,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
+import tv.mineinthebox.bukkit.essentials.hook.Hooks;
+import tv.mineinthebox.bukkit.essentials.hook.WorldGuardHook;
+
 public class FakePvpEvent implements Listener {
 	
 	@EventHandler(priority = EventPriority.LOW)
@@ -21,6 +24,12 @@ public class FakePvpEvent implements Listener {
 				if(dam.getItemInHand().containsEnchantment(Enchantment.FIRE_ASPECT)) {
 					e.setCancelled(true);
 				} else {
+					if(Hooks.isWorldGuardEnabled()) {
+						if(WorldGuardHook.isInRegion(p.getLocation())) {
+							e.setCancelled(true);
+							return;
+						}
+					}
 					e.setDamage(0.001);	
 				}	
 			}
