@@ -28,14 +28,27 @@ public class MojangUUID {
 	}
 	
 	private boolean isVersionSupported() {
-		try {
-			Class.forName("net.minecraft.util.com.mojang.authlib.GameProfile");
+		if(isClass("net.minecraft.util.com.mojang.authlib.GameProfile")) {
+			//orginal craftbukkit
 			return true;
-		} catch (ClassNotFoundException e) {
-			try {
-				Class.forName("net.glowstone.GlowServer");
-				return true;
-			} catch(ClassNotFoundException r) {return false;}
+		} else if(isClass("net.glowstone.GlowServer")) {
+			//glowstone server
+			return true;
+		} else if(isClass("com.mojang.authlib.GameProfile")) {
+			//is probably spigot (the 1.8 version non protocol hack)
+			return true;
+		} else {
+			//could mean its a old version of craftbukkit so we use our own system.
+			return false;
+		}
+	}
+	
+	private boolean isClass(String classurl) {
+		try {
+			Class.forName(classurl);
+			return true;
+		} catch(ClassNotFoundException r) {
+			return false;
 		}
 	}
 	
@@ -49,7 +62,7 @@ public class MojangUUID {
 	public String getUniqueId() throws Exception {
 		if(isVersionSupported()) {
 			if(Configuration.getDebugConfig().isEnabled()) {
-				xEssentials.getPlugin().log("version is supported, we use the bukkit build in uuid system instead", LogType.DEBUG);
+				xEssentials.getPlugin().log("version is supported, we are using the build in uuid system instead", LogType.DEBUG);
 			}
 			return p.getUniqueId().toString().replaceAll("-", "");
 		} else {
