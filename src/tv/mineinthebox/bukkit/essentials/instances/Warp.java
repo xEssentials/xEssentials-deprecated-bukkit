@@ -1,22 +1,47 @@
 package tv.mineinthebox.bukkit.essentials.instances;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 
 public class Warp {
 	
-	private FileConfiguration con;
-	private String ownername;
-	private String warpname;
+	private final FileConfiguration con;
+	private final File f;
+	private Player p;
+	private boolean isWarpOwner = false;
 	
-	public Warp(FileConfiguration con, String ownername, String warpname) {
+	public Warp(FileConfiguration con, File f) {
 		this.con = con;
-		this.ownername = ownername;
-		this.warpname = warpname;
+		this.f = f;
+	}
+	
+	public Warp(FileConfiguration con, File f, Player p) {
+		this.con = con;
+		this.f = f;
+		this.p = p;
+		if(this.con.getString("warp.uuid").equalsIgnoreCase(p.getUniqueId().toString())) {
+			this.isWarpOwner = true;
+			if(!p.getName().equalsIgnoreCase(this.con.getString("warp.owner"))) {
+				this.con.set("warp.owner", p.getName());
+				try {
+					this.con.save(this.f);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				update();
+			}
+		}
 	}
 	
 	/**
@@ -25,7 +50,25 @@ public class Warp {
 	 * @return String
 	 */
 	public String getWarpName() {
-		return warpname;
+		return con.getString("warp.name");
+	}
+	
+	/**
+	 * @author xize
+	 * @param returns the player being included in this object
+	 * @return Player
+	 */
+	public Player getPlayer() {
+		return p;
+	}
+	
+	/**
+	 * @author xize
+	 * @param returns true if the player is a owner else false
+	 * @return boolean
+	 */
+	public boolean isOwner() {
+		return isWarpOwner;
 	}
 	
 	/**
@@ -34,7 +77,16 @@ public class Warp {
 	 * @return String
 	 */
 	public String getOwner() {
-		return ownername;
+		return con.getString("warp.owner");
+	}
+	
+	/**
+	 * @author xize
+	 * @param returns the unique id of the warp owner!
+	 * @return String
+	 */
+	public String getUniqueId() {
+		return con.getString("warp.uuid");
 	}
 	
 	/**
@@ -44,14 +96,14 @@ public class Warp {
 	 * @throws NullPointerException if the world is null
 	 */
 	public Location getWarpLocation() {
-		int x = con.getInt("warp."+warpname+".x");
-		int y = con.getInt("warp."+warpname+".y");
-		int z = con.getInt("warp."+warpname+".z");
-		World world = Bukkit.getWorld(con.getString("warp."+warpname+".world"));
+		int x = con.getInt("warp.x");
+		int y = con.getInt("warp.y");
+		int z = con.getInt("warp.z");
+		World world = Bukkit.getWorld(con.getString("warp.world"));
 		if(world instanceof World) {
 			return new Location(world, x, y, z);
 		}
-		throw new NullPointerException("world cannot be null on the warp name: " + warpname);
+		throw new NullPointerException("world cannot be null on the warp name: " + getWarpName());
 	}
 	
 	/**
@@ -59,8 +111,27 @@ public class Warp {
 	 * @param get the xEssentialsOfflinePlayer instance
 	 * @return xEssentialsOfflinePlayer
 	 */
-	public xEssentialsOfflinePlayer getEssentialsOfflinePlayer() {
+	public xEssentialsOfflinePlayer getWarpOwner() {
 		return xEssentials.getManagers().getPlayerManager().getOfflinePlayer(con.getString("user"));
+	}
+	
+	public void removeWarp() {
+		f.delete();
+	}
+	
+	public void update() {
+		try {
+			con.load(f);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

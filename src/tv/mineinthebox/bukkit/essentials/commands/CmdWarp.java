@@ -60,8 +60,8 @@ public class CmdWarp {
 					} else {
 						if(sender instanceof Player) {
 							Player p = (Player) sender;
-							if(xEssentials.getManagers().getWarpManager().doesWarpExist(args[0])) {
-								Warp warp = xEssentials.getManagers().getWarpManager().getWarpByName(args[0]);
+							if(xEssentials.getManagers().getWarpManager().isWarp(args[0])) {
+								Warp warp = xEssentials.getManagers().getWarpManager().getWarp(args[0], (Player)sender);
 								warp.getWarpLocation().getWorld().refreshChunk(warp.getWarpLocation().getChunk().getX(), warp.getWarpLocation().getChunk().getZ());
 								p.teleport(warp.getWarpLocation());
 								sender.sendMessage(ChatColor.GREEN + "teleporting to warp " + warp.getWarpName());
@@ -75,8 +75,8 @@ public class CmdWarp {
 				} else if(args.length == 2) {
 					Player p = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 					if(p instanceof Player) {
-						if(xEssentials.getManagers().getWarpManager().doesWarpExist(args[1])) {
-							Warp warp = xEssentials.getManagers().getWarpManager().getWarpByName(args[1]);
+						if(xEssentials.getManagers().getWarpManager().isWarp(args[1])) {
+							Warp warp = xEssentials.getManagers().getWarpManager().getWarp(args[1], (Player)sender);
 							warp.getWarpLocation().getWorld().refreshChunk(warp.getWarpLocation().getChunk().getX(), warp.getWarpLocation().getChunk().getZ());
 							p.teleport(warp.getWarpLocation());
 							p.sendMessage(ChatColor.GREEN + "teleporting to warp " + warp.getWarpName());

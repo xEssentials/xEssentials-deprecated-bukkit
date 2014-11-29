@@ -7,12 +7,12 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.instances.Warp;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
 import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
 
 public class CmdDelWarp {
@@ -29,7 +29,7 @@ public class CmdDelWarp {
 		} else {
 			if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(sender.getName())) {
 				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
-				for(Warp warp : xp.getWarps()) {
+				for(Warp warp : xEssentials.getManagers().getWarpManager().getWarps(xp.getPlayer())) {
 					if(warp.getWarpName().toLowerCase().startsWith(p.toLowerCase())) {
 						tabs.add(warp.getWarpName());
 					}
@@ -77,20 +77,21 @@ public class CmdDelWarp {
 							sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/delwarp <warp> " + ChatColor.WHITE + ": deletes the warp you own");
 						}
 					} else if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-						if(xEssentials.getManagers().getWarpManager().doesWarpExist(args[0].toLowerCase())) {
-							Warp warp = xEssentials.getManagers().getWarpManager().getWarpByName(args[0].toLowerCase());
-							xEssentialsOfflinePlayer off = warp.getEssentialsOfflinePlayer();
-							off.removeWarp(warp.getWarpName());
-							sender.sendMessage(ChatColor.GREEN + "you successfully removed the warp ");
+						if(xEssentials.getManagers().getWarpManager().isWarp(args[0].toLowerCase())) {
+							Warp warp = xEssentials.getManagers().getWarpManager().getWarp(args[0].toLowerCase(), (Player)sender);
+							if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
+								warp.removeWarp();
+								sender.sendMessage(ChatColor.GREEN + "you successfully removed the warp ");
+							} else {
+								sender.sendMessage(ChatColor.RED + "you dont have permission to remove the warp");
+							}
 						} else {
 							sender.sendMessage(ChatColor.RED + "warp does not exist!");
 						}
 					} else {
-						if(xEssentials.getManagers().getWarpManager().doesWarpExist(args[0].toLowerCase())) {
-							Warp warp = xEssentials.getManagers().getWarpManager().getWarpByName(args[0].toLowerCase());
-							xEssentialsOfflinePlayer off = warp.getEssentialsOfflinePlayer();
-							if(off.getUser().equalsIgnoreCase(sender.getName())) {
-								off.removeWarp(warp.getWarpName());
+						if(xEssentials.getManagers().getWarpManager().isWarp(args[0].toLowerCase())) {
+							Warp warp = xEssentials.getManagers().getWarpManager().getWarp(args[0].toLowerCase(), (Player)sender);
+							if(warp.isOwner()) {
 								sender.sendMessage(ChatColor.GREEN + "you successfully removed the warp ");
 							} else {
 								sender.sendMessage(ChatColor.RED + "you are not the owner of this warp!");

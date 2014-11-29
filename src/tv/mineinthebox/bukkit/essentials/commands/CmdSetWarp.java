@@ -21,10 +21,10 @@ public class CmdSetWarp {
 				} else if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("help")) {
 						sender.sendMessage(ChatColor.RED + "you cannot make a warp named help.");
-					} else if(!xEssentials.getManagers().getWarpManager().doesWarpExist(args[0])) {
+					} else if(!xEssentials.getManagers().getWarpManager().isWarp(args[0])) {
 						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(sender.getName())) {
 							xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
-							xp.setWarp(args[0].toLowerCase(), xp.getPlayer().getLocation());
+							xEssentials.getManagers().getWarpManager().setWarp(args[0], xp.getPlayer(), xp.getPlayer().getLocation());
 							sender.sendMessage(ChatColor.GREEN + "you successfully saved your warp!");
 						} else {
 							Warnings.getWarnings(sender).consoleMessage();
