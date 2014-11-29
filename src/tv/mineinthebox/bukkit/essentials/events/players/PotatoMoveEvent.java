@@ -95,7 +95,7 @@ public class PotatoMoveEvent implements Listener {
 	public void onQuit(PlayerQuitEvent e) {
 		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
 			if(Configuration.getDebugConfig().isEnabled()) {
-				xEssentials.getPlugin().log("player "+ e.getPlayer().getName() +" is still online for quit event for potato event", LogType.DEBUG);
+				xEssentials.getPlugin().log("player "+ e.getPlayer().getName() +" is still online for quit event for potato event and gets removed now.", LogType.DEBUG);
 			}
 			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp instanceof xEssentialsPlayer) {	
@@ -116,7 +116,7 @@ public class PotatoMoveEvent implements Listener {
 	public void onQuit(PlayerKickEvent e) {
 		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
 			if(Configuration.getDebugConfig().isEnabled()) {
-				xEssentials.getPlugin().log("player "+ e.getPlayer().getName() +" is still online for kick event for potato event", LogType.DEBUG);
+				xEssentials.getPlugin().log("player "+ e.getPlayer().getName() +" is still online for kick event for potato event and gets removed now.", LogType.DEBUG);
 			}
 			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp instanceof xEssentialsPlayer) {	
