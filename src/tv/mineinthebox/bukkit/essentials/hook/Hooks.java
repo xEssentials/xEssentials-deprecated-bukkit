@@ -45,5 +45,12 @@ public class Hooks {
 		}
 		return false;
 	}
+	
+	public static boolean isVotifierEnabled() {
+		if(Bukkit.getPluginManager().isPluginEnabled("Votifier")) {
+			return true;
+		}
+		return false;
+	}
 
 }
