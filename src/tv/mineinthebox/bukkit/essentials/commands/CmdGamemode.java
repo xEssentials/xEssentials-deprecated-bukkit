@@ -10,7 +10,7 @@ import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.hook.Hooks;
-import tv.mineinthebox.bukkit.essentials.hook.WorldGuardHook;
+import tv.mineinthebox.bukkit.essentials.hook.WorldEditHook;
 
 public class CmdGamemode {
 	
@@ -46,8 +46,8 @@ public class CmdGamemode {
 							if(args[0].equalsIgnoreCase("s")) {
 								if(p.getGameMode() != GameMode.SURVIVAL) {
 									p.setGameMode(GameMode.SURVIVAL);
-									if(Hooks.isWorldGuardEnabled()) {
-										WorldGuardHook.turnOffWand(p);
+									if(Hooks.isWorldeditEnabled()) {
+										WorldEditHook.turnOffWand(p);
 									}
 									sender.sendMessage(ChatColor.GREEN + "you successfully set your gamemode to survival!");
 								} else {
@@ -56,8 +56,8 @@ public class CmdGamemode {
 							} else if(args[0].equalsIgnoreCase("0")) {
 								if(p.getGameMode() != GameMode.SURVIVAL) {
 									p.setGameMode(GameMode.SURVIVAL);
-									if(Hooks.isWorldGuardEnabled()) {
-										WorldGuardHook.turnOffWand(p);
+									if(Hooks.isWorldeditEnabled()) {
+										WorldEditHook.turnOffWand(p);
 									}
 									sender.sendMessage(ChatColor.GREEN + "you successfully set your gamemode to survival!");
 								} else {
@@ -66,8 +66,8 @@ public class CmdGamemode {
 							} else if(args[0].equalsIgnoreCase("c")) {
 								if(p.getGameMode() != GameMode.CREATIVE) {
 									p.setGameMode(GameMode.CREATIVE);
-									if(Hooks.isWorldGuardEnabled()) {
-										WorldGuardHook.turnOffWand(p);
+									if(Hooks.isWorldeditEnabled()) {
+										WorldEditHook.turnOffWand(p);
 									}
 									sender.sendMessage(ChatColor.GREEN + "you successfully set your gamemode to creative!");
 								} else {
@@ -76,8 +76,8 @@ public class CmdGamemode {
 							} else if(args[0].equalsIgnoreCase("1")) {
 								if(p.getGameMode() != GameMode.CREATIVE) {
 									p.setGameMode(GameMode.CREATIVE);
-									if(Hooks.isWorldGuardEnabled()) {
-										WorldGuardHook.turnOffWand(p);
+									if(Hooks.isWorldeditEnabled()) {
+										WorldEditHook.turnOffWand(p);
 									}
 									sender.sendMessage(ChatColor.GREEN + "you successfully set your gamemode to creative!");
 								} else {
@@ -104,8 +104,8 @@ public class CmdGamemode {
 						if(args[0].equalsIgnoreCase("s")) {
 							if(p.getGameMode() != GameMode.SURVIVAL) {
 								p.setGameMode(GameMode.SURVIVAL);
-								if(Hooks.isWorldGuardEnabled()) {
-									WorldGuardHook.turnOffWand(p);
+								if(Hooks.isWorldeditEnabled()) {
+									WorldEditHook.turnOffWand(p);
 								}
 								p.sendMessage(ChatColor.GREEN + sender.getName() + " has set your gamemode to survival!");
 								sender.sendMessage(ChatColor.GREEN + "you successfully set the gamemode to survival for player " + p.getName() + "!");
@@ -115,8 +115,8 @@ public class CmdGamemode {
 						} else if(args[0].equalsIgnoreCase("0")) {
 							if(p.getGameMode() != GameMode.SURVIVAL) {
 								p.setGameMode(GameMode.SURVIVAL);
-								if(Hooks.isWorldGuardEnabled()) {
-									WorldGuardHook.turnOffWand(p);
+								if(Hooks.isWorldeditEnabled()) {
+									WorldEditHook.turnOffWand(p);
 								}
 								p.sendMessage(ChatColor.GREEN + sender.getName() + " has set your gamemode to survival!");
 								sender.sendMessage(ChatColor.GREEN + "you successfully set the gamemode to survival for player " + p.getName() + "!");
@@ -126,8 +126,8 @@ public class CmdGamemode {
 						} else if(args[0].equalsIgnoreCase("c")) {
 							if(p.getGameMode() != GameMode.CREATIVE) {
 								p.setGameMode(GameMode.CREATIVE);
-								if(Hooks.isWorldGuardEnabled()) {
-									WorldGuardHook.turnOffWand(p);
+								if(Hooks.isWorldeditEnabled()) {
+									WorldEditHook.turnOffWand(p);
 								}
 								p.sendMessage(ChatColor.GREEN + sender.getName() + " has set your gamemode to creative!");
 								sender.sendMessage(ChatColor.GREEN + "you successfully set the gamemode to creative for player " + p.getName() + "!");
@@ -137,8 +137,8 @@ public class CmdGamemode {
 						} else if(args[0].equalsIgnoreCase("1")) {
 							if(p.getGameMode() != GameMode.CREATIVE) {
 								p.setGameMode(GameMode.CREATIVE);
-								if(Hooks.isWorldGuardEnabled()) {
-									WorldGuardHook.turnOffWand(p);
+								if(Hooks.isWorldeditEnabled()) {
+									WorldEditHook.turnOffWand(p);
 								}
 								p.sendMessage(ChatColor.GREEN + sender.getName() + " has set your gamemode to creative!");
 								sender.sendMessage(ChatColor.GREEN + "you successfully set the gamemode to creative for player " + p.getName() + "!");
