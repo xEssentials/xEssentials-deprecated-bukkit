@@ -1260,7 +1260,7 @@ public class xEssentialsOfflinePlayer {
 	public Boolean payEssentialsMoney(Double price, xEssentialsOfflinePlayer toPayTo) {
 		update();
 		Double money = (getTotalEssentialsMoney()-price);
-		if(money > 0.0 || money == 0.0) {
+		if(money >= 0.0) {
 			con.set("money", money);
 			try {
 				con.save(f);
@@ -1322,7 +1322,7 @@ public class xEssentialsOfflinePlayer {
 	 */
 	public boolean hasPlayerEnoughMoneyFromPrice(Double price) {
 		update();
-		if(getTotalEssentialsMoney() > price || getTotalEssentialsMoney() == price) {
+		if(getTotalEssentialsMoney() >= price) {
 			return true;
 		}
 		return false;
