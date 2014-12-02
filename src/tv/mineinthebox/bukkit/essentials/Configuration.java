@@ -386,7 +386,7 @@ public class Configuration {
 				con.set("disable-stone-pressureplates-for-mobs", false);
 				for(EntityType entity : EntityType.values()) {
 					if(entity.isAlive()) {
-						if(entity != EntityType.PLAYER) {
+						if(entity != EntityType.PLAYER && !entity.name().contains("ARMOR")) {
 							//con.set("mobs.allowToSpawn." + serialize_name(entity.name()), true);
 							con.set("mobs.allowToSpawn."+serialize_name(entity.name()) + ".canSpawn", true);
 
