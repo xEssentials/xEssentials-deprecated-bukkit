@@ -91,6 +91,7 @@ public class CommandList {
 		   "spawnerblock",
 		   "floor",
 		   "wall",
-		   "nether"
+		   "nether",
+		   "getchunkfile"
 		   };
 }

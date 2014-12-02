@@ -279,3 +279,6 @@ commands:
   nether:
      description: teleport to the nether on exact coords
      aliases: []
+  getchunkfile:
+     description: finds the chunk as a file
+     aliases: [findchunk, chunkfinder]

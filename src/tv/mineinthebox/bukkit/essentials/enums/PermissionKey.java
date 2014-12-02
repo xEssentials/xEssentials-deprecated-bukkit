@@ -7,6 +7,7 @@ public enum PermissionKey {
 	CMD_KNOCK("xEssentials.command.knock"),
 	CMD_CLEAR("xEssentials.command.clear"),
 	CMD_WILD("xEssentials.command.wild"),
+	CMD_GET_CHUNK_FILE("xEssentials.command.getchunkfile"),
 	CMD_LOOKUP("xEssentials.command.lookup"),
 	CMD_PORTALS("xEssentials.command.portals"),
 	CMD_CPRIVATE("xEssentials.command.cprivate"),

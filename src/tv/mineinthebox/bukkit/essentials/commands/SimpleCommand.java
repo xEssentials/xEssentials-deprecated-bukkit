@@ -275,6 +275,9 @@ public class SimpleCommand implements CommandExecutor, TabCompleter {
 		} else if(cmd.getName().equalsIgnoreCase("nether")) {
 			CmdNether nether = new CmdNether();
 			return nether.execute(sender, cmd, args);
+		} else if(cmd.getName().equalsIgnoreCase("getchunkfile")) {
+			CmdGetChunkFile chunk = new CmdGetChunkFile();
+			return chunk.execute(sender, cmd, args);
 		}
 		return false;
 	}
