@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Monster;
@@ -21,7 +23,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitTask;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.enums.ParticleEffect;
 import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
 
 public class MobProcEvent implements Listener, Runnable {
@@ -64,7 +65,8 @@ public class MobProcEvent implements Listener, Runnable {
 					Random rand = new Random();
 					p.getWorld().playSound(p.getLocation(), Sound.ENDERDRAGON_GROWL, 1F, 1F);
 					for(int i =0; i < 5; i++) {
-						ParticleEffect.HAPPY_VILLAGER.display(p.getLocation(), rand.nextInt(10), rand.nextInt(4), rand.nextInt(10), 100, 10);	
+						p.getWorld().playEffect(new Location(p.getWorld(), rand.nextInt(10), rand.nextInt(4), rand.nextInt(10)), Effect.MOBSPAWNER_FLAMES, 100, 10);
+						//ParticleEffect.HAPPY_VILLAGER.display(p.getLocation(), rand.nextInt(10), rand.nextInt(4), rand.nextInt(10), 100, 10);	
 					}
 					p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 3));
 					Date date = new Date(System.currentTimeMillis());
