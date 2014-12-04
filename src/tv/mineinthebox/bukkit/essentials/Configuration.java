@@ -482,7 +482,6 @@ public class Configuration {
 				con.set("useSeperatedInventorys", false);
 				con.set("save-playerInventory", false);
 				con.set("godmode-inAfk", false);
-				con.set("steve-hurt-sound.enable", false);
 				con.set("entitysCanUseHeadOnPlayerDeath", false);
 				con.set("canDefaultUseMoreHomes", false);
 				con.set("maxHomes", 3);
@@ -753,7 +752,6 @@ public class Configuration {
 			hash.put("useSeperatedInventorys", con.getBoolean("useSeperatedInventorys"));
 			hash.put("savePlayerInventory", con.getBoolean("save-playerInventory"));
 			hash.put("godmodeInAfk", con.getBoolean("godmode-inAfk"));
-			hash.put("steve-hurt-sound", con.getBoolean("steve-hurt-sound.enable"));
 			hash.put("entitysCanUseHeadOnPlayerDeath", con.getBoolean("entitysCanUseHeadOnPlayerDeath"));
 			hash.put("canDefaultUseMoreHomes", con.getBoolean("canDefaultUseMoreHomes"));
 			hash.put("maxHomes", con.getInt("maxHomes"));

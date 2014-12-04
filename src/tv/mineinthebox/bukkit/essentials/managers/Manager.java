@@ -4,7 +4,7 @@ import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.events.customevents.CallEssentialsBroadcastEvent;
 import tv.mineinthebox.bukkit.essentials.events.customevents.CallMojangStatus;
 import tv.mineinthebox.bukkit.essentials.events.customevents.CallRssFeedEvent;
-import tv.mineinthebox.bukkit.essentials.events.players.RealisticGlass;
+import tv.mineinthebox.bukkit.essentials.events.entity.RealisticGlassEvent;
 import tv.mineinthebox.bukkit.essentials.greylist.GreyListServer;
 import tv.mineinthebox.bukkit.essentials.hook.VaultHook;
 
@@ -20,7 +20,7 @@ public class Manager {
 	private xEssentialsPlayerManager players;
 	private WarpManager warp;
 	private EconomyManager econ;
-	private RealisticGlass glass;
+	private RealisticGlassEvent glass;
 	private GreyListServer greylist;
 	private VaultHook vault;
 	private CallRssFeedEvent rss;
@@ -156,9 +156,9 @@ public class Manager {
 	 * @param returns the RealisticGlass manager.
 	 * @return RealisticGlass
 	 */
-	public RealisticGlass getRealisticGlassManager() {
-		if(!(glass instanceof RealisticGlass)) {
-			this.glass = new RealisticGlass();
+	public RealisticGlassEvent getRealisticGlassManager() {
+		if(!(glass instanceof RealisticGlassEvent)) {
+			this.glass = new RealisticGlassEvent();
 		}
 		return glass;
 	}

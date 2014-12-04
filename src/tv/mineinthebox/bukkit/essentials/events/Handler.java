@@ -12,21 +12,21 @@ import tv.mineinthebox.bukkit.essentials.events.ban.FloodSpamEvent;
 import tv.mineinthebox.bukkit.essentials.events.ban.HumanSpamCommandEvent;
 import tv.mineinthebox.bukkit.essentials.events.ban.HumanSpamEvent;
 import tv.mineinthebox.bukkit.essentials.events.ban.PwnAgeProtectionEvent;
-import tv.mineinthebox.bukkit.essentials.events.ban.ShowAlternateAccounts;
+import tv.mineinthebox.bukkit.essentials.events.ban.ShowAlternateAccountsEvent;
 import tv.mineinthebox.bukkit.essentials.events.blocks.BedrockBreakEvent;
 import tv.mineinthebox.bukkit.essentials.events.blocks.BedrockPlaceEvent;
 import tv.mineinthebox.bukkit.essentials.events.blocks.BlockBlackListEvent;
 import tv.mineinthebox.bukkit.essentials.events.blocks.ItemBlackListEvent;
-import tv.mineinthebox.bukkit.essentials.events.blocks.NotifyAdminOnBlockBreak;
+import tv.mineinthebox.bukkit.essentials.events.blocks.NotifyAdminOnBlockBreakEvent;
 import tv.mineinthebox.bukkit.essentials.events.blocks.NotifyItemUseEvent;
 import tv.mineinthebox.bukkit.essentials.events.books.BookInteractEvent;
 import tv.mineinthebox.bukkit.essentials.events.bridges.BridgeBreakEvent;
 import tv.mineinthebox.bukkit.essentials.events.bridges.BridgeCreateEvent;
-import tv.mineinthebox.bukkit.essentials.events.bridges.BridgeGriefPrevention;
+import tv.mineinthebox.bukkit.essentials.events.bridges.BridgeGriefPreventionEvent;
 import tv.mineinthebox.bukkit.essentials.events.bridges.BridgeInteractEvent;
 import tv.mineinthebox.bukkit.essentials.events.bridges.RemoveBridgeEvent;
-import tv.mineinthebox.bukkit.essentials.events.chairs.ChairDisableMonster;
-import tv.mineinthebox.bukkit.essentials.events.chairs.PlayerSitOnChair;
+import tv.mineinthebox.bukkit.essentials.events.chairs.ChairDisableMonsterEvent;
+import tv.mineinthebox.bukkit.essentials.events.chairs.PlayerSitOnChairEvent;
 import tv.mineinthebox.bukkit.essentials.events.chat.AntiAddvertiseEvent;
 import tv.mineinthebox.bukkit.essentials.events.chat.AntiSwearEvent;
 import tv.mineinthebox.bukkit.essentials.events.chat.BroadcastSiteNewsEvent;
@@ -35,15 +35,15 @@ import tv.mineinthebox.bukkit.essentials.events.chat.ChatSmilleyEvent;
 import tv.mineinthebox.bukkit.essentials.events.chat.DrunkChatEvent;
 import tv.mineinthebox.bukkit.essentials.events.chat.MuteEvent;
 import tv.mineinthebox.bukkit.essentials.events.chat.PlayerIgnorePlayerChatEvent;
-import tv.mineinthebox.bukkit.essentials.events.chat.PublishMojangStatus;
+import tv.mineinthebox.bukkit.essentials.events.chat.PublishMojangStatusEvent;
 import tv.mineinthebox.bukkit.essentials.events.chat.SilenceChatEvent;
 import tv.mineinthebox.bukkit.essentials.events.elevators.ElevatorCreateEvent;
-import tv.mineinthebox.bukkit.essentials.events.elevators.ElevatorInteract;
-import tv.mineinthebox.bukkit.essentials.events.entity.ChunkProtection;
+import tv.mineinthebox.bukkit.essentials.events.elevators.ElevatorInteractEvent;
+import tv.mineinthebox.bukkit.essentials.events.entity.ChunkProtectionEvent;
 import tv.mineinthebox.bukkit.essentials.events.entity.CleanupUnloadedChunkEvent;
-import tv.mineinthebox.bukkit.essentials.events.entity.CustomZombieAggroRange;
-import tv.mineinthebox.bukkit.essentials.events.entity.DisableEndDragonGrief;
-import tv.mineinthebox.bukkit.essentials.events.entity.DisableEndermanGrief;
+import tv.mineinthebox.bukkit.essentials.events.entity.CustomZombieAggroRangeEvent;
+import tv.mineinthebox.bukkit.essentials.events.entity.DisableEndDragonGriefEvent;
+import tv.mineinthebox.bukkit.essentials.events.entity.DisableEndermanGriefEvent;
 import tv.mineinthebox.bukkit.essentials.events.entity.DisableExplosionEvent;
 import tv.mineinthebox.bukkit.essentials.events.entity.DisableFireSpreadEvent;
 import tv.mineinthebox.bukkit.essentials.events.entity.DisableFireworkEvent;
@@ -51,38 +51,39 @@ import tv.mineinthebox.bukkit.essentials.events.entity.DisableWeatherEvent;
 import tv.mineinthebox.bukkit.essentials.events.entity.DisableWitherGriefEvent;
 import tv.mineinthebox.bukkit.essentials.events.entity.EntityBleedEvent;
 import tv.mineinthebox.bukkit.essentials.events.entity.EntityPressurePlateInteractEvent;
-import tv.mineinthebox.bukkit.essentials.events.entity.EntitySpawnEventManager;
-import tv.mineinthebox.bukkit.essentials.events.entity.ExplosionRegen;
+import tv.mineinthebox.bukkit.essentials.events.entity.EntitySpawnEventManagerEvent;
+import tv.mineinthebox.bukkit.essentials.events.entity.ExplosionRegenEvent;
+import tv.mineinthebox.bukkit.essentials.events.entity.RealisticGlassEvent;
 import tv.mineinthebox.bukkit.essentials.events.entity.RealisticTreeEvent;
 import tv.mineinthebox.bukkit.essentials.events.entity.RealisticWaterEvent;
 import tv.mineinthebox.bukkit.essentials.events.entity.SpawnEggLogEvent;
 import tv.mineinthebox.bukkit.essentials.events.entity.StopLeavesDecayEvent;
 import tv.mineinthebox.bukkit.essentials.events.gates.GateBreakEvent;
 import tv.mineinthebox.bukkit.essentials.events.gates.GateCreateEvent;
-import tv.mineinthebox.bukkit.essentials.events.gates.GateGriefPrevention;
+import tv.mineinthebox.bukkit.essentials.events.gates.GateGriefPreventionEvent;
 import tv.mineinthebox.bukkit.essentials.events.gates.GateInteractEvent;
-import tv.mineinthebox.bukkit.essentials.events.gates.GateRedstone;
+import tv.mineinthebox.bukkit.essentials.events.gates.GateRedstoneEvent;
 import tv.mineinthebox.bukkit.essentials.events.gates.RemoveGateEvent;
 import tv.mineinthebox.bukkit.essentials.events.motd.MotdEvent;
 import tv.mineinthebox.bukkit.essentials.events.motd.MotdVanishEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.AchievementEvent;
-import tv.mineinthebox.bukkit.essentials.events.players.AfkChecks;
+import tv.mineinthebox.bukkit.essentials.events.players.AfkCheckEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.AntiKnockBackEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.AnvilResetEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.CommandRestrictEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.CompassEvent;
-import tv.mineinthebox.bukkit.essentials.events.players.DisablePortalCreation;
+import tv.mineinthebox.bukkit.essentials.events.players.DisablePortalCreationEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.DoubleJumpEvent;
-import tv.mineinthebox.bukkit.essentials.events.players.EntityUseHeadOnPlayerDeath;
+import tv.mineinthebox.bukkit.essentials.events.players.EntityUseHeadOnPlayerDeathEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.FakeNukeEvent;
-import tv.mineinthebox.bukkit.essentials.events.players.Firefly;
+import tv.mineinthebox.bukkit.essentials.events.players.FireflyEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.FirstJoinTeleportEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.FlyEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.FreezePlayerEvent;
-import tv.mineinthebox.bukkit.essentials.events.players.GameModeInvChange;
+import tv.mineinthebox.bukkit.essentials.events.players.GameModeInvChangeEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.HungerEvent;
-import tv.mineinthebox.bukkit.essentials.events.players.InventoryMenu;
-import tv.mineinthebox.bukkit.essentials.events.players.LoadMemory;
+import tv.mineinthebox.bukkit.essentials.events.players.InventoryMenuEvent;
+import tv.mineinthebox.bukkit.essentials.events.players.LoadMemoryEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.MobProcEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.ModreqJoinEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerCheckNameEvent;
@@ -90,23 +91,21 @@ import tv.mineinthebox.bukkit.essentials.events.players.PlayerDeathBackEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerFloorEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerForceRespawnEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerHoldItemsEvent;
-import tv.mineinthebox.bukkit.essentials.events.players.PlayerJoinMessage;
-import tv.mineinthebox.bukkit.essentials.events.players.PlayerQuitMessage;
-import tv.mineinthebox.bukkit.essentials.events.players.PlayerRespawnTeleport;
+import tv.mineinthebox.bukkit.essentials.events.players.PlayerJoinMessageEvent;
+import tv.mineinthebox.bukkit.essentials.events.players.PlayerQuitMessageEvent;
+import tv.mineinthebox.bukkit.essentials.events.players.PlayerRespawnTeleportEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerShootbowSoundEvent;
-import tv.mineinthebox.bukkit.essentials.events.players.PlayerTaskLogin;
+import tv.mineinthebox.bukkit.essentials.events.players.PlayerTaskLoginEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerWallEvent;
-import tv.mineinthebox.bukkit.essentials.events.players.PlayerZone;
+import tv.mineinthebox.bukkit.essentials.events.players.PlayerZoneEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PortalSizeEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PotatoMoveEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PowerToolEvent;
-import tv.mineinthebox.bukkit.essentials.events.players.RealisticGlass;
-import tv.mineinthebox.bukkit.essentials.events.players.RemoveMemory;
-import tv.mineinthebox.bukkit.essentials.events.players.SaveLastInventory;
-import tv.mineinthebox.bukkit.essentials.events.players.SaveLastLocation;
+import tv.mineinthebox.bukkit.essentials.events.players.RemoveMemoryEvent;
+import tv.mineinthebox.bukkit.essentials.events.players.SaveLastInventoryEvent;
+import tv.mineinthebox.bukkit.essentials.events.players.SaveLastLocationEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.SignEditEvent;
-import tv.mineinthebox.bukkit.essentials.events.players.StaffSafeTeleport;
-import tv.mineinthebox.bukkit.essentials.events.players.SteveHurtSound;
+import tv.mineinthebox.bukkit.essentials.events.players.StaffSafeTeleportEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.TeleportBackEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.TeleportEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.TorchEvent;
@@ -124,26 +123,26 @@ import tv.mineinthebox.bukkit.essentials.events.protection.ModifyProtectionEvent
 import tv.mineinthebox.bukkit.essentials.events.protection.RegisterProtectionEvent;
 import tv.mineinthebox.bukkit.essentials.events.protection.SignProtectedEvent;
 import tv.mineinthebox.bukkit.essentials.events.protection.UnregisterProtectionEvent;
-import tv.mineinthebox.bukkit.essentials.events.pvp.ClientSideGraveYard;
-import tv.mineinthebox.bukkit.essentials.events.pvp.ClientSideGraveYard_ProtocolLib;
+import tv.mineinthebox.bukkit.essentials.events.pvp.ClientSideGraveYardEvent;
+import tv.mineinthebox.bukkit.essentials.events.pvp.ClientSideGraveYard_ProtocolLibEvent;
 import tv.mineinthebox.bukkit.essentials.events.pvp.FakePvpEvent;
-import tv.mineinthebox.bukkit.essentials.events.pvp.KillBountys;
-import tv.mineinthebox.bukkit.essentials.events.pvp.NpcReplacePlayer;
+import tv.mineinthebox.bukkit.essentials.events.pvp.KillBountyEvent;
+import tv.mineinthebox.bukkit.essentials.events.pvp.NpcReplacePlayerEvent;
 import tv.mineinthebox.bukkit.essentials.events.pvp.PvpEvent;
 import tv.mineinthebox.bukkit.essentials.events.shops.SignAdminShopCreateEvent;
 import tv.mineinthebox.bukkit.essentials.events.shops.SignAdminShopOpenEvent;
 import tv.mineinthebox.bukkit.essentials.events.shops.SignNormalShopCreateEvent;
 import tv.mineinthebox.bukkit.essentials.events.shops.SignNormalShopOpenEvent;
 import tv.mineinthebox.bukkit.essentials.events.shops.SignShopBreakEvent;
-import tv.mineinthebox.bukkit.essentials.events.signs.ColorSign;
-import tv.mineinthebox.bukkit.essentials.events.signs.FireworkSign;
-import tv.mineinthebox.bukkit.essentials.events.signs.FreeSign;
-import tv.mineinthebox.bukkit.essentials.events.signs.GetYourHeadSign;
-import tv.mineinthebox.bukkit.essentials.events.signs.SignBoom;
-import tv.mineinthebox.bukkit.essentials.events.signs.WarpSign;
-import tv.mineinthebox.bukkit.essentials.events.signs.WildSign;
-import tv.mineinthebox.bukkit.essentials.events.vote.VoteCrateListener;
-import tv.mineinthebox.bukkit.essentials.events.vote.VoteMoneyListener;
+import tv.mineinthebox.bukkit.essentials.events.signs.ColorSignEvent;
+import tv.mineinthebox.bukkit.essentials.events.signs.FireworkSignEvent;
+import tv.mineinthebox.bukkit.essentials.events.signs.FreeSignEvent;
+import tv.mineinthebox.bukkit.essentials.events.signs.GetYourHeadSignEvent;
+import tv.mineinthebox.bukkit.essentials.events.signs.SignBoomEvent;
+import tv.mineinthebox.bukkit.essentials.events.signs.WarpSignEvent;
+import tv.mineinthebox.bukkit.essentials.events.signs.WildSignEvent;
+import tv.mineinthebox.bukkit.essentials.events.vote.VoteCrateEvent;
+import tv.mineinthebox.bukkit.essentials.events.vote.VoteMoneyEvent;
 import tv.mineinthebox.bukkit.essentials.hook.Hooks;
 
 public class Handler {
@@ -154,25 +153,24 @@ public class Handler {
 	 * @return void
 	 */
 
-	@SuppressWarnings("deprecation")
 	public void start() {
 		//memory system
-		setListener(new LoadMemory());
-		if(Hooks.isWorldGuardEnabled()) {setListener(new PlayerZone());}
+		setListener(new LoadMemoryEvent());
+		if(Hooks.isWorldGuardEnabled()) {setListener(new PlayerZoneEvent());}
 		setListener(new VanishEvent());
-		if(Configuration.getPlayerConfig().isSeperatedInventorysEnabled()) {setListener(new GameModeInvChange());}
+		if(Configuration.getPlayerConfig().isSeperatedInventorysEnabled()) {setListener(new GameModeInvChangeEvent());}
 		if(Configuration.getPlayerConfig().isSaveInventoryEnabled()) {
-			setListener(new SaveLastInventory());
+			setListener(new SaveLastInventoryEvent());
 		} else if(Configuration.getPvpConfig().isReplaceNpcEnabled()) {
-			setListener(new SaveLastInventory());
+			setListener(new SaveLastInventoryEvent());
 		}
 		if(Configuration.getChatConfig().isRssBroadcastEnabled()) {setListener(new BroadcastSiteNewsEvent());}
-		setListener(new SaveLastLocation());
+		setListener(new SaveLastLocationEvent());
 		setListener(new TorchEvent());
-		setListener(new Firefly());
+		setListener(new FireflyEvent());
 		setListener(new FlyEvent());
-		setListener(new PlayerJoinMessage());
-		setListener(new PlayerQuitMessage());
+		setListener(new PlayerJoinMessageEvent());
+		setListener(new PlayerQuitMessageEvent());
 		setListener(new ModreqJoinEvent());
 		if(Hooks.isProtocolLibEnabled()) {
 			MotdVanishEvent.initPacketListener();
@@ -180,21 +178,21 @@ public class Handler {
 			setListener(new MotdEvent());
 		}
 		//entity yml
-		setListener(new EntitySpawnEventManager());
+		setListener(new EntitySpawnEventManagerEvent());
 		if(Configuration.getEntityConfig().isRealisticWaterEnabled()) {setListener(new RealisticWaterEvent());}
 		if(Configuration.getEntityConfig().isStonePressurePlate()) {setListener(new EntityPressurePlateInteractEvent());}
 		if(Configuration.getEntityConfig().isCleanUpOnChunkUnloadEnabled()) {setListener(new CleanupUnloadedChunkEvent());}
-		if(Configuration.getEntityConfig().isChunkProtectionEnabled()) {setListener(new ChunkProtection());}
+		if(Configuration.getEntityConfig().isChunkProtectionEnabled()) {setListener(new ChunkProtectionEvent());}
 		if(Configuration.getEntityConfig().isWeatherDisabled()) {setListener(new DisableWeatherEvent());}
 		if(Configuration.getEntityConfig().isFireSpreadDisabled()) {setListener(new DisableFireSpreadEvent());}
 		if(Configuration.getEntityConfig().isExplosionsDisabled()) {setListener(new DisableExplosionEvent());}
 		if(Configuration.getEntityConfig().isFireworksDisabled()) {setListener(new DisableFireworkEvent());}
 		if(Configuration.getEntityConfig().isWitherGriefDisabled()) {setListener(new DisableWitherGriefEvent());}
-		if(Configuration.getEntityConfig().isEnderManGriefDisabled()) {setListener(new DisableEndermanGrief());}
-		if(Configuration.getEntityConfig().isEnderDragonGriefDisabled()) {setListener(new DisableEndDragonGrief());}
-		if(Configuration.getEntityConfig().isCustomZombieAggroRangeEnabled()) {setListener(new CustomZombieAggroRange());}
+		if(Configuration.getEntityConfig().isEnderManGriefDisabled()) {setListener(new DisableEndermanGriefEvent());}
+		if(Configuration.getEntityConfig().isEnderDragonGriefDisabled()) {setListener(new DisableEndDragonGriefEvent());}
+		if(Configuration.getEntityConfig().isCustomZombieAggroRangeEnabled()) {setListener(new CustomZombieAggroRangeEvent());}
 		if(Configuration.getEntityConfig().isLoggingSpawnEggsEnabled()) {setListener(new SpawnEggLogEvent());}
-		if(Configuration.getEntityConfig().isExplosionRegenEnabled()) {setListener(new ExplosionRegen());}
+		if(Configuration.getEntityConfig().isExplosionRegenEnabled()) {setListener(new ExplosionRegenEvent());}
 		if(Configuration.getEntityConfig().isBloodEnabled()) {setListener(new EntityBleedEvent());}
 		//chat.yml
 		if(Configuration.getChatConfig().isSwearFilterEnabled()) {
@@ -203,7 +201,7 @@ public class Handler {
 		setListener(new DrunkChatEvent());
 		setListener(new SilenceChatEvent());
 		setListener(new PlayerIgnorePlayerChatEvent());
-		if(Configuration.getChatConfig().isMojangStatusEnabled()) {setListener(new PublishMojangStatus());}
+		if(Configuration.getChatConfig().isMojangStatusEnabled()) {setListener(new PublishMojangStatusEvent());}
 		if(Configuration.getChatConfig().isChatHighLightEnabled()) {setListener(new ChatHighLightEvent());}
 		if(Configuration.getChatConfig().isSmilleysEnabled()) {setListener(new ChatSmilleyEvent());}
 		if(Configuration.getChatConfig().isAntiAdvertiseEnabled()) {setListener(new AntiAddvertiseEvent());}
@@ -218,32 +216,31 @@ public class Handler {
 		setListener(new CommandRestrictEvent());
 		setListener(new TrollModeEvent());
 		setListener(new FreezePlayerEvent());
-		setListener(new InventoryMenu());
+		setListener(new InventoryMenuEvent());
 		setListener(new CompassEvent());
 		setListener(new FakeNukeEvent());
 		setListener(new PowerToolEvent());
-		setListener(new PlayerTaskLogin());
-		setListener(new StaffSafeTeleport());
+		setListener(new PlayerTaskLoginEvent());
+		setListener(new StaffSafeTeleportEvent());
 		setListener(new PlayerDeathBackEvent());
 		setListener(new TeleportBackEvent());
-		setListener(new PlayerRespawnTeleport());
+		setListener(new PlayerRespawnTeleportEvent());
 		setListener(new PotatoMoveEvent());
 		setListener(new TeleportEvent());
-		setListener(new AfkChecks());
+		setListener(new AfkCheckEvent());
 		setListener(new PlayerCheckNameEvent());
 		setListener(new PlayerFloorEvent());
 		setListener(new PlayerWallEvent());
 		setListener(new DoubleJumpEvent());
 		if(Configuration.getPlayerConfig().isCustomPortalSizeDisabled()) {setListener(new PortalSizeEvent());}
-		if(Configuration.getPlayerConfig().isPortalsDisabled()) {setListener(new DisablePortalCreation());}
+		if(Configuration.getPlayerConfig().isPortalsDisabled()) {setListener(new DisablePortalCreationEvent());}
 		if(Configuration.getPlayerConfig().isHungerCancelled()) {setListener(new HungerEvent());}
 		if(Configuration.getPlayerConfig().isKeepInventoryOnDeathEnabled()) {setListener(new PlayerHoldItemsEvent());}
-		if(Configuration.getPlayerConfig().isSteveHurtSoundEnabled()) {setListener(new SteveHurtSound());}
-		if(Configuration.getPlayerConfig().isCanEntityStealHatOnPlayersDeath()) {setListener(new EntityUseHeadOnPlayerDeath());}
+		if(Configuration.getPlayerConfig().isCanEntityStealHatOnPlayersDeath()) {setListener(new EntityUseHeadOnPlayerDeathEvent());}
 		if(!Configuration.getPlayerConfig().isBroadcastAchievementsEnabled()) {setListener(new AchievementEvent());}
 		if(Configuration.getEntityConfig().isLeaveDecayDisabled()) {setListener(new StopLeavesDecayEvent());}
 		if(Configuration.getEntityConfig().isRealisticGlassEnabled()) {
-			RealisticGlass glass = new RealisticGlass();
+			RealisticGlassEvent glass = new RealisticGlassEvent();
 			setListener(glass);
 			glass.startRegen();
 		}
@@ -254,13 +251,13 @@ public class Handler {
 		if(Configuration.getPvpConfig().isPvpDisabled()) {setListener(new PvpEvent());}
 		if(Configuration.getPvpConfig().isClientGravesEnabled()) {
 			if(Hooks.isProtocolLibEnabled()) {
-				setListener(new ClientSideGraveYard_ProtocolLib());
+				setListener(new ClientSideGraveYard_ProtocolLibEvent());
 			} else {
-				setListener(new ClientSideGraveYard());
+				setListener(new ClientSideGraveYardEvent());
 			}
 		}
-		if(Configuration.getPvpConfig().isKillBountyEnabled()) {setListener(new KillBountys());}
-		if(Configuration.getPvpConfig().isReplaceNpcEnabled()) { setListener(new NpcReplacePlayer()); }
+		if(Configuration.getPvpConfig().isKillBountyEnabled()) {setListener(new KillBountyEvent());}
+		if(Configuration.getPvpConfig().isReplaceNpcEnabled()) { setListener(new NpcReplacePlayerEvent()); }
 		//ban.yml
 		if(Configuration.getBanConfig().isPwnAgeEnabled()) {setListener(new PwnAgeProtectionEvent());}
 		if(Configuration.getBanConfig().isFloodSpamEnabled()) {setListener(new FloodSpamEvent());}
@@ -268,28 +265,28 @@ public class Handler {
 			setListener(new HumanSpamEvent());
 			setListener(new HumanSpamCommandEvent());
 		}
-		if(Configuration.getBanConfig().isAlternateAccountsEnabled()) {setListener(new ShowAlternateAccounts());}
+		if(Configuration.getBanConfig().isAlternateAccountsEnabled()) {setListener(new ShowAlternateAccountsEvent());}
 		//signs
 		if(Configuration.getSignConfig().isColorSignEnabled()) {
-			setListener(new ColorSign());	
+			setListener(new ColorSignEvent());	
 		}
 		if(Configuration.getSignConfig().isFreeSignEnabled()) {
-			setListener(new FreeSign());	
+			setListener(new FreeSignEvent());	
 		}
 		if(Configuration.getSignConfig().isFireworkSignEnabled()) {
-			setListener(new FireworkSign());	
+			setListener(new FireworkSignEvent());	
 		}
 		if(Configuration.getSignConfig().isBoomSignEnabled()) {
-			setListener(new SignBoom());	
+			setListener(new SignBoomEvent());	
 		}
 		if(Configuration.getSignConfig().isGetYourHeadSignEnabled()) {
-			setListener(new GetYourHeadSign());	
+			setListener(new GetYourHeadSignEvent());	
 		}
 		if(Configuration.getSignConfig().isWarpSignEnabled()) {
-			setListener(new WarpSign());	
+			setListener(new WarpSignEvent());	
 		}
 		if(Configuration.getSignConfig().isWildSignEnabled()) {
-			setListener(new WildSign());	
+			setListener(new WildSignEvent());	
 		}
 		if(Configuration.getShopConfig().isShopsEnabled()) {
 			setListener(new SignAdminShopCreateEvent());
@@ -300,7 +297,7 @@ public class Handler {
 		}
 		
 		//block events
-		if(Configuration.getBlockConfig().isNotifyOnBreakEnabled()) {setListener(new NotifyAdminOnBlockBreak());}
+		if(Configuration.getBlockConfig().isNotifyOnBreakEnabled()) {setListener(new NotifyAdminOnBlockBreakEvent());}
 		if(Configuration.getBlockConfig().isBedrockBreakDisabled()) {setListener(new BedrockBreakEvent());}
 		if(Configuration.getBlockConfig().isBedrockPlaceDisabled()) {setListener(new BedrockPlaceEvent());}
 		if(Configuration.getBlockConfig().isNotifyOnConsumeEnabled()) {setListener(new NotifyItemUseEvent());}
@@ -338,9 +335,9 @@ public class Handler {
 			setListener(new GateInteractEvent());
 			setListener(new GateBreakEvent());
 			setListener(new RemoveGateEvent());
-			setListener(new GateGriefPrevention());
+			setListener(new GateGriefPreventionEvent());
 			if(Configuration.getMiscConfig().isGateRedstoneEnabled()) {
-				setListener(new GateRedstone());
+				setListener(new GateRedstoneEvent());
 			}
 		}
 		
@@ -349,21 +346,21 @@ public class Handler {
 			setListener(new BridgeCreateEvent());
 			setListener(new BridgeInteractEvent());
 			setListener(new BridgeBreakEvent());
-			setListener(new BridgeGriefPrevention());
+			setListener(new BridgeGriefPreventionEvent());
 			setListener(new RemoveBridgeEvent());
 		}
 		
 		//elevator events
 		if(Configuration.getMiscConfig().isElevatorsEnabled()) {
 			setListener(new ElevatorCreateEvent());
-			setListener(new ElevatorInteract());
+			setListener(new ElevatorInteractEvent());
 		}
 		
 		//chair events
 		if(Configuration.getMiscConfig().isChairsEnabled()) {
-			setListener(new PlayerSitOnChair());
+			setListener(new PlayerSitOnChairEvent());
 			if(Configuration.getMiscConfig().isChairMonsterOff()) {
-				setListener(new ChairDisableMonster());
+				setListener(new ChairDisableMonsterEvent());
 			}
 		}
 		
@@ -373,11 +370,11 @@ public class Handler {
 		
 		//vote
 		if(Configuration.getVoteConfig().isVoteEnabled() && Hooks.isVotifierEnabled()) {
-			if(Configuration.getVoteConfig().isMoneyRewardEnabled() && Hooks.isVaultEnabled()) {setListener(new VoteMoneyListener());}
-			if(Configuration.getVoteConfig().isRewardCrateEnabled() && Hooks.isManCoEnabled()) {setListener(new VoteCrateListener());}
+			if(Configuration.getVoteConfig().isMoneyRewardEnabled() && Hooks.isVaultEnabled()) {setListener(new VoteMoneyEvent());}
+			if(Configuration.getVoteConfig().isRewardCrateEnabled() && Hooks.isManCoEnabled()) {setListener(new VoteCrateEvent());}
 		}
 			
-		setListener(new RemoveMemory());
+		setListener(new RemoveMemoryEvent());
 	}
 
 	/**

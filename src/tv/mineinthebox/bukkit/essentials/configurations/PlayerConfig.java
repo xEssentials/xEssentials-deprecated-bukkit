@@ -37,17 +37,6 @@ public class PlayerConfig {
 	
 	/**
 	 * @author xize
-	 * @param when enabled players will hear a steve hurt sound from minecraft classic note that in 1.7.2 this sound has been removed, mojang may plans again to readd it according their tweets.
-	 * @return boolean
-	 * @deprecated
-	 */
-	public boolean isSteveHurtSoundEnabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.PLAYER, "steve-hurt-sound");
-		return bol;
-	}
-	
-	/**
-	 * @author xize
 	 * @param when true the hunger is cancelled
 	 * @return Boolean
 	 */
