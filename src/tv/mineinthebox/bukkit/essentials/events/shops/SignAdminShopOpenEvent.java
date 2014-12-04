@@ -13,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -55,9 +56,9 @@ public class SignAdminShopOpenEvent implements Listener {
 									return;
 								}
 							}
-							Inventory inv = Bukkit.createInventory(null, 36, ChatColor.stripColor(sign.getLine(0)) + " | buy");
+							Inventory inv = Bukkit.createInventory(null, InventoryType.PLAYER, ChatColor.stripColor(sign.getLine(0)) + " | buy");
 							String[] items = sign.getLine(3).split(":");
-							ItemStack item = new ItemStack(Material.getMaterial(items[0].toUpperCase()), Integer.parseInt(sign.getLine(1)));
+							ItemStack item = new ItemStack(Material.getMaterial(items[0].toUpperCase().replaceAll(" ", "_")), Integer.parseInt(sign.getLine(1)));
 							if(items.length > 1) {
 								item.setDurability((short)Short.parseShort(items[1]));	
 							}
@@ -85,7 +86,7 @@ public class SignAdminShopOpenEvent implements Listener {
 							if(sign.getLine(2).contains("s") || sign.getLine(2).contains("S")) {
 
 								String[] items = sign.getLine(3).split(":");
-								Material data = Material.getMaterial(items[0].toUpperCase());
+								Material data = Material.getMaterial(items[0].toUpperCase().replaceAll(" ", "_"));
 								Short subdata;
 								if(items.length > 1) {
 									subdata = Short.parseShort(items[1]);
