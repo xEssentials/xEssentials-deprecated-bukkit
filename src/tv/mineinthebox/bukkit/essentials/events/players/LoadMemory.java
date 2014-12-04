@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.LogType;
-import tv.mineinthebox.bukkit.essentials.instances.MojangUUID;
+import tv.mineinthebox.bukkit.essentials.helpers.MojangUUID;
 import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
 
 public class LoadMemory implements Listener {
