@@ -368,6 +368,7 @@ public class Configuration {
 				con.set("disable-wither-grief", false);
 				con.set("disable-enderman-grief", false);
 				con.set("disable-enderdragon-grief", false);
+				con.set("disable-leave-decay", false);
 				con.set("regen-explosions", false);
 				con.set("zombie-custom-aggro.enable", false);
 				con.set("zombie-custom-aggro.range", 10);
@@ -708,6 +709,7 @@ public class Configuration {
 				hash.put("disableWitherGrief", con.getBoolean("disable-wither-grief"));
 				hash.put("disableEndermanGrief", con.getBoolean("disable-enderman-grief"));
 				hash.put("disableEnderdragonGrief", con.getBoolean("disable-enderdragon-grief"));
+				hash.put("disableleavedecay", con.getBoolean("disable-leave-decay"));
 				hash.put("regen", con.getBoolean("regen-explosions"));
 				hash.put("zombieCustomAggroEnable", con.getBoolean("zombie-custom-aggro.enable"));
 				hash.put("zombieCustomAggroRange", con.getInt("zombie-custom-aggro.range"));

@@ -56,6 +56,7 @@ import tv.mineinthebox.bukkit.essentials.events.entity.ExplosionRegen;
 import tv.mineinthebox.bukkit.essentials.events.entity.RealisticTreeEvent;
 import tv.mineinthebox.bukkit.essentials.events.entity.RealisticWaterEvent;
 import tv.mineinthebox.bukkit.essentials.events.entity.SpawnEggLogEvent;
+import tv.mineinthebox.bukkit.essentials.events.entity.StopLeavesDecayEvent;
 import tv.mineinthebox.bukkit.essentials.events.gates.GateBreakEvent;
 import tv.mineinthebox.bukkit.essentials.events.gates.GateCreateEvent;
 import tv.mineinthebox.bukkit.essentials.events.gates.GateGriefPrevention;
@@ -240,6 +241,7 @@ public class Handler {
 		if(Configuration.getPlayerConfig().isSteveHurtSoundEnabled()) {setListener(new SteveHurtSound());}
 		if(Configuration.getPlayerConfig().isCanEntityStealHatOnPlayersDeath()) {setListener(new EntityUseHeadOnPlayerDeath());}
 		if(!Configuration.getPlayerConfig().isBroadcastAchievementsEnabled()) {setListener(new AchievementEvent());}
+		if(Configuration.getEntityConfig().isLeaveDecayDisabled()) {setListener(new StopLeavesDecayEvent());}
 		if(Configuration.getEntityConfig().isRealisticGlassEnabled()) {
 			RealisticGlass glass = new RealisticGlass();
 			setListener(glass);

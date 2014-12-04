@@ -20,6 +20,9 @@ public class RealisticTreeEvent implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onLeaveDecay(LeavesDecayEvent e) {
+		if(e.isCancelled()) {
+			return;
+		}
 		byte sub = e.getBlock().getData();
 		Material mat = e.getBlock().getType();
 		FallingBlock fall = e.getBlock().getWorld().spawnFallingBlock(e.getBlock().getLocation(), mat.getId(), sub);

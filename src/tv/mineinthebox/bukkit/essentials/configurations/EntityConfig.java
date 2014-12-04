@@ -40,6 +40,15 @@ public class EntityConfig {
 
 	/**
 	 * @author xize
+	 * @param returns true if the leave decay is disabled
+	 * @return boolean
+	 */
+	public boolean isLeaveDecayDisabled() {
+		return (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "disableleavedecay");
+	}
+	
+	/**
+	 * @author xize
 	 * @param returns true when explosions are disabled
 	 * @return boolean
 	 */
