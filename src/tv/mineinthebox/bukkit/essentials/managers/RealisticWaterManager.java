@@ -17,7 +17,6 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.enums.ParticleEffect;
 import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
 
 public class RealisticWaterManager {
@@ -51,7 +50,7 @@ public class RealisticWaterManager {
 								Block[] water = getWaterBlocks(p);
 								if(water.length > 16) {
 									Block b = water[rand.nextInt(water.length)];
-									ParticleEffect.SPLASH.display(b.getLocation().getBlock().getRelative(BlockFace.UP).getLocation(), 5, 2, 5, 100, 10);
+									//ParticleEffect.SPLASH.display(b.getLocation().getBlock().getRelative(BlockFace.UP).getLocation(), 5, 2, 5, 100, 10);
 									Location loc = b.getLocation();
 									int y = rand.nextInt(4);
 									loc.setY(loc.getY()+(y > 0 ? y : 4));
