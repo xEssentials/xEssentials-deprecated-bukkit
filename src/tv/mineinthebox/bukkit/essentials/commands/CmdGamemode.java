@@ -43,7 +43,7 @@ public class CmdGamemode {
 					if(sender instanceof Player) {
 						if(sender.hasPermission(PermissionKey.CMD_GAMEMODE.getPermission())) {
 							Player p = (Player) sender;
-							if(args[0].equalsIgnoreCase("s")) {
+							if(args[0].equalsIgnoreCase("s") || args[0].equalsIgnoreCase("0")) {
 								if(p.getGameMode() != GameMode.SURVIVAL) {
 									p.setGameMode(GameMode.SURVIVAL);
 									if(Hooks.isWorldeditEnabled()) {
@@ -53,27 +53,7 @@ public class CmdGamemode {
 								} else {
 									sender.sendMessage(ChatColor.RED + "you are already set in this gamemode");
 								}
-							} else if(args[0].equalsIgnoreCase("0")) {
-								if(p.getGameMode() != GameMode.SURVIVAL) {
-									p.setGameMode(GameMode.SURVIVAL);
-									if(Hooks.isWorldeditEnabled()) {
-										WorldEditHook.turnOffWand(p);
-									}
-									sender.sendMessage(ChatColor.GREEN + "you successfully set your gamemode to survival!");
-								} else {
-									sender.sendMessage(ChatColor.RED + "you are already set in this gamemode");
-								}
-							} else if(args[0].equalsIgnoreCase("c")) {
-								if(p.getGameMode() != GameMode.CREATIVE) {
-									p.setGameMode(GameMode.CREATIVE);
-									if(Hooks.isWorldeditEnabled()) {
-										WorldEditHook.turnOffWand(p);
-									}
-									sender.sendMessage(ChatColor.GREEN + "you successfully set your gamemode to creative!");
-								} else {
-									sender.sendMessage(ChatColor.RED + "you are already set in this gamemode");
-								}
-							} else if(args[0].equalsIgnoreCase("1")) {
+							} else if(args[0].equalsIgnoreCase("c") || args[0].equalsIgnoreCase("1")) {
 								if(p.getGameMode() != GameMode.CREATIVE) {
 									p.setGameMode(GameMode.CREATIVE);
 									if(Hooks.isWorldeditEnabled()) {
@@ -101,7 +81,7 @@ public class CmdGamemode {
 				if(sender.hasPermission(PermissionKey.CMD_GAMEMODE.getPermission())) {
 					Player p = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]).getPlayer();
 					if(p instanceof Player) {
-						if(args[0].equalsIgnoreCase("s")) {
+						if(args[0].equalsIgnoreCase("s") || args[0].equalsIgnoreCase("0")) {
 							if(p.getGameMode() != GameMode.SURVIVAL) {
 								p.setGameMode(GameMode.SURVIVAL);
 								if(Hooks.isWorldeditEnabled()) {
@@ -112,29 +92,7 @@ public class CmdGamemode {
 							} else {
 								sender.sendMessage(ChatColor.RED + "the player is already set in this gamemode");
 							}
-						} else if(args[0].equalsIgnoreCase("0")) {
-							if(p.getGameMode() != GameMode.SURVIVAL) {
-								p.setGameMode(GameMode.SURVIVAL);
-								if(Hooks.isWorldeditEnabled()) {
-									WorldEditHook.turnOffWand(p);
-								}
-								p.sendMessage(ChatColor.GREEN + sender.getName() + " has set your gamemode to survival!");
-								sender.sendMessage(ChatColor.GREEN + "you successfully set the gamemode to survival for player " + p.getName() + "!");
-							} else {
-								sender.sendMessage(ChatColor.RED + "the player is already set in this gamemode");
-							}
-						} else if(args[0].equalsIgnoreCase("c")) {
-							if(p.getGameMode() != GameMode.CREATIVE) {
-								p.setGameMode(GameMode.CREATIVE);
-								if(Hooks.isWorldeditEnabled()) {
-									WorldEditHook.turnOffWand(p);
-								}
-								p.sendMessage(ChatColor.GREEN + sender.getName() + " has set your gamemode to creative!");
-								sender.sendMessage(ChatColor.GREEN + "you successfully set the gamemode to creative for player " + p.getName() + "!");
-							} else {
-								sender.sendMessage(ChatColor.RED + "the player is already set in this gamemode");
-							}
-						} else if(args[0].equalsIgnoreCase("1")) {
+						} else if(args[0].equalsIgnoreCase("c") || args[0].equalsIgnoreCase("1")) {
 							if(p.getGameMode() != GameMode.CREATIVE) {
 								p.setGameMode(GameMode.CREATIVE);
 								if(Hooks.isWorldeditEnabled()) {
