@@ -1,7 +1,0 @@
-Helper objects.
-
-this package is used for Helper objects only, this package is ment to add more compatability for newer and or older versions of bukkit aslong we could maintain it.
-
-this package will contain various methods or hacky solutions to work around the issues as we've found.
-some of these helper objects use reflection to bypass the compilation and instead inject new code in runtime-
-in order the plugin still works on older versions while it is compiled with the latest version of bukkit.
