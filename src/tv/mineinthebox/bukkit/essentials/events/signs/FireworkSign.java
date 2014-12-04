@@ -19,6 +19,9 @@ import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.inventory.meta.FireworkMeta;
 
+import tv.mineinthebox.bukkit.essentials.Configuration;
+import tv.mineinthebox.bukkit.essentials.xEssentials;
+import tv.mineinthebox.bukkit.essentials.enums.LogType;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 
 public class FireworkSign implements Listener {
@@ -58,9 +61,15 @@ public class FireworkSign implements Listener {
 	@EventHandler
 	public void redstone(BlockRedstoneEvent e) {
 		if(e.getBlock().getType() == Material.SIGN_POST) {
+			if(Configuration.getDebugConfig().isEnabled()) {
+				xEssentials.getPlugin().log("a sign has been powered by redstone", LogType.DEBUG);
+			}
 			if(e.getNewCurrent() > 0) {
 				Sign sign = (Sign) e.getBlock().getState();
 				if(sign.getLine(0).contains("[Firework]") || sign.getLine(0).contains("[firework]")) {
+					if(Configuration.getDebugConfig().isEnabled()) {
+						xEssentials.getPlugin().log("sign is a firework sign", LogType.DEBUG);
+					}
 					for(DyeColor colour : DyeColor.values()) {
 						colours.put(colour.name(), colour.name());
 					}
