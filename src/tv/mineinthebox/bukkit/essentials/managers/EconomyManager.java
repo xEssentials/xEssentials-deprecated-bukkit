@@ -1,12 +1,6 @@
 package tv.mineinthebox.bukkit.essentials.managers;
 
-import java.io.File;
-
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.Bank;
 import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
 import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
 
@@ -79,65 +73,6 @@ public class EconomyManager {
 			}
 		} else {
 			throw new NullPointerException("this player has never played before!");
-		}
-	}
-	
-	/**
-	 * @author xize
-	 * @param bank - the bank account
-	 * @param p - the player
-	 */
-	public void createBank(String bank, String playername) {
-		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "banks" + File.separator + bank.toLowerCase() + ".yml");
-			if(!f.exists()) {
-				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-				con.set("bank.owner", playername);
-				con.set("bank.name", bank);
-				con.set("bank.amount", 0.0);
-				con.save(f);
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * @author xize
-	 * @param returns true whenever the bank account is found!
-	 * @param name - the banks name
-	 * @return Boolean
-	 */
-	public boolean isBank(String name) {
-		File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "banks" + File.separator + name.toLowerCase() + ".yml");
-		return f.exists();
-	}
-
-	/**
-	 * @author xize
-	 * @param returns the Bank object.
-	 * @param name - the banks account
-	 * @return Bank
-	 * @throws NullPointerException - when the name doesn't exist
-	 */
-	public Bank getBank(String name) {
-		if(isBank(name)) {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "banks" + File.separator + name.toLowerCase()+".yml");
-			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-			Bank bank = new Bank(f, con);
-			return bank;
-		}
-		throw new NullPointerException("bank does not exist with that name!");
-	}
-
-	/**
-	 * @author xize
-	 * @param bank - the bank name
-	 */
-	public void deleteBank(String bank) {
-		File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "banks" + File.separator + bank.toLowerCase()+".yml");
-		if(f.exists()) {
-			f.delete();
 		}
 	}
 

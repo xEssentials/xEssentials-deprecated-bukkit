@@ -139,48 +139,19 @@ public class VaultEcoHandler implements Economy, Listener {
 
 	    @Override
 	    public EconomyResponse createBank(String bank, String player) {
-	    	if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(player)) {
-	    		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(player);
-	    		if(xEssentials.getManagers().getEcoManager().isBank(bank)) {
-	    			return new EconomyResponse(0, xp.getTotalEssentialsMoney(), ResponseType.FAILURE, "That account already exists.");
-	    		} else {
-	    			xEssentials.getManagers().getEcoManager().createBank(bank, player);
-	    			return new EconomyResponse(0,0,ResponseType.SUCCESS, null);
-	    		}
-	    	} else {
-	    		xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(player);
-	    		if(xEssentials.getManagers().getEcoManager().isBank(bank)) {
-	    			return new EconomyResponse(0, off.getTotalEssentialsMoney(), ResponseType.FAILURE, "That account already exists.");
-	    		} else {
-	    			xEssentials.getManagers().getEcoManager().createBank(bank, player);
-	    			return new EconomyResponse(0,0,ResponseType.SUCCESS, null);
-	    		}
-	    	}
+	    	 throw new UnsupportedOperationException("xEssentials economy does not support banks");
 	    }
 
 
 	    @Override
 	    public EconomyResponse deleteBank(String bank) {
-	        if (xEssentials.getManagers().getEcoManager().isBank(bank)) {
-	            Bank banka = xEssentials.getManagers().getEcoManager().getBank(bank);
-	            banka.remove();
-	            return new EconomyResponse(0, 0, ResponseType.SUCCESS, "");
-	        }
-	        return new EconomyResponse(0, 0, ResponseType.FAILURE, "That bank account does not exist.");
+	        throw new UnsupportedOperationException("xEssentials economy does not support banks");
 	    }
 
 
 	    @Override
 	    public EconomyResponse bankHas(String bank, double amount) {
-	    	if(xEssentials.getManagers().getEcoManager().isBank(bank)) {
-	    		Bank banka = xEssentials.getManagers().getEcoManager().getBank(bank);
-	    		if(banka.getAmount() >= amount) {
-	    			 return new EconomyResponse(0, amount, ResponseType.SUCCESS, "");
-	    		} else {
-	    			 return new EconomyResponse(0, banka.getAmount(), ResponseType.FAILURE, "The accoount does not have enough!");
-	    		}
-	    	}
-	    	return new EconomyResponse(0, 0, ResponseType.FAILURE, "The accoount does not exist!");
+	    	throw new UnsupportedOperationException("xEssentials economy does not support banks");
 	    }
 
 
@@ -218,12 +189,7 @@ public class VaultEcoHandler implements Economy, Listener {
 
 	    @Override
 	    public EconomyResponse bankBalance(String bank) {
-	        if (!xEssentials.getManagers().getEcoManager().isBank(bank)) {
-	            return new EconomyResponse(0, 0, ResponseType.FAILURE, "There is no bank account with that name");
-	        } else {
-	            Bank banka = xEssentials.getManagers().getEcoManager().getBank(bank);
-	        	return new EconomyResponse(0, banka.getAmount(), ResponseType.SUCCESS, null);
-	        }
+	    	throw new UnsupportedOperationException("xEssentials economy does not support banks");
 	    }
 
 
