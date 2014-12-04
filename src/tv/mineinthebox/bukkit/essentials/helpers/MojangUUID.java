@@ -1,4 +1,4 @@
-package tv.mineinthebox.bukkit.essentials.instances;
+package tv.mineinthebox.bukkit.essentials.helpers;
 
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;

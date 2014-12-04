@@ -1,9 +1,6 @@
 package tv.mineinthebox.bukkit.essentials;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -18,6 +15,7 @@ import tv.mineinthebox.bukkit.essentials.commands.SimpleCommand;
 import tv.mineinthebox.bukkit.essentials.enums.LogType;
 import tv.mineinthebox.bukkit.essentials.events.CustomEventHandler;
 import tv.mineinthebox.bukkit.essentials.events.Handler;
+import tv.mineinthebox.bukkit.essentials.helpers.OnlinePlayersHelper;
 import tv.mineinthebox.bukkit.essentials.hook.Hooks;
 import tv.mineinthebox.bukkit.essentials.managers.Manager;
 
@@ -166,26 +164,8 @@ public class xEssentials extends JavaPlugin {
 	 * @throws IllegalAccessException 
 	 * @throws IllegalArgumentException 
 	 */
-	@SuppressWarnings("unchecked")
 	public static Player[] getOnlinePlayers() {
-		try {
-			Method check = Bukkit.class.getMethod("getOnlinePlayers", new Class<?>[0]);
-			if(check.getReturnType() == Player[].class) {
-				return (Player[])check.invoke(null, new Object[0]);	
-			} else if(check.getReturnType() == List.class || check.getReturnType() == Collection.class) {
-				Collection<Player> players = (Collection<Player>) check.invoke(null, new Object[0]);
-				Player[] ps = new Player[(players.size())];
-				int i = 0;
-				for(Player p : players) {
-					ps[i] = p;
-					i++;
-				}
-				return ps;
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		throw new NullPointerException("a fatal error has been occuried, please restart your server.");
+		return OnlinePlayersHelper.getOnlinePlayers();
 	}
 
 	@Override

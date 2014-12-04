@@ -1,9 +1,6 @@
 package tv.mineinthebox.bukkit.essentials;
 
 import java.io.File;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -20,10 +17,8 @@ import org.bukkit.configuration.file.FileConfigurationOptions;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 
 import tv.mineinthebox.bukkit.essentials.commands.CommandList;
-import tv.mineinthebox.bukkit.essentials.commands.SimpleCommand;
 import tv.mineinthebox.bukkit.essentials.configurations.BanConfig;
 import tv.mineinthebox.bukkit.essentials.configurations.BlockConfig;
 import tv.mineinthebox.bukkit.essentials.configurations.BroadcastConfig;
@@ -48,6 +43,7 @@ import tv.mineinthebox.bukkit.essentials.enums.ConfigType;
 import tv.mineinthebox.bukkit.essentials.enums.LogType;
 import tv.mineinthebox.bukkit.essentials.events.CustomEventHandler;
 import tv.mineinthebox.bukkit.essentials.events.Handler;
+import tv.mineinthebox.bukkit.essentials.helpers.CommandHelper;
 import tv.mineinthebox.bukkit.essentials.instances.Kit;
 
 public class Configuration {
@@ -55,7 +51,7 @@ public class Configuration {
 	//this will be the configs loaded in the memory
 	//this will used by events and in events without instancing every time a new object this will be painfully awful in PlayerMoveEvent.
 	private final static EnumMap<ConfigType, HashMap<String, Object>> configure = new EnumMap<ConfigType, HashMap<String, Object>>(ConfigType.class);
-	
+
 	private static BanConfig banconfig;
 	private static BlockConfig blockconfig;
 	private static BroadcastConfig broadcastconfig;
@@ -135,7 +131,7 @@ public class Configuration {
 	private String serialize_name(String mob) {
 		return mob.toString().toLowerCase();
 	}
-	
+
 	private void createDebugConfig() {
 		try {
 			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "debug.yml");
@@ -150,7 +146,7 @@ public class Configuration {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void createVoteConfig() {
 		try {
 			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "vote.yml");
@@ -378,9 +374,9 @@ public class Configuration {
 				con.set("disable-spawneggs", false);
 				con.set("log.spawnEggs", false);
 				con.set("realistic-blood", false);
-	            con.set("realistic-trees", false);
-	        	con.set("realistic-water", false);
-	        	con.set("realistic-glass", false);
+				con.set("realistic-trees", false);
+				con.set("realistic-water", false);
+				con.set("realistic-glass", false);
 				con.set("cleanup-on-chunkunload", false);
 				con.set("remove-flying-projectiles-on-chunkload", false);
 				con.set("disable-stone-pressureplates-for-mobs", false);
@@ -1318,7 +1314,7 @@ public class Configuration {
 			return signconfig;
 		}
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param returns the full memory configuration for votes
@@ -1332,7 +1328,7 @@ public class Configuration {
 			return voteconfig;
 		}
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param returns the debug configuration
@@ -1342,8 +1338,8 @@ public class Configuration {
 		if(debugconfig instanceof DebugConfig) {
 			return debugconfig;
 		} else {
-		    debugconfig = new DebugConfig();
-		    return debugconfig;
+			debugconfig = new DebugConfig();
+			return debugconfig;
 		}
 	}
 
@@ -1397,7 +1393,6 @@ public class Configuration {
 	 * @param handles the commands, for disable, enable
 	 * @param this manager manages automaticly the commands defined in the commands.yml
 	 */
-	@SuppressWarnings("unchecked")
 	public static void HandleCommandManager() {
 		CommandList cmdlist = new CommandList();
 		List<String> unregCommands = new ArrayList<String>(Configuration.getCommandConfig().getUnregisteredCommands());
@@ -1416,27 +1411,8 @@ public class Configuration {
 
 		for(String cmd : cmdlist.getAllCommands) {			
 			if(!unregCommands.contains(cmd) && !Configuration.getCommandConfig().isRegistered(cmd)) {
-				try{
-					//forcibly make a new PluginCommand object
-					Class<?> clazz = Class.forName("org.bukkit.command.PluginCommand");
-					Constructor<?> constructor = clazz.getDeclaredConstructor(String.class, Plugin.class);
-					constructor.setAccessible(true);
-					Field mf = Constructor.class.getDeclaredField("modifiers");
-					mf.setAccessible(true);
-					mf.setInt(constructor, constructor.getModifiers() &~Modifier.PROTECTED);
-
-					PluginCommand command = (PluginCommand) constructor.newInstance(cmd, xEssentials.getPlugin());
-					command.setExecutor(new SimpleCommand());
-					List<String> aliases = (List<String>) xEssentials.getPlugin().getDescription().getCommands().get(command.getName()).get("aliases");
-					command.setAliases(aliases);
-
-					constructor.setAccessible(false);
-					mf.setAccessible(false);
-
-					Configuration.getCommandConfig().registerBukkitCommand(command);   
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
+				PluginCommand command = CommandHelper.createPluginCommand(cmd);
+				Configuration.getCommandConfig().registerBukkitCommand(command);   
 			} else if(unregCommands.contains(cmd) && Configuration.getCommandConfig().isRegistered(cmd)) {
 				PluginCommand command = xEssentials.getPlugin().getCommand(cmd);
 				Configuration.getCommandConfig().unRegisterBukkitCommand(command);
@@ -1453,7 +1429,7 @@ public class Configuration {
 		Configuration conf = new Configuration();
 		return conf.reload();
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param makes sure the static fields will be finalized and no duplicates will be created on a /reload.
