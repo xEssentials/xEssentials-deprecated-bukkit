@@ -20,6 +20,7 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 public class CmdTest {
 
+	@SuppressWarnings("unused")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("test")) {
 			if(Hooks.isWorldGuardEnabled()) {
