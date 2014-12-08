@@ -32,5 +32,9 @@ public class SignConfig {
 	public boolean isWildSignEnabled() {
 		return (Boolean) Configuration.getConfigValue(ConfigType.SIGN, "wild");
 	}
+	
+	public boolean isDispenserEnabled() {
+		return (Boolean) Configuration.getConfigValue(ConfigType.SIGN, "dispenser");
+	}
 
 }

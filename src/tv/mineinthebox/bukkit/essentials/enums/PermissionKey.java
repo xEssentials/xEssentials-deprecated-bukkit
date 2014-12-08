@@ -105,6 +105,7 @@ public enum PermissionKey {
 	SIGN_WARP_SIGN("xEssentials.signs.warp"),
 	SIGN_WILD_SIGN("xEssentials.signs.wild"),
 	SIGN_WILD_SIGN_USE("xEssentials.signs.wild.use"),
+	SIGN_DISPENSER_CREATE("xEssentials.signs.dispense"),
 	SIGN_GETYOURHEAD("xEssentials.signs.getyourhead");
 	
 	private final String permission;

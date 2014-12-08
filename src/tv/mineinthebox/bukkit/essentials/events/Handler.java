@@ -134,6 +134,7 @@ import tv.mineinthebox.bukkit.essentials.events.shops.CreateShopEvent;
 import tv.mineinthebox.bukkit.essentials.events.shops.RemoveShopEvent;
 import tv.mineinthebox.bukkit.essentials.events.shops.ShopInteractEvent;
 import tv.mineinthebox.bukkit.essentials.events.signs.ColorSignEvent;
+import tv.mineinthebox.bukkit.essentials.events.signs.DispenseSignEvent;
 import tv.mineinthebox.bukkit.essentials.events.signs.FireworkSignEvent;
 import tv.mineinthebox.bukkit.essentials.events.signs.FreeSignEvent;
 import tv.mineinthebox.bukkit.essentials.events.signs.GetYourHeadSignEvent;
@@ -286,6 +287,9 @@ public class Handler {
 		}
 		if(Configuration.getSignConfig().isWildSignEnabled()) {
 			setListener(new WildSignEvent());	
+		}
+		if(Configuration.getSignConfig().isDispenserEnabled()) {
+			setListener(new DispenseSignEvent());
 		}
 		if(Configuration.getShopConfig().isShopEnabled()) {
 			//TO-DO:recreate shops.

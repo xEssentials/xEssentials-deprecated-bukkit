@@ -207,6 +207,7 @@ public class Configuration {
 				con.set("signs.signboom.enable", true);
 				con.set("signs.warpsign.enable", true);
 				con.set("signs.wildsign.enable", true);
+				con.set("signs.dispenser.enable", true);
 				con.save(f);
 			}
 		} catch(Exception e) {
@@ -886,6 +887,7 @@ public class Configuration {
 			hash.put("boom", con.getBoolean("signs.signboom.enable"));
 			hash.put("warp", con.getBoolean("signs.warpsign.enable"));
 			hash.put("wild", con.getBoolean("signs.wildsign.enable"));
+			hash.put("dispenser", con.getBoolean("signs.dispenser.enable"));
 			configure.put(ConfigType.SIGN, hash);
 		} else if(cfg == ConfigType.VOTE) {
 			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "vote.yml");
