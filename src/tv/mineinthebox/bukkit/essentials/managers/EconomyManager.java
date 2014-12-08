@@ -75,5 +75,13 @@ public class EconomyManager {
 			throw new NullPointerException("this player has never played before!");
 		}
 	}
+	
+	public boolean hasEnough(String name, double price) {
+		double money = getMoney(name);
+		if(money >= price) {
+			return true;
+		}
+		return false;
+	}
 
 }

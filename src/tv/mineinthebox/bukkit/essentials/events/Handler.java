@@ -129,11 +129,10 @@ import tv.mineinthebox.bukkit.essentials.events.pvp.FakePvpEvent;
 import tv.mineinthebox.bukkit.essentials.events.pvp.KillBountyEvent;
 import tv.mineinthebox.bukkit.essentials.events.pvp.NpcReplacePlayerEvent;
 import tv.mineinthebox.bukkit.essentials.events.pvp.PvpEvent;
-import tv.mineinthebox.bukkit.essentials.events.shops.SignAdminShopCreateEvent;
-import tv.mineinthebox.bukkit.essentials.events.shops.SignAdminShopOpenEvent;
-import tv.mineinthebox.bukkit.essentials.events.shops.SignNormalShopCreateEvent;
-import tv.mineinthebox.bukkit.essentials.events.shops.SignNormalShopOpenEvent;
-import tv.mineinthebox.bukkit.essentials.events.shops.SignShopBreakEvent;
+import tv.mineinthebox.bukkit.essentials.events.shops.AdminShopInventoryEvent;
+import tv.mineinthebox.bukkit.essentials.events.shops.CreateShopEvent;
+import tv.mineinthebox.bukkit.essentials.events.shops.RemoveShopEvent;
+import tv.mineinthebox.bukkit.essentials.events.shops.ShopInteractEvent;
 import tv.mineinthebox.bukkit.essentials.events.signs.ColorSignEvent;
 import tv.mineinthebox.bukkit.essentials.events.signs.FireworkSignEvent;
 import tv.mineinthebox.bukkit.essentials.events.signs.FreeSignEvent;
@@ -288,12 +287,12 @@ public class Handler {
 		if(Configuration.getSignConfig().isWildSignEnabled()) {
 			setListener(new WildSignEvent());	
 		}
-		if(Configuration.getShopConfig().isShopsEnabled()) {
-			setListener(new SignAdminShopCreateEvent());
-			setListener(new SignAdminShopOpenEvent());
-			setListener(new SignNormalShopCreateEvent());
-			setListener(new SignNormalShopOpenEvent());
-			setListener(new SignShopBreakEvent());
+		if(Configuration.getShopConfig().isShopEnabled()) {
+			//TO-DO:recreate shops.
+			setListener(new CreateShopEvent());
+			setListener(new ShopInteractEvent());
+			setListener(new RemoveShopEvent());
+			setListener(new AdminShopInventoryEvent());
 		}
 		
 		//block events

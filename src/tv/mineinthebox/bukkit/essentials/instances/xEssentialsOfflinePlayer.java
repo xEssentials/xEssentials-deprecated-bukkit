@@ -13,6 +13,9 @@ import org.bukkit.BanList.Type;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.World;
+import org.bukkit.block.Chest;
+import org.bukkit.block.Sign;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -1344,73 +1347,6 @@ public class xEssentialsOfflinePlayer {
 		}
 		update();
 	}
-
-	/**
-	 * @author xize
-	 * @param get all the shop signs from the player
-	 * @return List<String>()
-	 */
-	public List<String> getSignShops() {
-		return con.getStringList("signshops");
-	}
-
-	/**
-	 * @author xize
-	 * @param adds a shop sign to this player
-	 * @param loc - the Location
-	 */
-	public void addShopSign(Location loc) {
-		List<String> signs = new ArrayList<String>(getSignShops());
-		String serialize = loc.getWorld().getName()+":"+loc.getX()+":"+loc.getY()+":"+loc.getZ();
-		signs.add(serialize);
-		con.set("signshops", null);
-		con.set("signshops", signs.toArray());
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-
-	/**
-	 * @author xize
-	 * @param loc - the Location
-	 * @param checks if the sign is a contained sign in the configuration of this player
-	 * @return Boolean
-	 */
-	public boolean containsShopSign(Location loc) {
-		update();
-		String serialize = loc.getWorld().getName()+":"+loc.getX()+":"+loc.getY()+":"+loc.getZ();
-		List<String> list = new ArrayList<String>(getSignShops());
-		return list.contains(serialize);
-	}
-
-	/**
-	 * @author xize
-	 * @param removes the sign
-	 * @param loc - the Location
-	 */
-	public void removeShopSign(Location loc) {
-		update();
-		String serialize = loc.getWorld().getName()+":"+loc.getX()+":"+loc.getY()+":"+loc.getZ();
-		List<String> locations = new ArrayList<String>(getSignShops());
-		if(locations.contains(serialize)) {
-			locations.remove(serialize);
-			con.set("signshops", null);
-			con.set("signshops", locations.toArray());
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update(); 
-		} else {
-			throw new NullPointerException("sign does not exist on this player!");
-		}
-	}
 	
 	/**
 	 * @author xize
@@ -1672,6 +1608,55 @@ public class xEssentialsOfflinePlayer {
 	public void setWallMode(boolean bol, int range) {
 		con.set("wallmode.enable", bol);
 		con.set("wallmode.range", range);
+		try {
+			con.save(f);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update();
+	}
+	
+	public void setShop(Location loc, Chest chest) {
+		UUID id = UUID.nameUUIDFromBytes(((loc.getWorld().getName())+":"+loc.getBlockX()+":"+loc.getBlockY()+":"+loc.getBlockZ()).getBytes());
+		con.set("shops."+id.toString()+".location", loc.getWorld().getName()+":"+loc.getBlockX()+":"+loc.getBlockY()+":"+loc.getBlockZ());
+		con.set("shops."+id.toString()+".chestloc", chest.getWorld().getName()+":"+chest.getX()+":"+chest.getY()+":"+chest.getZ());
+		try {
+			con.save(f);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update();
+	}
+	
+	public boolean isShop(Location loc) {
+		UUID id = UUID.nameUUIDFromBytes(((loc.getWorld().getName())+":"+loc.getBlockX()+":"+loc.getBlockY()+":"+loc.getBlockZ()).getBytes());
+		if(con.contains("shops."+id.toString())) {
+			return true;
+		}
+		return false;
+	}
+	
+	public Shop getShop(Location loc) {
+		UUID id = UUID.nameUUIDFromBytes(((loc.getWorld().getName())+":"+loc.getBlockX()+":"+loc.getBlockY()+":"+loc.getBlockZ()).getBytes());
+		if(isShop(loc)) {
+			String[] args = con.getString("shops."+id.toString()+".chestloc").split(":");
+			Sign sign = (Sign)loc.getBlock().getState();
+			World w = Bukkit.getWorld(args[0]);
+			int x = Integer.parseInt(args[1]);
+			int y = Integer.parseInt(args[2]);
+			int z = Integer.parseInt(args[3]);
+			Chest chest = (Chest)new Location(w, x, y, z).getBlock().getState();
+			return new Shop(chest, sign, xEssentials.getManagers().getPlayerManager().getOfflinePlayer(getUser()));
+		}
+		return null;
+	}
+	
+	public void removeShop(Location loc) {
+		update();
+		UUID id = UUID.nameUUIDFromBytes(((loc.getWorld().getName())+":"+loc.getBlockX()+":"+loc.getBlockY()+":"+loc.getBlockZ()).getBytes());
+		con.set("shops."+id.toString(), null);
 		try {
 			con.save(f);
 		} catch (IOException e) {

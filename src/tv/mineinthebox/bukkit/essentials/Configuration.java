@@ -252,9 +252,8 @@ public class Configuration {
 			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "shops.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-				con.set("shop.enable", true);
-				con.set("shop.shop-admin-prefix", "Admin Shop");
-				con.set("shop.disable-messages", false);
+				con.set("shop.enable", false);
+				con.set("shop.admin.shop-admin-prefix", "Admin Shop");
 				con.save(f);
 			}
 		} catch(Exception e) {
@@ -839,8 +838,7 @@ public class Configuration {
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			HashMap<String, Object> hash = new HashMap<String, Object>();
 			hash.put("enable", con.getBoolean("shop.enable"));
-			hash.put("AdminShopPrefix", con.getString("shop.shop-admin-prefix"));
-			hash.put("disableMessages", con.getBoolean("shop.disable-messages"));
+			hash.put("adminshopprefix", con.getString("shop.admin.shop-admin-prefix"));	
 			configure.put(ConfigType.SHOP, hash);
 		} else if(cfg == ConfigType.PROTECTION) {
 			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "protection.yml");

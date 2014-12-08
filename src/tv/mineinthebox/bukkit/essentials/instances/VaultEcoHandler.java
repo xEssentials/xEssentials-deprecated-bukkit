@@ -111,7 +111,7 @@ public class VaultEcoHandler implements Economy, Listener {
 
 	    @Override
 	    public EconomyResponse depositPlayer(String playerName, double amount) {
-	        if (amount < 0) {
+	    	if (amount <= 0) {
 	            return new EconomyResponse(0, 0, ResponseType.FAILURE, "Cannot desposit negative funds");
 	        }
 	        
@@ -257,13 +257,12 @@ public class VaultEcoHandler implements Economy, Listener {
 
 	    @Override
 	    public EconomyResponse depositPlayer(String playerName, String worldName, double amount) {
-	        return depositPlayer(playerName, amount);
+	    	return depositPlayer(playerName, amount);
 	    }
 
 
 	    @Override
 	    public boolean createPlayerAccount(String playerName, String worldName) {
-	        xEssentials.getPlugin().log("test: 295", LogType.INFO);
-	    	return createPlayerAccount(playerName);
+	        return true;
 	    }
 }
