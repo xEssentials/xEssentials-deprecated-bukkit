@@ -134,6 +134,7 @@ public class ShopInteractEvent implements Listener {
 								if(xEssentials.getManagers().getEcoManager().hasEnough(e.getPlayer().getName(), shop.getBuyPrice())) {
 									if(!shop.isSoldOut()) {
 										xEssentials.getManagers().getEcoManager().withdrawMoney(e.getPlayer().getName(), shop.getBuyPrice());
+										xEssentials.getManagers().getEcoManager().depositMoney(sign.getLine(0), shop.getBuyPrice());
 										shop.getShopChest().getInventory().removeItem(shop.getItem());
 										e.getPlayer().getInventory().addItem(shop.getItem());
 										e.getPlayer().sendMessage(ChatColor.GREEN + "[Shop] " + ChatColor.GRAY + "you successfully bought " + shop.getItem().getType().name() + " " + shop.getAmount() + "x for " + shop.getBuyPrice());
@@ -147,6 +148,7 @@ public class ShopInteractEvent implements Listener {
 								if(xEssentials.getManagers().getVaultManager().hasEnough(e.getPlayer().getName(), shop.getBuyPrice())) {
 									if(!shop.isSoldOut()) {
 										xEssentials.getManagers().getVaultManager().withdraw(e.getPlayer().getName(), shop.getBuyPrice());
+										xEssentials.getManagers().getEcoManager().depositMoney(sign.getLine(0), shop.getBuyPrice());
 										shop.getShopChest().getInventory().removeItem(shop.getItem());
 										e.getPlayer().getInventory().addItem(shop.getItem());
 										e.getPlayer().sendMessage(ChatColor.GREEN + "[Shop] " + ChatColor.GRAY + "you successfully bought " + shop.getItem().getType().name() + " " + shop.getAmount() + "x for " + shop.getBuyPrice());

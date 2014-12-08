@@ -2627,7 +2627,11 @@ public class xEssentialsPlayer {
 			int x = Integer.parseInt(args[1]);
 			int y = Integer.parseInt(args[2]);
 			int z = Integer.parseInt(args[3]);
-			Chest chest = (Chest)new Location(w, x, y, z).getBlock().getState();
+			Block block = new Location(w, x, y, z).getBlock();
+			if(block.getType() != Material.CHEST) {
+				block.setType(Material.CHEST);
+			}
+			Chest chest = (Chest)block.getState();
 			return new Shop(chest, sign, xEssentials.getManagers().getPlayerManager().getOfflinePlayer(getUser()));
 		}
 		return null;

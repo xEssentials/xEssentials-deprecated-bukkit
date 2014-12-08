@@ -2,6 +2,8 @@ package tv.mineinthebox.bukkit.essentials.events.shops;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -39,8 +41,36 @@ public class RemoveShopEvent implements Listener {
 					e.setCancelled(true);
 				}
 			}
+		} else if(e.getBlock().getType() == Material.CHEST) {
+			if(isSignNearby(e.getBlock())) {
+				Sign sign = getAttachedSign(e.getBlock());
+				if(isShopSign(sign.getLines(), false)) {
+					e.getPlayer().sendMessage(ChatColor.RED + "please remove first the sign in order to destroy the chest!");
+					e.setCancelled(true);
+				}
+			}
 		}
 		
+	}
+	
+	private boolean isSignNearby(Block block) {
+		BlockFace[] faces = {BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST, BlockFace.UP, BlockFace.DOWN};
+		for(BlockFace face : faces) {
+			if(block.getRelative(face).getType() == Material.SIGN_POST || block.getRelative(face).getType() == Material.WALL_SIGN) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private Sign getAttachedSign(Block block) {
+		BlockFace[] faces = {BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST, BlockFace.UP, BlockFace.DOWN};
+		for(BlockFace face : faces) {
+			if(block.getRelative(face).getType() == Material.SIGN_POST || block.getRelative(face).getType() == Material.WALL_SIGN) {
+				return (Sign) block.getRelative(face).getState();
+			}
+		}
+		return null;
 	}
 	
 	private boolean isShopSign(String[] lines, boolean isAdmin) {

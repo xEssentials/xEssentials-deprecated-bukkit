@@ -12,8 +12,10 @@ import java.util.UUID;
 import org.bukkit.BanList.Type;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -1639,6 +1641,7 @@ public class xEssentialsOfflinePlayer {
 	}
 	
 	public Shop getShop(Location loc) {
+		update();
 		UUID id = UUID.nameUUIDFromBytes(((loc.getWorld().getName())+":"+loc.getBlockX()+":"+loc.getBlockY()+":"+loc.getBlockZ()).getBytes());
 		if(isShop(loc)) {
 			String[] args = con.getString("shops."+id.toString()+".chestloc").split(":");
@@ -1647,8 +1650,12 @@ public class xEssentialsOfflinePlayer {
 			int x = Integer.parseInt(args[1]);
 			int y = Integer.parseInt(args[2]);
 			int z = Integer.parseInt(args[3]);
-			Chest chest = (Chest)new Location(w, x, y, z).getBlock().getState();
-			return new Shop(chest, sign, xEssentials.getManagers().getPlayerManager().getOfflinePlayer(getUser()));
+			Block block = new Location(w, x, y, z).getBlock();
+			if(block.getType() != Material.CHEST) {
+				block.setType(Material.CHEST);
+			}
+			Chest chest = (Chest)block.getState();
+			return new Shop(chest, sign, this);
 		}
 		return null;
 	}
