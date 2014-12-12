@@ -70,7 +70,7 @@ public class CmdBan {
 							xp.getPlayer().kickPlayer(xp.getBanMessage());
 						} else {
 							try {
-								xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(args[0]);
+								xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								off.setPermBanned("The ban hammer has spoken!", sender.getName());
 								sender.sendMessage(ChatColor.GREEN + "successfully banned player " + off.getUser());
 							} catch(NullPointerException e) {
@@ -105,7 +105,7 @@ public class CmdBan {
 						xp.getPlayer().kickPlayer(message);
 					} else {
 						try {
-							xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(args[0]);
+							xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							String message = Arrays.toString(args).replace(args[0], "").replace("[", "").replace(",", "").replace("]", "");
 							off.setPermBanned(message, sender.getName());
 						} catch(NullPointerException e) {

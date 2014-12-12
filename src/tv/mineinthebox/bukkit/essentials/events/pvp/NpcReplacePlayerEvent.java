@@ -123,7 +123,7 @@ public class NpcReplacePlayerEvent implements Listener {
 			if(p instanceof Player) {
 				p.getInventory().clear();
 			} else {
-				xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(PlayerName);
+				xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(PlayerName);
 				off.ClearInventoryOnRelog();	
 			}
 		}

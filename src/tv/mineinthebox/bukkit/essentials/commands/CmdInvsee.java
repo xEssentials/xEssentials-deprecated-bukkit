@@ -70,7 +70,7 @@ public class CmdInvsee {
 								}
 							} else {
 								try {
-									xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(args[0]);
+									xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 									if(off.hasOfflineInventory()) {
 										p.openInventory(off.getOfflineInventory(p));
 										sender.sendMessage(ChatColor.GREEN + "opening offline inventory of player " + off.getUser());

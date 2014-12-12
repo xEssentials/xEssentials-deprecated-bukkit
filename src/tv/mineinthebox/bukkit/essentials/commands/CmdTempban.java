@@ -49,7 +49,7 @@ public class CmdTempban {
 							sender.sendMessage(ChatColor.GREEN + "player successfully tempbanned for 1 day");
 						} else {
 							try {
-								xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(args[0]);
+								xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								Date date = new Date(System.currentTimeMillis());
 								date.setDate(date.getDate()+1);
 								off.setTempbanned(date.getTime(), "the ban hammer has spoken!", sender.getName());
@@ -91,7 +91,7 @@ public class CmdTempban {
 						sender.sendMessage(ChatColor.GREEN + "successfully tempbanned player " + xp.getUser() + " till " + date.toString());
 					} else {
 						try {
-							xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(args[0]);
+							xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							Date date = convertArgsToDate(args);
 							String[] newArgs = getClearDescription(args);
 							String banMessage = Arrays.toString(newArgs).replace(args[0], "").replace("[", "").replace(",", "").replace("]", "");

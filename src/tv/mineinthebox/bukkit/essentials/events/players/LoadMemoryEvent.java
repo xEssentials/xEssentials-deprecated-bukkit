@@ -25,6 +25,7 @@ public class LoadMemoryEvent implements Listener {
 				xEssentialsPlayer xp = new xEssentialsPlayer(e.getPlayer(), uuid);
 				xEssentials.getManagers().getPlayerManager().addPlayer(e.getPlayer().getName(), xp);
 			} catch(Exception r) {
+				r.printStackTrace();
 				if(Configuration.getDebugConfig().isEnabled()) {
 					xEssentials.getPlugin().log("failed to fetch uuid of this player perhaps the url is changed?, player is kicked!", LogType.DEBUG);
 				}

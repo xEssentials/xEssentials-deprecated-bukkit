@@ -31,7 +31,7 @@ public class CmdUnmute {
 						}
 					} else {
 						try {
-							xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(args[0]);
+							xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							if(off.isMuted()) {
 								off.unmute();
 								sender.sendMessage(ChatColor.GREEN + "you successfully unmuted the offline player " + off.getUser() + "!");

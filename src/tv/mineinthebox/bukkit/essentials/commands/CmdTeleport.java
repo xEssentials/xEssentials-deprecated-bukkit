@@ -72,7 +72,7 @@ public class CmdTeleport {
 								sender.sendMessage(ChatColor.GREEN + "teleporting to online location of player " + xp.getUser() + " ;-)");
 							} else {
 								try {
-									xEssentialsOfflinePlayer offliner = new xEssentialsOfflinePlayer(args[0]);
+									xEssentialsOfflinePlayer offliner = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 									offliner.getLocation().getWorld().refreshChunk(offliner.getLocation().getChunk().getX(), offliner.getLocation().getChunk().getZ());
 									if(offliner.isVanished()) {
 										if(offliner.isVanished()) {

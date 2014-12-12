@@ -120,7 +120,7 @@ public class CmdDone {
 						}
 					} else {
 						try {
-							xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(args[0]);
+							xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							if(off.hasModreqsOpen()) {
 								try {
 									int id = Integer.parseInt(args[1]);
@@ -203,7 +203,7 @@ public class CmdDone {
 						}
 					} else {
 						try {
-							xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(args[0]);
+							xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							try {
 								int id = Integer.parseInt(args[1]);
 								if(off.isValidModreqId(id)) {

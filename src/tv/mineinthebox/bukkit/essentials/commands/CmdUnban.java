@@ -35,7 +35,7 @@ public class CmdUnban {
 							}
 						} else {
 							try {
-								xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(args[0]);
+								xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								if(off.isPermBanned() || off.isTempBanned()) {
 									off.unban();
 									sender.sendMessage(ChatColor.GREEN + off.getUser() + " has been unbanned!");

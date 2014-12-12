@@ -88,7 +88,7 @@ public class CmdCheck {
 							}
 						} else {
 							try {
-								xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(args[1]);
+								xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 								if(off.hasModreqsOpen()) {
 									sender.sendMessage(ChatColor.GOLD + ".oO___[Modreq list of player " + args[1] + "]___Oo.");
 									for(Modreq mod : off.getModreqs()) {
@@ -131,7 +131,7 @@ public class CmdCheck {
 							}
 						} else {
 							try {
-								xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(args[0]);
+								xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								if(off.hasModreqsOpen()) {
 									try {
 										int id = Integer.parseInt(args[1]);

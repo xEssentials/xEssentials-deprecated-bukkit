@@ -3,16 +3,16 @@ package tv.mineinthebox.bukkit.essentials.instances;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import org.bukkit.Bukkit;
+import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.economy.EconomyResponse;
+import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
+
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 
 import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.LogType;
-import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.economy.EconomyResponse;
-import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
 
 public class VaultEcoHandler implements Economy, Listener {
 
@@ -211,7 +211,6 @@ public class VaultEcoHandler implements Economy, Listener {
 	    }
 
 
-	    @SuppressWarnings("deprecation")
 		@Override
 	    public boolean createPlayerAccount(String playerName) {
 	        xEssentials.getPlugin().log("test: 248", LogType.INFO);
@@ -219,7 +218,7 @@ public class VaultEcoHandler implements Economy, Listener {
 	            return false;
 	        }
 	        //creates a fake player.
-	    	xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(Bukkit.getOfflinePlayer(playerName));
+	    	xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playerName);
 	    	
 	        return (off instanceof xEssentialsOfflinePlayer);
 	    }

@@ -42,7 +42,7 @@ public class CmdMute {
 							xp.getPlayer().sendMessage(ChatColor.GREEN + sender.getName() + " has muted you for one day!");
 						} else {
 							try {
-								xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(args[0]);
+								xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								Date date = new Date(System.currentTimeMillis());
 								date.setDate(date.getDate() + 1);
 								off.mute(date.getTime());
@@ -78,7 +78,7 @@ public class CmdMute {
 						xp.getPlayer().sendMessage(ChatColor.GREEN + sender.getName() + " has muted you till " + date.toString());
 					} else {
 						try {
-							xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(args[0]);
+							xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							Date date = new Date(System.currentTimeMillis());
 							String[] newArgs = Arrays.toString(args).replace(args[0]+",", "").replace("[", "").replace("]", "").split(",");
 							for(int i = 0; i < newArgs.length;i++) {
