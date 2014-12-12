@@ -43,7 +43,7 @@ import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.enums.PlayerTaskEnum;
 import tv.mineinthebox.bukkit.essentials.events.players.FakeNukeEvent;
 
-public class xEssentialsPlayer {
+public class xEssentialsPlayer extends xEssentialsOfflinePlayer {
 	
 	private Player player;
 	private File f;
@@ -60,6 +60,7 @@ public class xEssentialsPlayer {
 	 * 
 	 */
 	public xEssentialsPlayer(Player player, String UUID) {
+		super(player.getName());
 		if(Configuration.getDebugConfig().isEnabled()) {
 			xEssentials.getPlugin().log("setting profile for player " + player.getName(), LogType.DEBUG);
 		}
@@ -1885,6 +1886,7 @@ public class xEssentialsPlayer {
 	 * @param returns a list of all command restrictions for this player
 	 * @return List<CommandRestriction>();
 	 */
+	@Override
 	public List<RestrictedCommand> getCommandRestrictions() {
 		List<String> commands = new ArrayList<String>(con.getStringList("command-restrictions"));
 		List<RestrictedCommand> restricts = new ArrayList<RestrictedCommand>();
@@ -2655,8 +2657,10 @@ public class xEssentialsPlayer {
 	 * @param gets updated at every call so we know that the configuration stored in the memory is still recent with the flat saved file!
 	 * @return void
 	 */
-	private void update() {
+	@Override
+	public void update() {
 		try {
+			super.update();
 			con.load(f);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

@@ -1114,14 +1114,14 @@ public class xEssentialsOfflinePlayer {
 	 * @param returns a list of all command restrictions for this player
 	 * @return CommandRestriction[]
 	 */
-	public RestrictedCommand[] getCommandRestrictions() {
+	public List<RestrictedCommand> getCommandRestrictions() {
 		List<String> commands = new ArrayList<String>(con.getStringList("command-restrictions"));
 		List<RestrictedCommand> restricts = new ArrayList<RestrictedCommand>();
 		for(String args : commands) {
 			RestrictedCommand cmd = new RestrictedCommand(args);
 			restricts.add(cmd);
 		}
-		return restricts.toArray(new RestrictedCommand[restricts.size()]);
+		return restricts;
 	}
 
 	/**
@@ -1687,7 +1687,7 @@ public class xEssentialsOfflinePlayer {
 	 * @param gets updated at every call so we know that the configuration stored in the memory is still recent with the flat saved file!
 	 * @return void
 	 */
-	private void update() {
+	public void update() {
 		try {
 			con.load(f);
 		} catch (FileNotFoundException e) {

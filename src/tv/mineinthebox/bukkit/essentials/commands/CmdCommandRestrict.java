@@ -38,8 +38,8 @@ public class CmdCommandRestrict {
 						xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 						if(off.hasCommandRestrictions()) {
 							sender.sendMessage(ChatColor.GOLD + ".oO___[Restricted command list for player " + off.getUser() + "]___Oo.");
-							for(int i = 0; i < off.getCommandRestrictions().length; i++) {
-								sender.sendMessage(ChatColor.GREEN +""+ i + ChatColor.GRAY + ": " + off.getCommandRestrictions()[i].getCommand());
+							for(int i = 0; i < off.getCommandRestrictions().size(); i++) {
+								sender.sendMessage(ChatColor.GREEN +""+ i + ChatColor.GRAY + ": " + off.getCommandRestrictions().get(i).getCommand());
 							}
 						} else {
 							sender.sendMessage(ChatColor.RED + off.getUser() + " doesn't have any command restrictions!");
@@ -54,7 +54,7 @@ public class CmdCommandRestrict {
 								try {
 									Integer i = Integer.parseInt(args[2]);
 									xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
-									RestrictedCommand restriction = off.getCommandRestrictions()[i];
+									RestrictedCommand restriction = off.getCommandRestrictions().get(i);
 									off.removeCommandRestriction(restriction);
 									sender.sendMessage(ChatColor.GREEN + "you have successfully removed the command restriction of player " + off.getUser());
 								} catch(IndexOutOfBoundsException e) {

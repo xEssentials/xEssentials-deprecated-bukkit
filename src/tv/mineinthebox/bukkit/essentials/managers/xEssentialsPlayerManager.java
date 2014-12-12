@@ -15,7 +15,7 @@ public class xEssentialsPlayerManager {
 
 	private final HashMap<String, xEssentialsPlayer> players = new HashMap<String, xEssentialsPlayer>();
 	private xEssentialsOfflinePlayer[] offliners;
-	
+
 	/**
 	 * @author xize
 	 * @param name - returns the player.
@@ -28,7 +28,7 @@ public class xEssentialsPlayerManager {
 		}
 		throw new NullPointerException("xEssentialsPlayer: " + name + " is not online!");
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param adds the player into our list.
@@ -38,7 +38,7 @@ public class xEssentialsPlayerManager {
 	public void addPlayer(String name, xEssentialsPlayer xp) {
 		players.put(name.toLowerCase(), xp);
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param removes the player
@@ -49,7 +49,7 @@ public class xEssentialsPlayerManager {
 			players.remove(player.toLowerCase());
 		}
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param gets all the xEssentialsPlayers in a array
@@ -118,102 +118,106 @@ public class xEssentialsPlayerManager {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param player - the name of the player
 	 * @return xEssentialsOfflinePlayer
 	 */
 	public xEssentialsOfflinePlayer getOfflinePlayer(String player) {
-		try {
-			File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players");
-			if(dir.isDirectory()) {
-				File[] list = dir.listFiles();
-				for(File f : list) {
-					FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-					if(con.isSet("user")) {
-						if(con.getString("user").equalsIgnoreCase(player)) {
-							xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(player);
-							return off;
+			if(isOnline(player)) {
+				return (xEssentialsOfflinePlayer)xEssentials.getManagers().getPlayerManager().getPlayer(player);
+			} else {
+				try {
+					File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players");
+					if(dir.isDirectory()) {
+						File[] list = dir.listFiles();
+						for(File f : list) {
+							FileConfiguration con = YamlConfiguration.loadConfiguration(f);
+							if(con.isSet("user")) {
+								if(con.getString("user").equalsIgnoreCase(player)) {
+									xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(player);
+									return off;
+								}
+							}
 						}
 					}
+				} catch(Exception e) {
+					e.printStackTrace();
 				}
 			}
-		} catch(Exception e) {
-			e.printStackTrace();
+			return null;
 		}
-		return null;
-	}
-	
-	/**
-	 * @author xize
-	 * @param player - returns the file of the desired name
-	 * @return File
-	 * @throws NullPointerException when the file is null
-	 */
-	public File getOfflinePlayerFile(String player) {
-		try {
-			File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players");
-			if(dir.isDirectory()) {
-				File[] list = dir.listFiles();
-				for(File f : list) {
-					FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-					if(con.isSet("user")) {
-						if(con.getString("user").equalsIgnoreCase(player)) {
-							return f;
-						}
-					}
-				}
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	/**
-	 * @author xize
-	 * @param name - the name of the possible player
-	 * @return boolean
-	 */
-	public boolean isEssentialsPlayer(String name) {
-		for(xEssentialsOfflinePlayer off : getOfflinePlayers()) {
-			if(off.getUser().equalsIgnoreCase(name)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	/**
-	 * @author xize
-	 * @param returns true if the player is online.
-	 * @param player - the name
-	 * @return Boolean
-	 */
-	public boolean isOnline(String player) {
-		return players.containsKey(player.toLowerCase());
-	}
-	
-	/**
-	 * @author xize
-	 * @param clears the player list.
-	 */
-	public void clear() {
-		players.clear();
-	}
-	
-	/**
-	 * @author xize
-	 * @param reloads all user input for onEnable
-	 * @return void
-	 */
-	public void reloadPlayerBase() {
-		players.clear();
-		for(Player p : xEssentials.getOnlinePlayers()) {
-			xEssentialsPlayer xp = new xEssentialsPlayer(p, xEssentials.getManagers().getPlayerManager().getOfflinePlayer(p.getName()).getUniqueId().replaceAll("-", ""));
-			players.put(p.getName().toLowerCase(), xp);
-		}
-	}
 
-}
+		/**
+		 * @author xize
+		 * @param player - returns the file of the desired name
+		 * @return File
+		 * @throws NullPointerException when the file is null
+		 */
+		public File getOfflinePlayerFile(String player) {
+			try {
+				File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players");
+				if(dir.isDirectory()) {
+					File[] list = dir.listFiles();
+					for(File f : list) {
+						FileConfiguration con = YamlConfiguration.loadConfiguration(f);
+						if(con.isSet("user")) {
+							if(con.getString("user").equalsIgnoreCase(player)) {
+								return f;
+							}
+						}
+					}
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		/**
+		 * @author xize
+		 * @param name - the name of the possible player
+		 * @return boolean
+		 */
+		public boolean isEssentialsPlayer(String name) {
+			for(xEssentialsOfflinePlayer off : getOfflinePlayers()) {
+				if(off.getUser().equalsIgnoreCase(name)) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		/**
+		 * @author xize
+		 * @param returns true if the player is online.
+		 * @param player - the name
+		 * @return Boolean
+		 */
+		public boolean isOnline(String player) {
+			return players.containsKey(player.toLowerCase());
+		}
+
+		/**
+		 * @author xize
+		 * @param clears the player list.
+		 */
+		public void clear() {
+			players.clear();
+		}
+
+		/**
+		 * @author xize
+		 * @param reloads all user input for onEnable
+		 * @return void
+		 */
+		public void reloadPlayerBase() {
+			players.clear();
+			for(Player p : xEssentials.getOnlinePlayers()) {
+				xEssentialsPlayer xp = new xEssentialsPlayer(p, xEssentials.getManagers().getPlayerManager().getOfflinePlayer(p.getName()).getUniqueId().replaceAll("-", ""));
+				players.put(p.getName().toLowerCase(), xp);
+			}
+		}
+
+	}
