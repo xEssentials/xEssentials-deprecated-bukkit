@@ -1,6 +1,8 @@
 package tv.mineinthebox.bukkit.essentials.managers;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -72,10 +74,27 @@ public class xEssentialsPlayerManager {
 	 * @return xEssentialsOfflinePlayer[]
 	 */
 	public XOfflinePlayer[] getOfflinePlayers() {
-			File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players");
-			File[] list = dir.listFiles();
-			XOfflinePlayer[] offliners = new XOfflinePlayer[list.length];
-			for(int i = 0; i < list.length; i++) {
+		File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players");
+			
+		File[] list = dir.listFiles();
+		
+		Arrays.sort(list, new Comparator<File>() {
+
+			@Override
+			public int compare(File o1, File o2) {
+				if(o1.lastModified() > o2.lastModified()) {
+					return -1;
+				} else if(o1.lastModified() < o2.lastModified()) {
+					return +1;
+				} else {
+					return 0;
+				}
+			}
+			
+		});
+			
+			XOfflinePlayer[] offliners = new XOfflinePlayer[10];
+			for(int i = 0; i < ((list.length > 10) ? 10 : list.length); i++) {
 				File f = list[i];
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				if(con.contains("user")) {
@@ -87,6 +106,7 @@ public class xEssentialsPlayerManager {
 					}
 				}
 			}
+		
 		return offliners;
 	}
 
