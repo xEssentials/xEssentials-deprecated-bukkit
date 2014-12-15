@@ -19,20 +19,21 @@ import org.json.simple.parser.JSONParser;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.BanType;
 import tv.mineinthebox.bukkit.essentials.enums.ServiceType;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
 
 
 public class AlternateAccount {
 
 	private String[] args;
-	private xEssentialsOfflinePlayer[] off;
+	private XOfflinePlayer[] off;
 	private String name;
 	private JSONObject json;
 
 	public AlternateAccount(xEssentialsPlayer xp) {
 		this.name = xp.getUser();
 		List<String> list = new ArrayList<String>();
-		List<xEssentialsOfflinePlayer> list2 = new ArrayList<xEssentialsOfflinePlayer>();
-		for(xEssentialsOfflinePlayer offs : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		List<XOfflinePlayer> list2 = new ArrayList<XOfflinePlayer>();
+		for(XOfflinePlayer offs : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(!xp.getUser().equalsIgnoreCase(offs.getUser())) {
 				if(xp.getIp().equalsIgnoreCase(offs.getIp())) {
 					list.add(offs.getUser());
@@ -49,8 +50,8 @@ public class AlternateAccount {
 	public AlternateAccount(xEssentialsOfflinePlayer xp) {
 		this.name = xp.getUser();
 		List<String> list = new ArrayList<String>();
-		List<xEssentialsOfflinePlayer> list2 = new ArrayList<xEssentialsOfflinePlayer>();
-		for(xEssentialsOfflinePlayer offs : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		List<XOfflinePlayer> list2 = new ArrayList<XOfflinePlayer>();
+		for(XOfflinePlayer offs : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(!xp.getUser().equalsIgnoreCase(offs.getUser())) {
 				if(xp.getIp().equalsIgnoreCase(offs.getIp())) {
 					list.add(offs.getUser());
@@ -59,7 +60,7 @@ public class AlternateAccount {
 			}
 		}
 		String[] alts = list.toArray(new String[list.size()]);
-		xEssentialsOfflinePlayer[] alts2 = list2.toArray(new xEssentialsOfflinePlayer[list2.size()]);
+		XOfflinePlayer[] alts2 = list2.toArray(new XOfflinePlayer[list2.size()]);
 		this.off = alts2;
 		this.args = alts;
 	}
@@ -90,7 +91,7 @@ public class AlternateAccount {
 	 */
 	public String getAltsDetailed() {
 		List<String> list = new ArrayList<String>();
-		for(xEssentialsOfflinePlayer offliner : off) {
+		for(XOfflinePlayer offliner : off) {
 			if(offliner.isPermBanned()) {
 				list.add(BanType.BANNED.getPrefix()+ChatColor.GRAY+offliner.getUser());
 			} else if(offliner.isTempBanned()) {

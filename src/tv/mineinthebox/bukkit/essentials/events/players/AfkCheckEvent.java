@@ -17,7 +17,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.events.customevents.PlayerAfkEvent;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class AfkCheckEvent implements Listener {
 
@@ -35,14 +35,14 @@ public class AfkCheckEvent implements Listener {
 			double destz = (distanceZmax - distanceZmin);
 
 			if(destx > 0.0) {
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 				if(xp.isAfk()) {
 					xp.removeAfk();
 					Bukkit.broadcastMessage(ChatColor.GREEN + e.getPlayer().getName() + " is no longer afk");
 					Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), false, true));
 				}
 			} else if(destz > 0.0) {
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 				if(xp.isAfk()) {
 					xp.removeAfk();
 					Bukkit.broadcastMessage(ChatColor.GREEN + e.getPlayer().getName() + " is no longer afk");
@@ -60,7 +60,7 @@ public class AfkCheckEvent implements Listener {
 		if(e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
 			if(Configuration.getPlayerConfig().isGodModeInAfkEnabled()) {
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.isAfk()) {
 					e.setCancelled(true);
 				}
@@ -76,7 +76,7 @@ public class AfkCheckEvent implements Listener {
 		if(e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
 			if(Configuration.getPlayerConfig().isGodModeInAfkEnabled()) {
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.isAfk()) {
 					e.setDamage(0.0F);
 					e.setCancelled(true);
@@ -90,7 +90,7 @@ public class AfkCheckEvent implements Listener {
 		if(e.getTarget() instanceof Player) {
 			Player p = (Player) e.getTarget();
 			if(Configuration.getPlayerConfig().isGodModeInAfkEnabled()) {
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.isAfk()) {
 					e.setCancelled(true);
 				}
@@ -103,7 +103,7 @@ public class AfkCheckEvent implements Listener {
 		if(e.getTarget() instanceof Player) {
 			Player p = (Player) e.getTarget();
 			if(Configuration.getPlayerConfig().isGodModeInAfkEnabled()) {
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.isAfk()) {
 					e.setCancelled(true);
 				}
@@ -117,7 +117,7 @@ public class AfkCheckEvent implements Listener {
 		if(e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
 			if(Configuration.getPlayerConfig().isGodModeInAfkEnabled()) {
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.isAfk()) {
 					e.setCancelled(true);
 				}
@@ -127,7 +127,7 @@ public class AfkCheckEvent implements Listener {
 
 	@EventHandler
 	public void chatAfk(AsyncPlayerChatEvent e) {
-		for(xEssentialsPlayer xp : xEssentials.getManagers().getPlayerManager().getPlayers()) {
+		for(XPlayer xp : xEssentials.getManagers().getPlayerManager().getPlayers()) {
 			if(e.getMessage().contains(xp.getPlayer().getName())) {
 				if(xp.isAfk()) {
 					e.getPlayer().sendMessage(ChatColor.GREEN + xp.getPlayer().getName() + " has been afk [ " + xp.getAfkReason() + " ]");

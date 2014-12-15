@@ -7,13 +7,13 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class PlayerHoldItemsEvent implements Listener {
 	
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getEntity().getName());
+		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getEntity().getName());
 		if(e.getEntity().getGameMode() == GameMode.SURVIVAL) {
 			xp.saveSurvivalInventory();
 		}
@@ -21,7 +21,7 @@ public class PlayerHoldItemsEvent implements Listener {
 	
 	@EventHandler
 	public void onRespawn(PlayerRespawnEvent e) {
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		e.getPlayer().getInventory().setContents(xp.getSurvivalInventory());
 		e.getPlayer().getInventory().setArmorContents(xp.getSurvivalArmorInventory());
 	}

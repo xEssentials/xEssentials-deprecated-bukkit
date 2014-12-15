@@ -15,14 +15,14 @@ import org.bukkit.inventory.meta.BookMeta;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.events.customevents.PlayerOpenBookEvent;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class AntiAddvertiseEvent implements Listener {
 
 	@EventHandler
 	public void onAntiAddvertise(AsyncPlayerChatEvent e) {
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		e.setMessage(ipcheck(e.getMessage(), xp));
 	}
 
@@ -32,7 +32,7 @@ public class AntiAddvertiseEvent implements Listener {
 			if(e.getBookItem().getType() == Material.WRITTEN_BOOK) {
 				if(e.getBookContents().hasAuthor()) {
 					if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(e.getBookContents().getAuthor())) {
-						xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(e.getBookContents().getAuthor());
+						XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(e.getBookContents().getAuthor());
 						for(String bookPage : e.getBookContents().getPages()) {
 							if(ipcheck(bookPage, off)) {
 								e.getPlayer().sendMessage(ChatColor.RED + "you cannot open this book, this book contains addvertises from " + off.getUser());
@@ -64,7 +64,7 @@ public class AntiAddvertiseEvent implements Listener {
 		}
 	}
 
-	public String ipcheck(String a, xEssentialsPlayer xp) {
+	public String ipcheck(String a, XPlayer xp) {
 		String pattern = "\\d{1,3}(?:\\.\\d{1,3}){3}(?::\\d{1,5})?";
 
 		Pattern compiledPattern = Pattern.compile(pattern);
@@ -104,7 +104,7 @@ public class AntiAddvertiseEvent implements Listener {
 		return a;
 	}
 
-	public boolean ipcheck(String a, xEssentialsOfflinePlayer off) {
+	public boolean ipcheck(String a, XOfflinePlayer off) {
 		String pattern = "\\d{1,3}(?:\\.\\d{1,3}){3}(?::\\d{1,5})?";
 
 		Pattern compiledPattern = Pattern.compile(pattern);

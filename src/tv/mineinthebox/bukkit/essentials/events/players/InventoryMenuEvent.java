@@ -9,8 +9,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class InventoryMenuEvent implements Listener {
 
@@ -18,7 +18,7 @@ public class InventoryMenuEvent implements Listener {
 	public void onClick(InventoryClickEvent e) {
 		if(e.getInventory().getTitle().contains(ChatColor.DARK_PURPLE + "Quick menu: ")) {
 			if(xEssentials.getManagers().getPlayerManager().isOnline(extractPlayerNameFromTitle(e.getInventory().getTitle()))) {
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(extractPlayerNameFromTitle(e.getInventory().getTitle()));
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(extractPlayerNameFromTitle(e.getInventory().getTitle()));
 				Player p = (Player) e.getWhoClicked();
 				e.setCancelled(true);
 				if(isButton(e.getCurrentItem())) {
@@ -43,7 +43,7 @@ public class InventoryMenuEvent implements Listener {
 					}
 				}
 			} else {
-				xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(extractPlayerNameFromTitle(e.getInventory().getTitle()));
+				XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(extractPlayerNameFromTitle(e.getInventory().getTitle()));
 				Player p = (Player) e.getWhoClicked();
 				if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "ban the player for playing on this server!")) {
 					e.getWhoClicked().closeInventory();

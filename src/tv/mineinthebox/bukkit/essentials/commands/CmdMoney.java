@@ -18,14 +18,14 @@ import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.events.customevents.PlayerTransactionEvent;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdMoney {
 
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
-		for(xEssentialsOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
 				s.add(name.getUser());
 			}
@@ -65,7 +65,7 @@ public class CmdMoney {
 			if(sender.hasPermission(PermissionKey.CMD_MONEY.getPermission())) {
 				if(args.length == 0) {
 					if(sender instanceof Player) {
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 						sender.sendMessage(ChatColor.GOLD + ".oO___[your money amount]___Oo.");
 						sender.sendMessage(ChatColor.GRAY + "your current amount is: " + ChatColor.GREEN + xp.getTotalEssentialsMoney() + Configuration.getEconomyConfig().getCurency());
 					} else {
@@ -87,7 +87,7 @@ public class CmdMoney {
 						}
 					} else if(args[0].equalsIgnoreCase("top")) {
 						SortedMap<Double, String> map = new TreeMap<Double, String>().descendingMap();
-						for(xEssentialsOfflinePlayer off : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+						for(XOfflinePlayer off : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
 							if(off.hasEssentialsMoney()) {
 								map.put(off.getTotalEssentialsMoney(), off.getUser());
 							}
@@ -107,7 +107,7 @@ public class CmdMoney {
 					} else if(args[0].equalsIgnoreCase("clear")) {
 						if(sender instanceof Player) {
 							if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-								xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 								xp.clearMoney();
 								sender.sendMessage(ChatColor.GREEN + "you successfully cleared your banks money!");
 							} else {
@@ -122,11 +122,11 @@ public class CmdMoney {
 						if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 							if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[1])) {
 								if(xEssentials.getManagers().getPlayerManager().isOnline(args[1])) {
-									xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
+									XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
 									xp.clearMoney();
 									sender.sendMessage(ChatColor.GREEN + "you successfully cleared "+ xp.getUser() +" banks money!");
 								} else {
-									xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
+									XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 									off.clearMoney();
 									sender.sendMessage(ChatColor.GREEN + "you successfully cleared "+ off.getUser() +" banks money!");
 								}
@@ -140,10 +140,10 @@ public class CmdMoney {
 				} else if(args.length == 3) {
 					if(args[0].equalsIgnoreCase("pay")) {
 						if(sender instanceof Player) {
-							xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 							if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[1])) {
 								if(xEssentials.getManagers().getPlayerManager().isOnline(args[1])) {
-									xEssentialsPlayer xpp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
+									XPlayer xpp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
 									try {
 										Double money = Double.parseDouble(args[2]);
 										if(xp.hasPlayerEnoughMoneyFromPrice(money)) {
@@ -158,7 +158,7 @@ public class CmdMoney {
 										sender.sendMessage(ChatColor.RED + "invalid money usage on the third argument!");
 									}
 								} else {
-									xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
+									XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 									try {
 										Double money = Double.parseDouble(args[2]);
 										if(xp.hasPlayerEnoughMoneyFromPrice(money)) {
@@ -182,7 +182,7 @@ public class CmdMoney {
 						if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 							if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[1])) {
 								if(xEssentials.getManagers().getPlayerManager().isOnline(args[1])) {
-									xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
+									XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
 									try {
 										Double money = Double.parseDouble(args[2]);
 										xp.addEssentialsMoney(money);
@@ -192,7 +192,7 @@ public class CmdMoney {
 										sender.sendMessage(ChatColor.RED + "invalid money usage on the third argument!");
 									}
 								} else {
-									xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
+									XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 									try {
 										Double money = Double.parseDouble(args[2]);
 										off.addEssentialsMoney(money);
@@ -211,7 +211,7 @@ public class CmdMoney {
 						if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 							if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[1])) {
 								if(xEssentials.getManagers().getPlayerManager().isOnline(args[1])) {
-									xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
+									XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
 									try {
 										Double money = Double.parseDouble(args[2]);
 										xp.clearMoney();
@@ -222,7 +222,7 @@ public class CmdMoney {
 										sender.sendMessage(ChatColor.RED + "invalid money usage on the third argument!");
 									}
 								} else {
-									xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
+									XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 									try {
 										Double money = Double.parseDouble(args[2]);
 										off.clearMoney();
@@ -242,7 +242,7 @@ public class CmdMoney {
 						if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 							if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[1])) {
 								if(xEssentials.getManagers().getPlayerManager().isOnline(args[1])) {
-									xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
+									XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
 									try {
 										Double money = Double.parseDouble(args[2]);
 										if(xp.hasPlayerEnoughMoneyFromPrice(money)) {
@@ -255,7 +255,7 @@ public class CmdMoney {
 										sender.sendMessage(ChatColor.RED + "invalid money usage on the third argument!");
 									}
 								} else {
-									xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
+									XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 									try {
 										Double money = Double.parseDouble(args[2]);
 										if(off.hasPlayerEnoughMoneyFromPrice(money)) {

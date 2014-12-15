@@ -9,7 +9,7 @@ import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.instances.Modreq;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdClaim {
 
@@ -30,7 +30,7 @@ public class CmdClaim {
 					}
 				} else {
 					if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
 						if(xp.hasModreqsOpen()) {
 							try {
 								int id = Integer.parseInt(args[1]);

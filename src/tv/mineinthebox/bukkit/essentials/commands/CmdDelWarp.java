@@ -13,7 +13,7 @@ import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.instances.Warp;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdDelWarp {
 	
@@ -28,7 +28,7 @@ public class CmdDelWarp {
 			}	
 		} else {
 			if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(sender.getName())) {
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 				for(Warp warp : xEssentials.getManagers().getWarpManager().getWarps(xp.getPlayer())) {
 					if(warp.getWarpName().toLowerCase().startsWith(p.toLowerCase())) {
 						tabs.add(warp.getWarpName());

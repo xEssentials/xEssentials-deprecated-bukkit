@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class MuteEvent implements Listener {
 	
@@ -18,7 +18,7 @@ public class MuteEvent implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onMute(AsyncPlayerChatEvent e) {
 		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isMuted()) {
 				if(System.currentTimeMillis() > xp.getMutedTime()) {
 					e.getPlayer().sendMessage(ChatColor.GREEN + "you are now allowed to talk again!");

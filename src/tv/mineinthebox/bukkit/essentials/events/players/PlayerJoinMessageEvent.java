@@ -8,14 +8,14 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.hook.Hooks;
 import tv.mineinthebox.bukkit.essentials.hook.WorldGuardHook;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class PlayerJoinMessageEvent implements Listener {
 
 	@EventHandler
 	public void onjoin(PlayerJoinEvent e) {
 		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			
 			xp.setCustomName(xp.getCustomName());
 			

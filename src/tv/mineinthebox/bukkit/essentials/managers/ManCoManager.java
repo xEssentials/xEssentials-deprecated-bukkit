@@ -6,7 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 import tv.mineinthebox.manco.ManCo;
 import tv.mineinthebox.manco.instances.CratePlayer;
 import tv.mineinthebox.manco.instances.NormalCrate;
@@ -41,7 +41,7 @@ public class ManCoManager {
 	public NormalCrate spawnRandomCrate(String player) {
 		if(xEssentials.getManagers().getPlayerManager().isOnline(player)) {
 			Random rand = new Random();
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(player);
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(player);
 			CratePlayer cratePlayer = ManCo.getApi().getCratePlayer(player);
 			NormalCrate crate = ManCo.getApi().getCrates()[rand.nextInt(ManCo.getApi().getCrates().length)];
 			return ManCo.getApi().spawnCrate(cratePlayer, crate, xp.getPlayer().getLocation());

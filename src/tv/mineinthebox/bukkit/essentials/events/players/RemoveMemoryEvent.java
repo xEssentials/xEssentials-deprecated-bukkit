@@ -41,7 +41,7 @@ public class RemoveMemoryEvent implements Listener {
 		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
 			xEssentials.getManagers().getPlayerManager().removePlayer(e.getPlayer().getName());
 			if(Configuration.getDebugConfig().isEnabled()) {
-				xEssentials.getPlugin().log("player found and removed!, online check returns: " + xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName()), LogType.DEBUG);
+				xEssentials.getPlugin().log("player found and removed!, online check returns: " + (xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName()) ? ChatColor.RED + "false" : ChatColor.GREEN + "true"), LogType.DEBUG);
 			}
 		}
 	}

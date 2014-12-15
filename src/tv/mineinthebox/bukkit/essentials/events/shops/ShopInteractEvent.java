@@ -17,7 +17,7 @@ import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.hook.Hooks;
 import tv.mineinthebox.bukkit.essentials.instances.Shop;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
 
 public class ShopInteractEvent implements Listener {
 
@@ -195,7 +195,7 @@ public class ShopInteractEvent implements Listener {
 	}
 
 	private Shop getShop(Location loc) {
-		for(xEssentialsOfflinePlayer off : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer off : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(off.isShop(loc)) {
 				return off.getShop(loc);
 			}

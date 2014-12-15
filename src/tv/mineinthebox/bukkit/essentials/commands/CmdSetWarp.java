@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdSetWarp {
 	
@@ -23,7 +23,7 @@ public class CmdSetWarp {
 						sender.sendMessage(ChatColor.RED + "you cannot make a warp named help.");
 					} else if(!xEssentials.getManagers().getWarpManager().isWarp(args[0])) {
 						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(sender.getName())) {
-							xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 							xEssentials.getManagers().getWarpManager().setWarp(args[0], xp.getPlayer(), xp.getPlayer().getLocation());
 							sender.sendMessage(ChatColor.GREEN + "you successfully saved your warp!");
 						} else {

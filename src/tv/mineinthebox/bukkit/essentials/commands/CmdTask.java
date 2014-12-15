@@ -10,7 +10,7 @@ import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.enums.PlayerTaskEnum;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
 
 public class CmdTask {
 	
@@ -34,7 +34,7 @@ public class CmdTask {
 				} else if(args.length > 2) {
 					if(args[0].equalsIgnoreCase("player")) {
 						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[1])) {
-							xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
+							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 							PlayerTaskEnum playerenum = PlayerTaskEnum.PLAYER;
 							String command = Arrays.toString(args).replace("[", "").replace(",", "").replace("]", "").replace(args[0]+" ", "").replace(args[1] + " ", "");
 							off.PrepareLoginTask(command, playerenum);
@@ -44,7 +44,7 @@ public class CmdTask {
 						}
 					} else if(args[0].equalsIgnoreCase("console")) {
 						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[1])) {
-							xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
+							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 							PlayerTaskEnum playerenum = PlayerTaskEnum.CONSOLE;
 							String command = Arrays.toString(args).replace("[", "").replace(",", "").replace("]", "").replace(args[0] + " ", "").replace(args[1]+ " ", "");
 							off.PrepareLoginTask(command, playerenum);

@@ -12,7 +12,7 @@ import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.instances.Modreq;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdModreq {
 
@@ -27,7 +27,7 @@ public class CmdModreq {
 							sendHelp(sender);
 						} else {
 							if(xEssentials.getManagers().getPlayerManager().isOnline(sender.getName())) {
-								xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 								xp.createModreq(args[0]);
 								int lastID = xp.getModreqs().length;
 								Modreq mod = xp.getModreq((lastID-1));
@@ -45,7 +45,7 @@ public class CmdModreq {
 					} else {
 						String message = Arrays.toString(args).replace("[", "").replace("]", "").replace(",", "");
 						if(xEssentials.getManagers().getPlayerManager().isOnline(sender.getName())) {
-							xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 							xp.createModreq(message);
 							int lastID = xp.getModreqs().length;
 							Modreq mod = xp.getModreq((lastID-1));

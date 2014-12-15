@@ -6,7 +6,7 @@ import org.bukkit.event.HandlerList;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.MojangStatusResponse;
 import tv.mineinthebox.bukkit.essentials.instances.MojangStatus;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class MojangStatusEvent extends Event {
 
@@ -41,7 +41,7 @@ public class MojangStatusEvent extends Event {
 	 * @param get all xEssentials players
 	 * @return xEssentialsPlayer[]
 	 */
-	public xEssentialsPlayer[] getPlayers() {
+	public XPlayer[] getPlayers() {
 		return xEssentials.getManagers().getPlayerManager().getPlayers();
 	}
 	

@@ -22,14 +22,14 @@ import org.bukkit.inventory.DoubleChestInventory;
 import org.bukkit.inventory.Inventory;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class VanishEvent implements Listener {
 
 	@EventHandler(priority = EventPriority.LOW)
 	public void onJoin(PlayerJoinEvent e) {
 		//obtaining all global intances and whenever isVanished() triggers from the config we vanish them again
-		for(xEssentialsPlayer xp : xEssentials.getManagers().getPlayerManager().getPlayers()) {
+		for(XPlayer xp : xEssentials.getManagers().getPlayerManager().getPlayers()) {
 			if(xp.isVanished()) {
 				xp.vanish();
 			}
@@ -41,7 +41,7 @@ public class VanishEvent implements Listener {
 		if(e.getTarget() instanceof Player) {
 			Player p = (Player) e.getTarget();
 			if(xEssentials.getManagers().getPlayerManager().isOnline(p.getName())) {
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.isVanished()) {
 					e.setCancelled(true);
 				}
@@ -54,7 +54,7 @@ public class VanishEvent implements Listener {
 		if(e.getTarget() instanceof Player) {
 			Player p = (Player) e.getTarget();
 			if(xEssentials.getManagers().getPlayerManager().isOnline(p.getName())) {
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.isVanished()) {
 					e.setCancelled(true);
 				}
@@ -65,7 +65,7 @@ public class VanishEvent implements Listener {
 	@EventHandler
 	public void vanishItems(PlayerPickupItemEvent e) {
 		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isVanished()) {
 				if(xp.isNoPickUpEnabled()) {
 					e.setCancelled(true);
@@ -80,7 +80,7 @@ public class VanishEvent implements Listener {
 			return;
 		}
 		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 				if(xp.isPotato()) {
 					e.setCancelled(true);
@@ -158,9 +158,9 @@ public class VanishEvent implements Listener {
 	@EventHandler
 	public void vanishMessageOnJoin(PlayerJoinEvent e) {
 		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isVanished()) {
-				for(xEssentialsPlayer a : xEssentials.getManagers().getPlayerManager().getPlayers()) {
+				for(XPlayer a : xEssentials.getManagers().getPlayerManager().getPlayers()) {
 					if(a.isStaff()) {
 						a.getPlayer().sendMessage(ChatColor.GREEN + "[vanish]" + ChatColor.GRAY + e.getPlayer().getName() + " has joined silenced!");
 					}
@@ -172,9 +172,9 @@ public class VanishEvent implements Listener {
 	@EventHandler
 	public void vanishMessageOnQuit(PlayerQuitEvent e) {
 		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isVanished()) {
-				for(xEssentialsPlayer a : xEssentials.getManagers().getPlayerManager().getPlayers()) {
+				for(XPlayer a : xEssentials.getManagers().getPlayerManager().getPlayers()) {
 					if(a.isStaff()) {
 						a.getPlayer().sendMessage(ChatColor.GREEN + "[vanish]" + ChatColor.GRAY + e.getPlayer().getName() + " has left silenced!");
 					}
@@ -185,7 +185,7 @@ public class VanishEvent implements Listener {
 
 	@EventHandler
 	public void hideAchievement(PlayerAchievementAwardedEvent e) {
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		if(xp.isVanished()) {
 			e.setCancelled(true);
 		}
@@ -194,7 +194,7 @@ public class VanishEvent implements Listener {
 	@EventHandler
 	public void VanishGodMode(EntityDamageEvent e) {
 		if(e.getEntity() instanceof Player) {
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(((Player) e.getEntity()).getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(((Player) e.getEntity()).getName());
 			if(xp.isVanished()) {
 				e.setCancelled(true);
 			}

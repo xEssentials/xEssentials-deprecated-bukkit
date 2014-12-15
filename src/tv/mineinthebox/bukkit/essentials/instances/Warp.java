@@ -12,6 +12,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
 
 public class Warp {
 	
@@ -111,7 +112,7 @@ public class Warp {
 	 * @param get the xEssentialsOfflinePlayer instance
 	 * @return xEssentialsOfflinePlayer
 	 */
-	public xEssentialsOfflinePlayer getWarpOwner() {
+	public XOfflinePlayer getWarpOwner() {
 		return xEssentials.getManagers().getPlayerManager().getOfflinePlayer(con.getString("user"));
 	}
 	

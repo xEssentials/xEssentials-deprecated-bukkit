@@ -7,7 +7,7 @@ import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class ChairDisableMonsterEvent implements Listener {
 	
@@ -16,7 +16,7 @@ public class ChairDisableMonsterEvent implements Listener {
 		if(e.getTarget() instanceof Player) {
 			Player p = (Player) e.getTarget();
 			if(xEssentials.getManagers().getPlayerManager().isOnline(p.getName())) {
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.isInChair()) {
 					e.setCancelled(true);
 				}
@@ -29,7 +29,7 @@ public class ChairDisableMonsterEvent implements Listener {
 		if(e.getTarget() instanceof Player) {
 			Player p = (Player) e.getTarget();
 			if(xEssentials.getManagers().getPlayerManager().isOnline(p.getName())) {
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.isInChair()) {
 					e.setCancelled(true);
 				}

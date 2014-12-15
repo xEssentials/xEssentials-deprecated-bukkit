@@ -18,7 +18,7 @@ import tv.mineinthebox.bukkit.essentials.enums.GreyListCause;
 import tv.mineinthebox.bukkit.essentials.enums.LogType;
 import tv.mineinthebox.bukkit.essentials.events.customevents.PlayerGreyListedEvent;
 import tv.mineinthebox.bukkit.essentials.hook.Hooks;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
 
 public class GreyListServer implements Runnable {
 	
@@ -124,7 +124,7 @@ public class GreyListServer implements Runnable {
 							if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(user)) {
 								//user is valid.
 								
-								xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(user);
+								XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(user);
 								if(!off.isGreyListed()) {
 									//user is not greylisted before.
 									response.writeBytes("\n");

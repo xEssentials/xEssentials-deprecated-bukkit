@@ -11,14 +11,14 @@ import org.bukkit.entity.Player;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdProc {
 	
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
-		for(xEssentialsOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
 				s.add(name.getUser());
 			}
@@ -43,7 +43,7 @@ public class CmdProc {
 			if(sender.hasPermission(PermissionKey.CMD_PROC.getPermission())) {
 				if(args.length == 0) {
 					if(sender instanceof Player) {
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.hasProc()) {
 							xp.setProc(false);
 							sender.sendMessage(ChatColor.GREEN + "proc has been disabled");
@@ -57,7 +57,7 @@ public class CmdProc {
 				} else if(args.length == 1) {
 					if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
 						if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-							xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
 							if(xp.hasProc()) {
 								xp.setProc(false);
 								sender.sendMessage(ChatColor.GREEN + "proc has been disabled for player " + xp.getUser() + "!");
@@ -66,7 +66,7 @@ public class CmdProc {
 								sender.sendMessage(ChatColor.GREEN + "proc has been enabled for player " + xp.getUser() + "!");
 							}
 						} else {
-							xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							if(off.hasProc()) {
 								off.setProc(false);
 								sender.sendMessage(ChatColor.GREEN + "proc has been disabled for player " + off.getUser() + "!");

@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class FireflyEvent implements Listener {
 	
@@ -15,7 +15,7 @@ public class FireflyEvent implements Listener {
 	@EventHandler
 	public void onFirefly(PlayerMoveEvent e) {
 		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isFirefly()) {
 				if(e.getFrom().distance(e.getTo()) > 0) {
 					if(xp.isVanished()) {

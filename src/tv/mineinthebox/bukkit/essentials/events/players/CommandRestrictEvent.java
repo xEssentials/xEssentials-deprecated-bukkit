@@ -7,14 +7,14 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.instances.RestrictedCommand;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CommandRestrictEvent implements Listener {
 
 	@EventHandler
 	public void onCommand(PlayerCommandPreprocessEvent e) {
 		if(e.getMessage().startsWith("/")) {
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.hasCommandRestrictions()) {
 				for(RestrictedCommand restrict : xp.getCommandRestrictions()) {
 					if(e.getMessage().equalsIgnoreCase("/"+restrict.getCommand())) {

@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class PlayerFloorEvent implements Listener {
 	
@@ -20,7 +20,7 @@ public class PlayerFloorEvent implements Listener {
 			return;
 		}
 		
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		if(xp.isFloorMode()) {
 			xp.setFloorMode(false, xp.getFloorModeRange());
 			Location loc = e.getBlockPlaced().getLocation();

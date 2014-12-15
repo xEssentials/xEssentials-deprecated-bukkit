@@ -20,13 +20,13 @@ import org.bukkit.util.Vector;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class SignBoomEvent implements Listener {
 
 	@EventHandler
 	public void m(PlayerMoveEvent e) {
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		if(xp.isBoom()) {
 			if(e.getPlayer().getPlayer().getLocation().getBlock().getRelative(BlockFace.SELF).getType() == Material.WEB) {
 				xp.removeBoom();
@@ -39,7 +39,7 @@ public class SignBoomEvent implements Listener {
 	public void damage(EntityDamageEvent p) {
 		if(p.getEntity() instanceof Player && p.getCause() == DamageCause.FALL) {
 			Player ap = (Player) p.getEntity();
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(ap.getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(ap.getName());
 			if(xp.isBoom()) {
 				xp.removeBoom();
 				p.setCancelled(true);
@@ -80,7 +80,7 @@ public class SignBoomEvent implements Listener {
 						//log.info("This player has interacted with this sign");
 						//s.getPlayer().getServer().dispatchCommand(Bukkit.getConsoleSender(), "boom " + s.getPlayer().getName());
 						s.getPlayer().sendMessage(ChatColor.GOLD + "[Boom] " + ChatColor.GREEN + "boooooom!");
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(s.getPlayer().getName());
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(s.getPlayer().getName());
 						xp.setBoom();
 						Location loc = s.getPlayer().getLocation();
 						loc.setY(loc.getY() + 100);
@@ -96,7 +96,7 @@ public class SignBoomEvent implements Listener {
 
 	@EventHandler
 	public void newplayer(PlayerKickEvent e) {
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		if(xp.isBoom()) {
 			xp.removeBoom();
 		}
@@ -104,7 +104,7 @@ public class SignBoomEvent implements Listener {
 
 	@EventHandler
 	public void pquit(PlayerKickEvent e) {
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		if(xp.isBoom()) {
 			xp.removeBoom();
 		}

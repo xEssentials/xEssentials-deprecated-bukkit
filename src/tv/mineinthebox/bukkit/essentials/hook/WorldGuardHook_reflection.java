@@ -11,7 +11,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 import com.sk89q.worldguard.protection.flags.DefaultFlag;
 import com.sk89q.worldguard.protection.flags.StateFlag.State;
@@ -119,7 +119,7 @@ public class WorldGuardHook_reflection {
 	 * @return void
 	 */
 	public static void sendVanishQuitMessage(Player p) {
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 		if(!xp.isVanished()) {
 			if(Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
 				if(isInRegion(p.getLocation())) {
@@ -141,7 +141,7 @@ public class WorldGuardHook_reflection {
 	 * @return void
 	 */
 	public static void sendVanishJoinMessage(Player p) {
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 		if(xp.isVanished()) {
 			if(Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
 				if(isInRegion(p.getLocation())) {

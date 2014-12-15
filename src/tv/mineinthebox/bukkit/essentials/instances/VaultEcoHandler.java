@@ -13,6 +13,8 @@ import org.bukkit.plugin.Plugin;
 import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.LogType;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class VaultEcoHandler implements Economy, Listener {
 
@@ -87,7 +89,7 @@ public class VaultEcoHandler implements Economy, Listener {
 	        }
 	        if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(playerName)) {
 	        	if(xEssentials.getManagers().getPlayerManager().isOnline(playerName)) {
-	        		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(playerName);
+	        		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(playerName);
 	        		if(xp.hasPlayerEnoughMoneyFromPrice(amount)) {
 	        			xp.payEssentialsMoney(amount);
 	        			  return new EconomyResponse(amount, xp.getTotalEssentialsMoney(), ResponseType.SUCCESS, null);
@@ -95,7 +97,7 @@ public class VaultEcoHandler implements Economy, Listener {
 	        			 return new EconomyResponse(0, xp.getTotalEssentialsMoney(), ResponseType.FAILURE, "Insufficient funds");
 	        		}
 	        	} else {
-	        		xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playerName);
+	        		XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playerName);
 	        		if(off.hasPlayerEnoughMoneyFromPrice(amount)) {
 	        			off.payEssentialsMoney(amount);
 	        			 return new EconomyResponse(amount, off.getTotalEssentialsMoney(), ResponseType.SUCCESS, null);
@@ -117,11 +119,11 @@ public class VaultEcoHandler implements Economy, Listener {
 	        
 	        if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(playerName)) {
 	        	if(xEssentials.getManagers().getPlayerManager().isOnline(playerName)) {
-	        		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(playerName);
+	        		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(playerName);
 	        		xp.addEssentialsMoney(amount);
 	        		return new EconomyResponse(amount, xp.getTotalEssentialsMoney(), ResponseType.SUCCESS, null);
 	        	} else {
-	        		xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playerName);
+	        		XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playerName);
 	        		off.addEssentialsMoney(amount);
 	        		return new EconomyResponse(amount, off.getTotalEssentialsMoney(), ResponseType.SUCCESS, null);
 	        	}
@@ -218,7 +220,7 @@ public class VaultEcoHandler implements Economy, Listener {
 	            return false;
 	        }
 	        //creates a fake player.
-	    	xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playerName);
+	    	XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playerName);
 	    	
 	        return (off instanceof xEssentialsOfflinePlayer);
 	    }

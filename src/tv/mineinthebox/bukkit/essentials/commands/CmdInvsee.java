@@ -11,14 +11,14 @@ import org.bukkit.entity.Player;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdInvsee {
 	
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
-		for(xEssentialsOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
 				s.add(name.getUser());
 			} else if("help".toUpperCase().startsWith(p.toUpperCase())) {
@@ -62,7 +62,7 @@ public class CmdInvsee {
 							Player a = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 							if(a instanceof Player) {
 								if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-									xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+									XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
 									p.openInventory(xp.getOnlineInventory());
 									sender.sendMessage(ChatColor.GREEN + "opening live inventory of player " + xp.getUser());
 								} else {
@@ -70,7 +70,7 @@ public class CmdInvsee {
 								}
 							} else {
 								try {
-									xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+									XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 									if(off.hasOfflineInventory()) {
 										p.openInventory(off.getOfflineInventory(p));
 										sender.sendMessage(ChatColor.GREEN + "opening offline inventory of player " + off.getUser());

@@ -8,7 +8,7 @@ import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.instances.RestrictedCommand;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
 
 public class CmdCommandRestrict {
 
@@ -35,7 +35,7 @@ public class CmdCommandRestrict {
 					}
 				} else if(args.length == 2) {
 					if(args[0].equalsIgnoreCase("list")) {
-						xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
+						XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 						if(off.hasCommandRestrictions()) {
 							sender.sendMessage(ChatColor.GOLD + ".oO___[Restricted command list for player " + off.getUser() + "]___Oo.");
 							for(int i = 0; i < off.getCommandRestrictions().size(); i++) {
@@ -53,7 +53,7 @@ public class CmdCommandRestrict {
 							if(isNumeric(args[2])) {
 								try {
 									Integer i = Integer.parseInt(args[2]);
-									xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
+									XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 									RestrictedCommand restriction = off.getCommandRestrictions().get(i);
 									off.removeCommandRestriction(restriction);
 									sender.sendMessage(ChatColor.GREEN + "you have successfully removed the command restriction of player " + off.getUser());
@@ -88,7 +88,7 @@ public class CmdCommandRestrict {
 				String restrictedCommand = split[1];
 				String message = split[2];
 				if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(playername)) {
-					xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playername);
+					XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playername);
 					if(!off.hasContainedRestriction(restrictedCommand)) {
 						off.setCommandRestriction(restrictedCommand, message, null);
 						sender.sendMessage(ChatColor.GREEN + "you have successfully set the restricted command for player " + off.getUser());
@@ -104,7 +104,7 @@ public class CmdCommandRestrict {
 				String message = split[2];
 				String taskcommand = split[3];
 				if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(playername)) {
-					xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playername);
+					XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playername);
 					if(!off.hasContainedRestriction(restrictedCommand)) {
 						off.setCommandRestriction(restrictedCommand, message, taskcommand);
 						sender.sendMessage(ChatColor.GREEN + "you have successfully set the restricted command for player " + off.getUser());

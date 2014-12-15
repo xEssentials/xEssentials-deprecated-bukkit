@@ -16,14 +16,14 @@ import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.instances.Home;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdHome {
 
 	private List<String> getPlayers(String p) {
 		List<String> players = new ArrayList<String>();
-		for(xEssentialsOfflinePlayer off : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer off : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(off.getUser().toUpperCase().startsWith(p.toUpperCase())) {
 				players.add(off.getUser());
 			}
@@ -33,7 +33,7 @@ public class CmdHome {
 
 	private List<String> getHomes(String sender, String homename) {
 		List<String> homes = new ArrayList<String>();
-		xEssentialsOfflinePlayer xp = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(sender);
+		XOfflinePlayer xp = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(sender);
 		for(Home home : xp.getAllHomes()) {
 			if(home.getHomeName().toUpperCase().startsWith(homename.toUpperCase())) {
 				homes.add(home.getHomeName());
@@ -80,7 +80,7 @@ public class CmdHome {
 			if(sender.hasPermission(PermissionKey.CMD_HOME.getPermission())) {
 				if(args.length == 0) {
 					if(sender instanceof Player) {
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.hasHome()) {
 							Home home = xp.getHome("default");
 							home.getLocation().getWorld().refreshChunk(home.getLocation().getChunk().getX(), home.getLocation().getChunk().getZ());
@@ -113,7 +113,7 @@ public class CmdHome {
 						sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/home " + ChatColor.WHITE + ": teleport to your default home");
 						if(sender.hasPermission(PermissionKey.MULTIPLE_HOMES.getPermission()) || Configuration.getPlayerConfig().canUseMoreHomes()) {
 							if(sender instanceof Player) {
-								xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 								sender.sendMessage(ChatColor.GREEN + "you can use max " + ChatColor.GRAY + xp.getAmountOfHomes() + "/" + Configuration.getPlayerConfig().getMaxHomesAllowed() + ChatColor.GREEN + " homes!");
 							}
 							sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/home list " + ChatColor.WHITE + ": shows a list of all homes you own!");
@@ -127,7 +127,7 @@ public class CmdHome {
 						}
 					} else if(args[0].equalsIgnoreCase("list")) {
 						if(sender instanceof Player) {
-							xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 							if(xp.hasHome()) {
 								List<String> list = new ArrayList<String>();
 								for(Home home : xp.getAllHomes()) {
@@ -145,7 +145,7 @@ public class CmdHome {
 							if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 								if(sender instanceof Player) {
 									Player p = (Player) sender;
-									xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+									XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 									if(!off.hasHome()) {
 										sender.sendMessage(ChatColor.RED + off.getUser() + " has no home set!");
 										return false;
@@ -178,7 +178,7 @@ public class CmdHome {
 						} else {
 							if(sender.hasPermission(PermissionKey.MULTIPLE_HOMES.getPermission()) || Configuration.getPlayerConfig().canUseMoreHomes()) {
 								if(sender instanceof Player) {
-									xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+									XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 									if(xp.hasHome()) {
 										if(xp.isValidHome(args[0])) {
 											Location loc = xp.getHome(args[0]).getLocation();
@@ -217,7 +217,7 @@ public class CmdHome {
 				} else if(args.length == 2) {
 					if(args[0].equalsIgnoreCase("remove")) {
 						if(sender instanceof Player) {
-							xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 							if(xp.isValidHome(args[1])) {
 								xp.removeHome(args[1]);
 								sender.sendMessage(ChatColor.GREEN + "home successfully removed!");
@@ -230,7 +230,7 @@ public class CmdHome {
 					} else if(args[0].equalsIgnoreCase("list")) {
 						if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 							if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[1])) {
-								xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
+								XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 								if(off.hasHome()) {
 									List<String> list = new ArrayList<String>();
 									for(Home home : off.getAllHomes()) {
@@ -251,7 +251,7 @@ public class CmdHome {
 							if(sender instanceof Player) {
 								Player p = (Player) sender;
 								if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-									xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+									XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 									if(off.hasHome()) {
 										if(off.isValidHome(args[1])) {
 											Location loc = off.getHome(args[1]).getLocation();

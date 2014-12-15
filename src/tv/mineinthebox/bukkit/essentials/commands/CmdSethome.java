@@ -9,7 +9,7 @@ import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdSethome {
 
@@ -19,7 +19,7 @@ public class CmdSethome {
 				if(sender.hasPermission(PermissionKey.CMD_SET_HOME.getPermission())) {
 					if(args.length == 0) {
 						if(xEssentials.getManagers().getPlayerManager().isOnline(sender.getName())) {
-							xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 							xp.setHome("default");
 							sender.sendMessage(ChatColor.GREEN + "successfully set default home ;-)");
 						} else {
@@ -41,7 +41,7 @@ public class CmdSethome {
 						} else {
 							if(sender.hasPermission(PermissionKey.MULTIPLE_HOMES.getPermission()) || Configuration.getPlayerConfig().canUseMoreHomes()) {
 								if(!xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-									xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+									XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 									if(xp.isStaff()) {
 										xp.setHome(args[0]);
 										sender.sendMessage(ChatColor.GREEN + "you successfully set your new custom home!");

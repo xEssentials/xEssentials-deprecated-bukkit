@@ -11,14 +11,14 @@ import org.bukkit.entity.Player;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdCompass {
 
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
-		for(xEssentialsOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
 				s.add(name.getUser());
 			}
@@ -42,7 +42,7 @@ public class CmdCompass {
 		if(cmd.getName().equalsIgnoreCase("compass")) {
 			if(sender.hasPermission(PermissionKey.CMD_COMPASS.getPermission())) {
 				if(sender instanceof Player) {
-					xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+					XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 					if(args.length == 0) {
 						if(xp.hasCompass()) {
 							xp.removeCompass();
@@ -52,7 +52,7 @@ public class CmdCompass {
 						}
 					} else if(args.length == 1) {
 						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-							xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							xp.setCompass(off.getUser());
 							sender.sendMessage(ChatColor.GREEN + "you have successfully added " + off.getUser() + " to your clock!");
 						} else {

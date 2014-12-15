@@ -9,7 +9,7 @@ import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdSilence {
 	
@@ -17,7 +17,7 @@ public class CmdSilence {
 		if(cmd.getName().equalsIgnoreCase("silence")) {
 			if(sender.hasPermission(PermissionKey.CMD_SILENCE.getPermission())) {
 				if(args.length == 0) {
-					xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+					XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 					if(xp.isSilenced()) {
 						xp.setSilenced(false);
 						sender.sendMessage(ChatColor.GREEN + "you no longer have chat silenced!");

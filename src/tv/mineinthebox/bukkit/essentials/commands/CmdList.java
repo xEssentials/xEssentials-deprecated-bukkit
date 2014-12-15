@@ -12,7 +12,7 @@ import org.bukkit.command.CommandSender;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdList {
 
@@ -21,7 +21,7 @@ public class CmdList {
 			if(sender.hasPermission(PermissionKey.CMD_LIST.getPermission())) {
 				if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 					List<String> players = new ArrayList<String>();
-					for(xEssentialsPlayer xp : xEssentials.getManagers().getPlayerManager().getPlayers()) {
+					for(XPlayer xp : xEssentials.getManagers().getPlayerManager().getPlayers()) {
 						if(xp.isPotato()) {
 							players.add(ChatColor.GREEN + "(Potato)"+ChatColor.GRAY + xp.getUser());
 						} else if(xp.isVanished()) {
@@ -45,7 +45,7 @@ public class CmdList {
 					return false;
 				}
 				List<String> players = new ArrayList<String>();
-				for(xEssentialsPlayer xp : xEssentials.getManagers().getPlayerManager().getPlayers()) {
+				for(XPlayer xp : xEssentials.getManagers().getPlayerManager().getPlayers()) {
 					if(xp.isPotato()) {
 						players.add(ChatColor.GREEN + "(Potato)" + ChatColor.GRAY + xp.getUser());
 					} else if(xp.isAfk()) {

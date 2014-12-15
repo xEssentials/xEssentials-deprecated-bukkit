@@ -10,8 +10,8 @@ import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.instances.Home;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdHomeInvite {
 
@@ -40,7 +40,7 @@ public class CmdHomeInvite {
 								Home home = xEssentials.getManagers().getHomeInviteManager().getRequestedHome(sender.getName());
 								sender.sendMessage(ChatColor.GREEN + "you have accepted " + ChatColor.GRAY + xEssentials.getManagers().getHomeInviteManager().get(sender.getName()).getUser() + ChatColor.GREEN + " his home request!");
 								p.teleport(home.getLocation());
-								xEssentialsOfflinePlayer off = xEssentials.getManagers().getHomeInviteManager().get(sender.getName());
+								XOfflinePlayer off = xEssentials.getManagers().getHomeInviteManager().get(sender.getName());
 								if(off.getPlayer() instanceof Player) {
 									off.getPlayer().sendMessage(ChatColor.GRAY + sender.getName() + ChatColor.GREEN + " has accepted your home request");
 								}
@@ -51,7 +51,7 @@ public class CmdHomeInvite {
 							}
 						} else if(args[0].equalsIgnoreCase("deny")) {
 							if(xEssentials.getManagers().getHomeInviteManager().containsKey(sender.getName())) {
-								xEssentialsOfflinePlayer off = xEssentials.getManagers().getHomeInviteManager().get(sender.getName());
+								XOfflinePlayer off = xEssentials.getManagers().getHomeInviteManager().get(sender.getName());
 								if(off.getPlayer() instanceof Player) {
 									off.getPlayer().sendMessage(ChatColor.RED + "your invite has been canceled by " + ChatColor.GRAY + sender.getName());
 								}
@@ -63,11 +63,11 @@ public class CmdHomeInvite {
 							}
 						} else {
 							if(!xEssentials.getManagers().getHomeInviteManager().containsKey(args[0])) {
-								xEssentialsOfflinePlayer xp = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(sender.getName());
+								XOfflinePlayer xp = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(sender.getName());
 								if(xp.hasHome()) {
 									Player victem = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 									if(victem instanceof Player) {
-										xEssentialsPlayer xpp = xEssentials.getManagers().getPlayerManager().getPlayer(victem.getName());
+										XPlayer xpp = xEssentials.getManagers().getPlayerManager().getPlayer(victem.getName());
 										if(xpp.isVanished()) {
 											sender.sendMessage(ChatColor.RED + "player is not online!");
 											return false;
@@ -94,11 +94,11 @@ public class CmdHomeInvite {
 						}
 					} else if(args.length == 2) {
 						if(!xEssentials.getManagers().getHomeInviteManager().containsKey(args[0])) {
-							xEssentialsOfflinePlayer xp = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(sender.getName());
+							XOfflinePlayer xp = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(sender.getName());
 							if(xp.hasHome()) {
 								Player victem = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 								if(victem instanceof Player) {
-									xEssentialsPlayer xpp = xEssentials.getManagers().getPlayerManager().getPlayer(victem.getName());
+									XPlayer xpp = xEssentials.getManagers().getPlayerManager().getPlayer(victem.getName());
 									if(xpp.isVanished()) {
 										sender.sendMessage(ChatColor.RED + "player is not online!");
 										return false;

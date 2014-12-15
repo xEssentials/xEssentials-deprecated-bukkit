@@ -16,7 +16,7 @@ import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.hook.Hooks;
 import tv.mineinthebox.bukkit.essentials.hook.LWCHook;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class SignEditEvent implements Listener {
 
@@ -26,7 +26,7 @@ public class SignEditEvent implements Listener {
 		Block other = e.getBlock().getRelative(sign.getFacing().getOppositeFace());
 		if(other.getType() == Material.WALL_SIGN || other.getType() == Material.SIGN_POST) {
 			org.bukkit.block.Sign signn = (org.bukkit.block.Sign)other.getState();
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isEditSignEnabled()) {
 				if(Configuration.getProtectionConfig().isProtectionEnabled()) {
 					if(xEssentials.getManagers().getProtectionDBManager().isOwner(e.getPlayer().getName(), other)) {

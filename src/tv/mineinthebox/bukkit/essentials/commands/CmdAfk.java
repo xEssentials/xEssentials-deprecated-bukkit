@@ -12,7 +12,7 @@ import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.events.customevents.PlayerAfkEvent;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdAfk {
 
@@ -21,13 +21,13 @@ public class CmdAfk {
 			if(sender instanceof Player) {
 				if(sender.hasPermission(PermissionKey.CMD_AFK.getPermission())) {
 					if(args.length == 0) {
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 						xp.setAfk("no reason given in");
 						Bukkit.broadcastMessage(ChatColor.GREEN + sender.getName() + " has been afk");
 						Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), true, false));
 					} else  {
 						String message = Arrays.toString(args).replace("[", "").replace(",", "").replace("]", "");
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 						xp.setAfk(message);
 						Bukkit.broadcastMessage(ChatColor.GREEN + sender.getName() + " has been afk [ "+xp.getAfkReason()+" ]");
 						Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), true, false));

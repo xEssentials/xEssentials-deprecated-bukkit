@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdTorch {
 	
@@ -18,7 +18,7 @@ public class CmdTorch {
 				if(sender instanceof Player) {
 					if(xEssentials.getManagers().getPlayerManager().isOnline(sender.getName())) {
 						Player p = (Player) sender;
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 						if(xp.isTorch()) {
 							xp.setTorch(false);
 							p.sendMessage(ChatColor.GREEN + "successfully disabled torch");

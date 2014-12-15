@@ -7,8 +7,8 @@ import org.bukkit.command.CommandSender;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdUnban {
 	
@@ -26,7 +26,7 @@ public class CmdUnban {
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/unban help " + ChatColor.WHITE + ": shows help");
 					} else {
 						if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-							xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
 							if(xp.isPermBanned() || xp.isTempBanned()) {
 								xp.unban();
 								sender.sendMessage(ChatColor.GREEN + xp.getUser() + " has been unbanned!");
@@ -35,7 +35,7 @@ public class CmdUnban {
 							}
 						} else {
 							try {
-								xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+								XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								if(off.isPermBanned() || off.isTempBanned()) {
 									off.unban();
 									sender.sendMessage(ChatColor.GREEN + off.getUser() + " has been unbanned!");

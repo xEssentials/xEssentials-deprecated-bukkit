@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CallAfkSchedulerEvent implements Listener {
 
@@ -27,7 +27,7 @@ public class CallAfkSchedulerEvent implements Listener {
 					if(PlayerLocations.containsKey(p.getName())) {
 						Location currentLocation = p.getLocation();
 						if(PlayerLocations.get(p.getName()).equals(currentLocation)) {
-							xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 							if(!xp.isVanished()) {
 								if(!xp.isFishing()) {
 									if(!xp.isAfk()) {
@@ -53,7 +53,7 @@ public class CallAfkSchedulerEvent implements Listener {
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
 		if(PlayerLocations.containsKey(e.getPlayer().getName())) {
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isAfk()) {
 				xp.removeAfk();
 				Bukkit.broadcastMessage(ChatColor.GREEN + e.getPlayer().getName() + " is no longer afk");
@@ -66,7 +66,7 @@ public class CallAfkSchedulerEvent implements Listener {
 	@EventHandler
 	public void onQuit(PlayerKickEvent e) {
 		if(PlayerLocations.containsKey(e.getPlayer().getName())) {
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isAfk()) {
 				xp.removeAfk();
 				Bukkit.broadcastMessage(ChatColor.GREEN + e.getPlayer().getName() + " is no longer afk");

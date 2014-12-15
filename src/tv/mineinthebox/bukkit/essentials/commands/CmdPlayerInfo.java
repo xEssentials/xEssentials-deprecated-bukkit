@@ -13,13 +13,13 @@ import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.instances.AlternateAccount;
 import tv.mineinthebox.bukkit.essentials.instances.RestrictedCommand;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
 
 public class CmdPlayerInfo {
 	
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
-		for(xEssentialsOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
 				s.add(name.getUser());
 			}
@@ -53,7 +53,7 @@ public class CmdPlayerInfo {
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/playerinfo <player> " + ChatColor.WHITE + ": shows all the information of this player!");
 					} else {
 						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-							xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							sender.sendMessage(ChatColor.GOLD + ".oO___[showing information about " + off.getUser() + "]___Oo.");
 							sender.sendMessage(ChatColor.GRAY + "file name: " + ChatColor.GREEN + off.getUniqueId()+".yml");
 							if(Configuration.getGrayListConfig().isEnabled()) {

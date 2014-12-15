@@ -5,17 +5,17 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
 
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class VanishChangeEvent extends PlayerEvent implements Cancellable{
 
 	private static final HandlerList handlers = new HandlerList();
 	private boolean canceled = false;
-	private xEssentialsPlayer p;
+	private XPlayer p;
 	
-	public VanishChangeEvent(Player who, xEssentialsPlayer p) {
+	public VanishChangeEvent(Player who, XPlayer xp) {
 		super(who);
-		this.p = p;
+		this.p = xp;
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class VanishChangeEvent extends PlayerEvent implements Cancellable{
 	 * @param returns the xEssentialsPlayer interface associated in this event
 	 * @return
 	 */
-	public xEssentialsPlayer getxEssentialsPlayer() {
+	public XPlayer getxEssentialsPlayer() {
 		return p;
 	}
 	

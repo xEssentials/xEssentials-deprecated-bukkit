@@ -9,14 +9,15 @@ import org.bukkit.block.Sign;
 import org.bukkit.inventory.ItemStack;
 
 import tv.mineinthebox.bukkit.essentials.helpers.MaterialHelper;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
 
 public class Shop {
 	
 	private final Chest chest;
 	private final Sign sign;
-	private final xEssentialsOfflinePlayer owner;
+	private final XOfflinePlayer owner;
 	
-	public Shop(Chest chest, Sign sign, xEssentialsOfflinePlayer off) {
+	public Shop(Chest chest, Sign sign, XOfflinePlayer off) {
 		this.chest = chest;
 		this.sign = sign;
 		this.owner = off;
@@ -40,7 +41,7 @@ public class Shop {
 		return sign;
 	}
 	
-	public xEssentialsOfflinePlayer getOwner() {
+	public XOfflinePlayer getOwner() {
 		return owner;
 	}
 	

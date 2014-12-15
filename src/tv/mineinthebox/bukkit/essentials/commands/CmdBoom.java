@@ -12,7 +12,7 @@ import org.bukkit.util.Vector;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdBoom {
 	
@@ -27,7 +27,7 @@ public class CmdBoom {
 						} else if(boom.isFlying()) {
 							boom.setFlying(false);
 						}
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(boom.getName());
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(boom.getName());
 						xp.setBoom();
 						sender.sendMessage(ChatColor.GREEN + "You are boomed!");
 						Bukkit.broadcastMessage(ChatColor.GRAY + "The player " + ChatColor.GREEN +  args[0] + ChatColor.GRAY + " has been boomed by " + ChatColor.GREEN + sender.getName());

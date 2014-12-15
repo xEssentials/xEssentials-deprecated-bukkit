@@ -7,8 +7,8 @@ import org.bukkit.command.CommandSender;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdUnmute {
 
@@ -21,7 +21,7 @@ public class CmdUnmute {
 					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/unmute <player> " + ChatColor.WHITE + "unmute a player!");
 				} else if(args.length == 1) {
 					if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
 						if(xp.isMuted()) {
 							xp.unmute();
 							sender.sendMessage(ChatColor.GREEN + "you successfully unmuted the player " + xp.getUser());
@@ -31,7 +31,7 @@ public class CmdUnmute {
 						}
 					} else {
 						try {
-							xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							if(off.isMuted()) {
 								off.unmute();
 								sender.sendMessage(ChatColor.GREEN + "you successfully unmuted the offline player " + off.getUser() + "!");

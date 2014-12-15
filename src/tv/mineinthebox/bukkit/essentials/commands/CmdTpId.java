@@ -13,14 +13,14 @@ import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.instances.Modreq;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdTpId {
 
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
-		for(xEssentialsOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
 				s.add(name.getUser());
 			}
@@ -31,7 +31,7 @@ public class CmdTpId {
 	private List<String> getModreqs(String player, String id) {
 		List<String> s = new ArrayList<String>();
 		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(player)) {
-			xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(player);
+			XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(player);
 			for(Modreq mod : off.getModreqs()) {
 				String id2 = mod.getId()+"";
 				if(id2.startsWith(id)) {
@@ -73,7 +73,7 @@ public class CmdTpId {
 						Player p = (Player) sender;
 						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
 							if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-								xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
 								if(xp.hasModreqsOpen()) {
 									if(isNumberic(args[1])) {
 										int id = Integer.parseInt(args[1]);
@@ -91,7 +91,7 @@ public class CmdTpId {
 									}
 								}
 							} else {
-								xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+								XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								if(off.hasModreqsOpen()) {
 									if(isNumberic(args[1])) {
 										int id = Integer.parseInt(args[1]);

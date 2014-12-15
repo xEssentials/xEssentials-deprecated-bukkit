@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class PwnAgeProtectionEvent implements Listener {
 
@@ -21,7 +21,7 @@ public class PwnAgeProtectionEvent implements Listener {
 
 	@EventHandler(priority = EventPriority.LOW)
 	public void playerJoinCheckSpamBot(PlayerJoinEvent e) {
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());	
+		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());	
 		if(!xp.isPermBanned() || !xp.isTempBanned()) {
 			if(time2.containsKey(e.getPlayer().getName())) {
 				if(System.currentTimeMillis() - time2.get(e.getPlayer().getName()) <= 1000) {
@@ -37,7 +37,7 @@ public class PwnAgeProtectionEvent implements Listener {
 					time2.put(e.getPlayer().getName(), System.currentTimeMillis());
 					xp.setPermBanned(ChatColor.translateAlternateColorCodes('&', Configuration.getBanConfig().getPwnAgeSpamBanMessage()), "CONSOLE");
 					for(Player p : Bukkit.getOnlinePlayers()) {
-						xEssentialsPlayer xpp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+						XPlayer xpp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 						if(xpp.isStaff()) {
 							p.sendMessage(ChatColor.RED + "player " + e.getPlayer().getName() + " is banned for botting!");
 						}

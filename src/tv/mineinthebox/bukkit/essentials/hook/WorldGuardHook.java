@@ -8,7 +8,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.flags.DefaultFlag;
@@ -50,7 +50,7 @@ public class WorldGuardHook {
 	 * @return void
 	 */
 	public static void sendVanishQuitMessage(Player p) {
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 		if(!xp.isVanished()) {
 			if(Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
 				WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
@@ -75,7 +75,7 @@ public class WorldGuardHook {
 	 * @return void
 	 */
 	public static void sendVanishJoinMessage(Player p) {
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 		if(xp.isVanished()) {
 			if(Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
 				WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");

@@ -5,14 +5,14 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class PlayerAfkEvent extends PlayerEvent {
 
 	private static final HandlerList handlers = new HandlerList();
 	private boolean isAfk;
 	private boolean whasAfk;
-	private xEssentialsPlayer xp;
+	private XPlayer xp;
 	
 	public PlayerAfkEvent(Player who, Boolean isAfk, Boolean whasAfk) {
 		super(who);
@@ -53,7 +53,7 @@ public class PlayerAfkEvent extends PlayerEvent {
 	 * @param gets the xEssentialsPlayer
 	 * @return xEssentialsPlayer
 	 */
-	public xEssentialsPlayer getxEssentialsPlayer() {
+	public XPlayer getxEssentialsPlayer() {
 		return xp;
 	}
 

@@ -23,7 +23,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitTask;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class MobProcEvent implements Listener, Runnable {
 
@@ -39,7 +39,7 @@ public class MobProcEvent implements Listener, Runnable {
 			Monster monster = (Monster) e.getEntity();
 			if(e.getDamager() instanceof Player) {
 				Player p = (Player) e.getDamager();
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.hasProc()) {
 					if(player.containsKey(xp.getUser())) {
 						monster.setHealth(0);
@@ -60,7 +60,7 @@ public class MobProcEvent implements Listener, Runnable {
 						return;
 					}
 				}
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.hasProc()) {
 					Random rand = new Random();
 					p.getWorld().playSound(p.getLocation(), Sound.ENDERDRAGON_GROWL, 1F, 1F);

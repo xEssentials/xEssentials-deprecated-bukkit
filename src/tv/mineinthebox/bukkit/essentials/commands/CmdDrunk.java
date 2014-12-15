@@ -9,8 +9,8 @@ import org.bukkit.entity.Player;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdDrunk {
 	
@@ -20,7 +20,7 @@ public class CmdDrunk {
 			if(sender.hasPermission(PermissionKey.CMD_DRUNK.getPermission())) {
 				if(args.length == 0) {
 					if(sender instanceof Player) {
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.isDrunk()) {
 							xp.setDrunk(false);
 							sender.sendMessage(ChatColor.GREEN + "you have successfully disabled drunk chat");
@@ -34,7 +34,7 @@ public class CmdDrunk {
 				} else if(args.length == 1) {
 					Player p = Bukkit.getPlayer(args[0]);
 					if(p instanceof Player) {
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 						if(xp.isDrunk()) {
 							xp.setDrunk(false);
 							p.sendMessage(ChatColor.GREEN + sender.getName() + " has successfully disabled drunk chat on you");
@@ -46,7 +46,7 @@ public class CmdDrunk {
 						}
 					} else {
 						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-							xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							if(off.isDrunk()) {
 								off.setDrunk(false);
 								sender.sendMessage(ChatColor.GREEN + "you have disabled drunk mode for " + off.getUser());

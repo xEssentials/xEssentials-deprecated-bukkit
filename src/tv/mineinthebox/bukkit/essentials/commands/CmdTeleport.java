@@ -16,14 +16,14 @@ import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.hook.Hooks;
 import tv.mineinthebox.bukkit.essentials.hook.WorldGuardHook;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdTeleport {
 
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
-		for(xEssentialsOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
 				s.add(name.getUser());
 			}
@@ -58,10 +58,10 @@ public class CmdTeleport {
 						sendHelp(sender);
 					} else {
 						if(sender instanceof Player) {
-							xEssentialsPlayer p = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+							XPlayer p = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 							Player to = Bukkit.getPlayer(args[0]);
 							if(to instanceof Player) {
-								xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
 								if(xp.isVanished()) {
 									if(p.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 										p.vanish();
@@ -72,7 +72,7 @@ public class CmdTeleport {
 								sender.sendMessage(ChatColor.GREEN + "teleporting to online location of player " + xp.getUser() + " ;-)");
 							} else {
 								try {
-									xEssentialsOfflinePlayer offliner = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+									XOfflinePlayer offliner = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 									offliner.getLocation().getWorld().refreshChunk(offliner.getLocation().getChunk().getX(), offliner.getLocation().getChunk().getZ());
 									if(offliner.isVanished()) {
 										if(offliner.isVanished()) {

@@ -17,7 +17,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class RealisticWaterManager {
 
@@ -44,7 +44,7 @@ public class RealisticWaterManager {
 					cancel();
 				}
 				for(Player p : xEssentials.getOnlinePlayers()) {
-					xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+					XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 					if(hasWaterBlocksNearby(p)) {
 						if(p.getLocation().getBlock().getRelative(BlockFace.UP).getRelative(BlockFace.UP).getType() != Material.STATIONARY_WATER && !xp.isVanished() && !xp.isFishing()) {
 								Block[] water = getWaterBlocks(p);

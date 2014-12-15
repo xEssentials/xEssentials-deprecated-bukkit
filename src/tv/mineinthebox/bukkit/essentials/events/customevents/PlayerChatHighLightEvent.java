@@ -8,21 +8,23 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerEvent;
 
 import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.hook.Hooks;
 import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
 
+@SuppressWarnings("deprecation")
 public class PlayerChatHighLightEvent extends PlayerEvent implements Cancellable {
 
-	private AsyncPlayerChatEvent e;
+	private PlayerChatEvent e;
 	private String[] CalledPlayerNames;
 
 	private static final HandlerList handlers = new HandlerList();
-	public PlayerChatHighLightEvent(AsyncPlayerChatEvent e, String[] CalledPlayerNames) {
+	public PlayerChatHighLightEvent(PlayerChatEvent e, String[] CalledPlayerNames) {
 		super(e.getPlayer());
 		this.e = e;
 		this.CalledPlayerNames = CalledPlayerNames;
@@ -34,7 +36,7 @@ public class PlayerChatHighLightEvent extends PlayerEvent implements Cancellable
 	 * @return xEssentialsOfflinePlayer[]
 	 */
 	public xEssentialsOfflinePlayer[] getCalledPlayers() {
-		List<xEssentialsOfflinePlayer> offPlayers = new ArrayList<xEssentialsOfflinePlayer>();
+		List<XOfflinePlayer> offPlayers = new ArrayList<XOfflinePlayer>();
 		for(int i = 0; i < CalledPlayerNames.length; i++) {
 			if(!xEssentials.getManagers().getPlayerManager().getOfflinePlayer(CalledPlayerNames[i]).equals(null) || xEssentials.getManagers().getPlayerManager().getOfflinePlayer(CalledPlayerNames[i]) != null) {
 				offPlayers.add(xEssentials.getManagers().getPlayerManager().getOfflinePlayer(CalledPlayerNames[i]));

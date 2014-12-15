@@ -13,8 +13,8 @@ import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.events.customevents.OfflinePlayerGreyListedEvent;
 import tv.mineinthebox.bukkit.essentials.events.customevents.PlayerGreyListedEvent;
 import tv.mineinthebox.bukkit.essentials.hook.Hooks;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 public class CmdGreylist {
 
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
@@ -54,7 +54,7 @@ public class CmdGreylist {
 					if(args[0].equalsIgnoreCase("add")) {
 						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[1])) {
 							if(xEssentials.getManagers().getPlayerManager().isOnline(args[1])) {
-								xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
+								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
 								xp.setGreyListed(true);
 								if(Hooks.isVaultEnabled()) {
 									String oldGroup = xEssentials.getManagers().getVaultManager().getGroup(xp.getPlayer());
@@ -67,7 +67,7 @@ public class CmdGreylist {
 								}
 								sender.sendMessage(ChatColor.GREEN + "you successfully greylisted " + xp.getUser());
 							} else {
-								xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
+								XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 								off.setGreyListed(true);
 								if(Hooks.isVaultEnabled()) {
 									String oldGroup = xEssentials.getManagers().getVaultManager().getGroup(Bukkit.getWorlds().get(0), off.getUser());
@@ -86,7 +86,7 @@ public class CmdGreylist {
 					} else if(args[0].equalsIgnoreCase("remove")) {
 						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[1])) {
 							if(xEssentials.getManagers().getPlayerManager().isOnline(args[1])) {
-								xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
+								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
 								xp.setGreyListed(false);
 								if(Hooks.isVaultEnabled()) {
 									String DefaultGroup = xEssentials.getManagers().getVaultManager().getDefaultGroup();
@@ -97,7 +97,7 @@ public class CmdGreylist {
 								}
 								sender.sendMessage(ChatColor.GREEN + "you have successfully removed " + xp.getUser() + " from the greylist!");
 							} else {
-								xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
+								XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 								off.setGreyListed(false);
 								if(Hooks.isVaultEnabled()) {
 									String DefaultGroup = xEssentials.getManagers().getVaultManager().getDefaultGroup();

@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
@@ -48,7 +48,7 @@ public class MotdVanishEvent {
 						List<WrappedGameProfile> players = new ArrayList<WrappedGameProfile>();
 						for(Player p : Bukkit.getOnlinePlayers()) {
 							if(xEssentials.getManagers().getPlayerManager().isOnline(p.getName())) {
-								xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 								if(!xp.isVanished()) {
 									players.add(new WrappedGameProfile("id"+String.valueOf(players.size()+1), ChatColor.translateAlternateColorCodes('&', p.getName())));
 								}
@@ -64,7 +64,7 @@ public class MotdVanishEvent {
 		int i = 0;
 		for(Player p : Bukkit.getOnlinePlayers()) {
 			if(xEssentials.getManagers().getPlayerManager().isOnline(p.getName())) {
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(!xp.isVanished()) {
 					i++;
 				}

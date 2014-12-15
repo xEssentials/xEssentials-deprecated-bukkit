@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdFakeNuke {
 	
@@ -19,7 +19,7 @@ public class CmdFakeNuke {
 			if(sender.hasPermission(PermissionKey.CMD_FAKE_NUKE.getPermission())) {
 				if(args.length == 0) {
 					if(sender instanceof Player) {
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 						for(Entity entity : xp.getPlayer().getNearbyEntities(40, 40, 40)) {
 							if(entity instanceof Player) {
 								Player p = (Player) entity;
@@ -35,7 +35,7 @@ public class CmdFakeNuke {
 				} else if(args.length == 1) {
 					Player p = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 					if(p instanceof Player) {
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 						for(Entity entity : xp.getPlayer().getNearbyEntities(40, 40, 40)) {
 							if(entity instanceof Player) {
 								Player r = (Player) entity;

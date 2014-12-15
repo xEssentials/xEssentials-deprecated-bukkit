@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerEvent;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.GreyListCause;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 public class PlayerGreyListedEvent extends PlayerEvent implements Cancellable {
 
 	private static final HandlerList handlers = new HandlerList();
@@ -57,7 +57,7 @@ public class PlayerGreyListedEvent extends PlayerEvent implements Cancellable {
 	 * @param returns the xEssentials player!
 	 * @return xEssentialsPlayer
 	 */
-	public xEssentialsPlayer getEssentialsPlayer() {
+	public XPlayer getEssentialsPlayer() {
 		return xEssentials.getManagers().getPlayerManager().getPlayer(player.getName());
 	}
 

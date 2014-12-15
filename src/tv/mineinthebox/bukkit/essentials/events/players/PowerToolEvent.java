@@ -7,13 +7,13 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class PowerToolEvent implements Listener {
 
 	@EventHandler
 	public void onPowerTool(PlayerInteractEvent e) {
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		if(e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {
 			if(xp.hasPowerTool() && xp.getPlayer().hasPermission(PermissionKey.CMD_POWERTOOL.getPermission())) {
 				xp.getPlayer().performCommand(xp.getPowerTool());

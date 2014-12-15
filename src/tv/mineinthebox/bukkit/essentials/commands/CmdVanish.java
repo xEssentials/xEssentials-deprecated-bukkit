@@ -12,7 +12,7 @@ import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.events.customevents.VanishChangeEvent;
 import tv.mineinthebox.bukkit.essentials.hook.Hooks;
 import tv.mineinthebox.bukkit.essentials.hook.WorldGuardHook;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdVanish {
 
@@ -21,7 +21,7 @@ public class CmdVanish {
 			if(sender instanceof Player) {
 				if(sender.hasPermission(PermissionKey.CMD_VANISH.getPermission())) {
 					Player p = (Player) sender;
-					xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+					XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 					if(args.length == 0) {
 						if(xp.isVanished()) {
 							xp.unvanish();

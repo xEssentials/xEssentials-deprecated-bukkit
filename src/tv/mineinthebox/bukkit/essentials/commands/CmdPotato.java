@@ -15,8 +15,9 @@ import org.bukkit.potion.PotionEffectType;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
 import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdPotato {
 
@@ -25,7 +26,7 @@ public class CmdPotato {
 			if(sender.hasPermission(PermissionKey.CMD_POTATO.getPermission())) {
 				if(args.length == 0) {
 					if(sender instanceof Player) {
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 						xp.vanish();
 						Item item = xp.getPlayer().getWorld().dropItem(xp.getPlayer().getLocation(), new ItemStack(Material.POTATO_ITEM));
 						xp.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 100));
@@ -41,7 +42,7 @@ public class CmdPotato {
 				} else if(args.length == 1) {
 					Player p = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 					if(p instanceof Player) {
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 						xp.vanish();
 						Item item = xp.getPlayer().getWorld().dropItem(xp.getPlayer().getLocation(), new ItemStack(Material.POTATO_ITEM));
 						xp.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 100));
@@ -68,7 +69,7 @@ public class CmdPotato {
 
 			@Override
 			public void run() {
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(player);
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(player);
 				if(xp instanceof xEssentialsPlayer) {
 					if(xp.isPotato()) {
 						xp.unvanish(true);
@@ -79,7 +80,7 @@ public class CmdPotato {
 						xp.removePotato();
 					}
 				} else {
-					xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(player);
+					XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(player);
 					off.unvanish();
 					off.removePotato();
 				}

@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class AntiKnockBackEvent implements Listener {
 	
@@ -18,7 +18,7 @@ public class AntiKnockBackEvent implements Listener {
 		}
 		if(e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 			if(xp.isKnock()) {
 				double damage = e.getDamage();
 				e.setCancelled(true);

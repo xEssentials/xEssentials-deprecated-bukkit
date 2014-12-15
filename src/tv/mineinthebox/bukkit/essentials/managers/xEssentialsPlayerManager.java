@@ -10,11 +10,12 @@ import org.bukkit.entity.Player;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
 import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class xEssentialsPlayerManager {
 
-	private final HashMap<String, xEssentialsPlayer> players = new HashMap<String, xEssentialsPlayer>();
-	private xEssentialsOfflinePlayer[] offliners;
+	private final HashMap<String, XPlayer> players = new HashMap<String, XPlayer>();
 
 	/**
 	 * @author xize
@@ -22,7 +23,7 @@ public class xEssentialsPlayerManager {
 	 * @return xEssentialsPlayer
 	 * @throws NullPointerException when the player is not found.
 	 */
-	public xEssentialsPlayer getPlayer(String name) {
+	public XPlayer getPlayer(String name) {
 		if(players.containsKey(name.toLowerCase())) {
 			return players.get(name.toLowerCase());
 		}
@@ -35,7 +36,7 @@ public class xEssentialsPlayerManager {
 	 * @param name - the players name
 	 * @param xp - the xEssentialsPlayer instance.
 	 */
-	public void addPlayer(String name, xEssentialsPlayer xp) {
+	public void addPlayer(String name, XPlayer xp) {
 		players.put(name.toLowerCase(), xp);
 	}
 
@@ -55,10 +56,10 @@ public class xEssentialsPlayerManager {
 	 * @param gets all the xEssentialsPlayers in a array
 	 * @return xEssentialsPlayer[]
 	 */
-	public xEssentialsPlayer[] getPlayers() {
-		xEssentialsPlayer[] users = new xEssentialsPlayer[players.size()];
+	public XPlayer[] getPlayers() {
+		XPlayer[] users = new XPlayer[players.size()];
 		int i = 0;
-		for(xEssentialsPlayer xp : players.values()) {
+		for(XPlayer xp : players.values()) {
 			users[i] = xp;
 			i++;
 		}
@@ -70,53 +71,23 @@ public class xEssentialsPlayerManager {
 	 * @param get all the offline players in a array
 	 * @return xEssentialsOfflinePlayer[]
 	 */
-	public xEssentialsOfflinePlayer[] getOfflinePlayers() {
-		if(!(offliners instanceof xEssentialsOfflinePlayer[])) {
-			try {
-				File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players");
-				File[] list = dir.listFiles();
-				xEssentialsOfflinePlayer[] offs = new xEssentialsOfflinePlayer[list.length];
-				int i = 0;
-				for(File f : list) {
-					FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-					if(con.isSet("user")) {
-						xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(con.getString("user"));
-						offs[i] = off;
-						i++;
-					}
-				}
-				offliners = offs;
-				return offliners;
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		} else {
+	public XOfflinePlayer[] getOfflinePlayers() {
 			File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players");
 			File[] list = dir.listFiles();
-			if(list.length == offliners.length) {
-				//since its equals we don't need to for loop again!
-				return offliners;
-			} else {
-				//since there are new offlineplayers we need to reset our system.
-				try {
-					xEssentialsOfflinePlayer[] offs = new xEssentialsOfflinePlayer[list.length];
-					int i = 0;
-					for(File f : list) {
-						FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-						if(con.isSet("user")) {
-							xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(con.getString("user"));
-							offs[i] = off;
-							i++;
-						}
+			XOfflinePlayer[] offliners = new XOfflinePlayer[list.length];
+			for(int i = 0; i < list.length; i++) {
+				File f = list[i];
+				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
+				if(con.contains("user")) {
+					String user = con.getString("user");
+					if(players.containsKey(user)) {
+						offliners[i] = players.get(user);
+					} else {
+						offliners[i] = new xEssentialsOfflinePlayer(user);
 					}
-					offliners = offs;
-					return offliners;
-				} catch(Exception e) {
-					e.printStackTrace();
 				}
 			}
-		}
-		return null;
+		return offliners;
 	}
 
 	/**
@@ -124,7 +95,7 @@ public class xEssentialsPlayerManager {
 	 * @param player - the name of the player
 	 * @return xEssentialsOfflinePlayer
 	 */
-	public xEssentialsOfflinePlayer getOfflinePlayer(String player) {
+	public XOfflinePlayer getOfflinePlayer(String player) {
 		try {
 			File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players");
 			if(dir.isDirectory()) {
@@ -177,7 +148,7 @@ public class xEssentialsPlayerManager {
 	 * @return boolean
 	 */
 	public boolean isEssentialsPlayer(String name) {
-		for(xEssentialsOfflinePlayer off : getOfflinePlayers()) {
+		for(XOfflinePlayer off : getOfflinePlayers()) {
 			if(off.getUser().equalsIgnoreCase(name)) {
 				return true;
 			}

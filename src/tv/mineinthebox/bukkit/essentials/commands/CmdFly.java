@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdFly {
 	
@@ -19,7 +19,7 @@ public class CmdFly {
 					if(sender instanceof Player) {
 						Player p = (Player) sender;
 						if(xEssentials.getManagers().getPlayerManager().isOnline(sender.getName())) {
-							xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 							if(xp.isFlying()) {
 								xp.setFlying(false);
 								sender.sendMessage(ChatColor.GREEN + "successfully disabled fly mode");

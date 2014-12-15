@@ -26,8 +26,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class NpcReplacePlayerEvent implements Listener {
 	
@@ -60,7 +60,7 @@ public class NpcReplacePlayerEvent implements Listener {
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
 		if(essentialsPlayers.containsKey(e.getPlayer().getName())) {
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isVanished()) {
 				essentialsPlayers.remove(e.getPlayer().getName());
 				return;
@@ -78,7 +78,7 @@ public class NpcReplacePlayerEvent implements Listener {
 	@EventHandler
 	public void onTeleport(PlayerTeleportEvent e) {
 		if(essentialsPlayers.containsKey(e.getPlayer().getName())) {
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isVanished()) {
 				return;
 			}
@@ -95,7 +95,7 @@ public class NpcReplacePlayerEvent implements Listener {
 	@EventHandler
 	public void onQuit(PlayerKickEvent e) {
 		if(essentialsPlayers.containsKey(e.getPlayer().getName())) {
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isVanished()) {
 				essentialsPlayers.remove(e.getPlayer().getName());
 				return;
@@ -123,7 +123,7 @@ public class NpcReplacePlayerEvent implements Listener {
 			if(p instanceof Player) {
 				p.getInventory().clear();
 			} else {
-				xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(PlayerName);
+				XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(PlayerName);
 				off.ClearInventoryOnRelog();	
 			}
 		}
@@ -156,7 +156,7 @@ public class NpcReplacePlayerEvent implements Listener {
 				}
 			}
 		}
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		if(xp.isInventoryClearanceOnRelog()) {
 			xp.ClearInventoryOnRelog();	
 		}

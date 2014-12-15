@@ -1,8 +1,8 @@
 package tv.mineinthebox.bukkit.essentials.managers;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class EconomyManager {
 
@@ -14,10 +14,10 @@ public class EconomyManager {
 	public Double getMoney(String player) {
 		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(player)) {
 			if(xEssentials.getManagers().getPlayerManager().isOnline(player)) {
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(player);
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(player);
 				return xp.getTotalEssentialsMoney();
 			} else {
-				xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(player);
+				XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(player);
 				return off.getTotalEssentialsMoney();
 			}
 		}
@@ -32,7 +32,7 @@ public class EconomyManager {
 	public void withdrawMoney(String player, Double money) {
 		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(player)) {
 			if(xEssentials.getManagers().getPlayerManager().isOnline(player)) {
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(player);
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(player);
 				Double moneyz = xp.getTotalEssentialsMoney();
 				if(money > moneyz) {
 					throw new IndexOutOfBoundsException("cannot withdraw money below zero");
@@ -40,7 +40,7 @@ public class EconomyManager {
 				xp.clearMoney();
 				xp.addEssentialsMoney((moneyz-money));
 			} else {
-				xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(player);
+				XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(player);
 				Double moneyz = off.getTotalEssentialsMoney();
 				if(money > moneyz) {
 					throw new IndexOutOfBoundsException("cannot withdraw money below zero");
@@ -61,12 +61,12 @@ public class EconomyManager {
 	public void depositMoney(String player, Double money) {
 		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(player)) {
 			if(xEssentials.getManagers().getPlayerManager().isOnline(player)) {
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(player);
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(player);
 				Double moneyz = xp.getTotalEssentialsMoney();
 				xp.clearMoney();
 				xp.addEssentialsMoney(moneyz+money);
 			} else {
-				xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(player);
+				XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(player);
 				Double moneyz = off.getTotalEssentialsMoney();
 				off.clearMoney();
 				off.addEssentialsMoney(moneyz+money);

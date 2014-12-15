@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdFloor {
 
@@ -17,7 +17,7 @@ public class CmdFloor {
 			if(sender.hasPermission(PermissionKey.CMD_FLOOR.getPermission())) {
 				if(sender instanceof Player) {
 					if(args.length == 0) {
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.isFloorMode()) {
 							xp.setFloorMode(false, xp.getFloorModeRange());
 							sender.sendMessage(ChatColor.GRAY + "floor mode disabled!");
@@ -31,7 +31,7 @@ public class CmdFloor {
 							sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/floor " + ChatColor.WHITE + ": creates a floor within a block section");
 							sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/floor <number>" + ChatColor.WHITE + ": creates a floor within a range in a block section");
 						} else {
-							xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 							int range = Integer.parseInt(args[0]);
 							xp.setFloorMode(true, range);
 							sender.sendMessage(ChatColor.GRAY + "floor mode is enabled!");

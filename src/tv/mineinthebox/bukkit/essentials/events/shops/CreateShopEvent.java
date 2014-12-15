@@ -12,7 +12,7 @@ import org.bukkit.event.block.SignChangeEvent;
 import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CreateShopEvent implements Listener {
 
@@ -38,7 +38,7 @@ public class CreateShopEvent implements Listener {
 				if(e.getPlayer().hasPermission(PermissionKey.SIGN_SHOP.getPermission())) {
 					if(isChestNearby(e.getBlock())) {
 						e.setLine(0, e.getPlayer().getName());
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 						xp.setShop(e.getBlock().getLocation(), getNearbyChest(e.getBlock()));
 						e.getPlayer().sendMessage(ChatColor.GREEN + "[Shop] " + ChatColor.GRAY + "you successfully created your own shop!");
 					} else {

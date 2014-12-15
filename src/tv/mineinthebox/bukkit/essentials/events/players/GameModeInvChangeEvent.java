@@ -9,13 +9,13 @@ import org.bukkit.inventory.ItemStack;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.events.customevents.GameModeInventoryChangeEvent;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class GameModeInvChangeEvent implements Listener {
 	
 	@EventHandler
 	public void onChangeInventory(PlayerGameModeChangeEvent e) {
-		xEssentialsPlayer p = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer p = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		if(e.getNewGameMode() == GameMode.SURVIVAL) {
 			p.saveCreativeInventory();
 			if(p.hasSurvivalInventory()) {

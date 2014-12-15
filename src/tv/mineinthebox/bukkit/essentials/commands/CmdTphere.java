@@ -8,8 +8,8 @@ import org.bukkit.entity.Player;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdTphere {
 
@@ -27,8 +27,8 @@ public class CmdTphere {
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tphere <player> " + ChatColor.WHITE + ": teleports a player to you!");
 					} else {
 						if(sender instanceof Player) {
-							xEssentialsPlayer p = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
-							xEssentialsOfflinePlayer victem = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+							XPlayer p = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+							XOfflinePlayer victem = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							if(victem.getPlayer() instanceof Player) {
 								if(p.isVanished()) {
 									if(victem.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {

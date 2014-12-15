@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdTpa {
 
@@ -31,7 +31,7 @@ public class CmdTpa {
 							final String victemName = victem.getName();
 							final String senderName = sender.getName();
 							if(victem instanceof Player) {
-								xEssentialsPlayer xpp = xEssentials.getManagers().getPlayerManager().getPlayer(victem.getName());
+								XPlayer xpp = xEssentials.getManagers().getPlayerManager().getPlayer(victem.getName());
 								if(xpp.isVanished()) {
 									sender.sendMessage(ChatColor.RED + "this player is offline!");
 									return false;

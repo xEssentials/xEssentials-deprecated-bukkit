@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdWall {
 	
@@ -17,7 +17,7 @@ public class CmdWall {
 			if(sender.hasPermission(PermissionKey.CMD_WALL.getPermission())) {
 				if(sender instanceof Player) {
 					if(args.length == 0) {
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.isWallMode()) {
 							xp.setWallMode(false, xp.getWallModeRange());
 							sender.sendMessage(ChatColor.GRAY + "wall mode disabled!");
@@ -31,7 +31,7 @@ public class CmdWall {
 							sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/wall " + ChatColor.WHITE + ": creates a wall within a block section");
 							sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/wall <number>" + ChatColor.WHITE + ": creates a wall within a range in a block section");
 						} else {
-							xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 							int range = Integer.parseInt(args[0]);
 							xp.setWallMode(true, range);
 							sender.sendMessage(ChatColor.GRAY + "wall mode is enabled!");

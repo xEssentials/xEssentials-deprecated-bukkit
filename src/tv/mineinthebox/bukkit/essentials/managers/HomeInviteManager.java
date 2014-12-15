@@ -3,11 +3,11 @@ package tv.mineinthebox.bukkit.essentials.managers;
 import java.util.HashMap;
 
 import tv.mineinthebox.bukkit.essentials.instances.Home;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
 
 public class HomeInviteManager {
 
-	private HashMap<String, xEssentialsOfflinePlayer> homePlayers = new HashMap<String, xEssentialsOfflinePlayer>();
+	private HashMap<String, XOfflinePlayer> homePlayers = new HashMap<String, XOfflinePlayer>();
 	private HashMap<String, Home> homes = new HashMap<String, Home>();
 
 	/**
@@ -47,7 +47,7 @@ public class HomeInviteManager {
 	 * @param gets the value represent by the key
 	 * @return xEssentialsPlayer
 	 */
-	public xEssentialsOfflinePlayer get(String key) {
+	public XOfflinePlayer get(String key) {
 		return homePlayers.get(key.toLowerCase());
 	}
 
@@ -70,7 +70,7 @@ public class HomeInviteManager {
 	 * @param user2 - put the player who sents the home invite
 	 * @return void
 	 */
-	public void put(String user, xEssentialsOfflinePlayer user2) {
+	public void put(String user, XOfflinePlayer user2) {
 		homePlayers.put(user.toLowerCase(), user2);
 	}
 

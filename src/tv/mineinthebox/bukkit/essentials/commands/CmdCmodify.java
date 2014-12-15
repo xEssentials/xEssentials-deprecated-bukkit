@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.events.protection.ModifyProtectionEvent;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
 
 public class CmdCmodify {
 	
@@ -17,7 +17,7 @@ public class CmdCmodify {
 				sender.sendMessage(ChatColor.RED + "/cmodify user : adds the user");
 			} else if(args.length == 1) {
 				if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-					xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+					XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 					ModifyProtectionEvent.players.put(sender.getName(), off.getUser());
 					sender.sendMessage(ChatColor.GREEN + "right click on a block to change permissions");
 				} else {

@@ -25,7 +25,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.events.customevents.ChairExitEvent;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class PlayerSitOnChairEvent implements Listener, Runnable {
 
@@ -45,7 +45,7 @@ public class PlayerSitOnChairEvent implements Listener, Runnable {
 					e.getPlayer().sendMessage(ChatColor.GREEN + "you are now sitting on a chair.");
 					xEssentials.getManagers().getChairManager().addChicken(e.getPlayer(), chicken);
 					Bukkit.getScheduler().runTaskTimer(xEssentials.getPlugin(), this, 0L, 1L);
-					xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+					XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 					xp.setInChair(true);
 				}
 			}
@@ -57,7 +57,7 @@ public class PlayerSitOnChairEvent implements Listener, Runnable {
 		xEssentials.getManagers().getChairManager().removeChicken(e.getPlayer().getName());
 		e.getChairPiece().remove();
 		e.getPlayer().sendMessage(ChatColor.GREEN + "you no longer sit on a chair.");
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		xp.setInChair(false);
 	}
 
@@ -65,7 +65,7 @@ public class PlayerSitOnChairEvent implements Listener, Runnable {
 	public void onQuit(PlayerQuitEvent e) {
 		if(xEssentials.getManagers().getChairManager().containsPlayer(e.getPlayer().getName())) {
 			xEssentials.getManagers().getChairManager().removeChicken(e.getPlayer().getName());
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			xp.setInChair(false);
 		}
 	}
@@ -74,7 +74,7 @@ public class PlayerSitOnChairEvent implements Listener, Runnable {
 	public void onQuit(PlayerKickEvent e) {
 		if(xEssentials.getManagers().getChairManager().containsPlayer(e.getPlayer().getName())) {
 			xEssentials.getManagers().getChairManager().removeChicken(e.getPlayer().getName());
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			xp.setInChair(false);
 		}
 	}

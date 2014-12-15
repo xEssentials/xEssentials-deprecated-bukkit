@@ -15,7 +15,7 @@ import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.instances.Kit;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdKit {
 	
@@ -49,7 +49,7 @@ public class CmdKit {
 						HashMap<String, Kit> kits = new HashMap<String, Kit>(Configuration.getKitConfig().getConfigKits());
 						if(kits.containsKey(args[0])) {
 							if(sender.hasPermission(PermissionKey.CMD_KIT.getPermission()+"."+args[0])) {
-								xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 								if(Configuration.getKitConfig().isCooldownEnabled()) {
 									if(xp.hasKitCooldown()) {
 										long cooldown = xp.getKitCooldown() / 1000L + (long)Configuration.getKitConfig().getCoolDown() - System.currentTimeMillis() / 1000L;

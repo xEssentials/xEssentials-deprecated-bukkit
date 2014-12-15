@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdKnock {
 	
@@ -16,7 +16,7 @@ public class CmdKnock {
 		if(cmd.getName().equalsIgnoreCase("knock")) {
 			if(sender instanceof Player) {
 				if(sender.hasPermission(PermissionKey.CMD_KNOCK.getPermission())) {
-					xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+					XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 					if(xp.isKnock()) {
 						sender.sendMessage(ChatColor.GREEN + "you disabled antiknockback!");
 						xp.setKnock(false);

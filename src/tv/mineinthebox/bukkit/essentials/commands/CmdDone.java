@@ -16,14 +16,14 @@ import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.events.customevents.ModreqDoneEvent;
 import tv.mineinthebox.bukkit.essentials.instances.Modreq;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdDone {
 
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
-		for(xEssentialsOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
 				s.add(name.getUser());
 			}
@@ -31,7 +31,7 @@ public class CmdDone {
 		return s;
 	}
 
-	private List<String> getIdsFromModreq(xEssentialsOfflinePlayer off, String input) {
+	private List<String> getIdsFromModreq(XOfflinePlayer off, String input) {
 		List<String> list = new ArrayList<String>();
 		for(Modreq mod : off.getModreqs()) {
 			String id = ""+mod.getId();
@@ -48,7 +48,7 @@ public class CmdDone {
 				if(args.length == 1) {
 					return getPlayerByName(args[0]);
 				}else if(args.length == 2) {
-					xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+					XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 					return getIdsFromModreq(off, args[1]);
 				}
 			}
@@ -77,7 +77,7 @@ public class CmdDone {
 			} else if(args.length == 2) {
 				if(sender.hasPermission(PermissionKey.CMD_DONE.getPermission())) {
 					if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
 						if(xp.hasModreqsOpen()) {
 							try {
 								int id = Integer.parseInt(args[1]);
@@ -120,7 +120,7 @@ public class CmdDone {
 						}
 					} else {
 						try {
-							xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							if(off.hasModreqsOpen()) {
 								try {
 									int id = Integer.parseInt(args[1]);
@@ -163,7 +163,7 @@ public class CmdDone {
 			} else {
 				if(sender.hasPermission(PermissionKey.CMD_DONE.getPermission())) {
 					if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
 						try {
 							int id = Integer.parseInt(args[1]);
 							if(xp.isValidModreqId(id)) {
@@ -203,7 +203,7 @@ public class CmdDone {
 						}
 					} else {
 						try {
-							xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							try {
 								int id = Integer.parseInt(args[1]);
 								if(off.isValidModreqId(id)) {

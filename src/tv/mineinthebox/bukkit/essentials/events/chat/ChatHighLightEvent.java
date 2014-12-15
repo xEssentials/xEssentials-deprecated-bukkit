@@ -11,8 +11,8 @@ import org.bukkit.event.player.PlayerChatTabCompleteEvent;
 import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.events.customevents.PlayerChatHighLightEvent;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class ChatHighLightEvent implements Listener {
 
@@ -22,7 +22,7 @@ public class ChatHighLightEvent implements Listener {
 			if(!e.getMessage().contains(Configuration.getChatConfig().getHashTag()+name)) {
 				xEssentials.getPlugin();
 				if(xEssentials.getManagers().getPlayerManager().isOnline(name)) {
-					xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(name);
+					XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(name);
 					if(xp.isVanished()) {
 						e.setMessage(e.getMessage().replaceAll(name, ChatColor.GRAY+"[offline]"+e.getHashTag()+name+e.getSuffix()));
 					} else {
@@ -46,7 +46,7 @@ public class ChatHighLightEvent implements Listener {
 	@EventHandler
 	public void onTabComplete(PlayerChatTabCompleteEvent e) {
 		e.getTabCompletions().clear();
-		for(xEssentialsOfflinePlayer off : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer off : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
 				if(off.getUser().toUpperCase().startsWith(e.getLastToken().toUpperCase())) {
 					e.getTabCompletions().add(off.getUser());
 				}

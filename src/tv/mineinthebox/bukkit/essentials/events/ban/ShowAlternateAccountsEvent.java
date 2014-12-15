@@ -8,16 +8,16 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.LogType;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class ShowAlternateAccountsEvent implements Listener {
 
 	@EventHandler
 	public void showAltsOnJoin(PlayerJoinEvent e) {
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		if(!xp.isStaff()) {
 			if(xp.hasAlternateAccounts()) {
-				for(xEssentialsPlayer player : xEssentials.getManagers().getPlayerManager().getPlayers()) {
+				for(XPlayer player : xEssentials.getManagers().getPlayerManager().getPlayers()) {
 					if(player.isStaff()) {
 						player.getPlayer().sendMessage(ChatColor.GOLD + "-----------------------------------------------------");
 						player.getPlayer().sendMessage(ChatColor.GOLD + ".oO___[Alternate Accounts for player " + xp.getUser()+"]___Oo.");

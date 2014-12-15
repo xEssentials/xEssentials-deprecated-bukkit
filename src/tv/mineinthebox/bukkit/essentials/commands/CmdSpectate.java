@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdSpectate {
 
@@ -25,7 +25,7 @@ public class CmdSpectate {
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/spectate stop " + ChatColor.WHITE + ": stops the current spectate session");
 					} else if(args.length == 1) {
 						if(args[0].equalsIgnoreCase("stop")) {
-							xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 							if(xp.isSpectate()) {
 								xp.stopSpectate();
 								sender.sendMessage(ChatColor.GREEN + "successfully stopped spectate.");
@@ -39,7 +39,7 @@ public class CmdSpectate {
 									sender.sendMessage(ChatColor.RED + "you cannot spectate yourself!");
 									return false;
 								}
-								xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 								xp.spectate(target);
 								sender.sendMessage(ChatColor.GREEN + "successfully spectating player " + target.getName());
 							}

@@ -17,7 +17,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class TorchEvent implements Listener {
 	
@@ -27,7 +27,7 @@ public class TorchEvent implements Listener {
 	@EventHandler
 	public void onTorchMove(PlayerMoveEvent e) {
 		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isTorch()) {
 				if(e.getFrom().distanceSquared(e.getTo()) > 0) {
 					if(e.getPlayer().getItemInHand().getType() == Material.TORCH) {

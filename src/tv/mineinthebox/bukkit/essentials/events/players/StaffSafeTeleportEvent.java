@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class StaffSafeTeleportEvent implements Listener {
 
@@ -25,7 +25,7 @@ public class StaffSafeTeleportEvent implements Listener {
 	@EventHandler
 	public void onStaffTeleport(PlayerTeleportEvent e) {
 		if(e.getCause() == TeleportCause.PLUGIN) {
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isStaff()) {
 				if(xp.isVanished()) {
 					return;

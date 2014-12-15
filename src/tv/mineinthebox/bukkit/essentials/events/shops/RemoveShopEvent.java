@@ -12,8 +12,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class RemoveShopEvent implements Listener {
 	
@@ -24,12 +24,12 @@ public class RemoveShopEvent implements Listener {
 		if(e.getBlock().getType() == Material.SIGN_POST || e.getBlock().getType() == Material.WALL_SIGN) {
 			Sign sign = (Sign) e.getBlock().getState();
 			if(isShopSign(sign.getLines(), false)) {
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 				if(xp.isShop(e.getBlock().getLocation())) {
 					xp.removeShop(e.getBlock().getLocation());
 					e.getPlayer().sendMessage(ChatColor.GREEN + "[Shop] " + ChatColor.GRAY + " shop unregistered!");
 				} else if(e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-					for(xEssentialsOfflinePlayer off : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+					for(XOfflinePlayer off : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
 						if(off.isShop(e.getBlock().getLocation())) {
 							off.removeShop(e.getBlock().getLocation());
 							e.getPlayer().sendMessage(ChatColor.GREEN + "[Shop] " + ChatColor.GRAY + " shop of " + off.getUser() + " is unregistered!");

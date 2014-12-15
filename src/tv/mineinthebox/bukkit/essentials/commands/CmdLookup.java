@@ -22,7 +22,7 @@ import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.LogType;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 import tv.mineinthebox.bukkit.essentials.enums.ServiceType;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
 
 public class CmdLookup {
 
@@ -55,7 +55,7 @@ public class CmdLookup {
 						sender.sendMessage(ChatColor.GRAY + "services: " + build.toString());
 					} else {
 						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-							xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							try {
 								EnumMap<ServiceType, List<String>> messages = getLookupReasons(off.getUser());
 								for(ServiceType type : ServiceType.values()) {

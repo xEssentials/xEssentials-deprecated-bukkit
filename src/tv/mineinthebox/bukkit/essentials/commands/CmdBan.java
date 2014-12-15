@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.BanList.Type;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.BanList.Type;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -16,14 +16,14 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdBan {
 
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
-		for(xEssentialsOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
 				s.add(name.getUser());
 			}
@@ -64,13 +64,13 @@ public class CmdBan {
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/ban help " + ChatColor.WHITE + ": shows help");
 					} else {
 						if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-							xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
 							xp.setPermBanned("The ban hammer has spoken!", sender.getName());
 							sender.sendMessage(ChatColor.GREEN + "successfully banned player " + xp.getUser());
 							xp.getPlayer().kickPlayer(xp.getBanMessage());
 						} else {
 							try {
-								xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+								XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								off.setPermBanned("The ban hammer has spoken!", sender.getName());
 								sender.sendMessage(ChatColor.GREEN + "successfully banned player " + off.getUser());
 							} catch(NullPointerException e) {
@@ -99,13 +99,13 @@ public class CmdBan {
 					}
 				} else if(args.length > 1) {
 					if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-						xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
 						String message = Arrays.toString(args).replace(args[0], "").replace("[", "").replace(",", "").replace("]", "");
 						xp.setPermBanned(message, sender.getName());
 						xp.getPlayer().kickPlayer(message);
 					} else {
 						try {
-							xEssentialsOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							String message = Arrays.toString(args).replace(args[0], "").replace("[", "").replace(",", "").replace("]", "");
 							off.setPermBanned(message, sender.getName());
 						} catch(NullPointerException e) {

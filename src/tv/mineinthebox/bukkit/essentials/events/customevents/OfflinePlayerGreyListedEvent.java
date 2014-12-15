@@ -7,7 +7,7 @@ import org.bukkit.event.HandlerList;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.GreyListCause;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
 
 public class OfflinePlayerGreyListedEvent extends Event implements Cancellable {
 
@@ -58,7 +58,7 @@ public class OfflinePlayerGreyListedEvent extends Event implements Cancellable {
 	 * @param returns the offline player instance
 	 * @return xEssentialsOfflinePlayer
 	 */
-	public xEssentialsOfflinePlayer getEssentialsOfflinePlayer() {
+	public XOfflinePlayer getEssentialsOfflinePlayer() {
 		return xEssentials.getManagers().getPlayerManager().getOfflinePlayer(p);
 	}
 

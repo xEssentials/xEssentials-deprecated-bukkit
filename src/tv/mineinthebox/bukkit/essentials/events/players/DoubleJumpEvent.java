@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.util.Vector;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class DoubleJumpEvent implements Listener {
 
@@ -19,7 +19,7 @@ public class DoubleJumpEvent implements Listener {
 		if(e.getPlayer().getGameMode() == GameMode.CREATIVE) {
 			return;
 		}
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		if(xp.hasDoubleJump()) {
 			e.setCancelled(true);
 			e.getPlayer().setAllowFlight(false);
@@ -29,7 +29,7 @@ public class DoubleJumpEvent implements Listener {
 	
 	@EventHandler
 	public void onJump(PlayerMoveEvent e) {
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.hasDoubleJump()) {
 				if(e.getPlayer().getGameMode() == GameMode.SURVIVAL && e.getPlayer().getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR) {
 					e.getPlayer().setAllowFlight(true);	

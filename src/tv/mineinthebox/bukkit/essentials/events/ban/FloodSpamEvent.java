@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 @SuppressWarnings("deprecation")
 public class FloodSpamEvent implements Listener {
@@ -23,7 +23,7 @@ public class FloodSpamEvent implements Listener {
 		if(chatTime.containsKey(e.getPlayer().getName())) {
 			if(System.currentTimeMillis() - chatTime.get(e.getPlayer().getName()) < 300) {
 				e.setCancelled(true);
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 				Date date = new Date(System.currentTimeMillis());
 				date.setDate(date.getDate() + 1);
 				xp.setTempbanned(date.getTime(), Configuration.getBanConfig().getFloodSpamBanMessage(), "CONSOLE");

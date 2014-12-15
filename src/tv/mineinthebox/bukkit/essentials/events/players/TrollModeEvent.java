@@ -10,13 +10,13 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class TrollModeEvent implements Listener {
 
 	@EventHandler
 	public void onTroll(PlayerInteractEntityEvent e) {
-		xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		if(xp.isTrollMode()) {
 			if(e.getRightClicked() instanceof Player) {
 				Player p = (Player) e.getRightClicked();
@@ -29,7 +29,7 @@ public class TrollModeEvent implements Listener {
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
 		if(e.getAction() == Action.LEFT_CLICK_BLOCK) {
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isTrollMode()) {
 				if(xp.getPlayer().getPassenger() instanceof Player) {
 					Player p = (Player) xp.getPlayer().getPassenger();

@@ -7,15 +7,15 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class ModreqJoinEvent implements Listener {
 	
 	@EventHandler
 	public void modreqOnJoin(PlayerJoinEvent e) {
 		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.hasModreqDoneMessage()) {
 				String[] messages = xp.getModreqDoneMessage().split(",");
 				e.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',messages[0]));
@@ -32,7 +32,7 @@ public class ModreqJoinEvent implements Listener {
 		if(e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 			Boolean areModreqsOpen = false;
 			int i = 0;
-			for(xEssentialsOfflinePlayer off : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+			for(XOfflinePlayer off : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
 				if(off.hasModreqsOpen()) {
 					areModreqsOpen = true;
 					i = (i+off.getModreqs().length);

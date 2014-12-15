@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
 
 import tv.mineinthebox.bukkit.essentials.xEssentials;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
+import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CompassEvent implements Listener {
 
@@ -18,7 +18,7 @@ public class CompassEvent implements Listener {
 	public void onCompassMove(PlayerInteractEvent e) {
 		if(e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if(e.getPlayer().getItemInHand().getType() == Material.WATCH) {
-				xEssentialsPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 				if(xp.hasCompass()) {
 					Player p = xp.getCompass().getPlayer();
 					if(p instanceof Player) {
