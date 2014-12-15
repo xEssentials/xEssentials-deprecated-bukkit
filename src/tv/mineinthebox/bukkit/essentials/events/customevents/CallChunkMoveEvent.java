@@ -15,19 +15,19 @@ public class CallChunkMoveEvent implements Listener {
 		} else if(e.getFrom().getChunk().getX() != e.getTo().getChunk().getX() && e.getFrom().getX() > e.getTo().getX()) {
 			Location getToCenteredChunk = new Location(e.getPlayer().getWorld(), (e.getTo().getX()-8), e.getTo().getY(), e.getTo().getZ());
 			Location getFromCenteredChunk = new Location(e.getPlayer().getWorld(), (e.getFrom().getX()+8), e.getFrom().getY(), e.getFrom().getZ());
-			Bukkit.getPluginManager().callEvent(new PlayerChunkMoveEvent(e.getPlayer(), getToCenteredChunk, getFromCenteredChunk));
+			Bukkit.getPluginManager().callEvent(new PlayerChunkMoveEvent(e.getPlayer(), getToCenteredChunk, getFromCenteredChunk,e));
 		} else if(e.getFrom().getChunk().getZ() != e.getTo().getChunk().getZ() && e.getFrom().getZ() > e.getTo().getZ()) {
 			Location getToCenteredChunk = new Location(e.getPlayer().getWorld(), e.getTo().getX(), e.getTo().getY(), (e.getTo().getZ()-8));
 			Location getFromCenteredChunk = new Location(e.getPlayer().getWorld(), e.getFrom().getX(), e.getFrom().getY(), (e.getFrom().getZ()+8));
-			Bukkit.getPluginManager().callEvent(new PlayerChunkMoveEvent(e.getPlayer(), getToCenteredChunk, getFromCenteredChunk));
+			Bukkit.getPluginManager().callEvent(new PlayerChunkMoveEvent(e.getPlayer(), getToCenteredChunk, getFromCenteredChunk,e));
 		} else if(e.getFrom().getChunk().getX() != e.getTo().getChunk().getX() && e.getFrom().getX() < e.getTo().getX()) {
 			Location getToCenteredChunk = new Location(e.getPlayer().getWorld(), (e.getTo().getX()+8), e.getTo().getY(), e.getTo().getZ());
 			Location getFromCenteredChunk = new Location(e.getPlayer().getWorld(), (e.getFrom().getX()-8), e.getFrom().getY(), e.getFrom().getZ());
-			Bukkit.getPluginManager().callEvent(new PlayerChunkMoveEvent(e.getPlayer(), getToCenteredChunk, getFromCenteredChunk));
+			Bukkit.getPluginManager().callEvent(new PlayerChunkMoveEvent(e.getPlayer(), getToCenteredChunk, getFromCenteredChunk,e));
 		} else if(e.getFrom().getChunk().getZ() != e.getTo().getChunk().getZ() && e.getFrom().getZ() < e.getTo().getZ()) {
 			Location getToCenteredChunk = new Location(e.getPlayer().getWorld(), e.getTo().getX(), e.getTo().getY(), (e.getTo().getZ()+8));
 			Location getFromCenteredChunk = new Location(e.getPlayer().getWorld(), e.getFrom().getX(), e.getFrom().getY(), (e.getFrom().getZ()-8));
-			Bukkit.getPluginManager().callEvent(new PlayerChunkMoveEvent(e.getPlayer(), getToCenteredChunk, getFromCenteredChunk));
+			Bukkit.getPluginManager().callEvent(new PlayerChunkMoveEvent(e.getPlayer(), getToCenteredChunk, getFromCenteredChunk,e));
 		}
 	}
 }

@@ -86,11 +86,13 @@ import tv.mineinthebox.bukkit.essentials.events.players.InventoryMenuEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.LoadMemoryEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.MobProcEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.ModreqJoinEvent;
+import tv.mineinthebox.bukkit.essentials.events.players.PlayerBorderEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerCheckNameEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerDeathBackEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerFloorEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerForceRespawnEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerHoldItemsEvent;
+import tv.mineinthebox.bukkit.essentials.events.players.PlayerVanillaBorderEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerJoinMessageEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerQuitMessageEvent;
 import tv.mineinthebox.bukkit.essentials.events.players.PlayerRespawnTeleportEvent;
@@ -163,6 +165,13 @@ public class Handler {
 			setListener(new SaveLastInventoryEvent());
 		} else if(Configuration.getPvpConfig().isReplaceNpcEnabled()) {
 			setListener(new SaveLastInventoryEvent());
+		}
+		if(Configuration.getPlayerConfig().isWorldBorderEnabled()) {
+			if(Configuration.getPlayerConfig().isVanillaBorderSupported()) {
+				setListener(new PlayerVanillaBorderEvent());	
+			} else {
+				setListener(new PlayerBorderEvent());
+			}
 		}
 		if(Configuration.getChatConfig().isRssBroadcastEnabled()) {setListener(new BroadcastSiteNewsEvent());}
 		setListener(new SaveLastLocationEvent());
