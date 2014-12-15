@@ -264,6 +264,23 @@ public class xEssentialsPlayer implements XPlayer {
 			}
 		}
 	}
+	
+	@Override
+	public void saveLastLocation() {
+		con.set("lastLocation.x", player.getLocation().getBlockX());
+		con.set("lastLocation.y", player.getLocation().getBlockY());
+		con.set("lastLocation.z", player.getLocation().getBlockZ());
+		con.set("lastLocation.yaw", player.getLocation().getYaw());
+		con.set("lastLocation.pitch", player.getLocation().getPitch());
+		con.set("lastLocation.world", player.getWorld().getName());
+		try {
+			con.save(f);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update();
+	}
 
 	/**
 	 * @author xize
@@ -1395,27 +1412,6 @@ public class xEssentialsPlayer implements XPlayer {
 
 	/**
 	 * @author xize
-	 * @param save the last location of the player
-	 * @return void
-	 */
-	@Override
-	public void saveLocation() {
-		con.set("lastLocation.x", player.getLocation().getX());
-		con.set("lastLocation.y", player.getLocation().getY());
-		con.set("lastLocation.z", player.getLocation().getZ());
-		con.set("lastLocation.yaw", player.getLocation().getYaw());
-		con.set("lastLocation.pitch", player.getLocation().getPitch());
-		con.set("lastLocation.world", player.getWorld().getName());
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * @author xize
 	 * @param checks whenever the player has a offline inventory
 	 * @return boolean
 	 */
@@ -1453,23 +1449,6 @@ public class xEssentialsPlayer implements XPlayer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * @author xize
-	 * @param returns the offline inventory
-	 * @return Inventory
-	 */
-	@Override
-	@SuppressWarnings("unchecked")
-	public Inventory getOfflineInventory() {
-		update();
-		Inventory inv = Bukkit.createInventory(null, InventoryType.PLAYER);
-		if(hasOfflineInventory()) {
-			ItemStack[] items = ((List<ItemStack>)con.get("offlineInventory.contents")).toArray(new ItemStack[0]);	
-			inv.setContents(items);
-		}
-		return inv;
 	}
 
 	/**
@@ -2122,29 +2101,6 @@ public class xEssentialsPlayer implements XPlayer {
 			if(con.getDouble("money") > 0.0) {
 				return true;
 			}
-		}
-		return false;
-	}
-
-	/**
-	 * @author xize
-	 * @param this withdraws the players money
-	 * @return Boolean
-	 */
-	@Override
-	public Boolean payEssentialsMoney(Double price) {
-		update();
-		Double money = (getTotalEssentialsMoney()-price);
-		if(money >= 0.0) {
-			con.set("money", money);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();
-			return true;
 		}
 		return false;
 	}
@@ -2814,6 +2770,75 @@ public class xEssentialsPlayer implements XPlayer {
 		update();
 	}
 
+	@Override
+	public void PrepareLoginTask(String command, PlayerTaskEnum task) {
+		con.set("task.command", command);
+		con.set("task.type", task.name());
+		try {
+			con.save(f);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Inventory getOfflineInventory(Player viewer) {
+		update();
+		Inventory inv = Bukkit.createInventory(null, InventoryType.PLAYER);
+		if(hasOfflineInventory()) {
+			ItemStack[] items = ((List<ItemStack>)con.get("offlineInventory.contents")).toArray(new ItemStack[0]);	
+			inv.setContents(items);
+		}
+		return inv;
+	}
+
+	@Override
+	public void setModreqDoneMessage(String message) {
+		con.set("modreq.done.message", message);
+		try {
+			con.save(f);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update();
+	}
+
+	@Override
+	public XPlayer getEssentialsPlayer() {
+		return xEssentials.getManagers().getPlayerManager().getPlayer(getUser());
+	}
+
+	@Override
+	public Location getLastLocation() {
+		update();
+		if(con.contains("lastLocation")) {
+			return new Location(Bukkit.getWorld(con.getString("lastLocation.world")), con.getDouble("lastLocation.x"), con.getDouble("lastLocation.y"), con.getDouble("lastLocation.z"), con.getInt("lastLocation.yaw"), con.getInt("lastLocation.pitch"));
+		}
+		return null;
+	}
+
+	@Override
+	public boolean payEssentialsMoney(double money) {
+		update();
+		Double moneya = (getTotalEssentialsMoney()-money);
+		if(moneya >= 0.0) {
+			con.set("money", moneya);
+			try {
+				con.save(f);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			update();
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * @author xize
 	 * @param gets updated at every call so we know that the configuration stored in the memory is still recent with the flat saved file!
@@ -2855,82 +2880,6 @@ public class xEssentialsPlayer implements XPlayer {
 			}
 		}
 		return false;
-	}
-
-	@Override
-	public void PrepareLoginTask(String command, PlayerTaskEnum task) {
-		con.set("task.command", command);
-		con.set("task.type", task.name());
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-
-	@Override
-	public void setPotato() {
-		con.set("isPotato", true);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-
-	@Override
-	public boolean setIp(String ip) {
-		con.set("ip", ip);
-		try {
-			con.save(f);
-			update();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return true;
-	}
-
-	@Override
-	public Location getLocation() {
-		update();
-		if(con.contains("lastLocation")) {
-			return new Location(Bukkit.getWorld(con.getString("lastLocation.world")), con.getDouble("lastLocation.x"), con.getDouble("lastLocation.y"), con.getDouble("lastLocation.z"), con.getInt("lastLocation.yaw"), con.getInt("lastLocation.pitch"));
-		}
-		return null;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public Inventory getOfflineInventory(Player viewer) {
-		update();
-		Inventory inv = Bukkit.createInventory(null, InventoryType.PLAYER);
-		if(hasOfflineInventory()) {
-			ItemStack[] items = ((List<ItemStack>)con.get("offlineInventory.contents")).toArray(new ItemStack[0]);	
-			inv.setContents(items);
-		}
-		return inv;
-	}
-
-	@Override
-	public void setModreqDoneMessage(String message) {
-		con.set("modreq.done.message", message);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-
-	@Override
-	public XPlayer getEssentialsPlayer() {
-		return xEssentials.getManagers().getPlayerManager().getPlayer(getUser());
 	}
 
 }

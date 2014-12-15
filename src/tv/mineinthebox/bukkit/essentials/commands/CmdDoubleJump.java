@@ -65,14 +65,7 @@ public class CmdDoubleJump {
 									sender.sendMessage(ChatColor.GREEN + "enabled double jump on online player " + xp.getUser());
 								}
 							} else {
-								XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
-								if(off.hasDoubleJump()) {
-									off.setDoubleJump(false);
-									sender.sendMessage(ChatColor.GREEN + "disabled double jump on offline player " + off.getUser());
-								} else {
-									off.setDoubleJump(true);
-									sender.sendMessage(ChatColor.GREEN + "enabled double jump on offline player " + off.getUser());
-								}
+								sender.sendMessage(ChatColor.RED + "player is offline!");
 							}
 						} else {
 							Warnings.getWarnings(sender).playerHasNeverPlayedBefore();

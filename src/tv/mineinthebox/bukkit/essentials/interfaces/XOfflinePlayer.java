@@ -3,7 +3,6 @@ package tv.mineinthebox.bukkit.essentials.interfaces;
 import java.util.List;
 
 import org.bukkit.Location;
-import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
@@ -15,81 +14,10 @@ import tv.mineinthebox.bukkit.essentials.instances.RestrictedCommand;
 import tv.mineinthebox.bukkit.essentials.instances.Shop;
 
 public interface XOfflinePlayer {
-	
-	/**
-	 * @author xize
-	 * @param returns true whenever the speed is enabled
-	 * @return boolean
-	 */
-	public boolean isSpeedEnabled();
-
-	/**
-	 * @author xize
-	 * @param sets the speed of a player
-	 * @return void
-	 */
-	public void setSpeed(int i);
-
-	/**
-	 * @author xize
-	 * @param prepares a command task on players next join
-	 * @return void
-	 */
-	public void PrepareLoginTask(String command, PlayerTaskEnum task);
-
-	/**
-	 * @author xize
-	 * @param removes the walk speed
-	 * @return void
-	 */
-	public void removeSpeed();
 
 	public boolean isGreyListed();
 
 	public void setGreyListed(Boolean bol);
-
-
-	/**
-	 * @author xize
-	 * @param checks whenever the player is boomed
-	 * @return Boolean
-	 */
-	public boolean isBoom();
-
-	/**
-	 * @author xize
-	 * @param set the boom status of this player
-	 * @return void
-	 */
-	public void setBoom();
-
-	/**
-	 * @author xize
-	 * @param remove the boom status of this player
-	 * @return void
-	 */
-	public void removeBoom();
-
-	/**
-	 * @author xize
-	 * @param returns true whenever the player is cursed to be a potato!
-	 * @return boolean
-	 */
-	public boolean isPotato();
-
-	/**
-	 * @author xize
-	 * @param remove potato curse of this player!
-	 * @return void
-	 */
-	public void removePotato();
-
-	/**
-	 * @author xize
-	 * @param set a potato curse of this player!
-	 * @return void
-	 */
-	public void setPotato();
 
 	/**
 	 * @author xize
@@ -106,36 +34,8 @@ public interface XOfflinePlayer {
 	 * 
 	 */
 	public String getIp();
-
-	/**
-	 * @author xize
-	 * @param allows to unvanish the player when offline
-	 * @return void
-	 */
-	public void unvanish();
 	
-	/**
-	 * @author xize
-	 * @param returns true whenever the player has vanish effects
-	 * @return Boolean
-	 */
-	public boolean hasVanishEffects();
-	
-	/**
-	 * @author xize
-	 * @param sets the vanish effects of this player
-	 * @param bol - the boolean
-	 */
-	public void setVanishEffects(Boolean bol);
-
-	/**
-	 * 
-	 * @author xize
-	 * @param set the ip of this player
-	 * @return boolean
-	 * 
-	 */
-	public boolean setIp(String ip);
+	public void PrepareLoginTask(String command, PlayerTaskEnum task);
 
 	/**
 	 * 
@@ -250,23 +150,6 @@ public interface XOfflinePlayer {
 	/**
 	 * 
 	 * @author xize
-	 * @param checks whenever fly is enabled for this player
-	 * @return boolean
-	 * 
-	 */
-	public boolean isFlying();
-	/**
-	 * 
-	 * @author xize
-	 * @param checks whenever torch is enabled for this player
-	 * @return boolean
-	 * 
-	 */
-	public boolean isTorch();
-
-	/**
-	 * 
-	 * @author xize
 	 * @param checks whenever the player has set his home
 	 * @return boolean
 	 * 
@@ -313,19 +196,13 @@ public interface XOfflinePlayer {
 	 */
 	public void removeHome(String home);
 
-	/**
-	 * @author xize
-	 * @param is true when vanished otherwise false
-	 * @return boolean
-	 */
-	public boolean isVanished();
 
 	/**
 	 * @author xize
 	 * @param gets the last location of this player
 	 * @return Location
 	 */
-	public Location getLocation();
+	public Location getLastLocation();
 
 	/**
 	 * @author xize
@@ -333,6 +210,8 @@ public interface XOfflinePlayer {
 	 * @return boolean
 	 */
 	public boolean hasOfflineInventory();
+	
+	public boolean payEssentialsMoney(double money);
 
 	/**
 	 * @author xize
@@ -377,26 +256,7 @@ public interface XOfflinePlayer {
 	 */
 	public Modreq[] getModreqs();
 
-	/**
-	 * @author xize
-	 * @param returns true whenever the player has a modreq done message
-	 * @return boolean
-	 */
-	public boolean hasModreqDoneMessage();
 
-	/**
-	 * @author xize
-	 * @param returns the modreq done message
-	 * @return String
-	 */
-	public String getModreqDoneMessage();
-
-	/**
-	 * @author xize
-	 * @param remove the modreq done message
-	 * @return void
-	 */
-	public void removeGetModregDoneMessage();
 	/**
 	 * @author xize
 	 * @param set the last modreq done message for this player when used /done
@@ -424,67 +284,6 @@ public interface XOfflinePlayer {
 	 * @return boolean
 	 */
 	public boolean hasAlternateAccounts();
-
-	/**
-	 * @author xize
-	 * @param set the silence state of the player
-	 * @param Boolean
-	 * @return void
-	 */
-	public void setSilenced(Boolean bol);
-
-	/**
-	 * @author xize
-	 * @param returns true whenever the player has silenced the chat
-	 * @return Boolean
-	 */
-	public boolean isSilenced();
-
-	/**
-	 * @author xize
-	 * @param add a player to this players ignore list, this means that this player ignores the chat by the called name.
-	 * @return void
-	 */
-	public void addIgnoredPlayer(String s);
-
-	/**
-	 * @author xize
-	 * @param get a list of all player names which get ignored by this player
-	 * @return List<String>()
-	 */
-	public List<String> getIgnoredPlayers();
-
-	/**
-	 * @author xize
-	 * @param returns true whenever the player ignores a player
-	 * @return Boolean
-	 */
-	public boolean hasIgnoredPlayers();
-
-	/**
-	 * @author xize
-	 * @param remove a player from the ignore list
-	 * @return void
-	 */
-	public void removeIgnoredPlayer(String s);
-
-	/**
-	 * @author xize
-	 * @param returns true whenever the player is freezed
-	 * @return Boolean
-	 */
-	public boolean isFreezed();
-
-	/**
-	 * @author xize
-	 * @param freezes the player or unfreeze the player
-	 * @param void
-	 */
-	public void setFreezed(Boolean bol);
-
-	public boolean isTrollMode();
-
-	public void setTrollMode(Boolean bol);
 
 	/**
 	 * @author xize
@@ -525,34 +324,6 @@ public interface XOfflinePlayer {
 
 	/**
 	 * @author xize
-	 * @param set the kit cooldown
-	 * @return void
-	 */
-	public void setKitCooldown(Long cooldown);
-
-	/**
-	 * @author xize
-	 * @param remove the kit cooldown
-	 * @return void
-	 */
-	public void removeKitCoolDown();
-
-	/**
-	 * @author xize
-	 * @param return the saved cooldown of this player
-	 * @return Long
-	 */
-	public Long getKitCooldown();
-
-	/**
-	 * @author xize
-	 * @param returns true whenever the player has the cooldown else false
-	 * @return Boolean
-	 */
-	public Boolean hasKitCooldown();
-
-	/**
-	 * @author xize
 	 * @param returns the total amount of Essentials money of this player
 	 * @return Double
 	 */
@@ -564,29 +335,6 @@ public interface XOfflinePlayer {
 	 * @return Boolean
 	 */
 	public Boolean hasEssentialsMoney();
-
-	/**
-	 * @author xize
-	 * @param this withdraws the players money
-	 * @return Boolean
-	 */
-	public Boolean payEssentialsMoney(Double price);
-
-	/**
-	 * @author xize
-	 * @param price - the amount specified
-	 * @param toPayTo - the retriever of the money
-	 * @return Boolean
-	 */
-	public Boolean payEssentialsMoney(Double price, XPlayer toPayTo);
-	
-	/**
-	 * @author xize
-	 * @param price - the price the player is gonna be to pay
-	 * @param toPayTo - the retriever
-	 * @return Boolean - if the player has no money it will be false.
-	 */
-	public Boolean payEssentialsMoney(Double price, XOfflinePlayer toPayTo);
 
 	/**
 	 * @author xize
@@ -629,44 +377,6 @@ public interface XOfflinePlayer {
 	 */
 	public boolean hasSavedInventory();
 	
-	/**
-	 * @author xize
-	 * @param bol - when the boolean is true enable procs, else disable procs
-	 */
-	public void setProc(boolean bol);
-	
-	/**
-	 * @author xize
-	 * @param return true when the player has procs
-	 * @return Boolean
-	 */
-	public boolean hasProc();
-	
-	/**
-	 * @author xize
-	 * @param bol - sets the anti knockback of this player.
-	 */
-	public void setKnock(boolean bol);
-	
-	/**
-	 * @author xize
-	 * @param returns the state of the anti knockback.
-	 * @return Boolean
-	 */
-	public boolean isKnock();
-	
-	/**
-	 * @author xize
-	 * @param sets the player in a chair.
-	 */
-	public void setInChair(Boolean bol);
-	
-	/**
-	 * @author xize
-	 * @param returns true if the player sits in a chair
-	 * @return Boolean
-	 */
-	public boolean isInChair();
 	
 	/**
 	 * @author xize
@@ -675,95 +385,11 @@ public interface XOfflinePlayer {
 	 */
 	public XPlayer getEssentialsPlayer();
 	
-	/**
-	 * @author xize
-	 * @param toggles double jump
-	 * @param bol - true when enabled, false when disabled.
-	 */
-	public void setDoubleJump(Boolean bol);
-	
-	/**
-	 * @author xize
-	 * @param returns true if the player has double jump else false
-	 * @return Boolean
-	 */
-	public boolean hasDoubleJump();
-	
-	/**
-	 * @author xize
-	 * @param returns true when edit mode is enabled
-	 * @return Boolean
-	 */
-	public boolean isEditSignEnabled();
-	
-	/**
-	 * @author xize
-	 * @param bol - sets the mode whenever a player edits a sign
-	 */
-	public void setEditSign(Boolean bol);
-	
-	/**
-	 * @author xize
-	 * @param returns true when player is in drunk mode
-	 * @return Boolean
-	 */
-	public boolean isDrunk();
-	
-	/**
-	 * @author xize
-	 * @param bol - sets the drunk state
-	 */
-	public void setDrunk(Boolean bol);
-	
-	/**
-	 * @author xize
-	 * @param returns true if floor mode is true
-	 * @return boolean
-	 */
-	public boolean isFloorMode();
-	
-	/**
-	 * @author xize
-	 * @param bol - when true build mode is activated, else its not.
-	 * @param range - the range of the floor mode
-	 */
-	public void setFloorMode(boolean bol, int range);
-	
-	/**
-	 * @author xize
-	 * @param returns the range of the floor
-	 * @return int
-	 */
-	public int getFloorModeRange();
-	
-	/**
-	 * @author xize
-	 * @param returns true if the wall mode is activated
-	 * @return
-	 */
-	public boolean isWallMode();
-	
-	/**
-	 * @author xize
-	 * @param bol - activates the wall mode
-	 * @param range - the range how heigh the wall should be.
-	 */
-	public void setWallMode(boolean bol, int range);
-	
-	public void setShop(Location loc, Chest chest);
-	
 	public boolean isShop(Location loc);
 	
 	public Shop getShop(Location loc);
 	
 	public void removeShop(Location loc);
-	
-	/**
-	 * @author xize
-	 * @param returns the wall size
-	 * @return int
-	 */
-	public int getWallModeRange();
 	
 	/**
 	 * @author xize

@@ -190,6 +190,7 @@ public interface XPlayer extends XOfflinePlayer {
 	 * @return boolean
 	 * 
 	 */
+	
 	public boolean setIp();
 
 	/**
@@ -560,31 +561,10 @@ public interface XPlayer extends XOfflinePlayer {
 
 	/**
 	 * @author xize
-	 * @param save the last location of the player
-	 * @return void
-	 */
-	public void saveLocation();
-
-	/**
-	 * @author xize
-	 * @param checks whenever the player has a offline inventory
-	 * @return boolean
-	 */
-	public boolean hasOfflineInventory();
-
-	/**
-	 * @author xize
 	 * @param save the inventory for offline view
 	 * @return void
 	 */
 	public void saveOfflineInventory();
-
-	/**
-	 * @author xize
-	 * @param returns the offline inventory
-	 * @return Inventory
-	 */
-	public Inventory getOfflineInventory();
 
 	/**
 	 * @author xize
@@ -854,13 +834,6 @@ public interface XPlayer extends XOfflinePlayer {
 
 	/**
 	 * @author xize
-	 * @param this withdraws the players money
-	 * @return Boolean
-	 */
-	public Boolean payEssentialsMoney(Double price);
-
-	/**
-	 * @author xize
 	 * @param price - the price the player is gonna be to pay
 	 * @param toPayTo - the retriever
 	 * @return Boolean - if the player has no money it will be false.
@@ -900,7 +873,7 @@ public interface XPlayer extends XOfflinePlayer {
 	 * @param set the old name in the history
 	 * @param oldName - old name
 	 */
-	abstract void setNameHistory(String oldName);
+	public void setNameHistory(String oldName);
 
 	/**
 	 * @author xize
@@ -946,6 +919,8 @@ public interface XPlayer extends XOfflinePlayer {
 	public boolean hasCustomName();
 	
 	public String getCustomName();
+	
+	public void saveLastLocation();
 
 	/**
 	 * @author xize

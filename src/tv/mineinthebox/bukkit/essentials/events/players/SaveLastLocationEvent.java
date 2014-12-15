@@ -14,7 +14,7 @@ public class SaveLastLocationEvent implements Listener {
 	public void doSaveLocation(PlayerQuitEvent e) {
 		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
 			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
-			xp.saveLocation();
+			xp.saveLastLocation();
 		}
 	}
 	
@@ -22,7 +22,7 @@ public class SaveLastLocationEvent implements Listener {
 	public void doSaveLocation(PlayerKickEvent e) {
 		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
 		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
-			xp.saveLocation();
+			xp.saveLastLocation();
 		}
 	}
 

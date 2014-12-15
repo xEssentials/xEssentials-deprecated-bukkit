@@ -4,17 +4,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.bukkit.BanList.Type;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
-import org.bukkit.BanList.Type;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.block.Sign;
@@ -29,11 +28,10 @@ import org.bukkit.inventory.ItemStack;
 import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PlayerTaskEnum;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
 import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
-public class xEssentialsOfflinePlayer implements XOfflinePlayer{
+public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 
 	private final File f;
 	private final FileConfiguration con;
@@ -87,76 +85,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer{
 		}
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true whenever the speed is enabled
-	 * @return boolean
-	 */
-	@Override
-	public boolean isSpeedEnabled() {
-		update();
-		if(con.contains("isSpeed")) {
-			return con.getBoolean("isSpeed");
-		}
-		return false;
-	}
-
-	/**
-	 * @author xize
-	 * @param sets the speed of a player
-	 * @return void
-	 */
-	@Override
-	public void setSpeed(int i) {
-		con.set("isSpeed", true);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		getPlayer().setWalkSpeed(i);
-		getPlayer().setFlySpeed(i);
-		update();
-	}
-
-	/**
-	 * @author xize
-	 * @param prepares a command task on players next join
-	 * @return void
-	 */
-	@Override
-	public void PrepareLoginTask(String command, PlayerTaskEnum task) {
-		con.set("task.command", command);
-		con.set("task.type", task.name());
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-
-	/**
-	 * @author xize
-	 * @param removes the walk speed
-	 * @return void
-	 */
-	@Override
-	public void removeSpeed() {
-		con.set("isSpeed", false);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-		getPlayer().setWalkSpeed(0.2f);
-		getPlayer().setFlySpeed(0.2f);
-	}
-
 	@Override
 	public boolean isGreyListed() {
 		update();
@@ -173,103 +101,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer{
 	@Override
 	public void setGreyListed(Boolean bol) {
 		con.set("isDefault", !bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-
-
-	/**
-	 * @author xize
-	 * @param checks whenever the player is boomed
-	 * @return Boolean
-	 */
-	@Override
-	public boolean isBoom() {
-		update();
-		if(con.contains("isBoom")) {
-			return con.getBoolean("isBoom");
-		}
-		return false;
-	}
-
-	/**
-	 * @author xize
-	 * @param set the boom status of this player
-	 * @return void
-	 */
-	@Override
-	public void setBoom() {
-		con.set("isBoom", true);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-
-	/**
-	 * @author xize
-	 * @param remove the boom status of this player
-	 * @return void
-	 */
-	@Override
-	public void removeBoom() {
-		con.set("isBoom", null);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-
-	/**
-	 * @author xize
-	 * @param returns true whenever the player is cursed to be a potato!
-	 * @return boolean
-	 */
-	@Override
-	public boolean isPotato() {
-		update();
-		if(con.contains("isPotato")) {
-			return con.getBoolean("isPotato");
-		}
-		return false;
-	}
-
-	/**
-	 * @author xize
-	 * @param remove potato curse of this player!
-	 * @return void
-	 */
-	@Override
-	public void removePotato() {
-		con.set("isPotato", false);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-
-	/**
-	 * @author xize
-	 * @param set a potato curse of this player!
-	 * @return void
-	 */
-	@Override
-	public void setPotato() {
-		con.set("isPotato", true);
 		try {
 			con.save(f);
 		} catch (IOException e) {
@@ -305,76 +136,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer{
 	public String getIp() {
 		update();
 		return con.getString("ip");
-	}
-
-	/**
-	 * @author xize
-	 * @param allows to unvanish the player when offline
-	 * @return void
-	 */
-	@Override
-	public void unvanish() {
-		update();
-		con.set("isVanished", false);
-		con.set("noPickUp", false);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-	
-	/**
-	 * @author xize
-	 * @param returns true whenever the player has vanish effects
-	 * @return Boolean
-	 */
-	@Override
-	public boolean hasVanishEffects() {
-		update();
-		if(con.getBoolean("vanishEffects")) {
-			return con.getBoolean("vanishEffects");
-		}
-		return false;
-	}
-	
-	/**
-	 * @author xize
-	 * @param sets the vanish effects of this player
-	 * @param bol - the boolean
-	 */
-	@Override
-	public void setVanishEffects(Boolean bol) {
-		con.set("vanishEffects", bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-
-	/**
-	 * 
-	 * @author xize
-	 * @param set the ip of this player
-	 * @return boolean
-	 * 
-	 */
-	@Override
-	public boolean setIp(String ip) {
-		con.set("ip", ip);
-		try {
-			con.save(f);
-			update();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return true;
 	}
 
 	/**
@@ -597,32 +358,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer{
 	/**
 	 * 
 	 * @author xize
-	 * @param checks whenever fly is enabled for this player
-	 * @return boolean
-	 * 
-	 */
-	@Override
-	public boolean isFlying() {
-		update();
-		return con.getBoolean("fly");
-	}
-
-	/**
-	 * 
-	 * @author xize
-	 * @param checks whenever torch is enabled for this player
-	 * @return boolean
-	 * 
-	 */
-	@Override
-	public boolean isTorch() {
-		update();
-		return con.getBoolean("torch");
-	}
-
-	/**
-	 * 
-	 * @author xize
 	 * @param checks whenever the player has set his home
 	 * @return boolean
 	 * 
@@ -716,32 +451,18 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer{
 
 	/**
 	 * @author xize
-	 * @param is true when vanished otherwise false
-	 * @return boolean
-	 */
-	@Override
-	public boolean isVanished() {
-		update();
-		if(con.contains("isVanished")) {
-			return con.getBoolean("isVanished");
-		}
-		return false;
-	}
-
-	/**
-	 * @author xize
 	 * @param gets the last location of this player
 	 * @return Location
 	 */
 	@Override
-	public Location getLocation() {
+	public Location getLastLocation() {
 		update();
 		if(con.contains("lastLocation")) {
 			return new Location(Bukkit.getWorld(con.getString("lastLocation.world")), con.getDouble("lastLocation.x"), con.getDouble("lastLocation.y"), con.getDouble("lastLocation.z"), con.getInt("lastLocation.yaw"), con.getInt("lastLocation.pitch"));
 		}
 		return null;
 	}
-
+	
 	/**
 	 * @author xize
 	 * @param checks whenever the player has a offline inventory
@@ -862,47 +583,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer{
 
 	/**
 	 * @author xize
-	 * @param returns true whenever the player has a modreq done message
-	 * @return boolean
-	 */
-	@Override
-	public boolean hasModreqDoneMessage() {
-		update();
-		if(con.contains("modreq.done.message")) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @author xize
-	 * @param returns the modreq done message
-	 * @return String
-	 */
-	@Override
-	public String getModreqDoneMessage() {
-		return con.getString("modreq.done.message");
-	}
-
-	/**
-	 * @author xize
-	 * @param remove the modreq done message
-	 * @return void
-	 */
-	@Override
-	public void removeGetModregDoneMessage() {
-		con.set("modreq", null);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-
-	/**
-	 * @author xize
 	 * @param set the last modreq done message for this player when used /done
 	 * @return void
 	 */
@@ -963,173 +643,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer{
 			return true;
 		}
 		return false;
-	}
-
-	/**
-	 * @author xize
-	 * @param set the silence state of the player
-	 * @param Boolean
-	 * @return void
-	 */
-	@Override
-	public void setSilenced(Boolean bol) {
-		con.set("silenced", bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-
-	/**
-	 * @author xize
-	 * @param returns true whenever the player has silenced the chat
-	 * @return Boolean
-	 */
-	@Override
-	public boolean isSilenced() {
-		update();
-		if(con.contains("silenced")) {
-			return con.getBoolean("silenced");
-		}
-		return false;
-	}
-
-	/**
-	 * @author xize
-	 * @param add a player to this players ignore list, this means that this player ignores the chat by the called name.
-	 * @return void
-	 */
-	@Override
-	public void addIgnoredPlayer(String s) {
-		if(hasIgnoredPlayers()) {
-			List<String> list = new ArrayList<String>(getIgnoredPlayers());
-			list.add(s);
-			con.set("IgnoredPlayers", list.toArray());
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();
-		} else {
-			String[] a = {s};
-			con.set("IgnoredPlayers", Arrays.asList(a).toArray());
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();	
-		}
-	}
-
-	/**
-	 * @author xize
-	 * @param get a list of all player names which get ignored by this player
-	 * @return List<String>()
-	 */
-	@Override
-	public List<String> getIgnoredPlayers() {
-		return con.getStringList("IgnoredPlayers");
-	}
-
-	/**
-	 * @author xize
-	 * @param returns true whenever the player ignores a player
-	 * @return Boolean
-	 */
-	@Override
-	public boolean hasIgnoredPlayers() {
-		update();
-		if(con.contains("IgnoredPlayers")) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @author xize
-	 * @param remove a player from the ignore list
-	 * @return void
-	 */
-	@Override
-	public void removeIgnoredPlayer(String s) {
-		List<String> list = new ArrayList<String>(getIgnoredPlayers());
-		if(list.size() == 1) {
-			con.set("IgnoredPlayers", null);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();
-		} else {
-			list.remove(s);
-			con.set("IgnoredPlayers", list.toArray());
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();
-		}
-	}
-
-	/**
-	 * @author xize
-	 * @param returns true whenever the player is freezed
-	 * @return Boolean
-	 */
-	@Override
-	public boolean isFreezed() {
-		if(con.contains("isFreezed")) {
-			return con.getBoolean("isFreezed");
-		}
-		return false;
-	}
-
-	/**
-	 * @author xize
-	 * @param freezes the player or unfreeze the player
-	 * @param void
-	 */
-	@Override
-	public void setFreezed(Boolean bol) {
-		con.set("isFreezed", bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-
-	@Override
-	public boolean isTrollMode() {
-		if(con.contains("isTrollmode")) {
-			return con.getBoolean("isTrollmode");
-		}
-		return false;
-	}
-
-	@Override
-	public void setTrollMode(Boolean bol) {
-		con.set("isTrollmode", bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -1235,63 +748,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer{
 
 	/**
 	 * @author xize
-	 * @param set the kit cooldown
-	 * @return void
-	 */
-	@Override
-	public void setKitCooldown(Long cooldown) {
-		con.set("kitCooldown", cooldown);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-
-	/**
-	 * @author xize
-	 * @param remove the kit cooldown
-	 * @return void
-	 */
-	@Override
-	public void removeKitCoolDown() {
-		con.set("kitCooldown", null);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-
-	/**
-	 * @author xize
-	 * @param return the saved cooldown of this player
-	 * @return Long
-	 */
-	@Override
-	public Long getKitCooldown() {
-		return con.getLong("kitCooldown");
-	}
-
-	/**
-	 * @author xize
-	 * @param returns true whenever the player has the cooldown else false
-	 * @return Boolean
-	 */
-	@Override
-	public Boolean hasKitCooldown() {
-		if(con.contains("kitCooldown")) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @author xize
 	 * @param returns the total amount of Essentials money of this player
 	 * @return Double
 	 */
@@ -1319,54 +775,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer{
 
 	/**
 	 * @author xize
-	 * @param this withdraws the players money
-	 * @return Boolean
-	 */
-	@Override
-	public Boolean payEssentialsMoney(Double price) {
-		update();
-		Double money = (getTotalEssentialsMoney()-price);
-		if(money > 0.0 || money == 0.0) {
-			con.set("money", money);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @author xize
-	 * @param price - the price the player is gonna be to pay
-	 * @param toPayTo - the retriever
-	 * @return Boolean - if the player has no money it will be false.
-	 */
-	@Override
-	public Boolean payEssentialsMoney(Double price, XOfflinePlayer toPayTo) {
-		update();
-		Double money = (getTotalEssentialsMoney()-price);
-		if(money >= 0.0) {
-			con.set("money", money);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();
-			toPayTo.addEssentialsMoney(price);
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @author xize
 	 * @param this will add money to the players bank
 	 */
 	@Override
@@ -1380,31 +788,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer{
 			e.printStackTrace();
 		}
 		update();
-	}
-
-	/**
-	 * @author xize
-	 * @param price - the price the player is gonna be to pay
-	 * @param toPayTo - the retriever
-	 * @return Boolean - if the player has no money it will be false.
-	 */
-	@Override
-	public Boolean payEssentialsMoney(Double price, XPlayer toPayTo) {
-		update();
-		Double money = (getTotalEssentialsMoney()-price);
-		if(money > 0.0) {
-			con.set("money", money);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();
-			toPayTo.addEssentialsMoney(price);
-			return true;
-		}
-		return false;
 	}
 
 	/**
@@ -1474,273 +857,12 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer{
 	
 	/**
 	 * @author xize
-	 * @param bol - when the boolean is true enable procs, else disable procs
-	 */
-	@Override
-	public void setProc(boolean bol) {
-		con.set("proc.enable", bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-	
-	/**
-	 * @author xize
-	 * @param return true when the player has procs
-	 * @return Boolean
-	 */
-	@Override
-	public boolean hasProc() {
-		if(con.contains("proc.enable")) {
-			return con.getBoolean("proc.enable");
-		}
-		return false;
-	}
-	
-	/**
-	 * @author xize
-	 * @param bol - sets the anti knockback of this player.
-	 */
-	@Override
-	public void setKnock(boolean bol) {
-		con.set("knock", true);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-	
-	/**
-	 * @author xize
-	 * @param returns the state of the anti knockback.
-	 * @return Boolean
-	 */
-	@Override
-	public boolean isKnock() {
-		if(con.contains("knock")) {
-			return con.getBoolean("knock");
-		}
-		return false;
-	}
-	
-	/**
-	 * @author xize
-	 * @param sets the player in a chair.
-	 */
-	@Override
-	public void setInChair(Boolean bol) {
-		con.set("chair", bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-	
-	/**
-	 * @author xize
-	 * @param returns true if the player sits in a chair
-	 * @return Boolean
-	 */
-	@Override
-	public boolean isInChair() {
-		update();
-		if(con.contains("chair")) {
-			return con.getBoolean("chair");
-		}
-		return false;
-	}
-	
-	/**
-	 * @author xize
 	 * @param returns the essentials player
 	 * @return xEssentialsPlayer
 	 */
 	@Override
 	public XPlayer getEssentialsPlayer() {
 		return xEssentials.getManagers().getPlayerManager().getPlayer(getUser());
-	}
-	
-	/**
-	 * @author xize
-	 * @param toggles double jump
-	 * @param bol - true when enabled, false when disabled.
-	 */
-	@Override
-	public void setDoubleJump(Boolean bol) {
-		try {
-			con.set("doublejump", bol);
-			con.save(f);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		update();
-	}
-	
-	/**
-	 * @author xize
-	 * @param returns true if the player has double jump else false
-	 * @return Boolean
-	 */
-	@Override
-	public boolean hasDoubleJump() {
-		if(con.contains("doublejump")) {
-			return con.getBoolean("doublejump");
-		}
-		return false;
-	}
-	
-	/**
-	 * @author xize
-	 * @param returns true when edit mode is enabled
-	 * @return Boolean
-	 */
-	@Override
-	public boolean isEditSignEnabled() {
-		if(con.contains("signedit")) {
-			return con.getBoolean("signedit");
-		}
-		return false;
-	}
-	
-	/**
-	 * @author xize
-	 * @param bol - sets the mode whenever a player edits a sign
-	 */
-	@Override
-	public void setEditSign(Boolean bol) {
-		con.set("signedit", bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-	
-	/**
-	 * @author xize
-	 * @param returns true when player is in drunk mode
-	 * @return Boolean
-	 */
-	@Override
-	public boolean isDrunk() {
-		if(con.contains("drunk")) {
-			return con.getBoolean("drunk");
-		}
-		return false;
-	}
-	
-	/**
-	 * @author xize
-	 * @param bol - sets the drunk state
-	 */
-	@Override
-	public void setDrunk(Boolean bol) {
-		con.set("drunk", bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-	
-	/**
-	 * @author xize
-	 * @param returns true if floor mode is true
-	 * @return boolean
-	 */
-	@Override
-	public boolean isFloorMode() {
-		if(con.contains("floormode.enable")) {
-			return con.getBoolean("floormode.enable");
-		}
-		return false;
-	}
-	
-	/**
-	 * @author xize
-	 * @param bol - when true build mode is activated, else its not.
-	 * @param range - the range of the floor mode
-	 */
-	@Override
-	public void setFloorMode(boolean bol, int range) {
-		con.set("floormode.enable", bol);
-		con.set("floormode.range", range);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-	
-	/**
-	 * @author xize
-	 * @param returns the range of the floor
-	 * @return int
-	 */
-	@Override
-	public int getFloorModeRange() {
-		return con.getInt("floormode.range");
-	}
-	
-	/**
-	 * @author xize
-	 * @param returns true if the wall mode is activated
-	 * @return
-	 */
-	@Override
-	public boolean isWallMode() {
-		if(con.contains("wallmode.enable")) {
-			return con.getBoolean("wallmode.enable");
-		}
-		return false;
-	}
-	
-	/**
-	 * @author xize
-	 * @param bol - activates the wall mode
-	 * @param range - the range how heigh the wall should be.
-	 */
-	@Override
-	public void setWallMode(boolean bol, int range) {
-		con.set("wallmode.enable", bol);
-		con.set("wallmode.range", range);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-
-	@Override
-	public void setShop(Location loc, Chest chest) {
-		UUID id = UUID.nameUUIDFromBytes(((loc.getWorld().getName())+":"+loc.getBlockX()+":"+loc.getBlockY()+":"+loc.getBlockZ()).getBytes());
-		con.set("shops."+id.toString()+".location", loc.getWorld().getName()+":"+loc.getBlockX()+":"+loc.getBlockY()+":"+loc.getBlockZ());
-		con.set("shops."+id.toString()+".chestloc", chest.getWorld().getName()+":"+chest.getX()+":"+chest.getY()+":"+chest.getZ());
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	@Override
@@ -1789,16 +911,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer{
 	
 	/**
 	 * @author xize
-	 * @param returns the wall size
-	 * @return int
-	 */
-	@Override
-	public int getWallModeRange() {
-		return con.getInt("wallmode.range");
-	}
-	
-	/**
-	 * @author xize
 	 * @param gets updated at every call so we know that the configuration stored in the memory is still recent with the flat saved file!
 	 * @return void
 	 */
@@ -1836,6 +948,37 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer{
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public boolean payEssentialsMoney(double money) {
+		update();
+		Double moneya = (getTotalEssentialsMoney()-money);
+		if(moneya >= 0.0) {
+			con.set("money", moneya);
+			try {
+				con.save(f);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			update();
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public void PrepareLoginTask(String command, PlayerTaskEnum task) {
+		con.set("task.command", command);
+		con.set("task.type", task.name());
+		try {
+			con.save(f);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update();
 	}
 	
 }

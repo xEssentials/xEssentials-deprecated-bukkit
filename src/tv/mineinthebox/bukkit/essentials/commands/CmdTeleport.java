@@ -73,16 +73,8 @@ public class CmdTeleport {
 							} else {
 								try {
 									XOfflinePlayer offliner = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
-									offliner.getLocation().getWorld().refreshChunk(offliner.getLocation().getChunk().getX(), offliner.getLocation().getChunk().getZ());
-									if(offliner.isVanished()) {
-										if(offliner.isVanished()) {
-											if(p.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-												p.vanish();
-												p.getPlayer().sendMessage(ChatColor.GREEN + "the player you teleported to has been vanished, now you are vanished to!");	
-											}
-										}	
-									}
-									p.getPlayer().teleport(offliner.getLocation());
+									offliner.getLastLocation().getWorld().refreshChunk(offliner.getLastLocation().getChunk().getX(), offliner.getLastLocation().getChunk().getZ());
+									p.getPlayer().teleport(offliner.getLastLocation());
 									sender.sendMessage(ChatColor.GREEN + "teleporting to last offline location of player " + offliner.getUser() + " ;-)");
 								} catch(NullPointerException e) {
 									Warnings.getWarnings(sender).playerHasNeverPlayedBefore();

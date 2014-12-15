@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdDrunk {
@@ -46,14 +45,7 @@ public class CmdDrunk {
 						}
 					} else {
 						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
-							if(off.isDrunk()) {
-								off.setDrunk(false);
-								sender.sendMessage(ChatColor.GREEN + "you have disabled drunk mode for " + off.getUser());
-							} else {
-								off.setDrunk(true);
-								sender.sendMessage(ChatColor.GREEN + "you have enabled drunk mode for " + off.getUser());
-							}
+							sender.sendMessage(ChatColor.RED + "player is offline!");
 						} else {
 							Warnings.getWarnings(sender).playerHasNeverPlayedBefore();
 						}

@@ -68,14 +68,6 @@ public class CmdPlayerInfo {
 								AlternateAccount acount = off.getAlternateAccounts();
 								sender.sendMessage(ChatColor.GRAY + "alternate accounts: " + ChatColor.GREEN + acount.getAltsDetailed());
 							}
-							sender.sendMessage(ChatColor.GRAY + "has ignored players: " +ChatColor.GREEN+ off.hasIgnoredPlayers());
-							if(off.hasIgnoredPlayers()) {
-								sender.sendMessage(ChatColor.GRAY + "ignored players:");
-								for(int i = 0; i < off.getIgnoredPlayers().size(); i++) {	
-									sender.sendMessage(ChatColor.GREEN + "- " + off.getIgnoredPlayers().get(i));
-								}
-							}
-							sender.sendMessage(ChatColor.GRAY + "has silenced chat: " +ChatColor.GREEN+ off.isSilenced());
 							sender.sendMessage(ChatColor.GRAY + "has command restrictions: " +ChatColor.GREEN+ off.hasCommandRestrictions());
 							if(off.hasCommandRestrictions()) {
 								sender.sendMessage(ChatColor.GRAY + "command restrictions:");

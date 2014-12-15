@@ -65,15 +65,6 @@ public class CmdProc {
 								xp.setProc(true);
 								sender.sendMessage(ChatColor.GREEN + "proc has been enabled for player " + xp.getUser() + "!");
 							}
-						} else {
-							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
-							if(off.hasProc()) {
-								off.setProc(false);
-								sender.sendMessage(ChatColor.GREEN + "proc has been disabled for player " + off.getUser() + "!");
-							} else {
-								off.setProc(true);
-								sender.sendMessage(ChatColor.GREEN + "proc has been enabled for player " + off.getUser() + "!");
-							}
 						}
 					} else {
 						Warnings.getWarnings(sender).playerHasNeverPlayedBefore();

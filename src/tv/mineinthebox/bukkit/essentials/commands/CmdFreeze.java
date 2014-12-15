@@ -44,14 +44,7 @@ public class CmdFreeze {
 					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/freeze <player> " + ChatColor.WHITE + ": freezes the player movements");
 				} else if(args.length == 1) {
 					if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-						XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
-						if(off.isFreezed()) {
-							off.setFreezed(false);
-							sender.sendMessage(ChatColor.GREEN + "you are no longer freezing this player!");
-						} else {
-							off.setFreezed(true);
-							sender.sendMessage(ChatColor.GREEN + "you are freezing this player!");
-						}
+						sender.sendMessage(ChatColor.RED + "player is not online!");
 					} else {
 						Warnings.getWarnings(sender).playerHasNeverPlayedBefore();
 					}

@@ -15,8 +15,6 @@ import org.bukkit.potion.PotionEffectType;
 import tv.mineinthebox.bukkit.essentials.Warnings;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
-import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
-import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 
 public class CmdPotato {
@@ -70,7 +68,7 @@ public class CmdPotato {
 			@Override
 			public void run() {
 				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(player);
-				if(xp instanceof xEssentialsPlayer) {
+				if(xp instanceof XPlayer) {
 					if(xp.isPotato()) {
 						xp.unvanish(true);
 						xp.getPlayer().sendMessage(ChatColor.GREEN + "you are not longer cursed as potato!");
@@ -79,10 +77,6 @@ public class CmdPotato {
 						xp.getPlayer().removePotionEffect(PotionEffectType.SPEED);
 						xp.removePotato();
 					}
-				} else {
-					XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(player);
-					off.unvanish();
-					off.removePotato();
 				}
 			}
 		}, 1500);
