@@ -75,11 +75,8 @@ public class xEssentialsPlayerManager {
 	 */
 	public XOfflinePlayer[] getOfflinePlayers() {
 		File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players");
-			
 		File[] list = dir.listFiles();
-		
 		Arrays.sort(list, new Comparator<File>() {
-
 			@Override
 			public int compare(File o1, File o2) {
 				if(o1.lastModified() > o2.lastModified()) {
@@ -90,23 +87,25 @@ public class xEssentialsPlayerManager {
 					return 0;
 				}
 			}
-			
 		});
-			
-			XOfflinePlayer[] offliners = new XOfflinePlayer[10];
-			for(int i = 0; i < ((list.length > 10) ? 10 : list.length); i++) {
+		int index = 0;
+		XOfflinePlayer[] offliners = new XOfflinePlayer[10];
+		for(int i = 0; i < list.length; i++) {
+			if(index != 10) {
 				File f = list[i];
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				if(con.contains("user")) {
 					String user = con.getString("user");
-					if(players.containsKey(user)) {
+					if(!players.containsKey(user)) {
 						offliners[i] = players.get(user);
-					} else {
-						offliners[i] = new xEssentialsOfflinePlayer(user);
 					}
 				}
+				index++;
+			} else {
+				break;
 			}
-		
+		}
+
 		return offliners;
 	}
 
@@ -122,10 +121,14 @@ public class xEssentialsPlayerManager {
 				File[] list = dir.listFiles();
 				for(File f : list) {
 					FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-					if(con.isSet("user")) {
+					if(con.contains("user")) {
 						if(con.getString("user").equalsIgnoreCase(player)) {
-							xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(con.getString("user"));
-							return off;
+							if(players.containsKey(con.getString("user"))) {
+								return players.get(con.getString("user"));
+							} else {
+								xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(con.getString("user"));
+								return off;	
+							}
 						}
 					}
 				}
