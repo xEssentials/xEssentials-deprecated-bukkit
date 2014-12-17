@@ -479,6 +479,7 @@ public class Configuration {
 			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "player.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
+				con.set("cache-offline-profiles.amount", 10);
 				con.set("world-border.enable", false);
 				con.set("world-border.radius", 5000);
 				con.set("useSeperatedInventorys", false);
@@ -751,6 +752,7 @@ public class Configuration {
 			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "player.yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			HashMap<String, Object> hash = new HashMap<String, Object>();
+			hash.put("offline-cache", con.getInt("cache-offline-profiles.amount"));
 			hash.put("worldborder-enable", con.getBoolean("world-border.enable"));
 			hash.put("worldborder-radius", con.getInt("world-border.radius"));
 			hash.put("useSeperatedInventorys", con.getBoolean("useSeperatedInventorys"));

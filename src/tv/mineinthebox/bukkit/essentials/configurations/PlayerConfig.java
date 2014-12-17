@@ -17,6 +17,15 @@ public class PlayerConfig {
 
 	/**
 	 * @author xize
+	 * @param returns the max last modified offline player cache.
+	 * @return int
+	 */
+	public int getOfflineCache() {
+		return (Integer) Configuration.getConfigValue(ConfigType.PLAYER, "offline-cache");
+	}
+	
+	/**
+	 * @author xize
 	 * @param when enabled players have different inventories per game-mode
 	 * @return boolean
 	 */

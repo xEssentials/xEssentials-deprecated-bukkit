@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 import tv.mineinthebox.bukkit.essentials.instances.xEssentialsOfflinePlayer;
 import tv.mineinthebox.bukkit.essentials.instances.xEssentialsPlayer;
@@ -89,9 +90,9 @@ public class xEssentialsPlayerManager {
 			}
 		});
 		int index = 0;
-		XOfflinePlayer[] offliners = new XOfflinePlayer[10];
+		XOfflinePlayer[] offliners = new XOfflinePlayer[(list.length < Configuration.getPlayerConfig().getOfflineCache() ? list.length : Configuration.getPlayerConfig().getOfflineCache())];
 		for(int i = 0; i < list.length; i++) {
-			if(index != 10) {
+			if(index != Configuration.getPlayerConfig().getOfflineCache()) {
 				File f = list[i];
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				if(con.contains("user")) {
