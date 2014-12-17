@@ -172,10 +172,9 @@ public class xEssentialsPlayerManager {
 	 * @return boolean
 	 */
 	public boolean isEssentialsPlayer(String name) {
-		for(XOfflinePlayer off : getOfflinePlayers()) {
-			if(off.getUser().equalsIgnoreCase(name)) {
-				return true;
-			}
+		XOfflinePlayer off = getOfflinePlayer(name);
+		if(off instanceof XOfflinePlayer) {
+			return true;
 		}
 		return false;
 	}
