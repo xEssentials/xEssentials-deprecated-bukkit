@@ -89,24 +89,24 @@ public class xEssentialsPlayerManager {
 				}
 			}
 		});
+		int playerSize = (list.length < Configuration.getPlayerConfig().getOfflineCache() ? list.length : Configuration.getPlayerConfig().getOfflineCache());
 		int index = 0;
-		XOfflinePlayer[] offliners = new XOfflinePlayer[(list.length < Configuration.getPlayerConfig().getOfflineCache() ? list.length : Configuration.getPlayerConfig().getOfflineCache())];
+		XOfflinePlayer[] offliners = new XOfflinePlayer[playerSize];
 		for(int i = 0; i < list.length; i++) {
-			if(index != Configuration.getPlayerConfig().getOfflineCache()) {
+			if(index != playerSize) {
 				File f = list[i];
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				if(con.contains("user")) {
 					String user = con.getString("user");
 					if(!players.containsKey(user)) {
-						offliners[i] = players.get(user);
+						offliners[index] = getOfflinePlayer(user);
+						index++;
 					}
 				}
-				index++;
 			} else {
 				break;
 			}
 		}
-
 		return offliners;
 	}
 
