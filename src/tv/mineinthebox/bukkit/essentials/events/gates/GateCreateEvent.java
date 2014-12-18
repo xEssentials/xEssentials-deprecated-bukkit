@@ -49,7 +49,7 @@ public class GateCreateEvent implements Listener {
 				
 				if(!(face instanceof BlockFace)) {
 					e.setCancelled(true);
-					e.getPlayer().sendMessage(ChatColor.RED + "invalid gate shape!;L51");
+					e.getPlayer().sendMessage(ChatColor.RED + "invalid gate shape!");
 					return;
 				}
 				
@@ -78,7 +78,7 @@ public class GateCreateEvent implements Listener {
 						pilar2.add(block);
 					} else {
 						e.setCancelled(true);
-						e.getPlayer().sendMessage(ChatColor.RED + "invalid gate shape!;L80");
+						e.getPlayer().sendMessage(ChatColor.RED + "invalid gate shape!");
 						return;
 					}
 				}
