@@ -65,7 +65,8 @@ public class PortalEvent implements Listener {
 						e.setCancelled(true);
 						return;
 					}
-					e.setTo(linked.getInnerBlocks()[(linked.getInnerBlocks().length-1)].getLocation());
+					//e.setTo(linked.getInnerBlocks()[(linked.getInnerBlocks().length-1)].getLocation());
+					e.setTo(linked.getExitLocation());
 					e.setCancelled(false);
 				} else {
 					e.setCancelled(true);

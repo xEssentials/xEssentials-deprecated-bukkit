@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -182,6 +183,19 @@ public class Portal implements Comparable<String> {
 				}	
 			}
 		}
+	}
+	
+	public Location getExitLocation() {
+		Block[] blocks = getInnerBlocks();
+		Arrays.sort(blocks, new Comparator<Block>() {
+
+			@Override
+			public int compare(Block o1, Block o2) {
+				return Integer.valueOf(o1.getY()).compareTo(o2.getY());
+			}
+			
+		});
+		return blocks[1].getLocation();
 	}
 
 	/**
