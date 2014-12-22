@@ -90,7 +90,7 @@ public class PlayerChatSmilleyEvent extends PlayerEvent implements Cancellable {
 		if(Hooks.isVaultEnabled()) {
 			return ChatColor.translateAlternateColorCodes('&', xEssentials.getManagers().getVaultManager().getSuffix(getPlayer().getName(), xEssentials.getManagers().getVaultManager().getGroup(getPlayer())));
 		} else {
-			return ChatColor.WHITE+"";
+			return ChatColor.RESET+"";
 		}
 	}
 
