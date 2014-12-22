@@ -5,6 +5,7 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -109,7 +110,7 @@ public class VaultHook {
 	 */
 	public String getSuffix(World w, String group) {
 		if(!(chat instanceof Chat)) {
-			return "";
+			return ChatColor.RESET+"";
 		}
 		return chat.getGroupSuffix(w, group);
 	}
