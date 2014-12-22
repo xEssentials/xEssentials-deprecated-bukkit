@@ -455,4 +455,9 @@ public class TrollBlock implements Block, Runnable {
 	public boolean setTypeIdAndData(int arg0, byte arg1, boolean arg2) {
 		return block.setTypeIdAndData(arg0, arg1, arg2);
 	}
+
+	@Override
+	public void setType(Material arg0, boolean arg1) {
+		block.setType(arg0, arg1);
+	}
 }
