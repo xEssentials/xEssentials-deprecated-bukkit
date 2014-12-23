@@ -23,7 +23,7 @@ import tv.mineinthebox.bukkit.essentials.interfaces.XOfflinePlayer;
 public class GreyListServer implements Runnable {
 	
 	/*
-	 this is a example how the greylist works through php, we can use the json which gets returned by jetty in this way.
+	 this is a example how the greylist works through php, we can use the json which gets returned by the http socket in this way.
 	 currently we have 3 possible return types:
 	 
 	 success = when the player change from group,
