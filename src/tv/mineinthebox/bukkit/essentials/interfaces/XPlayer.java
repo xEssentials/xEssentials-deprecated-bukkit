@@ -9,6 +9,7 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitTask;
 
 import tv.mineinthebox.bukkit.essentials.instances.AlternateAccount;
 import tv.mineinthebox.bukkit.essentials.instances.Home;
@@ -1118,4 +1119,6 @@ public interface XPlayer extends XOfflinePlayer {
 	public void setLastLoginTime(long time);
 	
 	public boolean hasLastLoginTime();
+	
+	public void setPwnageScheduler(BukkitTask task);
 }

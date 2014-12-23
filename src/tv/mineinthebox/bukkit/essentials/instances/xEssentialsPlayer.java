@@ -54,6 +54,7 @@ public class xEssentialsPlayer implements XPlayer {
 	private Item Potato;
 	private AlternateAccount accounts;
 	private BukkitTask spectate;
+	private BukkitTask pwnagetask;
 
 	/**
 	 * 
@@ -140,6 +141,7 @@ public class xEssentialsPlayer implements XPlayer {
 				e.printStackTrace();
 			}
 		}
+		setLastLoginTime(System.currentTimeMillis());
 		update();
 	}
 
@@ -2858,7 +2860,7 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public boolean hasPwnageLevel() {
 		update();
-		return con.contains("pwnage-level");
+		return (con.contains("pwnage-level") || getPwnageLevel() > 0 ? true : false);
 	}
 	
 	/**
@@ -2892,6 +2894,15 @@ public class xEssentialsPlayer implements XPlayer {
 	public boolean hasLastLoginTime() {
 		update();
 		return con.contains("last-login-time");
+	}
+	
+	@Override
+	public void setPwnageScheduler(BukkitTask task) {
+		if(pwnagetask != null) {
+			pwnagetask.cancel();
+			pwnagetask = null;
+		}
+		this.pwnagetask = task;
 	}
 
 	/**
