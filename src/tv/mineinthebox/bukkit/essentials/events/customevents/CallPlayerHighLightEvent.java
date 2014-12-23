@@ -19,9 +19,7 @@ public class CallPlayerHighLightEvent implements Listener {
 		String[] args = e.getMessage().split(" ");
 		for(int i = 0; i < args.length; i++) {
 			String name = args[i].replace("?", "").replace(",", "").replace(":", "").replace("=", "").replace("!", "").replace(".", "");
-			if(xEssentials.getManagers().getPlayerManager().isOnline(name)) {
-				playerList.add(name);
-			} else if(xEssentials.getManagers().getPlayerManager().getOfflinePlayer(name) != null) {
+			if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(name)) {
 				playerList.add(name);
 			}
 		}
