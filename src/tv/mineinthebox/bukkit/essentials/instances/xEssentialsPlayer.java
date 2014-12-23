@@ -2838,6 +2838,61 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		return false;
 	}
+	
+	/**
+	 * @author xize
+	 * @param level - the level of the relogs
+	 */
+	@Override
+	public void setPwnageLevel(int level) {
+		con.set("pwnage-level", level);
+		try {
+			con.save(f);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update();
+	}
+	
+	@Override
+	public boolean hasPwnageLevel() {
+		update();
+		return con.contains("pwnage-level");
+	}
+	
+	/**
+	 * @author xize
+	 * @param returns the current level.
+	 * @return int
+	 */
+	@Override
+	public int getPwnageLevel() {
+		return con.getInt("pwnage-level");
+	}
+	
+	@Override
+	public long getLastLoginTime() {
+		return con.getLong("last-login-time");
+	}
+	
+	@Override
+	public void setLastLoginTime(long time) {
+		con.set("last-login-time", time);
+		try {
+			con.save(f);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update();
+	}
+	
+	@Override
+	public boolean hasLastLoginTime() {
+		update();
+		return con.contains("last-login-time");
+	}
 
 	/**
 	 * @author xize

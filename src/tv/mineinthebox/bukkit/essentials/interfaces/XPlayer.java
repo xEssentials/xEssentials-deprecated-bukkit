@@ -1068,11 +1068,54 @@ public interface XPlayer extends XOfflinePlayer {
 	 */
 	public int getWallModeRange();
 	
+	/**
+	 * @author xize
+	 * @param loc - location
+	 * @param chest - chest
+	 */
 	public void setShop(Location loc, Chest chest);
 	
+	/**
+	 * @author xize
+	 * @param loc - the location
+	 */
 	public boolean isShop(Location loc);
 	
+	/**
+	 * @author xize
+	 * @param loc - the location
+	 */
 	public Shop getShop(Location loc);
 	
+	/**
+	 * @author xize
+	 * @param loc - the location
+	 */
 	public void removeShop(Location loc);
+	
+	/**
+	 * @author xize
+	 * @param level - the level of the relogs
+	 */
+	public void setPwnageLevel(int level);
+	
+	/**
+	 * @author xize
+	 * @param returns true if the player has a pwnage level.
+	 * @return boolean
+	 */
+	public boolean hasPwnageLevel();
+	
+	/**
+	 * @author xize
+	 * @param returns the current level.
+	 * @return int
+	 */
+	public int getPwnageLevel();
+	
+	public long getLastLoginTime();
+	
+	public void setLastLoginTime(long time);
+	
+	public boolean hasLastLoginTime();
 }
