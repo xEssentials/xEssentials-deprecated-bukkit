@@ -15,8 +15,8 @@ import tv.mineinthebox.bukkit.essentials.enums.PermissionKey;
 
 public class HumanSpamCommandEvent implements Listener {
 	
-	private HashMap<String, String> cmdmsg1 = new HashMap<String, String>();
-	private HashMap<String, String> cmdmsg2 = new HashMap<String, String>();
+	private final HashMap<String, String> cmdmsg1 = new HashMap<String, String>();
+	private final HashMap<String, String> cmdmsg2 = new HashMap<String, String>();
 	
 	@EventHandler
 	public void slowcmdSpamCheck(PlayerCommandPreprocessEvent e) {

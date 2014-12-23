@@ -1,12 +1,12 @@
 package tv.mineinthebox.bukkit.essentials.events.ban;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import tv.mineinthebox.bukkit.essentials.Configuration;
@@ -16,10 +16,10 @@ import tv.mineinthebox.bukkit.essentials.interfaces.XPlayer;
 @SuppressWarnings("deprecation")
 public class FloodSpamEvent implements Listener {
 	
-	private HashMap<String, Long> chatTime = new HashMap<String, Long>();
+	private final HashMap<String, Long> chatTime = new HashMap<String, Long>();
 	
 	@EventHandler(priority = EventPriority.LOWEST)
-	public void playerChatTime(AsyncPlayerChatEvent e) {
+	public void playerChatTime(PlayerChatEvent e) {
 		if(chatTime.containsKey(e.getPlayer().getName())) {
 			if(System.currentTimeMillis() - chatTime.get(e.getPlayer().getName()) < 300) {
 				e.setCancelled(true);

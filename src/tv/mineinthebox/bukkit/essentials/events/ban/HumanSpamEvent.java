@@ -8,18 +8,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerChatEvent;
 
 import tv.mineinthebox.bukkit.essentials.Configuration;
 import tv.mineinthebox.bukkit.essentials.xEssentials;
 
+@SuppressWarnings("deprecation")
 public class HumanSpamEvent implements Listener {
 	
-	private HashMap<String, String> message1 = new HashMap<String, String>();
-	private HashMap<String, String> message2 = new HashMap<String, String>();
+	private final HashMap<String, String> message1 = new HashMap<String, String>();
+	private final HashMap<String, String> message2 = new HashMap<String, String>();
 	
 	@EventHandler(priority = EventPriority.LOWEST)
-	public void slowSpamCheck(AsyncPlayerChatEvent e) {
+	public void slowSpamCheck(PlayerChatEvent e) {
 		final Player p = (Player) e.getPlayer();
 		if(message2.containsKey(e.getPlayer().getName())) {
 			if(message2.get(e.getPlayer().getName()).equalsIgnoreCase(e.getMessage())) {
