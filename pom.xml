@@ -42,7 +42,7 @@
 							<artifactSet>
 								<includes>
 									<include>com.googlecode.json-simple:json-simple*:jar:*</include>
-									<include>tv.mineinthebox.essentials.minigames*:jar:*</include>
+									<include>tv.mineinthebox.essentials.minigames:xMinigames:jar:</include>
 								</includes>
 							</artifactSet>
 							<relocations>
@@ -117,7 +117,6 @@
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
-			<scope>provided</scope>
 			<version>LATEST</version>
 		</dependency>
 		<dependency>
@@ -156,7 +155,6 @@
 			<groupId>tv.mineinthebox.essentials.minigames</groupId>
 			<artifactId>xMinigames</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	<scm>
