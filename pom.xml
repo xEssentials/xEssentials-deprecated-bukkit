@@ -42,15 +42,12 @@
 							<artifactSet>
 								<includes>
 									<include>com.googlecode.json-simple:json-simple*:jar:*</include>
-									<include>tv.mineinthebox.essentials.minigames:xMinigames:jar:</include>
 								</includes>
 							</artifactSet>
 							<relocations>
 								<relocation>
 									<pattern>com.googlecode.json-simple</pattern>
 									<shadedPattern>com.googlecode.json-simple</shadedPattern>
-									<pattern>tv.mineinthebox.essentials.minigames</pattern>
-									<shadedPattern>tv.mineinthebox.essentials.minigames</shadedPattern>
 								</relocation>
 							</relocations>
 							<filters>
@@ -150,11 +147,6 @@
 			<artifactId>bukkit</artifactId>
 			<version>1.8-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>tv.mineinthebox.essentials.minigames</groupId>
-			<artifactId>xMinigames</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	<scm>
