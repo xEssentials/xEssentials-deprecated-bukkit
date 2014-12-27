@@ -80,8 +80,6 @@ public class xEssentials extends JavaPlugin {
 		if(Configuration.getEntityConfig().isRealisticGlassEnabled()) {
 			xEssentials.getManagers().getRealisticGlassManager().saveGlassBlocks();
 		}
-		log("has been disabled!", LogType.INFO);
-
 		if(Configuration.getChatConfig().isRssBroadcastEnabled()) {
 			xEssentials.getManagers().getRssManager().saveLastFeed();
 		}
@@ -120,6 +118,7 @@ public class xEssentials extends JavaPlugin {
 		} catch(Throwable e) {
 			e.printStackTrace();
 		}
+		log("has been disabled!", LogType.INFO);
 	}
 
 	/**

@@ -7,6 +7,7 @@ import tv.mineinthebox.essentials.events.customevents.CallRssFeedEvent;
 import tv.mineinthebox.essentials.events.entity.RealisticGlassEvent;
 import tv.mineinthebox.essentials.greylist.GreyListServer;
 import tv.mineinthebox.essentials.hook.VaultHook;
+import tv.mineinthebox.essentials.minigames.MinigameManager;
 
 public class Manager {
 	
@@ -30,6 +31,7 @@ public class Manager {
 	private ChairManager chair;
 	private ManCoManager manco;
 	private RealisticWaterManager water;
+	private MinigameManager minigamemanager;
 	
 	/**
 	 * @author xize
@@ -269,6 +271,14 @@ public class Manager {
 			this.water = new RealisticWaterManager();
 		}
 		return water;
+	}
+	
+	public MinigameManager getMinigameManager() {
+		if(!(minigamemanager instanceof MinigameManager)) {
+			minigamemanager = new MinigameManager();
+			minigamemanager.onEnable();
+		}
+		return minigamemanager;
 	}
 
 }
