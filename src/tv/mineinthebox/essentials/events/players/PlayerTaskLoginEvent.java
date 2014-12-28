@@ -8,12 +8,14 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class PlayerTaskLoginEvent implements Listener {
-	
+
 	@EventHandler
 	public void onLogin(PlayerJoinEvent e) {
-		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
-		if(xp.hasLoginTask()) {
-			xp.performLoginTask();
+		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			if(xp.hasLoginTask()) {
+				xp.performLoginTask();
+			}
 		}
 	}
 

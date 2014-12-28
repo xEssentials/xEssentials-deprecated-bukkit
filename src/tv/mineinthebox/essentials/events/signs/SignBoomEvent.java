@@ -96,17 +96,21 @@ public class SignBoomEvent implements Listener {
 
 	@EventHandler
 	public void newplayer(PlayerKickEvent e) {
-		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
-		if(xp.isBoom()) {
-			xp.removeBoom();
+		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			if(xp.isBoom()) {
+				xp.removeBoom();
+			}
 		}
 	}
 
 	@EventHandler
 	public void pquit(PlayerKickEvent e) {
-		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
-		if(xp.isBoom()) {
-			xp.removeBoom();
+		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			if(xp.isBoom()) {
+				xp.removeBoom();
+			}
 		}
 	}
 
