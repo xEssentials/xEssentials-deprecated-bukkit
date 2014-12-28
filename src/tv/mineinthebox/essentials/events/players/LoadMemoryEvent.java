@@ -25,15 +25,15 @@ public class LoadMemoryEvent implements Listener {
 			
 			try {
 				this.uuid = xEssentials.getUUIDManager().getUniqueId(e.getPlayer());
+				if(uuid != null) {
+					XPlayer xp = new xEssentialsPlayer(e.getPlayer(), uuid);
+					xEssentials.getManagers().getPlayerManager().addPlayer(e.getPlayer().getName(), xp);	
+				} else {
+					e.getPlayer().kickPlayer("failed to verify username's uuid for xEssentials, your uuid is null");
+				}
 			} catch(Exception r) {
 				e.getPlayer().kickPlayer("failed to verify username's uuid for xEssentials");
 				return;
-			}
-			if(uuid != null) {
-				XPlayer xp = new xEssentialsPlayer(e.getPlayer(), uuid);
-				xEssentials.getManagers().getPlayerManager().addPlayer(e.getPlayer().getName(), xp);	
-			} else {
-				e.getPlayer().kickPlayer("failed to verify username's uuid for xEssentials, your uuid is null");
 			}
 		} else {
 			xEssentialsPlayer xp = new xEssentialsPlayer(e.getPlayer(), e.getPlayer().getName().toLowerCase());
