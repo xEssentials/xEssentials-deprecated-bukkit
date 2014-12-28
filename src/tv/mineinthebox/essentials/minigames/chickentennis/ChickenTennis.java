@@ -20,7 +20,7 @@ import tv.mineinthebox.essentials.minigames.MinigameType;
 public class ChickenTennis implements MinigameArena {
 	
 	private final ItemStack shovel = new ItemStack(Material.IRON_SPADE) {{
-		ItemMeta meta = shovel.getItemMeta();
+		ItemMeta meta = getItemMeta();
 		meta.setDisplayName(ChatColor.GOLD + "Chicken spade");
 		meta.setLore(Arrays.asList(new String[] {
 				ChatColor.GOLD + "Chicken spade!",

@@ -8,7 +8,6 @@ import java.util.List;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.minigames.chickentennis.ChickenTennis;
@@ -19,7 +18,6 @@ public class MinigameManager {
 	private MinigameSessionManager minigamesessions;
 	
 	public void onEnable() {
-		if(Configuration.getMinigameConfig().isMinigamesEnabled()) {throw new IllegalArgumentException("minigames are disabled, but minigames onEnable is still called");}
 		loadMinigames();
 		this.minigamesessions = new MinigameSessionManager();
 		xEssentials.getPlugin().log("minigames for xEssentials has been enabled!", LogType.INFO);

@@ -1,6 +1,7 @@
 package tv.mineinthebox.essentials.minigames.chickentennis;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.bukkit.Location;
@@ -94,7 +95,12 @@ public class ChickenTennisSessions implements MinigameSession {
 				con.set("type", MinigameType.CHICKEN_TENNIS.name());
 				con.save(f);
 				MinigameArena arena = new ChickenTennis(f, con);
-				xEssentials.getManagers().getMinigameManager().getMinigames().get(MinigameType.CHICKEN_TENNIS).add(arena);
+				if(xEssentials.getManagers().getMinigameManager().getMinigames().containsKey(MinigameType.CHICKEN_TENNIS)) {
+					xEssentials.getManagers().getMinigameManager().getMinigames().get(MinigameType.CHICKEN_TENNIS).add(arena);	
+				} else {
+					xEssentials.getManagers().getMinigameManager().getMinigames().put(MinigameType.CHICKEN_TENNIS, new ArrayList<MinigameArena>());
+					xEssentials.getManagers().getMinigameManager().getMinigames().get(MinigameType.CHICKEN_TENNIS).add(arena);
+				}
 				return true;
 			}
 		} catch(Exception e) {
