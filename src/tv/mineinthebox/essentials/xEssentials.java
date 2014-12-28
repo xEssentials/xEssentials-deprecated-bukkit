@@ -1,6 +1,7 @@
 package tv.mineinthebox.essentials;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -15,6 +16,7 @@ import tv.mineinthebox.essentials.commands.SimpleCommand;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.events.CustomEventHandler;
 import tv.mineinthebox.essentials.events.Handler;
+import tv.mineinthebox.essentials.helpers.MojangUUID;
 import tv.mineinthebox.essentials.helpers.OnlinePlayersHelper;
 import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.managers.Manager;
@@ -28,6 +30,7 @@ public class xEssentials extends JavaPlugin {
 	private final Handler Handler = new Handler();
 	private final CustomEventHandler customhandler = new CustomEventHandler();
 	private final CommandList cmdlist = new CommandList();
+	private final MojangUUID uuid = new MojangUUID();
 
 	private static Manager manager;
 
@@ -165,6 +168,15 @@ public class xEssentials extends JavaPlugin {
 	 */
 	public static Player[] getOnlinePlayers() {
 		return OnlinePlayersHelper.getOnlinePlayers();
+	}
+	
+	/**
+	 * @author xize
+	 * @param p - returns the uuid manager
+	 * @return MojangUUID
+	 */
+	public static MojangUUID getUUIDManager() {
+		return xEssentials.getPlugin().uuid;
 	}
 
 	@Override

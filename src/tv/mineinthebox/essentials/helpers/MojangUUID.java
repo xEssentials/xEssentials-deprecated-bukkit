@@ -1,18 +1,17 @@
 package tv.mineinthebox.essentials.helpers;
 
-import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 import org.bukkit.entity.Player;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 
 import tv.mineinthebox.essentials.Configuration;
@@ -21,13 +20,7 @@ import tv.mineinthebox.essentials.enums.LogType;
 
 public class MojangUUID {
 
-	private Player p;
-
-	public MojangUUID(Player p) {
-		this.p = p;
-	}
-	
-	private boolean isVersionSupported() {
+	public boolean isVersionSupported() {
 		if(isClass("net.minecraft.util.com.mojang.authlib.GameProfile")) {
 			//orginal craftbukkit
 			return true;
@@ -42,7 +35,7 @@ public class MojangUUID {
 			return false;
 		}
 	}
-	
+
 	private boolean isClass(String classurl) {
 		try {
 			Class.forName(classurl);
@@ -51,7 +44,7 @@ public class MojangUUID {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param returns the unique id, this class will be compatible for any version of minecraft.
@@ -59,7 +52,7 @@ public class MojangUUID {
 	 * @return String
 	 * @throws Exception
 	 */
-	public String getUniqueId() throws Exception {
+	public String getUniqueId(Player p) throws Exception {
 		if(isVersionSupported()) {
 			if(Configuration.getDebugConfig().isEnabled()) {
 				xEssentials.getPlugin().log("version is supported, we are using the build in uuid system instead", LogType.DEBUG);
@@ -69,78 +62,49 @@ public class MojangUUID {
 			if(Configuration.getDebugConfig().isEnabled()) {
 				xEssentials.getPlugin().log("this version of bukkit does not have a inbuild version of the uuid system, so we will fetch the uuid manually", LogType.DEBUG);
 			}
-			Callable<UUID> getUUID = new CompatUUID(p);
-			return getUUID.call().toString().replaceAll("-", "");
+			ExecutorService service = Executors.newCachedThreadPool();
+			Future<UUID> result = service.submit(new CompatUUID(p));
+			String uuid = result.get(2, TimeUnit.SECONDS).toString().replaceAll("-", "");
+			service.shutdown();
+			return uuid;
 		}
 	}
 }
 
 class CompatUUID implements Callable<UUID> {
-	
+
 	/**
-	 * @author evilmidget98
-	 * hereby we give credits to evilmidget98 for this UUID lookup parser, this is a highly modified version of his work where the modifications are made by me (xize)
-	 * orginal thread is at http://forums.bukkit.org/threads/player-name-uuid-fetcher.250926.
+	 * @author xize
+	 * @param returns the uuid of the site within 2 seconds, if not it throws a TimeOutException
 	 */
-	
+
 	private Player p;
-	private final int MAX_SEARCH = 100;
-	private final String REPO = "https://api.mojang.com/profiles/page/";
-	private final String AGENT = "minecraft";
+	private final  String REPO = "https://api.mojang.com/users/profiles/minecraft/";
 	private final JSONParser jsonParser = new JSONParser();
-	
+
 	public CompatUUID(Player p) {
 		this.p = p;
 	}
-	
+
 	@Override
 	public UUID call() throws Exception {
-		for(int i = 1; i < MAX_SEARCH; i++) {
-			HttpURLConnection connection = createConnection(i);
-			writeBody(connection, buildBody());
-			JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(connection.getInputStream()));
-			JSONArray array = (JSONArray) jsonObject.get("profiles");
-			Number count = (Number) jsonObject.get("size");
-			if (count.intValue() == 0) {
-				break;
-			}
-			for (Object profile : array) {
-				JSONObject jsonProfile = (JSONObject) profile;
-				String id = (String) jsonProfile.get("id");
-				UUID uuid = UUID.fromString(id.substring(0, 8) + "-" + id.substring(8, 12) + "-" + id.substring(12, 16) + "-" + id.substring(16, 20) + "-" +id.substring(20, 32));
-				connection.disconnect();
-				return uuid;
-			}
-		}
-		throw new NullPointerException("");
+		HttpURLConnection connection = createConnection();
+		JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(connection.getInputStream()));
+		String id = (String) jsonObject.get("id");
+		UUID uuid = UUID.fromString(id.substring(0, 8) + "-" + id.substring(8, 12) + "-" + id.substring(12, 16) + "-" + id.substring(16, 20) + "-" +id.substring(20, 32));
+		connection.disconnect();
+		return uuid;
 	}
 
-	@SuppressWarnings("unchecked")
-	private String buildBody() {
-		List<JSONObject> list = new ArrayList<JSONObject>();
-		JSONObject obj = new JSONObject();
-		obj.put("name", p.getName());
-		obj.put("agent", AGENT);
-		list.add(obj);
-		return JSONValue.toJSONString(list);
-	}
-
-	private void writeBody(HttpURLConnection connection, String body) throws Exception {
-		DataOutputStream writer = new DataOutputStream(connection.getOutputStream());
-		writer.write(body.getBytes());
-		writer.flush();
-		writer.close();
-	}
-
-	private HttpURLConnection createConnection(int PAGE) throws Exception {
-		URL url = new URL(REPO+PAGE);
+	private HttpURLConnection createConnection() throws Exception {
+		URL url = new URL(REPO+p.getName());
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-		connection.setRequestMethod("POST");
+		connection.setRequestMethod("GET");
 		connection.setRequestProperty("Content-Type", "application/json");
 		connection.setUseCaches(false);
 		connection.setDoInput(true);
 		connection.setDoOutput(true);
 		return connection;
 	}
-	
+
 }
