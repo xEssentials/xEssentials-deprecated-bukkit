@@ -1,7 +1,6 @@
 package tv.mineinthebox.essentials;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
