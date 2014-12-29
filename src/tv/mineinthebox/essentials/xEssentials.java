@@ -78,7 +78,9 @@ public class xEssentials extends JavaPlugin {
 	}
 
 	public void onDisable() {
-		uuid.shutdownExecutorService();
+		if(getUUIDManager().isExecutorServiceRunning()) {
+			getUUIDManager().shutdownExecutorService();
+		}
 		xEssentials.getManagers().getPlayerManager().clear();
 		if(Configuration.getEntityConfig().isRealisticGlassEnabled()) {
 			xEssentials.getManagers().getRealisticGlassManager().saveGlassBlocks();
@@ -169,7 +171,7 @@ public class xEssentials extends JavaPlugin {
 	public static Player[] getOnlinePlayers() {
 		return OnlinePlayersHelper.getOnlinePlayers();
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param p - returns the uuid manager

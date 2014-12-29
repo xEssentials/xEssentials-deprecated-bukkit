@@ -49,6 +49,15 @@ public class MojangUUID {
 	
 	/**
 	 * @author xize
+	 * @param returns true if the executorservice is running else false
+	 * @return boolean
+	 */
+	public boolean isExecutorServiceRunning() {
+		return service != null;
+	}
+	
+	/**
+	 * @author xize
 	 * @param shutdowns the executor
 	 */
 	public void shutdownExecutorService() {
@@ -75,7 +84,7 @@ public class MojangUUID {
 			String uuid = "";
 			if(service != null) {
 				Future<UUID> result = service.submit(new CompatUUID(p));
-				uuid = result.get(4, TimeUnit.SECONDS).toString().replaceAll("-", "");
+				uuid = result.get(3, TimeUnit.SECONDS).toString().replaceAll("-", "");
 				result.cancel(true);
 			} else {
 				ExecutorService service = Executors.newCachedThreadPool();
