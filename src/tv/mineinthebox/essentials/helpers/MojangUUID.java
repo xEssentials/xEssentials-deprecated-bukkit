@@ -75,12 +75,12 @@ public class MojangUUID {
 			String uuid = "";
 			if(service != null) {
 				Future<UUID> result = service.submit(new CompatUUID(p));
-				uuid = result.get(5, TimeUnit.SECONDS).toString().replaceAll("-", "");
+				uuid = result.get(4, TimeUnit.SECONDS).toString().replaceAll("-", "");
 				result.cancel(true);
 			} else {
 				ExecutorService service = Executors.newCachedThreadPool();
 				Future<UUID> result = service.submit(new CompatUUID(p));
-				uuid = result.get(5, TimeUnit.SECONDS).toString().replaceAll("-", "");
+				uuid = result.get(3, TimeUnit.SECONDS).toString().replaceAll("-", "");
 				result.cancel(true);
 			}
 			return uuid;
@@ -92,7 +92,7 @@ class CompatUUID implements Callable<UUID> {
 
 	/**
 	 * @author xize
-	 * @param returns the uuid of the site within 2 seconds, if not it throws a TimeOutException
+	 * @param returns the uuid of the site within 3 seconds, if not it throws a TimeOutException
 	 */
 
 	private Player p;
