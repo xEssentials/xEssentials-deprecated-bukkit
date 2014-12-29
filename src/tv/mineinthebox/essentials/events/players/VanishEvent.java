@@ -13,7 +13,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
-import org.bukkit.event.player.PlayerAchievementAwardedEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
@@ -180,14 +179,6 @@ public class VanishEvent implements Listener {
 					}
 				}
 			}
-		}
-	}
-
-	@EventHandler
-	public void hideAchievement(PlayerAchievementAwardedEvent e) {
-		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
-		if(xp.isVanished()) {
-			e.setCancelled(true);
 		}
 	}
 

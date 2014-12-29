@@ -112,6 +112,7 @@ import tv.mineinthebox.essentials.events.players.TeleportBackEvent;
 import tv.mineinthebox.essentials.events.players.TeleportEvent;
 import tv.mineinthebox.essentials.events.players.TorchEvent;
 import tv.mineinthebox.essentials.events.players.TrollModeEvent;
+import tv.mineinthebox.essentials.events.players.VanishArchievementEvent;
 import tv.mineinthebox.essentials.events.players.VanishEvent;
 import tv.mineinthebox.essentials.events.portals.PortalActivateEvent;
 import tv.mineinthebox.essentials.events.portals.PortalEvent;
@@ -161,6 +162,7 @@ public class Handler {
 		setListener(new LoadMemoryEvent());
 		if(Hooks.isWorldGuardEnabled()) {setListener(new PlayerZoneEvent());}
 		setListener(new VanishEvent());
+		setListener(new VanishArchievementEvent());
 		if(Configuration.getPlayerConfig().isSeperatedInventorysEnabled()) {setListener(new GameModeInvChangeEvent());}
 		if(Configuration.getPlayerConfig().isSaveInventoryEnabled()) {
 			setListener(new SaveLastInventoryEvent());
