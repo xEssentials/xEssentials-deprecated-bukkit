@@ -20,6 +20,8 @@ import tv.mineinthebox.essentials.enums.LogType;
 
 public class MojangUUID {
 
+	private ExecutorService service;
+	
 	public boolean isVersionSupported() {
 		if(isClass("net.minecraft.util.com.mojang.authlib.GameProfile")) {
 			//orginal craftbukkit
@@ -44,6 +46,14 @@ public class MojangUUID {
 			return false;
 		}
 	}
+	
+	/**
+	 * @author xize
+	 * @param shutdowns the executor
+	 */
+	public void shutdownExecutorService() {
+		service.shutdownNow();
+	}
 
 	/**
 	 * @author xize
@@ -62,10 +72,17 @@ public class MojangUUID {
 			if(Configuration.getDebugConfig().isEnabled()) {
 				xEssentials.getPlugin().log("this version of bukkit does not have a inbuild version of the uuid system, so we will fetch the uuid manually", LogType.DEBUG);
 			}
-			ExecutorService service = Executors.newCachedThreadPool();
-			Future<UUID> result = service.submit(new CompatUUID(p));
-			String uuid = result.get(2, TimeUnit.SECONDS).toString().replaceAll("-", "");
-			service.shutdown();
+			String uuid = "";
+			if(service != null) {
+				Future<UUID> result = service.submit(new CompatUUID(p));
+				uuid = result.get(5, TimeUnit.SECONDS).toString().replaceAll("-", "");
+				result.cancel(true);
+			} else {
+				ExecutorService service = Executors.newCachedThreadPool();
+				Future<UUID> result = service.submit(new CompatUUID(p));
+				uuid = result.get(5, TimeUnit.SECONDS).toString().replaceAll("-", "");
+				result.cancel(true);
+			}
 			return uuid;
 		}
 	}

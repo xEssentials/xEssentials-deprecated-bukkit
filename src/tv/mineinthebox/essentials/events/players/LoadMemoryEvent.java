@@ -33,7 +33,9 @@ public class LoadMemoryEvent implements Listener {
 				}
 			} catch(Exception r) {
 				e.getPlayer().kickPlayer("failed to verify username's uuid for xEssentials");
-				return;
+				if(Configuration.getDebugConfig().isEnabled()) {
+					r.printStackTrace();	
+				}
 			}
 		} else {
 			xEssentialsPlayer xp = new xEssentialsPlayer(e.getPlayer(), e.getPlayer().getName().toLowerCase());

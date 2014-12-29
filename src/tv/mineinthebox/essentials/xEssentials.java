@@ -79,6 +79,7 @@ public class xEssentials extends JavaPlugin {
 	}
 
 	public void onDisable() {
+		uuid.shutdownExecutorService();
 		xEssentials.getManagers().getPlayerManager().clear();
 		if(Configuration.getEntityConfig().isRealisticGlassEnabled()) {
 			xEssentials.getManagers().getRealisticGlassManager().saveGlassBlocks();
