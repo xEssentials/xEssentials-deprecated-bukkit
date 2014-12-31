@@ -228,8 +228,10 @@ public class ChickenTennisArena implements MinigameArena {
 						} else {
 							Location loc = chicken.getLocation();
 							Bukkit.getPluginManager().callEvent(new ChickenTennisBallEvent(loc, getArena()));
-							chicken.remove();
-							chicken = null;
+							if(chicken != null) {
+								chicken.remove();
+								chicken = null;	
+							}
 							chicken = (Chicken)loc.getWorld().spawnEntity(getChickenSpawnLocation(), EntityType.CHICKEN);
 							chicken.setCustomName(ChatColor.GOLD + "tennis ball");
 							chicken.setCustomNameVisible(true);	
