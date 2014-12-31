@@ -4,15 +4,18 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.interfaces.XPlayer;
+import tv.mineinthebox.essentials.managers.MinigameManager;
 import tv.mineinthebox.essentials.minigames.MinigameArena;
 import tv.mineinthebox.essentials.minigames.MinigameSession;
 import tv.mineinthebox.essentials.minigames.MinigameType;
-import tv.mineinthebox.essentials.minigames.chickentennis.ChickenTennis;
+import tv.mineinthebox.essentials.minigames.chickentennis.ChickenTennisArena;
 
 public class CmdChickenTennis {
 
@@ -32,6 +35,7 @@ public class CmdChickenTennis {
 							}
 							sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/chickentennis help " + ChatColor.WHITE + ": shows help");
 							sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/chickentennis list " + ChatColor.WHITE + ": shows a list of available arenas");
+							sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/chickentennis leave " + ChatColor.WHITE + ": leave the arena you are currently in");
 							sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/chickentennis join <arena> " + ChatColor.WHITE + ": lets a player join a arena");
 						} else if(args.length == 1) {
 							if(args[0].equalsIgnoreCase("help")) {
@@ -45,6 +49,7 @@ public class CmdChickenTennis {
 								}
 								sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/chickentennis help " + ChatColor.WHITE + ": shows help");
 								sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/chickentennis list " + ChatColor.WHITE + ": shows a list of available arenas");
+								sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/chickentennis leave " + ChatColor.WHITE + ": leave the arena you are currently in");
 								sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/chickentennis join <arena> " + ChatColor.WHITE + ": lets a player join a arena");
 							} else if(args[0].equalsIgnoreCase("undo")) {
 								MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getChickenTennisSessions();
@@ -75,10 +80,26 @@ public class CmdChickenTennis {
 								} else {
 									sender.sendMessage(ChatColor.RED + "you dont have a arena creation session open!");
 								}
+							} else if(args[0].equalsIgnoreCase("leave")) {
+								Player p = (Player)sender;
+								if(p.hasMetadata("gameType")) {
+									MinigameType type = (MinigameType) p.getMetadata("gameType").get(0).value();
+									if(type == MinigameType.CHICKEN_TENNIS) {
+										String arenaname = p.getMetadata("game").get(0).asString();
+										MinigameArena arena = xEssentials.getManagers().getMinigameManager().getArenaByName(type, arenaname);
+										arena.reset();
+										sender.sendMessage(ChatColor.GRAY + "you successfully quited the arena!");
+									} else {
+										sender.sendMessage(ChatColor.RED + "you are trying to quit a arena through the wrong command");
+									}
+								} else {
+									sender.sendMessage(ChatColor.RED + "you aren't joined into a arena!");
+								}
 							} else if(args[0].equalsIgnoreCase("save")) {
 								MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getChickenTennisSessions();
 								if(session.hasSession(sender.getName())) {
 									if(session.isSessionComplete(sender.getName())) {
+										sender.sendMessage(ChatColor.GRAY + "successfully saved arena!");
 										session.saveArena(sender.getName());
 									} else {
 										session.removeSession(sender.getName());
@@ -90,7 +111,7 @@ public class CmdChickenTennis {
 							} else if(args[0].equalsIgnoreCase("list")) {
 								String buffer = "";
 								for(MinigameArena game : xEssentials.getManagers().getMinigameManager().getMinigames().get(MinigameType.CHICKEN_TENNIS)) {
-									ChickenTennis tennis = (ChickenTennis)game;
+									ChickenTennisArena tennis = (ChickenTennisArena)game;
 									buffer += (tennis.isFull() ? ChatColor.RED + "[FULL]" + ChatColor.RESET : ChatColor.GREEN + "[OPEN]" + ChatColor.RESET) + tennis.getName() + "\n";
 								}
 								sender.sendMessage(ChatColor.GOLD + ".oO___[chicken tennis game list]___Oo.");
@@ -108,20 +129,41 @@ public class CmdChickenTennis {
 									sender.sendMessage(ChatColor.RED + "this minigame id already exist, please use a other name");
 								}
 							} else if(args[0].equalsIgnoreCase("remove")) {
-								
+								MinigameManager manager = xEssentials.getManagers().getMinigameManager();
+								if(manager.containsMinigame(args[1])) {
+									MinigameArena arena = manager.getArenaByName(MinigameType.CHICKEN_TENNIS, args[1]);
+									arena.remove();
+									sender.sendMessage(ChatColor.GRAY + "arena successfully removed!");
+								} else {
+									sender.sendMessage(ChatColor.RED + "unknown minigame name");
+								}
 							} else if(args[0].equalsIgnoreCase("join")) {
-								
+								if(xEssentials.getManagers().getMinigameManager().containsMinigame(args[1])) {
+									MinigameArena arena = xEssentials.getManagers().getMinigameManager().getArenaByName(MinigameType.CHICKEN_TENNIS, args[1]);
+									if(!arena.isFull()) {
+										sender.sendMessage(ChatColor.GRAY + "joining arena " + arena.getName());
+										XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+										xp.getPlayer().setMetadata("gameType", new FixedMetadataValue(xEssentials.getPlugin(), arena.getType()));
+										xp.getPlayer().setMetadata("game", new FixedMetadataValue(xEssentials.getPlugin(), arena.getName()));
+										xp.getPlayer().setMetadata("gameScore", new FixedMetadataValue(xEssentials.getPlugin(), 0));
+										arena.addPlayer(xp);
+									} else {
+										sender.sendMessage(ChatColor.RED + "this arena is full!");
+									}
+								} else {
+									sender.sendMessage(ChatColor.RED + "unknown minigame name");
+								}
 							}
 						}
 					} else {
-						Warnings.getWarnings(sender).consoleMessage();
+						sender.sendMessage(ChatColor.RED + "cannot use minigame command, minigames are disabled on this server!");
 					}
 				} else {
-					Warnings.getWarnings(sender).noPermission();
+					Warnings.getWarnings(sender).consoleMessage();
 				}
 			}
 		} else {
-			sender.sendMessage(ChatColor.RED + "cannot use minigame command, minigames are disabled on this server!");
+			Warnings.getWarnings(sender).noPermission();
 		}
 		return false;
 	}

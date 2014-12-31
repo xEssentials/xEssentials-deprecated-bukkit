@@ -94,7 +94,7 @@ public class ChickenTennisSessions implements MinigameSession {
 				con.set("score", score);
 				con.set("type", MinigameType.CHICKEN_TENNIS.name());
 				con.save(f);
-				MinigameArena arena = new ChickenTennis(f, con);
+				MinigameArena arena = new ChickenTennisArena(f, con);
 				if(xEssentials.getManagers().getMinigameManager().getMinigames().containsKey(MinigameType.CHICKEN_TENNIS)) {
 					xEssentials.getManagers().getMinigameManager().getMinigames().get(MinigameType.CHICKEN_TENNIS).add(arena);	
 				} else {

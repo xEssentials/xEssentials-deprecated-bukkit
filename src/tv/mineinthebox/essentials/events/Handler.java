@@ -147,6 +147,9 @@ import tv.mineinthebox.essentials.events.signs.WildSignEvent;
 import tv.mineinthebox.essentials.events.vote.VoteCrateEvent;
 import tv.mineinthebox.essentials.events.vote.VoteMoneyEvent;
 import tv.mineinthebox.essentials.hook.Hooks;
+import tv.mineinthebox.essentials.minigames.chickentennis.listeners.ChickenBallMoveEvent;
+import tv.mineinthebox.essentials.minigames.chickentennis.listeners.ChickenOnQuitEvent;
+import tv.mineinthebox.essentials.minigames.chickentennis.listeners.ChickenScoreEvent;
 import tv.mineinthebox.essentials.minigames.chickentennis.listeners.ChickenTennisCreationEvent;
 
 public class Handler {
@@ -392,6 +395,9 @@ public class Handler {
 		//minigames
 		if(Configuration.getMinigameConfig().isMinigamesEnabled()) {
 			setListener(new ChickenTennisCreationEvent());
+			setListener(new ChickenBallMoveEvent());
+			setListener(new ChickenScoreEvent());
+			setListener(new ChickenOnQuitEvent());
 		}
 			
 		setListener(new RemoveMemoryEvent());

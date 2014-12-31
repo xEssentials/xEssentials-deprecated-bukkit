@@ -13,7 +13,7 @@ import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.minigames.MinigameArena;
 import tv.mineinthebox.essentials.minigames.MinigameSessionManager;
 import tv.mineinthebox.essentials.minigames.MinigameType;
-import tv.mineinthebox.essentials.minigames.chickentennis.ChickenTennis;
+import tv.mineinthebox.essentials.minigames.chickentennis.ChickenTennisArena;
 
 public class MinigameManager {
 
@@ -39,7 +39,7 @@ public class MinigameManager {
 				if(con.contains("type")) {
 					if(con.getString("type").equalsIgnoreCase(MinigameType.CHICKEN_TENNIS.name())) {
 						List<MinigameArena> list = new ArrayList<MinigameArena>();
-						MinigameArena game = new ChickenTennis(f, con);
+						MinigameArena game = new ChickenTennisArena(f, con);
 						list.add(game);
 						minigames.put(MinigameType.CHICKEN_TENNIS, list);
 					}
@@ -50,6 +50,17 @@ public class MinigameManager {
 	
 	public EnumMap<MinigameType, List<MinigameArena>> getMinigames() {
 		return minigames;
+	}
+	
+	public MinigameArena getArenaByName(MinigameType type, String name) {
+		if(getMinigames().containsKey(type)) {
+			for(MinigameArena arena : getMinigames().get(type)) {
+				if(arena.getName().equalsIgnoreCase(name)) {
+					return arena;
+				}
+			}
+		}
+		return null;
 	}
 	
 	public void removeMinigame(MinigameType type, MinigameArena game) {
