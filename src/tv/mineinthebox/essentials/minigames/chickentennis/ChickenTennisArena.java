@@ -179,8 +179,6 @@ public class ChickenTennisArena implements MinigameArena {
 			chicken.setCustomName(ChatColor.GOLD + "tennis ball");
 			chicken.setCustomNameVisible(true);
 
-			this.isStarted = false;
-
 			initalizeChickenGroundCheck();
 			
 			new BukkitRunnable() {
@@ -193,6 +191,7 @@ public class ChickenTennisArena implements MinigameArena {
 						p1.getPlayer().playSound(p1.getPlayer().getLocation(), Sound.ENDERDRAGON_GROWL, 1F, 1F);
 						p2.getPlayer().sendMessage(ChatColor.GRAY + "game is started!");
 						p2.getPlayer().playSound(p2.getPlayer().getLocation(), Sound.ENDERDRAGON_GROWL, 1F, 1F);
+						isStarted = true;
 						cancel();
 					} else {
 						p1.getPlayer().sendMessage(ChatColor.GRAY + "count down: " + countdown);
