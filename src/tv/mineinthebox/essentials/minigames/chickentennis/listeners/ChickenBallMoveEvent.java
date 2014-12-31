@@ -9,6 +9,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.util.Vector;
 
+import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.minigames.MinigameType;
+import tv.mineinthebox.essentials.minigames.chickentennis.ChickenTennisArena;
+
 public class ChickenBallMoveEvent  implements Listener {
 	
 	@EventHandler
@@ -20,16 +24,17 @@ public class ChickenBallMoveEvent  implements Listener {
 					Player p = (Player) e.getDamager();
 					
 					if(p.hasMetadata("gameType") && p.hasMetadata("game")) {
-						p.getWorld().playSound(p.getLocation(), Sound.ITEM_BREAK, 1F, 1F);
-						p.sendMessage(ChatColor.GRAY + "poof!");
-						
-						//Vector direction = e.getTo().toVector().subtract(item.getLocation().toVector()).normalize();
-						
-						//Vector vec = p.getEyeLocation().toVector().subtract(chicken.getLocation().toVector()).normalize();
-						
-						chicken.setVelocity(p.getEyeLocation().getDirection().multiply(2).add(new Vector(0, 2, 0)).multiply(3).normalize());
-						
-						e.setCancelled(true);
+						String arenaname = p.getMetadata("game").get(0).asString();
+						MinigameType type = (MinigameType) p.getMetadata("gameType").get(0).value();
+						if(type == MinigameType.CHICKEN_TENNIS) {
+							ChickenTennisArena arena = (ChickenTennisArena) xEssentials.getManagers().getMinigameManager().getArenaByName(type, arenaname);
+							if(arena.isStarted()) {
+								p.getWorld().playSound(p.getLocation(), Sound.ITEM_BREAK, 1F, 1F);
+								p.sendMessage(ChatColor.GRAY + "poof!");
+								chicken.setVelocity(p.getEyeLocation().getDirection().multiply(2).add(new Vector(0, 2, 0)).multiply(3).normalize());
+							}
+							e.setCancelled(true);
+						}
 					}
 				}	
 			}
