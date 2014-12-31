@@ -7,7 +7,6 @@ import tv.mineinthebox.essentials.events.customevents.CallRssFeedEvent;
 import tv.mineinthebox.essentials.events.entity.RealisticGlassEvent;
 import tv.mineinthebox.essentials.greylist.GreyListServer;
 import tv.mineinthebox.essentials.hook.VaultHook;
-import tv.mineinthebox.essentials.minigames.MinigameManager;
 
 public class Manager {
 	

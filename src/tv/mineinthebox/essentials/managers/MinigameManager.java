@@ -1,4 +1,4 @@
-package tv.mineinthebox.essentials.minigames;
+package tv.mineinthebox.essentials.managers;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -10,6 +10,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
+import tv.mineinthebox.essentials.minigames.MinigameArena;
+import tv.mineinthebox.essentials.minigames.MinigameSessionManager;
+import tv.mineinthebox.essentials.minigames.MinigameType;
 import tv.mineinthebox.essentials.minigames.chickentennis.ChickenTennis;
 
 public class MinigameManager {
