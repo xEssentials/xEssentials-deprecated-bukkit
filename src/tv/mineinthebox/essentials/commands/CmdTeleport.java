@@ -145,6 +145,7 @@ public class CmdTeleport {
 								p1.teleport(p2);
 								p1.sendMessage(ChatColor.GREEN + sender.getName() + " teleports you to " + p2.getName() + " ;-)");
 								p2.sendMessage(ChatColor.GREEN + p1.getName() + " has been teleported to you by " + sender.getName());
+								sender.sendMessage(ChatColor.GREEN + "you successfully teleported player " + p1.getName() + " to player " + p2.getName());
 							} else {
 								sender.sendMessage(ChatColor.RED + "this player is not online!");
 							}
