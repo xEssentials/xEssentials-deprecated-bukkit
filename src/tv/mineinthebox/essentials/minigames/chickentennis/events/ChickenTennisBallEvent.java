@@ -31,39 +31,19 @@ public class ChickenTennisBallEvent extends Event {
 	}
 
 	public XPlayer getWhoScore() {
-
-		//use Math.abs to ignore the negative numbers, and instead we scale down till we got the final bounds which we caculate /2.
+		XPlayer p1 = arena.getPlayers()[0];
+		XPlayer p2 = arena.getPlayers()[1];
 		
-		int max = Math.max(Math.abs(arena.getBoundsX()), Math.abs(arena.getBoundsZ()));
-		int min = Math.min(Math.abs(arena.getBoundsX()), Math.abs(arena.getBoundsZ()));
-		int size = (max-min);
+		double p1_dist = chickenloc.distanceSquared(p1.getPlayer().getLocation());
+		double p2_dist = chickenloc.distanceSquared(p2.getPlayer().getLocation()); 
 		
-		if(max == Math.abs(arena.getBoundsX())) {
-			//x is the coordinate we check on.
-			int bounds = size/2;
-
-			int chickenx = (max-Math.abs(chickenloc.getBlockX()));
+		if(p1_dist > p2_dist) {
+			//p1 scores
+			return p1;
+		} else if(p2_dist > p1_dist) {
+			//p2 scores
+			return p2;
 			
-			if(chickenx < bounds) {
-				//first player, so the second player scores
-				return arena.getPlayers()[1];
-			} else if(chickenx > bounds) {
-				//second player, so the first player scores
-				return arena.getPlayers()[0];
-			}
-		} else if(max == Math.abs(arena.getBoundsZ())) {
-			//z is the coordinate we check on
-			int bounds = size/2;
-
-			int chickenz = (max-Math.abs(chickenloc.getBlockZ()));
-			
-			if(chickenz < bounds) {
-				//first player, second player scores
-				return arena.getPlayers()[1];
-			} else if(chickenz > bounds) {
-				//second player, first player scores
-				return arena.getPlayers()[0];
-			}
 		}
 		return null;
 	}
