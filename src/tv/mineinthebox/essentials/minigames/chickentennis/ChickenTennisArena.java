@@ -17,7 +17,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 import tv.mineinthebox.essentials.minigames.MinigameArena;
 import tv.mineinthebox.essentials.minigames.MinigameType;
@@ -173,7 +175,7 @@ public class ChickenTennisArena implements MinigameArena {
 			setInventory(xp);
 			this.p2 = xp;
 			this.p2.getPlayer().teleport(getSpawnPoint2());
-
+			Bukkit.broadcastMessage(ChatColor.GRAY + xp.getUser() + " has joined chicken tennis arena " + ChatColor.GREEN + getName());
 			this.chicken = (Chicken)chickenlocation.getWorld().spawnEntity(chickenlocation, EntityType.CHICKEN);
 			//chicken.setVelocity(new Vector(0,0,0));
 			chicken.setCustomName(ChatColor.GOLD + "tennis ball");
@@ -218,6 +220,13 @@ public class ChickenTennisArena implements MinigameArena {
 			@Override
 			public void run() {
 				if(chicken != null) {
+					try {
+						chicken.getLocation();
+					} catch(NullPointerException e) {
+						if(Configuration.getDebugConfig().isEnabled()) {
+							xEssentials.getPlugin().log("chicken respawn scheduler still expects the chicken to be referenced!, while it should be not.", LogType.SEVERE);
+						}
+					}
 					if(chicken.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR) {
 						if(chicken.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.WEB) {
 							Location loc = chicken.getLocation();
@@ -299,7 +308,13 @@ public class ChickenTennisArena implements MinigameArena {
 	
 	@Override
 	public void reset() {
+		if(Configuration.getDebugConfig().isEnabled()) {
+			xEssentials.getPlugin().log("arena object reset method is called!", LogType.DEBUG);
+		}
 		if(this.chicken != null) {
+			if(Configuration.getDebugConfig().isEnabled()) {
+				xEssentials.getPlugin().log("chicken still existing, removing chicken now.", LogType.DEBUG);
+			}
 			this.chicken.remove();
 			this.chicken = null;
 		}
