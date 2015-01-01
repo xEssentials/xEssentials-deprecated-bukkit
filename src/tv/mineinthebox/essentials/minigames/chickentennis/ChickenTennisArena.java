@@ -315,7 +315,7 @@ public class ChickenTennisArena implements MinigameArena {
 			if(Configuration.getDebugConfig().isEnabled()) {
 				xEssentials.getPlugin().log("chicken still existing, removing chicken now.", LogType.DEBUG);
 			}
-			this.chicken.remove();
+			this.chicken.damage(this.chicken.getMaxHealth());
 			this.chicken = null;
 		}
 		if(p1 != null) {

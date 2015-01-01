@@ -31,7 +31,7 @@ public class ChickenBallMoveEvent  implements Listener {
 							if(arena.isStarted()) {
 								p.getWorld().playSound(p.getLocation(), Sound.ITEM_BREAK, 1F, 1F);
 								p.sendMessage(ChatColor.GRAY + "poof!");
-								chicken.setVelocity(p.getEyeLocation().getDirection().multiply(2).add(new Vector(0, 3, 0)).multiply(3).normalize().add(new Vector(0, -2, 0).multiply(2).normalize()));
+								chicken.setVelocity(p.getEyeLocation().getDirection().multiply(5).add(new Vector(0, 3, 0)).multiply(3).normalize().add(new Vector(0, -1, 0).multiply(2).normalize()));
 							}
 							e.setCancelled(true);
 						}
