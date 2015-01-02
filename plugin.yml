@@ -282,6 +282,6 @@ commands:
   getchunkfile:
      description: finds the chunk as a file
      aliases: [findchunk, chunkfinder]
-  chickentennis:
+  tennis:
      description: starts a minigame called chickentennis
-     aliases: []
+     aliases: [chickentennis]

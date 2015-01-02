@@ -1,24 +1,24 @@
-package tv.mineinthebox.essentials.minigames.chickentennis.events;
+package tv.mineinthebox.essentials.minigames.tennis.events;
 
 import org.bukkit.Location;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 import tv.mineinthebox.essentials.interfaces.XPlayer;
-import tv.mineinthebox.essentials.minigames.chickentennis.ChickenTennisArena;
+import tv.mineinthebox.essentials.minigames.tennis.TennisArena;
 
-public class ChickenTennisBallEvent extends Event {
+public class TennisBallMoveEvent extends Event {
 
 	private final Location chickenloc;
-	private final ChickenTennisArena arena;
+	private final TennisArena arena;
 	private static final HandlerList handlers = new HandlerList();
 
-	public ChickenTennisBallEvent(Location chickenloc, ChickenTennisArena arena) {
+	public TennisBallMoveEvent(Location chickenloc, TennisArena arena) {
 		this.chickenloc = chickenloc;
 		this.arena = arena;
 	}
 
-	public ChickenTennisArena getArena() {
+	public TennisArena getArena() {
 		return arena;
 	}
 

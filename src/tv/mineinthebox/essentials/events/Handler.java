@@ -147,10 +147,10 @@ import tv.mineinthebox.essentials.events.signs.WildSignEvent;
 import tv.mineinthebox.essentials.events.vote.VoteCrateEvent;
 import tv.mineinthebox.essentials.events.vote.VoteMoneyEvent;
 import tv.mineinthebox.essentials.hook.Hooks;
-import tv.mineinthebox.essentials.minigames.chickentennis.listeners.ChickenBallMoveEvent;
-import tv.mineinthebox.essentials.minigames.chickentennis.listeners.ChickenOnQuitEvent;
-import tv.mineinthebox.essentials.minigames.chickentennis.listeners.ChickenScoreEvent;
-import tv.mineinthebox.essentials.minigames.chickentennis.listeners.ChickenTennisCreationEvent;
+import tv.mineinthebox.essentials.minigames.tennis.listeners.TennisBallVelocityEvent;
+import tv.mineinthebox.essentials.minigames.tennis.listeners.TennisOnQuitEvent;
+import tv.mineinthebox.essentials.minigames.tennis.listeners.TennisScoreEvent;
+import tv.mineinthebox.essentials.minigames.tennis.listeners.TennisCreationEvent;
 
 public class Handler {
 
@@ -394,10 +394,10 @@ public class Handler {
 		
 		//minigames
 		if(Configuration.getMinigameConfig().isMinigamesEnabled()) {
-			setListener(new ChickenTennisCreationEvent());
-			setListener(new ChickenBallMoveEvent());
-			setListener(new ChickenScoreEvent());
-			setListener(new ChickenOnQuitEvent());
+			setListener(new TennisCreationEvent());
+			setListener(new TennisBallVelocityEvent());
+			setListener(new TennisScoreEvent());
+			setListener(new TennisOnQuitEvent());
 		}
 			
 		setListener(new RemoveMemoryEvent());

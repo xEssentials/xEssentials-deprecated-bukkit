@@ -1,4 +1,4 @@
-package tv.mineinthebox.essentials.minigames.chickentennis.listeners;
+package tv.mineinthebox.essentials.minigames.tennis.listeners;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -10,7 +10,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.minigames.MinigameSession;
 
-public class ChickenTennisCreationEvent implements Listener {
+public class TennisCreationEvent implements Listener {
 
 	@EventHandler
 	public void onPlaceSpawn(BlockPlaceEvent e) {
@@ -18,7 +18,7 @@ public class ChickenTennisCreationEvent implements Listener {
 			return;
 		}
 		
-		MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getChickenTennisSessions();
+		MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getTennisSessions();
 		
 		if(session.hasSession(e.getPlayer().getName())) {
 			if(!session.containsSessionData(e.getPlayer().getName(), "spawn1")) {

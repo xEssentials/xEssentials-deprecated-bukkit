@@ -17,4 +17,8 @@ public interface MinigameArena {
 	public boolean isFull();
 	
 	public void reset();
+	
+	public void sentReward(XPlayer xp);
+	
+	public double getReward();
 }

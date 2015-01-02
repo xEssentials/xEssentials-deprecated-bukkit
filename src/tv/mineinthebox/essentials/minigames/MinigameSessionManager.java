@@ -1,12 +1,12 @@
 package tv.mineinthebox.essentials.minigames;
 
-import tv.mineinthebox.essentials.minigames.chickentennis.ChickenTennisSessions;
+import tv.mineinthebox.essentials.minigames.tennis.TennisSessions;
 
 public class MinigameSessionManager {
 	
-	private final ChickenTennisSessions chickentennis = new ChickenTennisSessions();
+	private final TennisSessions chickentennis = new TennisSessions();
 	
-	public MinigameSession getChickenTennisSessions() {
+	public MinigameSession getTennisSessions() {
 		return chickentennis;
 	}
 

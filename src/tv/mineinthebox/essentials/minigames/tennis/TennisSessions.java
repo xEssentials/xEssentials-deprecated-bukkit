@@ -1,4 +1,4 @@
-package tv.mineinthebox.essentials.minigames.chickentennis;
+package tv.mineinthebox.essentials.minigames.tennis;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import tv.mineinthebox.essentials.minigames.MinigameArena;
 import tv.mineinthebox.essentials.minigames.MinigameSession;
 import tv.mineinthebox.essentials.minigames.MinigameType;
 
-public class ChickenTennisSessions implements MinigameSession {
+public class TennisSessions implements MinigameSession {
 	
 	private final HashMap<String, HashMap<String, Object>> hash = new HashMap<String, HashMap<String, Object>>();
 	
@@ -91,15 +91,16 @@ public class ChickenTennisSessions implements MinigameSession {
 				con.set("bounds.x", boundsx);
 				con.set("bounds.z", boundsz);
 				
+				con.set("reward", 10.0);
 				con.set("score", score);
-				con.set("type", MinigameType.CHICKEN_TENNIS.name());
+				con.set("type", MinigameType.TENNIS.name());
 				con.save(f);
-				MinigameArena arena = new ChickenTennisArena(f, con);
-				if(xEssentials.getManagers().getMinigameManager().getMinigames().containsKey(MinigameType.CHICKEN_TENNIS)) {
-					xEssentials.getManagers().getMinigameManager().getMinigames().get(MinigameType.CHICKEN_TENNIS).add(arena);	
+				MinigameArena arena = new TennisArena(f, con);
+				if(xEssentials.getManagers().getMinigameManager().getMinigames().containsKey(MinigameType.TENNIS)) {
+					xEssentials.getManagers().getMinigameManager().getMinigames().get(MinigameType.TENNIS).add(arena);	
 				} else {
-					xEssentials.getManagers().getMinigameManager().getMinigames().put(MinigameType.CHICKEN_TENNIS, new ArrayList<MinigameArena>());
-					xEssentials.getManagers().getMinigameManager().getMinigames().get(MinigameType.CHICKEN_TENNIS).add(arena);
+					xEssentials.getManagers().getMinigameManager().getMinigames().put(MinigameType.TENNIS, new ArrayList<MinigameArena>());
+					xEssentials.getManagers().getMinigameManager().getMinigames().get(MinigameType.TENNIS).add(arena);
 				}
 				return true;
 			}

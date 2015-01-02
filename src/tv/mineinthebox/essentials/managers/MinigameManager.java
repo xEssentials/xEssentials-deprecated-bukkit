@@ -13,7 +13,7 @@ import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.minigames.MinigameArena;
 import tv.mineinthebox.essentials.minigames.MinigameSessionManager;
 import tv.mineinthebox.essentials.minigames.MinigameType;
-import tv.mineinthebox.essentials.minigames.chickentennis.ChickenTennisArena;
+import tv.mineinthebox.essentials.minigames.tennis.TennisArena;
 
 public class MinigameManager {
 
@@ -37,11 +37,11 @@ public class MinigameManager {
 			for(File f : games) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				if(con.contains("type")) {
-					if(con.getString("type").equalsIgnoreCase(MinigameType.CHICKEN_TENNIS.name())) {
+					if(con.getString("type").equalsIgnoreCase(MinigameType.TENNIS.name())) {
 						List<MinigameArena> list = new ArrayList<MinigameArena>();
-						MinigameArena game = new ChickenTennisArena(f, con);
+						MinigameArena game = new TennisArena(f, con);
 						list.add(game);
-						minigames.put(MinigameType.CHICKEN_TENNIS, list);
+						minigames.put(MinigameType.TENNIS, list);
 					}
 				}
 			}

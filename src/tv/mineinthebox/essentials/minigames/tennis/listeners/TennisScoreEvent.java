@@ -1,4 +1,4 @@
-package tv.mineinthebox.essentials.minigames.chickentennis.listeners;
+package tv.mineinthebox.essentials.minigames.tennis.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -8,18 +8,20 @@ import org.bukkit.event.Listener;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
-import tv.mineinthebox.essentials.minigames.chickentennis.events.ChickenTennisBallEvent;
+import tv.mineinthebox.essentials.minigames.tennis.events.TennisBallMoveEvent;
 
-public class ChickenScoreEvent implements Listener {
+public class TennisScoreEvent implements Listener {
 	
 	@EventHandler
-	public void onScore(ChickenTennisBallEvent e) {
+	public void onScore(TennisBallMoveEvent e) {
 		XPlayer xp = e.getWhoScore();
 		int score = xp.getPlayer().getMetadata("gameScore").get(0).asInt()+1;
 		if(score == e.getArena().getWinScore()) {
 			xp.getPlayer().getWorld().playSound(xp.getPlayer().getLocation(), Sound.FIREWORK_LAUNCH, 1F, 1F);
-			Bukkit.broadcastMessage(ChatColor.GREEN + xp.getUser() + " has won the tennis match against " + e.getLoser().getUser());
+			Bukkit.broadcastMessage(ChatColor.GREEN + xp.getUser() + " has won the tennis match against " + e.getLoser().getUser() + (Hooks.isVaultEnabled() ? " and has won " + e.getArena().getReward() : ""));
+			e.getArena().sentReward(e.getWhoScore());
 			e.getArena().reset();
 		} else {
 			xp.getPlayer().getWorld().playSound(xp.getPlayer().getLocation(), Sound.LEVEL_UP, 1F, 1F);

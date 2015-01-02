@@ -15,44 +15,44 @@ import tv.mineinthebox.essentials.managers.MinigameManager;
 import tv.mineinthebox.essentials.minigames.MinigameArena;
 import tv.mineinthebox.essentials.minigames.MinigameSession;
 import tv.mineinthebox.essentials.minigames.MinigameType;
-import tv.mineinthebox.essentials.minigames.chickentennis.ChickenTennisArena;
+import tv.mineinthebox.essentials.minigames.tennis.TennisArena;
 
-public class CmdChickenTennis {
+public class CmdTennis {
 
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
-		if(cmd.getName().equalsIgnoreCase("chickentennis")) {
-			if(sender.hasPermission(PermissionKey.CMD_CHICKEN_TENNIS.getPermission())) {
+		if(cmd.getName().equalsIgnoreCase("tennis")) {
+			if(sender.hasPermission(PermissionKey.CMD_TENNIS.getPermission())) {
 				if(sender instanceof Player) {
 					if(Configuration.getMinigameConfig().isMinigamesEnabled()) {
 						if(args.length == 0) {
-							sender.sendMessage(ChatColor.GOLD + ".oO___[chicken tennis]___Oo.");
+							sender.sendMessage(ChatColor.GOLD + ".oO___[tennis]___Oo.");
 							if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-								sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/chickentennis create <arena> " + ChatColor.WHITE + ": creates an area mode");
-								sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/chickentennis remove <arena> " + ChatColor.WHITE + ": removes an arena");
-								sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/chickentennis undo " + ChatColor.WHITE + ": undos the last block place");
-								sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/chickentennis cancel " + ChatColor.WHITE + ": completely cancel arena creation mode");
-								sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/chickentennis save " + ChatColor.WHITE + ": saves the arena");
+								sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tennis create <arena> " + ChatColor.WHITE + ": creates an area mode");
+								sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tennis remove <arena> " + ChatColor.WHITE + ": removes an arena");
+								sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tennis undo " + ChatColor.WHITE + ": undos the last block place");
+								sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tennis cancel " + ChatColor.WHITE + ": completely cancel arena creation mode");
+								sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tennis save " + ChatColor.WHITE + ": saves the arena");
 							}
-							sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/chickentennis help " + ChatColor.WHITE + ": shows help");
-							sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/chickentennis list " + ChatColor.WHITE + ": shows a list of available arenas");
-							sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/chickentennis leave " + ChatColor.WHITE + ": leave the arena you are currently in");
-							sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/chickentennis join <arena> " + ChatColor.WHITE + ": lets a player join a arena");
+							sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/tennis help " + ChatColor.WHITE + ": shows help");
+							sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/tennis list " + ChatColor.WHITE + ": shows a list of available arenas");
+							sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/tennis leave " + ChatColor.WHITE + ": leave the arena you are currently in");
+							sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/tennis join <arena> " + ChatColor.WHITE + ": lets a player join a arena");
 						} else if(args.length == 1) {
 							if(args[0].equalsIgnoreCase("help")) {
-								sender.sendMessage(ChatColor.GOLD + ".oO___[chicken tennis]___Oo.");
+								sender.sendMessage(ChatColor.GOLD + ".oO___[tennis]___Oo.");
 								if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-									sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/chickentennis create <arena> " + ChatColor.WHITE + ": creates an area mode");
-									sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/chickentennis remove <arena> " + ChatColor.WHITE + ": removes an arena");
-									sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/chickentennis undo " + ChatColor.WHITE + ": undos the last block place");
-									sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/chickentennis cancel " + ChatColor.WHITE + ": completely cancel arena creation mode");
-									sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/chickentennis save " + ChatColor.WHITE + ": saves the arena");
+									sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tennis create <arena> " + ChatColor.WHITE + ": creates an area mode");
+									sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tennis remove <arena> " + ChatColor.WHITE + ": removes an arena");
+									sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tennis undo " + ChatColor.WHITE + ": undos the last block place");
+									sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tennis cancel " + ChatColor.WHITE + ": completely cancel arena creation mode");
+									sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tennis save " + ChatColor.WHITE + ": saves the arena");
 								}
-								sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/chickentennis help " + ChatColor.WHITE + ": shows help");
-								sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/chickentennis list " + ChatColor.WHITE + ": shows a list of available arenas");
-								sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/chickentennis leave " + ChatColor.WHITE + ": leave the arena you are currently in");
-								sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/chickentennis join <arena> " + ChatColor.WHITE + ": lets a player join a arena");
+								sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/tennis help " + ChatColor.WHITE + ": shows help");
+								sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/tennis list " + ChatColor.WHITE + ": shows a list of available arenas");
+								sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/tennis leave " + ChatColor.WHITE + ": leave the arena you are currently in");
+								sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/tennis join <arena> " + ChatColor.WHITE + ": lets a player join a arena");
 							} else if(args[0].equalsIgnoreCase("undo")) {
-								MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getChickenTennisSessions();
+								MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getTennisSessions();
 								if(session.hasSession(sender.getName())) {
 									if(session.containsSessionData(sender.getName(), "boundsz")) {
 										session.removeSessionData(sender.getName(), "boundsz");
@@ -73,7 +73,7 @@ public class CmdChickenTennis {
 									sender.sendMessage(ChatColor.RED + "you dont have a arena creation session open!");
 								}
 							} else if(args[0].equalsIgnoreCase("cancel")) {
-								MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getChickenTennisSessions();
+								MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getTennisSessions();
 								if(session.hasSession(sender.getName())) {
 									session.removeSession(sender.getName());
 									sender.sendMessage(ChatColor.GRAY + "arena creation session removed");
@@ -84,7 +84,7 @@ public class CmdChickenTennis {
 								Player p = (Player)sender;
 								if(p.hasMetadata("gameType")) {
 									MinigameType type = (MinigameType) p.getMetadata("gameType").get(0).value();
-									if(type == MinigameType.CHICKEN_TENNIS) {
+									if(type == MinigameType.TENNIS) {
 										String arenaname = p.getMetadata("game").get(0).asString();
 										MinigameArena arena = xEssentials.getManagers().getMinigameManager().getArenaByName(type, arenaname);
 										arena.reset();
@@ -96,31 +96,31 @@ public class CmdChickenTennis {
 									sender.sendMessage(ChatColor.RED + "you aren't joined into a arena!");
 								}
 							} else if(args[0].equalsIgnoreCase("save")) {
-								MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getChickenTennisSessions();
+								MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getTennisSessions();
 								if(session.hasSession(sender.getName())) {
 									if(session.isSessionComplete(sender.getName())) {
 										sender.sendMessage(ChatColor.GRAY + "successfully saved arena!");
 										session.saveArena(sender.getName());
 									} else {
 										session.removeSession(sender.getName());
-										sender.sendMessage(ChatColor.RED + "chicken tennis session incomplete, removing session.");
+										sender.sendMessage(ChatColor.RED + "tennis session incomplete, removing session.");
 									}
 								} else {
 									sender.sendMessage(ChatColor.RED + "you don't have a session open!");
 								}
 							} else if(args[0].equalsIgnoreCase("list")) {
 								String buffer = "";
-								for(MinigameArena game : xEssentials.getManagers().getMinigameManager().getMinigames().get(MinigameType.CHICKEN_TENNIS)) {
-									ChickenTennisArena tennis = (ChickenTennisArena)game;
+								for(MinigameArena game : xEssentials.getManagers().getMinigameManager().getMinigames().get(MinigameType.TENNIS)) {
+									TennisArena tennis = (TennisArena)game;
 									buffer += (tennis.isFull() ? ChatColor.RED + "[FULL]" + ChatColor.RESET : ChatColor.GREEN + "[OPEN]" + ChatColor.RESET) + tennis.getName() + "\n";
 								}
-								sender.sendMessage(ChatColor.GOLD + ".oO___[chicken tennis game list]___Oo.");
+								sender.sendMessage(ChatColor.GOLD + ".oO___[tennis game list]___Oo.");
 								sender.sendMessage(buffer);
 							}
 						} else if(args.length == 2) {
 							if(args[0].equalsIgnoreCase("create")) {
 								if(!xEssentials.getManagers().getMinigameManager().containsMinigame(args[1])) {
-									MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getChickenTennisSessions();
+									MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getTennisSessions();
 									session.createSession(sender.getName());
 									session.addSessionData(sender.getName(), "name", args[1].toLowerCase());
 									session.addSessionData(sender.getName(), "score", 3);
@@ -131,7 +131,7 @@ public class CmdChickenTennis {
 							} else if(args[0].equalsIgnoreCase("remove")) {
 								MinigameManager manager = xEssentials.getManagers().getMinigameManager();
 								if(manager.containsMinigame(args[1])) {
-									MinigameArena arena = manager.getArenaByName(MinigameType.CHICKEN_TENNIS, args[1]);
+									MinigameArena arena = manager.getArenaByName(MinigameType.TENNIS, args[1]);
 									arena.remove();
 									sender.sendMessage(ChatColor.GRAY + "arena successfully removed!");
 								} else {
@@ -139,7 +139,7 @@ public class CmdChickenTennis {
 								}
 							} else if(args[0].equalsIgnoreCase("join")) {
 								if(xEssentials.getManagers().getMinigameManager().containsMinigame(args[1])) {
-									MinigameArena arena = xEssentials.getManagers().getMinigameManager().getArenaByName(MinigameType.CHICKEN_TENNIS, args[1]);
+									MinigameArena arena = xEssentials.getManagers().getMinigameManager().getArenaByName(MinigameType.TENNIS, args[1]);
 									if(!arena.isFull()) {
 										sender.sendMessage(ChatColor.GRAY + "joining arena " + arena.getName());
 										XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());

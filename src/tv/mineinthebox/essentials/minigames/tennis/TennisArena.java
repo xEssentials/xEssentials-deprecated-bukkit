@@ -1,4 +1,4 @@
-package tv.mineinthebox.essentials.minigames.chickentennis;
+package tv.mineinthebox.essentials.minigames.tennis;
 
 import java.io.File;
 import java.util.Arrays;
@@ -20,12 +20,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
+import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 import tv.mineinthebox.essentials.minigames.MinigameArena;
 import tv.mineinthebox.essentials.minigames.MinigameType;
-import tv.mineinthebox.essentials.minigames.chickentennis.events.ChickenTennisBallEvent;
+import tv.mineinthebox.essentials.minigames.tennis.events.TennisBallMoveEvent;
 
-public class ChickenTennisArena implements MinigameArena {
+public class TennisArena implements MinigameArena {
 
 	private final ItemStack shovel = new ItemStack(Material.IRON_SPADE) {{
 		ItemMeta meta = getItemMeta();
@@ -46,13 +47,14 @@ public class ChickenTennisArena implements MinigameArena {
 	private final int boundx;
 	private final int boundz;
 	private final int win;
+	private final double reward;
 	private Chicken chicken;
 	private boolean isStarted = false;
 
 	private XPlayer p1;
 	private XPlayer p2;
 
-	public ChickenTennisArena(File f, FileConfiguration con) {
+	public TennisArena(File f, FileConfiguration con) {
 		this.f = f;
 		this.name = f.getName().replace(".yml", "");
 		this.spawnpoint1 = new Location(Bukkit.getWorld(con.getString("game.spawnpoint1.world")), con.getInt("game.spawnpoint1.x"), con.getInt("game.spawnpoint1.y"), con.getInt("game.spawnpoint1.z"), con.getInt("game.spawnpoint1.yaw"), con.getInt("game.spawnpoint1.pitch"));
@@ -61,6 +63,7 @@ public class ChickenTennisArena implements MinigameArena {
 		this.boundx = con.getInt("bounds.x");
 		this.boundz = con.getInt("bounds.z");
 		this.win = con.getInt("score");
+		this.reward = con.getDouble("reward");
 	}
 
 	/**
@@ -211,7 +214,7 @@ public class ChickenTennisArena implements MinigameArena {
 		}
 	}
 
-	private ChickenTennisArena getArena() {
+	private TennisArena getArena() {
 		return this;
 	}
 	
@@ -236,7 +239,7 @@ public class ChickenTennisArena implements MinigameArena {
 							chicken.setCustomNameVisible(true);
 						} else {
 							Location loc = chicken.getLocation();
-							Bukkit.getPluginManager().callEvent(new ChickenTennisBallEvent(loc, getArena()));
+							Bukkit.getPluginManager().callEvent(new TennisBallMoveEvent(loc, getArena()));
 							if(chicken != null) {
 								chicken.remove();
 								chicken = null;	
@@ -293,7 +296,7 @@ public class ChickenTennisArena implements MinigameArena {
 
 	@Override
 	public MinigameType getType() {
-		return MinigameType.CHICKEN_TENNIS;
+		return MinigameType.TENNIS;
 	}
 
 	/**
@@ -337,6 +340,18 @@ public class ChickenTennisArena implements MinigameArena {
 		if(this.isStarted) {
 			this.isStarted = false;
 		}
+	}
+
+	@Override
+	public void sentReward(XPlayer xp) {
+		if(Hooks.isVaultEnabled()) {
+			xEssentials.getManagers().getVaultManager().desposit(xp.getPlayer(), reward);
+		}
+	}
+	
+	@Override
+	public double getReward() {
+		return reward;
 	}
 
 }
