@@ -102,6 +102,7 @@ public class TennisSessions implements MinigameSession {
 					xEssentials.getManagers().getMinigameManager().getMinigames().put(MinigameType.TENNIS, new ArrayList<MinigameArena>());
 					xEssentials.getManagers().getMinigameManager().getMinigames().get(MinigameType.TENNIS).add(arena);
 				}
+				removeSession(player);
 				return true;
 			}
 		} catch(Exception e) {
