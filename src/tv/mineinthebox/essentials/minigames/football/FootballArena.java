@@ -255,10 +255,11 @@ public class FootballArena implements MinigameArena {
 
 	private boolean hasScored(XPlayer xp, Location location) {
 		Location loc = location.getBlock().getLocation().add(0, -1, 0);
+		Location loc2 = location.getBlock().getLocation().add(0, -2, 0);
 		if(getRedTeam().contains(xp)) {
-			return getBlueGoalLocations().contains(loc);
+			return (getBlueGoalLocations().contains(loc) || getBlueGoalLocations().contains(loc2) ? true : false);
 		} else if(getBlueTeam().contains(xp))  {
-			return getRedGoalLocations().contains(loc);
+			return (getRedGoalLocations().contains(loc) || getRedGoalLocations().contains(loc2) ? true : false);
 		}
 		return false;
 	}
