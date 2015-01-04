@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
@@ -36,7 +37,7 @@ public class CmdSpawn {
 								World w = Bukkit.getWorld(world);
 								if(w instanceof World) {
 									Location loc = new Location(w, x, y, z, yaw, p.getLocation().getPitch());
-									p.teleport(loc);
+									p.teleport(loc, TeleportCause.COMMAND);
 									p.sendMessage(ChatColor.GREEN + "teleporting to spawn ;-)");
 								} else {
 									sender.sendMessage(ChatColor.RED + "the world does not exists for the spawn!");
@@ -69,7 +70,7 @@ public class CmdSpawn {
 								World w = Bukkit.getWorld(world);
 								if(w instanceof World) {
 									Location loc = new Location(w, x, y, z, yaw, victem.getLocation().getPitch());
-									victem.teleport(loc);
+									victem.teleport(loc, TeleportCause.COMMAND);
 									victem.sendMessage(ChatColor.GREEN + sender.getName() +  " teleported you to spawn ;-)");
 									sender.sendMessage(ChatColor.GREEN + "successfully teleported " + victem.getName() + " to spawn ;-)");
 								} else {

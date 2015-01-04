@@ -20,6 +20,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 import tv.mineinthebox.essentials.minigames.MinigameArena;
 import tv.mineinthebox.essentials.minigames.MinigameType;
@@ -31,52 +32,52 @@ public class FootballArena implements MinigameArena {
 
 	private final File f;
 	private final FileConfiguration con;
-	
+
 	private final Set<XPlayer> blueteam = new HashSet<XPlayer>();
 	private final Set<XPlayer> redteam = new HashSet<XPlayer>();
 	private final RedTeamGear redgear = new RedTeamGear();
 	private final BlueTeamGear bluegear = new BlueTeamGear();
-	
+
 	private int bluescore = 0;
 	private int redscore = 0;
-	
+
 	private boolean isStarted = false;
 	private Slime slime;
-	
+
 	private BukkitTask listener_task;
-	
+
 	public FootballArena(File f, FileConfiguration con) {
 		this.f = f;
 		this.con = con;
 	}
-	
+
 	public int getMaxPlayersAllowed() {
 		return con.getInt("game.maxplayers-allowed");
 	}
-	
+
 	public Set<XPlayer> getBlueTeam() {
 		return blueteam;
 	}
-	
+
 	public Set<XPlayer> getRedTeam() {
 		return redteam;
 	}
-	
+
 	public Set<XPlayer> getPlayers() {
 		Set<XPlayer> players = new HashSet<XPlayer>();
 		players.addAll(getBlueTeam());
 		players.addAll(getRedTeam());
 		return players;
 	}
-	
+
 	public boolean isStarted() {
 		return isStarted;
 	}
-	
+
 	public boolean isFull() {
 		return ((blueteam.size() + redteam.size()) == getMaxPlayersAllowed() ? true : false);
 	}
-	
+
 	public void addPlayer(XPlayer xp) {
 		if(!blueteam.contains(xp) && !redteam.contains(xp) && !isFull()) {
 			if(redteam.size() < blueteam.size()) {
@@ -84,7 +85,7 @@ public class FootballArena implements MinigameArena {
 				xp.saveInventory();
 				xp.getPlayer().teleport(getRedTeamSpawn());
 				xp.getPlayer().getInventory().setArmorContents(null);
-				xp.getPlayer().getInventory().setContents(null);
+				xp.getPlayer().getInventory().clear();
 				xp.getPlayer().getInventory().setHelmet(redgear.getHelmet());
 				xp.getPlayer().getInventory().setChestplate(redgear.getChestPlate());
 				xp.getPlayer().getInventory().setLeggings(redgear.getLeggings());
@@ -95,7 +96,7 @@ public class FootballArena implements MinigameArena {
 				xp.saveInventory();
 				xp.getPlayer().teleport(getBlueTeamSpawn());
 				xp.getPlayer().getInventory().setArmorContents(null);
-				xp.getPlayer().getInventory().setContents(null);
+				xp.getPlayer().getInventory().clear();
 				xp.getPlayer().getInventory().setHelmet(bluegear.getHelmet());
 				xp.getPlayer().getInventory().setChestplate(bluegear.getChestPlate());
 				xp.getPlayer().getInventory().setLeggings(bluegear.getLeggings());
@@ -106,7 +107,7 @@ public class FootballArena implements MinigameArena {
 				xp.saveInventory();
 				xp.getPlayer().teleport(getRedTeamSpawn());
 				xp.getPlayer().getInventory().setArmorContents(null);
-				xp.getPlayer().getInventory().setContents(null);
+				xp.getPlayer().getInventory().clear();
 				xp.getPlayer().getInventory().setHelmet(redgear.getHelmet());
 				xp.getPlayer().getInventory().setChestplate(redgear.getChestPlate());
 				xp.getPlayer().getInventory().setLeggings(redgear.getLeggings());
@@ -117,7 +118,7 @@ public class FootballArena implements MinigameArena {
 				new BukkitRunnable() {
 
 					private int i = 10;
-					
+
 					@Override
 					public void run() {
 						if(i == 0) {
@@ -127,7 +128,10 @@ public class FootballArena implements MinigameArena {
 							}
 							isStarted = true;
 							slime = (Slime)getDefaultBallLocation().getWorld().spawnEntity(getDefaultBallLocation(), EntityType.SLIME);
+							slime.setCustomName(ChatColor.GOLD + "football");
+							slime.setCustomNameVisible(true);
 							slime.setSize(1);
+							initalizeSlimeMove();
 							cancel();
 						} else {
 							for(XPlayer xp : getPlayers()) {
@@ -137,12 +141,12 @@ public class FootballArena implements MinigameArena {
 						}
 						i--;
 					}
-					
+
 				}.runTaskTimer(xEssentials.getPlugin(), 5L, 10L);
 			}
 		}
 	}
-	
+
 	public Location getDefaultBallLocation() {
 		World w = Bukkit.getWorld(con.getString("game.ball.world"));
 		int x = con.getInt("game.ball.x");
@@ -150,7 +154,7 @@ public class FootballArena implements MinigameArena {
 		int z = con.getInt("game.ball.z");
 		return new Location(w, x, y, z);
 	}
-	
+
 	public Location getRedTeamSpawn() {
 		World w = Bukkit.getWorld(con.getString("game.red.spawn.world"));
 		double x = con.getDouble("game.red.spawn.x");
@@ -160,7 +164,7 @@ public class FootballArena implements MinigameArena {
 		int pitch = con.getInt("game.red.spawn.pitch");
 		return new Location(w, x, y, z, yaw, pitch);
 	}
-	
+
 	public Location getBlueTeamSpawn() {
 		World w = Bukkit.getWorld(con.getString("game.blue.spawn.world"));
 		double x = con.getDouble("game.blue.spawn.x");
@@ -170,10 +174,10 @@ public class FootballArena implements MinigameArena {
 		int pitch = con.getInt("game.blue.spawn.pitch");
 		return new Location(w, x, y, z, yaw, pitch);
 	}
-	
+
 	private List<Location> getBlueGoalLocations() {
 		List<Location> locs = new ArrayList<Location>();
-		for(String serialized : con.getConfigurationSection("game.blue.locations").getKeys(false)) {
+		for(String serialized : con.getStringList("game.blue.locations")) {
 			String[] split = serialized.split(":");
 			World w = Bukkit.getWorld(split[0]);
 			int x = Integer.parseInt(split[1]);
@@ -183,10 +187,10 @@ public class FootballArena implements MinigameArena {
 		}
 		return locs;
 	}
-	
+
 	private List<Location> getRedGoalLocations() {
 		List<Location> locs = new ArrayList<Location>();
-		for(String serialized : con.getConfigurationSection("game.red.locations").getKeys(false)) {
+		for(String serialized : con.getStringList("game.red.locations")) {
 			String[] split = serialized.split(":");
 			World w = Bukkit.getWorld(split[0]);
 			int x = Integer.parseInt(split[1]);
@@ -196,66 +200,85 @@ public class FootballArena implements MinigameArena {
 		}
 		return locs;
 	}
-	
+
 	private void initalizeSlimeMove() {
 		this.listener_task = new BukkitRunnable() {
 
 			@Override
 			public void run() {
-				
+
 				XPlayer p = null;
-				
-				if(slime != null) {
-					List<Entity> entities = slime.getNearbyEntities(1, 3, 1);
+
+				if(slime != null && !slime.isDead()) {
+					List<Entity> entities = slime.getNearbyEntities(2, 3, 2);
 					if(entities.size() > 0) {
 						Entity entity = entities.get(0);
 						if(entity instanceof Player) {
 							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(((Player)entity).getName());
 							if(getPlayers().contains(xp)) {
 								p = xp;
-								slime.setVelocity(xp.getPlayer().getLocation().getDirection().multiply(5).normalize());	
+								slime.setVelocity(xp.getPlayer().getLocation().getDirection().multiply(10).normalize());	
 							}
 						}
 					}
-					
-					if(hasScored(slime.getLocation())) {
-						Bukkit.getPluginManager().callEvent(new FootballPassEvent(p, getArena(), true));
-					} else {
-						Bukkit.getPluginManager().callEvent(new FootballPassEvent(p, getArena(), false));
+					if(p != null) {
+						if(hasScored(p, slime.getLocation())) {
+							FootballPassEvent event = new FootballPassEvent(p, getArena(), true);
+							Bukkit.getPluginManager().callEvent(event);
+							if(!event.hasWon()) {
+								if(slime != null) {
+									slime.remove();
+									slime = null;
+									slime = (Slime)getDefaultBallLocation().getWorld().spawnEntity(getDefaultBallLocation(), EntityType.SLIME);
+									slime.setCustomName(ChatColor.GOLD + "football");
+									slime.setCustomNameVisible(true);
+									slime.setSize(1);
+								} else {
+									cancel();
+								}
+							}
+						} else {
+							Bukkit.getPluginManager().callEvent(new FootballPassEvent(p, getArena(), false));
+						}	
 					}
 				} else {
 					cancel();
 				}
 			}
-			
+
 		}.runTaskTimer(xEssentials.getPlugin(), 0L, 1L);
 	}
-	
+
 	private FootballArena getArena() {
 		return this;
 	}
-	
-	private boolean hasScored(Location location) {
-		Location loc = location.add(0, -1, 0);
-		return (getBlueGoalLocations().contains(loc) || getRedGoalLocations().contains(loc) ? true : false);
+
+	private boolean hasScored(XPlayer xp, Location location) {
+		Location loc = location.getBlock().getLocation().add(0, -1, 0);
+		if(getRedTeam().contains(xp)) {
+			return getBlueGoalLocations().contains(loc);
+		} else if(getBlueTeam().contains(xp))  {
+			return getRedGoalLocations().contains(loc);
+		}
+		return false;
 	}
-	
+
 	public int getMaxScore() {
 		return con.getInt("score");
 	}
-	
+
 	public int getRedScore() {
 		return redscore;
 	}
-	
+
 	public int getBlueScore() {
 		return bluescore;
 	}
-	
+
 	public void setBlueScore(int score) {
 		bluescore += score;
 	}
-	
+
 	public void setRedScore(int score) {
 		redscore += score;
 	}
@@ -272,16 +295,20 @@ public class FootballArena implements MinigameArena {
 
 	@Override
 	public void remove() {
-		// TODO Auto-generated method stub
-		
+		xEssentials.getManagers().getMinigameManager().removeMinigame(getType(), this);
+		f.delete();
 	}
 
 	@Override
 	public void removePlayer(XPlayer xp) {
 		if(blueteam.contains(xp)) {
+			xp.getPlayer().removeMetadata("gameType", xEssentials.getPlugin());
+			xp.getPlayer().removeMetadata("game", xEssentials.getPlugin());
 			xp.loadInventory();
 			blueteam.remove(xp);
 		} else if(redteam.contains(xp)) {
+			xp.getPlayer().removeMetadata("gameType", xEssentials.getPlugin());
+			xp.getPlayer().removeMetadata("game", xEssentials.getPlugin());
 			xp.loadInventory();
 			redteam.remove(xp);
 		}
@@ -289,19 +316,37 @@ public class FootballArena implements MinigameArena {
 
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
-		
+		this.isStarted = false;
+		if(this.listener_task != null) {
+			this.listener_task.cancel();
+			this.listener_task = null;
+		}
+		this.slime.remove();
+		this.slime = null;
+		this.bluescore = 0;
+		this.redscore = 0;
+		for(XPlayer xp : getPlayers()) {
+			removePlayer(xp);
+			xp.getPlayer().chat("/spawn");
+		}
 	}
 
 	@Override
 	public void sentReward(XPlayer xp) {
-		// TODO Auto-generated method stub
-		
+		if(Hooks.isVaultEnabled()) {
+			xEssentials.getManagers().getVaultManager().desposit(xp.getPlayer(), con.getDouble("reward"));
+		}
 	}
 
 	@Override
 	public double getReward() {
-		// TODO Auto-generated method stub
-		return 0;
+		return con.getDouble("reward");
+	}
+
+	@Override
+	public void broadcastMessage(String message) {
+		for(XPlayer xp : getPlayers()) {
+			xp.getPlayer().sendMessage(message);
+		}
 	}
 }

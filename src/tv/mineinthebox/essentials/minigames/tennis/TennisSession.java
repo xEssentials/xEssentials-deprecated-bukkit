@@ -13,7 +13,7 @@ import tv.mineinthebox.essentials.minigames.MinigameArena;
 import tv.mineinthebox.essentials.minigames.MinigameSession;
 import tv.mineinthebox.essentials.minigames.MinigameType;
 
-public class TennisSessions implements MinigameSession {
+public class TennisSession implements MinigameSession {
 	
 	private final HashMap<String, HashMap<String, Object>> hash = new HashMap<String, HashMap<String, Object>>();
 	

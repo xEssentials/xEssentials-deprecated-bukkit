@@ -93,6 +93,7 @@ public class CommandList {
 		   "wall",
 		   "nether",
 		   "getchunkfile",
-		   "tennis"
+		   "tennis",
+		   "football"
 		   };
 }

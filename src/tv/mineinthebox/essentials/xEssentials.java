@@ -81,6 +81,9 @@ public class xEssentials extends JavaPlugin {
 		if(getUUIDManager().isExecutorServiceRunning()) {
 			getUUIDManager().shutdownExecutorService();
 		}
+		if(Configuration.getMinigameConfig().isMinigamesEnabled()) {
+			getManagers().getMinigameManager().onDisable();
+		}
 		xEssentials.getManagers().getPlayerManager().clear();
 		if(Configuration.getEntityConfig().isRealisticGlassEnabled()) {
 			xEssentials.getManagers().getRealisticGlassManager().saveGlassBlocks();

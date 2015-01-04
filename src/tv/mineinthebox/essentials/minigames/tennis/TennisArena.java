@@ -16,6 +16,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
@@ -50,6 +51,7 @@ public class TennisArena implements MinigameArena {
 	private final double reward;
 	private Chicken chicken;
 	private boolean isStarted = false;
+	private BukkitTask chickentask;
 
 	private XPlayer p1;
 	private XPlayer p2;
@@ -185,7 +187,7 @@ public class TennisArena implements MinigameArena {
 			chicken.setCustomNameVisible(true);
 
 			initalizeChickenGroundCheck();
-			
+
 			new BukkitRunnable() {
 				private int countdown = 10;
 
@@ -217,19 +219,12 @@ public class TennisArena implements MinigameArena {
 	private TennisArena getArena() {
 		return this;
 	}
-	
+
 	private void initalizeChickenGroundCheck() {
-		new BukkitRunnable() {
+		this.chickentask = new BukkitRunnable() {
 			@Override
 			public void run() {
-				if(chicken != null) {
-					try {
-						chicken.getLocation();
-					} catch(NullPointerException e) {
-						if(Configuration.getDebugConfig().isEnabled()) {
-							xEssentials.getPlugin().log("chicken respawn scheduler still expects the chicken to be referenced!, while it should be not.", LogType.SEVERE);
-						}
-					}
+				if(!chicken.isDead()) {
 					if(chicken.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR) {
 						if(chicken.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.WEB) {
 							Location loc = chicken.getLocation();
@@ -280,6 +275,8 @@ public class TennisArena implements MinigameArena {
 	@Override
 	public void removePlayer(XPlayer xp) {
 		if(p1.equals(xp)) {
+			p1.getPlayer().removeMetadata("gameType", xEssentials.getPlugin());
+			p1.getPlayer().removeMetadata("game", xEssentials.getPlugin());
 			p1.loadInventory();
 			this.p1 = null;
 		} else if(p2.equals(xp)) {
@@ -308,17 +305,18 @@ public class TennisArena implements MinigameArena {
 		xEssentials.getManagers().getMinigameManager().removeMinigame(getType(), this);
 		f.delete();
 	}
-	
+
 	@Override
 	public void reset() {
 		if(Configuration.getDebugConfig().isEnabled()) {
 			xEssentials.getPlugin().log("arena object reset method is called!", LogType.DEBUG);
 		}
 		if(this.chicken != null) {
-			if(Configuration.getDebugConfig().isEnabled()) {
-				xEssentials.getPlugin().log("chicken still existing, removing chicken now.", LogType.DEBUG);
+			if(this.chickentask != null) {
+				this.chickentask.cancel();
+				this.chickentask = null;
 			}
-			this.chicken.damage(this.chicken.getMaxHealth());
+			this.chicken.remove();
 			this.chicken = null;
 		}
 		if(p1 != null) {
@@ -348,10 +346,16 @@ public class TennisArena implements MinigameArena {
 			xEssentials.getManagers().getVaultManager().desposit(xp.getPlayer(), reward);
 		}
 	}
-	
+
 	@Override
 	public double getReward() {
 		return reward;
+	}
+
+	@Override
+	public void broadcastMessage(String message) {
+		p1.getPlayer().sendMessage(message);
+		p2.getPlayer().sendMessage(message);
 	}
 
 }

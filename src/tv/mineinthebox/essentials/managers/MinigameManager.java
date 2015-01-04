@@ -13,6 +13,7 @@ import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.minigames.MinigameArena;
 import tv.mineinthebox.essentials.minigames.MinigameSessionManager;
 import tv.mineinthebox.essentials.minigames.MinigameType;
+import tv.mineinthebox.essentials.minigames.football.FootballArena;
 import tv.mineinthebox.essentials.minigames.tennis.TennisArena;
 
 public class MinigameManager {
@@ -27,6 +28,7 @@ public class MinigameManager {
 	}
 
 	public void onDisable() {
+		minigames.clear();
 		xEssentials.getPlugin().log("minigames for xEssentials has been disabled!", LogType.INFO);
 	}
 
@@ -38,10 +40,25 @@ public class MinigameManager {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				if(con.contains("type")) {
 					if(con.getString("type").equalsIgnoreCase(MinigameType.TENNIS.name())) {
-						List<MinigameArena> list = new ArrayList<MinigameArena>();
-						MinigameArena game = new TennisArena(f, con);
-						list.add(game);
-						minigames.put(MinigameType.TENNIS, list);
+						if(minigames.containsKey(MinigameType.TENNIS)) {
+							MinigameArena game = new TennisArena(f, con);
+							minigames.get(MinigameType.TENNIS).add(game);
+						} else {
+							List<MinigameArena> list = new ArrayList<MinigameArena>();
+							MinigameArena game = new TennisArena(f, con);
+							list.add(game);
+							minigames.put(MinigameType.TENNIS, list);	
+						}
+					} else if(con.getString("type").equalsIgnoreCase(MinigameType.FOOT_BALL.name())) {
+						if(minigames.containsKey(MinigameType.FOOT_BALL)) {
+							MinigameArena game = new FootballArena(f, con);
+							minigames.get(MinigameType.FOOT_BALL).add(game);
+						} else {
+							List<MinigameArena> list = new ArrayList<MinigameArena>();
+							MinigameArena game = new FootballArena(f, con);
+							list.add(game);
+							minigames.put(MinigameType.FOOT_BALL, list);	
+						}
 					}
 				}
 			}

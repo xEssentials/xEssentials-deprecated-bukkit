@@ -15,7 +15,6 @@ import tv.mineinthebox.essentials.managers.MinigameManager;
 import tv.mineinthebox.essentials.minigames.MinigameArena;
 import tv.mineinthebox.essentials.minigames.MinigameSession;
 import tv.mineinthebox.essentials.minigames.MinigameType;
-import tv.mineinthebox.essentials.minigames.tennis.TennisArena;
 
 public class CmdTennis {
 
@@ -110,12 +109,16 @@ public class CmdTennis {
 								}
 							} else if(args[0].equalsIgnoreCase("list")) {
 								String buffer = "";
-								for(MinigameArena game : xEssentials.getManagers().getMinigameManager().getMinigames().get(MinigameType.TENNIS)) {
-									TennisArena tennis = (TennisArena)game;
-									buffer += (tennis.isFull() ? ChatColor.RED + "[FULL]" + ChatColor.RESET : ChatColor.GREEN + "[OPEN]" + ChatColor.RESET) + tennis.getName() + "\n";
+								if(xEssentials.getManagers().getMinigameManager().getMinigames().containsKey(MinigameType.TENNIS)) {
+									for(MinigameArena arena : xEssentials.getManagers().getMinigameManager().getMinigames().get(MinigameType.TENNIS)) {
+										buffer += (arena.isFull() ? ChatColor.RED + "[FULL]" + ChatColor.RESET : ChatColor.GREEN + "[OPEN]" + ChatColor.RESET) + arena.getName() + "\n";
+									}
+									sender.sendMessage(ChatColor.GOLD + ".oO___[tennis game list]___Oo.");
+									sender.sendMessage(buffer);
+								} else {
+									sender.sendMessage(ChatColor.GOLD + ".oO___[tennis game list]___Oo.");
+									sender.sendMessage(ChatColor.RED + "no minigames found for tennis!");	
 								}
-								sender.sendMessage(ChatColor.GOLD + ".oO___[tennis game list]___Oo.");
-								sender.sendMessage(buffer);
 							}
 						} else if(args.length == 2) {
 							if(args[0].equalsIgnoreCase("create")) {

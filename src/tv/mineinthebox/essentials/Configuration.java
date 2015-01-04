@@ -1403,6 +1403,9 @@ public class Configuration {
 		if(xEssentials.getManagers().getRealisticWaterManager().isRunning()) {
 			xEssentials.getManagers().getRealisticWaterManager().stop();
 		}
+		if(Configuration.getMinigameConfig().isMinigamesEnabled()) {
+			xEssentials.getManagers().getMinigameManager().onDisable();
+		}
 		//clear responsible from the deepest tree in the HashMap in case things could get persistent in the jvm things need to be better safe than not.
 		for(ConfigType aEnum : ConfigType.values()) {
 			if(configure.containsKey(aEnum)) {
@@ -1423,6 +1426,9 @@ public class Configuration {
 		}
 		if(Configuration.getEntityConfig().isRealisticWaterEnabled()) {
 			xEssentials.getManagers().getRealisticWaterManager().start();
+		}
+		if(Configuration.getMinigameConfig().isMinigamesEnabled()) {
+			xEssentials.getManagers().getMinigameManager().onEnable();
 		}
 		xEssentials.getManagers().getPlayerManager().reloadPlayerBase(); 
 		handler.start();

@@ -18,6 +18,8 @@ public interface MinigameArena {
 	
 	public void reset();
 	
+	public void broadcastMessage(String message);
+	
 	public void sentReward(XPlayer xp);
 	
 	public double getReward();

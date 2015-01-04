@@ -285,3 +285,6 @@ commands:
   tennis:
      description: starts a minigame called chickentennis
      aliases: [chickentennis]
+  football:
+     description: starts a minigame called slimefootball
+     aliases: [slimefootball]

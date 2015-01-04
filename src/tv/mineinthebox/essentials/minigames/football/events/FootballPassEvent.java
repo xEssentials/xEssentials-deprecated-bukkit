@@ -33,6 +33,10 @@ public class FootballPassEvent extends Event {
 		return null;
 	}
 	
+	public TeamType getLosingTeam() {
+		return (getTeam() == TeamType.RED_TEAM ? TeamType.BLUE_TEAM : TeamType.RED_TEAM);
+	}
+	
 	public XPlayer getPlayer() {
 		return xp;
 	}
