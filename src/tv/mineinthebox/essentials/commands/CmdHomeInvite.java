@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
@@ -39,7 +40,7 @@ public class CmdHomeInvite {
 								Player p = (Player) sender;
 								Home home = xEssentials.getManagers().getHomeInviteManager().getRequestedHome(sender.getName());
 								sender.sendMessage(ChatColor.GREEN + "you have accepted " + ChatColor.GRAY + xEssentials.getManagers().getHomeInviteManager().get(sender.getName()).getUser() + ChatColor.GREEN + " his home request!");
-								p.teleport(home.getLocation());
+								p.teleport(home.getLocation(), TeleportCause.COMMAND);
 								XOfflinePlayer off = xEssentials.getManagers().getHomeInviteManager().get(sender.getName());
 								if(off.getPlayer() instanceof Player) {
 									off.getPlayer().sendMessage(ChatColor.GRAY + sender.getName() + ChatColor.GREEN + " has accepted your home request");

@@ -10,6 +10,7 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
@@ -74,7 +75,7 @@ public class CmdTeleport {
 								try {
 									XOfflinePlayer offliner = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 									offliner.getLastLocation().getWorld().refreshChunk(offliner.getLastLocation().getChunk().getX(), offliner.getLastLocation().getChunk().getZ());
-									p.getPlayer().teleport(offliner.getLastLocation());
+									p.getPlayer().teleport(offliner.getLastLocation(), TeleportCause.COMMAND);
 									sender.sendMessage(ChatColor.GREEN + "teleporting to last offline location of player " + offliner.getUser() + " ;-)");
 								} catch(NullPointerException e) {
 									Warnings.getWarnings(sender).playerHasNeverPlayedBefore();
@@ -97,7 +98,7 @@ public class CmdTeleport {
 								if(Hooks.isManCoEnabled()) {
 									if(xEssentials.getManagers().getManCoManager().hasCrate(to)) {
 										Location loc = xEssentials.getManagers().getManCoManager().getCrateLocation(to);
-										p.teleport(loc);
+										p.teleport(loc, TeleportCause.COMMAND);
 										sender.sendMessage(ChatColor.GREEN + "teleporting to " + to.getName() + " his ManCo crate ;-)");
 									} else {
 										sender.sendMessage(ChatColor.RED + "this player doesn't own any ManCo crate!");
@@ -122,7 +123,7 @@ public class CmdTeleport {
 								if(WorldGuardHook.isValidRegion(args[1], p.getWorld())) {
 									Location loc = WorldGuardHook.getRegionLocation(args[1], p.getWorld());
 									loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
-									p.teleport(loc);
+									p.teleport(loc, TeleportCause.COMMAND);
 									sender.sendMessage(ChatColor.GREEN + "teleporting to region " + args[1] + " ;-)");
 								} else {
 									sender.sendMessage(ChatColor.RED + "region with that name whas not found to teleport to!");
@@ -166,7 +167,7 @@ public class CmdTeleport {
 							Double z = Double.parseDouble(args[2]);
 							Location loc = new Location(p.getWorld(), x, y, z);
 							loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
-							p.teleport(loc);
+							p.teleport(loc, TeleportCause.COMMAND);
 							sender.sendMessage(ChatColor.GREEN + "teleporting to x:"+x + " y:"+y + " z:"+z + " ;-)");
 						} catch(NumberFormatException e) {
 							sender.sendMessage(ChatColor.RED + "these are invalid coordinates to teleport to!");
@@ -190,7 +191,7 @@ public class CmdTeleport {
 								Double z = Double.parseDouble(args[3]);
 								Location loc = new Location(w, x, y, z);
 								loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
-								p.teleport(loc);
+								p.teleport(loc, TeleportCause.COMMAND);
 								sender.sendMessage(ChatColor.GREEN + "teleporting to " + w.getName() + " x:" + x + " y:" + y + " z:"+z+" ;-)");
 							} catch(NumberFormatException e) {
 								sender.sendMessage(ChatColor.RED + "these are invalid coordinates to teleport to!");
@@ -205,7 +206,7 @@ public class CmdTeleport {
 							Double z = Double.parseDouble(args[3]);
 							Location loc = new Location(victem.getWorld(), x, y, z);
 							loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
-							victem.teleport(loc);
+							victem.teleport(loc, TeleportCause.COMMAND);
 							victem.sendMessage(ChatColor.GREEN + "you are teleported by " + sender.getName() + "to x:" + x + " y:" + y + " z:" + z + " ;-)");
 							sender.sendMessage(ChatColor.GREEN + "successfully teleported " + victem.getName() + "to x:" + x + " y:" + y + " z:" + z + " ;-)");
 						} catch(NumberFormatException e) {
@@ -228,7 +229,7 @@ public class CmdTeleport {
 							Double z = Double.parseDouble(args[4]);
 							Location loc = new Location(w, x, y, z);
 							loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
-							victem.teleport(loc);
+							victem.teleport(loc, TeleportCause.COMMAND);
 							victem.sendMessage(ChatColor.GREEN + "you are teleported by " + sender.getName() + "to world: " + w.getName() + " x:" + x + " y:" + y + " z:" + z + " ;-)");
 							sender.sendMessage(ChatColor.GREEN + "successfully teleported " + victem.getName() + "to world: " + w.getName() + " x:" + x + " y:" + y + " z:" + z + " ;-)");
 						} else {

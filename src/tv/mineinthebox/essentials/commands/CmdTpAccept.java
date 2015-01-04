@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
@@ -18,7 +19,7 @@ public class CmdTpAccept {
 					Player p = (Player) sender;
 					Player victem = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(xEssentials.getManagers().getTpaManager().get(sender.getName())).getPlayer();
 					if(victem instanceof Player) {
-						victem.teleport(p);
+						victem.teleport(p, TeleportCause.COMMAND);
 						victem.sendMessage(ChatColor.GREEN + sender.getName() + " has successfully accepted your tpa request!");
 						sender.sendMessage(ChatColor.GREEN + "you have successfully accepted " + victem.getName() + " his tpa request!");
 						xEssentials.getManagers().getTpaManager().remove(sender.getName());

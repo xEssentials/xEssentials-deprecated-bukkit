@@ -7,6 +7,7 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.enums.PermissionKey;
@@ -31,7 +32,7 @@ public class CmdNether {
 							return false;
 						}
 						p.sendMessage(ChatColor.GRAY + "teleporting to the exact nether location!");
-						p.teleport(loc);	
+						p.teleport(loc, TeleportCause.COMMAND);	
 					} else if(args.length == 1) {
 						if(args[0].equalsIgnoreCase("help")) {
 							sender.sendMessage(ChatColor.GOLD + ".oO___[nether]___Oo.");

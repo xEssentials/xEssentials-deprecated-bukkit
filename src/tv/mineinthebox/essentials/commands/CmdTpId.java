@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
@@ -81,7 +82,7 @@ public class CmdTpId {
 											Modreq mod = xp.getModreq(id);
 											Location loc = mod.getModreqLocation();
 											loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
-											p.teleport(loc);
+											p.teleport(loc, TeleportCause.COMMAND);
 											sender.sendMessage(ChatColor.GREEN + "teleporting to " + args[0] + " his modreq with id: " + id);
 										} else {
 											sender.sendMessage(ChatColor.RED + "not a valid modreq id!");
@@ -99,7 +100,7 @@ public class CmdTpId {
 											Modreq mod = off.getModreq(id);
 											Location loc = mod.getModreqLocation();
 											loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
-											p.teleport(loc);
+											p.teleport(loc, TeleportCause.COMMAND);
 											sender.sendMessage(ChatColor.GREEN + "teleporting to " + args[0] + " his modreq with id: " + id);
 										} else {
 											sender.sendMessage(ChatColor.RED + "not a valid modreq id!");

@@ -10,6 +10,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.Warnings;
@@ -88,17 +89,17 @@ public class CmdHome {
 								if(xp.getPlayer().getVehicle() instanceof LivingEntity) {
 									LivingEntity entity = (LivingEntity) xp.getPlayer().getVehicle();
 									xp.getPlayer().getVehicle().eject();
-									xp.getPlayer().teleport(home.getLocation());
-									entity.teleport(home.getLocation());
+									xp.getPlayer().teleport(home.getLocation(), TeleportCause.COMMAND);
+									entity.teleport(home.getLocation(), TeleportCause.COMMAND);
 									entity.setPassenger(xp.getPlayer());
 									sender.sendMessage(ChatColor.GREEN + "teleporting to your default home!");
 								} else {
 									xp.getPlayer().getVehicle().eject();
-									xp.getPlayer().teleport(home.getLocation());
+									xp.getPlayer().teleport(home.getLocation(), TeleportCause.COMMAND);
 									sender.sendMessage(ChatColor.GREEN + "teleporting to your default home!");
 								}
 							} else {
-								xp.getPlayer().teleport(home.getLocation());
+								xp.getPlayer().teleport(home.getLocation(), TeleportCause.COMMAND);
 								sender.sendMessage(ChatColor.GREEN + "teleporting to your default home!");	
 							}
 						} else {
@@ -156,18 +157,18 @@ public class CmdHome {
 										if(p.getVehicle() instanceof LivingEntity) {
 											LivingEntity entity = (LivingEntity) p.getVehicle();
 											p.getVehicle().eject();
-											p.teleport(loc);
-											entity.teleport(loc);
+											p.teleport(loc, TeleportCause.COMMAND);
+											entity.teleport(loc, TeleportCause.COMMAND);
 											entity.setPassenger(p);
 											sender.sendMessage(ChatColor.GREEN + "teleporting to " + off.getUser() + " his default home!");
 										} else {
 											p.getPlayer().getVehicle().eject();
 											sender.sendMessage(ChatColor.GREEN + "teleporting to " + off.getUser() + " his default home!");
-											p.teleport(loc);
+											p.teleport(loc, TeleportCause.COMMAND);
 										}
 									} else {
 										sender.sendMessage(ChatColor.GREEN + "teleporting to " + off.getUser() + " his default home!");
-										p.teleport(loc);	
+										p.teleport(loc, TeleportCause.COMMAND);	
 									}
 								} else {
 									Warnings.getWarnings(sender).consoleMessage();
@@ -187,18 +188,18 @@ public class CmdHome {
 												if(xp.getPlayer().getVehicle() instanceof LivingEntity) {
 													LivingEntity entity = (LivingEntity) xp.getPlayer().getVehicle();
 													xp.getPlayer().getVehicle().eject();
-													xp.getPlayer().teleport(loc);
-													entity.teleport(loc);
+													xp.getPlayer().teleport(loc, TeleportCause.COMMAND);
+													entity.teleport(loc, TeleportCause.COMMAND);
 													entity.setPassenger(xp.getPlayer());
 													sender.sendMessage(ChatColor.GREEN + "teleporting to your custom home " + args[0]);
 												} else {
 													xp.getPlayer().getVehicle().eject();
 													sender.sendMessage(ChatColor.GREEN + "teleporting to your custom home " + args[0]);
-													xp.getPlayer().teleport(loc);
+													xp.getPlayer().teleport(loc, TeleportCause.COMMAND);
 												}
 											} else {
 												sender.sendMessage(ChatColor.GREEN + "teleporting to your custom home " + args[0]);
-												xp.getPlayer().teleport(loc);	
+												xp.getPlayer().teleport(loc, TeleportCause.COMMAND);	
 											}
 										} else {
 											sender.sendMessage(ChatColor.RED + "invalid home!");
@@ -260,18 +261,18 @@ public class CmdHome {
 												if(p.getVehicle() instanceof LivingEntity) {
 													LivingEntity entity = (LivingEntity) p.getVehicle();
 													p.getVehicle().eject();
-													p.teleport(loc);
-													entity.teleport(loc);
+													p.teleport(loc, TeleportCause.COMMAND);
+													entity.teleport(loc, TeleportCause.COMMAND);
 													entity.setPassenger(p);
 													sender.sendMessage(ChatColor.GREEN + "teleporting to " + off.getUser() + " his custom home " + args[1]);
 												} else {
 													p.getVehicle().eject();
 													sender.sendMessage(ChatColor.GREEN + "teleporting to " + off.getUser() + " his custom home " + args[1]);
-													p.teleport(loc);
+													p.teleport(loc, TeleportCause.COMMAND);
 												}
 											} else {
 												sender.sendMessage(ChatColor.GREEN + "teleporting to " + off.getUser() + " his custom home " + args[1]);
-												p.teleport(loc);	
+												p.teleport(loc, TeleportCause.COMMAND);	
 											}
 										} else {
 											sender.sendMessage(ChatColor.RED + "invalid home!");

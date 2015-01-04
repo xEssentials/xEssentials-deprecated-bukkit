@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
@@ -38,7 +39,7 @@ public class CmdTphere {
 								}
 								sender.sendMessage(ChatColor.GREEN + "teleported " + victem.getPlayer().getName() + " to you!");
 								victem.getPlayer().sendMessage(ChatColor.GREEN + sender.getName() + " has teleported you to his location!");
-								victem.getPlayer().teleport(p.getPlayer());
+								victem.getPlayer().teleport(p.getPlayer(), TeleportCause.COMMAND);
 							} else {
 								sender.sendMessage(ChatColor.RED + "could not find a online player with that name!");
 							}

@@ -8,6 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
@@ -63,7 +64,7 @@ public class CmdWarp {
 							if(xEssentials.getManagers().getWarpManager().isWarp(args[0])) {
 								Warp warp = xEssentials.getManagers().getWarpManager().getWarp(args[0], (Player)sender);
 								warp.getWarpLocation().getWorld().refreshChunk(warp.getWarpLocation().getChunk().getX(), warp.getWarpLocation().getChunk().getZ());
-								p.teleport(warp.getWarpLocation());
+								p.teleport(warp.getWarpLocation(), TeleportCause.COMMAND);
 								sender.sendMessage(ChatColor.GREEN + "teleporting to warp " + warp.getWarpName());
 							} else {
 								sender.sendMessage(ChatColor.RED + "warp doesn't exist!");
@@ -78,7 +79,7 @@ public class CmdWarp {
 						if(xEssentials.getManagers().getWarpManager().isWarp(args[1])) {
 							Warp warp = xEssentials.getManagers().getWarpManager().getWarp(args[1], (Player)sender);
 							warp.getWarpLocation().getWorld().refreshChunk(warp.getWarpLocation().getChunk().getX(), warp.getWarpLocation().getChunk().getZ());
-							p.teleport(warp.getWarpLocation());
+							p.teleport(warp.getWarpLocation(), TeleportCause.COMMAND);
 							p.sendMessage(ChatColor.GREEN + "teleporting to warp " + warp.getWarpName());
 						} else {
 							sender.sendMessage(ChatColor.RED + "warp doesn't exist!");
