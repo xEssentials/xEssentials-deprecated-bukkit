@@ -921,6 +921,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 				con.save(f);
 				con.load(f);	
 			} else {
+				f.setReadable(true, false);
 				f.setWritable(true, false);
 				con.save(f);
 				con.load(f);
