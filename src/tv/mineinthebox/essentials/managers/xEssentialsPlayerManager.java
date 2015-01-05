@@ -203,9 +203,12 @@ public class xEssentialsPlayerManager {
 	 * @return void
 	 */
 	public void reloadPlayerBase() {
+		for(XPlayer xp : xEssentials.getManagers().getPlayerManager().getPlayers()) {
+			xp.save();
+		}
 		players.clear();
 		for(Player p : xEssentials.getOnlinePlayers()) {
-			xEssentialsPlayer xp = new xEssentialsPlayer(p, xEssentials.getManagers().getPlayerManager().getOfflinePlayer(p.getName()).getUniqueId().replaceAll("-", ""));
+			XPlayer xp = new xEssentialsPlayer(p, xEssentials.getManagers().getPlayerManager().getOfflinePlayer(p.getName()).getUniqueId().replaceAll("-", ""));
 			players.put(p.getName().toLowerCase(), xp);
 		}
 	}
