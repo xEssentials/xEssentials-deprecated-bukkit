@@ -28,6 +28,7 @@ public class MinigameManager {
 	}
 
 	public void onDisable() {
+		cleanup();
 		minigames.clear();
 		xEssentials.getPlugin().log("minigames for xEssentials has been disabled!", LogType.INFO);
 	}
@@ -60,6 +61,16 @@ public class MinigameManager {
 							minigames.put(MinigameType.FOOT_BALL, list);	
 						}
 					}
+				}
+			}
+		}
+	}
+	
+	private void cleanup() {
+		for(MinigameType type : MinigameType.values()) {
+			if(minigames.containsKey(type)) {
+				for(MinigameArena arena : minigames.get(type)) {
+					arena.reset();
 				}
 			}
 		}
