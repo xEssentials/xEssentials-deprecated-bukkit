@@ -79,7 +79,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			update();
+			save();
 		} else {
 			this.con = YamlConfiguration.loadConfiguration(this.f);
 		}
@@ -87,7 +87,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 
 	@Override
 	public boolean isGreyListed() {
-		update();
+		save();
 		if(con.contains("isDefault")) {
 			if(!con.getBoolean("isDefault")) {
 				return true;
@@ -107,7 +107,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		update();
+		save();
 	}
 
 	/**
@@ -134,7 +134,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public String getIp() {
-		update();
+		save();
 		return con.getString("ip");
 	}
 
@@ -147,7 +147,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public String getUser() {
-		update();
+		save();
 		return con.getString("user");
 	}
 
@@ -158,7 +158,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public boolean isMuted() {
-		update();
+		save();
 		if(con.contains("muted.isMuted")) {
 			return con.getBoolean("muted.isMuted");
 		} else {
@@ -180,7 +180,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		update();
+		save();
 	}
 
 	/**
@@ -199,7 +199,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		update();
+		save();
 	}
 
 	/**
@@ -237,7 +237,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		update();
+		save();
 	}
 
 	/**
@@ -286,7 +286,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		update();
+		save();
 	}
 
 	/**
@@ -316,7 +316,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public boolean isBannedBefore() {
-		update();
+		save();
 		if(con.contains("banned.isBanned")) {
 			if(!con.getBoolean("banned.isBanned")) {
 				return true;
@@ -346,7 +346,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public String getUniqueId() {
-		update();
+		save();
 		if(con.contains("uuid")) {
 			return con.getString("uuid");
 		}  else {
@@ -364,7 +364,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public boolean hasHome() {
-		update();
+		save();
 		if(con.contains("homes")) {
 			return true;
 		}
@@ -378,7 +378,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public boolean isValidHome(String home) {
-		update();
+		save();
 		if(con.contains("homes."+home)) {
 			return true;
 		}
@@ -394,7 +394,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public List<Home> getAllHomes() {
-		update();
+		save();
 		List<Home> homes = new ArrayList<Home>();
 		if(hasHome()) {
 			for(String home : con.getConfigurationSection("homes").getKeys(false)) {
@@ -414,7 +414,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public Home getHome(String homeName) throws NullPointerException {
-		update();
+		save();
 		Home home = new Home(con, homeName);
 		return home;
 	}
@@ -438,7 +438,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public void removeHome(String home) {
-		update();
+		save();
 		con.set("homes."+home.toLowerCase(), null);
 		try {
 			con.save(f);
@@ -446,7 +446,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		update();
+		save();
 	}
 
 	/**
@@ -456,7 +456,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public Location getLastLocation() {
-		update();
+		save();
 		if(con.contains("lastLocation")) {
 			return new Location(Bukkit.getWorld(con.getString("lastLocation.world")), con.getDouble("lastLocation.x"), con.getDouble("lastLocation.y"), con.getDouble("lastLocation.z"), con.getInt("lastLocation.yaw"), con.getInt("lastLocation.pitch"));
 		}
@@ -470,7 +470,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public boolean hasOfflineInventory() {
-		update();
+		save();
 		if(con.contains("offlineInventory.contents")) {
 			return true;
 		}
@@ -485,7 +485,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	@Override
 	@SuppressWarnings("unchecked")
 	public Inventory getOfflineInventory(Player viewer) {
-		update();
+		save();
 		Inventory inv = Bukkit.createInventory(null, InventoryType.PLAYER);
 		if(hasOfflineInventory()) {
 			ItemStack[] items = ((List<ItemStack>)con.get("offlineInventory.contents")).toArray(new ItemStack[0]);	
@@ -501,7 +501,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public boolean hasModreqsOpen() {
-		update();
+		save();
 		if(con.contains("modreqs")) {
 			return true;
 		}
@@ -515,7 +515,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public boolean isValidModreqId(int id) {
-		update();
+		save();
 		if(con.contains("modreqs."+"modreq"+id)) {
 			return true;
 		}
@@ -529,7 +529,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public Modreq getModreq(int id) {
-		update();
+		save();
 		Modreq mod = new Modreq(con, id);
 		return mod;
 	}
@@ -542,7 +542,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public void removeModreq(int id) {
-		update();
+		save();
 		if(isValidModreqId(id)) {
 			con.set("modreqs."+"modreq"+id, null);
 			if(con.getConfigurationSection("modreqs").getKeys(true).isEmpty()) {
@@ -554,7 +554,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			update();
+			save();
 		} else {
 			throw new NullPointerException("you cannot remove a configuration node for a modreq wich doesn't exists!");
 		}
@@ -567,7 +567,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public Modreq[] getModreqs() {
-		update();
+		save();
 		List<Modreq> items = new ArrayList<Modreq>();
 		for(int i = 0; con.contains("modreqs."+"modreq"+i); i++) {
 			if(isValidModreqId(i)) {
@@ -595,7 +595,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		update();
+		save();
 	}
 
 	/**
@@ -605,7 +605,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public void ClearInventoryOnRelog() {
-		update();
+		save();
 		con.set("ClearInventory", true);
 		try {
 			con.save(f);
@@ -613,7 +613,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		update();
+		save();
 	}
 
 	/**
@@ -681,7 +681,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			update();	
+			save();	
 		} else {
 			List<String> list = new ArrayList<String>(con.getStringList("command-restrictions"));
 			list.add(command+","+reason+","+taskCommand);
@@ -692,7 +692,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			update();
+			save();
 		}
 	}
 
@@ -743,7 +743,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		update();
+		save();
 	}
 
 	/**
@@ -753,7 +753,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public Double getTotalEssentialsMoney() {
-		update();   
+		save();   
 		return con.getDouble("money");
 	}
 
@@ -764,7 +764,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public Boolean hasEssentialsMoney() {
-		update();
+		save();
 		if(con.contains("money")) {
 			if(con.getDouble("money") > 0.0) {
 				return true;
@@ -779,7 +779,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public void addEssentialsMoney(Double price) {
-		update();
+		save();
 		con.set("money", getTotalEssentialsMoney()+price);
 		try {
 			con.save(f);
@@ -787,7 +787,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		update();
+		save();
 	}
 
 	/**
@@ -797,7 +797,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public boolean hasPlayerEnoughMoneyFromPrice(Double price) {
-		update();
+		save();
 		if(getTotalEssentialsMoney() >= price) {
 			return true;
 		}
@@ -811,7 +811,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 */
 	@Override
 	public void clearMoney() {
-		update();
+		save();
 		con.set("money", null);
 		try {
 			con.save(f);
@@ -819,7 +819,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		update();
+		save();
 	}
 	
 	/**
@@ -876,7 +876,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 
 	@Override
 	public Shop getShop(Location loc) {
-		update();
+		save();
 		UUID id = UUID.nameUUIDFromBytes(((loc.getWorld().getName())+":"+loc.getBlockX()+":"+loc.getBlockY()+":"+loc.getBlockZ()).getBytes());
 		if(isShop(loc)) {
 			String[] args = con.getString("shops."+id.toString()+".chestloc").split(":");
@@ -897,7 +897,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 
 	@Override
 	public void removeShop(Location loc) {
-		update();
+		save();
 		UUID id = UUID.nameUUIDFromBytes(((loc.getWorld().getName())+":"+loc.getBlockX()+":"+loc.getBlockY()+":"+loc.getBlockZ()).getBytes());
 		con.set("shops."+id.toString(), null);
 		try {
@@ -906,7 +906,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		update();
+		save();
 	}
 	
 	/**
@@ -915,9 +915,16 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	 * @return void
 	 */
 	@Override
-	public void update() {
+	public void save() {
 		try {
-			con.load(f);
+			if(f.canWrite()) {
+				con.save(f);
+				con.load(f);	
+			} else {
+				f.setWritable(true, false);
+				con.save(f);
+				con.load(f);
+			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -952,7 +959,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 
 	@Override
 	public boolean payEssentialsMoney(double money) {
-		update();
+		save();
 		Double moneya = (getTotalEssentialsMoney()-money);
 		if(moneya >= 0.0) {
 			con.set("money", moneya);
@@ -962,7 +969,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			update();
+			save();
 			return true;
 		}
 		return false;
@@ -978,7 +985,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		update();
+		save();
 	}
 	
 }
