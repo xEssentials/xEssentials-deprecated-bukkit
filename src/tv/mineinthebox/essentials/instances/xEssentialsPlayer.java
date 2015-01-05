@@ -47,7 +47,7 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 @SuppressWarnings("deprecation")
 public class xEssentialsPlayer implements XPlayer {
-	
+
 	private Player player;
 	private File f;
 	private FileConfiguration con;
@@ -142,7 +142,7 @@ public class xEssentialsPlayer implements XPlayer {
 			}
 		}
 		setLastLoginTime(System.currentTimeMillis());
-		update();
+		save();
 	}
 
 	/**
@@ -152,7 +152,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean isGreyListed() {
-		update();
 		if(con.contains("isDefault")) {
 			if(!con.getBoolean("isDefault")) {
 				return true;
@@ -171,13 +170,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setGreyListed(Boolean bol) {
 		con.set("isDefault", !bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -188,13 +180,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setPowerTool(ItemStack item, String command) {
 		con.set("powertool."+item.getType().name()+".command", command);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -204,7 +189,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean hasPowerTool() {
-		update();
 		if(con.contains("powertool."+player.getItemInHand().getType().name()+".command")) {
 			return con.contains("powertool."+player.getItemInHand().getType().name());
 		}
@@ -218,7 +202,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public String getPowerTool() {
-		update();
 		return con.getString("powertool."+player.getItemInHand().getType().name()+".command");
 	}
 
@@ -230,13 +213,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void removePowerTool() {
 		con.set("powertool."+player.getItemInHand().getType().name()+".command", null);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -246,7 +222,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean hasLoginTask() {
-		update();
 		if(con.contains("task.command")) {
 			return true;
 		}
@@ -266,7 +241,7 @@ public class xEssentialsPlayer implements XPlayer {
 			}
 		}
 	}
-	
+
 	@Override
 	public void saveLastLocation() {
 		con.set("lastLocation.x", player.getLocation().getBlockX());
@@ -275,13 +250,6 @@ public class xEssentialsPlayer implements XPlayer {
 		con.set("lastLocation.yaw", player.getLocation().getYaw());
 		con.set("lastLocation.pitch", player.getLocation().getPitch());
 		con.set("lastLocation.world", player.getWorld().getName());
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -325,13 +293,6 @@ public class xEssentialsPlayer implements XPlayer {
 			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), con.getString("task.command"));
 		}
 		con.set("task", null);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -341,7 +302,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean isSpeedEnabled() {
-		update();
 		if(con.contains("isSpeed")) {
 			return con.getBoolean("isSpeed");
 		}
@@ -356,15 +316,8 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setSpeed(int i) {
 		con.set("isSpeed", true);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		getPlayer().setWalkSpeed(i);
 		getPlayer().setFlySpeed(i);
-		update();
 	}
 
 	/**
@@ -375,13 +328,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void removeSpeed() {
 		con.set("isSpeed", false);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 		getPlayer().setWalkSpeed(0.2f);
 		getPlayer().setFlySpeed(0.1f);
 	}
@@ -406,7 +352,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean isBoom() {
-		update();
 		if(con.contains("isBoom")) {
 			return con.getBoolean("isBoom");
 		}
@@ -421,13 +366,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setBoom() {
 		con.set("isBoom", true);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -438,13 +376,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void removeBoom() {
 		con.set("isBoom", null);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -454,7 +385,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean isPotato() {
-		update();
 		if(con.contains("isPotato")) {
 			return con.getBoolean("isPotato");
 		}
@@ -471,13 +401,6 @@ public class xEssentialsPlayer implements XPlayer {
 		con.set("isPotato", false);
 		this.Potato.remove();
 		this.Potato = null;
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -489,13 +412,6 @@ public class xEssentialsPlayer implements XPlayer {
 	public void setPotato(Item potato) {
 		this.Potato = potato;
 		con.set("isPotato", true);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -555,13 +471,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public boolean setIp() {
 		con.set("ip", player.getAddress().getAddress().getHostAddress());
-		try {
-			con.save(f);
-			update();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return true;
 	}
 
@@ -576,13 +485,6 @@ public class xEssentialsPlayer implements XPlayer {
 	public String getUser() {
 		if(!player.getName().equalsIgnoreCase(con.getString("user"))) {
 			con.set("user", player.getName());
-			try {
-				con.save(f);
-				update();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 		return con.getString("user");
 	}
@@ -617,7 +519,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean isMuted() {
-		update();
 		if(con.contains("muted.isMuted")) {
 			return con.getBoolean("muted.isMuted");
 		} else {
@@ -632,7 +533,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean isAfk() {
-		update();
 		if(con.contains("afk.isAfk")) {
 			return con.getBoolean("afk.isAfk");
 		}
@@ -646,7 +546,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public String getAfkReason() {
-		update();
 		if(con.contains("afk.reason")) {
 			return con.getString("afk.reason");
 		}
@@ -662,13 +561,6 @@ public class xEssentialsPlayer implements XPlayer {
 	public void removeAfk() {
 		if(con.contains("afk.isAfk")) {
 			con.set("afk", null);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();
 		}
 	}
 
@@ -681,13 +573,6 @@ public class xEssentialsPlayer implements XPlayer {
 	public void setAfk(String message) {
 		con.set("afk.isAfk", true);
 		con.set("afk.reason", message);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -698,13 +583,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void unmute() {
 		con.set("muted", null);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -717,13 +595,6 @@ public class xEssentialsPlayer implements XPlayer {
 	public void mute(Long time) {
 		con.set("muted.isMuted", true);
 		con.set("muted.mutedTime", time);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -755,13 +626,6 @@ public class xEssentialsPlayer implements XPlayer {
 	public void setPermBanned(String reason, String who) {
 		Bukkit.getServer().getBanList(Type.NAME).addBan(player.getName(), reason, null, who).save();
 		con.set("banned.isBanned", true);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -804,13 +668,6 @@ public class xEssentialsPlayer implements XPlayer {
 		Date date = new Date(time);
 		Bukkit.getServer().getBanList(Type.NAME).addBan(player.getName(), reason, date, who).save();
 		con.set("tempbanned.isBanned", true);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -840,7 +697,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean isBannedBefore() {
-		update();
 		if(con.contains("banned.isBanned")) {
 			if(!con.getBoolean("banned.isBanned")) {
 				return true;
@@ -883,7 +739,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean isFlying() {
-		update();
 		return con.getBoolean("fly");
 	}
 
@@ -895,13 +750,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setFlying(Boolean bol) {
 		con.set("fly", bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -913,7 +761,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean isTorch() {
-		update();
 		return con.getBoolean("torch");
 	}
 
@@ -925,13 +772,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setTorch(Boolean bol) {
 		con.set("torch", bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -941,7 +781,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean isFirefly() {
-		update();
 		return con.getBoolean("firefly");
 	}
 
@@ -953,13 +792,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setFirefly(Boolean bol) {
 		con.set("firefly", bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -971,7 +803,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean hasHome() {
-		update();
 		if(con.contains("homes.default")) {
 			return true;
 		}
@@ -985,7 +816,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean isValidHome(String home) {
-		update();
 		if(con.contains("homes."+home)) {
 			return true;
 		}
@@ -1001,7 +831,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public List<Home> getAllHomes() {
-		update();
 		List<Home> homes = new ArrayList<Home>();
 		if(hasHome()) {
 			for(String home : con.getConfigurationSection("homes").getKeys(false)) {
@@ -1021,7 +850,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public Home getHome(String homeName) {
-		update();
 		Home home = new Home(con, homeName);
 		return home;
 	}
@@ -1044,20 +872,12 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public void setHome(String home) {
-		update();
 		con.set("homes."+home.toLowerCase()+".x", player.getLocation().getX());
 		con.set("homes."+home.toLowerCase()+".y", player.getLocation().getY());
 		con.set("homes."+home.toLowerCase()+".z", player.getLocation().getZ());
 		con.set("homes."+home.toLowerCase()+".yaw", player.getLocation().getYaw());
 		con.set("homes."+home.toLowerCase()+".pitch", player.getLocation().getPitch());
 		con.set("homes."+home.toLowerCase()+".world", player.getWorld().getName());
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -1068,15 +888,7 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public void removeHome(String home) {
-		update();
 		con.set("homes."+home.toLowerCase(), null);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -1086,7 +898,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean isVanished() {
-		update();
 		if(con.contains("isVanished")) {
 			return con.getBoolean("isVanished");
 		}
@@ -1102,18 +913,11 @@ public class xEssentialsPlayer implements XPlayer {
 	public void vanish() {
 		for(Player p : xEssentials.getOnlinePlayers()) {
 			if(!player.equals(p)) {
-					p.hidePlayer(player);
+				p.hidePlayer(player);
 			}
 		}
 		con.set("isVanished", true);
 		con.set("noPickUp", true);
-		try {
-			con.save(f);
-			update();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -1123,7 +927,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public void unvanish() {
-		update();
 		for(Player p : xEssentials.getOnlinePlayers()) {
 			if(!player.equals(p)) {
 				p.showPlayer(player);
@@ -1157,13 +960,6 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		con.set("isVanished", false);
 		con.set("noPickUp", false);
-		try {
-			con.save(f);
-			update();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -1173,7 +969,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public void unvanish(boolean sillenced) {
-		update();
 		for(Player p : xEssentials.getOnlinePlayers()) {
 			if(!player.equals(p)) {
 				p.showPlayer(player);
@@ -1186,13 +981,6 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		con.set("isVanished", false);
 		con.set("noPickUp", false);
-		try {
-			con.save(f);
-			update();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -1202,7 +990,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean hasVanishEffects() {
-		update();
 		if(con.getBoolean("vanishEffects")) {
 			return con.getBoolean("vanishEffects");
 		}
@@ -1217,13 +1004,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setVanishEffects(Boolean bol) {
 		con.set("vanishEffects", bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -1233,7 +1013,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean isNoPickUpEnabled() {
-		update();
 		if(con.contains("noPickUp")) {
 			return con.getBoolean("noPickUp");
 		}
@@ -1248,13 +1027,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setNoPickUp(Boolean bol) {
 		con.set("noPickUp", bol);
-		try {
-			con.save(f);
-			update();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -1265,13 +1037,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void unsetNoPickUp() {
 		con.set("noPickUp", false);
-		try {
-			con.save(f);
-			update();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -1281,25 +1046,14 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public void saveCreativeInventory() {
-		update();
-		try {
-			if(con.contains("inventory.creative")) {
-				con.set("inventory.creative.inv", null);
-				con.set("inventory.creative.armor", null);
-				con.save(f);
-				update();
-				con.set("inventory.creative.inv", player.getInventory().getContents());
-				con.set("inventory.creative.armor", player.getInventory().getArmorContents());
-				con.save(f);
-				update();
-			} else {
-				con.set("inventory.creative.inv", player.getInventory().getContents());
-				con.set("inventory.creative.armor", player.getInventory().getArmorContents());
-				con.save(f);
-				update();
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
+		if(con.contains("inventory.creative")) {
+			con.set("inventory.creative.inv", null);
+			con.set("inventory.creative.armor", null);
+			con.set("inventory.creative.inv", player.getInventory().getContents());
+			con.set("inventory.creative.armor", player.getInventory().getArmorContents());
+		} else {
+			con.set("inventory.creative.inv", player.getInventory().getContents());
+			con.set("inventory.creative.armor", player.getInventory().getArmorContents());
 		}
 	}
 
@@ -1310,25 +1064,14 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public void saveSurvivalInventory() {
-		update();
-		try {
-			if(con.contains("inventory.survival")) {
-				con.set("inventory.survival.inv", null);
-				con.set("inventory.survival.armor", null);
-				con.save(f);
-				update();
-				con.set("inventory.survival.inv", player.getInventory().getContents());
-				con.set("inventory.survival.armor", player.getInventory().getArmorContents());
-				con.save(f);
-				update();
-			} else {
-				con.set("inventory.survival.inv", player.getInventory().getContents());
-				con.set("inventory.survival.armor", player.getInventory().getArmorContents());
-				con.save(f);
-				update();
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
+		if(con.contains("inventory.survival")) {
+			con.set("inventory.survival.inv", null);
+			con.set("inventory.survival.armor", null);
+			con.set("inventory.survival.inv", player.getInventory().getContents());
+			con.set("inventory.survival.armor", player.getInventory().getArmorContents());
+		} else {
+			con.set("inventory.survival.inv", player.getInventory().getContents());
+			con.set("inventory.survival.armor", player.getInventory().getArmorContents());
 		}
 	}
 
@@ -1339,7 +1082,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean hasSurvivalInventory() {
-		update();
 		if(con.contains("inventory.survival")) {
 			return true;
 		}
@@ -1353,7 +1095,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean hasCreativeInventory() {
-		update();
 		if(con.contains("inventory.creative")) {
 			return true;
 		}
@@ -1368,7 +1109,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	@SuppressWarnings("unchecked")
 	public ItemStack[] getSurvivalInventory() {
-		update();
 		ItemStack[] items = ((List<ItemStack>)con.get("inventory.survival.inv")).toArray(new ItemStack[0]);
 		return items;
 	}
@@ -1381,7 +1121,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	@SuppressWarnings("unchecked")
 	public ItemStack[] getSurvivalArmorInventory() {
-		update();
 		ItemStack[] items = ((List<ItemStack>)con.get("inventory.survival.armor")).toArray(new ItemStack[0]);
 		return items;
 	}
@@ -1394,7 +1133,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	@SuppressWarnings("unchecked")
 	public ItemStack[] getCreativeInventory() {
-		update();
 		ItemStack[] items = ((List<ItemStack>)con.get("inventory.creative.inv")).toArray(new ItemStack[0]);
 		return items;
 	}
@@ -1407,7 +1145,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	@SuppressWarnings("unchecked")
 	public ItemStack[] getCreativeArmorInventory() {
-		update();
 		ItemStack[] items = ((List<ItemStack>)con.get("inventory.creative.armor")).toArray(new ItemStack[0]);
 		return items;
 	}
@@ -1419,7 +1156,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean hasOfflineInventory() {
-		update();
 		if(con.contains("offlineInventory.contents")) {
 			return true;
 		}
@@ -1435,22 +1171,8 @@ public class xEssentialsPlayer implements XPlayer {
 	public void saveOfflineInventory() {
 		if(hasOfflineInventory()) {
 			con.set("offlineInventory.contents", null);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();
 		}
 		con.set("offlineInventory.contents", player.getInventory().getContents());
-		try {
-			con.save(f);
-			update();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -1471,7 +1193,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean hasModreqDoneMessage() {
-		update();
 		if(con.contains("modreq.done.message")) {
 			return true;
 		}
@@ -1496,13 +1217,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void removeGetModregDoneMessage() {
 		con.set("modreq", null);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -1512,7 +1226,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean hasModreqsOpen() {
-		update();
 		if(con.contains("modreqs")) {
 			return true;
 		}
@@ -1526,7 +1239,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean isValidModreqId(int id) {
-		update();
 		if(con.contains("modreqs."+"modreq"+id)) {
 			return true;
 		}
@@ -1540,7 +1252,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public Modreq getModreq(int id) {
-		update();
 		Modreq mod = new Modreq(con, id);
 		return mod;
 	}
@@ -1553,19 +1264,11 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public void removeModreq(int id) {
-		update();
 		if(isValidModreqId(id)) {
 			con.set("modreqs."+"modreq"+id, null);
 			if(con.getConfigurationSection("modreqs").getKeys(true).isEmpty()) {
 				con.set("modreqs", null);
 			}
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();
 		} else {
 			throw new NullPointerException("you cannot remove a configuration node for a modreq wich doesn't exists!");
 		}
@@ -1578,7 +1281,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public Modreq[] getModreqs() {
-		update();
 		List<Modreq> items = new ArrayList<Modreq>();
 		for(int i = 0; con.contains("modreqs."+"modreq"+i); i++) {
 			if(isValidModreqId(i)) {
@@ -1599,7 +1301,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public void createModreq(String message) {
-		update();
 		int id = getModreqs().length;
 		con.set("modreqs."+"modreq"+id+".message", message);
 		con.set("modreqs."+"modreq"+id+".getDate", System.currentTimeMillis());
@@ -1609,13 +1310,6 @@ public class xEssentialsPlayer implements XPlayer {
 		con.set("modreqs."+"modreq"+id+".location.yaw", player.getLocation().getY());
 		con.set("modreqs."+"modreq"+id+".location.pitch", player.getLocation().getPitch());
 		con.set("modreqs."+"modreq"+id+".location.world", player.getWorld().getName());
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -1635,13 +1329,12 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean isInventoryClearanceOnRelog() {
-		update();
 		if(con.contains("ClearInventory")) {
 			return con.getBoolean("ClearInventory");
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param clears the inventory on relog
@@ -1649,17 +1342,9 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public void ClearInventoryOnRelog() {
-		update();
 		if(isInventoryClearanceOnRelog()) {
 			player.getInventory().clear();
 			con.set("ClearInventory", null);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();
 		}
 	}
 
@@ -1694,7 +1379,6 @@ public class xEssentialsPlayer implements XPlayer {
 
 	@Override
 	public boolean hasCompass() {
-		update();
 		if(con.contains("isCompass.enabled")) {
 			return con.getBoolean("isCompass.enabled");
 		}
@@ -1705,43 +1389,21 @@ public class xEssentialsPlayer implements XPlayer {
 	public void setCompass(Player p) {
 		con.set("isCompass.enabled", true);
 		con.set("isCompass.follow", p.getName());
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	@Override
 	public void setCompass(String p) {
 		con.set("isCompass.enabled", true);
 		con.set("isCompass.follow", p);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	@Override
 	public void removeCompass() {
 		con.set("isCompass", null);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	@Override
 	public XOfflinePlayer getCompass() {
-		update();
 		return xEssentials.getManagers().getPlayerManager().getOfflinePlayer(con.getString("isCompass.follow"));
 	}
 
@@ -1754,13 +1416,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setSilenced(Boolean bol) {
 		con.set("silenced", bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -1770,7 +1425,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean isSilenced() {
-		update();
 		if(con.contains("silenced")) {
 			return con.getBoolean("silenced");
 		}
@@ -1788,23 +1442,9 @@ public class xEssentialsPlayer implements XPlayer {
 			List<String> list = new ArrayList<String>(getIgnoredPlayers());
 			list.add(s);
 			con.set("IgnoredPlayers", list.toArray());
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();
 		} else {
 			String[] a = {s};
 			con.set("IgnoredPlayers", Arrays.asList(a).toArray());
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();	
 		}
 	}
 
@@ -1825,7 +1465,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean hasIgnoredPlayers() {
-		update();
 		if(con.contains("IgnoredPlayers")) {
 			return true;
 		}
@@ -1842,23 +1481,9 @@ public class xEssentialsPlayer implements XPlayer {
 		List<String> list = new ArrayList<String>(getIgnoredPlayers());
 		if(list.size() == 1) {
 			con.set("IgnoredPlayers", null);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();
 		} else {
 			list.remove(s);
 			con.set("IgnoredPlayers", list.toArray());
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();
 		}
 	}
 
@@ -1883,13 +1508,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setFreezed(Boolean bol) {
 		con.set("isFreezed", bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -1913,13 +1531,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setTrollMode(Boolean bol) {
 		con.set("isTrollmode", bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -1952,24 +1563,10 @@ public class xEssentialsPlayer implements XPlayer {
 			List<String> list = new ArrayList<String>(con.getStringList("command-restrictions"));
 			list.add(command+","+reason);
 			con.set("command-restrictions", list);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();	
 		} else {
 			List<String> list = new ArrayList<String>(con.getStringList("command-restrictions"));
 			list.add(command+","+reason+","+taskCommand);
 			con.set("command-restrictions", list);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();
 		}
 	}
 
@@ -2014,13 +1611,6 @@ public class xEssentialsPlayer implements XPlayer {
 		List<String> list = new ArrayList<String>(con.getStringList("command-restrictions"));
 		list.remove(cmd.getSerializedKey());
 		con.set("command-restrictions", list);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -2031,13 +1621,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setKitCooldown(Long cooldown) {
 		con.set("kitCooldown", cooldown);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -2048,13 +1631,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void removeKitCoolDown() {
 		con.set("kitCooldown", null);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -2087,7 +1663,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public Double getTotalEssentialsMoney() {
-		update();   
 		return con.getDouble("money");
 	}
 
@@ -2098,7 +1673,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public Boolean hasEssentialsMoney() {
-		update();
 		if(con.contains("money")) {
 			if(con.getDouble("money") > 0.0) {
 				return true;
@@ -2115,17 +1689,9 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public Boolean payEssentialsMoney(Double price, XOfflinePlayer toPayTo) {
-		update();
 		Double money = (getTotalEssentialsMoney()-price);
 		if(money >= 0.0) {
 			con.set("money", money);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();
 			toPayTo.addEssentialsMoney(price);
 			return true;
 		}
@@ -2140,17 +1706,9 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public Boolean payEssentialsMoney(Double price, XPlayer toPayTo) {
-		update();
 		Double money = (getTotalEssentialsMoney()-price);
 		if(money >= 0.0) {
 			con.set("money", money);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();
 			toPayTo.addEssentialsMoney(price);
 			return true;
 		}
@@ -2163,15 +1721,7 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public void addEssentialsMoney(Double price) {
-		update();
 		con.set("money", getTotalEssentialsMoney()+price);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -2181,7 +1731,6 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean hasPlayerEnoughMoneyFromPrice(Double price) {
-		update();
 		if(getTotalEssentialsMoney() >= price) {
 			return true;
 		}
@@ -2195,15 +1744,7 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public void clearMoney() {
-		update();
 		con.set("money", null);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -2219,13 +1760,6 @@ public class xEssentialsPlayer implements XPlayer {
 			list.remove(8);
 		}
 		con.set("name-history", list);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -2269,13 +1803,6 @@ public class xEssentialsPlayer implements XPlayer {
 	public void saveInventory() {
 		con.set("orginalinv.items", player.getInventory().getContents());
 		con.set("orginalinv.armor", player.getInventory().getArmorContents());
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -2290,13 +1817,6 @@ public class xEssentialsPlayer implements XPlayer {
 		player.getInventory().setContents(contents);
 		player.getInventory().setArmorContents(armor);
 		con.set("orginalinv", null);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -2306,33 +1826,20 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setProc(boolean bol) {
 		con.set("proc.enable", bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
-	
+
 	@Override
 	public void setCustomName(String name) {
 		player.setDisplayName(name);
 		player.setPlayerListName(name);
-		try {
-			con.set("customname", name);
-			con.save(f);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		update();
+		con.set("customname", name);
 	}
-	
+
 	@Override
 	public boolean hasCustomName() {
 		return (player.getDisplayName().equals(getUser()) ? false : true);
 	}
-	
+
 	@Override
 	public String getCustomName() {
 		return (con.getString("customname") == null ? player.getName() : con.getString("customname"));
@@ -2358,13 +1865,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setKnock(boolean bol) {
 		con.set("knock", bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	/**
@@ -2379,7 +1879,7 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param sets the player in a chair.
@@ -2387,15 +1887,8 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setInChair(Boolean bol) {
 		con.set("chair", bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param returns true if the player sits in a chair
@@ -2403,13 +1896,12 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public boolean isInChair() {
-		update();
 		if(con.contains("chair")) {
 			return con.getBoolean("chair");
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param toggles double jump
@@ -2417,15 +1909,9 @@ public class xEssentialsPlayer implements XPlayer {
 	 */
 	@Override
 	public void setDoubleJump(Boolean bol) {
-		try {
-			con.set("doublejump", bol);
-			con.save(f);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		update();
+		con.set("doublejump", bol);
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param returns true if the player has double jump else false
@@ -2438,7 +1924,7 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param returns true if the player has spectate on
@@ -2451,7 +1937,7 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param stops the spectate
@@ -2466,16 +1952,9 @@ public class xEssentialsPlayer implements XPlayer {
 			ItemStack[] contents = ((List<ItemStack>)con.get("spectate-inventory")).toArray(new ItemStack[0]);
 			player.getInventory().setContents(contents);
 			con.set("spectate-inventory", null);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();
 		}
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param spectates a player.
@@ -2484,13 +1963,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void spectate(final Player pa) {
 		con.set("spectate-inventory", player.getInventory().getContents());
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 		this.spectate = new BukkitRunnable() {
 
 			@Override
@@ -2508,7 +1980,7 @@ public class xEssentialsPlayer implements XPlayer {
 			}
 		}.runTaskTimer(xEssentials.getPlugin(), 0L, 1L);
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param returns true when edit mode is enabled
@@ -2521,7 +1993,7 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param bol - sets the mode whenever a player edits a sign
@@ -2529,15 +2001,8 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setEditSign(Boolean bol) {
 		con.set("signedit", bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param returns true when player is in drunk mode
@@ -2550,7 +2015,7 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param bol - sets the drunk state
@@ -2558,15 +2023,8 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setDrunk(Boolean bol) {
 		con.set("drunk", bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param message - converts a normal message in a derpish message :)
@@ -2613,7 +2071,7 @@ public class xEssentialsPlayer implements XPlayer {
 		default : return false;
 		}
 	}
-	
+
 	@Override
 	public boolean isLitteral(char chr) {
 		switch(chr) {
@@ -2630,7 +2088,7 @@ public class xEssentialsPlayer implements XPlayer {
 		default : return false; 
 		}
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param returns true if floor mode is true
@@ -2643,7 +2101,7 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param bol - when true build mode is activated, else its not.
@@ -2653,15 +2111,8 @@ public class xEssentialsPlayer implements XPlayer {
 	public void setFloorMode(boolean bol, int range) {
 		con.set("floormode.enable", bol);
 		con.set("floormode.range", range);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param returns the range of the floor
@@ -2671,7 +2122,7 @@ public class xEssentialsPlayer implements XPlayer {
 	public int getFloorModeRange() {
 		return con.getInt("floormode.range");
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param returns true if the wall mode is activated
@@ -2684,7 +2135,7 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param bol - activates the wall mode
@@ -2694,15 +2145,8 @@ public class xEssentialsPlayer implements XPlayer {
 	public void setWallMode(boolean bol, int range) {
 		con.set("wallmode.enable", bol);
 		con.set("wallmode.range", range);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param returns the wall size
@@ -2712,34 +2156,25 @@ public class xEssentialsPlayer implements XPlayer {
 	public int getWallModeRange() {
 		return con.getInt("wallmode.range");
 	}
-	
+
 	@Override
 	public void setShop(Location loc, Chest chest) {
 		UUID id = UUID.nameUUIDFromBytes(((loc.getWorld().getName())+":"+loc.getBlockX()+":"+loc.getBlockY()+":"+loc.getBlockZ()).getBytes());
 		con.set("shops."+id.toString()+".location", loc.getWorld().getName()+":"+loc.getBlockX()+":"+loc.getBlockY()+":"+loc.getBlockZ());
 		con.set("shops."+id.toString()+".chestloc", chest.getWorld().getName()+":"+chest.getX()+":"+chest.getY()+":"+chest.getZ());
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
-	
+
 	@Override
 	public boolean isShop(Location loc) {
-		update();
 		UUID id = UUID.nameUUIDFromBytes(((loc.getWorld().getName())+":"+loc.getBlockX()+":"+loc.getBlockY()+":"+loc.getBlockZ()).getBytes());
 		if(con.contains("shops."+id.toString())) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	@Override
 	public Shop getShop(Location loc) {
-		update();
 		UUID id = UUID.nameUUIDFromBytes(((loc.getWorld().getName())+":"+loc.getBlockX()+":"+loc.getBlockY()+":"+loc.getBlockZ()).getBytes());
 		if(isShop(loc)) {
 			String[] args = con.getString("shops."+id.toString()+".chestloc").split(":");
@@ -2757,38 +2192,22 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public void removeShop(Location loc) {
-		update();
 		UUID id = UUID.nameUUIDFromBytes(((loc.getWorld().getName())+":"+loc.getBlockX()+":"+loc.getBlockY()+":"+loc.getBlockZ()).getBytes());
 		con.set("shops."+id.toString(), null);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	@Override
 	public void PrepareLoginTask(String command, PlayerTaskEnum task) {
 		con.set("task.command", command);
 		con.set("task.type", task.name());
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Inventory getOfflineInventory(Player viewer) {
-		update();
 		Inventory inv = Bukkit.createInventory(null, InventoryType.PLAYER);
 		if(hasOfflineInventory()) {
 			ItemStack[] items = ((List<ItemStack>)con.get("offlineInventory.contents")).toArray(new ItemStack[0]);	
@@ -2800,13 +2219,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setModreqDoneMessage(String message) {
 		con.set("modreq.done.message", message);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
 
 	@Override
@@ -2816,7 +2228,6 @@ public class xEssentialsPlayer implements XPlayer {
 
 	@Override
 	public Location getLastLocation() {
-		update();
 		if(con.contains("lastLocation")) {
 			return new Location(Bukkit.getWorld(con.getString("lastLocation.world")), con.getDouble("lastLocation.x"), con.getDouble("lastLocation.y"), con.getDouble("lastLocation.z"), con.getInt("lastLocation.yaw"), con.getInt("lastLocation.pitch"));
 		}
@@ -2825,22 +2236,14 @@ public class xEssentialsPlayer implements XPlayer {
 
 	@Override
 	public boolean payEssentialsMoney(double money) {
-		update();
 		Double moneya = (getTotalEssentialsMoney()-money);
 		if(moneya >= 0.0) {
 			con.set("money", moneya);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update();
 			return true;
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param level - the level of the relogs
@@ -2848,21 +2251,13 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setPwnageLevel(int level) {
 		con.set("pwnage-level", level);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
-	
+
 	@Override
 	public boolean hasPwnageLevel() {
-		update();
 		return (con.contains("pwnage-level") || getPwnageLevel() > 0 ? true : false);
 	}
-	
+
 	/**
 	 * @author xize
 	 * @param returns the current level.
@@ -2872,30 +2267,22 @@ public class xEssentialsPlayer implements XPlayer {
 	public int getPwnageLevel() {
 		return con.getInt("pwnage-level");
 	}
-	
+
 	@Override
 	public long getLastLoginTime() {
 		return con.getLong("last-login-time");
 	}
-	
+
 	@Override
 	public void setLastLoginTime(long time) {
 		con.set("last-login-time", time);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
 	}
-	
+
 	@Override
 	public boolean hasLastLoginTime() {
-		update();
 		return con.contains("last-login-time");
 	}
-	
+
 	@Override
 	public void setPwnageScheduler(BukkitTask task) {
 		if(pwnagetask != null) {
@@ -2911,10 +2298,16 @@ public class xEssentialsPlayer implements XPlayer {
 	 * @return void
 	 */
 	@Override
-	public void update() {
+	public void save() {
 		try {
-			con.save(f);
-			con.load(f);
+			if(f.canWrite()) {
+				con.save(f);
+				con.load(f);	
+			} else {
+				f.setWritable(true, false);
+				con.save(f);
+				con.load(f);
+			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

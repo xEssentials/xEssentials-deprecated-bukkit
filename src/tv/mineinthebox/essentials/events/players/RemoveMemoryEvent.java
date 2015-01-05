@@ -11,16 +11,19 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
+import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class RemoveMemoryEvent implements Listener {
 
-	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled=true)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onQuitMemory(PlayerQuitEvent e) {
 		if(Configuration.getDebugConfig().isEnabled()) {
 			xEssentials.getPlugin().log("preparing to remove player on normal quit: " + e.getPlayer().getName(), LogType.DEBUG);
 		}
 		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			xEssentials.getManagers().getPlayerManager().removePlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			xp.save();
+			xEssentials.getManagers().getPlayerManager().removePlayer(xp.getUser());
 			if(Configuration.getDebugConfig().isEnabled()) {
 				xEssentials.getPlugin().log("player found and removed!, online check returns: " + xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName()), LogType.DEBUG);
 			}
@@ -39,7 +42,9 @@ public class RemoveMemoryEvent implements Listener {
 			xEssentials.getPlugin().log("preparing to remove player on normal kick: " + e.getPlayer().getName(), LogType.DEBUG);
 		}
 		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			xEssentials.getManagers().getPlayerManager().removePlayer(e.getPlayer().getName());
+			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			xp.save();
+			xEssentials.getManagers().getPlayerManager().removePlayer(xp.getUser());
 			if(Configuration.getDebugConfig().isEnabled()) {
 				xEssentials.getPlugin().log("player found and removed!, online check returns: " + (xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName()) ? ChatColor.RED + "false" : ChatColor.GREEN + "true"), LogType.DEBUG);
 			}
