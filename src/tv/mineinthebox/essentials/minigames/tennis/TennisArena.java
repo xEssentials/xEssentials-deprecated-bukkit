@@ -186,8 +186,6 @@ public class TennisArena implements MinigameArena {
 			chicken.setCustomName(ChatColor.GOLD + "tennis ball");
 			chicken.setCustomNameVisible(true);
 
-			initalizeChickenGroundCheck();
-
 			new BukkitRunnable() {
 				private int countdown = 10;
 
@@ -199,6 +197,7 @@ public class TennisArena implements MinigameArena {
 						p2.getPlayer().sendMessage(ChatColor.GRAY + "game is started!");
 						p2.getPlayer().playSound(p2.getPlayer().getLocation(), Sound.ENDERDRAGON_GROWL, 1F, 1F);
 						isStarted = true;
+						initalizeChickenGroundCheck();
 						cancel();
 					} else {
 						p1.getPlayer().sendMessage(ChatColor.GRAY + "count down: " + countdown);
@@ -311,14 +310,14 @@ public class TennisArena implements MinigameArena {
 		if(Configuration.getDebugConfig().isEnabled()) {
 			xEssentials.getPlugin().log("arena object reset method is called!", LogType.DEBUG);
 		}
-		if(this.chicken != null) {
 			if(this.chickentask != null) {
 				this.chickentask.cancel();
 				this.chickentask = null;
 			}
-			this.chicken.remove();
-			this.chicken = null;
-		}
+			if(this.chicken != null) {
+				this.chicken.remove();
+				this.chicken = null;	
+			}
 		if(p1 != null) {
 			this.p1.getPlayer().removeMetadata("gameType", xEssentials.getPlugin());
 			this.p1.getPlayer().removeMetadata("game", xEssentials.getPlugin());
