@@ -1106,10 +1106,16 @@ public class xEssentialsPlayer implements XPlayer {
 	 * @param returns the survival inventory
 	 * @return ItemStack[]
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public ItemStack[] getSurvivalInventory() {
-		ItemStack[] items = ((List<ItemStack>)con.get("inventory.survival.inv")).toArray(new ItemStack[0]);
+		Object obj = con.get("inventory.survival.inv");
+		ItemStack[] items = null;
+		if(obj instanceof List) {
+			items = ((List<ItemStack>)obj).toArray(new ItemStack[0]);
+		} else {
+			items = (ItemStack[])obj;
+		}
 		return items;
 	}
 
@@ -1118,10 +1124,16 @@ public class xEssentialsPlayer implements XPlayer {
 	 * @param returns the survival armor
 	 * @return ItemStack[]
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public ItemStack[] getSurvivalArmorInventory() {
-		ItemStack[] items = ((List<ItemStack>)con.get("inventory.survival.armor")).toArray(new ItemStack[0]);
+		Object obj = con.get("inventory.survival.armor");
+		ItemStack[] items = null;
+		if(obj instanceof List) {
+			items = ((List<ItemStack>)obj).toArray(new ItemStack[0]);
+		} else {
+			items = (ItemStack[])obj;
+		}
 		return items;
 	}
 
@@ -1130,10 +1142,16 @@ public class xEssentialsPlayer implements XPlayer {
 	 * @param returns the creative inventory
 	 * @return ItemStack[]
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public ItemStack[] getCreativeInventory() {
-		ItemStack[] items = ((List<ItemStack>)con.get("inventory.creative.inv")).toArray(new ItemStack[0]);
+		Object obj = con.get("inventory.creative.inv");
+		ItemStack[] items = null;
+		if(obj instanceof List) {
+			items = ((List<ItemStack>)obj).toArray(new ItemStack[0]);
+		} else {
+			items = (ItemStack[])obj;
+		}
 		return items;
 	}
 
@@ -1142,10 +1160,16 @@ public class xEssentialsPlayer implements XPlayer {
 	 * @param returns the creative armor
 	 * @return ItemStack[]
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public ItemStack[] getCreativeArmorInventory() {
-		ItemStack[] items = ((List<ItemStack>)con.get("inventory.creative.armor")).toArray(new ItemStack[0]);
+		Object obj = con.get("inventory.creative.armor");
+		ItemStack[] items = null;
+		if(obj instanceof List) {
+			items = ((List<ItemStack>)obj).toArray(new ItemStack[0]);
+		} else {
+			items = (ItemStack[])obj;
+		}
 		return items;
 	}
 
@@ -1812,8 +1836,20 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	@SuppressWarnings("unchecked")
 	public void loadInventory() {
-		ItemStack[] contents = ((List<ItemStack>)con.get("orginalinv.items")).toArray(new ItemStack[0]);
-		ItemStack[] armor = ((List<ItemStack>)con.get("orginalinv.armor")).toArray(new ItemStack[0]);
+		Object c = con.get("orginalinv.items");
+		ItemStack[] contents = null;
+		if(c instanceof List) {
+			contents = ((List<ItemStack>)c).toArray(new ItemStack[0]);
+		} else {
+			contents = (ItemStack[])c;
+		}
+		Object a = con.get("orginalinv.armor");
+		ItemStack[] armor = null;
+		if(a instanceof List) {
+			armor = ((List<ItemStack>)a).toArray(new ItemStack[0]);
+		} else {
+			armor = (ItemStack[])a;
+		}
 		player.getInventory().setContents(contents);
 		player.getInventory().setArmorContents(armor);
 		con.set("orginalinv", null);
@@ -1949,7 +1985,13 @@ public class xEssentialsPlayer implements XPlayer {
 			spectate.cancel();
 			spectate = null;
 			player.performCommand("spawn");
-			ItemStack[] contents = ((List<ItemStack>)con.get("spectate-inventory")).toArray(new ItemStack[0]);
+			Object c = con.get("spectate-inventory");
+			ItemStack[] contents = null;
+			if(c instanceof List) {
+				contents = ((List<ItemStack>)c).toArray(new ItemStack[0]);
+			} else {
+				contents = (ItemStack[])c;
+			}
 			player.getInventory().setContents(contents);
 			con.set("spectate-inventory", null);
 		}
@@ -2210,7 +2252,13 @@ public class xEssentialsPlayer implements XPlayer {
 	public Inventory getOfflineInventory(Player viewer) {
 		Inventory inv = Bukkit.createInventory(null, InventoryType.PLAYER);
 		if(hasOfflineInventory()) {
-			ItemStack[] items = ((List<ItemStack>)con.get("offlineInventory.contents")).toArray(new ItemStack[0]);	
+			Object obj = con.get("offlineInventory.contents");
+			ItemStack[] items = null;
+			if(obj instanceof List) {
+				items = ((List<ItemStack>)obj).toArray(new ItemStack[0]);
+			} else {
+				items = (ItemStack[]) obj;
+			}	
 			inv.setContents(items);
 		}
 		return inv;
