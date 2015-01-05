@@ -396,6 +396,6 @@ public interface XOfflinePlayer {
 	 * @param gets updated at every call so we know that the configuration stored in the memory is still recent with the flat saved file!
 	 * @return void
 	 */
-	public void update();
+	public void save();
 
 }
