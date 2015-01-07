@@ -3,6 +3,7 @@ package tv.mineinthebox.essentials.minigames.football;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -307,11 +308,13 @@ public class FootballArena implements MinigameArena {
 			xp.getPlayer().removeMetadata("game", xEssentials.getPlugin());
 			xp.loadInventory();
 			blueteam.remove(xp);
+			xp.getPlayer().chat("/spawn");
 		} else if(redteam.contains(xp)) {
 			xp.getPlayer().removeMetadata("gameType", xEssentials.getPlugin());
 			xp.getPlayer().removeMetadata("game", xEssentials.getPlugin());
 			xp.loadInventory();
 			redteam.remove(xp);
+			xp.getPlayer().chat("/spawn");
 		}
 	}
 
@@ -326,9 +329,9 @@ public class FootballArena implements MinigameArena {
 		this.slime = null;
 		this.bluescore = 0;
 		this.redscore = 0;
-		for(XPlayer xp : getPlayers()) {
-			removePlayer(xp);
-			xp.getPlayer().chat("/spawn");
+		Iterator<XPlayer> it = getPlayers().iterator();
+		while(it.hasNext()) {
+			removePlayer(it.next());
 		}
 	}
 
