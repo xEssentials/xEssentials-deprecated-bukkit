@@ -197,6 +197,10 @@ public class CmdFootball {
 								MinigameArena arena = manager.getArenaByName(MinigameType.FOOT_BALL, args[1]);
 								if(!arena.isFull()) {
 									Player p = (Player) sender;
+									if(p.hasMetadata("gameType") && p.hasMetadata("game")) {
+										sender.sendMessage(ChatColor.RED + "you are already inside a minigame!");
+										return false;
+									}
 									p.setMetadata("gameType", new FixedMetadataValue(xEssentials.getPlugin(), MinigameType.FOOT_BALL));
 									p.setMetadata("game", new FixedMetadataValue(xEssentials.getPlugin(), arena.getName()));
 									arena.addPlayer(xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName()));

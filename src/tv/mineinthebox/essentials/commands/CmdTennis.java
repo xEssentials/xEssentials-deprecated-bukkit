@@ -144,8 +144,12 @@ public class CmdTennis {
 								if(xEssentials.getManagers().getMinigameManager().containsMinigame(args[1])) {
 									MinigameArena arena = xEssentials.getManagers().getMinigameManager().getArenaByName(MinigameType.TENNIS, args[1]);
 									if(!arena.isFull()) {
-										sender.sendMessage(ChatColor.GRAY + "joining arena " + arena.getName());
 										XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+										if(xp.getPlayer().hasMetadata("gameType") && xp.getPlayer().hasMetadata("game")) {
+											sender.sendMessage(ChatColor.RED + "you are already inside a minigame!");
+											return false;
+										}
+										sender.sendMessage(ChatColor.GRAY + "joining arena " + arena.getName());
 										xp.getPlayer().setMetadata("gameType", new FixedMetadataValue(xEssentials.getPlugin(), arena.getType()));
 										xp.getPlayer().setMetadata("game", new FixedMetadataValue(xEssentials.getPlugin(), arena.getName()));
 										xp.getPlayer().setMetadata("gameScore", new FixedMetadataValue(xEssentials.getPlugin(), 0));
