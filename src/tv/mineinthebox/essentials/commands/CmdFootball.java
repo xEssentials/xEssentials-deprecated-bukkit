@@ -126,8 +126,6 @@ public class CmdFootball {
 										String arenaname = p.getMetadata("game").get(0).asString();
 										MinigameArena arena = xEssentials.getManagers().getMinigameManager().getArenaByName(type, arenaname);
 										arena.reset();
-										p.removeMetadata("gameType", xEssentials.getPlugin());
-										p.removeMetadata("game", xEssentials.getPlugin());
 										sender.sendMessage(ChatColor.GRAY + "you successfully quited the arena!");
 									} else {
 										sender.sendMessage(ChatColor.RED + "you are trying to quit a arena through the wrong command");

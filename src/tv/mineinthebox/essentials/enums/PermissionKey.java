@@ -98,6 +98,7 @@ public enum PermissionKey {
 	CMD_SPECTATE("xEssentials.command.spectate"),
 	CMD_TENNIS("xEssentials.command.tennis"),
 	CMD_FOOTBALL("xEssentials.command.football"),
+	CMD_PARKOUR("xEssentials.command.parkour"),
 	SIGN_SHOP("xEssentials.signs.shop"),
 	SIGN_SHOP_USE("xEssentials.signs.shop.use"),
 	SIGN_BOOM("xEssentials.signs.boom"),

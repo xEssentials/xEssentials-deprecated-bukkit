@@ -2389,5 +2389,4 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		return false;
 	}
-
 }

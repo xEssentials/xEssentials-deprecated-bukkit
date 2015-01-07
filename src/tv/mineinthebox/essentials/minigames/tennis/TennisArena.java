@@ -276,10 +276,20 @@ public class TennisArena implements MinigameArena {
 		if(p1.equals(xp)) {
 			p1.getPlayer().removeMetadata("gameType", xEssentials.getPlugin());
 			p1.getPlayer().removeMetadata("game", xEssentials.getPlugin());
+			if(p1.getPlayer().hasMetadata("gameScore")) {
+				p1.getPlayer().removeMetadata("gameScore", xEssentials.getPlugin());
+			}
 			p1.loadInventory();
+			p1.getPlayer().chat("/spawn");
 			this.p1 = null;
 		} else if(p2.equals(xp)) {
+			p2.getPlayer().removeMetadata("gameType", xEssentials.getPlugin());
+			p2.getPlayer().removeMetadata("game", xEssentials.getPlugin());
+			if(p2.getPlayer().hasMetadata("gameScore")) {
+				p2.getPlayer().removeMetadata("gameScore", xEssentials.getPlugin());
+			}
 			p2.loadInventory();
+			p2.getPlayer().chat("/spawn");
 			this.p2 = null;
 		}
 	}
@@ -318,22 +328,8 @@ public class TennisArena implements MinigameArena {
 				this.chicken.remove();
 				this.chicken = null;	
 			}
-		if(p1 != null) {
-			this.p1.getPlayer().removeMetadata("gameType", xEssentials.getPlugin());
-			this.p1.getPlayer().removeMetadata("game", xEssentials.getPlugin());
-			this.p1.getPlayer().removeMetadata("gameScore", xEssentials.getPlugin());
-			this.p1.loadInventory();
-			this.p1.getPlayer().chat("/spawn");
-			this.p1 = null;
-		}
-		if(p2 != null) {
-			this.p2.getPlayer().removeMetadata("gameType", xEssentials.getPlugin());
-			this.p2.getPlayer().removeMetadata("game", xEssentials.getPlugin());
-			this.p2.getPlayer().removeMetadata("gameScore", xEssentials.getPlugin());
-			this.p2.loadInventory();
-			this.p2.getPlayer().chat("/spawn");
-			this.p2 = null;
-		}
+			removePlayer(p1);
+			removePlayer(p2);
 		if(this.isStarted) {
 			this.isStarted = false;
 		}

@@ -14,6 +14,7 @@ import tv.mineinthebox.essentials.minigames.MinigameArena;
 import tv.mineinthebox.essentials.minigames.MinigameSessionManager;
 import tv.mineinthebox.essentials.minigames.MinigameType;
 import tv.mineinthebox.essentials.minigames.football.FootballArena;
+import tv.mineinthebox.essentials.minigames.parkour.ParkourArena;
 import tv.mineinthebox.essentials.minigames.tennis.TennisArena;
 
 public class MinigameManager {
@@ -59,6 +60,16 @@ public class MinigameManager {
 							MinigameArena game = new FootballArena(f, con);
 							list.add(game);
 							minigames.put(MinigameType.FOOT_BALL, list);	
+						}
+					} else if(con.getString("type").equalsIgnoreCase(MinigameType.PARKOUR.name())) {
+						if(minigames.containsKey(MinigameType.PARKOUR)) {
+							MinigameArena game = new ParkourArena(f, con);
+							minigames.get(MinigameType.PARKOUR).add(game);
+						} else {
+							List<MinigameArena> list = new ArrayList<MinigameArena>();
+							MinigameArena game = new ParkourArena(f, con);
+							list.add(game);
+							minigames.put(MinigameType.PARKOUR, list);
 						}
 					}
 				}
