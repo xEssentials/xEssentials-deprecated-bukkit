@@ -51,33 +51,41 @@ public class CmdTennis {
 								sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/tennis leave " + ChatColor.WHITE + ": leave the arena you are currently in");
 								sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/tennis join <arena> " + ChatColor.WHITE + ": lets a player join a arena");
 							} else if(args[0].equalsIgnoreCase("undo")) {
-								MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getTennisSessions();
-								if(session.hasSession(sender.getName())) {
-									if(session.containsSessionData(sender.getName(), "boundsz")) {
-										session.removeSessionData(sender.getName(), "boundsz");
-										sender.sendMessage(ChatColor.GRAY + "bounds z removed, please place a block to set the z bounds again!");
-									} else if(session.containsSessionData(sender.getName(), "boundsx")) {
-										session.removeSessionData(sender.getName(), "boundsx");
-										sender.sendMessage(ChatColor.GRAY + "bounds x removed, please place a block to set the x bounds again!");
-									} else if(session.containsSessionData(sender.getName(), "chickenloc")) {
-										session.removeSessionData(sender.getName(), "chickenloc");
-										sender.sendMessage(ChatColor.GRAY + "chickenloc removed, please place a block to set the chicken ball spawn");
-									} else if(session.containsSessionData(sender.getName(), "spawn2")) {
-										session.removeSessionData(sender.getName(), "spawn2");
-										sender.sendMessage(ChatColor.GRAY + "spawn point 2 removed, please place a block to set spawnpoint 2");
-									} else if(session.containsSessionData(sender.getName(), "spawn1")) {
-										session.removeSessionData(sender.getName(), "spawn point 1 removed, please place a block to set spawnpoint 1");
+								if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
+									MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getTennisSessions();
+									if(session.hasSession(sender.getName())) {
+										if(session.containsSessionData(sender.getName(), "boundsz")) {
+											session.removeSessionData(sender.getName(), "boundsz");
+											sender.sendMessage(ChatColor.GRAY + "bounds z removed, please place a block to set the z bounds again!");
+										} else if(session.containsSessionData(sender.getName(), "boundsx")) {
+											session.removeSessionData(sender.getName(), "boundsx");
+											sender.sendMessage(ChatColor.GRAY + "bounds x removed, please place a block to set the x bounds again!");
+										} else if(session.containsSessionData(sender.getName(), "chickenloc")) {
+											session.removeSessionData(sender.getName(), "chickenloc");
+											sender.sendMessage(ChatColor.GRAY + "chickenloc removed, please place a block to set the chicken ball spawn");
+										} else if(session.containsSessionData(sender.getName(), "spawn2")) {
+											session.removeSessionData(sender.getName(), "spawn2");
+											sender.sendMessage(ChatColor.GRAY + "spawn point 2 removed, please place a block to set spawnpoint 2");
+										} else if(session.containsSessionData(sender.getName(), "spawn1")) {
+											session.removeSessionData(sender.getName(), "spawn point 1 removed, please place a block to set spawnpoint 1");
+										}
+									} else {
+										sender.sendMessage(ChatColor.RED + "you dont have a arena creation session open!");
 									}
 								} else {
-									sender.sendMessage(ChatColor.RED + "you dont have a arena creation session open!");
+									Warnings.getWarnings(sender).noPermission();
 								}
 							} else if(args[0].equalsIgnoreCase("cancel")) {
-								MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getTennisSessions();
-								if(session.hasSession(sender.getName())) {
-									session.removeSession(sender.getName());
-									sender.sendMessage(ChatColor.GRAY + "arena creation session removed");
+								if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
+									MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getTennisSessions();
+									if(session.hasSession(sender.getName())) {
+										session.removeSession(sender.getName());
+										sender.sendMessage(ChatColor.GRAY + "arena creation session removed");
+									} else {
+										sender.sendMessage(ChatColor.RED + "you dont have a arena creation session open!");
+									}
 								} else {
-									sender.sendMessage(ChatColor.RED + "you dont have a arena creation session open!");
+									Warnings.getWarnings(sender).noPermission();
 								}
 							} else if(args[0].equalsIgnoreCase("leave")) {
 								Player p = (Player)sender;
@@ -95,17 +103,21 @@ public class CmdTennis {
 									sender.sendMessage(ChatColor.RED + "you aren't joined into a arena!");
 								}
 							} else if(args[0].equalsIgnoreCase("save")) {
-								MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getTennisSessions();
-								if(session.hasSession(sender.getName())) {
-									if(session.isSessionComplete(sender.getName())) {
-										sender.sendMessage(ChatColor.GRAY + "successfully saved arena!");
-										session.saveArena(sender.getName());
+								if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
+									MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getTennisSessions();
+									if(session.hasSession(sender.getName())) {
+										if(session.isSessionComplete(sender.getName())) {
+											sender.sendMessage(ChatColor.GRAY + "successfully saved arena!");
+											session.saveArena(sender.getName());
+										} else {
+											session.removeSession(sender.getName());
+											sender.sendMessage(ChatColor.RED + "tennis session incomplete, removing session.");
+										}
 									} else {
-										session.removeSession(sender.getName());
-										sender.sendMessage(ChatColor.RED + "tennis session incomplete, removing session.");
+										sender.sendMessage(ChatColor.RED + "you don't have a session open!");
 									}
 								} else {
-									sender.sendMessage(ChatColor.RED + "you don't have a session open!");
+									Warnings.getWarnings(sender).noPermission();
 								}
 							} else if(args[0].equalsIgnoreCase("list")) {
 								String buffer = "";
@@ -122,23 +134,31 @@ public class CmdTennis {
 							}
 						} else if(args.length == 2) {
 							if(args[0].equalsIgnoreCase("create")) {
-								if(!xEssentials.getManagers().getMinigameManager().containsMinigame(args[1])) {
-									MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getTennisSessions();
-									session.createSession(sender.getName());
-									session.addSessionData(sender.getName(), "name", args[1].toLowerCase());
-									session.addSessionData(sender.getName(), "score", 3);
-									sender.sendMessage(ChatColor.GRAY + "set spawnpoint 1 by placing a block");
+								if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
+									if(!xEssentials.getManagers().getMinigameManager().containsMinigame(args[1])) {
+										MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getTennisSessions();
+										session.createSession(sender.getName());
+										session.addSessionData(sender.getName(), "name", args[1].toLowerCase());
+										session.addSessionData(sender.getName(), "score", 3);
+										sender.sendMessage(ChatColor.GRAY + "set spawnpoint 1 by placing a block");
+									} else {
+										sender.sendMessage(ChatColor.RED + "this minigame id already exist, please use a other name");
+									}
 								} else {
-									sender.sendMessage(ChatColor.RED + "this minigame id already exist, please use a other name");
+									Warnings.getWarnings(sender).noPermission();
 								}
 							} else if(args[0].equalsIgnoreCase("remove")) {
-								MinigameManager manager = xEssentials.getManagers().getMinigameManager();
-								if(manager.containsMinigame(args[1])) {
-									MinigameArena arena = manager.getArenaByName(MinigameType.TENNIS, args[1]);
-									arena.remove();
-									sender.sendMessage(ChatColor.GRAY + "arena successfully removed!");
+								if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
+									MinigameManager manager = xEssentials.getManagers().getMinigameManager();
+									if(manager.containsMinigame(args[1])) {
+										MinigameArena arena = manager.getArenaByName(MinigameType.TENNIS, args[1]);
+										arena.remove();
+										sender.sendMessage(ChatColor.GRAY + "arena successfully removed!");
+									} else {
+										sender.sendMessage(ChatColor.RED + "unknown minigame name");
+									}
 								} else {
-									sender.sendMessage(ChatColor.RED + "unknown minigame name");
+									Warnings.getWarnings(sender).noPermission();
 								}
 							} else if(args[0].equalsIgnoreCase("join")) {
 								if(xEssentials.getManagers().getMinigameManager().containsMinigame(args[1])) {
