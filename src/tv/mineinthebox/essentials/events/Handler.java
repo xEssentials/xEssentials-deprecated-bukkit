@@ -151,6 +151,7 @@ import tv.mineinthebox.essentials.minigames.football.listeners.FootballCreationE
 import tv.mineinthebox.essentials.minigames.football.listeners.FootballNoDamageEvent;
 import tv.mineinthebox.essentials.minigames.football.listeners.FootballScoreEvent;
 import tv.mineinthebox.essentials.minigames.memory.MinigameQuitEvent;
+import tv.mineinthebox.essentials.minigames.memory.MinigameSessionRemoveEvent;
 import tv.mineinthebox.essentials.minigames.memory.MinigameTeleportEvent;
 import tv.mineinthebox.essentials.minigames.tennis.listeners.TennisBallVelocityEvent;
 import tv.mineinthebox.essentials.minigames.tennis.listeners.TennisCreationEvent;
@@ -398,6 +399,7 @@ public class Handler {
 		
 		//minigames
 		if(Configuration.getMinigameConfig().isMinigamesEnabled()) {
+			setListener(new MinigameSessionRemoveEvent());
 			setListener(new MinigameQuitEvent());
 			setListener(new MinigameTeleportEvent());
 			
