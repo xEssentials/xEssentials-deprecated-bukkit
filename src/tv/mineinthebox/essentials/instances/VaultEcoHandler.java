@@ -7,6 +7,8 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
 
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 
@@ -14,256 +16,236 @@ import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
-import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class VaultEcoHandler implements Economy, Listener {
 
 	 private final String name = "xEssentials-Eco";
-	 private Plugin pl;
 	 
 	 
 	 public VaultEcoHandler(Plugin pl) {
-		 this.pl = pl;
 		 xEssentials.getPlugin().log("Vault has been hooked to xEssentials to support our economy system", LogType.INFO);
 	 }
 
 
-	    @Override
-	    public boolean isEnabled() {
-	        if (pl == null) {
-	            return false;
-	        } else {
-	            return pl.isEnabled();
-	        }
-	    }
+	@Override
+	public boolean isEnabled() {
+		return Configuration.getEconomyConfig().isEconomyEnabled();
+	}
 
 
-	    @Override
-	    public String getName() {
-	        return name;
-	    }
+	@Override
+	public String getName() {
+		return name;
+	}
 
 
-	    @Override
-	    public String format(double amount) {
-	    	xEssentials.getPlugin().log("line 46 has been activated, it may means that the formatting is broken!", LogType.INFO);
-	    	DecimalFormat format = new DecimalFormat(("#,##0.00"));
-	       String formatted = format.format(amount);
-	       if(formatted.endsWith(".")) {
-	    	   formatted = formatted.substring(0, formatted.length() - 1);
-	       }
-	       return formatted;
-	    }
+	@Override
+	public boolean hasBankSupport() {
+		return false;
+	}
 
 
-	    @Override
-	    public String currencyNameSingular() {
-	        return Configuration.getEconomyConfig().getCurency();
-	    }
+	@Override
+	public int fractionalDigits() {
+		return -1;
+	}
 
 
-	    @Override
-	    public String currencyNamePlural() {
-	    	return Configuration.getEconomyConfig().getCurency();
-	    }
+	@Override
+	public String format(double amount) {
+		 DecimalFormat format = new DecimalFormat(("#,##0.00"));
+		 String formatted = format.format(amount);
+		 if(formatted.endsWith(".")) {
+		 formatted = formatted.substring(0, formatted.length() - 1);
+		 }
+		 return formatted;
+	}
 
 
-	    @Override
-	    public double getBalance(String playerName) {
-	        if (xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(playerName)) {
-	            if(xEssentials.getManagers().getPlayerManager().isOnline(playerName)) {
-	            	return xEssentials.getManagers().getPlayerManager().getPlayer(playerName).getTotalEssentialsMoney();
-	            } else {
-	            	return xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playerName).getTotalEssentialsMoney();
-	            }
-	        } else {
-	            return 0;
-	        }
-	    }
+	@Override
+	public String currencyNamePlural() {
+		return Configuration.getEconomyConfig().getCurency();
+	}
 
 
-	    @Override
-	    public EconomyResponse withdrawPlayer(String playerName, double amount) {
-	        if (amount < 0) {
-	            return new EconomyResponse(0, 0, ResponseType.FAILURE, "Cannot withdraw negative funds");
-	        }
-	        if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(playerName)) {
-	        	if(xEssentials.getManagers().getPlayerManager().isOnline(playerName)) {
-	        		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(playerName);
-	        		if(xp.hasPlayerEnoughMoneyFromPrice(amount)) {
-	        			xp.payEssentialsMoney(amount);
-	        			  return new EconomyResponse(amount, xp.getTotalEssentialsMoney(), ResponseType.SUCCESS, null);
-	        		} else {
-	        			 return new EconomyResponse(0, xp.getTotalEssentialsMoney(), ResponseType.FAILURE, "Insufficient funds");
-	        		}
-	        	} else {
-	        		XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playerName);
-	        		if(off.hasPlayerEnoughMoneyFromPrice(amount)) {
-	        			off.payEssentialsMoney(amount);
-	        			 return new EconomyResponse(amount, off.getTotalEssentialsMoney(), ResponseType.SUCCESS, null);
-	        		} else {
-	        			 return new EconomyResponse(0, off.getTotalEssentialsMoney(), ResponseType.FAILURE, "Insufficient funds");
-	        		}
-	        	}
-	        } else {
-	        	return new EconomyResponse(0, 0, ResponseType.FAILURE, "account doesn't exist");
-	        }
-	    }
+	@Override
+	public String currencyNameSingular() {
+		return Configuration.getEconomyConfig().getCurency();
+	}
 
 
-	    @Override
-	    public EconomyResponse depositPlayer(String playerName, double amount) {
-	    	if (amount <= 0) {
-	            return new EconomyResponse(0, 0, ResponseType.FAILURE, "Cannot desposit negative funds");
-	        }
-	        
-	        if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(playerName)) {
-	        	if(xEssentials.getManagers().getPlayerManager().isOnline(playerName)) {
-	        		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(playerName);
-	        		xp.addEssentialsMoney(amount);
-	        		return new EconomyResponse(amount, xp.getTotalEssentialsMoney(), ResponseType.SUCCESS, null);
-	        	} else {
-	        		XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playerName);
-	        		off.addEssentialsMoney(amount);
-	        		return new EconomyResponse(amount, off.getTotalEssentialsMoney(), ResponseType.SUCCESS, null);
-	        	}
-	        } else {
-	        	return new EconomyResponse(0,0, ResponseType.FAILURE, "Cannot give money to a player which doesn't exist!");
-	        }
-	    }
+	@Override
+	public boolean hasAccount(String playerName) {
+		return xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(playerName);
+	}
 
 
-	    @Override
-	    public boolean has(String playerName, double amount) {
-	        return getBalance(playerName) >= amount;
-	    }
+	@Override
+	public boolean hasAccount(String playerName, String worldName) {
+		return xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(playerName);
+	}
 
 
-	    @Override
-	    public EconomyResponse createBank(String bank, String player) {
-	    	 throw new UnsupportedOperationException("xEssentials economy does not support banks");
-	    }
-
-
-	    @Override
-	    public EconomyResponse deleteBank(String bank) {
-	        throw new UnsupportedOperationException("xEssentials economy does not support banks");
-	    }
-
-
-	    @Override
-	    public EconomyResponse bankHas(String bank, double amount) {
-	    	throw new UnsupportedOperationException("xEssentials economy does not support banks");
-	    }
-
-
-	    @Override
-	    public EconomyResponse bankWithdraw(String name, double amount) {
-	        if (amount < 0) {
-	            return new EconomyResponse(0, 0, ResponseType.FAILURE, "Cannot withdraw negative funds");
-	        }
-
-
-	        return withdrawPlayer(name, amount);
-	    }
-
-
-	    @Override
-	    public EconomyResponse bankDeposit(String name, double amount) {
-	        if (amount < 0) {
-	            return new EconomyResponse(0, 0, ResponseType.FAILURE, "Cannot desposit negative funds");
-	        }
-	        return depositPlayer(name, amount);
-	    }
-
-
-	    @Override
-	    public EconomyResponse isBankOwner(String name, String playerName) {
-	        return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, "xEssentials does not support Bank owners.");
-	    }
-
-
-	    @Override
-	    public EconomyResponse isBankMember(String name, String playerName) {
-	        return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, "xEssentials does not support Bank members.");
-	    }
-
-
-	    @Override
-	    public EconomyResponse bankBalance(String bank) {
-	    	throw new UnsupportedOperationException("xEssentials economy does not support banks");
-	    }
-
-
-	    @Override
-	    public List<String> getBanks() {
-	        throw new UnsupportedOperationException("xEssentials does not support listing of bank accounts");
-	    }
-
-
-	    @Override
-	    public boolean hasBankSupport() {
-	        return true;
-	    }
-
-
-	    @Override
-	    public boolean hasAccount(String playerName) {
-	        return xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(playerName);
-	    }
-
-
-		@Override
-	    public boolean createPlayerAccount(String playerName) {
-	        xEssentials.getPlugin().log("test: 248", LogType.INFO);
-	    	if (hasAccount(playerName)) {
-	            return false;
-	        }
-	        //creates a fake player.
-	    	XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playerName);
-	    	
-	        return (off instanceof xEssentialsOfflinePlayer);
-	    }
-
-
-		@Override
-		public int fractionalDigits() {
-			return -1;
+	@Override
+	public double getBalance(String playerName) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(playerName)) {
+			XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playerName);
+			return off.getMoney();
 		}
+		throw new IllegalArgumentException("cannot get balance of player whilst player does not exist!");
+	}
 
 
-	    @Override
-	    public boolean hasAccount(String playerName, String worldName) {
-	        return hasAccount(playerName);
-	    }
+	@Override
+	public double getBalance(String playerName, String world) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(playerName)) {
+			XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playerName);
+			return off.getMoney();
+		}
+		throw new IllegalArgumentException("cannot get balance of player whilst player does not exist!");
+	}
 
 
-	    @Override
-	    public double getBalance(String playerName, String world) {
-	    	return getBalance(playerName);
-	    }
+	@Override
+	public boolean has(String playerName, double amount) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(playerName)) {
+			XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playerName);
+			return off.hasEnoughMoney(amount);
+		}
+		return false;
+	}
 
 
-	    @Override
-	    public boolean has(String playerName, String worldName, double amount) {
-	        return has(playerName, amount);
-	    }
+	@Override
+	public boolean has(String playerName, String worldName, double amount) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(playerName)) {
+			XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playerName);
+			return off.hasEnoughMoney(amount);
+		}
+		return false;
+	}
 
 
-	    @Override
-	    public EconomyResponse withdrawPlayer(String playerName, String worldName, double amount) {
-	        return withdrawPlayer(playerName, amount);
-	    }
+	@Override
+	public EconomyResponse withdrawPlayer(String playerName, double amount) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(playerName)) {
+			XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playerName);
+			if(off.hasEnoughMoney(amount)) {
+				off.withdrawMoney(amount);
+				return new EconomyResponse(amount, off.getMoney(), ResponseType.SUCCESS, null);	
+			} else {
+				return new EconomyResponse(amount, off.getMoney(), ResponseType.FAILURE, "not enough money to withdraw");
+			}
+		}
+		return new EconomyResponse(0, 0, ResponseType.FAILURE, "cannot withdraw money from a account what does not exist!");
+	}
 
 
-	    @Override
-	    public EconomyResponse depositPlayer(String playerName, String worldName, double amount) {
-	    	return depositPlayer(playerName, amount);
-	    }
+	@Override
+	public EconomyResponse withdrawPlayer(String playerName, String worldName,
+			double amount) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(playerName)) {
+			XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playerName);
+			if(off.hasEnoughMoney(amount)) {
+				off.withdrawMoney(amount);
+				return new EconomyResponse(amount, off.getMoney(), ResponseType.SUCCESS, null);	
+			} else {
+				return new EconomyResponse(amount, off.getMoney(), ResponseType.FAILURE, "not enough money to withdraw");
+			}
+		}
+		return new EconomyResponse(0, 0, ResponseType.FAILURE, "cannot withdraw money from a account what does not exist!");
+	}
 
 
-	    @Override
-	    public boolean createPlayerAccount(String playerName, String worldName) {
-	        return true;
-	    }
+	@Override
+	public EconomyResponse depositPlayer(String playerName, double amount) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(playerName)) {
+			XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playerName);
+			off.depositMoney(amount);
+			return new EconomyResponse(amount, off.getMoney(), ResponseType.SUCCESS, null);
+		}
+		return new EconomyResponse(0, 0, ResponseType.FAILURE, "cannot deposit money from a account what does not exist!");
+	}
+
+
+	@Override
+	public EconomyResponse depositPlayer(String playerName, String worldName,
+			double amount) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(playerName)) {
+			XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(playerName);
+			off.depositMoney(amount);
+			return new EconomyResponse(amount, off.getMoney(), ResponseType.SUCCESS, null);
+		}
+		return new EconomyResponse(0, 0, ResponseType.FAILURE, "cannot deposit money from a account what does not exist!");
+	}
+
+
+	@Override
+	public EconomyResponse createBank(String name, String player) {
+		return new EconomyResponse(0,0,ResponseType.FAILURE, "banks are unsupported!");
+	}
+
+
+	@Override
+	public EconomyResponse deleteBank(String name) {
+		return new EconomyResponse(0,0,ResponseType.FAILURE, "banks are unsupported!");
+	}
+
+
+	@Override
+	public EconomyResponse bankBalance(String name) {
+		return new EconomyResponse(0,0,ResponseType.FAILURE, "banks are unsupported!");
+	}
+
+
+	@Override
+	public EconomyResponse bankHas(String name, double amount) {
+		return new EconomyResponse(0,0,ResponseType.FAILURE, "banks are unsupported!");
+	}
+
+
+	@Override
+	public EconomyResponse bankWithdraw(String name, double amount) {
+		return new EconomyResponse(0,0,ResponseType.FAILURE, "banks are unsupported!");
+	}
+
+
+	@Override
+	public EconomyResponse bankDeposit(String name, double amount) {
+		return new EconomyResponse(0,0,ResponseType.FAILURE, "banks are unsupported!");
+	}
+
+
+	@Override
+	public EconomyResponse isBankOwner(String name, String playerName) {
+		return new EconomyResponse(0,0,ResponseType.FAILURE, "banks are unsupported!");
+	}
+
+
+	@Override
+	public EconomyResponse isBankMember(String name, String playerName) {
+		return new EconomyResponse(0,0,ResponseType.FAILURE, "banks are unsupported!");
+	}
+
+
+	@Override
+	public List<String> getBanks() {
+		throw new IllegalArgumentException("banks are not supported!");
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public boolean createPlayerAccount(String playerName) {
+		OfflinePlayer off = Bukkit.getOfflinePlayer(playerName);
+		XOfflinePlayer a = new xEssentialsOfflinePlayer(off);
+		return (a instanceof XOfflinePlayer);
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public boolean createPlayerAccount(String playerName, String worldName) {
+		OfflinePlayer off = Bukkit.getOfflinePlayer(playerName);
+		XOfflinePlayer a = new xEssentialsOfflinePlayer(off);
+		return (a instanceof XOfflinePlayer);
+	}
 }

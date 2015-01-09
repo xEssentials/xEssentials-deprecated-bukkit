@@ -30,7 +30,7 @@ public interface XPlayer extends XOfflinePlayer {
 	 * @param set the player as greylisted
 	 * @return void
 	 */
-	public void setGreyListed(Boolean bol);
+	public void setGreyListed(boolean bol);
 
 	/**
 	 * @author xize
@@ -42,7 +42,7 @@ public interface XPlayer extends XOfflinePlayer {
 	/**
 	 * @author xize
 	 * @param when true the player has a powertool otherwise false
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean hasPowerTool();
 
@@ -121,7 +121,7 @@ public interface XPlayer extends XOfflinePlayer {
 	/**
 	 * @author xize
 	 * @param checks whenever the player is boomed
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean isBoom();
 
@@ -353,7 +353,7 @@ public interface XPlayer extends XOfflinePlayer {
 	 * @param set the fly mode of the player
 	 * @return void
 	 */
-	public void setFlying(Boolean bol);
+	public void setFlying(boolean bol);
 
 	/**
 	 * 
@@ -369,7 +369,7 @@ public interface XPlayer extends XOfflinePlayer {
 	 * @param set the torch mode to false or on
 	 * @return void
 	 */
-	public void setTorch(Boolean bol);
+	public void setTorch(boolean bol);
 
 	/**
 	 * @author xize
@@ -383,7 +383,7 @@ public interface XPlayer extends XOfflinePlayer {
 	 * @param set firefly for this player
 	 * @return void
 	 */
-	public void setFirefly(Boolean bol);
+	public void setFirefly(boolean bol);
 
 	/**
 	 * 
@@ -472,7 +472,7 @@ public interface XPlayer extends XOfflinePlayer {
 	/**
 	 * @author xize
 	 * @param returns true whenever the player has vanish effects
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean hasVanishEffects();
 
@@ -481,7 +481,7 @@ public interface XPlayer extends XOfflinePlayer {
 	 * @param sets the vanish effects of this player
 	 * @param bol - the boolean
 	 */
-	public void setVanishEffects(Boolean bol);
+	public void setVanishEffects(boolean bol);
 
 	/**
 	 * @author xize
@@ -495,7 +495,7 @@ public interface XPlayer extends XOfflinePlayer {
 	 * @param sets the pickup state of this player only affects while vanished
 	 * @return void
 	 */
-	public void setNoPickUp(Boolean bol);
+	public void setNoPickUp(boolean bol);
 
 	/**
 	 * @author xize
@@ -686,15 +686,15 @@ public interface XPlayer extends XOfflinePlayer {
 	/**
 	 * @author xize
 	 * @param set the silence state of the player
-	 * @param Boolean
+	 * @param boolean
 	 * @return void
 	 */
-	public void setSilenced(Boolean bol);
+	public void setSilenced(boolean bol);
 
 	/**
 	 * @author xize
 	 * @param returns true whenever the player has silenced the chat
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean isSilenced();
 
@@ -715,7 +715,7 @@ public interface XPlayer extends XOfflinePlayer {
 	/**
 	 * @author xize
 	 * @param returns true whenever the player ignores a player
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean hasIgnoredPlayers();
 
@@ -729,7 +729,7 @@ public interface XPlayer extends XOfflinePlayer {
 	/**
 	 * @author xize
 	 * @param returns true whenever the player is freezed
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean isFreezed();
 
@@ -738,12 +738,12 @@ public interface XPlayer extends XOfflinePlayer {
 	 * @param freezes the player or unfreeze the player
 	 * @param void
 	 */
-	public void setFreezed(Boolean bol);
+	public void setFreezed(boolean bol);
 
 	/**
 	 * @author xize
 	 * @param returns true whenever a player has trollmode enabled!
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean isTrollMode();
 
@@ -752,12 +752,12 @@ public interface XPlayer extends XOfflinePlayer {
 	 * @param enabled trollmode or disable trollmode
 	 * @return void
 	 */
-	public void setTrollMode(Boolean bol);
+	public void setTrollMode(boolean bol);
 
 	/**
 	 * @author xize
 	 * @param returns true if the player has command restrictions
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean hasCommandRestrictions();
 
@@ -780,7 +780,7 @@ public interface XPlayer extends XOfflinePlayer {
 	/**
 	 * @author xize
 	 * @param check if the player has a restriction inside the list, make sure to use hasCommandRestrictions() first.
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean hasContainedRestriction(String command);
 
@@ -815,59 +815,9 @@ public interface XPlayer extends XOfflinePlayer {
 	/**
 	 * @author xize
 	 * @param returns true whenever the player has the cooldown else false
-	 * @return Boolean
+	 * @return boolean
 	 */
-	public Boolean hasKitCooldown();
-
-	/**
-	 * @author xize
-	 * @param returns the total amount of Essentials money of this player
-	 * @return Double
-	 */
-	public Double getTotalEssentialsMoney();
-
-	/**
-	 * @author xize
-	 * @param returns true if the player has money if its 0.0 or the config entry doesn't exist it is false
-	 * @return Boolean
-	 */
-	public Boolean hasEssentialsMoney();
-
-	/**
-	 * @author xize
-	 * @param price - the price the player is gonna be to pay
-	 * @param toPayTo - the retriever
-	 * @return Boolean - if the player has no money it will be false.
-	 */
-	public Boolean payEssentialsMoney(Double price, XOfflinePlayer toPayTo);
-
-	/**
-	 * @author xize
-	 * @param price - the price the player is gonna be to pay
-	 * @param toPayTo - the retriever
-	 * @return Boolean - if the player has no money it will be false.
-	 */
-	public Boolean payEssentialsMoney(Double price, XPlayer toPayTo);
-
-	/**
-	 * @author xize
-	 * @param this will add money to the players bank
-	 */
-	public void addEssentialsMoney(Double price);
-
-	/**
-	 * @author xize
-	 * @param price - the price
-	 * @return Boolean
-	 */
-	public boolean hasPlayerEnoughMoneyFromPrice(Double price);
-
-	/**
-	 * @author xize
-	 * @param clear the money of the player
-	 * @return void
-	 */
-	public void clearMoney();
+	public boolean hasKitCooldown();
 
 	/**
 	 * @author xize
@@ -886,14 +836,14 @@ public interface XPlayer extends XOfflinePlayer {
 	/**
 	 * @author xize
 	 * @param returns true if the player has name history
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean hasNameHistory();
 
 	/**
 	 * @author xize
 	 * @param returns true whenever the player has a saved inventory
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean hasSavedInventory();
 
@@ -926,7 +876,7 @@ public interface XPlayer extends XOfflinePlayer {
 	/**
 	 * @author xize
 	 * @param return true when the player has procs
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean hasProc();
 
@@ -939,7 +889,7 @@ public interface XPlayer extends XOfflinePlayer {
 	/**
 	 * @author xize
 	 * @param returns the state of the anti knockback.
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean isKnock();
 	
@@ -947,12 +897,12 @@ public interface XPlayer extends XOfflinePlayer {
 	 * @author xize
 	 * @param sets the player in a chair.
 	 */
-	public void setInChair(Boolean bol);
+	public void setInChair(boolean bol);
 	
 	/**
 	 * @author xize
 	 * @param returns true if the player sits in a chair
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean isInChair();
 	
@@ -961,19 +911,19 @@ public interface XPlayer extends XOfflinePlayer {
 	 * @param toggles double jump
 	 * @param bol - true when enabled, false when disabled.
 	 */
-	public void setDoubleJump(Boolean bol);
+	public void setDoubleJump(boolean bol);
 	
 	/**
 	 * @author xize
 	 * @param returns true if the player has double jump else false
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean hasDoubleJump();
 	
 	/**
 	 * @author xize
 	 * @param returns true if the player has spectate on
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean isSpectate();
 	
@@ -993,7 +943,7 @@ public interface XPlayer extends XOfflinePlayer {
 	/**
 	 * @author xize
 	 * @param returns true when edit mode is enabled
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean isEditSignEnabled();
 	
@@ -1001,124 +951,154 @@ public interface XPlayer extends XOfflinePlayer {
 	 * @author xize
 	 * @param bol - sets the mode whenever a player edits a sign
 	 */
-	public void setEditSign(Boolean bol);
+	public void setEditSign(boolean bol);
 	
 	/**
 	 * @author xize
 	 * @param returns true when player is in drunk mode
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean isDrunk();
 	
 	/**
 	 * @author xize
-	 * @param bol - sets the drunk state
+	 * <p>sets the chat mode of the player</p>
+	 * @param bol - if true the player has changed into drunk chat mode, otherwise false
 	 */
-	public void setDrunk(Boolean bol);
+	public void setDrunk(boolean bol);
 	
 	/**
 	 * @author xize
-	 * @param message - converts a normal message in a derpish message :)
+	 * <p>returns a converted message which looks drunky</p>
+	 * @see XPlayer#isDrunk()
+	 * @param message - the message to be converted to
 	 * @return String
 	 */
 	public String getDrunkMessageFrom(String message, boolean bol);
 
-	abstract boolean isSpace(char chr);
-
-	abstract boolean isLitteral(char chr);
-	
 	/**
 	 * @author xize
-	 * @param returns true if floor mode is true
+	 * <p>returns true if floor mode is activated otherwise false</p>
 	 * @return boolean
 	 */
 	public boolean isFloorMode();
 	
 	/**
 	 * @author xize
-	 * @param bol - when true build mode is activated, else its not.
+	 * <p>enables or disables floor mode, this allows a player to build floors</p>
+	 * @param bol - when true build mode is activated, otherwise deactivated
 	 * @param range - the range of the floor mode
 	 */
 	public void setFloorMode(boolean bol, int range);
 	
 	/**
 	 * @author xize
-	 * @param returns the range of the floor
+	 * <p>returns the size of the floor</p>
 	 * @return int
 	 */
 	public int getFloorModeRange();
 	
 	/**
 	 * @author xize
-	 * @param returns true if the wall mode is activated
-	 * @return
+	 * <p>returns true if wallmode is activated otherwise false</p>
+	 * @return boolean
 	 */
 	public boolean isWallMode();
 	
 	/**
 	 * @author xize
-	 * @param bol - activates the wall mode
+	 * <p>enables or disables wall mode</p>
+	 * @param bol - if true it enables wallmode, otherwise false
 	 * @param range - the range how heigh the wall should be.
 	 */
 	public void setWallMode(boolean bol, int range);
 	
 	/**
 	 * @author xize
-	 * @param returns the wall size
+	 * <p>sets the range of wall mode</p>
 	 * @return int
 	 */
 	public int getWallModeRange();
 	
 	/**
 	 * @author xize
-	 * @param loc - location
-	 * @param chest - chest
+	 * <p>sets a shop on the current location with the chest, note the chest has to be somehow attached to the chest (north, east, south, west)</p>
+	 * @param loc - the location
+	 * @param chest - the chest
 	 */
 	public void setShop(Location loc, Chest chest);
 	
 	/**
 	 * @author xize
+	 * <p>returns true if the location is a shop, otherwise false</p>
 	 * @param loc - the location
 	 */
 	public boolean isShop(Location loc);
 	
 	/**
 	 * @author xize
+	 * <p>gets the shop by an location</p>
+	 * @see XPlayer#isShop(Location)
 	 * @param loc - the location
 	 */
 	public Shop getShop(Location loc);
 	
 	/**
 	 * @author xize
+	 * <p>removes the shop from a location</p>
+	 * @see XPlayer#isShop(Location)
 	 * @param loc - the location
 	 */
 	public void removeShop(Location loc);
 	
 	/**
 	 * @author xize
+	 * <p>sets the warning level of the anti-pwnage system</p>
 	 * @param level - the level of the relogs
 	 */
 	public void setPwnageLevel(int level);
 	
 	/**
 	 * @author xize
-	 * @param returns true if the player has a pwnage level.
+	 * <p>returns true if the player has a anti-pwnage level otherwise false<p>
 	 * @return boolean
 	 */
 	public boolean hasPwnageLevel();
 	
 	/**
 	 * @author xize
-	 * @param returns the current level.
+	 * <p>returns the current anti-pwnage warning level</p>
+	 * @see XPlayer#hasPwnageLevel()
 	 * @return int
 	 */
 	public int getPwnageLevel();
 	
+	/**
+	 * @author xize
+	 * <p>returns the time when the player was last logged in</p>
+	 * @see XPlayer#hasLastLoginTime()
+	 * @return long
+	 */
 	public long getLastLoginTime();
 	
+	/**
+	 * @author xize
+	 * <p>sets the last login time</p>
+	 * @param time - login time
+	 */
 	public void setLastLoginTime(long time);
 	
+	/**
+	 * @author xize
+	 * <p>returns true if the player has a last login time if not false</p>
+	 * @return boolean
+	 */
 	public boolean hasLastLoginTime();
 	
+	/**
+	 * @author xize
+	 * <p>sets the anti-pwnage task and checks if the player logs in in a certain time</p>
+	 * @param task - the anti-pwnage task
+	 */
 	public void setPwnageScheduler(BukkitTask task);
 }

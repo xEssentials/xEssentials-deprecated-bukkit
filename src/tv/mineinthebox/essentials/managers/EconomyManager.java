@@ -15,10 +15,10 @@ public class EconomyManager {
 		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(player)) {
 			if(xEssentials.getManagers().getPlayerManager().isOnline(player)) {
 				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(player);
-				return xp.getTotalEssentialsMoney();
+				return xp.getMoney();
 			} else {
 				XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(player);
-				return off.getTotalEssentialsMoney();
+				return off.getMoney();
 			}
 		}
 		throw new NullPointerException("this player has never played before!");
@@ -33,20 +33,20 @@ public class EconomyManager {
 		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(player)) {
 			if(xEssentials.getManagers().getPlayerManager().isOnline(player)) {
 				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(player);
-				Double moneyz = xp.getTotalEssentialsMoney();
+				Double moneyz = xp.getMoney();
 				if(money > moneyz) {
 					throw new IndexOutOfBoundsException("cannot withdraw money below zero");
 				}
 				xp.clearMoney();
-				xp.addEssentialsMoney((moneyz-money));
+				xp.depositMoney((moneyz-money));
 			} else {
 				XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(player);
-				Double moneyz = off.getTotalEssentialsMoney();
+				Double moneyz = off.getMoney();
 				if(money > moneyz) {
 					throw new IndexOutOfBoundsException("cannot withdraw money below zero");
 				}
 				off.clearMoney();
-				off.addEssentialsMoney((moneyz-money));
+				off.depositMoney((moneyz-money));
 			}
 		} else {
 			throw new NullPointerException("this player has never played before!");
@@ -62,14 +62,14 @@ public class EconomyManager {
 		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(player)) {
 			if(xEssentials.getManagers().getPlayerManager().isOnline(player)) {
 				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(player);
-				Double moneyz = xp.getTotalEssentialsMoney();
+				Double moneyz = xp.getMoney();
 				xp.clearMoney();
-				xp.addEssentialsMoney(moneyz+money);
+				xp.depositMoney(moneyz+money);
 			} else {
 				XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(player);
-				Double moneyz = off.getTotalEssentialsMoney();
+				Double moneyz = off.getMoney();
 				off.clearMoney();
-				off.addEssentialsMoney(moneyz+money);
+				off.depositMoney(moneyz+money);
 			}
 		} else {
 			throw new NullPointerException("this player has never played before!");

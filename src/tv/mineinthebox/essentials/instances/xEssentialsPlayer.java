@@ -56,13 +56,6 @@ public class xEssentialsPlayer implements XPlayer {
 	private BukkitTask spectate;
 	private BukkitTask pwnagetask;
 
-	/**
-	 * 
-	 * @author xize
-	 * @param a constructor which pass our interface, if there is no user file this constructor will create a new one this constructor only allows type Player.
-	 * @return xEssentialsPlayer
-	 * 
-	 */
 	public xEssentialsPlayer(Player player, String UUID) {
 		if(Configuration.getDebugConfig().isEnabled()) {
 			xEssentials.getPlugin().log("setting profile for player " + player.getName(), LogType.DEBUG);
@@ -145,11 +138,6 @@ public class xEssentialsPlayer implements XPlayer {
 		save();
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true whenever the player is greylisted
-	 * @return boolean
-	 */
 	@Override
 	public boolean isGreyListed() {
 		if(con.contains("isDefault")) {
@@ -162,31 +150,16 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param set the player as greylisted
-	 * @return void
-	 */
 	@Override
-	public void setGreyListed(Boolean bol) {
+	public void setGreyListed(boolean bol) {
 		con.set("isDefault", !bol);
 	}
 
-	/**
-	 * @author xize
-	 * @param set the powertool of a player
-	 * @return void
-	 */
 	@Override
 	public void setPowerTool(ItemStack item, String command) {
 		con.set("powertool."+item.getType().name()+".command", command);
 	}
 
-	/**
-	 * @author xize
-	 * @param when true the player has a powertool otherwise false
-	 * @return Boolean
-	 */
 	@Override
 	public boolean hasPowerTool() {
 		if(con.contains("powertool."+player.getItemInHand().getType().name()+".command")) {
@@ -195,31 +168,16 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param get the command from the power tool
-	 * @return String
-	 */
 	@Override
 	public String getPowerTool() {
 		return con.getString("powertool."+player.getItemInHand().getType().name()+".command");
 	}
 
-	/**
-	 * @author xize
-	 * @param removes the powertool
-	 * @return void
-	 */
 	@Override
 	public void removePowerTool() {
 		con.set("powertool."+player.getItemInHand().getType().name()+".command", null);
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true if a player has a login task
-	 * @return boolean
-	 */
 	@Override
 	public boolean hasLoginTask() {
 		if(con.contains("task.command")) {
@@ -228,11 +186,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param nukes the player with a massive explosion rain
-	 * @return void
-	 */
 	@Override
 	public void nuke() {
 		for(int x = -16; x <= 16; x +=8) {
@@ -252,11 +205,6 @@ public class xEssentialsPlayer implements XPlayer {
 		con.set("lastLocation.world", player.getWorld().getName());
 	}
 
-	/**
-	 * @author xize
-	 * @param nukes the player with a massive explosion rain but as fake
-	 * @return void
-	 */
 	@Override
 	public void fakenuke() {
 		for(int x = -16; x <= 16; x +=8) {
@@ -279,11 +227,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param peform a login task
-	 * @return void
-	 */
 	@Override
 	public void performLoginTask() {
 		PlayerTaskEnum task = PlayerTaskEnum.valueOf(con.getString("task.type"));
@@ -295,11 +238,6 @@ public class xEssentialsPlayer implements XPlayer {
 		con.set("task", null);
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true whenever the speed is enabled
-	 * @return boolean
-	 */
 	@Override
 	public boolean isSpeedEnabled() {
 		if(con.contains("isSpeed")) {
@@ -308,11 +246,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param sets the speed of a player
-	 * @return void
-	 */
 	@Override
 	public void setSpeed(int i) {
 		con.set("isSpeed", true);
@@ -320,11 +253,6 @@ public class xEssentialsPlayer implements XPlayer {
 		getPlayer().setFlySpeed(i);
 	}
 
-	/**
-	 * @author xize
-	 * @param removes the walk speed
-	 * @return void
-	 */
 	@Override
 	public void removeSpeed() {
 		con.set("isSpeed", false);
@@ -332,11 +260,6 @@ public class xEssentialsPlayer implements XPlayer {
 		getPlayer().setFlySpeed(0.1f);
 	}
 
-	/**
-	 * @author xize
-	 * @param returns whenever the player is staff and has permission: xEssentials.isStaff
-	 * @return boolean
-	 */
 	@Override
 	public boolean isStaff() {
 		if(player.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
@@ -345,11 +268,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param checks whenever the player is boomed
-	 * @return Boolean
-	 */
 	@Override
 	public boolean isBoom() {
 		if(con.contains("isBoom")) {
@@ -358,31 +276,16 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param set the boom status of this player
-	 * @return void
-	 */
 	@Override
 	public void setBoom() {
 		con.set("isBoom", true);
 	}
 
-	/**
-	 * @author xize
-	 * @param remove the boom status of this player
-	 * @return void
-	 */
 	@Override
 	public void removeBoom() {
 		con.set("isBoom", null);
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true whenever the player is cursed to be a potato!
-	 * @return boolean
-	 */
 	@Override
 	public boolean isPotato() {
 		if(con.contains("isPotato")) {
@@ -391,11 +294,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param remove potato curse of this player!
-	 * @return void
-	 */
 	@Override
 	public void removePotato() {
 		con.set("isPotato", false);
@@ -403,23 +301,12 @@ public class xEssentialsPlayer implements XPlayer {
 		this.Potato = null;
 	}
 
-	/**
-	 * @author xize
-	 * @param set a potato curse of this player!
-	 * @return void
-	 */
 	@Override
 	public void setPotato(Item potato) {
 		this.Potato = potato;
 		con.set("isPotato", true);
 	}
 
-	/**
-	 * @author xize
-	 * @param gets the Potato Item
-	 * @return Item
-	 * @throws NullPointerException
-	 */
 	@Override
 	public Item getPotato() {
 		if(Potato instanceof Item) {
@@ -429,24 +316,11 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 	}
 
-	/**
-	 * 
-	 * @author xize
-	 * @param gets the ip adress of this player
-	 * @return String
-	 * 
-	 */
 	@Override
 	public String getIp() {
 		return player.getAddress().getAddress().getHostAddress();
 	}
 
-	/**
-	 * @author xize
-	 * @param refresh the player on teleport
-	 * @deprecated is deprecated because this is a tempory fix for invisibillity delay while teleporting.
-	 * @return void
-	 */
 	@Override
 	public void refreshPlayer() {
 		for(Player p : xEssentials.getOnlinePlayers()) {
@@ -461,26 +335,12 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 	}
 
-	/**
-	 * 
-	 * @author xize
-	 * @param set the ip of this player
-	 * @return boolean
-	 * 
-	 */
 	@Override
 	public boolean setIp() {
 		con.set("ip", player.getAddress().getAddress().getHostAddress());
 		return true;
 	}
 
-	/**
-	 * 
-	 * @author xize
-	 * @param gets the username from the configuration of this player, this will also get updated whenever the name does not match with the uniqueID
-	 * @return String 
-	 *
-	 */
 	@Override
 	public String getUser() {
 		if(!player.getName().equalsIgnoreCase(con.getString("user"))) {
@@ -489,11 +349,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return con.getString("user");
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true whenever the player is fishing
-	 * @return boolean
-	 */
 	@Override
 	public boolean isFishing() {
 		if(player.getItemInHand().getType() == Material.FISHING_ROD) {
@@ -512,11 +367,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true when this player is muted
-	 * @return boolean
-	 */
 	@Override
 	public boolean isMuted() {
 		if(con.contains("muted.isMuted")) {
@@ -526,11 +376,6 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 	}
 
-	/**
-	 * @author xize
-	 * @param
-	 * @return boolean
-	 */
 	@Override
 	public boolean isAfk() {
 		if(con.contains("afk.isAfk")) {
@@ -539,11 +384,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param returns the afk reason
-	 * @return String
-	 */
 	@Override
 	public String getAfkReason() {
 		if(con.contains("afk.reason")) {
@@ -552,11 +392,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return null;
 	}
 
-	/**
-	 * @author xize
-	 * @param remove the player from afk
-	 * @return void
-	 */
 	@Override
 	public void removeAfk() {
 		if(con.contains("afk.isAfk")) {
@@ -564,87 +399,44 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 	}
 
-	/**
-	 * @author xize
-	 * @param set the player to afk
-	 * @return void
-	 */
 	@Override
 	public void setAfk(String message) {
 		con.set("afk.isAfk", true);
 		con.set("afk.reason", message);
 	}
 
-	/**
-	 * @author xize
-	 * @param removes the mute
-	 * @return void
-	 */
 	@Override
 	public void unmute() {
 		con.set("muted", null);
 	}
 
-	/**
-	 * @author xize
-	 * @param mutes the player for chatting
-	 * @param time - where the milliseconds are the modified date.
-	 * @return void
-	 */
 	@Override
 	public void mute(Long time) {
 		con.set("muted.isMuted", true);
 		con.set("muted.mutedTime", time);
 	}
 
-	/**
-	 * @author xize
-	 * @param get the modified time in milliseconds
-	 * @return Long
-	 */
 	@Override
 	public Long getMutedTime() {
 		return con.getLong("muted.mutedTime");
 	}
 
-	/**
-	 * @author xize
-	 * @param check whenever this player is perm banned
-	 * @return boolean
-	 */
 	@Override
 	public boolean isPermBanned() {
 		return Bukkit.getServer().getBanList(Type.NAME).isBanned(player.getName());
 	}
 
-	/**
-	 * @author xize
-	 * @param sets the player permbanned
-	 * @return void
-	 */
 	@Override
 	public void setPermBanned(String reason, String who) {
 		Bukkit.getServer().getBanList(Type.NAME).addBan(player.getName(), reason, null, who).save();
 		con.set("banned.isBanned", true);
 	}
 
-	/**
-	 * @author xize
-	 * @param gets the ban message of this player
-	 * @return String
-	 */
 	@Override
 	public String getBanMessage() {
 		return Bukkit.getServer().getBanList(Type.NAME).getBanEntry(player.getName()).getReason();
 	}
 
-	/**
-	 * 
-	 * @author xize
-	 * @param returns true if the player is temp banned
-	 * @return boolean
-	 * 
-	 */
 	@Override
 	public boolean isTempBanned() {
 		if(Bukkit.getBanList(Type.NAME).isBanned(player.getName())) {
@@ -658,11 +450,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param bans a player tempory (Long time, String reason, String who)
-	 * @return boolean
-	 */
 	@Override
 	public void setTempbanned(Long time, String reason, String who) {
 		Date date = new Date(time);
@@ -670,31 +457,16 @@ public class xEssentialsPlayer implements XPlayer {
 		con.set("tempbanned.isBanned", true);
 	}
 
-	/**
-	 * @author xize
-	 * @param gets the tempory ban message
-	 * @return String
-	 */
 	@Override
 	public String getTempBanMessage() {
 		return Bukkit.getServer().getBanList(Type.NAME).getBanEntry(player.getName()).getReason();
 	}
 
-	/**
-	 * @author xize
-	 * @param unbans the player for both Tempbanned or PermBanned
-	 * @return void
-	 */
 	@Override
 	public void unban() {
 		Bukkit.getServer().getBanList(Type.NAME).pardon(player.getName());
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true whenever the player is banned before
-	 * @return boolean
-	 */
 	@Override
 	public boolean isBannedBefore() {
 		if(con.contains("banned.isBanned")) {
@@ -709,98 +481,46 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param gets the time remaining of the ban
-	 * @return Long
-	 */
 	@Override
 	public Long getTempbanRemaining() {
 		return Bukkit.getServer().getBanList(Type.NAME).getBanEntry(player.getName()).getExpiration().getTime();
 	}
 
-	/**
-	 * 
-	 * @author xize
-	 * @param get the Unique ID of this player
-	 * @return String
-	 */
 	@Override
 	public String getUniqueId() {
 		return player.getUniqueId().toString();
 	}
 
-	/**
-	 * 
-	 * @author xize
-	 * @param checks whenever fly is enabled for this player
-	 * @return boolean
-	 * 
-	 */
 	@Override
 	public boolean isFlying() {
 		return con.getBoolean("fly");
 	}
 
-	/**
-	 * @author xize
-	 * @param set the fly mode of the player
-	 * @return void
-	 */
 	@Override
-	public void setFlying(Boolean bol) {
+	public void setFlying(boolean bol) {
 		con.set("fly", bol);
 	}
 
-	/**
-	 * 
-	 * @author xize
-	 * @param checks whenever torch is enabled for this player
-	 * @return boolean
-	 * 
-	 */
 	@Override
 	public boolean isTorch() {
 		return con.getBoolean("torch");
 	}
 
-	/**
-	 * @author xize
-	 * @param set the torch mode to false or on
-	 * @return void
-	 */
 	@Override
-	public void setTorch(Boolean bol) {
+	public void setTorch(boolean bol) {
 		con.set("torch", bol);
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true whenever firefly is enabled otherwise false
-	 * @return boolean
-	 */
 	@Override
 	public boolean isFirefly() {
 		return con.getBoolean("firefly");
 	}
 
-	/**
-	 * @author xize
-	 * @param set firefly for this player
-	 * @return void
-	 */
 	@Override
-	public void setFirefly(Boolean bol) {
+	public void setFirefly(boolean bol) {
 		con.set("firefly", bol);
 	}
 
-	/**
-	 * 
-	 * @author xize
-	 * @param checks whenever the player has set his home
-	 * @return boolean
-	 * 
-	 */
 	@Override
 	public boolean hasHome() {
 		if(con.contains("homes.default")) {
@@ -809,11 +529,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true if the home name is valid within the String
-	 * @return boolean
-	 */
 	@Override
 	public boolean isValidHome(String home) {
 		if(con.contains("homes."+home)) {
@@ -822,13 +537,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * 
-	 * @author xize
-	 * @param gets all homes of this player!
-	 * @return List<Home>
-	 * 
-	 */
 	@Override
 	public List<Home> getAllHomes() {
 		List<Home> homes = new ArrayList<Home>();
@@ -841,35 +549,18 @@ public class xEssentialsPlayer implements XPlayer {
 		return homes;
 	}
 
-	/**
-	 * @author xize
-	 * @param homeName
-	 * @return Home
-	 * @throws NullPointerException
-	 * 
-	 */
 	@Override
 	public Home getHome(String homeName) {
 		Home home = new Home(con, homeName);
 		return home;
 	}
 
-	/**
-	 * @author xize
-	 * @param gets the fixed size of all the homes from this player
-	 * @return int
-	 */
 	@Override
 	public int getAmountOfHomes() {
 		//returns a fixed version for permissions;)
 		return (this.getAllHomes().size());
 	}
 
-	/**
-	 * @author xize
-	 * @param allows the player to set his home!, the key world default is the default home!
-	 * @return void
-	 */
 	@Override
 	public void setHome(String home) {
 		con.set("homes."+home.toLowerCase()+".x", player.getLocation().getX());
@@ -880,12 +571,6 @@ public class xEssentialsPlayer implements XPlayer {
 		con.set("homes."+home.toLowerCase()+".world", player.getWorld().getName());
 	}
 
-	/**
-	 * @author xize
-	 * @param remove the home
-	 * @param home
-	 * @return void
-	 */
 	@Override
 	public void removeHome(String home) {
 		con.set("homes."+home.toLowerCase(), null);
@@ -904,11 +589,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param vanish the current player for all others
-	 * @return void
-	 */
 	@Override
 	public void vanish() {
 		for(Player p : xEssentials.getOnlinePlayers()) {
@@ -920,11 +600,6 @@ public class xEssentialsPlayer implements XPlayer {
 		con.set("noPickUp", true);
 	}
 
-	/**
-	 * @author xize
-	 * @param unvanish the player for all others
-	 * @return void
-	 */
 	@Override
 	public void unvanish() {
 		for(Player p : xEssentials.getOnlinePlayers()) {
@@ -962,11 +637,6 @@ public class xEssentialsPlayer implements XPlayer {
 		con.set("noPickUp", false);
 	}
 
-	/**
-	 * @author xize
-	 * @param unvanish the player for all others
-	 * @return void
-	 */
 	@Override
 	public void unvanish(boolean sillenced) {
 		for(Player p : xEssentials.getOnlinePlayers()) {
@@ -983,11 +653,6 @@ public class xEssentialsPlayer implements XPlayer {
 		con.set("noPickUp", false);
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true whenever the player has vanish effects
-	 * @return Boolean
-	 */
 	@Override
 	public boolean hasVanishEffects() {
 		if(con.getBoolean("vanishEffects")) {
@@ -996,21 +661,11 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param sets the vanish effects of this player
-	 * @param bol - the boolean
-	 */
 	@Override
-	public void setVanishEffects(Boolean bol) {
+	public void setVanishEffects(boolean bol) {
 		con.set("vanishEffects", bol);
 	}
 
-	/**
-	 * @author xize
-	 * @param checks whenever the player has no pick up enabled this is for item drops and interaction for vanish
-	 * @return boolean
-	 */
 	@Override
 	public boolean isNoPickUpEnabled() {
 		if(con.contains("noPickUp")) {
@@ -1019,31 +674,16 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param sets the pickup state of this player only affects while vanished
-	 * @return void
-	 */
 	@Override
-	public void setNoPickUp(Boolean bol) {
+	public void setNoPickUp(boolean bol) {
 		con.set("noPickUp", bol);
 	}
 
-	/**
-	 * @author xize
-	 * @param unsets the pickup state of this player only affects while vanished
-	 * @return void
-	 */
 	@Override
 	public void unsetNoPickUp() {
 		con.set("noPickUp", false);
 	}
 
-	/**
-	 * @author xize
-	 * @param set the creative inventory in the config
-	 * @return void
-	 */
 	@Override
 	public void saveCreativeInventory() {
 		if(con.contains("inventory.creative")) {
@@ -1057,11 +697,6 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 	}
 
-	/**
-	 * @author xize
-	 * @param set the survival inventory in the config
-	 * @return void
-	 */
 	@Override
 	public void saveSurvivalInventory() {
 		if(con.contains("inventory.survival")) {
@@ -1075,11 +710,6 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 	}
 
-	/**
-	 * @author xize
-	 * @param checks whenever the player has a saved instance of the survival inventory
-	 * @return boolean
-	 */
 	@Override
 	public boolean hasSurvivalInventory() {
 		if(con.contains("inventory.survival")) {
@@ -1088,11 +718,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param checks whenever the player has a saved instance of the creative inventory
-	 * @return boolean
-	 */
 	@Override
 	public boolean hasCreativeInventory() {
 		if(con.contains("inventory.creative")) {
@@ -1101,11 +726,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param returns the survival inventory
-	 * @return ItemStack[]
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public ItemStack[] getSurvivalInventory() {
@@ -1119,11 +739,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return items;
 	}
 
-	/**
-	 * @author xize
-	 * @param returns the survival armor
-	 * @return ItemStack[]
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public ItemStack[] getSurvivalArmorInventory() {
@@ -1137,11 +752,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return items;
 	}
 
-	/**
-	 * @author xize
-	 * @param returns the creative inventory
-	 * @return ItemStack[]
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public ItemStack[] getCreativeInventory() {
@@ -1155,11 +765,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return items;
 	}
 
-	/**
-	 * @author xize
-	 * @param returns the creative armor
-	 * @return ItemStack[]
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public ItemStack[] getCreativeArmorInventory() {
@@ -1173,11 +778,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return items;
 	}
 
-	/**
-	 * @author xize
-	 * @param checks whenever the player has a offline inventory
-	 * @return boolean
-	 */
 	@Override
 	public boolean hasOfflineInventory() {
 		if(con.contains("offlineInventory.contents")) {
@@ -1186,11 +786,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param save the inventory for offline view
-	 * @return void
-	 */
 	@Override
 	public void saveOfflineInventory() {
 		if(hasOfflineInventory()) {
@@ -1199,22 +794,12 @@ public class xEssentialsPlayer implements XPlayer {
 		con.set("offlineInventory.contents", player.getInventory().getContents());
 	}
 
-	/**
-	 * @author xize
-	 * @param returns the online inventory
-	 * @return Inventory
-	 */
 	@Override
 	public Inventory getOnlineInventory() {
 		Inventory inv = player.getInventory();
 		return inv;
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true whenever the player has a modreq done message
-	 * @return boolean
-	 */
 	@Override
 	public boolean hasModreqDoneMessage() {
 		if(con.contains("modreq.done.message")) {
@@ -1223,31 +808,16 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param returns the modreq done message
-	 * @return String
-	 */
 	@Override
 	public String getModreqDoneMessage() {
 		return con.getString("modreq.done.message");
 	}
 
-	/**
-	 * @author xize
-	 * @param remove the modreq done message
-	 * @return void
-	 */
 	@Override
 	public void removeGetModregDoneMessage() {
 		con.set("modreq", null);
 	}
 
-	/**
-	 * @author xize
-	 * @param checks whenever this player has open modreqs
-	 * @return boolean
-	 */
 	@Override
 	public boolean hasModreqsOpen() {
 		if(con.contains("modreqs")) {
@@ -1256,11 +826,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param checks whenever a id is a valid ID
-	 * @return boolean
-	 */
 	@Override
 	public boolean isValidModreqId(int id) {
 		if(con.contains("modreqs."+"modreq"+id)) {
@@ -1269,23 +834,12 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param gets the Modreq object containing all data
-	 * @return Modreq
-	 */
 	@Override
 	public Modreq getModreq(int id) {
 		Modreq mod = new Modreq(con, id);
 		return mod;
 	}
 
-	/**
-	 * @author xize
-	 * @param removes a modreq
-	 * @return void
-	 * @throws NullPointerException when the node doesn't exist
-	 */
 	@Override
 	public void removeModreq(int id) {
 		if(isValidModreqId(id)) {
@@ -1298,11 +852,6 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 	}
 
-	/**
-	 * @author xize
-	 * @param returns a array of modreqs for this player
-	 * @return Modreq[]
-	 */
 	@Override
 	public Modreq[] getModreqs() {
 		List<Modreq> items = new ArrayList<Modreq>();
@@ -1318,11 +867,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return modreqs;
 	}
 
-	/**
-	 * @author xize
-	 * @param create a new modreq with a new ID
-	 * @return void
-	 */
 	@Override
 	public void createModreq(String message) {
 		int id = getModreqs().length;
@@ -1336,21 +880,11 @@ public class xEssentialsPlayer implements XPlayer {
 		con.set("modreqs."+"modreq"+id+".location.world", player.getWorld().getName());
 	}
 
-	/**
-	 * @author xize
-	 * @param returns the player
-	 * @return Player
-	 */
 	@Override
 	public Player getPlayer() {
 		return player;
 	}
 
-	/**
-	 * @author xize
-	 * @param returns the boolean whenever the inventory needs to be cleared on relog
-	 * @return boolean
-	 */
 	@Override
 	public boolean isInventoryClearanceOnRelog() {
 		if(con.contains("ClearInventory")) {
@@ -1359,11 +893,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param clears the inventory on relog
-	 * @return void
-	 */
 	@Override
 	public void ClearInventoryOnRelog() {
 		if(isInventoryClearanceOnRelog()) {
@@ -1372,11 +901,6 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 	}
 
-	/**
-	 * @author xize
-	 * @param get the alternate accounts of this player!
-	 * @return AlternateAccount
-	 */
 	@Override
 	public AlternateAccount getAlternateAccounts() {
 		if(accounts instanceof AlternateAccount) {
@@ -1387,11 +911,6 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 	}
 
-	/**
-	 * @author xize
-	 * @param check whenever the player has alternate accounts!
-	 * @return boolean
-	 */
 	@Override
 	public boolean hasAlternateAccounts() {
 		AlternateAccount alts = getAlternateAccounts();
@@ -1431,22 +950,11 @@ public class xEssentialsPlayer implements XPlayer {
 		return xEssentials.getManagers().getPlayerManager().getOfflinePlayer(con.getString("isCompass.follow"));
 	}
 
-	/**
-	 * @author xize
-	 * @param set the silence state of the player
-	 * @param Boolean
-	 * @return void
-	 */
 	@Override
-	public void setSilenced(Boolean bol) {
+	public void setSilenced(boolean bol) {
 		con.set("silenced", bol);
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true whenever the player has silenced the chat
-	 * @return Boolean
-	 */
 	@Override
 	public boolean isSilenced() {
 		if(con.contains("silenced")) {
@@ -1455,11 +963,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param add a player to this players ignore list, this means that this player ignores the chat by the called name.
-	 * @return void
-	 */
 	@Override
 	public void addIgnoredPlayer(String s) {
 		if(hasIgnoredPlayers()) {
@@ -1472,21 +975,11 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 	}
 
-	/**
-	 * @author xize
-	 * @param get a list of all player names which get ignored by this player
-	 * @return List<String>()
-	 */
 	@Override
 	public List<String> getIgnoredPlayers() {
 		return con.getStringList("IgnoredPlayers");
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true whenever the player ignores a player
-	 * @return Boolean
-	 */
 	@Override
 	public boolean hasIgnoredPlayers() {
 		if(con.contains("IgnoredPlayers")) {
@@ -1495,11 +988,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param remove a player from the ignore list
-	 * @return void
-	 */
 	@Override
 	public void removeIgnoredPlayer(String s) {
 		List<String> list = new ArrayList<String>(getIgnoredPlayers());
@@ -1511,11 +999,6 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true whenever the player is freezed
-	 * @return Boolean
-	 */
 	@Override
 	public boolean isFreezed() {
 		if(con.contains("isFreezed")) {
@@ -1524,21 +1007,11 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param freezes the player or unfreeze the player
-	 * @param void
-	 */
 	@Override
-	public void setFreezed(Boolean bol) {
+	public void setFreezed(boolean bol) {
 		con.set("isFreezed", bol);
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true whenever a player has trollmode enabled!
-	 * @return Boolean
-	 */
 	@Override
 	public boolean isTrollMode() {
 		if(con.contains("isTrollmode")) {
@@ -1547,21 +1020,11 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param enabled trollmode or disable trollmode
-	 * @return void
-	 */
 	@Override
-	public void setTrollMode(Boolean bol) {
+	public void setTrollMode(boolean bol) {
 		con.set("isTrollmode", bol);
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true if the player has command restrictions
-	 * @return Boolean
-	 */
 	@Override
 	public boolean hasCommandRestrictions() {
 		if(con.contains("command-restrictions")) {
@@ -1574,13 +1037,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param command - the command+args which needs to be disabled
-	 * @param reason - the reason why the command is blocked for the player
-	 * @param taskCommand - an aditional task: command+args, if null we ignore this.
-	 * @return void
-	 */
 	@Override
 	public void setCommandRestriction(String command, String reason, String taskCommand) {
 		if(taskCommand == null) {
@@ -1594,11 +1050,6 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 	}
 
-	/**
-	 * @author xize
-	 * @param returns a list of all command restrictions for this player
-	 * @return List<CommandRestriction>();
-	 */
 	@Override
 	public List<RestrictedCommand> getCommandRestrictions() {
 		List<String> commands = new ArrayList<String>(con.getStringList("command-restrictions"));
@@ -1610,11 +1061,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return restricts;
 	}
 
-	/**
-	 * @author xize
-	 * @param check if the player has a restriction inside the list, make sure to use hasCommandRestrictions() first.
-	 * @return Boolean
-	 */
 	@Override
 	public boolean hasContainedRestriction(String command) {
 		for(RestrictedCommand restriction : getCommandRestrictions()) {
@@ -1625,11 +1071,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param remove the command restriction
-	 * @return void
-	 */
 	@Override
 	public void removeCommandRestriction(RestrictedCommand cmd) {
 		List<String> list = new ArrayList<String>(con.getStringList("command-restrictions"));
@@ -1637,66 +1078,36 @@ public class xEssentialsPlayer implements XPlayer {
 		con.set("command-restrictions", list);
 	}
 
-	/**
-	 * @author xize
-	 * @param set the kit cooldown
-	 * @return void
-	 */
 	@Override
 	public void setKitCooldown(Long cooldown) {
 		con.set("kitCooldown", cooldown);
 	}
 
-	/**
-	 * @author xize
-	 * @param remove the kit cooldown
-	 * @return void
-	 */
 	@Override
 	public void removeKitCoolDown() {
 		con.set("kitCooldown", null);
 	}
 
-	/**
-	 * @author xize
-	 * @param return the saved cooldown of this player
-	 * @return Long
-	 */
 	@Override
 	public Long getKitCooldown() {
 		return con.getLong("kitCooldown");
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true whenever the player has the cooldown else false
-	 * @return Boolean
-	 */
 	@Override
-	public Boolean hasKitCooldown() {
+	public boolean hasKitCooldown() {
 		if(con.contains("kitCooldown")) {
 			return true;
 		}
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param returns the total amount of Essentials money of this player
-	 * @return Double
-	 */
 	@Override
-	public Double getTotalEssentialsMoney() {
+	public double getMoney() {
 		return con.getDouble("money");
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true if the player has money if its 0.0 or the config entry doesn't exist it is false
-	 * @return Boolean
-	 */
 	@Override
-	public Boolean hasEssentialsMoney() {
+	public boolean hasMoney() {
 		if(con.contains("money")) {
 			if(con.getDouble("money") > 0.0) {
 				return true;
@@ -1705,77 +1116,65 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param price - the price the player is gonna be to pay
-	 * @param toPayTo - the retriever
-	 * @return Boolean - if the player has no money it will be false.
-	 */
 	@Override
-	public Boolean payEssentialsMoney(Double price, XOfflinePlayer toPayTo) {
-		Double money = (getTotalEssentialsMoney()-price);
+	public boolean payMoney(double price, XOfflinePlayer toPayTo) {
+		Double money = (getMoney()-price);
+		if(money > 0.0) {
+			con.set("money", money);
+			toPayTo.depositMoney(price);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean payMoney(double price, XPlayer toPayTo) {
+		Double money = (getMoney()-price);
 		if(money >= 0.0) {
 			con.set("money", money);
-			toPayTo.addEssentialsMoney(price);
+			toPayTo.depositMoney(price);
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean withdrawMoney(double price) {
+		if((getMoney()-price) > 0.0) {
+			con.set("money", (getMoney()-price));
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean payMoney(double money) {
+		Double moneya = (getMoney()-money);
+		if(moneya >= 0.0) {
+			con.set("money", moneya);
 			return true;
 		}
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param price - the price the player is gonna be to pay
-	 * @param toPayTo - the retriever
-	 * @return Boolean - if the player has no money it will be false.
-	 */
 	@Override
-	public Boolean payEssentialsMoney(Double price, XPlayer toPayTo) {
-		Double money = (getTotalEssentialsMoney()-price);
-		if(money >= 0.0) {
-			con.set("money", money);
-			toPayTo.addEssentialsMoney(price);
+	public void depositMoney(double price) {
+		con.set("money", getMoney()+price);
+	}
+
+	@Override
+	public boolean hasEnoughMoney(double price) {
+		if(getMoney() >= price) {
 			return true;
 		}
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param this will add money to the players bank
-	 */
-	@Override
-	public void addEssentialsMoney(Double price) {
-		con.set("money", getTotalEssentialsMoney()+price);
-	}
-
-	/**
-	 * @author xize
-	 * @param price - the price
-	 * @return Boolean
-	 */
-	@Override
-	public boolean hasPlayerEnoughMoneyFromPrice(Double price) {
-		if(getTotalEssentialsMoney() >= price) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @author xize
-	 * @param clear the money of the player
-	 * @return void
-	 */
 	@Override
 	public void clearMoney() {
 		con.set("money", null);
 	}
 
-	/**
-	 * @author xize
-	 * @param set the old name in the history
-	 * @param oldName - old name
-	 */
 	@Override
 	public void setNameHistory(String oldName) {
 		List<String> list = con.getStringList("name-history");
@@ -1786,31 +1185,16 @@ public class xEssentialsPlayer implements XPlayer {
 		con.set("name-history", list);
 	}
 
-	/**
-	 * @author xize
-	 * @param returns atleast 8 results of this players name history
-	 * @return List<String>()
-	 */
 	@Override
 	public List<String> getNameHistory() {
 		return con.getStringList("name-history");
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true if the player has name history
-	 * @return Boolean
-	 */
 	@Override
 	public boolean hasNameHistory() {
 		return !con.getStringList("name-history").isEmpty();
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true whenever the player has a saved inventory
-	 * @return Boolean
-	 */
 	@Override
 	public boolean hasSavedInventory() {
 		if(con.contains("orginalinv")) {
@@ -1819,20 +1203,12 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param saves the inventory of the player, unlike the saveSurvivalInventory, this will be used for minigames.
-	 */
 	@Override
 	public void saveInventory() {
 		con.set("orginalinv.items", player.getInventory().getContents());
 		con.set("orginalinv.armor", player.getInventory().getArmorContents());
 	}
 
-	/**
-	 * @author xize
-	 * @param loads the inventory of the player, unlike the saveSurvivalInventory, this will be used for minigames.
-	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public void loadInventory() {
@@ -1855,10 +1231,6 @@ public class xEssentialsPlayer implements XPlayer {
 		con.set("orginalinv", null);
 	}
 
-	/**
-	 * @author xize
-	 * @param bol - when the boolean is true enable procs, else disable procs
-	 */
 	@Override
 	public void setProc(boolean bol) {
 		con.set("proc.enable", bol);
@@ -1881,11 +1253,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return (con.getString("customname") == null ? player.getName() : con.getString("customname"));
 	}
 
-	/**
-	 * @author xize
-	 * @param return true when the player has procs
-	 * @return Boolean
-	 */
 	@Override
 	public boolean hasProc() {
 		if(con.contains("proc.enable")) {
@@ -1894,20 +1261,11 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param bol - sets the anti knockback of this player.
-	 */
 	@Override
 	public void setKnock(boolean bol) {
 		con.set("knock", bol);
 	}
 
-	/**
-	 * @author xize
-	 * @param returns the state of the anti knockback.
-	 * @return Boolean
-	 */
 	@Override
 	public boolean isKnock() {
 		if(con.contains("knock")) {
@@ -1916,20 +1274,11 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param sets the player in a chair.
-	 */
 	@Override
-	public void setInChair(Boolean bol) {
+	public void setInChair(boolean bol) {
 		con.set("chair", bol);
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true if the player sits in a chair
-	 * @return Boolean
-	 */
 	@Override
 	public boolean isInChair() {
 		if(con.contains("chair")) {
@@ -1938,21 +1287,11 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param toggles double jump
-	 * @param bol - true when enabled, false when disabled.
-	 */
 	@Override
-	public void setDoubleJump(Boolean bol) {
+	public void setDoubleJump(boolean bol) {
 		con.set("doublejump", bol);
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true if the player has double jump else false
-	 * @return Boolean
-	 */
 	@Override
 	public boolean hasDoubleJump() {
 		if(con.contains("doublejump")) {
@@ -1961,11 +1300,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true if the player has spectate on
-	 * @return Boolean
-	 */
 	@Override
 	public boolean isSpectate() {
 		if(spectate instanceof BukkitTask) {
@@ -1974,10 +1308,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param stops the spectate
-	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public void stopSpectate() {
@@ -1997,11 +1327,6 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 	}
 
-	/**
-	 * @author xize
-	 * @param spectates a player.
-	 * @param p
-	 */
 	@Override
 	public void spectate(final Player pa) {
 		con.set("spectate-inventory", player.getInventory().getContents());
@@ -2023,11 +1348,6 @@ public class xEssentialsPlayer implements XPlayer {
 		}.runTaskTimer(xEssentials.getPlugin(), 0L, 1L);
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true when edit mode is enabled
-	 * @return Boolean
-	 */
 	@Override
 	public boolean isEditSignEnabled() {
 		if(con.contains("signedit")) {
@@ -2036,20 +1356,11 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param bol - sets the mode whenever a player edits a sign
-	 */
 	@Override
-	public void setEditSign(Boolean bol) {
+	public void setEditSign(boolean bol) {
 		con.set("signedit", bol);
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true when player is in drunk mode
-	 * @return Boolean
-	 */
 	@Override
 	public boolean isDrunk() {
 		if(con.contains("drunk")) {
@@ -2058,20 +1369,11 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param bol - sets the drunk state
-	 */
 	@Override
-	public void setDrunk(Boolean bol) {
+	public void setDrunk(boolean bol) {
 		con.set("drunk", bol);
 	}
 
-	/**
-	 * @author xize
-	 * @param message - converts a normal message in a derpish message :)
-	 * @return String
-	 */
 	@Override
 	public String getDrunkMessageFrom(String message, boolean bol) {
 		boolean posneg = bol;
@@ -2106,16 +1408,14 @@ public class xEssentialsPlayer implements XPlayer {
 		return newmsg;
 	}
 
-	@Override
-	public boolean isSpace(char chr) {
+	private boolean isSpace(char chr) {
 		switch(chr) {
 		case ' ' : return true;
 		default : return false;
 		}
 	}
 
-	@Override
-	public boolean isLitteral(char chr) {
+	private boolean isLitteral(char chr) {
 		switch(chr) {
 		case 'a': return true; 
 		case 'e': return true;
@@ -2131,11 +1431,6 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true if floor mode is true
-	 * @return boolean
-	 */
 	@Override
 	public boolean isFloorMode() {
 		if(con.contains("floormode.enable")) {
@@ -2144,32 +1439,17 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param bol - when true build mode is activated, else its not.
-	 * @param range - the range of the floor mode
-	 */
 	@Override
 	public void setFloorMode(boolean bol, int range) {
 		con.set("floormode.enable", bol);
 		con.set("floormode.range", range);
 	}
 
-	/**
-	 * @author xize
-	 * @param returns the range of the floor
-	 * @return int
-	 */
 	@Override
 	public int getFloorModeRange() {
 		return con.getInt("floormode.range");
 	}
 
-	/**
-	 * @author xize
-	 * @param returns true if the wall mode is activated
-	 * @return
-	 */
 	@Override
 	public boolean isWallMode() {
 		if(con.contains("wallmode.enable")) {
@@ -2178,22 +1458,13 @@ public class xEssentialsPlayer implements XPlayer {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param bol - activates the wall mode
-	 * @param range - the range how heigh the wall should be.
-	 */
 	@Override
 	public void setWallMode(boolean bol, int range) {
 		con.set("wallmode.enable", bol);
 		con.set("wallmode.range", range);
 	}
 
-	/**
-	 * @author xize
-	 * @param returns the wall size
-	 * @return int
-	 */
+
 	@Override
 	public int getWallModeRange() {
 		return con.getInt("wallmode.range");
@@ -2283,20 +1554,6 @@ public class xEssentialsPlayer implements XPlayer {
 	}
 
 	@Override
-	public boolean payEssentialsMoney(double money) {
-		Double moneya = (getTotalEssentialsMoney()-money);
-		if(moneya >= 0.0) {
-			con.set("money", moneya);
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @author xize
-	 * @param level - the level of the relogs
-	 */
-	@Override
 	public void setPwnageLevel(int level) {
 		con.set("pwnage-level", level);
 	}
@@ -2306,11 +1563,6 @@ public class xEssentialsPlayer implements XPlayer {
 		return (con.contains("pwnage-level") || getPwnageLevel() > 0 ? true : false);
 	}
 
-	/**
-	 * @author xize
-	 * @param returns the current level.
-	 * @return int
-	 */
 	@Override
 	public int getPwnageLevel() {
 		return con.getInt("pwnage-level");
@@ -2340,11 +1592,6 @@ public class xEssentialsPlayer implements XPlayer {
 		this.pwnagetask = task;
 	}
 
-	/**
-	 * @author xize
-	 * @param gets updated at every call so we know that the configuration stored in the memory is still recent with the flat saved file!
-	 * @return void
-	 */
 	@Override
 	public void save() {
 		try {
@@ -2383,7 +1630,6 @@ public class xEssentialsPlayer implements XPlayer {
 		if(obj.getClass() == this.getClass()) {
 			if(obj instanceof xEssentialsPlayer) {
 				xEssentialsPlayer xp = (xEssentialsPlayer) obj;
-				//make sure name and uuid matches, now these objects will be detected in HashMaps even though a field may differentates see older commit.
 				return xp.getUser().equalsIgnoreCase(this.getUser()) && xp.getUniqueId().equals(this.getUniqueId());
 			}
 		}

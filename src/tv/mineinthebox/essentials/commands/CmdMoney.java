@@ -67,7 +67,7 @@ public class CmdMoney {
 					if(sender instanceof Player) {
 						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
 						sender.sendMessage(ChatColor.GOLD + ".oO___[your money amount]___Oo.");
-						sender.sendMessage(ChatColor.GRAY + "your current amount is: " + ChatColor.GREEN + xp.getTotalEssentialsMoney() + Configuration.getEconomyConfig().getCurency());
+						sender.sendMessage(ChatColor.GRAY + "your current amount is: " + ChatColor.GREEN + xp.getMoney() + Configuration.getEconomyConfig().getCurency());
 					} else {
 						Warnings.getWarnings(sender).consoleMessage();
 					}
@@ -88,8 +88,8 @@ public class CmdMoney {
 					} else if(args[0].equalsIgnoreCase("top")) {
 						SortedMap<Double, String> map = new TreeMap<Double, String>().descendingMap();
 						for(XOfflinePlayer off : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
-							if(off.hasEssentialsMoney()) {
-								map.put(off.getTotalEssentialsMoney(), off.getUser());
+							if(off.hasMoney()) {
+								map.put(off.getMoney(), off.getUser());
 							}
 						}
 						Iterator<Entry<Double, String>> it = map.entrySet().iterator();
@@ -146,8 +146,8 @@ public class CmdMoney {
 									XPlayer xpp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
 									try {
 										Double money = Double.parseDouble(args[2]);
-										if(xp.hasPlayerEnoughMoneyFromPrice(money)) {
-											xp.payEssentialsMoney(money, xpp);
+										if(xp.hasEnoughMoney(money)) {
+											xp.payMoney(money, xpp);
 											sender.sendMessage(ChatColor.GREEN + "you have successfully paid " + xpp.getUser() + " " + money + Configuration.getEconomyConfig().getCurency());
 											xpp.getPlayer().sendMessage(ChatColor.GREEN + sender.getName() + " has paid " + money + Configuration.getEconomyConfig().getCurency() + " to you!");
 											Bukkit.getPluginManager().callEvent(new PlayerTransactionEvent(xp.getPlayer(), money, xpp.getUser()));
@@ -161,8 +161,8 @@ public class CmdMoney {
 									XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 									try {
 										Double money = Double.parseDouble(args[2]);
-										if(xp.hasPlayerEnoughMoneyFromPrice(money)) {
-											xp.payEssentialsMoney(money, off);
+										if(xp.hasEnoughMoney(money)) {
+											xp.payMoney(money, off);
 											sender.sendMessage(ChatColor.GREEN + "you have successfully paid " + off.getUser() + " " + money + Configuration.getEconomyConfig().getCurency());
 											Bukkit.getPluginManager().callEvent(new PlayerTransactionEvent(xp.getPlayer(), money, off.getUser()));
 										} else {
@@ -185,7 +185,7 @@ public class CmdMoney {
 									XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
 									try {
 										Double money = Double.parseDouble(args[2]);
-										xp.addEssentialsMoney(money);
+										xp.depositMoney(money);
 										sender.sendMessage(ChatColor.GREEN + "you successfully gave " + xp.getUser() + " " + money + Configuration.getEconomyConfig().getCurency());
 										xp.getPlayer().sendMessage(ChatColor.GREEN + sender.getName() + " has given you " + money + Configuration.getEconomyConfig().getCurency());
 									} catch(NumberFormatException e) {
@@ -195,7 +195,7 @@ public class CmdMoney {
 									XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 									try {
 										Double money = Double.parseDouble(args[2]);
-										off.addEssentialsMoney(money);
+										off.depositMoney(money);
 										sender.sendMessage(ChatColor.GREEN + "you successfully gave " + off.getUser() + " " + money + Configuration.getEconomyConfig().getCurency());
 									} catch(NumberFormatException e) {
 										sender.sendMessage(ChatColor.RED + "invalid money usage on the third argument!");
@@ -215,7 +215,7 @@ public class CmdMoney {
 									try {
 										Double money = Double.parseDouble(args[2]);
 										xp.clearMoney();
-										xp.addEssentialsMoney(money);
+										xp.depositMoney(money);
 										sender.sendMessage(ChatColor.GREEN + "you successfully reset the balance of player " + xp.getUser() + " to " + money + Configuration.getEconomyConfig().getCurency());
 										xp.getPlayer().sendMessage(ChatColor.GREEN + sender.getName() + " has reset your bank balance to " + money + Configuration.getEconomyConfig().getCurency());
 									} catch(NumberFormatException e) {
@@ -226,7 +226,7 @@ public class CmdMoney {
 									try {
 										Double money = Double.parseDouble(args[2]);
 										off.clearMoney();
-										off.addEssentialsMoney(money);
+										off.depositMoney(money);
 										sender.sendMessage(ChatColor.GREEN + "you successfully reset the balance of player " + off.getUser() + " to " + money + Configuration.getEconomyConfig().getCurency());
 									} catch(NumberFormatException e) {
 										sender.sendMessage(ChatColor.RED + "invalid money usage on the third argument!");
@@ -245,8 +245,8 @@ public class CmdMoney {
 									XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
 									try {
 										Double money = Double.parseDouble(args[2]);
-										if(xp.hasPlayerEnoughMoneyFromPrice(money)) {
-											xp.payEssentialsMoney(money);
+										if(xp.hasEnoughMoney(money)) {
+											xp.payMoney(money);
 											sender.sendMessage(ChatColor.GREEN + "you successfully withdrawed " + money + " from " + xp.getUser() + " his bank!");
 										} else {
 											sender.sendMessage(ChatColor.RED + "you cannot withdraw more money which the player doesn't have!");
@@ -258,8 +258,8 @@ public class CmdMoney {
 									XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 									try {
 										Double money = Double.parseDouble(args[2]);
-										if(off.hasPlayerEnoughMoneyFromPrice(money)) {
-											off.payEssentialsMoney(money);
+										if(off.hasEnoughMoney(money)) {
+											off.payMoney(money);
 											sender.sendMessage(ChatColor.GREEN + "you successfully withdrawed " + money + " from " + off.getUser() + " his bank!");
 										} else {
 											sender.sendMessage(ChatColor.RED + "you cannot withdraw more money which the player doesn't have!");

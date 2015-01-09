@@ -17,7 +17,7 @@ public interface XOfflinePlayer {
 
 	public boolean isGreyListed();
 
-	public void setGreyListed(Boolean bol);
+	public void setGreyListed(boolean bol);
 
 	/**
 	 * @author xize
@@ -210,8 +210,6 @@ public interface XOfflinePlayer {
 	 * @return boolean
 	 */
 	public boolean hasOfflineInventory();
-	
-	public boolean payEssentialsMoney(double money);
 
 	/**
 	 * @author xize
@@ -288,7 +286,7 @@ public interface XOfflinePlayer {
 	/**
 	 * @author xize
 	 * @param returns true if the player has command restrictions
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean hasCommandRestrictions();
 
@@ -311,7 +309,7 @@ public interface XOfflinePlayer {
 	/**
 	 * @author xize
 	 * @param check if the player has a restriction inside the list, make sure to use hasCommandRestrictions() first.
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean hasContainedRestriction(String command);
 
@@ -325,29 +323,58 @@ public interface XOfflinePlayer {
 	/**
 	 * @author xize
 	 * @param returns the total amount of Essentials money of this player
-	 * @return Double
+	 * @return double
 	 */
-	public Double getTotalEssentialsMoney();
+	public double getMoney();
 
 	/**
 	 * @author xize
 	 * @param returns true if the player has money if its 0.0 or the config entry doesn't exist it is false
-	 * @return Boolean
+	 * @return boolean
 	 */
-	public Boolean hasEssentialsMoney();
+	public boolean hasMoney();
+	
+	/**
+	 * @author xize
+	 * @param price - the price the player is gonna be to pay
+	 * @param toPayTo - the retriever
+	 * @return boolean - if the player has no money it will be false.
+	 */
+	public boolean payMoney(double price, XOfflinePlayer toPayTo);
+	
+	/**
+	 * @author xize
+	 * @param price - the price the player is gonna be to pay
+	 * @param toPayTo - the retriever
+	 * @return boolean - if the player has no money it will be false.
+	 */
+	public boolean payMoney(double price, XPlayer toPayTo);
 
 	/**
 	 * @author xize
-	 * @param this will add money to the players bank
+	 * @param price - the price which gets withdrawed
+	 * @return boolean
 	 */
-	public void addEssentialsMoney(Double price);
+	public boolean payMoney(double price);
+	
+	/**
+	 * @author xize
+	 * @param price - this will add money to the players bank
+	 */
+	public void depositMoney(double price);
+	
+	/**
+	 * @author xize
+	 * @param price - to be removed
+	 */
+	public boolean withdrawMoney(double price);
 	
 	/**
 	 * @author xize
 	 * @param price - the price
-	 * @return Boolean
+	 * @return boolean
 	 */
-	public boolean hasPlayerEnoughMoneyFromPrice(Double price);
+	public boolean hasEnoughMoney(double price);
 
 	/**
 	 * @author xize
@@ -366,14 +393,14 @@ public interface XOfflinePlayer {
 	/**
 	 * @author xize
 	 * @param returns true if the player has name history
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean hasNameHistory();
 	
 	/**
 	 * @author xize
 	 * @param returns true whenever the player has a saved inventory
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean hasSavedInventory();
 	
@@ -385,10 +412,25 @@ public interface XOfflinePlayer {
 	 */
 	public XPlayer getEssentialsPlayer();
 	
+	/**
+	 * @author xize
+	 * @param loc - checks if the location is a shop sign.
+	 * @return boolean
+	 */
 	public boolean isShop(Location loc);
 	
+	/**
+	 * @author xize
+	 * @param loc - returns the shop by location
+	 * @return Shop
+	 */
 	public Shop getShop(Location loc);
 	
+	/**
+	 * @author xize
+	 * @param removes the shop by location
+	 * @param loc - the location of the shop
+	 */
 	public void removeShop(Location loc);
 	
 	/**
