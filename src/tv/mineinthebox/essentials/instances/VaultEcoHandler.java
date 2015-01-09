@@ -236,6 +236,9 @@ public class VaultEcoHandler implements Economy, Listener {
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean createPlayerAccount(String playerName) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer("town-"+playerName)) {
+			return false;
+		}
 		OfflinePlayer off = Bukkit.getOfflinePlayer(playerName);
 		XOfflinePlayer a = new xEssentialsOfflinePlayer(off);
 		return (a instanceof XOfflinePlayer);
@@ -244,6 +247,9 @@ public class VaultEcoHandler implements Economy, Listener {
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean createPlayerAccount(String playerName, String worldName) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer("town-"+playerName)) {
+			return false;
+		}
 		OfflinePlayer off = Bukkit.getOfflinePlayer(playerName);
 		XOfflinePlayer a = new xEssentialsOfflinePlayer(off);
 		return (a instanceof XOfflinePlayer);
