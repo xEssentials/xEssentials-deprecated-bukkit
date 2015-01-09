@@ -6,6 +6,7 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.interfaces.XPlayer;
 import tv.mineinthebox.essentials.minigames.MinigameArena;
 import tv.mineinthebox.essentials.minigames.MinigameType;
 
@@ -17,11 +18,11 @@ public class MinigameQuitEvent implements Listener {
 			MinigameType type = (MinigameType)e.getPlayer().getMetadata("gameType").get(0).value();
 			String arenaname = e.getPlayer().getMetadata("game").get(0).asString();
 			MinigameArena arena = xEssentials.getManagers().getMinigameManager().getArenaByName(type, arenaname);
-			arena.reset();
-			e.getPlayer().removeMetadata("gameType", xEssentials.getPlugin());
-			e.getPlayer().removeMetadata("game", xEssentials.getPlugin());
-			if(e.getPlayer().hasMetadata("gameScore")) {
-				e.getPlayer().removeMetadata("gameScore", xEssentials.getPlugin());
+			if(arena.isTeamable()) {
+				arena.reset();
+			} else {
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+				arena.removePlayer(xp);
 			}
 		}
 	}
@@ -32,11 +33,11 @@ public class MinigameQuitEvent implements Listener {
 			MinigameType type = (MinigameType)e.getPlayer().getMetadata("gameType").get(0).value();
 			String arenaname = e.getPlayer().getMetadata("game").get(0).asString();
 			MinigameArena arena = xEssentials.getManagers().getMinigameManager().getArenaByName(type, arenaname);
-			arena.reset();
-			e.getPlayer().removeMetadata("gameType", xEssentials.getPlugin());
-			e.getPlayer().removeMetadata("game", xEssentials.getPlugin());
-			if(e.getPlayer().hasMetadata("gameScore")) {
-				e.getPlayer().removeMetadata("gameScore", xEssentials.getPlugin());
+			if(arena.isTeamable()) {
+				arena.reset();
+			} else {
+				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+				arena.removePlayer(xp);
 			}
 		}
 	}

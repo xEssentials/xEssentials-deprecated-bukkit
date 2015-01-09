@@ -361,5 +361,10 @@ public class TennisArena implements MinigameArena {
 		xp.getPlayer().setMetadata("game", new FixedMetadataValue(xEssentials.getPlugin(), getName()));
 		xp.getPlayer().setMetadata("gameScore", new FixedMetadataValue(xEssentials.getPlugin(), 0));
 	}
+	
+	@Override
+	public boolean isTeamable() {
+		return true;
+	}
 
 }
