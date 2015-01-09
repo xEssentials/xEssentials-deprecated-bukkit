@@ -17,6 +17,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -82,6 +83,7 @@ public class FootballArena implements MinigameArena {
 	public void addPlayer(XPlayer xp) {
 		if(!blueteam.contains(xp) && !redteam.contains(xp) && !isFull()) {
 			if(redteam.size() < blueteam.size()) {
+				addMeta(xp);
 				redteam.add(xp);
 				xp.saveInventory();
 				xp.getPlayer().teleport(getRedTeamSpawn());
@@ -93,6 +95,7 @@ public class FootballArena implements MinigameArena {
 				xp.getPlayer().getInventory().setBoots(redgear.getBoots());
 				Bukkit.broadcastMessage(ChatColor.GRAY + xp.getUser() + " has joined the football arena " + getName() + " in team red (" + (redteam.size()+blueteam.size()) + "/" + this.getMaxPlayersAllowed()+")");
 			} else if(blueteam.size() < redteam.size()) {
+				addMeta(xp);
 				blueteam.add(xp);
 				xp.saveInventory();
 				xp.getPlayer().teleport(getBlueTeamSpawn());
@@ -104,6 +107,7 @@ public class FootballArena implements MinigameArena {
 				xp.getPlayer().getInventory().setBoots(bluegear.getBoots());
 				Bukkit.broadcastMessage(ChatColor.GRAY + xp.getUser() + " has joined the football arena " + getName() + " in team blue (" + (redteam.size()+blueteam.size()) + "/" + this.getMaxPlayersAllowed()+")");
 			} else if(redteam.size() == blueteam.size()) {
+				addMeta(xp);
 				redteam.add(xp);
 				xp.saveInventory();
 				xp.getPlayer().teleport(getRedTeamSpawn());
@@ -115,6 +119,11 @@ public class FootballArena implements MinigameArena {
 				xp.getPlayer().getInventory().setBoots(redgear.getBoots());
 				Bukkit.broadcastMessage(ChatColor.GRAY + xp.getUser() + " has joined the football arena " + getName() + " in team red (" + (redteam.size()+blueteam.size()) + "/" + this.getMaxPlayersAllowed()+")");
 			}
+			startSchedule();
+		}
+	}
+
+		private void startSchedule() {
 			if(isFull()) {
 				new BukkitRunnable() {
 
@@ -146,7 +155,6 @@ public class FootballArena implements MinigameArena {
 				}.runTaskTimer(xEssentials.getPlugin(), 5L, 10L);
 			}
 		}
-	}
 
 	public Location getDefaultBallLocation() {
 		World w = Bukkit.getWorld(con.getString("game.ball.world"));
@@ -304,12 +312,12 @@ public class FootballArena implements MinigameArena {
 	@Override
 	public void removePlayer(XPlayer xp) {
 		if(blueteam.contains(xp)) {
-			xp.getPlayer().removeMetadata("gameType", xEssentials.getPlugin());
-			xp.getPlayer().removeMetadata("game", xEssentials.getPlugin());
+			removeMeta(xp);
 			xp.loadInventory();
 			blueteam.remove(xp);
 			xp.getPlayer().chat("/spawn");
 		} else if(redteam.contains(xp)) {
+			removeMeta(xp);
 			xp.getPlayer().removeMetadata("gameType", xEssentials.getPlugin());
 			xp.getPlayer().removeMetadata("game", xEssentials.getPlugin());
 			xp.loadInventory();
@@ -352,5 +360,19 @@ public class FootballArena implements MinigameArena {
 		for(XPlayer xp : getPlayers()) {
 			xp.getPlayer().sendMessage(message);
 		}
+	}
+
+	@Override
+	public void removeMeta(XPlayer xp) {
+		if(xp.getPlayer().hasMetadata("gameType") && xp.getPlayer().hasMetadata("game")) {
+			xp.getPlayer().removeMetadata("gameType", xEssentials.getPlugin());
+			xp.getPlayer().removeMetadata("game", xEssentials.getPlugin());
+		}
+	}
+
+	@Override
+	public void addMeta(XPlayer xp) {
+		xp.getPlayer().setMetadata("gameType", new FixedMetadataValue(xEssentials.getPlugin(), getType()));
+		xp.getPlayer().setMetadata("game", new FixedMetadataValue(xEssentials.getPlugin(), getName()));
 	}
 }

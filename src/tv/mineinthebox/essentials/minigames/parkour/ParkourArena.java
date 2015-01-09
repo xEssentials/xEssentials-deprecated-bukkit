@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.hook.Hooks;
@@ -106,6 +107,7 @@ public class ParkourArena implements MinigameArena {
 
 	@Override
 	public void addPlayer(XPlayer xp) {
+		addMeta(xp);
 		xp.saveInventory();
 		xp.getPlayer().getInventory().setArmorContents(null);
 		xp.getPlayer().getInventory().clear();
@@ -115,6 +117,7 @@ public class ParkourArena implements MinigameArena {
 
 	@Override
 	public void removePlayer(XPlayer xp) {
+		removeMeta(xp);
 		players.remove(xp);
 		xp.loadInventory();
 		xp.getPlayer().chat("/spawn");
@@ -150,6 +153,20 @@ public class ParkourArena implements MinigameArena {
 	@Override
 	public double getReward() {
 		return con.getDouble("reward");
+	}
+
+	@Override
+	public void removeMeta(XPlayer xp) {
+		if(xp.getPlayer().hasMetadata("gameType") && xp.getPlayer().hasMetadata("game")) {
+			xp.getPlayer().removeMetadata("gameType", xEssentials.getPlugin());
+			xp.getPlayer().removeMetadata("game", xEssentials.getPlugin());
+		}
+	}
+
+	@Override
+	public void addMeta(XPlayer xp) {
+		xp.getPlayer().setMetadata("gameType", new FixedMetadataValue(xEssentials.getPlugin(), getType()));
+		xp.getPlayer().setMetadata("game", new FixedMetadataValue(xEssentials.getPlugin(), getName()));
 	}
 
 }

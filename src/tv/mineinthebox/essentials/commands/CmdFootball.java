@@ -4,7 +4,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.metadata.FixedMetadataValue;
 
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.Warnings;
@@ -199,8 +198,6 @@ public class CmdFootball {
 										sender.sendMessage(ChatColor.RED + "you are already inside a minigame!");
 										return false;
 									}
-									p.setMetadata("gameType", new FixedMetadataValue(xEssentials.getPlugin(), MinigameType.FOOT_BALL));
-									p.setMetadata("game", new FixedMetadataValue(xEssentials.getPlugin(), arena.getName()));
 									arena.addPlayer(xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName()));
 								} else {
 									sender.sendMessage(ChatColor.RED + "the arena is full!");

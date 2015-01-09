@@ -15,6 +15,7 @@ import org.bukkit.entity.Chicken;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -274,20 +275,12 @@ public class TennisArena implements MinigameArena {
 	@Override
 	public void removePlayer(XPlayer xp) {
 		if(p1.equals(xp)) {
-			p1.getPlayer().removeMetadata("gameType", xEssentials.getPlugin());
-			p1.getPlayer().removeMetadata("game", xEssentials.getPlugin());
-			if(p1.getPlayer().hasMetadata("gameScore")) {
-				p1.getPlayer().removeMetadata("gameScore", xEssentials.getPlugin());
-			}
+			removeMeta(p1);
 			p1.loadInventory();
 			p1.getPlayer().chat("/spawn");
 			this.p1 = null;
 		} else if(p2.equals(xp)) {
-			p2.getPlayer().removeMetadata("gameType", xEssentials.getPlugin());
-			p2.getPlayer().removeMetadata("game", xEssentials.getPlugin());
-			if(p2.getPlayer().hasMetadata("gameScore")) {
-				p2.getPlayer().removeMetadata("gameScore", xEssentials.getPlugin());
-			}
+			removeMeta(p2);
 			p2.loadInventory();
 			p2.getPlayer().chat("/spawn");
 			this.p2 = null;
@@ -351,6 +344,22 @@ public class TennisArena implements MinigameArena {
 	public void broadcastMessage(String message) {
 		p1.getPlayer().sendMessage(message);
 		p2.getPlayer().sendMessage(message);
+	}
+
+	@Override
+	public void removeMeta(XPlayer xp) {
+		if(xp.getPlayer().hasMetadata("gameType") && xp.getPlayer().hasMetadata("game") && xp.getPlayer().hasMetadata("gameScore")) {
+			xp.getPlayer().removeMetadata("gameType", xEssentials.getPlugin());
+			xp.getPlayer().removeMetadata("game", xEssentials.getPlugin());
+			xp.getPlayer().removeMetadata("gameScore", xEssentials.getPlugin());
+		}
+	}
+
+	@Override
+	public void addMeta(XPlayer xp) {
+		xp.getPlayer().setMetadata("gameType", new FixedMetadataValue(xEssentials.getPlugin(), getType()));
+		xp.getPlayer().setMetadata("game", new FixedMetadataValue(xEssentials.getPlugin(), getName()));
+		xp.getPlayer().setMetadata("gameScore", new FixedMetadataValue(xEssentials.getPlugin(), 0));
 	}
 
 }

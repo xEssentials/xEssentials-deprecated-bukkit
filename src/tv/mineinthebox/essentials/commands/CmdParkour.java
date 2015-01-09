@@ -14,7 +14,7 @@ import tv.mineinthebox.essentials.minigames.MinigameSession;
 import tv.mineinthebox.essentials.minigames.MinigameType;
 
 public class CmdParkour {
-	
+
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("parkour")) {
 			if(sender.hasPermission(PermissionKey.CMD_PARKOUR.getPermission())) {
@@ -27,6 +27,7 @@ public class CmdParkour {
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/parkour add checkpoint " + ChatColor.WHITE + ": sets a checkpoint");
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/parkour remove <id> " + ChatColor.WHITE + ": removes a parkour");
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/parkour save " + ChatColor.WHITE + ": saves the parkour");
+						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/parkour cancel " + ChatColor.WHITE + ": cancel the session");
 					}
 					sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/parkour join <name> " + ChatColor.WHITE + ": joins a parkour");
 					sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/parkour list " + ChatColor.WHITE + ": returns a list of parkour arenas");
@@ -41,6 +42,7 @@ public class CmdParkour {
 							sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/parkour add checkpoint " + ChatColor.WHITE + ": sets a checkpoint");
 							sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/parkour remove <id> " + ChatColor.WHITE + ": removes a parkour");
 							sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/parkour save " + ChatColor.WHITE + ": saves the parkour");
+							sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/parkour cancel " + ChatColor.WHITE + ": cancel the session");
 						}
 						sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/parkour join <name> " + ChatColor.WHITE + ": joins a parkour");
 						sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/parkour list " + ChatColor.WHITE + ": returns a list of parkour arenas");
@@ -87,11 +89,49 @@ public class CmdParkour {
 						} else {
 							sender.sendMessage(ChatColor.RED + "you are not joined in any minigame!");
 						}
+					} else if(args[0].equalsIgnoreCase("cancel")) {
+						MinigameSession session = xEssentials.getManagers().getMinigameManager().getMinigameSessions().getParkourSessions();
+						if(session.hasSession(sender.getName())) {
+							session.removeSession(sender.getName());
+							sender.sendMessage(ChatColor.GRAY + "arena session removed!");
+						} else {
+							sender.sendMessage(ChatColor.RED + "you dont have a arena session open!");
+						}
 					}
 				} else if(args.length == 2) {
-					
+					if(args[0].equalsIgnoreCase("create")) {
+						if(sender instanceof Player) {
+							if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
+								//TODO adding creation mechanism.
+							} else {
+								Warnings.getWarnings(sender).noPermission();
+							}
+						} else {
+							Warnings.getWarnings(sender).consoleMessage();
+						}
+					} else if(args[0].equalsIgnoreCase("add") && args[1].equalsIgnoreCase("trail")) {
+						//TODO adding trails
+					} else if(args[0].equalsIgnoreCase("save") && args[1].equalsIgnoreCase("trail")) {
+						//TODO adding trails
+					} else if(args[0].equalsIgnoreCase("add") && args[1].equalsIgnoreCase("checkpoint")) {
+                        //TODO adding spawnpoints
+					} else if(args[0].equalsIgnoreCase("remove")) {
+                       if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
+                    	   if(xEssentials.getManagers().getMinigameManager().containsMinigame(args[1])) {
+                    		   MinigameArena arena = xEssentials.getManagers().getMinigameManager().getArenaByName(MinigameType.PARKOUR, args[1]);
+                    		   arena.remove();
+                    		   sender.sendMessage(ChatColor.GRAY + "arena has been removed!");
+                    	   } else {
+                    		   sender.sendMessage(ChatColor.RED + "there is no arena with that name!");
+                    	   }
+                       } else {
+                    	   Warnings.getWarnings(sender).noPermission();
+                       }
+					} else if(args[0].equalsIgnoreCase("join")) {
+
+					}
 				} else if(args.length == 3) {
-					
+
 				}
 			} else {
 				Warnings.getWarnings(sender).noPermission();

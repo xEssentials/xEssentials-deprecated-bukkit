@@ -23,4 +23,8 @@ public interface MinigameArena {
 	public void sentReward(XPlayer xp);
 	
 	public double getReward();
+	
+	public void removeMeta(XPlayer xp);
+	
+	public void addMeta(XPlayer xp);
 }

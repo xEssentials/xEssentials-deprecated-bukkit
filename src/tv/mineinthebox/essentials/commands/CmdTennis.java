@@ -4,7 +4,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.metadata.FixedMetadataValue;
 
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.Warnings;
@@ -170,9 +169,6 @@ public class CmdTennis {
 											return false;
 										}
 										sender.sendMessage(ChatColor.GRAY + "joining arena " + arena.getName());
-										xp.getPlayer().setMetadata("gameType", new FixedMetadataValue(xEssentials.getPlugin(), arena.getType()));
-										xp.getPlayer().setMetadata("game", new FixedMetadataValue(xEssentials.getPlugin(), arena.getName()));
-										xp.getPlayer().setMetadata("gameScore", new FixedMetadataValue(xEssentials.getPlugin(), 0));
 										arena.addPlayer(xp);
 									} else {
 										sender.sendMessage(ChatColor.RED + "this arena is full!");
