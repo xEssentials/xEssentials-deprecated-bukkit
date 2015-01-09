@@ -26,11 +26,12 @@ import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 import tv.mineinthebox.essentials.minigames.MinigameArena;
 import tv.mineinthebox.essentials.minigames.MinigameType;
+import tv.mineinthebox.essentials.minigames.Teamable;
 import tv.mineinthebox.essentials.minigames.football.events.FootballPassEvent;
 import tv.mineinthebox.essentials.minigames.football.gear.BlueTeamGear;
 import tv.mineinthebox.essentials.minigames.football.gear.RedTeamGear;
 
-public class FootballArena implements MinigameArena {
+public class FootballArena extends Teamable implements MinigameArena {
 
 	private final File f;
 	private final FileConfiguration con;
@@ -375,9 +376,5 @@ public class FootballArena implements MinigameArena {
 		xp.getPlayer().setMetadata("gameType", new FixedMetadataValue(xEssentials.getPlugin(), getType()));
 		xp.getPlayer().setMetadata("game", new FixedMetadataValue(xEssentials.getPlugin(), getName()));
 	}
-
-	@Override
-	public boolean isTeamable() {
-		return true;
-	}
+	
 }

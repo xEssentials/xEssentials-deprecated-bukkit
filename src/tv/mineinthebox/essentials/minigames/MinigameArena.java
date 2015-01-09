@@ -2,7 +2,7 @@ package tv.mineinthebox.essentials.minigames;
 
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public interface MinigameArena extends Teamable {
+public interface MinigameArena {
 	
 	public MinigameType getType();
 	

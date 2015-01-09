@@ -168,10 +168,5 @@ public class ParkourArena implements MinigameArena {
 		xp.getPlayer().setMetadata("gameType", new FixedMetadataValue(xEssentials.getPlugin(), getType()));
 		xp.getPlayer().setMetadata("game", new FixedMetadataValue(xEssentials.getPlugin(), getName()));
 	}
-	
-	@Override
-	public boolean isTeamable() {
-		return false;
-	}
 
 }

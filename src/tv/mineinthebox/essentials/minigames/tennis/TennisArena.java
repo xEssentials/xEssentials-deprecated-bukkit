@@ -26,9 +26,10 @@ import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 import tv.mineinthebox.essentials.minigames.MinigameArena;
 import tv.mineinthebox.essentials.minigames.MinigameType;
+import tv.mineinthebox.essentials.minigames.Teamable;
 import tv.mineinthebox.essentials.minigames.tennis.events.TennisBallMoveEvent;
 
-public class TennisArena implements MinigameArena {
+public class TennisArena extends Teamable implements MinigameArena {
 
 	private final ItemStack shovel = new ItemStack(Material.IRON_SPADE) {{
 		ItemMeta meta = getItemMeta();
@@ -360,11 +361,6 @@ public class TennisArena implements MinigameArena {
 		xp.getPlayer().setMetadata("gameType", new FixedMetadataValue(xEssentials.getPlugin(), getType()));
 		xp.getPlayer().setMetadata("game", new FixedMetadataValue(xEssentials.getPlugin(), getName()));
 		xp.getPlayer().setMetadata("gameScore", new FixedMetadataValue(xEssentials.getPlugin(), 0));
-	}
-	
-	@Override
-	public boolean isTeamable() {
-		return true;
 	}
 
 }

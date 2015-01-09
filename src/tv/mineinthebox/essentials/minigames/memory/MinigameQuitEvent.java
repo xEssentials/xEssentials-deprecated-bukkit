@@ -9,6 +9,7 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 import tv.mineinthebox.essentials.minigames.MinigameArena;
 import tv.mineinthebox.essentials.minigames.MinigameType;
+import tv.mineinthebox.essentials.minigames.Teamable;
 
 public class MinigameQuitEvent implements Listener {
 	
@@ -18,7 +19,7 @@ public class MinigameQuitEvent implements Listener {
 			MinigameType type = (MinigameType)e.getPlayer().getMetadata("gameType").get(0).value();
 			String arenaname = e.getPlayer().getMetadata("game").get(0).asString();
 			MinigameArena arena = xEssentials.getManagers().getMinigameManager().getArenaByName(type, arenaname);
-			if(arena.isTeamable()) {
+			if(arena instanceof Teamable) {
 				arena.reset();
 			} else {
 				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
@@ -33,7 +34,7 @@ public class MinigameQuitEvent implements Listener {
 			MinigameType type = (MinigameType)e.getPlayer().getMetadata("gameType").get(0).value();
 			String arenaname = e.getPlayer().getMetadata("game").get(0).asString();
 			MinigameArena arena = xEssentials.getManagers().getMinigameManager().getArenaByName(type, arenaname);
-			if(arena.isTeamable()) {
+			if(arena instanceof Teamable) {
 				arena.reset();
 			} else {
 				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());

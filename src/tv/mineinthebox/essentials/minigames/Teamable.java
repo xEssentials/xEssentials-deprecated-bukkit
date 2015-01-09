@@ -1,7 +1,9 @@
 package tv.mineinthebox.essentials.minigames;
 
-public interface Teamable {
+public abstract class Teamable {
 	
-	public boolean isTeamable();
-
+	public boolean isTeamable() {
+		return true;
+	}
+	
 }
