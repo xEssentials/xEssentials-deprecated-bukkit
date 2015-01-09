@@ -94,6 +94,7 @@ public class CommandList {
 		   "nether",
 		   "getchunkfile",
 		   "tennis",
-		   "football"
+		   "football",
+		   "parkour"
 		   };
 }
