@@ -42,7 +42,7 @@ public class ShopInteractEvent implements Listener {
 								xEssentials.getManagers().getEcoManager().depositMoney(e.getPlayer().getName(), shop.getSellPrice());
 								e.getPlayer().getInventory().removeItem(shop.getItem());
 								e.getPlayer().sendMessage(ChatColor.GREEN + "[Shop]" + ChatColor.GRAY + " you selled your items for " + shop.getSellPrice());
-							} else if(Hooks.isVaultEnabled()) {
+							} else if(Hooks.isVaultEcoEnabled()) {
 								xEssentials.getManagers().getVaultManager().desposit(e.getPlayer(), shop.getSellPrice());
 								e.getPlayer().getInventory().removeItem(shop.getItem());
 								e.getPlayer().sendMessage(ChatColor.GREEN + "[Shop]" + ChatColor.GRAY + " you selled your items for " + shop.getSellPrice());
@@ -66,7 +66,7 @@ public class ShopInteractEvent implements Listener {
 									e.getPlayer().getInventory().removeItem(shop.getItem());
 									shop.getShopChest().getInventory().addItem(shop.getItem());
 									e.getPlayer().sendMessage(ChatColor.GREEN + "[Shop]" + ChatColor.GRAY + " you selled your items for " + shop.getSellPrice());
-								} else if(Hooks.isVaultEnabled()) {
+								} else if(Hooks.isVaultEcoEnabled()) {
 									xEssentials.getManagers().getVaultManager().desposit(e.getPlayer(), shop.getSellPrice());
 									e.getPlayer().getInventory().removeItem(shop.getItem());
 									shop.getShopChest().getInventory().addItem(shop.getItem());
@@ -107,7 +107,7 @@ public class ShopInteractEvent implements Listener {
 						} else {
 							e.getPlayer().sendMessage(ChatColor.RED + "you don't have enough money to afford this!");
 						}
-					} else if(Hooks.isVaultEnabled()) {
+					} else if(Hooks.isVaultEcoEnabled()) {
 						if(xEssentials.getManagers().getVaultManager().hasEnough(e.getPlayer().getName(), shop.getBuyPrice())) {
 							if(e.getPlayer().getInventory().firstEmpty() != -1) {
 								Inventory inv = Bukkit.createInventory(null, 36, "shop:");
@@ -144,7 +144,7 @@ public class ShopInteractEvent implements Listener {
 								} else {
 									e.getPlayer().sendMessage(ChatColor.RED + "you cannot afford this!");
 								}
-							} else if(Hooks.isVaultEnabled()) {
+							} else if(Hooks.isVaultEcoEnabled()) {
 								if(xEssentials.getManagers().getVaultManager().hasEnough(e.getPlayer().getName(), shop.getBuyPrice())) {
 									if(!shop.isSoldOut()) {
 										xEssentials.getManagers().getVaultManager().withdraw(e.getPlayer().getName(), shop.getBuyPrice());

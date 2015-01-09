@@ -49,7 +49,7 @@ public class AdminShopInventoryEvent implements Listener {
 						p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1F, 1F);
 						p.closeInventory();
 					}
-				} else if(Hooks.isVaultEnabled()) {
+				} else if(Hooks.isVaultEcoEnabled()) {
 					if(p.getInventory().firstEmpty() != -1) {
 						if(xEssentials.getManagers().getVaultManager().hasEnough(e.getWhoClicked().getName(), shop.getBuyPrice())) {
 							xEssentials.getManagers().getVaultManager().withdraw(p.getName(), shop.getBuyPrice());

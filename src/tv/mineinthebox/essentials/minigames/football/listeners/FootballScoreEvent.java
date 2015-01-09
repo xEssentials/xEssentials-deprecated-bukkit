@@ -17,7 +17,7 @@ public class FootballScoreEvent implements Listener {
 	public void onSlimeScore(FootballPassEvent e) {
 		
 		if(e.hasWon()) {
-			Bukkit.broadcastMessage(ChatColor.GREEN + e.getTeam().name() + " has won the football match against " + e.getLosingTeam().name() + (Hooks.isVaultEnabled() ? " and has won " + e.getArena().getReward() : "") + " at arena " + e.getArena().getName());
+			Bukkit.broadcastMessage(ChatColor.GREEN + e.getTeam().name() + " has won the football match against " + e.getLosingTeam().name() + (Hooks.isVaultEcoEnabled() ? " and has won " + e.getArena().getReward() : "") + " at arena " + e.getArena().getName());
 			if(e.getTeam() == TeamType.RED_TEAM) {
 				for(XPlayer xp : e.getArena().getRedTeam()) {
 					e.getArena().sentReward(xp);

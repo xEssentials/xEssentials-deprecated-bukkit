@@ -145,7 +145,7 @@ public class ParkourArena implements MinigameArena {
 
 	@Override
 	public void sentReward(XPlayer xp) {
-		if(Hooks.isVaultEnabled()) {
+		if(Hooks.isVaultEcoEnabled()) {
 			xEssentials.getManagers().getVaultManager().desposit(xp.getPlayer(), getReward());
 		}
 	}

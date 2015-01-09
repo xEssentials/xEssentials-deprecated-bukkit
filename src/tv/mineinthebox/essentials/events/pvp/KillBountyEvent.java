@@ -26,7 +26,7 @@ public class KillBountyEvent implements Listener {
 	public void onDeath(EntityDeathEvent e) {
 		if(e.getEntity().getKiller() instanceof Player) {
 			Player p = (Player) e.getEntity().getKiller();
-			if(Hooks.isVaultEnabled()) {
+			if(Hooks.isVaultEcoEnabled()) {
 				if(e.getEntity().hasMetadata("spawner")) {
 					return;
 				}

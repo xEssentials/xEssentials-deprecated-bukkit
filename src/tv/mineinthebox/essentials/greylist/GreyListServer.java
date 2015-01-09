@@ -134,14 +134,14 @@ public class GreyListServer implements Runnable {
 									off.setGreyListed(true);
 									if(off.getPlayer() instanceof Player) {
 										off.getPlayer().sendMessage(ChatColor.GREEN + "you are successfully promoted to " + Configuration.getGrayListConfig().getGroup());
-										if(Hooks.isVaultEnabled()) {
+										if(Hooks.isVaultPermissionsEnabled()) {
 											String oldGroup = xEssentials.getManagers().getVaultManager().getGroup(Bukkit.getWorlds().get(0), user);
 											String newgroup = Configuration.getGrayListConfig().getGroup();
 											xEssentials.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), off.getUser(), newgroup);
 											Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(off.getPlayer(), newgroup, oldGroup, GreyListCause.SITE));
 										}
 									} else {
-										if(Hooks.isVaultEnabled()) {
+										if(Hooks.isVaultPermissionsEnabled()) {
 											String oldGroup = xEssentials.getManagers().getVaultManager().getGroup(Bukkit.getWorlds().get(0), user);
 											String newgroup = Configuration.getGrayListConfig().getGroup();
 											xEssentials.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), off.getUser(), newgroup);

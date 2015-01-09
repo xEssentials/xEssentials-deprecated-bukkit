@@ -56,7 +56,7 @@ public class CmdGreylist {
 							if(xEssentials.getManagers().getPlayerManager().isOnline(args[1])) {
 								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
 								xp.setGreyListed(true);
-								if(Hooks.isVaultEnabled()) {
+								if(Hooks.isVaultPermissionsEnabled()) {
 									String oldGroup = xEssentials.getManagers().getVaultManager().getGroup(xp.getPlayer());
 									String newGroup = Configuration.getGrayListConfig().getGroup();
 									xEssentials.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), xp.getUser(), newGroup);
@@ -69,7 +69,7 @@ public class CmdGreylist {
 							} else {
 								XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 								off.setGreyListed(true);
-								if(Hooks.isVaultEnabled()) {
+								if(Hooks.isVaultPermissionsEnabled()) {
 									String oldGroup = xEssentials.getManagers().getVaultManager().getGroup(Bukkit.getWorlds().get(0), off.getUser());
 									String newGroup = Configuration.getGrayListConfig().getGroup();
 									xEssentials.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), off.getUser(), newGroup);
@@ -88,7 +88,7 @@ public class CmdGreylist {
 							if(xEssentials.getManagers().getPlayerManager().isOnline(args[1])) {
 								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
 								xp.setGreyListed(false);
-								if(Hooks.isVaultEnabled()) {
+								if(Hooks.isVaultPermissionsEnabled()) {
 									String DefaultGroup = xEssentials.getManagers().getVaultManager().getDefaultGroup();
 									xEssentials.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), xp.getUser(), DefaultGroup);
 								} else {
@@ -99,7 +99,7 @@ public class CmdGreylist {
 							} else {
 								XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 								off.setGreyListed(false);
-								if(Hooks.isVaultEnabled()) {
+								if(Hooks.isVaultPermissionsEnabled()) {
 									String DefaultGroup = xEssentials.getManagers().getVaultManager().getDefaultGroup();
 									xEssentials.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), off.getUser(), DefaultGroup);
 								} else {

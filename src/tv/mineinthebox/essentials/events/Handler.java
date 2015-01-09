@@ -393,7 +393,7 @@ public class Handler {
 		
 		//vote
 		if(Configuration.getVoteConfig().isVoteEnabled() && Hooks.isVotifierEnabled()) {
-			if(Configuration.getVoteConfig().isMoneyRewardEnabled() && Hooks.isVaultEnabled()) {setListener(new VoteMoneyEvent());}
+			if(Configuration.getVoteConfig().isMoneyRewardEnabled() && Hooks.isVaultEcoEnabled()) {setListener(new VoteMoneyEvent());}
 			if(Configuration.getVoteConfig().isRewardCrateEnabled() && Hooks.isManCoEnabled()) {setListener(new VoteCrateEvent());}
 		}
 		

@@ -97,7 +97,7 @@ public class PlayerChatHighLightEvent extends PlayerEvent implements Cancellable
 	 * @return
 	 */
 	public String getSuffix() {
-		if(Hooks.isVaultEnabled()) {
+		if(Hooks.isVaultChatEnabled()) {
 			return ChatColor.translateAlternateColorCodes('&', xEssentials.getManagers().getVaultManager().getSuffix(getPlayer().getName(), xEssentials.getManagers().getVaultManager().getGroup(getPlayer())));
 		} else {
 			return ChatColor.RESET+"";

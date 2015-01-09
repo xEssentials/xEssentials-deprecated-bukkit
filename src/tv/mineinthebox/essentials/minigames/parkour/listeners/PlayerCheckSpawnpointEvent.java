@@ -26,7 +26,7 @@ public class PlayerCheckSpawnpointEvent implements Listener {
 				Location loc = e.getPlayer().getLocation().getBlock().getRelative(BlockFace.DOWN).getLocation();
 				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 				if(arena.isFinishPoint(loc)) {
-					e.getPlayer().sendMessage(ChatColor.GRAY + "you have walked the parkour!" + (Hooks.isVaultEnabled() ? ", you earned " + arena.getReward() : ""));
+					e.getPlayer().sendMessage(ChatColor.GRAY + "you have walked the parkour!" + (Hooks.isVaultEcoEnabled() ? ", you earned " + arena.getReward() : ""));
 					arena.sentReward(xp);
 					arena.removePlayer(xp);
 				} else if(arena.isSpawnPoint(loc)) {

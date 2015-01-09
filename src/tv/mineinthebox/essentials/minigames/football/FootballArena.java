@@ -346,7 +346,7 @@ public class FootballArena extends Teamable implements MinigameArena {
 
 	@Override
 	public void sentReward(XPlayer xp) {
-		if(Hooks.isVaultEnabled()) {
+		if(Hooks.isVaultEcoEnabled()) {
 			xEssentials.getManagers().getVaultManager().desposit(xp.getPlayer(), con.getDouble("reward"));
 		}
 	}

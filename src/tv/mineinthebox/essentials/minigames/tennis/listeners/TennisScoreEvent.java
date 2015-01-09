@@ -20,7 +20,7 @@ public class TennisScoreEvent implements Listener {
 		int score = xp.getPlayer().getMetadata("gameScore").get(0).asInt()+1;
 		if(score == e.getArena().getWinScore()) {
 			xp.getPlayer().getWorld().playSound(xp.getPlayer().getLocation(), Sound.FIREWORK_LAUNCH, 1F, 1F);
-			Bukkit.broadcastMessage(ChatColor.GREEN + xp.getUser() + " has won the tennis match against " + e.getLoser().getUser() + (Hooks.isVaultEnabled() ? " and has won " + e.getArena().getReward() : ""));
+			Bukkit.broadcastMessage(ChatColor.GREEN + xp.getUser() + " has won the tennis match against " + e.getLoser().getUser() + (Hooks.isVaultEcoEnabled() ? " and has won " + e.getArena().getReward() : ""));
 			e.getArena().sentReward(e.getWhoScore());
 			e.getArena().reset();
 		} else {
