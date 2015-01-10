@@ -11,7 +11,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import tv.mineinthebox.essentials.Configuration;
@@ -19,6 +19,7 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.events.customevents.PlayerAfkEvent;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
+@SuppressWarnings("deprecation")
 public class AfkCheckEvent implements Listener {
 
 	@EventHandler
@@ -37,6 +38,9 @@ public class AfkCheckEvent implements Listener {
 			if(destx > 0.0) {
 				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 				if(xp.isAfk()) {
+					if(xp.isVanished()) {
+						return;
+					}
 					xp.removeAfk();
 					Bukkit.broadcastMessage(ChatColor.GREEN + e.getPlayer().getName() + " is no longer afk");
 					Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), false, true));
@@ -44,6 +48,9 @@ public class AfkCheckEvent implements Listener {
 			} else if(destz > 0.0) {
 				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 				if(xp.isAfk()) {
+					if(xp.isVanished()) {
+						return;
+					}
 					xp.removeAfk();
 					Bukkit.broadcastMessage(ChatColor.GREEN + e.getPlayer().getName() + " is no longer afk");
 					Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), false, true));
@@ -126,7 +133,7 @@ public class AfkCheckEvent implements Listener {
 	}
 
 	@EventHandler
-	public void chatAfk(AsyncPlayerChatEvent e) {
+	public void chatAfk(PlayerChatEvent e) {
 		for(XPlayer xp : xEssentials.getManagers().getPlayerManager().getPlayers()) {
 			if(e.getMessage().contains(xp.getPlayer().getName())) {
 				if(xp.isAfk()) {
