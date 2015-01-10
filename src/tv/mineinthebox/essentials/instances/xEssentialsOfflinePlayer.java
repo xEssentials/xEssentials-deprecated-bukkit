@@ -541,7 +541,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 
 	@Override
 	public boolean withdrawMoney(double price) {
-		if((getMoney()-price) > 0) {
+		if((getMoney()-price) >= 0.0) {
 			con.set("money", (getMoney()-price));
 			return true;
 		}
@@ -573,7 +573,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	public boolean hasMoney() {
 		save();
 		if(con.contains("money")) {
-			if(con.getDouble("money") > 0.0) {
+			if(con.getDouble("money") >= 0.0) {
 				return true;
 			}
 		}
@@ -596,7 +596,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	@Override
 	public boolean hasEnoughMoney(double price) {
 		save();
-		if(getMoney() >= price) {
+		if((getMoney()-price) >= 0.0) {
 			return true;
 		}
 		return false;

@@ -1109,7 +1109,7 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public boolean hasMoney() {
 		if(con.contains("money")) {
-			if(con.getDouble("money") > 0.0) {
+			if(con.getDouble("money") >= 0.0) {
 				return true;
 			}
 		}
@@ -1119,7 +1119,7 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public boolean payMoney(double price, XOfflinePlayer toPayTo) {
 		Double money = (getMoney()-price);
-		if(money > 0.0) {
+		if(money >= 0.0) {
 			con.set("money", money);
 			toPayTo.depositMoney(price);
 			return true;
@@ -1140,7 +1140,7 @@ public class xEssentialsPlayer implements XPlayer {
 	
 	@Override
 	public boolean withdrawMoney(double price) {
-		if((getMoney()-price) > 0.0) {
+		if((getMoney()-price) >= 0.0) {
 			con.set("money", (getMoney()-price));
 			return true;
 		}
@@ -1164,7 +1164,7 @@ public class xEssentialsPlayer implements XPlayer {
 
 	@Override
 	public boolean hasEnoughMoney(double price) {
-		if(getMoney() >= price) {
+		if((getMoney()-price) >= 0.0) {
 			return true;
 		}
 		return false;

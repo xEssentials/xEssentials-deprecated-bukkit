@@ -162,7 +162,7 @@ public class VaultEcoHandler implements Economy {
 
 	@Override
 	public boolean has(String playerName, double amount) {
-		if(amount > 0) {
+		if(amount >= 0) {
 			if(manager.isEssentialsPlayer(playerName)) {
 				return manager.getOfflinePlayer(playerName).hasEnoughMoney(amount);
 			}
@@ -172,7 +172,7 @@ public class VaultEcoHandler implements Economy {
 
 	@Override
 	public boolean has(OfflinePlayer player, double amount) {
-		if(amount > 0) {
+		if(amount >= 0) {
 			if(manager.isEssentialsPlayer(player.getName())) {
 				return manager.getOfflinePlayer(player.getName()).hasEnoughMoney(amount);
 			}
@@ -182,7 +182,7 @@ public class VaultEcoHandler implements Economy {
 
 	@Override
 	public boolean has(String playerName, String worldName, double amount) {
-		if(amount > 0) {
+		if(amount >= 0) {
 			if(manager.isEssentialsPlayer(playerName)) {
 				return manager.getOfflinePlayer(playerName).hasEnoughMoney(amount);
 			}
@@ -192,7 +192,7 @@ public class VaultEcoHandler implements Economy {
 
 	@Override
 	public boolean has(OfflinePlayer player, String worldName, double amount) {
-		if(amount > 0) {
+		if(amount >= 0) {
 			if(manager.isEssentialsPlayer(player.getName())) {
 				return manager.getOfflinePlayer(player.getName()).hasEnoughMoney(amount);
 			}
