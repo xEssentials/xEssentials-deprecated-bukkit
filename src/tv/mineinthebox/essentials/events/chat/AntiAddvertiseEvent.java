@@ -8,7 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerEditBookEvent;
 import org.bukkit.inventory.meta.BookMeta;
@@ -18,10 +18,11 @@ import tv.mineinthebox.essentials.events.customevents.PlayerOpenBookEvent;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
+@SuppressWarnings("deprecation")
 public class AntiAddvertiseEvent implements Listener {
 
 	@EventHandler
-	public void onAntiAddvertise(AsyncPlayerChatEvent e) {
+	public void onAntiAddvertise(PlayerChatEvent e) {
 		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		e.setMessage(ipcheck(e.getMessage(), xp));
 	}
