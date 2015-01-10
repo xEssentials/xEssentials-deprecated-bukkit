@@ -1298,11 +1298,16 @@ public class xEssentialsPlayer implements XPlayer {
 	@SuppressWarnings("unchecked")
 	public void stopSpectate() {
 		if(isSpectate()) {
-			spectate.cancel();
-			spectate = null;
-			player.performCommand("spawn");
-			Object c = con.get("spectate-inventory");
+			if(this.spectate != null) {
+				spectate.cancel();
+				spectate = null;
+			}
+			player.chat("/spawn");
+			
 			ItemStack[] contents = null;
+			
+			Object c = con.get("spectate-inventory");
+			
 			if(c instanceof List) {
 				contents = ((List<ItemStack>)c).toArray(new ItemStack[0]);
 			} else {
@@ -1315,6 +1320,10 @@ public class xEssentialsPlayer implements XPlayer {
 
 	@Override
 	public void spectate(final Player pa) {
+		if(pa.equals(player)) {
+			return;
+		}
+		
 		con.set("spectate-inventory", player.getInventory().getContents());
 		this.spectate = new BukkitRunnable() {
 
