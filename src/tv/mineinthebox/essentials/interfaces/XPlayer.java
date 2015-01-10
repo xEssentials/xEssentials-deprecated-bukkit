@@ -177,14 +177,6 @@ public interface XPlayer extends XOfflinePlayer {
 	public String getIp();
 
 	/**
-	 * @author xize
-	 * @param refresh the player on teleport
-	 * @deprecated is deprecated because this is a tempory fix for invisibillity delay while teleporting.
-	 * @return void
-	 */
-	public void refreshPlayer();
-
-	/**
 	 * 
 	 * @author xize
 	 * @param set the ip of this player

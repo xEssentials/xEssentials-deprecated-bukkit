@@ -109,7 +109,6 @@ import tv.mineinthebox.essentials.events.players.SaveLastLocationEvent;
 import tv.mineinthebox.essentials.events.players.SignEditEvent;
 import tv.mineinthebox.essentials.events.players.StaffSafeTeleportEvent;
 import tv.mineinthebox.essentials.events.players.TeleportBackEvent;
-import tv.mineinthebox.essentials.events.players.TeleportEvent;
 import tv.mineinthebox.essentials.events.players.TorchEvent;
 import tv.mineinthebox.essentials.events.players.TrollModeEvent;
 import tv.mineinthebox.essentials.events.players.VanishArchievementEvent;
@@ -246,7 +245,6 @@ public class Handler {
 		setListener(new TeleportBackEvent());
 		setListener(new PlayerRespawnTeleportEvent());
 		setListener(new PotatoMoveEvent());
-		setListener(new TeleportEvent());
 		setListener(new AfkCheckEvent());
 		setListener(new PlayerCheckNameEvent());
 		setListener(new PlayerFloorEvent());

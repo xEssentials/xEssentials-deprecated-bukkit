@@ -322,20 +322,6 @@ public class xEssentialsPlayer implements XPlayer {
 	}
 
 	@Override
-	public void refreshPlayer() {
-		for(Player p : xEssentials.getOnlinePlayers()) {
-			if(!player.equals(p)) {
-				p.hidePlayer(player);
-			}
-		}
-		for(Player p : xEssentials.getOnlinePlayers()) {
-			if(!player.equals(p)) {
-				p.showPlayer(player);
-			}
-		}
-	}
-
-	@Override
 	public boolean setIp() {
 		con.set("ip", player.getAddress().getAddress().getHostAddress());
 		return true;
