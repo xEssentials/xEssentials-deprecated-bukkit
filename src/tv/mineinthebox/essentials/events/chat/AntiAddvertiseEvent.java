@@ -51,11 +51,13 @@ public class AntiAddvertiseEvent implements Listener {
 	@EventHandler
 	public void createBook(PlayerEditBookEvent e) {
 		if(!e.isSigning()) {
-			BookMeta meta = e.getNewBookMeta();
-			meta.setAuthor(e.getPlayer().getName());
-			e.setNewBookMeta(meta);
-			e.setSigning(true);
-			e.getPlayer().sendMessage(ChatColor.GREEN + "book automatic signed, due anti addvertise system.");	
+			if(!e.getPreviousBookMeta().hasAuthor()) {
+				BookMeta meta = e.getNewBookMeta();
+				meta.setAuthor(e.getPlayer().getName());
+				e.setNewBookMeta(meta);
+				e.setSigning(true);
+				e.getPlayer().sendMessage(ChatColor.GREEN + "book automatic signed, by anti addvertise system!");
+			}
 		}
 	}
 
