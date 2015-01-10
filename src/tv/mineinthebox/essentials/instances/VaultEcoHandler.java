@@ -254,4 +254,158 @@ public class VaultEcoHandler implements Economy, Listener {
 		XOfflinePlayer a = new xEssentialsOfflinePlayer(off);
 		return (a instanceof XOfflinePlayer);
 	}
+
+
+	@Override
+	public EconomyResponse createBank(String arg0, OfflinePlayer arg1) {
+		return new EconomyResponse(0,0, ResponseType.FAILURE, "banks are not supported!");
+	}
+
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public boolean createPlayerAccount(OfflinePlayer arg0) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer("town-"+arg0.getName())) {
+			return false;
+		}
+		OfflinePlayer off = Bukkit.getOfflinePlayer(arg0.getName());
+		XOfflinePlayer a = new xEssentialsOfflinePlayer(off);
+		return (a instanceof XOfflinePlayer);
+	}
+
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public boolean createPlayerAccount(OfflinePlayer arg0, String arg1) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer("town-"+arg0.getName())) {
+			return false;
+		}
+		OfflinePlayer off = Bukkit.getOfflinePlayer(arg0.getName());
+		XOfflinePlayer a = new xEssentialsOfflinePlayer(off);
+		return (a instanceof XOfflinePlayer);
+	}
+
+
+	@Override
+	public EconomyResponse depositPlayer(OfflinePlayer arg0, double arg1) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(arg0.getName())) {
+			XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getPlayer(arg0.getName());
+			off.depositMoney(arg1);
+			return new EconomyResponse(arg1, off.getMoney(), ResponseType.SUCCESS, null);
+		}
+		return new EconomyResponse(0,0, ResponseType.FAILURE, "cannot deposit to a non existing account");
+	}
+
+
+	@Override
+	public EconomyResponse depositPlayer(OfflinePlayer arg0, String arg1,
+			double arg2) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(arg0.getName())) {
+			XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getPlayer(arg0.getName());
+			off.depositMoney(arg2);
+			return new EconomyResponse(arg2, off.getMoney(), ResponseType.SUCCESS, null);
+		}
+		return new EconomyResponse(0,0, ResponseType.FAILURE, "cannot deposit to a non existing account");
+	}
+
+
+	@Override
+	public double getBalance(OfflinePlayer arg0) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(arg0.getName())) {
+			XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(arg0.getName());
+			return off.getMoney();
+		}
+		throw new IllegalArgumentException("cannot get economy balance from a non existing player");
+	}
+
+
+	@Override
+	public double getBalance(OfflinePlayer arg0, String arg1) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(arg0.getName())) {
+			XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(arg0.getName());
+			return off.getMoney();
+		}
+		throw new IllegalArgumentException("cannot get economy balance from a non existing player");
+	}
+
+
+	@Override
+	public boolean has(OfflinePlayer arg0, double arg1) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(arg0.getName())) {
+			XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(arg0.getName());
+			return off.hasEnoughMoney(arg1);
+		}
+		return false;
+	}
+
+
+	@Override
+	public boolean has(OfflinePlayer arg0, String arg1, double arg2) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(arg0.getName())) {
+			XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(arg0.getName());
+			return off.hasEnoughMoney(arg2);
+		}
+		return false;
+	}
+
+
+	@Override
+	public boolean hasAccount(OfflinePlayer arg0) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(arg0.getName())) {
+			return true;
+		}
+		return false;
+	}
+
+
+	@Override
+	public boolean hasAccount(OfflinePlayer arg0, String arg1) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(arg0.getName())) {
+			return true;
+		}
+		return false;
+	}
+
+
+	@Override
+	public EconomyResponse isBankMember(String arg0, OfflinePlayer arg1) {
+		return new EconomyResponse(0,0, ResponseType.FAILURE, "banks are not supported!");
+	}
+
+
+	@Override
+	public EconomyResponse isBankOwner(String arg0, OfflinePlayer arg1) {
+		return new EconomyResponse(0,0, ResponseType.FAILURE, "banks are not supported!");
+	}
+
+
+	@Override
+	public EconomyResponse withdrawPlayer(OfflinePlayer arg0, double arg1) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(arg0.getName())) {
+			XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(arg0.getName());
+			if(off.hasEnoughMoney(arg1)) {
+				off.withdrawMoney(arg1);
+				return new EconomyResponse(arg1,off.getMoney(), ResponseType.SUCCESS, null);
+			} else {
+				return new EconomyResponse(arg1,off.getMoney(), ResponseType.FAILURE, "not enough money to withdraw from!");
+			}
+		}
+		return new EconomyResponse(0,0, ResponseType.FAILURE, "cannot withdraw money form a player who does not exist!");
+	}
+
+
+	@Override
+	public EconomyResponse withdrawPlayer(OfflinePlayer arg0, String arg1,
+			double arg2) {
+		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(arg0.getName())) {
+			XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(arg0.getName());
+			if(off.hasEnoughMoney(arg2)) {
+				off.withdrawMoney(arg2);
+				return new EconomyResponse(arg2,off.getMoney(), ResponseType.SUCCESS, null);
+			} else {
+				return new EconomyResponse(arg2,off.getMoney(), ResponseType.FAILURE, "not enough money to withdraw from!");
+			}
+		}
+		return new EconomyResponse(0,0, ResponseType.FAILURE, "cannot withdraw money form a player who does not exist!");
+	}
 }

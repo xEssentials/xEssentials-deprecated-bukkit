@@ -6,6 +6,7 @@ import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -46,7 +47,7 @@ public class VaultHook {
 	 */
 	public void desposit(Player p, Double amount) {
 		if(econ instanceof Economy) {
-			econ.depositPlayer(p.getName(), amount);
+			econ.depositPlayer((OfflinePlayer)p, amount);
 		}
 	}
 
@@ -57,11 +58,12 @@ public class VaultHook {
 	 * @param gives the player some money!
 	 * @return void
 	 */
+	@SuppressWarnings("deprecation")
 	public void desposit(String p, Double amount) {
 		if(econ instanceof Economy) {
 			RegisteredServiceProvider<Economy> economyProvider = Bukkit.getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
 			Economy econ = economyProvider.getProvider();
-			econ.depositPlayer(p, amount);	
+			econ.depositPlayer(Bukkit.getOfflinePlayer(p), amount);	
 		}
 	}
 
@@ -72,9 +74,10 @@ public class VaultHook {
 	 * @param withdraw money of the player
 	 * @return void
 	 */
+	@SuppressWarnings("deprecation")
 	public void withdraw(String p, Double amount) {
 		if(econ instanceof Economy) {
-			econ.withdrawPlayer(p, amount);	
+			econ.withdrawPlayer(Bukkit.getOfflinePlayer(p), amount);	
 		}
 	}
 
@@ -84,9 +87,10 @@ public class VaultHook {
 	 * @param amount - the amount which get checked if the player has enough
 	 * @return Boolean
 	 */
+	@SuppressWarnings("deprecation")
 	public boolean hasEnough(String p, Double amount) {
 		if(econ instanceof Economy) {
-			return ((econ.getBalance(p) - amount) > 0.0);
+			return ((econ.getBalance(Bukkit.getOfflinePlayer(p)) - amount) > 0.0);
 		}
 		return false;
 	}
@@ -133,11 +137,12 @@ public class VaultHook {
 	 * @param player - the player name
 	 * @return String
 	 */
+	@SuppressWarnings("deprecation")
 	public String getGroup(World w, String player) {
 		if(!(perm instanceof Permission)) {
 			return "";
 		}
-		return perm.getPrimaryGroup(w, player);
+		return perm.getPrimaryGroup(w.getName(), Bukkit.getOfflinePlayer(player));
 	}
 
 	/**
@@ -146,9 +151,10 @@ public class VaultHook {
 	 * @param player - the player
 	 * @param group - the group
 	 */
+	@SuppressWarnings("deprecation")
 	public void setGroup(World world, String player, String group) {
-		perm.playerRemoveGroup(world, player, group);
-		perm.playerAddGroup(world, player, group);
+		perm.playerRemoveGroup(world.getName(), Bukkit.getOfflinePlayer(player), group);
+		perm.playerAddGroup(world.getName(), Bukkit.getOfflinePlayer(player), group);
 	}
 
 	/**
