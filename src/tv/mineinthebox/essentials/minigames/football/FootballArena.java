@@ -329,6 +329,9 @@ public class FootballArena extends Teamable implements MinigameArena {
 
 	@Override
 	public void reset() {
+		if(!this.isStarted) {
+			return;
+		}
 		this.isStarted = false;
 		if(this.listener_task != null) {
 			this.listener_task.cancel();

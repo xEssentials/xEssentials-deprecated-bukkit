@@ -19,9 +19,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
-import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 import tv.mineinthebox.essentials.minigames.MinigameArena;
@@ -275,12 +273,12 @@ public class TennisArena extends Teamable implements MinigameArena {
 	 */
 	@Override
 	public void removePlayer(XPlayer xp) {
-		if(p1.equals(xp)) {
+		if(p1 != null && p1.equals(xp)) {
 			removeMeta(p1);
 			p1.loadInventory();
 			p1.getPlayer().chat("/spawn");
 			this.p1 = null;
-		} else if(p2.equals(xp)) {
+		} else if(p2 != null && p2.equals(xp)) {
 			removeMeta(p2);
 			p2.loadInventory();
 			p2.getPlayer().chat("/spawn");
@@ -311,19 +309,19 @@ public class TennisArena extends Teamable implements MinigameArena {
 
 	@Override
 	public void reset() {
-		if(Configuration.getDebugConfig().isEnabled()) {
-			xEssentials.getPlugin().log("arena object reset method is called!", LogType.DEBUG);
+		if(!this.isStarted) {
+			return;
 		}
-			if(this.chickentask != null) {
-				this.chickentask.cancel();
-				this.chickentask = null;
-			}
-			if(this.chicken != null) {
-				this.chicken.remove();
-				this.chicken = null;	
-			}
-			removePlayer(p1);
-			removePlayer(p2);
+		if(this.chickentask != null) {
+			this.chickentask.cancel();
+			this.chickentask = null;
+		}
+		if(this.chicken != null) {
+			this.chicken.remove();
+			this.chicken = null;	
+		}
+		removePlayer(p1);
+		removePlayer(p2);
 		if(this.isStarted) {
 			this.isStarted = false;
 		}

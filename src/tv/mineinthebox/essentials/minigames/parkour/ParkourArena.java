@@ -130,6 +130,9 @@ public class ParkourArena implements MinigameArena {
 
 	@Override
 	public void reset() {
+		if(players.isEmpty()) {
+			return;
+		}
 		Iterator<XPlayer> it = players.keySet().iterator();
 		while(it.hasNext()) {
 			removePlayer(it.next());
