@@ -168,6 +168,7 @@ public class TennisArena extends Teamable implements MinigameArena {
 				xp.getPlayer().sendMessage(ChatColor.RED + "you cannot play minigames aslong you are not in survival");
 				return;
 			}
+			addMeta(xp);
 			setInventory(xp);
 			this.p1 = xp;
 			this.p1.getPlayer().teleport(getSpawnPoint1());
@@ -177,6 +178,7 @@ public class TennisArena extends Teamable implements MinigameArena {
 				xp.getPlayer().sendMessage(ChatColor.RED + "you cannot play minigames aslong you are not in survival");
 				return;
 			}
+			addMeta(xp);
 			setInventory(xp);
 			this.p2 = xp;
 			this.p2.getPlayer().teleport(getSpawnPoint2());
