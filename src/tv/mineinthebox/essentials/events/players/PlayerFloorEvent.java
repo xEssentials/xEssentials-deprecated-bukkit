@@ -16,7 +16,7 @@ public class PlayerFloorEvent implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlace(BlockPlaceEvent e) {
-		if(e.isCancelled()) {
+		if(e.isCancelled() || !e.canBuild()) {
 			return;
 		}
 		
