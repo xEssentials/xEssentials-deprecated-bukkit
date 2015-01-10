@@ -64,7 +64,7 @@ public class PlayerOpenBookEvent extends PlayerEvent implements Cancellable {
 	}
 	
 	public void setCancelled(boolean bol) {
-		cancel = bol;
+		this.cancel = bol;
 		if(cancel) {
 			player.closeInventory();
 		}

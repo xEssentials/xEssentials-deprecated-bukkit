@@ -48,6 +48,7 @@ public class AntiAddvertiseEvent implements Listener {
 		}
 	}
 
+	@EventHandler
 	public void createBook(PlayerEditBookEvent e) {
 		if(!e.isSigning()) {
 			BookMeta meta = e.getNewBookMeta();
