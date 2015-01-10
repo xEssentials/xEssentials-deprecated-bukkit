@@ -117,18 +117,22 @@ public class xEssentialsPlayerManager {
 	 */
 	public XOfflinePlayer getOfflinePlayer(String player) {
 		try {
-			File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players");
-			if(dir.isDirectory()) {
-				File[] list = dir.listFiles();
-				for(File f : list) {
-					FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-					if(con.contains("user")) {
-						if(con.getString("user").equalsIgnoreCase(player)) {
-							if(players.containsKey(con.getString("user"))) {
-								return players.get(con.getString("user"));
-							} else {
-								xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(con.getString("user"));
-								return off;	
+			if(isOnline(player)) {
+				return getPlayer(player);
+			} else {
+				File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players");
+				if(dir.isDirectory()) {
+					File[] list = dir.listFiles();
+					for(File f : list) {
+						FileConfiguration con = YamlConfiguration.loadConfiguration(f);
+						if(con.contains("user")) {
+							if(con.getString("user").equalsIgnoreCase(player)) {
+								if(players.containsKey(con.getString("user"))) {
+									return players.get(con.getString("user"));
+								} else {
+									xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(con.getString("user"));
+									return off;	
+								}
 							}
 						}
 					}
