@@ -320,7 +320,10 @@ public class TennisArena extends Teamable implements MinigameArena {
 		}
 		if(this.chicken != null) {
 			this.chicken.remove();
-			this.chicken = null;	
+			//if(!this.chicken.isDead()) {
+			//	this.chicken.damage(this.chicken.getMaxHealth());
+			//}
+			this.chicken = null;
 		}
 		removePlayer(p1);
 		removePlayer(p2);
