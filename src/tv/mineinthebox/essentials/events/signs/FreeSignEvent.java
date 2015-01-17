@@ -58,6 +58,7 @@ public class FreeSignEvent implements Listener {
 							loc.setY(loc.getY() + 3);
 							e.getPlayer().getWorld().playEffect(loc, Effect.MOBSPAWNER_FLAMES, 100);
 							e.getPlayer().getWorld().dropItemNaturally(loc, item);
+							e.setCancelled(true);
 						} catch(Exception r) {
 							e.getPlayer().sendMessage(ChatColor.RED + "Error this item is not a vanilla item!, please show us your error in the console");
 							r.printStackTrace();

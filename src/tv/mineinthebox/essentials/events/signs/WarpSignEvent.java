@@ -40,6 +40,7 @@ public class WarpSignEvent implements Listener {
 					if(xEssentials.getManagers().getWarpManager().isWarp(sign.getLine(1))) {
 						e.getPlayer().performCommand("warp " + sign.getLine(1));
 					}
+					e.setCancelled(true);
 				}
 			}
 		}

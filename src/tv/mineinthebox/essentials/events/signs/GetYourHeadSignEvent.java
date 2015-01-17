@@ -48,8 +48,8 @@ public class GetYourHeadSignEvent implements Listener {
 						s.getPlayer().sendMessage(ChatColor.GOLD + "[GetYourHead] " + ChatColor.GREEN + "your head has been added in your hand!");	
 					} else {
 						s.getPlayer().sendMessage(ChatColor.GOLD + "[GetYourHead] " + ChatColor.RED + "your hands need to be empty!");
-						s.setCancelled(true);
 					}
+					s.setCancelled(true);
 				}
 			}
 		}

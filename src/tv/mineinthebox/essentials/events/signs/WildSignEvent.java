@@ -48,6 +48,7 @@ public class WildSignEvent implements Listener {
 					} else {
 						e.getPlayer().sendMessage(ChatColor.RED + "you cannot use this sign!");
 					}
+					e.setCancelled(true);
 				}
 			}
 		}
