@@ -28,12 +28,13 @@ public class GreyListServer implements ServerListener {
 					if(!off.isGreyListed()) {
 						e.setMimeType(MimeType.MIME_JSON);
 						e.setContent("{\"xEssentials\": {\"response\": \"success\"}}\n\r".getBytes());
-						off.setGreyListed(true);
 						if(Configuration.getDebugConfig().isEnabled()) {
 							xEssentials.getPlugin().log("player: " + off.getUser() + " has been greylisted, result: " + off.isGreyListed() + " if this is true its wrong", LogType.DEBUG);	
 						}
 						if(off instanceof XPlayer) {
-							off.getPlayer().sendMessage(ChatColor.GREEN + "you are successfully promoted to " + Configuration.getGrayListConfig().getGroup());
+							XPlayer xp = (XPlayer)off;
+							off.setGreyListed(true);
+							xp.getPlayer().sendMessage(ChatColor.GREEN + "you are successfully promoted to " + Configuration.getGrayListConfig().getGroup());
 							if(Hooks.isVaultPermissionsEnabled()) {
 								String oldGroup = xEssentials.getManagers().getVaultManager().getGroup(off.getPlayer().getWorld(), off.getUser());
 								String newgroup = Configuration.getGrayListConfig().getGroup();
@@ -41,6 +42,7 @@ public class GreyListServer implements ServerListener {
 								Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(off.getPlayer(), newgroup, oldGroup, GreyListCause.SITE));
 							}
 						} else {
+							off.setGreyListed(true);
 							if(Hooks.isVaultPermissionsEnabled()) {
 								String oldGroup = xEssentials.getManagers().getVaultManager().getGroup(off.getLastLocation().getWorld(), user);
 								String newgroup = Configuration.getGrayListConfig().getGroup();
