@@ -5,8 +5,8 @@ import tv.mineinthebox.essentials.events.customevents.CallEssentialsBroadcastEve
 import tv.mineinthebox.essentials.events.customevents.CallMojangStatus;
 import tv.mineinthebox.essentials.events.customevents.CallRssFeedEvent;
 import tv.mineinthebox.essentials.events.entity.RealisticGlassEvent;
-import tv.mineinthebox.essentials.greylist.GreyListServer;
 import tv.mineinthebox.essentials.hook.VaultHook;
+import tv.mineinthebox.simpleserver.SimpleServer;
 
 public class Manager {
 	
@@ -21,7 +21,7 @@ public class Manager {
 	private WarpManager warp;
 	private EconomyManager econ;
 	private RealisticGlassEvent glass;
-	private GreyListServer greylist;
+	private SimpleServer greylist;
 	private VaultHook vault;
 	private CallRssFeedEvent rss;
 	private CallMojangStatus moj;
@@ -169,9 +169,9 @@ public class Manager {
 	 * @param returns the greylist manager
 	 * @return GreyListServer
 	 */
-	public GreyListServer getGreylistManager() {
-		if(!(greylist instanceof GreyListServer)) {
-			this.greylist = new GreyListServer(Configuration.getGrayListConfig().getPort());
+	public SimpleServer getGreylistManager() {
+		if(!(greylist instanceof SimpleServer)) {
+			this.greylist = new SimpleServer(Configuration.getGrayListConfig().getPort(), "greylist");
 		}
 		return greylist;
 	}

@@ -1,6 +1,7 @@
 package tv.mineinthebox.essentials;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -44,8 +45,10 @@ import tv.mineinthebox.essentials.enums.ConfigType;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.events.CustomEventHandler;
 import tv.mineinthebox.essentials.events.Handler;
+import tv.mineinthebox.essentials.greylist.GreyListServer;
 import tv.mineinthebox.essentials.helpers.CommandHelper;
 import tv.mineinthebox.essentials.instances.Kit;
+import tv.mineinthebox.simpleserver.SimpleServer;
 
 public class Configuration {
 
@@ -1397,7 +1400,14 @@ public class Configuration {
 		}
 		if(xEssentials.getManagers().getGreylistManager() != null) {
 			if(xEssentials.getManagers().getGreylistManager().isRunning()) {
-				xEssentials.getManagers().getGreylistManager().stop();
+				SimpleServer server = xEssentials.getManagers().getGreylistManager();
+				xEssentials.getPlugin().log("stopping server " + server.getName() + " at port " + server.getPort(), LogType.INFO);
+				try {
+					server.stopServer();
+					xEssentials.getPlugin().log("server successfully stopped!", LogType.INFO);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		if(xEssentials.getManagers().getRealisticWaterManager().isRunning()) {
@@ -1416,7 +1426,15 @@ public class Configuration {
 		createConfigs();
 		HandleCommandManager();
 		if(Configuration.getGrayListConfig().isEnabled()) {
-			xEssentials.getManagers().getGreylistManager().start();
+			SimpleServer server = xEssentials.getManagers().getGreylistManager();
+			server.addListener(new GreyListServer());
+			try {
+				server.startServer();
+				xEssentials.getPlugin().log(server.getName() + " has been started on port " + server.getPort(), LogType.INFO);
+			} catch (Exception e) {
+				xEssentials.getPlugin().log("failed to create server " + server.getName() + " on port " + server.getPort(), LogType.SEVERE);
+				e.printStackTrace();
+			}
 		}
 		if(Configuration.getMiscConfig().isGatesEnabled()) {
 			xEssentials.getManagers().getGateManager().reloadGates();

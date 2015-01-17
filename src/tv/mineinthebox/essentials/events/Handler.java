@@ -170,7 +170,9 @@ public class Handler {
 		if(Hooks.isWorldGuardEnabled()) {setListener(new PlayerZoneEvent());}
 		setListener(new VanishEvent());
 		setListener(new VanishArchievementEvent());
-		if(Configuration.getPlayerConfig().isSeperatedInventorysEnabled()) {setListener(new GameModeInvChangeEvent());}
+		if(Configuration.getPlayerConfig().isSeperatedInventorysEnabled()) {
+			setListener(new GameModeInvChangeEvent());
+		}
 		if(Configuration.getPlayerConfig().isSaveInventoryEnabled()) {
 			setListener(new SaveLastInventoryEvent());
 		} else if(Configuration.getPvpConfig().isReplaceNpcEnabled()) {
@@ -183,7 +185,9 @@ public class Handler {
 				setListener(new PlayerBorderEvent());
 			}
 		}
-		if(Configuration.getChatConfig().isRssBroadcastEnabled()) {setListener(new BroadcastSiteNewsEvent());}
+		if(Configuration.getChatConfig().isRssBroadcastEnabled()) {
+			setListener(new BroadcastSiteNewsEvent());
+		}
 		setListener(new SaveLastLocationEvent());
 		setListener(new TorchEvent());
 		setListener(new FireflyEvent());

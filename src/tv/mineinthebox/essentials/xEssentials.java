@@ -1,5 +1,6 @@
 package tv.mineinthebox.essentials;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import org.bukkit.Bukkit;
@@ -15,11 +16,13 @@ import tv.mineinthebox.essentials.commands.SimpleCommand;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.events.CustomEventHandler;
 import tv.mineinthebox.essentials.events.Handler;
+import tv.mineinthebox.essentials.greylist.GreyListServer;
 import tv.mineinthebox.essentials.helpers.MojangUUID;
 import tv.mineinthebox.essentials.helpers.OnlinePlayersHelper;
 import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 import tv.mineinthebox.essentials.managers.Manager;
+import tv.mineinthebox.simpleserver.SimpleServer;
 
 
 public class xEssentials extends JavaPlugin {
@@ -53,7 +56,15 @@ public class xEssentials extends JavaPlugin {
 		xEssentials.getManagers().getTPSManager().startTps();
 		Configuration.HandleCommandManager();
 		if(Configuration.getGrayListConfig().isEnabled()) {
-			xEssentials.getManagers().getGreylistManager().start();
+			SimpleServer server = xEssentials.getManagers().getGreylistManager();
+			server.addListener(new GreyListServer());
+			try {
+				server.startServer();
+				log(server.getName() + " has been started on port " + server.getPort(), LogType.INFO);
+			} catch (Exception e) {
+				log("failed to create server " + server.getName() + " on port " + server.getPort(), LogType.SEVERE);
+				e.printStackTrace();
+			}
 		}
 
 		if(Hooks.isVaultEnabled()) {
@@ -99,7 +110,14 @@ public class xEssentials extends JavaPlugin {
 		}
 
 		if(xEssentials.getManagers().getGreylistManager().isRunning()) {
-			xEssentials.getManagers().getGreylistManager().stop();
+			SimpleServer server = xEssentials.getManagers().getGreylistManager();
+			log("stopping server " + server.getName() + " at port " + server.getPort(), LogType.INFO);
+			try {
+				server.stopServer();
+				log("server successfully stopped!", LogType.INFO);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 		if(xEssentials.getManagers().getBroadcastManager().isRunning()) {

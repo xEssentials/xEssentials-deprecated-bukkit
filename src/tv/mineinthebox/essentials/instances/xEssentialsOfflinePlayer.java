@@ -81,7 +81,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 
 	@Override
 	public boolean isGreyListed() {
-		save();
 		if(con.contains("isDefault")) {
 			if(!con.getBoolean("isDefault")) {
 				return true;
@@ -95,12 +94,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	@Override
 	public void setGreyListed(boolean bol) {
 		con.set("isDefault", !bol);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		save();
 	}
 

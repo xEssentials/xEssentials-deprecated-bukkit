@@ -62,7 +62,7 @@ public class VaultEcoHandler implements Economy {
 			if (economy.plugin != null) {
 				if(((Plugin)xEssentials.getPlugin()).equals(e.getPlugin())) {
 					economy.plugin = null;
-					xEssentials.getPlugin().log(String.format("[%s][Economy] %s unhooked.", plugin.getDescription().getName(), economy.name), LogType.INFO);
+					//xEssentials.getPlugin().log(String.format("[%s][Economy] %s unhooked.", plugin.getDescription().getName(), economy.name), LogType.INFO);
 				}
 			}
 		}
