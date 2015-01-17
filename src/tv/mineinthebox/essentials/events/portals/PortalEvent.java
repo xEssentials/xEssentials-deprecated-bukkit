@@ -1,9 +1,7 @@
 package tv.mineinthebox.essentials.events.portals;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.bukkit.ChatColor;
@@ -39,8 +37,7 @@ public class PortalEvent implements Listener {
 			return;
 		}
 		for(Portal portal : Configuration.getPortalConfig().getPortals().values()) {
-			List<Block> blocks = Arrays.asList(portal.getInnerBlocks());
-			if(blocks.contains(block)) {
+			if(portal.getInnerBlocks().contains(block)) {
 				if(Configuration.getPortalConfig().getCooldown() > 0) {
 					if(time.containsKey(e.getPlayer().getName())) {
 						if(time.get(e.getPlayer().getName()) < System.currentTimeMillis()) {
@@ -90,8 +87,7 @@ public class PortalEvent implements Listener {
 			return;
 		}
 		for(Portal portal : Configuration.getPortalConfig().getPortals().values()) {
-			List<Block> blocks = Arrays.asList(portal.getInnerBlocks());
-			if(blocks.contains(block)) {
+			if(portal.getInnerBlocks().contains(block)) {
 				if(e.getEntity() instanceof Item) {
 					e.setCancelled(true);
 					return;
@@ -103,7 +99,7 @@ public class PortalEvent implements Listener {
 						e.setCancelled(true);
 						return;
 					}
-					e.setTo(linked.getInnerBlocks()[(linked.getInnerBlocks().length-1)].getLocation());
+					e.setTo(linked.getInnerBlocks().get(linked.getInnerBlocks().size()-1).getLocation());
 					e.setCancelled(false);
 				} else {
 					e.setCancelled(true);

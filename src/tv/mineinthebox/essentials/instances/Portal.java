@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class Portal implements Comparable<String> {
 	 * @param returns all the blocks inside the portal
 	 * @return Block
 	 */
-	public Block[] getInnerBlocks() {
+	public List<Block> getInnerBlocks() {
 		update();
 		List<Block> blocks = new ArrayList<Block>();
 		for(String s : con.getStringList("InnerBlocks")) {
@@ -57,7 +58,7 @@ public class Portal implements Comparable<String> {
 			Block block = new Location(w, x, y, z).getBlock();
 			blocks.add(block);
 		}
-		return blocks.toArray(new Block[blocks.size()]);	
+		return blocks;	
 	}
 
 	/**
@@ -161,7 +162,7 @@ public class Portal implements Comparable<String> {
 	 * @return Boolean
 	 */
 	public boolean isClosed() {
-		return (getInnerBlocks()[0].getType() == Material.IRON_FENCE || getInnerBlocks()[0].getType() == Material.AIR ? true : false);
+		return (getInnerBlocks().get(0).getType() == Material.IRON_FENCE || getInnerBlocks().get(0).getType() == Material.AIR ? true : false);
 	}
 
 	/**
@@ -186,8 +187,8 @@ public class Portal implements Comparable<String> {
 	}
 	
 	public Location getExitLocation() {
-		Block[] blocks = getInnerBlocks();
-		Arrays.sort(blocks, new Comparator<Block>() {
+		List<Block> blocks = getInnerBlocks();
+		Collections.sort(blocks, new Comparator<Block>() {
 
 			@Override
 			public int compare(Block o1, Block o2) {
@@ -195,7 +196,7 @@ public class Portal implements Comparable<String> {
 			}
 			
 		});
-		return blocks[1].getLocation();
+		return blocks.get(1).getLocation();
 	}
 
 	/**

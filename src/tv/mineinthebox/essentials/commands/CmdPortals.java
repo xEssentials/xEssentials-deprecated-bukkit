@@ -11,12 +11,12 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
-import tv.mineinthebox.essentials.events.portals.PortalSelectedCreateEvent;
 import tv.mineinthebox.essentials.instances.Portal;
 
 public class CmdPortals {
@@ -58,7 +58,6 @@ public class CmdPortals {
 					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals help " + ChatColor.WHITE + ": shows help");
 					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals list " + ChatColor.WHITE + ": shows a list of all portal names");
 					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals teleport <world> " + ChatColor.WHITE + ": teleports to the spawn point of a other world.");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals setspawn " + ChatColor.WHITE + ": sets the spawn point of this world.");
 					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals create <portal-name> " + ChatColor.WHITE + ": creates a selection and adress a name/id to it");
 					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals delete <portal-name> " + ChatColor.WHITE + ": delete a portal");
 					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals link <portal1> <portal2> " + ChatColor.WHITE + ": links portals to each other.");
@@ -68,7 +67,6 @@ public class CmdPortals {
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals help " + ChatColor.WHITE + ": shows help");
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals list " + ChatColor.WHITE + ": shows a list of all portal names");
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals teleport <world> " + ChatColor.WHITE + ": teleports to the spawn point of a other world.");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals setspawn " + ChatColor.WHITE + ": sets the spawn point of this world.");
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals create <portal-name> " + ChatColor.WHITE + ": creates a selection and adress a name/id to it");
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals delete <portal-name> " + ChatColor.WHITE + ": delete a portal");
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals link <portal1> <portal2> " + ChatColor.WHITE + ": links portals to each other.");
@@ -90,21 +88,14 @@ public class CmdPortals {
 						} else {
 							sender.sendMessage(ChatColor.RED + "no portals where found!");
 						}
-					} else if(args[0].equalsIgnoreCase("setspawn")) {
-						if(sender instanceof Player) {
-							Player p = (Player) sender;
-							p.getWorld().setSpawnLocation(p.getLocation().getBlockX(), p.getLocation().getBlockY(), p.getLocation().getBlockZ());
-							sender.sendMessage(ChatColor.GREEN + "spawn point of this world successfully set.");
-						} else {
-							Warnings.getWarnings(sender).consoleMessage();
-						}
 					}
 				} else if(args.length == 2) {
 					if(args[0].equalsIgnoreCase("create")) {
 						File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "portals" + File.separator + args[1] + ".yml");
 						if(!f.exists()) {
-							PortalSelectedCreateEvent.hash.put(sender.getName(), args[1]);
-							sender.sendMessage(ChatColor.GREEN + "now right click the abovest block of the portal, and next followed by the lowest block.");
+							Player p = (Player) sender;
+							p.setMetadata("portal", new FixedMetadataValue(xEssentials.getPlugin(), args[1]));
+							sender.sendMessage(ChatColor.GREEN + "now right click a block to set your first pos!");
 						} else {
 							sender.sendMessage(ChatColor.RED + "this portal name does already exist!");
 						}

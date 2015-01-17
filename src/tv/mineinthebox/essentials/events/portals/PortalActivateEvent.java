@@ -56,10 +56,8 @@ public class PortalActivateEvent implements Listener {
 
 		if(e.getBlock().getType() == Material.PORTAL) {
 			for(Portal portal : Configuration.getPortalConfig().getPortals().values()) {
-				List<Block> list = Arrays.asList(portal.getInnerBlocks());
-				if(list.contains(e.getBlock())) {
+				if(portal.getInnerBlocks().contains(e.getBlock())) {
 					e.setCancelled(true);
-					break;
 				}
 			}
 		}
@@ -73,8 +71,7 @@ public class PortalActivateEvent implements Listener {
 
 		if(e.getBlock().getType() == Material.PORTAL) {
 			for(Portal portal : Configuration.getPortalConfig().getPortals().values()) {
-				List<Block> list = Arrays.asList(portal.getInnerBlocks());
-				if(list.contains(e.getBlock())) {
+				if(portal.getInnerBlocks().contains(e.getBlock())) {
 					if(e.getPlayer().getGameMode() == GameMode.CREATIVE) {
 						e.getPlayer().sendMessage(ChatColor.RED + "you can only break this portal, if you remove this portal.");
 					}

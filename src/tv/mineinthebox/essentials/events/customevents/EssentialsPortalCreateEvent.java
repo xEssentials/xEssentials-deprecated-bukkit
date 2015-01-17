@@ -1,5 +1,7 @@
 package tv.mineinthebox.essentials.events.customevents;
 
+import java.util.List;
+
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -62,7 +64,7 @@ public class EssentialsPortalCreateEvent extends PlayerEvent implements Cancella
 	 * @param get all inner blocks inside the portal frame
 	 * @return Block[]
 	 */
-	public Block[] getInnerBlocks() {
+	public List<Block> getInnerBlocks() {
 		return this.portal.getInnerBlocks();
 	}
 	
