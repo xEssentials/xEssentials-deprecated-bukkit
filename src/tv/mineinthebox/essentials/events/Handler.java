@@ -146,15 +146,6 @@ import tv.mineinthebox.essentials.events.signs.WildSignEvent;
 import tv.mineinthebox.essentials.events.vote.VoteCrateEvent;
 import tv.mineinthebox.essentials.events.vote.VoteMoneyEvent;
 import tv.mineinthebox.essentials.hook.Hooks;
-import tv.mineinthebox.essentials.minigames.football.listeners.FootballCreationEvent;
-import tv.mineinthebox.essentials.minigames.football.listeners.FootballNoDamageEvent;
-import tv.mineinthebox.essentials.minigames.football.listeners.FootballScoreEvent;
-import tv.mineinthebox.essentials.minigames.memory.MinigameQuitEvent;
-import tv.mineinthebox.essentials.minigames.memory.MinigameSessionRemoveEvent;
-import tv.mineinthebox.essentials.minigames.memory.MinigameTeleportEvent;
-import tv.mineinthebox.essentials.minigames.tennis.listeners.TennisBallVelocityEvent;
-import tv.mineinthebox.essentials.minigames.tennis.listeners.TennisCreationEvent;
-import tv.mineinthebox.essentials.minigames.tennis.listeners.TennisScoreEvent;
 
 public class Handler {
 
@@ -397,21 +388,6 @@ public class Handler {
 		if(Configuration.getVoteConfig().isVoteEnabled() && Hooks.isVotifierEnabled()) {
 			if(Configuration.getVoteConfig().isMoneyRewardEnabled() && Hooks.isVaultEcoEnabled()) {setListener(new VoteMoneyEvent());}
 			if(Configuration.getVoteConfig().isRewardCrateEnabled() && Hooks.isManCoEnabled()) {setListener(new VoteCrateEvent());}
-		}
-		
-		//minigames
-		if(Configuration.getMinigameConfig().isMinigamesEnabled()) {
-			setListener(new MinigameSessionRemoveEvent());
-			setListener(new MinigameQuitEvent());
-			setListener(new MinigameTeleportEvent());
-			
-			setListener(new TennisCreationEvent());
-			setListener(new TennisBallVelocityEvent());
-			setListener(new TennisScoreEvent());
-			
-			setListener(new FootballCreationEvent());
-			setListener(new FootballScoreEvent());
-			setListener(new FootballNoDamageEvent());
 		}
 			
 		setListener(new RemoveMemoryEvent());

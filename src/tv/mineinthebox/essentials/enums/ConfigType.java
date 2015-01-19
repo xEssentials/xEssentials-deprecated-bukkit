@@ -20,6 +20,5 @@ public enum ConfigType {
 	MISC,
 	SIGN,
 	VOTE,
-	DEBUG,
-	MINIGAMES
+	DEBUG
 }

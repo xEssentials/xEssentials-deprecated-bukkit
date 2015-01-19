@@ -278,15 +278,6 @@ public class SimpleCommand implements CommandExecutor, TabCompleter {
 		} else if(cmd.getName().equalsIgnoreCase("getchunkfile")) {
 			CmdGetChunkFile chunk = new CmdGetChunkFile();
 			return chunk.execute(sender, cmd, args);
-		} else if(cmd.getName().equalsIgnoreCase("tennis")) {
-			CmdTennis chicken = new CmdTennis();
-			return chicken.execute(sender, cmd, args);
-		} else if(cmd.getName().equalsIgnoreCase("football")) {
-			CmdFootball football = new CmdFootball();
-			return football.execute(sender, cmd, args);
-		} else if(cmd.getName().equalsIgnoreCase("parkour")) {
-			CmdParkour parkour = new CmdParkour();
-			return parkour.execute(sender, cmd, args);
 		}
 		return false;
 	}

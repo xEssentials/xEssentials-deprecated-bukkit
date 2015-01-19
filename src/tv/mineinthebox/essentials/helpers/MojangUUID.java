@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-import org.bukkit.entity.Player;
+import org.bukkit.Bukkit;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -71,29 +71,80 @@ public class MojangUUID {
 	 * @return String
 	 * @throws Exception
 	 */
-	public String getUniqueId(Player p) throws Exception {
+	@SuppressWarnings("deprecation")
+	public String getUniqueId(String name) throws Exception {
 		if(isVersionSupported()) {
 			if(Configuration.getDebugConfig().isEnabled()) {
 				xEssentials.getPlugin().log("version is supported, we are using the build in uuid system instead", LogType.DEBUG);
 			}
-			return p.getUniqueId().toString().replaceAll("-", "");
+			return Bukkit.getPlayer(name).getUniqueId().toString().replaceAll("-", "");
 		} else {
 			if(Configuration.getDebugConfig().isEnabled()) {
 				xEssentials.getPlugin().log("this version of bukkit does not have a inbuild version of the uuid system, so we will fetch the uuid manually", LogType.DEBUG);
 			}
 			String uuid = "";
 			if(service != null) {
-				Future<UUID> result = service.submit(new CompatUUID(p));
+				Future<UUID> result = service.submit(new CompatUUID(name));
 				uuid = result.get(3, TimeUnit.SECONDS).toString().replaceAll("-", "");
 				result.cancel(true);
 			} else {
 				ExecutorService service = Executors.newCachedThreadPool();
-				Future<UUID> result = service.submit(new CompatUUID(p));
+				Future<UUID> result = service.submit(new CompatUUID(name));
 				uuid = result.get(3, TimeUnit.SECONDS).toString().replaceAll("-", "");
 				result.cancel(true);
 			}
 			return uuid;
 		}
+	}
+	
+	public String getLastName(String uuid) throws Exception {
+		String lastname = null;
+		if(service != null) {
+			Future<String> result = service.submit(new Lastname(uuid));
+			uuid = result.get(3, TimeUnit.SECONDS).toString().replaceAll("-", "");
+			result.cancel(true);
+		} else {
+			ExecutorService service = Executors.newCachedThreadPool();
+			Future<String> result = service.submit(new Lastname(uuid));
+			uuid = result.get(3, TimeUnit.SECONDS).toString().replaceAll("-", "");
+			result.cancel(true);
+		}
+		return lastname;
+	}
+}
+
+class Lastname implements Callable<String> {
+	/**
+	 * @author xize
+	 * @param returns the uuid of the site within 3 seconds, if not it throws a TimeOutException
+	 */
+
+	private UUID uuid;
+	private final  String REPO = " https://api.mojang.com/user/profiles/";
+	private final JSONParser jsonParser = new JSONParser();
+
+	public Lastname(String uuid) {
+		this.uuid = UUID.fromString(uuid.substring(0, 8) + "-" + uuid.substring(8, 12) + "-" + uuid.substring(12, 16) + "-" + uuid.substring(16, 20) + "-" + uuid.substring(20, 32));
+	}
+
+	@Override
+	public String call() throws Exception {
+		HttpURLConnection connection = createConnection();
+		JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(connection.getInputStream()));
+		String id = (String) jsonObject.get("name");
+		connection.disconnect();
+		return id;
+	}
+
+	private HttpURLConnection createConnection() throws Exception {
+		URL url = new URL(REPO+uuid.toString());
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		connection.setRequestMethod("GET");
+		connection.setRequestProperty("Content-Type", "application/json");
+		connection.setUseCaches(false);
+		connection.setDoInput(true);
+		connection.setDoOutput(true);
+		return connection;
 	}
 }
 
@@ -104,12 +155,12 @@ class CompatUUID implements Callable<UUID> {
 	 * @param returns the uuid of the site within 3 seconds, if not it throws a TimeOutException
 	 */
 
-	private Player p;
+	private String name;
 	private final  String REPO = "https://api.mojang.com/users/profiles/minecraft/";
 	private final JSONParser jsonParser = new JSONParser();
 
-	public CompatUUID(Player p) {
-		this.p = p;
+	public CompatUUID(String name) {
+		this.name = name;
 	}
 
 	@Override
@@ -123,7 +174,7 @@ class CompatUUID implements Callable<UUID> {
 	}
 
 	private HttpURLConnection createConnection() throws Exception {
-		URL url = new URL(REPO+p.getName());
+		URL url = new URL(REPO+name);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setRequestMethod("GET");
 		connection.setRequestProperty("Content-Type", "application/json");

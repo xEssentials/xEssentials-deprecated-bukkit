@@ -30,7 +30,6 @@ import tv.mineinthebox.essentials.configurations.EconomyConfig;
 import tv.mineinthebox.essentials.configurations.EntityConfig;
 import tv.mineinthebox.essentials.configurations.GreylistConfig;
 import tv.mineinthebox.essentials.configurations.KitConfig;
-import tv.mineinthebox.essentials.configurations.MinigameConfig;
 import tv.mineinthebox.essentials.configurations.MiscConfig;
 import tv.mineinthebox.essentials.configurations.MotdConfig;
 import tv.mineinthebox.essentials.configurations.PlayerConfig;
@@ -76,8 +75,6 @@ public class Configuration {
 	private static SignConfig signconfig;
 	private static VoteConfig voteconfig;
 	private static DebugConfig debugconfig;
-	private static MinigameConfig minigameconfig;
-
 
 
 	/**
@@ -108,7 +105,6 @@ public class Configuration {
 		createSignConfig();
 		createVoteConfig();
 		createDebugConfig();
-		createMinigameConfig();
 		loadSystemPresets(ConfigType.BAN);
 		loadSystemPresets(ConfigType.BROADCAST);
 		loadSystemPresets(ConfigType.CHAT);
@@ -129,7 +125,6 @@ public class Configuration {
 		loadSystemPresets(ConfigType.SIGN);
 		loadSystemPresets(ConfigType.VOTE);
 		loadSystemPresets(ConfigType.DEBUG);
-		loadSystemPresets(ConfigType.MINIGAMES);
 		for(Material mat : Material.values()) {
 			materials.add(mat.name());
 		}
@@ -137,19 +132,6 @@ public class Configuration {
 
 	private String serialize_name(String mob) {
 		return mob.toString().toLowerCase();
-	}
-	
-	private void createMinigameConfig() {
-		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "minigames.yml");
-			if(!f.exists()) {
-				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-				con.set("minigames.enable", false);
-				con.save(f);
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	private void createDebugConfig() {
@@ -932,12 +914,6 @@ public class Configuration {
 			HashMap<String, Object> hash = new HashMap<String, Object>();
 			hash.put("debug", con.getBoolean("debug-mode"));
 			configure.put(ConfigType.DEBUG, hash);
-		} else if(cfg == ConfigType.MINIGAMES) {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "minigames.yml");
-			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-			HashMap<String, Object> hash = new HashMap<String, Object>();
-			hash.put("minigamesenabled", con.getBoolean("minigames.enable"));
-			configure.put(ConfigType.MINIGAMES, hash);
 		}
 	}
 
@@ -1093,20 +1069,6 @@ public class Configuration {
 	 */
 	public static void setConfigValue(ConfigType type, String hashName, Object value) {
 		configure.get(type).put(hashName, value);
-	}
-	
-	/**
-	 * @author xize
-	 * @param returns the minigame configuration
-	 * @return MinigameConfig
-	 */
-	public static MinigameConfig getMinigameConfig() {
-		if(minigameconfig instanceof MinigameConfig) {
-			return minigameconfig;
-		} else {
-			minigameconfig = new MinigameConfig();
-			return minigameconfig;
-		}
 	}
 
 	/**
@@ -1413,9 +1375,6 @@ public class Configuration {
 		if(xEssentials.getManagers().getRealisticWaterManager().isRunning()) {
 			xEssentials.getManagers().getRealisticWaterManager().stop();
 		}
-		if(Configuration.getMinigameConfig().isMinigamesEnabled()) {
-			xEssentials.getManagers().getMinigameManager().onDisable();
-		}
 		//clear responsible from the deepest tree in the HashMap in case things could get persistent in the jvm things need to be better safe than not.
 		for(ConfigType aEnum : ConfigType.values()) {
 			if(configure.containsKey(aEnum)) {
@@ -1444,9 +1403,6 @@ public class Configuration {
 		}
 		if(Configuration.getEntityConfig().isRealisticWaterEnabled()) {
 			xEssentials.getManagers().getRealisticWaterManager().start();
-		}
-		if(Configuration.getMinigameConfig().isMinigamesEnabled()) {
-			xEssentials.getManagers().getMinigameManager().onEnable();
 		}
 		xEssentials.getManagers().getPlayerManager().reloadPlayerBase(); 
 		handler.start();

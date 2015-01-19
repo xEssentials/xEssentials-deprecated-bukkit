@@ -30,7 +30,6 @@ public class Manager {
 	private ChairManager chair;
 	private ManCoManager manco;
 	private RealisticWaterManager water;
-	private MinigameManager minigamemanager;
 	
 	/**
 	 * @author xize
@@ -271,13 +270,4 @@ public class Manager {
 		}
 		return water;
 	}
-	
-	public MinigameManager getMinigameManager() {
-		if(!(minigamemanager instanceof MinigameManager)) {
-			minigamemanager = new MinigameManager();
-			minigamemanager.onEnable();
-		}
-		return minigamemanager;
-	}
-
 }
