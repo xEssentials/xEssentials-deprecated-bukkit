@@ -1,23 +1,29 @@
 package tv.mineinthebox.essentials.events.chat;
 
-import java.util.HashSet;
+import java.util.Iterator;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerChatEvent;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
+@SuppressWarnings("deprecation")
 public class SilenceChatEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public SilenceChatEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@EventHandler(priority = EventPriority.LOW)
-	public void onChat(AsyncPlayerChatEvent e) {
-		if(Configuration.isSilenceToggled) {
+	public void onChat(PlayerChatEvent e) {
+		if(pl.getConfiguration().isSilenceToggled) {
 			e.getPlayer().sendMessage(ChatColor.GREEN + "all chat activity has been halted!, please wait a few minuts.");
 			e.setCancelled(true);
 		} else {
@@ -27,12 +33,15 @@ public class SilenceChatEvent implements Listener {
 				e.setCancelled(true);
 				return;
 			}
-			//this probably will fix the ConcurentModificationException because e.getRecipients() isn't thread safe, so instead we cloned the recipients as a new object
-			//else we go use the PlayerChatEvent, credits to feildmaster his silence source
-			for(Player p : new HashSet<Player>(e.getRecipients())) {
+			
+			//credits to feildmaster his silence source
+			
+			Iterator<Player> it = e.getRecipients().iterator();
+			
+			for(Player p = null; it.hasNext(); p=it.next()) {
 				XPlayer xp2 = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp2.isSilenced()) {
-					e.getRecipients().remove(p);
+					it.remove();
 				}
 			}
 		}
