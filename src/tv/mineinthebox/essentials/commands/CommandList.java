@@ -92,9 +92,6 @@ public class CommandList {
 		   "floor",
 		   "wall",
 		   "nether",
-		   "getchunkfile",
-		   "tennis",
-		   "football",
-		   "parkour"
+		   "getchunkfile"
 		   };
 }
