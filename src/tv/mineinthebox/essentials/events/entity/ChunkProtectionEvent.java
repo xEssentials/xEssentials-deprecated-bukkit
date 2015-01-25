@@ -13,16 +13,26 @@ import tv.mineinthebox.essentials.enums.LogType;
 
 public class ChunkProtectionEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public ChunkProtectionEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@EventHandler
 	public void onChunkProtect(ChunkLoadEvent e) {
 		for(Entity entity : e.getChunk().getEntities()) {
 			if(entity instanceof WitherSkull) {
 				WitherSkull wither = (WitherSkull) entity;
-				xEssentials.getPlugin().log("removed wither skull to prevent lag, or to protect the server for a possible grief attempt", LogType.INFO);
+				if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+					xEssentials.log("removed wither skull at: {" + wither.getWorld().getName() + ", " + wither.getLocation().getBlockX() + ", " + wither.getLocation().getBlockY() + ", " + wither.getLocation().getBlockZ() + "} to prevent lag", LogType.INFO);	
+				}
 				wither.remove();
 			} else if(entity instanceof Fireball) {
 				Fireball fb = (Fireball) entity;
-				xEssentials.getPlugin().log("removed fireball to prevent lag, or to protect the server for a possible grief attempt", LogType.INFO);
+				if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+					xEssentials.log("removed fireball at: {" + fb.getWorld().getName() + ", " + fb.getLocation().getBlockX() + ", " + fb.getLocation().getBlockY() + ", " + fb.getLocation().getBlockZ() + "} to prevent lag", LogType.INFO);
+				}
 				fb.remove();
 			}
 		}
@@ -33,11 +43,15 @@ public class ChunkProtectionEvent implements Listener {
 		for(Entity entity : e.getChunk().getEntities()) {
 			if(entity instanceof WitherSkull) {
 				WitherSkull wither = (WitherSkull) entity;
-				xEssentials.getPlugin().log("removed wither skull to prevent lag, or to protect the server for a possible grief attempt", LogType.INFO);
+				if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+					xEssentials.log("removed wither skull at: {" + wither.getWorld().getName() + ", " + wither.getLocation().getBlockX() + ", " + wither.getLocation().getBlockY() + ", " + wither.getLocation().getBlockZ() + "} to prevent lag", LogType.INFO);
+				}
 				wither.remove();
 			} else if(entity instanceof Fireball) {
 				Fireball fb = (Fireball) entity;
-				xEssentials.getPlugin().log("removed fireball to prevent lag, or to protect the server for a possible grief attempt", LogType.INFO);
+				if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+					xEssentials.log("removed fireball at: {" + fb.getWorld().getName() + ", " + fb.getLocation().getBlockX() + ", " + fb.getLocation().getBlockY() + ", " + fb.getLocation().getBlockZ() + "} to prevent lag", LogType.INFO);
+				}
 				fb.remove();
 			}
 		}
