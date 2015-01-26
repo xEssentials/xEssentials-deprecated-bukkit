@@ -14,13 +14,13 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 @SuppressWarnings("deprecation")
 public class SilenceChatEvent implements Listener {
-	
+
 	private final xEssentials pl;
-	
+
 	public SilenceChatEvent(xEssentials pl) {
 		this.pl = pl;
 	}
-	
+
 	@EventHandler(priority = EventPriority.LOW)
 	public void onChat(PlayerChatEvent e) {
 		if(pl.getConfiguration().isSilenceToggled) {
@@ -33,12 +33,12 @@ public class SilenceChatEvent implements Listener {
 				e.setCancelled(true);
 				return;
 			}
-			
+
 			//credits to feildmaster his silence source
-			
+
 			Iterator<Player> it = e.getRecipients().iterator();
-			
-			for(Player p = null; it.hasNext(); p=it.next()) {
+
+			for(Player p = (it.hasNext() ? it.next() : null); it.hasNext(); p=it.next()) {
 				XPlayer xp2 = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp2.isSilenced()) {
 					it.remove();
