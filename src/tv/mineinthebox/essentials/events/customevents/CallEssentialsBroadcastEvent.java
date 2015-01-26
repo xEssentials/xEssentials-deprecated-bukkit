@@ -60,7 +60,7 @@ public class CallEssentialsBroadcastEvent {
 	}
 	
 	private void startBroadcast() {
-		task = Bukkit.getScheduler().runTaskTimer(xEssentials.getPlugin(), new Runnable() {
+		task = Bukkit.getScheduler().runTaskTimer(pl, new Runnable() {
 
 			@Override
 			public void run() {

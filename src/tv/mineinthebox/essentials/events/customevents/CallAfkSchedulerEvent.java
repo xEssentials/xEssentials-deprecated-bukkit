@@ -25,7 +25,7 @@ public class CallAfkSchedulerEvent implements Listener {
 	private HashMap<String, Location> PlayerLocations = new HashMap<String, Location>();
 
 	public void onStartAfkScheduler() {
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(xEssentials.getPlugin(), new Runnable() {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(pl, new Runnable() {
 
 			@Override
 			public void run() {

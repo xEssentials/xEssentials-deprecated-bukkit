@@ -13,6 +13,12 @@ import org.bukkit.metadata.FixedMetadataValue;
 import tv.mineinthebox.essentials.xEssentials;
 
 public class PlayerForceRespawnEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public PlayerForceRespawnEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler
 	public void onrespawn(PlayerDeathEvent e) {
@@ -22,7 +28,7 @@ public class PlayerForceRespawnEvent implements Listener {
 			e.getEntity().getWorld().dropItem(e.getEntity().getLocation(), stack);
 			stacks.remove();
 		}
-		e.getEntity().setMetadata("deathReason", new FixedMetadataValue(xEssentials.getPlugin(), getKiller(e.getDeathMessage())));
+		e.getEntity().setMetadata("deathReason", new FixedMetadataValue(pl, getKiller(e.getDeathMessage())));
 		sentPacket(e.getEntity());
 	}
 

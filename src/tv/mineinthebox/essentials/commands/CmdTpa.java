@@ -44,7 +44,7 @@ public class CmdTpa {
 								}
 								if(!(pl.getManagers().getTpaManager().containsKey(victem.getName()) || pl.getManagers().getTpaManager().containsValue(victem.getName()))) {
 									pl.getManagers().getTpaManager().put(victem.getName(), sender.getName());
-									Bukkit.getScheduler().scheduleSyncDelayedTask(xEssentials.getPlugin(), new Runnable() {
+									Bukkit.getScheduler().scheduleSyncDelayedTask(pl, new Runnable() {
 
 										@Override
 										public void run() {

@@ -35,7 +35,7 @@ public class RegenObject implements Runnable {
 	 */
 	public void startRegen() {
 		if(!(task instanceof BukkitTask)) {
-			this.task = Bukkit.getScheduler().runTaskTimer(xEssentials.getPlugin(), this, 0L, 4L);
+			this.task = Bukkit.getScheduler().runTaskTimer(pl, this, 0L, 4L);
 		}
 	}
 	

@@ -50,7 +50,7 @@ public class CallMojangStatus {
 				try {
 					this.url = new URL("http://status.mojang.com/check");
 					this.httpcon = (HttpURLConnection) url.openConnection();
-					this.httpcon.addRequestProperty("User-Agent", xEssentials.getPlugin().getName() + " " + xEssentials.getPlugin().getDescription().getVersion() + " status checker (By xize)");
+					this.httpcon.addRequestProperty("User-Agent", pl.getName() + " " + pl.getDescription().getVersion() + " status checker (By xize)");
 					this.httpcon.setUseCaches(false);
 					this.httpcon.setRequestMethod("GET");
 					this.httpcon.connect();
@@ -104,7 +104,7 @@ public class CallMojangStatus {
 				}
 			}
 
-		}.runTaskTimerAsynchronously(xEssentials.getPlugin(), 100L, 4000L); //default 100L, 4000L
+		}.runTaskTimerAsynchronously(pl, 100L, 4000L); //default 100L, 4000L
 	}
 
 	/**

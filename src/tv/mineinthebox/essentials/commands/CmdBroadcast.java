@@ -53,7 +53,7 @@ public class CmdBroadcast {
 						}
 					} else if(args[0].equalsIgnoreCase("stop")) {
 						try {
-							File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "broadcast.yml");
+							File f = new File(pl.getDataFolder() + File.separator + "broadcast.yml");
 							FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 							con.set("broadcast.enable", false);
 							con.save(f);
@@ -64,7 +64,7 @@ public class CmdBroadcast {
 						}
 					} else if(args[0].equalsIgnoreCase("start")) {
 						try {
-							File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "broadcast.yml");
+							File f = new File(pl.getDataFolder() + File.separator + "broadcast.yml");
 							FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 							con.set("broadcast.enable", true);
 							con.save(f);
@@ -85,7 +85,7 @@ public class CmdBroadcast {
 							String name = list.get(id);
 							list.remove(name);
 							try {
-								File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "broadcast.yml");
+								File f = new File(pl.getDataFolder() + File.separator + "broadcast.yml");
 								FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 								con.set("broadcast.messages", list);
 								con.save(f);
@@ -109,7 +109,7 @@ public class CmdBroadcast {
 						String message = Arrays.toString(args).replace(args[0]+"," + " ", "").replace(",", "").replace("[", "").replace("]", "");
 						list.add(message);
 						try {
-							File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "broadcast.yml");
+							File f = new File(pl.getDataFolder() + File.separator + "broadcast.yml");
 							FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 							con.set("broadcast.messages", list);
 							con.save(f);

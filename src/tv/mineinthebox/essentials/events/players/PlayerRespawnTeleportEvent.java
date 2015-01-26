@@ -16,10 +16,16 @@ import tv.mineinthebox.essentials.xEssentials;
 
 public class PlayerRespawnTeleportEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public PlayerRespawnTeleportEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@EventHandler
 	public void RespawnPlayer(PlayerRespawnEvent e) {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "spawn.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "spawn.yml");
 			if(f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				Double x = con.getDouble("x");

@@ -44,13 +44,13 @@ public class PlayerSitOnChairEvent implements Listener, Runnable {
 						return;
 					}
 					Chicken chicken = (Chicken)e.getClickedBlock().getWorld().spawnEntity(e.getClickedBlock().getLocation().add(0.5, 0, 0.5), EntityType.CHICKEN);
-					chicken.setMetadata("chair", new FixedMetadataValue(xEssentials.getPlugin(), e.getPlayer().getName()));
+					chicken.setMetadata("chair", new FixedMetadataValue(pl, e.getPlayer().getName()));
 					chicken.setPassenger(e.getPlayer());
 					chicken.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 10));
 					chicken.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 100));
 					e.getPlayer().sendMessage(ChatColor.GREEN + "you are now sitting on a chair.");
 					pl.getManagers().getChairManager().addChicken(e.getPlayer(), chicken);
-					Bukkit.getScheduler().runTaskTimer(xEssentials.getPlugin(), this, 0L, 1L);
+					Bukkit.getScheduler().runTaskTimer(pl, this, 0L, 1L);
 					XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 					xp.setInChair(true);
 				}

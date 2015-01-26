@@ -14,10 +14,13 @@ import tv.mineinthebox.essentials.xEssentials;
 public class LavaPilar implements Runnable {
 	
 	private final LinkedList<Block> blocks;
+	private final xEssentials pl;
+	
 	private BukkitTask task;
 	
-	public LavaPilar(LinkedList<Block> blocks) {
+	public LavaPilar(LinkedList<Block> blocks, xEssentials pl) {
 		this.blocks = blocks;
+		this.pl = pl;
 	}
 	
 	public boolean isRunning() {
@@ -29,7 +32,7 @@ public class LavaPilar implements Runnable {
 	
 	public void startTask() {
 		if(!isRunning()) {
-			this.task = Bukkit.getScheduler().runTaskTimer(xEssentials.getPlugin(), this, 0L, 20L);
+			this.task = Bukkit.getScheduler().runTaskTimer(pl, this, 0L, 20L);
 		}
 	}
 	

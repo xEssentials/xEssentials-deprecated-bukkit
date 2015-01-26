@@ -81,7 +81,7 @@ public class CmdBan {
 								sender.sendMessage(ChatColor.GREEN + "successfully banned player " + off.getUser());
 							} catch(NullPointerException e) {
 								try {
-									File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players" + File.separator + args[0].toLowerCase() + ".yml");
+									File f = new File(pl.getDataFolder() + File.separator + "players" + File.separator + args[0].toLowerCase() + ".yml");
 									FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 									Bukkit.getServer().getBanList(Type.NAME).addBan(args[0], "The ban Hammer has been spoken!", null, sender.getName()).save();
 									con.set("isDefault", true);
@@ -116,7 +116,7 @@ public class CmdBan {
 							off.setPermBanned(message, sender.getName());
 						} catch(NullPointerException e) {
 							try {
-								File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players" + File.separator + args[0].toLowerCase() + ".yml");
+								File f = new File(pl.getDataFolder() + File.separator + "players" + File.separator + args[0].toLowerCase() + ".yml");
 								FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 								String message = Arrays.toString(args).replace(args[0], "").replace("[", "").replace(",", "").replace("]", "");
 								Bukkit.getServer().getBanList(Type.NAME).addBan(args[0], message, null, sender.getName()).save();

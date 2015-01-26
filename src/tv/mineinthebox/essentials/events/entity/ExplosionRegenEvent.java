@@ -93,7 +93,7 @@ public class ExplosionRegenEvent implements Listener {
 				fb.setDropItem(false);
 				fb.setVelocity(new Vector(x, y, z));
 				fallingBlocks.add(fb);
-				fb.setMetadata("xe:explosion", new FixedMetadataValue(xEssentials.getPlugin(), ""));
+				fb.setMetadata("xe:explosion", new FixedMetadataValue(pl, ""));
 			}
 		}
 	}

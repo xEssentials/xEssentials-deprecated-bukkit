@@ -60,7 +60,7 @@ public class RealisticWaterManager {
 									int y = rand.nextInt(4);
 									loc.setY(loc.getY()+(y > 0 ? y : 4));
 									Item fish = b.getWorld().dropItem(loc, new ItemStack(Material.RAW_FISH, 1, (short)rand.nextInt(4)));
-									fish.setMetadata("fakefish", new FixedMetadataValue(xEssentials.getPlugin(), "its fake"));
+									fish.setMetadata("fakefish", new FixedMetadataValue(pl, "its fake"));
 									fishes.add(fish);
 							}
 						}
@@ -90,7 +90,7 @@ public class RealisticWaterManager {
 				//fishes.clear(); //fixes mutation glitch when a stack passes a other item and is changed to a other object, this clears it all and we will wait for natural despawn.
 			}
 
-		}.runTaskTimer(xEssentials.getPlugin(), 0L, 10L);
+		}.runTaskTimer(pl, 0L, 10L);
 	}
 
 	private boolean hasWaterBlocksNearby(Player p) {

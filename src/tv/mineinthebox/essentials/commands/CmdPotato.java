@@ -69,7 +69,7 @@ public class CmdPotato {
 	}
 
 	private void onPotatoSchedule(final String player) {
-		Bukkit.getScheduler().scheduleSyncDelayedTask(xEssentials.getPlugin(), new Runnable() {
+		Bukkit.getScheduler().scheduleSyncDelayedTask(pl, new Runnable() {
 
 			@Override
 			public void run() {

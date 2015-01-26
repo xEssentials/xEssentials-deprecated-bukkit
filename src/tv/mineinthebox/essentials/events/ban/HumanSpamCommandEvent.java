@@ -45,7 +45,7 @@ public class HumanSpamCommandEvent implements Listener {
 			} else {
 				cmdmsg1.put(e.getPlayer().getName(), e.getMessage());
 			}
-			Bukkit.getScheduler().scheduleSyncDelayedTask(xEssentials.getPlugin(), new Runnable() {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(pl, new Runnable() {
 
 				@Override
 				public void run() {

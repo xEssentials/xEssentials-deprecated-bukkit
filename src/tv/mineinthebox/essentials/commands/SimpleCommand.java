@@ -29,7 +29,7 @@ public class SimpleCommand implements CommandExecutor, TabCompleter {
 			CmdTeleport teleport = new CmdTeleport(pl);
 			return teleport.execute(sender, cmd, args);
 		} else if(cmd.getName().equalsIgnoreCase("setspawn")) {
-			CmdSetspawn spawn = new CmdSetspawn();
+			CmdSetspawn spawn = new CmdSetspawn(pl);
 			return spawn.execute(sender, cmd, args);
 		} else if(cmd.getName().equalsIgnoreCase("spawn")) {
 			CmdSpawn spawn = new CmdSpawn(pl);
@@ -245,7 +245,7 @@ public class SimpleCommand implements CommandExecutor, TabCompleter {
 			CmdBackpack backpack = new CmdBackpack(pl);
 			return backpack.execute(sender, cmd, args);
 		} else if(cmd.getName().equalsIgnoreCase("trollblock")) {
-			CmdTrollBlock troll = new CmdTrollBlock();
+			CmdTrollBlock troll = new CmdTrollBlock(pl);
 			return troll.execute(sender, cmd, args);
 		} else if(cmd.getName().equalsIgnoreCase("knock")) {
 			CmdKnock knock = new CmdKnock(pl);
@@ -272,7 +272,7 @@ public class SimpleCommand implements CommandExecutor, TabCompleter {
 			CmdDrunk drunk = new CmdDrunk(pl);
 			return drunk.execute(sender, cmd, args);
 		} else if(cmd.getName().equalsIgnoreCase("spawnerblock")) {
-			CmdSpawnerBlock spawner = new CmdSpawnerBlock();
+			CmdSpawnerBlock spawner = new CmdSpawnerBlock(pl);
 			return spawner.execute(sender, cmd, args);
 		} else if(cmd.getName().equalsIgnoreCase("floor")) {
 			CmdFloor floor = new CmdFloor(pl);

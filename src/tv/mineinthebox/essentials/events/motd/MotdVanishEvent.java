@@ -32,7 +32,7 @@ public class MotdVanishEvent {
 	//TODO:method was static not sure why.
 	public void initPacketListener(){
 		ProtocolLibrary.getProtocolManager().addPacketListener(
-				new PacketAdapter(xEssentials.getPlugin(), PacketType.Status.Server.OUT_SERVER_INFO) {
+				new PacketAdapter(pl, PacketType.Status.Server.OUT_SERVER_INFO) {
 					@SuppressWarnings("deprecation")
 					@Override
 					public void onPacketSending(PacketEvent event) {

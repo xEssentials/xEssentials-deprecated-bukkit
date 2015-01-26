@@ -8,10 +8,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import tv.mineinthebox.essentials.Warnings;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.TrollBlock;
 
 public class CmdTrollBlock {
+	
+	private final xEssentials pl;
+	
+	public CmdTrollBlock(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
@@ -20,7 +27,7 @@ public class CmdTrollBlock {
 				if(sender instanceof Player) {
 					Player p = (Player) sender;
 					ItemStack item = new ItemStack(Material.GOLDEN_APPLE, 1);
-					TrollBlock block = new TrollBlock(p.getTargetBlock(null, 100), item, p);
+					TrollBlock block = new TrollBlock(p.getTargetBlock(null, 100), item, p, pl);
 					block.startTroll();
 					sender.sendMessage(ChatColor.GREEN + block.getType().name().toLowerCase().replace("_", "") + " is now a troll block!");
 				} else {

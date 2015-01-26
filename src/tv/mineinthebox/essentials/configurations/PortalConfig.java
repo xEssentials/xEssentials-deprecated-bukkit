@@ -46,7 +46,7 @@ public class PortalConfig {
 	public HashMap<String, Portal> getPortals() {
 		if(!(portals instanceof HashMap)) {
 			portals = new HashMap<String, Portal>();
-			File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "portals");
+			File dir = new File(pl.getDataFolder() + File.separator + "portals");
 			if(dir.isDirectory()) {
 				File[] list = dir.listFiles();
 				for(File f : list) {
@@ -56,7 +56,7 @@ public class PortalConfig {
 				}
 			}
 		} else {
-			File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "portals");
+			File dir = new File(pl.getDataFolder() + File.separator + "portals");
 			if(dir.isDirectory()) {
 				File[] list = dir.listFiles();
 				if(list.length == portals.size()) {

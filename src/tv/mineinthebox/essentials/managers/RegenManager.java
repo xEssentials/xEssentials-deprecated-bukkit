@@ -37,7 +37,7 @@ public class RegenManager {
 	 */
 	public void saveRegenObjects() {
 		for(RegenObject regen : getList) {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "regen" + File.separator + "regen_"+regen.getId()+".dat");
+			File f = new File(pl.getDataFolder() + File.separator + "regen" + File.separator + "regen_"+regen.getId()+".dat");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			List<String> serializedLocations = getSerializedLocations(Arrays.asList(regen.getData().keySet().toArray(new Location[regen.getData().size()])));
 			List<String> serializedMaterials = getSerializedMaterialData(Arrays.asList(regen.getData().values().toArray(new MaterialData[regen.getData().size()])));
@@ -57,7 +57,7 @@ public class RegenManager {
 	 * @param loads all the regen schedulers!
 	 */
 	public void loadRegenObjects() {
-		File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "regen");
+		File dir = new File(pl.getDataFolder() + File.separator + "regen");
 		if(dir.isDirectory()) {
 			for(File f : dir.listFiles()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);

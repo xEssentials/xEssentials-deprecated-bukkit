@@ -77,7 +77,6 @@ public class CmdLookup {
 									}
 								}
 							} catch (Exception e) {
-								xEssentials.getPlugin();
 								xEssentials.log("could not lookup ban status of player " + off.getUser() + " on api.fishbans.com", LogType.SEVERE);
 							}
 						} else {
@@ -96,7 +95,6 @@ public class CmdLookup {
 									}
 								}
 							} catch (Exception e) {
-								xEssentials.getPlugin();
 								xEssentials.log("could not lookup ban status of player " + args[0] + " on api.fishbans.com", LogType.SEVERE);
 							}
 						}
@@ -119,7 +117,6 @@ public class CmdLookup {
 								}
 							} catch (Exception e) {
 								e.printStackTrace();
-								xEssentials.getPlugin();
 								xEssentials.log("could not lookup ban status of player " + args[1] + " on api.fishbans.com", LogType.SEVERE);
 							}
 						}
@@ -144,7 +141,7 @@ public class CmdLookup {
 	@SuppressWarnings("unchecked")
 	public EnumMap<ServiceType, List<String>> getLookupReasons(String name) throws Exception {
 		EnumMap<ServiceType, List<String>> map = new EnumMap<ServiceType, List<String>>(ServiceType.class);
-		Callable<JSONObject> args = new BanServices(name);
+		Callable<JSONObject> args = new BanServices(name, pl);
 		JSONObject obj = args.call();
 		List<String> bans = new ArrayList<String>();
 		if(obj.containsKey("bans")) {
@@ -182,7 +179,7 @@ public class CmdLookup {
 	@SuppressWarnings("unchecked")
 	public EnumMap<ServiceType, List<String>> getLookupReasons(String name, ServiceType type) throws Exception {
 		EnumMap<ServiceType, List<String>> map = new EnumMap<ServiceType, List<String>>(ServiceType.class);
-		Callable<JSONObject> args = new BanServices(name);
+		Callable<JSONObject> args = new BanServices(name, pl);
 		JSONObject obj = args.call();
 		List<String> bans = new ArrayList<String>();
 		if(obj.containsKey("bans")) {
@@ -216,9 +213,11 @@ class BanServices implements Callable<JSONObject> {
 
 	private final String api = "http://api.fishbans.com/bans/";
 	private final String player;
+	private final xEssentials pl;
 
-	public BanServices(String player) {
+	public BanServices(String player, xEssentials pl) {
 		this.player = player;
+		this.pl = pl;
 	}
 
 	@Override
@@ -226,7 +225,7 @@ class BanServices implements Callable<JSONObject> {
 		JSONParser parser = new JSONParser();
 		URL url = new URL(api + player);
 		HttpURLConnection httpcon = (HttpURLConnection) url.openConnection();
-		httpcon.addRequestProperty("User-Agent", xEssentials.getPlugin().getName() + " " + xEssentials.getPlugin().getDescription().getVersion() + " ban checker (By xize)");
+		httpcon.addRequestProperty("User-Agent", pl.getName() + " " + pl.getDescription().getVersion() + " ban checker (By xize)");
 		InputStreamReader rd = new InputStreamReader(httpcon.getInputStream());
 		BufferedReader reader = new BufferedReader(rd);
 		JSONObject json = (JSONObject) parser.parse(reader);

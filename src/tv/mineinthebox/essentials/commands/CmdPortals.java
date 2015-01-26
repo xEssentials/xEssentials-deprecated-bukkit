@@ -76,7 +76,7 @@ public class CmdPortals {
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals delete <portal-name> " + ChatColor.WHITE + ": delete a portal");
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals link <portal1> <portal2> " + ChatColor.WHITE + ": links portals to each other.");
 					} else if(args[0].equalsIgnoreCase("list")) {
-						File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "portals");
+						File dir = new File(pl.getDataFolder() + File.separator + "portals");
 						if(dir.isDirectory()) {
 							StringBuilder build = new StringBuilder();
 							HashMap<String, Portal> portals = new HashMap<String, Portal>(pl.getConfiguration().getPortalConfig().getPortals());
@@ -96,10 +96,10 @@ public class CmdPortals {
 					}
 				} else if(args.length == 2) {
 					if(args[0].equalsIgnoreCase("create")) {
-						File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "portals" + File.separator + args[1] + ".yml");
+						File f = new File(pl.getDataFolder() + File.separator + "portals" + File.separator + args[1] + ".yml");
 						if(!f.exists()) {
 							Player p = (Player) sender;
-							p.setMetadata("portal", new FixedMetadataValue(xEssentials.getPlugin(), args[1]));
+							p.setMetadata("portal", new FixedMetadataValue(pl, args[1]));
 							sender.sendMessage(ChatColor.GREEN + "now right click a block to set your first pos!");
 						} else {
 							sender.sendMessage(ChatColor.RED + "this portal name does already exist!");

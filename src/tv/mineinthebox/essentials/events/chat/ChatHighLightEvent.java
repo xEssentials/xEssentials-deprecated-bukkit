@@ -25,7 +25,6 @@ public class ChatHighLightEvent implements Listener {
 	public void OnHighLight(PlayerChatHighLightEvent e) {
 		for(String name : e.getCalledPlayersAsStringArray()) {
 			if(!e.getMessage().contains(pl.getConfiguration().getChatConfig().getHashTag()+name)) {
-				xEssentials.getPlugin();
 				if(pl.getManagers().getPlayerManager().isOnline(name)) {
 					XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(name);
 					if(xp.isVanished()) {

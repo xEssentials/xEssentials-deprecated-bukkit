@@ -81,7 +81,7 @@ public class BridgeCreateEvent implements Listener {
 				}
 				
 				try {
-					File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "misc" + File.separator + "bridges" + File.separator + UUID.randomUUID().toString() + ".yml");
+					File f = new File(pl.getDataFolder() + File.separator + "misc" + File.separator + "bridges" + File.separator + UUID.randomUUID().toString() + ".yml");
 					FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 					con.set("signBlock1", sign1.getWorld().getName()+":"+sign1.getX()+":"+sign1.getY()+":"+sign1.getZ());
 					con.set("signBlock2", sign2.getWorld().getName()+":"+sign2.getX()+":"+sign2.getY()+":"+sign2.getZ());

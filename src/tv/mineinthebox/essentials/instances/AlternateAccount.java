@@ -24,13 +24,16 @@ import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 
 public class AlternateAccount {
 
-	private String[] args;
-	private XOfflinePlayer[] off;
-	private String name;
+	private final String[] args;
+	private final XOfflinePlayer[] off;
+	private final String name;
+	private final xEssentials pl;
+	
 	private JSONObject json;
 
 	public AlternateAccount(xEssentialsPlayer xp, xEssentials pl) {
 		this.name = xp.getUser();
+		this.pl = pl;
 		List<String> list = new ArrayList<String>();
 		List<XOfflinePlayer> list2 = new ArrayList<XOfflinePlayer>();
 		for(XOfflinePlayer offs : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
@@ -49,6 +52,7 @@ public class AlternateAccount {
 
 	public AlternateAccount(xEssentialsOfflinePlayer xp, xEssentials pl) {
 		this.name = xp.getUser();
+		this.pl = pl;
 		List<String> list = new ArrayList<String>();
 		List<XOfflinePlayer> list2 = new ArrayList<XOfflinePlayer>();
 		for(XOfflinePlayer offs : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
@@ -169,7 +173,7 @@ public class AlternateAccount {
 	@SuppressWarnings("unchecked")
 	public EnumMap<ServiceType, List<String>> getLookupReasons() throws Exception {
 		EnumMap<ServiceType, List<String>> map = new EnumMap<ServiceType, List<String>>(ServiceType.class);
-		Callable<JSONObject> args = new BanServices(name);
+		Callable<JSONObject> args = new BanServices(name, pl);
 		JSONObject obj = args.call();
 		if(obj.containsKey("bans")) {
 			if(((JSONObject)obj.get("bans")).containsKey("service")) {
@@ -202,7 +206,7 @@ public class AlternateAccount {
 		if(json instanceof JSONObject) {
 			return json;
 		} else {
-			Callable<JSONObject> args = new BanStats(name);
+			Callable<JSONObject> args = new BanStats(name, pl);
 			return (JSONObject) args.call().get("stats");	
 		}
 	}
@@ -212,9 +216,11 @@ class BanStats implements Callable<JSONObject> {
 
 	private final String api = "http://api.fishbans.com/stats/";
 	private final String player;
+	private final xEssentials pl;
 
-	public BanStats(String player) {
+	public BanStats(String player, xEssentials pl) {
 		this.player = player;
+		this.pl = pl;
 	}
 
 	@Override
@@ -222,7 +228,7 @@ class BanStats implements Callable<JSONObject> {
 		JSONParser parser = new JSONParser();
 		URL url = new URL(api + player);
 		HttpURLConnection httpcon = (HttpURLConnection) url.openConnection();
-		httpcon.addRequestProperty("User-Agent", xEssentials.getPlugin().getName() + " " + xEssentials.getPlugin().getDescription().getVersion() + " ban checker (By xize)");
+		httpcon.addRequestProperty("User-Agent", pl.getName() + " " + pl.getDescription().getVersion() + " ban checker (By xize)");
 		InputStreamReader rd = new InputStreamReader(httpcon.getInputStream());
 		BufferedReader reader = new BufferedReader(rd);
 		JSONObject json = (JSONObject) parser.parse(reader);
@@ -237,9 +243,11 @@ class BanServices implements Callable<JSONObject> {
 
 	private final String api = "http://api.fishbans.com/bans/";
 	private final String player;
-
-	public BanServices(String player) {
+	private final xEssentials pl;
+	
+	public BanServices(String player, xEssentials pl) {
 		this.player = player;
+		this.pl = pl;
 	}
 
 	@Override
@@ -247,7 +255,7 @@ class BanServices implements Callable<JSONObject> {
 		JSONParser parser = new JSONParser();
 		URL url = new URL(api + player);
 		HttpURLConnection httpcon = (HttpURLConnection) url.openConnection();
-		httpcon.addRequestProperty("User-Agent", xEssentials.getPlugin().getName() + " " + xEssentials.getPlugin().getDescription().getVersion() + " ban checker (By xize)");
+		httpcon.addRequestProperty("User-Agent", pl.getName() + " " + pl.getDescription().getVersion() + " ban checker (By xize)");
 		InputStreamReader rd = new InputStreamReader(httpcon.getInputStream());
 		BufferedReader reader = new BufferedReader(rd);
 		JSONObject json = (JSONObject) parser.parse(reader);

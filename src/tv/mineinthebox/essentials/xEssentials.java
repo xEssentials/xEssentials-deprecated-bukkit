@@ -205,7 +205,7 @@ public class xEssentials extends JavaPlugin {
 	 * @param p - returns the uuid manager
 	 * @return MojangUUID
 	 */
-	public static MojangUUID getUUIDManager() {
-		return xEssentials.getPlugin().uuid;
+	public MojangUUID getUUIDManager() {
+		return uuid;
 	}
 }

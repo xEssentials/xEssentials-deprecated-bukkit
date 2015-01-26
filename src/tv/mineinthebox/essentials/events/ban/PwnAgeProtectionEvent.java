@@ -40,7 +40,7 @@ public class PwnAgeProtectionEvent implements Listener {
 							}
 						}
 						
-					}.runTaskTimer(xEssentials.getPlugin(), 100L, 3);
+					}.runTaskTimer(pl, 100L, 3);
 					xp.setPwnageScheduler(task);
 				}
 			} else {
@@ -56,7 +56,7 @@ public class PwnAgeProtectionEvent implements Listener {
 						}
 					}
 					
-				}.runTaskTimer(xEssentials.getPlugin(), 100L, 3);
+				}.runTaskTimer(pl, 100L, 3);
 				xp.setPwnageScheduler(task);
 			}
 		}

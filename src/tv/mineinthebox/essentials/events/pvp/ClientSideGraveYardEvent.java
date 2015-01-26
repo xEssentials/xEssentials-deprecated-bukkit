@@ -67,7 +67,7 @@ public class ClientSideGraveYardEvent implements Listener {
 			xEssentials.log("ClientSideGraveYards is only supported for Craftbukkit 1.7.2 R1, disabling configuration option...", LogType.SEVERE);
 			xEssentials.log("if you want more compatability please install ProtocolLib or update to the correct craftbukkit.", LogType.SEVERE);
 			try {
-				File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "pvp.yml");
+				File f = new File(pl.getDataFolder() + File.separator + "pvp.yml");
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				con.set("createClientSideGraveyard", false);
 				con.save(f);

@@ -103,7 +103,7 @@ public class ShopInteractEvent implements Listener {
 								for(int i = 0; i < inv.getSize(); i++) {
 									inv.setItem(i, shop.getItem());
 								}
-								e.getPlayer().setMetadata("shop", new FixedMetadataValue(xEssentials.getPlugin(), sign));
+								e.getPlayer().setMetadata("shop", new FixedMetadataValue(pl, sign));
 								e.getPlayer().openInventory(inv);
 							} else {
 								e.getPlayer().sendMessage(ChatColor.RED + "you need atleast have one inventory slot open!");

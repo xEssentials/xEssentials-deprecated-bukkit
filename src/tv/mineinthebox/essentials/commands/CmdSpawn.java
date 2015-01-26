@@ -31,7 +31,7 @@ public class CmdSpawn {
 				if(sender instanceof Player) {
 					if(sender.hasPermission(PermissionKey.CMD_SPAWN.getPermission())) {
 						try {
-							File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "spawn.yml");
+							File f = new File(pl.getDataFolder() + File.separator + "spawn.yml");
 							if(f.exists()) {
 								Player p = (Player) sender;
 								FileConfiguration con = YamlConfiguration.loadConfiguration(f);
@@ -65,7 +65,7 @@ public class CmdSpawn {
 					Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 					if(victem instanceof Player) {
 						try {
-							File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "spawn.yml");
+							File f = new File(pl.getDataFolder() + File.separator + "spawn.yml");
 							if(f.exists()) {
 								FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 								Double x = con.getDouble("x");

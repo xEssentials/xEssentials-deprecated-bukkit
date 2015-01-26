@@ -30,7 +30,7 @@ public class LoadMemoryEvent implements Listener {
 			}
 			
 			try {
-				this.uuid = xEssentials.getUUIDManager().getUniqueId(e.getPlayer().getName());
+				this.uuid = pl.getUUIDManager().getUniqueId(e.getPlayer().getName());
 				if(uuid != null) {
 					XPlayer xp = new xEssentialsPlayer(e.getPlayer(), uuid, pl);
 					pl.getManagers().getPlayerManager().addPlayer(e.getPlayer().getName(), xp);	

@@ -17,8 +17,13 @@ import tv.mineinthebox.essentials.xEssentials;
 
 public class SpawnEggLogEvent implements Listener {
 	
-	private HashMap<String, String> idNames = new HashMap<String, String>();
-
+	private final HashMap<String, String> idNames = new HashMap<String, String>();
+    private final xEssentials pl;
+    
+    public SpawnEggLogEvent(xEssentials pl) {
+    	this.pl = pl;
+    }
+    
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void throwEggLog(PlayerInteractEvent e) {
@@ -31,7 +36,7 @@ public class SpawnEggLogEvent implements Listener {
 				cal.getTime();
 				SimpleDateFormat sdf = new SimpleDateFormat("[HH:mm] E dd/MM/yy z - HH:mm:ss");
 				try {
-					FileWriter fw = new FileWriter(xEssentials.getPlugin().getDataFolder() + File.separator + "spawnEgg_activity.log", true);
+					FileWriter fw = new FileWriter(pl.getDataFolder() + File.separator + "spawnEgg_activity.log", true);
 					w(fw,  sdf.format(cal.getTime()) + " " + e.getPlayer().getName() + " tried to throw " + idNames.get(e.getPlayer().getItemInHand().getTypeId() + ":" + e.getPlayer().getItemInHand().getData().getData()) + " in the world " + e.getPlayer().getWorld().getName());
 					fw.close();
 				} catch(Exception a) {

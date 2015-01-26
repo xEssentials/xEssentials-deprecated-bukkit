@@ -23,7 +23,7 @@ public class KillBountyEvent implements Listener {
 	@EventHandler
 	public void onSpawn(CreatureSpawnEvent e) {
 		if(e.getSpawnReason() == SpawnReason.SPAWNER) {
-			e.getEntity().setMetadata("spawner", new FixedMetadataValue(xEssentials.getPlugin(), "cant spawn"));
+			e.getEntity().setMetadata("spawner", new FixedMetadataValue(pl, "cant spawn"));
 		}
 	}
 	

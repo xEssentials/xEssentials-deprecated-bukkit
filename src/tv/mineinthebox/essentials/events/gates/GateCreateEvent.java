@@ -125,7 +125,7 @@ public class GateCreateEvent implements Listener {
 				UUID id = UUID.nameUUIDFromBytes((e.getBlock().getWorld().getName()+":"+e.getBlock().getX()+":"+e.getBlock().getY()+":"+e.getBlock().getZ()).getBytes());
 				
 				try {
-					File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "misc" + File.separator + "gates" + File.separator + id.toString()+".yml");
+					File f = new File(pl.getDataFolder() + File.separator + "misc" + File.separator + "gates" + File.separator + id.toString()+".yml");
 					FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 					con.set("signBlock", e.getBlock().getWorld().getName()+":"+e.getBlock().getX()+":"+e.getBlock().getY()+":"+e.getBlock().getZ());
 					con.set("blocks", allBlocks.toArray());

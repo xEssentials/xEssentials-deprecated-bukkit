@@ -17,12 +17,18 @@ import tv.mineinthebox.essentials.xEssentials;
 public class FirstJoinTeleportEvent implements Listener {
 
 	//fixes the problem where the player teleports to vanilla spawn.
+	
+	private final xEssentials pl;
+	
+	public FirstJoinTeleportEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
 		if(!e.getPlayer().hasPlayedBefore()) {
 			try {
-				File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "spawn.yml");
+				File f = new File(pl.getDataFolder() + File.separator + "spawn.yml");
 				if(f.exists()) {
 					FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 					Double x = con.getDouble("x");

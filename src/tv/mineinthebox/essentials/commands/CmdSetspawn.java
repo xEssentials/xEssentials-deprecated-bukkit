@@ -15,13 +15,19 @@ import tv.mineinthebox.essentials.enums.PermissionKey;
 
 public class CmdSetspawn {
 	
+	private final xEssentials pl;
+	
+	public CmdSetspawn(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("setspawn")) {
 			if(sender instanceof Player) {
 				if(sender.hasPermission(PermissionKey.CMD_SET_SPAWN.getPermission())) {
 					try {
 						Player p = (Player) sender;
-						File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "spawn.yml");
+						File f = new File(pl.getDataFolder() + File.separator + "spawn.yml");
 						FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 						con.set("x", p.getLocation().getX());
 						con.set("y", p.getLocation().getY());

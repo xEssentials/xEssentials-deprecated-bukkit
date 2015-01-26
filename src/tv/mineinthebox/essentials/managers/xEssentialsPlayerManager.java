@@ -80,7 +80,7 @@ public class xEssentialsPlayerManager {
 	 * @return xEssentialsOfflinePlayer[]
 	 */
 	public XOfflinePlayer[] getOfflinePlayers() {
-		File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players");
+		File dir = new File(pl.getDataFolder() + File.separator + "players");
 		File[] list = dir.listFiles();
 		Arrays.sort(list, new Comparator<File>() {
 			@Override
@@ -125,7 +125,7 @@ public class xEssentialsPlayerManager {
 			if(isOnline(player)) {
 				return getPlayer(player);
 			} else {
-				File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players");
+				File dir = new File(pl.getDataFolder() + File.separator + "players");
 				if(dir.isDirectory()) {
 					File[] list = dir.listFiles();
 					for(File f : list) {
@@ -157,7 +157,7 @@ public class xEssentialsPlayerManager {
 	 */
 	public File getOfflinePlayerFile(String player) {
 		try {
-			File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players");
+			File dir = new File(pl.getDataFolder() + File.separator + "players");
 			if(dir.isDirectory()) {
 				File[] list = dir.listFiles();
 				for(File f : list) {

@@ -25,7 +25,7 @@ public class WarpManager {
 	 * @return boolean
 	 */
 	public boolean isWarp(String name) {
-		File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "warps" + File.separator + name.toLowerCase() + ".yml");
+		File f = new File(pl.getDataFolder() + File.separator + "warps" + File.separator + name.toLowerCase() + ".yml");
 		return f.exists();
 	}
 	
@@ -36,7 +36,7 @@ public class WarpManager {
 	 */
 	public Warp getWarp(String warpname, Player p) {
 		if(isWarp(warpname)) {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "warps" + File.separator + warpname.toLowerCase()+".yml");
+			File f = new File(pl.getDataFolder() + File.separator + "warps" + File.separator + warpname.toLowerCase()+".yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			return new Warp(con, f, p, pl);
 		}
@@ -45,7 +45,7 @@ public class WarpManager {
 	
 	public void setWarp(String warpname, Player p, Location loc) {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "warps" + File.separator + warpname.toLowerCase() + ".yml");
+			File f = new File(pl.getDataFolder() + File.separator + "warps" + File.separator + warpname.toLowerCase() + ".yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			con.set("warp.name", warpname);
 			con.set("warp.owner", p.getName());
@@ -61,7 +61,7 @@ public class WarpManager {
 	}
 	
 	public Warp[] getWarps() {
-		File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "warps");
+		File dir = new File(pl.getDataFolder() + File.separator + "warps");
 		File[] files = dir.listFiles();
 		Warp[] warps = new Warp[files.length];
 		int i = 0;
@@ -74,7 +74,7 @@ public class WarpManager {
 	}
 	
 	public Warp[] getWarps(Player p) {
-		File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "warps");
+		File dir = new File(pl.getDataFolder() + File.separator + "warps");
 		File[] files = dir.listFiles();
 		int i = 0;
 		Warp[] warps = new Warp[i];

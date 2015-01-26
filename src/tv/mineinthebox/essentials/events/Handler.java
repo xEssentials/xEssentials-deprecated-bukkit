@@ -211,9 +211,9 @@ public class Handler {
 		if(pl.getConfiguration().getEntityConfig().isEnderManGriefDisabled()) {setListener(new DisableEndermanGriefEvent());}
 		if(pl.getConfiguration().getEntityConfig().isEnderDragonGriefDisabled()) {setListener(new DisableEndDragonGriefEvent());}
 		if(pl.getConfiguration().getEntityConfig().isCustomZombieAggroRangeEnabled()) {setListener(new CustomZombieAggroRangeEvent(pl));}
-		if(pl.getConfiguration().getEntityConfig().isLoggingSpawnEggsEnabled()) {setListener(new SpawnEggLogEvent());}
+		if(pl.getConfiguration().getEntityConfig().isLoggingSpawnEggsEnabled()) {setListener(new SpawnEggLogEvent(pl));}
 		if(pl.getConfiguration().getEntityConfig().isExplosionRegenEnabled()) {setListener(new ExplosionRegenEvent(pl));}
-		if(pl.getConfiguration().getEntityConfig().isBloodEnabled()) {setListener(new EntityBleedEvent());}
+		if(pl.getConfiguration().getEntityConfig().isBloodEnabled()) {setListener(new EntityBleedEvent(pl));}
 		//chat.yml
 		if(pl.getConfiguration().getChatConfig().isSwearFilterEnabled()) {
 			setListener(new AntiSwearEvent(pl));
@@ -229,9 +229,9 @@ public class Handler {
 		//player.yml
 		setListener(new PlayerShootbowSoundEvent());
 		setListener(new SignEditEvent(pl));
-		if(pl.getConfiguration().getPlayerConfig().isAutoRespawnEnabled()) {setListener(new PlayerForceRespawnEvent());}
+		if(pl.getConfiguration().getPlayerConfig().isAutoRespawnEnabled()) {setListener(new PlayerForceRespawnEvent(pl));}
 		setListener(new AntiKnockBackEvent(pl));
-		setListener(new FirstJoinTeleportEvent());
+		setListener(new FirstJoinTeleportEvent(pl));
 		setListener(new MobProcEvent(pl));
 		setListener(new CommandRestrictEvent(pl));
 		setListener(new TrollModeEvent(pl));
@@ -242,9 +242,9 @@ public class Handler {
 		setListener(new PowerToolEvent(pl));
 		setListener(new PlayerTaskLoginEvent(pl));
 		setListener(new StaffSafeTeleportEvent(pl));
-		setListener(new PlayerDeathBackEvent());
-		setListener(new TeleportBackEvent());
-		setListener(new PlayerRespawnTeleportEvent());
+		setListener(new PlayerDeathBackEvent(pl));
+		setListener(new TeleportBackEvent(pl));
+		setListener(new PlayerRespawnTeleportEvent(pl));
 		setListener(new PotatoMoveEvent(pl));
 		setListener(new AfkCheckEvent(pl));
 		setListener(new PlayerCheckNameEvent());
@@ -259,12 +259,12 @@ public class Handler {
 		if(!pl.getConfiguration().getPlayerConfig().isBroadcastAchievementsEnabled()) {setListener(new AchievementEvent());}
 		if(pl.getConfiguration().getEntityConfig().isLeaveDecayDisabled()) {setListener(new StopLeavesDecayEvent());}
 		if(pl.getConfiguration().getEntityConfig().isRealisticGlassEnabled()) {
-			RealisticGlassEvent glass = new RealisticGlassEvent();
+			RealisticGlassEvent glass = new RealisticGlassEvent(pl);
 			setListener(glass);
 			glass.startRegen();
 		}
 		if(pl.getConfiguration().getPlayerConfig().isAutoAnvilEnabled()) {setListener(new AnvilResetEvent());}
-		if(pl.getConfiguration().getEntityConfig().isRealisticTreesEnabled()) {setListener(new RealisticTreeEvent());}
+		if(pl.getConfiguration().getEntityConfig().isRealisticTreesEnabled()) {setListener(new RealisticTreeEvent(pl));}
 		//pvp.yml
 		if(pl.getConfiguration().getPvpConfig().isFakePvpEnabled()) {setListener(new FakePvpEvent());}
 		if(pl.getConfiguration().getPvpConfig().isPvpDisabled()) {setListener(new PvpEvent(pl));}
@@ -405,7 +405,7 @@ public class Handler {
 	 * @return void
 	 */
 	public void stop() {
-		HandlerList.unregisterAll(xEssentials.getPlugin());
+		HandlerList.unregisterAll(pl);
 	}
 
 	private void setListener(Listener listener) {

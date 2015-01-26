@@ -33,7 +33,7 @@ public class GreylistConfig {
 	 */
 	public void setEnabled(boolean bol) {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "greylist.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "greylist.yml");
 			if(f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				con.set("greylist.enable", bol);

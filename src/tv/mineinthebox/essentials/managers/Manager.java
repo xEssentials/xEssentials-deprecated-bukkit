@@ -30,6 +30,7 @@ public class Manager {
 	private ChairManager chair;
 	private ManCoManager manco;
 	private RealisticWaterManager water;
+	private TeleportManager teleport;
 	
 	private final xEssentials pl;
 	
@@ -44,7 +45,7 @@ public class Manager {
 	 */
 	public TPSManager getTPSManager() {
 		if(!(tps instanceof TPSManager)) {
-			this.tps = new TPSManager();
+			this.tps = new TPSManager(pl);
 		}
 		return tps;
 	}
@@ -80,7 +81,7 @@ public class Manager {
 	 */
 	public ProtectionDBManager getProtectionDBManager() {
 		if(!(protectiondb instanceof ProtectionDBManager)) {
-			this.protectiondb = new ProtectionDBManager();
+			this.protectiondb = new ProtectionDBManager(pl);
 		}
 		return protectiondb;
 	}
@@ -164,7 +165,7 @@ public class Manager {
 	 */
 	public RealisticGlassEvent getRealisticGlassManager() {
 		if(!(glass instanceof RealisticGlassEvent)) {
-			this.glass = new RealisticGlassEvent();
+			this.glass = new RealisticGlassEvent(pl);
 		}
 		return glass;
 	}
@@ -275,5 +276,12 @@ public class Manager {
 			this.water = new RealisticWaterManager(pl);
 		}
 		return water;
+	}
+	
+	public TeleportManager getTeleportManager() {
+		if(!(teleport instanceof TeleportManager)) {
+			this.teleport = new TeleportManager();
+		}
+		return teleport;
 	}
 }

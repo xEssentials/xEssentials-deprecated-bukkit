@@ -83,7 +83,7 @@ public class AdminShopInventoryEvent implements Listener {
 	public void onClose(InventoryCloseEvent e) {
 		Player p = (Player) e.getPlayer();
 		if(p.hasMetadata("shop")) {
-			p.removeMetadata("shop", xEssentials.getPlugin());
+			p.removeMetadata("shop", pl);
 		}
 	}
 

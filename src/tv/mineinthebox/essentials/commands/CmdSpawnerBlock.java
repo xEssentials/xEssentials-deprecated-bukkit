@@ -8,10 +8,17 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
 import tv.mineinthebox.essentials.Warnings;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.SpawnerBlock;
 
 public class CmdSpawnerBlock {
+	
+	private final xEssentials pl;
+	
+	public CmdSpawnerBlock(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
@@ -21,7 +28,7 @@ public class CmdSpawnerBlock {
 					if(args.length == 0) {
 						Player p = (Player) sender;
 						Block block = p.getTargetBlock(null, 30);
-						SpawnerBlock spawner = new SpawnerBlock(block, EntityType.ZOMBIE);
+						SpawnerBlock spawner = new SpawnerBlock(block, EntityType.ZOMBIE, pl);
 						spawner.start();
 						sender.sendMessage(ChatColor.GREEN + block.getType().name().toLowerCase() + " is now a tempory zombie spawner.");
 					} else if(args.length == 1) {
@@ -44,7 +51,7 @@ public class CmdSpawnerBlock {
 								if(type.name().equalsIgnoreCase(args[0])) {
 									Player p = (Player) sender;
 									Block block = p.getTargetBlock(null, 30);
-									SpawnerBlock spawner = new SpawnerBlock(block, type);
+									SpawnerBlock spawner = new SpawnerBlock(block, type, pl);
 									spawner.start();
 									sender.sendMessage(ChatColor.GREEN + block.getType().name().toLowerCase() + " is now a tempory " + type.name().toLowerCase() + " spawner.");
 									return true;

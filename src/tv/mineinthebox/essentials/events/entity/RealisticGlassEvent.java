@@ -29,9 +29,15 @@ import tv.mineinthebox.essentials.xEssentials;
 
 public class RealisticGlassEvent implements Listener {
 
-	private static HashMap<Location, MaterialData> blocks = new HashMap<Location, MaterialData>();
-	private HashMap<Location, Block> glasses = new HashMap<Location, Block>();
-
+	private final HashMap<Location, MaterialData> blocks = new HashMap<Location, MaterialData>();
+	private final HashMap<Location, Block> glasses = new HashMap<Location, Block>();
+	private final xEssentials pl;
+	
+	public RealisticGlassEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
+	
 	@EventHandler
 	public void projectiles(ProjectileHitEvent e) {
 		if(e.getEntity() instanceof Arrow) {
@@ -106,7 +112,7 @@ public class RealisticGlassEvent implements Listener {
 	}
 
 	public void startRegen() {
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(xEssentials.getPlugin(), new Runnable() {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(pl, new Runnable() {
 
 			@SuppressWarnings("deprecation")
 			@Override
@@ -155,7 +161,7 @@ public class RealisticGlassEvent implements Listener {
 
 	public void saveGlassBlocks() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "RealisticGlass.db");
+			File f = new File(pl.getDataFolder() + File.separator + "RealisticGlass.db");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			Iterator<Entry<Location, MaterialData>> it = blocks.entrySet().iterator();
 			List<String> locs = new ArrayList<String>();
@@ -177,7 +183,7 @@ public class RealisticGlassEvent implements Listener {
 
 	public void loadGlassBlocks() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "RealisticGlass.db");
+			File f = new File(pl.getDataFolder() + File.separator + "RealisticGlass.db");
 			if(f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				for(int i = 0; i < con.getStringList("locations").size();i++) {

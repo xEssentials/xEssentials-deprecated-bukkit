@@ -62,7 +62,7 @@ public class CmdTempban {
 								sender.sendMessage(ChatColor.GREEN + "player successfully tempbanned for 1 day");
 							} catch(NullPointerException e) {						
 								try {
-									File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players" + File.separator + args[0].toLowerCase() + ".yml");
+									File f = new File(pl.getDataFolder() + File.separator + "players" + File.separator + args[0].toLowerCase() + ".yml");
 									FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 									Date date = new Date(System.currentTimeMillis());
 									date.setDate(date.getDate()+1);
@@ -105,7 +105,7 @@ public class CmdTempban {
 							sender.sendMessage(ChatColor.GREEN + "successfully tempbanned player " + off.getUser() + " till " + date.toString());
 						} catch(NullPointerException e) {
 							try {
-								File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players" + File.separator + args[0].toLowerCase() + ".yml");
+								File f = new File(pl.getDataFolder() + File.separator + "players" + File.separator + args[0].toLowerCase() + ".yml");
 								FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 								Date date = convertArgsToDate(args);
 								String[] newArgs = getClearDescription(args);

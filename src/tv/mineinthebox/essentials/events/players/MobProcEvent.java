@@ -79,7 +79,7 @@ public class MobProcEvent implements Listener, Runnable {
 					date.setSeconds(date.getSeconds() + proctime);
 					player.put(p.getName(), date.getTime());
 					if(!(task instanceof BukkitTask)) {
-						task = Bukkit.getScheduler().runTaskTimer(xEssentials.getPlugin(), this, 0L, 1L);
+						task = Bukkit.getScheduler().runTaskTimer(pl, this, 0L, 1L);
 					}	
 				}
 			}

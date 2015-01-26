@@ -90,7 +90,7 @@ public class StaffSafeTeleportEvent implements Listener {
 	}
 
 	private int staffScheduler(final Player p) {
-		int a = Bukkit.getScheduler().scheduleSyncDelayedTask(xEssentials.getPlugin(), new Runnable() {
+		int a = Bukkit.getScheduler().scheduleSyncDelayedTask(pl, new Runnable() {
 
 			@Override
 			public void run() {

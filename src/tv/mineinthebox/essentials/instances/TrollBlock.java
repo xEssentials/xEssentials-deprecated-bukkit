@@ -36,21 +36,22 @@ public class TrollBlock implements Block, Runnable {
 
 	//note to self, the scheduler and the item drops are abstract calls this will make it easier to detect TrollBlocks in the future.
 
-	private static Block block;
-	private static BukkitTask task;
-	private static ItemStack funDrop;
+	private final Block block;
+	private final ItemStack funDrop;
 	private final Random rand = new Random();
-	private static Player ignore;
+	private final Player ignore;
 	private final LinkedList<Integer> tasks = new LinkedList<Integer>();
-
+	private final xEssentials pl;
+	
+	private BukkitTask task;
 	private int times = 0;
-
 	private int soundTime = 0;
 
-	public TrollBlock(Block b, ItemStack drop, Player ignores) {
-		block = b;
-		funDrop = drop;
-		ignore = ignores;
+	public TrollBlock(Block b, ItemStack drop, Player ignores, xEssentials pl) {
+		this.pl = pl;
+		this.block = b;
+		this.funDrop = drop;
+		this.ignore = ignores;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -134,7 +135,7 @@ public class TrollBlock implements Block, Runnable {
 
 	public void startTroll() {
 		if(task == null) {
-			task = Bukkit.getScheduler().runTaskTimer(xEssentials.getPlugin(), this, 0L, 10L);
+			task = Bukkit.getScheduler().runTaskTimer(pl, this, 0L, 10L);
 		}
 	}
 
@@ -186,7 +187,7 @@ public class TrollBlock implements Block, Runnable {
 
 	private void playSound(final Player p, final Location loc, final Sound sound) {
 		soundTime+=10;
-		int i = Bukkit.getScheduler().scheduleSyncDelayedTask(xEssentials.getPlugin(), new Runnable() {
+		int i = Bukkit.getScheduler().scheduleSyncDelayedTask(pl, new Runnable() {
 
 
 			@Override

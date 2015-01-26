@@ -86,7 +86,7 @@ public class BridgeManager {
 	
 	public void reloadBridges() {
 		bridges.clear();
-		File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "misc" + File.separator + "bridges");
+		File dir = new File(pl.getDataFolder() + File.separator + "misc" + File.separator + "bridges");
 		if(dir.isDirectory()) {
 			File[] files = dir.listFiles();
 			for(File f : files) {

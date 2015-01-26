@@ -1,9 +1,6 @@
 package tv.mineinthebox.essentials.events.players;
 
-import java.util.HashMap;
-
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerKickEvent;
@@ -12,32 +9,39 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.managers.TeleportManager;
 
 public class TeleportBackEvent implements Listener {
 
-	public static HashMap<String, Location> locations = new HashMap<String, Location>();
+	private final xEssentials pl;
+	private final TeleportManager manager;
+	
+	public TeleportBackEvent(xEssentials pl) {
+		this.pl = pl;
+		this.manager = pl.getManagers().getTeleportManager();
+	}
 
 	@EventHandler
 	public void onBackEvent(PlayerTeleportEvent e) {
 		if(e.getCause() == TeleportCause.COMMAND || e.getCause() == TeleportCause.PLUGIN) {
-			if(locations.containsKey(e.getPlayer().getName())) {
-				locations.remove(e.getPlayer().getName());
-				locations.put(e.getPlayer().getName(), e.getFrom());
+			if(manager.hasLastLocation(e.getPlayer().getName())) {
+				manager.removeLastLocationData(e.getPlayer().getName());
+				manager.addLastLocation(e.getPlayer().getName(), e.getFrom());
 				RemoveBack(e.getPlayer().getName());	
 			} else {
-				locations.put(e.getPlayer().getName(), e.getFrom());
-				RemoveBack(e.getPlayer().getName());	
+				manager.addLastLocation(e.getPlayer().getName(), e.getFrom());
+				RemoveBack(e.getPlayer().getName());
 			}
 		}
 	}
 
 	private void RemoveBack(final String key) {
-		Bukkit.getScheduler().scheduleSyncDelayedTask(xEssentials.getPlugin(), new Runnable() {
+		Bukkit.getScheduler().scheduleSyncDelayedTask(pl, new Runnable() {
 
 			@Override
 			public void run() {
-				if(locations.containsKey(key)) {
-					locations.remove(key);
+				if(manager.hasLastLocation(key)) {
+					manager.removeLastLocationData(key);
 				}
 			}
 
@@ -46,15 +50,15 @@ public class TeleportBackEvent implements Listener {
 
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
-		if(locations.containsKey(e.getPlayer().getName())) {
-			locations.remove(e.getPlayer().getName());
+		if(manager.hasLastLocation(e.getPlayer().getName())) {
+			manager.removeLastLocationData(e.getPlayer().getName());
 		}
 	}
 
 	@EventHandler
 	public void onQuit(PlayerKickEvent e) {
-		if(locations.containsKey(e.getPlayer().getName())) {
-			locations.remove(e.getPlayer().getName());
+		if(manager.hasLastLocation(e.getPlayer().getName())) {
+			manager.removeLastLocationData(e.getPlayer().getName());
 		}
 	}
 

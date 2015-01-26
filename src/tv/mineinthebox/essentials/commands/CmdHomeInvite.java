@@ -141,7 +141,7 @@ public class CmdHomeInvite {
 	}
 
 	private void delayed(final String requester, final String victem) {
-		Bukkit.getScheduler().scheduleSyncDelayedTask(xEssentials.getPlugin(), new Runnable() {
+		Bukkit.getScheduler().scheduleSyncDelayedTask(pl, new Runnable() {
 
 			@Override
 			public void run() {

@@ -20,9 +20,11 @@ import tv.mineinthebox.essentials.enums.ProtectionType;
 public class ProtectionDBManager {
 	
 	private final HashMap<String, Object[]> session = new HashMap<String, Object[]>();
+	private final xEssentials pl;
 
-	public ProtectionDBManager() {
-		File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "databases");
+	public ProtectionDBManager(xEssentials pl) {
+		this.pl = pl;
+		File f = new File(pl.getDataFolder() + File.separator + "databases");
 		if(!f.isDirectory()) {
 			f.mkdir();
 		}
@@ -255,7 +257,7 @@ public class ProtectionDBManager {
 	 * @return Boolean
 	 */
 	private boolean isNewDatabase() {
-		File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "databases" + File.separator + "protection.db");
+		File f = new File(pl.getDataFolder() + File.separator + "databases" + File.separator + "protection.db");
 		return !f.exists();
 	}
 

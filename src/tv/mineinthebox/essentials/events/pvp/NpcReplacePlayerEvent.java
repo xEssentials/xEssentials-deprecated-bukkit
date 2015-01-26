@@ -136,7 +136,7 @@ public class NpcReplacePlayerEvent implements Listener {
 	}
 	
 	private void NpcDespawn(final Entity entity) {
-		Bukkit.getScheduler().scheduleSyncDelayedTask(xEssentials.getPlugin(), new Runnable() {
+		Bukkit.getScheduler().scheduleSyncDelayedTask(pl, new Runnable() {
 
 			@Override
 			public void run() {

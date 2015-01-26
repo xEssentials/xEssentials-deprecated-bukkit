@@ -10,10 +10,12 @@ public class SlowUpdatableBlock {
 	
 	private final Location loc;
 	private final long time;
+	private final xEssentials pl;
 	
-	public SlowUpdatableBlock(Location loc, long time) {
+	public SlowUpdatableBlock(Location loc, long time, xEssentials pl) {
 		this.loc = loc;
 		this.time = time;
+		this.pl = pl;
 	}
 	
 	public void startUpdate() {
@@ -25,7 +27,7 @@ public class SlowUpdatableBlock {
 				block.getState().update(true);
 			}
 			
-		}.runTaskLater(xEssentials.getPlugin(), time);
+		}.runTaskLater(pl, time);
 	}
 
 }

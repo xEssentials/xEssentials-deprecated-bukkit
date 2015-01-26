@@ -24,15 +24,18 @@ import tv.mineinthebox.essentials.xEssentials;
 
 public class SpawnerBlock implements Block {
 	
-	final Block block;
+	private final Block block;
 	private final EntityType type;
-	BukkitTask task;
-	long end;
+	private final xEssentials pl;
+	
+	private BukkitTask task;
+	private long end;
 	
 	@SuppressWarnings("deprecation")
-	public SpawnerBlock(Block block, EntityType type) {
+	public SpawnerBlock(Block block, EntityType type, xEssentials pl) {
 		this.block = block;
 		this.type = type;
+		this.pl = pl;
 		Date date = new Date(System.currentTimeMillis());
 		date.setSeconds(date.getSeconds()+5);
 		this.end = date.getTime();
@@ -51,7 +54,7 @@ public class SpawnerBlock implements Block {
 					SpawnerBlock.this.block.getWorld().spawnEntity(SpawnerBlock.this.block.getRelative(BlockFace.UP).getLocation(), SpawnerBlock.this.type);
 				}
 				
-			}.runTaskTimer(xEssentials.getPlugin(), 0L, 1L);
+			}.runTaskTimer(pl, 0L, 1L);
 		}
 	}
 	

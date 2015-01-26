@@ -53,13 +53,13 @@ public class PortalSelectedCreateEvent implements Listener {
 					if(pos1.distanceSquared(pos2) > 2) {
 						Block[] portalblocks = getPortalBlocks(pos1.getBlock(), pos2.getBlock());
 						Block[] frameblocks = getFrameBlocks(pos1.getBlock(), pos2.getBlock());
-						File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "portals" + File.separator + e.getPlayer().getMetadata("portal").get(0).asString() + ".yml");
+						File f = new File(pl.getDataFolder() + File.separator + "portals" + File.separator + e.getPlayer().getMetadata("portal").get(0).asString() + ".yml");
 						FileConfiguration con = save(f, frameblocks, portalblocks);
 						Portal portal = new Portal(con, f, pl);
 						portal.setClosed(false);
 						e.getPlayer().sendMessage(ChatColor.GRAY + "portal created with name " + portal.getPortalName() + "!");
 						Bukkit.getPluginManager().callEvent(new EssentialsPortalCreateEvent(e.getPlayer(), portal, pl));
-						e.getPlayer().removeMetadata("portal", xEssentials.getPlugin());
+						e.getPlayer().removeMetadata("portal", pl);
 						locations.remove(e.getPlayer().getName());
 					} else {
 						e.getPlayer().sendMessage(ChatColor.RED + "invalid portal, please select more blocks!");
@@ -94,7 +94,7 @@ public class PortalSelectedCreateEvent implements Listener {
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
 		if(e.getPlayer().hasMetadata("portal")) {
-			e.getPlayer().removeMetadata("portal", xEssentials.getPlugin());
+			e.getPlayer().removeMetadata("portal", pl);
 		}
 		if(locations.containsKey(e.getPlayer().getName())) {
 			locations.remove(e.getPlayer().getName());
@@ -104,7 +104,7 @@ public class PortalSelectedCreateEvent implements Listener {
 	@EventHandler
 	public void onQuit(PlayerKickEvent e) {
 		if(e.getPlayer().hasMetadata("portal")) {
-			e.getPlayer().removeMetadata("portal", xEssentials.getPlugin());
+			e.getPlayer().removeMetadata("portal", pl);
 		}
 		if(locations.containsKey(e.getPlayer().getName())) {
 			locations.remove(e.getPlayer().getName());

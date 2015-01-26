@@ -90,7 +90,7 @@ public class Portal implements Comparable<String> {
 	public boolean isLinked() {
 		update();
 		if(con.contains("linked")) {
-			File f1 = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "portals" + File.separator + con.getString("linked") + ".yml");
+			File f1 = new File(pl.getDataFolder() + File.separator + "portals" + File.separator + con.getString("linked") + ".yml");
 			return f1.exists();
 		}
 		return false;
@@ -103,7 +103,7 @@ public class Portal implements Comparable<String> {
 	 */
 	public Portal getLinkedPortal() {
 		update();
-		File f1 = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "portals" + File.separator + con.getString("linked") + ".yml");
+		File f1 = new File(pl.getDataFolder() + File.separator + "portals" + File.separator + con.getString("linked") + ".yml");
 		if(f1.exists()) {
 			FileConfiguration con1 = YamlConfiguration.loadConfiguration(f1);
 			return new Portal(con1, f1, pl);	
@@ -138,7 +138,7 @@ public class Portal implements Comparable<String> {
 	 */
 	public void linkPortal(String name, Boolean both) throws Exception {
 		update();
-		File f1 = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "portals" + File.separator + name + ".yml");
+		File f1 = new File(pl.getDataFolder() + File.separator + "portals" + File.separator + name + ".yml");
 		if(f1.exists()) {
 			if(both) {
 				con.set("linked", name);

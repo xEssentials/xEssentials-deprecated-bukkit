@@ -63,9 +63,9 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		this.player = player;
 		if(Bukkit.getOnlineMode()) {
-			this.f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players"+File.separator+UUID+".yml");	
+			this.f = new File(pl.getDataFolder() + File.separator + "players"+File.separator+UUID+".yml");	
 		} else {
-			this.f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players"+File.separator+player.getName().toLowerCase()+".yml");
+			this.f = new File(pl.getDataFolder() + File.separator + "players"+File.separator+player.getName().toLowerCase()+".yml");
 		}
 		if(this.f.exists()){
 			if(pl.getConfiguration().getDebugConfig().isEnabled()) {
@@ -108,7 +108,7 @@ public class xEssentialsPlayer implements XPlayer {
 			if(pl.getConfiguration().getDebugConfig().isEnabled()) {
 				xEssentials.log("profile not found, checking for non converted names in order to convert...", LogType.DEBUG);
 			}
-			File possiblename = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players" + File.separator + player.getName().toLowerCase() + ".yml");
+			File possiblename = new File(pl.getDataFolder() + File.separator + "players" + File.separator + player.getName().toLowerCase() + ".yml");
 			if(possiblename.exists()) {
 				if(pl.getConfiguration().getDebugConfig().isEnabled()) {
 					xEssentials.log("profile of "+player.getName()+" has been successfull found and renamed to the uuid spec", LogType.DEBUG);
@@ -614,7 +614,7 @@ public class xEssentialsPlayer implements XPlayer {
 						}
 					}
 				}
-				LavaPilar pilar = new LavaPilar(pilars);
+				LavaPilar pilar = new LavaPilar(pilars, pl);
 				pilar.startTask();
 			}
 			player.getWorld().playSound(player.getLocation(), Sound.WITHER_SPAWN, 1F, 1F);
@@ -1342,7 +1342,7 @@ public class xEssentialsPlayer implements XPlayer {
 					stopSpectate();
 				}
 			}
-		}.runTaskTimer(xEssentials.getPlugin(), 0L, 1L);
+		}.runTaskTimer(pl, 0L, 1L);
 	}
 
 	@Override

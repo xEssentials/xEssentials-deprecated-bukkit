@@ -7,6 +7,12 @@ import org.bukkit.Bukkit;
 import tv.mineinthebox.essentials.xEssentials;
 
 public class TPSManager {
+	
+	private final xEssentials pl;
+	
+	public TPSManager(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	private int tps = 0;
 	private long second = 0;
@@ -35,7 +41,7 @@ public class TPSManager {
 	}
 	
 	public void startTps() {
-		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(xEssentials.getPlugin(), new Runnable() {
+		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(pl, new Runnable() {
 			long sec;
 			int ticks;
 			@Override

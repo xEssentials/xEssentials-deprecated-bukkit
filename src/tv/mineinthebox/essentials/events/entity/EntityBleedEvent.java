@@ -23,6 +23,11 @@ public class EntityBleedEvent implements Listener {
 
 	private final Random rand = new Random();
 	private final int range = 4;
+	private final xEssentials pl;
+	
+	public EntityBleedEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled=true)
@@ -61,7 +66,7 @@ public class EntityBleedEvent implements Listener {
 				}
 			}
 		}
-		BleedRegen regen = new BleedRegen(list);
+		BleedRegen regen = new BleedRegen(list, pl);
 		regen.startRegen();
 	}
 
@@ -70,9 +75,11 @@ public class EntityBleedEvent implements Listener {
 class BleedRegen {
 
 	private final LinkedList<Location> list;
+	private final xEssentials pl;
 
-	public BleedRegen(LinkedList<Location> list) {
+	public BleedRegen(LinkedList<Location> list, xEssentials pl) {
 		this.list = list;
+		this.pl = pl;
 	}
 
 	public void startRegen() {
@@ -99,7 +106,7 @@ class BleedRegen {
 				}
 			}
 
-		}.runTaskTimer(xEssentials.getPlugin(), 0L, 80L);
+		}.runTaskTimer(pl, 0L, 80L);
 	}
 
 

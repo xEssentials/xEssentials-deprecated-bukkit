@@ -56,7 +56,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	//this is ment for a dummy profile.
 	public xEssentialsOfflinePlayer(OfflinePlayer offliner, xEssentials pl) {
 		this.pl = pl;
-		this.f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players" + File.separator + "town-"+offliner.getName() + ".yml");
+		this.f = new File(pl.getDataFolder() + File.separator + "players" + File.separator + "town-"+offliner.getName() + ".yml");
 		if(!this.f.exists()) {
 			this.con = YamlConfiguration.loadConfiguration(this.f);
 			this.con.set("isDefault", true);

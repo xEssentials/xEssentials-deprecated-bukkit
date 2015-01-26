@@ -17,6 +17,12 @@ import tv.mineinthebox.essentials.instances.SlowUpdatableBlock;
 
 public class RealisticTreeEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public RealisticTreeEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onLeaveDecay(LeavesDecayEvent e) {
@@ -26,7 +32,7 @@ public class RealisticTreeEvent implements Listener {
 		byte sub = e.getBlock().getData();
 		Material mat = e.getBlock().getType();
 		FallingBlock fall = e.getBlock().getWorld().spawnFallingBlock(e.getBlock().getLocation(), mat.getId(), sub);
-		fall.setMetadata("tree", new FixedMetadataValue(xEssentials.getPlugin(), "a tree"));
+		fall.setMetadata("tree", new FixedMetadataValue(pl, "a tree"));
 		e.getBlock().setType(Material.AIR);
 	}
 	
@@ -44,7 +50,7 @@ public class RealisticTreeEvent implements Listener {
 						p.playEffect(loc.add(0, 1, 0), Effect.STEP_SOUND, Material.LEAVES.getId());
 					}
 				}
-				SlowUpdatableBlock slow = new SlowUpdatableBlock(loc, 400L);
+				SlowUpdatableBlock slow = new SlowUpdatableBlock(loc, 400L, pl);
 				slow.startUpdate();
 				e.setCancelled(true);
 			}

@@ -93,7 +93,7 @@ public class GateManager {
 	
 	public void reloadGates() {
 		gates.clear();
-		File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "misc" + File.separator + "gates");
+		File dir = new File(pl.getDataFolder() + File.separator + "misc" + File.separator + "gates");
 		if(dir.isDirectory()) {
 			File[] files = dir.listFiles();
 			for(File f : files) {

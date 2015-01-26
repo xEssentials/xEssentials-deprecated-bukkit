@@ -212,7 +212,7 @@ public class PlayerConfig {
 	 */
 	public Location getSpawnLocation() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "spawn.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "spawn.yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			double x = con.getDouble("x");
 			double y = con.getDouble("y");

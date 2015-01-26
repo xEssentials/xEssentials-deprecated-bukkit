@@ -133,7 +133,7 @@ public class CallRssFeedEvent {
 				}
 			}
 
-		}.runTaskTimerAsynchronously(xEssentials.getPlugin(), 100L, 2500L);
+		}.runTaskTimerAsynchronously(pl, 100L, 2500L);
 	}
 
 	/**
@@ -143,7 +143,7 @@ public class CallRssFeedEvent {
 	public void saveLastFeed() {
 		try {
 			if(this.feed instanceof RssFeed) {
-				File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "lastRssFeed.yml");
+				File f = new File(pl.getDataFolder() + File.separator + "lastRssFeed.yml");
 				YamlConfiguration con = YamlConfiguration.loadConfiguration(f);
 				con.set("author", feed.getAuthor().replaceAll("[^a-zA-Z0-9]", ""));
 				con.set("title", feed.getTitle());
@@ -161,7 +161,7 @@ public class CallRssFeedEvent {
 	 */
 	public void loadLastFeed() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "lastRssFeed.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "lastRssFeed.yml");
 			if(f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				RssFeed rss = new RssFeed(con.getString("title"), con.getString("author").replaceAll("[^a-zA-Z0-9]", ""), con.getString("link"));

@@ -84,7 +84,7 @@ public class BackPackManager {
 
 	public void loadBackpacks() {
 		try {
-			File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "backpacks");
+			File dir = new File(pl.getDataFolder() + File.separator + "backpacks");
 			if(dir.isDirectory()) {
 				File[] files = dir.listFiles();
 				for(File f : files) {
@@ -112,7 +112,7 @@ public class BackPackManager {
 				convertToInvisibleString(id.toString()),
 		"amount: 0"}));
 		stack.setItemMeta(meta);
-		File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "backpacks" + File.separator + id.toString().replaceAll("-", "")+".yml");
+		File f = new File(pl.getDataFolder() + File.separator + "backpacks" + File.separator + id.toString().replaceAll("-", "")+".yml");
 		FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 		con.set("id", id.toString().replaceAll("-", ""));
 		con.set("backpack-item", stack);
