@@ -147,13 +147,6 @@ public class xEssentials extends JavaPlugin {
 		if(conf.getEntityConfig().isRealisticWaterEnabled()) {
 			getManagers().getRealisticWaterManager().stop();
 		}
-
-		try {
-			conf.finalize();
-			finalize();
-		} catch(Throwable e) {
-			e.printStackTrace();
-		}
 		log("has been disabled!", LogType.INFO);
 	}
 

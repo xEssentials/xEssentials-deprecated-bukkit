@@ -966,7 +966,7 @@ public class Configuration {
 	 * @return List<String>()
 	 */
 	@SuppressWarnings("deprecation")
-	private  List<String> serializeItemList(List<String> list) {
+	private List<String> serializeItemList(List<String> list) {
 		List<String> updatedMaterialList = new ArrayList<String>();
 		for(int i = 0; i < list.size(); i++) {
 			String name = list.get(i);
@@ -999,7 +999,7 @@ public class Configuration {
 		return updatedMaterialList;
 	}
 
-	private  boolean isValidMaterial(String s) {
+	private boolean isValidMaterial(String s) {
 		try {
 			Material mat = Material.getMaterial(s.toUpperCase());
 			if(mat != null) {
@@ -1011,7 +1011,7 @@ public class Configuration {
 		return false;
 	}
 
-	private  Boolean isNumberic(String arg) {
+	private boolean isNumberic(String arg) {
 		try {
 			Integer i = Integer.parseInt(arg);
 			if(i != null) {
@@ -1023,7 +1023,7 @@ public class Configuration {
 		return false;
 	}
 
-	private  Boolean isBlockNumberic(String s) {
+	private boolean isBlockNumberic(String s) {
 		if(s.contains(":")) {
 			String[] split = s.split(":");
 			try {
@@ -1046,11 +1046,11 @@ public class Configuration {
 	 * @param returns a list with Material names, this can be used for auto complete functions in commands
 	 * @return List<String>()
 	 */
-	public  List<String> getMaterials() {
+	public List<String> getMaterials() {
 		return materials;
 	}
 
-	private  List<String> materials = new ArrayList<String>();
+	private List<String> materials = new ArrayList<String>();
 
 	/**
 	 * @author xize
@@ -1059,7 +1059,7 @@ public class Configuration {
 	 * @param returns the value per category so we can easier maintain this in the feature.
 	 * @return Object
 	 */
-	public  Object getConfigValue(ConfigType type, String hashName) {
+	public Object getConfigValue(ConfigType type, String hashName) {
 		try {
 			return configure.get(type).get(hashName);
 		} catch(Exception e) {
@@ -1073,7 +1073,7 @@ public class Configuration {
 	 * @param get the full memory configuration for protections
 	 * @return ProtectionConfig
 	 */
-	public  ProtectionConfig getProtectionConfig() {
+	public ProtectionConfig getProtectionConfig() {
 		if(protectionconfig instanceof ProtectionConfig) {
 			return protectionconfig;
 		} else {
@@ -1087,7 +1087,7 @@ public class Configuration {
 	 * @param returns the memory version of MiscConfig
 	 * @return MiscConfig
 	 */
-	public  MiscConfig getMiscConfig() {
+	public MiscConfig getMiscConfig() {
 		if(miscconfig instanceof MiscConfig) {
 			return miscconfig;
 		} else {
@@ -1115,7 +1115,7 @@ public class Configuration {
 	 * @param get the GreyList config
 	 * @return GreylistConfig
 	 */
-	public  GreylistConfig getGrayListConfig() {
+	public GreylistConfig getGrayListConfig() {
 		if(greylistconfig instanceof GreylistConfig) {
 			return greylistconfig;
 		} else {
@@ -1129,7 +1129,7 @@ public class Configuration {
 	 * @param returns the EconomyConfig as memory loaded
 	 * @return EconomyConfig
 	 */
-	public  EconomyConfig getEconomyConfig() {
+	public EconomyConfig getEconomyConfig() {
 		if(economyconfig instanceof EconomyConfig) {
 			return economyconfig;
 		} else {
@@ -1143,7 +1143,7 @@ public class Configuration {
 	 * @param returns the BlockConfig
 	 * @return BlockConfig
 	 */
-	public  BlockConfig getBlockConfig() {
+	public BlockConfig getBlockConfig() {
 		if(blockconfig instanceof BlockConfig) {
 			return blockconfig;
 		} else {
@@ -1157,7 +1157,7 @@ public class Configuration {
 	 * @param gets the full memory configuration for broadcasts
 	 * @return BroadcastConfig
 	 */
-	public  BroadcastConfig getBroadcastConfig() {
+	public BroadcastConfig getBroadcastConfig() {
 		if(broadcastconfig instanceof BroadcastConfig) {
 			return broadcastconfig;
 		} else {
@@ -1171,7 +1171,7 @@ public class Configuration {
 	 * @param returns the memory version of CommandConfig
 	 * @return CommandConfig
 	 */
-	public  CommandConfig getCommandConfig() {
+	public CommandConfig getCommandConfig() {
 		if(commandconfig instanceof CommandConfig) {
 			return commandconfig;
 		} else {
@@ -1185,7 +1185,7 @@ public class Configuration {
 	 * @param get the full memory configuration for Kits
 	 * @return KitConfig
 	 */
-	public  KitConfig getKitConfig() {
+	public KitConfig getKitConfig() {
 		if(kitconfig instanceof KitConfig) {
 			return kitconfig;
 		} else {
@@ -1199,7 +1199,7 @@ public class Configuration {
 	 * @param gets the full memory configuration for chat
 	 * @return ChatConfig
 	 */
-	public  ChatConfig getChatConfig() {
+	public ChatConfig getChatConfig() {
 		if(chatconfig instanceof ChatConfig) {
 			return chatconfig;
 		} else {
@@ -1213,7 +1213,7 @@ public class Configuration {
 	 * @param returns the full memory configuration for shops
 	 * @return ShopConfig
 	 */
-	public  ShopConfig getShopConfig() {
+	public ShopConfig getShopConfig() {
 		if(shopconfig instanceof ShopConfig) {
 			return shopconfig;
 		} else {
@@ -1227,7 +1227,7 @@ public class Configuration {
 	 * @param gets the full memory configuration for entitys
 	 * @return enityConfig
 	 */
-	public  EntityConfig getEntityConfig() {
+	public EntityConfig getEntityConfig() {
 		if(entityconfig instanceof EntityConfig) {
 			return entityconfig;
 		} else {
@@ -1241,7 +1241,7 @@ public class Configuration {
 	 * @param gets the full memory configuration for motd
 	 * @return motdConfig
 	 */
-	public  MotdConfig getMotdConfig() {
+	public MotdConfig getMotdConfig() {
 		if(motdconfig instanceof MotdConfig) {
 			return motdconfig;
 		} else {
@@ -1255,7 +1255,7 @@ public class Configuration {
 	 * @param gets the full memory configuration for all players
 	 * @return playerConfig
 	 */
-	public  PlayerConfig getPlayerConfig() {
+	public PlayerConfig getPlayerConfig() {
 		if(playerconfig instanceof PlayerConfig) {
 			return playerconfig;
 		} else {
@@ -1269,7 +1269,7 @@ public class Configuration {
 	 * @param gets the full memory configuration for pvp
 	 * @return pvpConfig
 	 */
-	public  PvpConfig getPvpConfig() {
+	public PvpConfig getPvpConfig() {
 		if(pvpconfig instanceof PvpConfig) {
 			return pvpconfig;
 		} else {
@@ -1283,7 +1283,7 @@ public class Configuration {
 	 * @param returns the memory portal configuration
 	 * @return PortalConfig
 	 */
-	public  PortalConfig getPortalConfig() {
+	public PortalConfig getPortalConfig() {
 		if(portalconfig instanceof PortalConfig) {
 			return portalconfig;
 		} else {
@@ -1297,7 +1297,7 @@ public class Configuration {
 	 * @param gets the full memory configuration for rules
 	 * @return rulesConfig
 	 */
-	public  RulesConfig getRulesConfig() {
+	public RulesConfig getRulesConfig() {
 		if(rulesconfig instanceof RulesConfig) {
 			return rulesconfig;
 		} else {
@@ -1311,7 +1311,7 @@ public class Configuration {
 	 * @param gets the full memory configuration for signs
 	 * @return rulesConfig
 	 */
-	public  SignConfig getSignConfig() {
+	public SignConfig getSignConfig() {
 		if(signconfig instanceof SignConfig) {
 			return signconfig;
 		} else {
@@ -1325,7 +1325,7 @@ public class Configuration {
 	 * @param returns the full memory configuration for votes
 	 * @return VoteConfig
 	 */
-	public  VoteConfig getVoteConfig() {
+	public VoteConfig getVoteConfig() {
 		if(voteconfig instanceof VoteConfig) {
 			return voteconfig;
 		} else {
@@ -1339,7 +1339,7 @@ public class Configuration {
 	 * @param returns the debug configuration
 	 * @return DebugConfig
 	 */
-	public  DebugConfig getDebugConfig() {
+	public DebugConfig getDebugConfig() {
 		if(debugconfig instanceof DebugConfig) {
 			return debugconfig;
 		} else {
@@ -1348,7 +1348,7 @@ public class Configuration {
 		}
 	}
 
-	public  boolean isSilenceToggled = false;
+	public boolean isSilenceToggled = false;
 
 	public boolean reload() {
 		Handler handler = new Handler(pl);
@@ -1445,16 +1445,7 @@ public class Configuration {
 	 * @param reloads the configuration included with event checks
 	 * @return boolean
 	 */
-	public  boolean reloadConfiguration() {
+	public boolean reloadConfiguration() {
 		return reload();
-	}
-
-	/**
-	 * @author xize
-	 * @param makes sure the  fields will be finalized and no duplicates will be created on a /reload.
-	 */
-	@Override
-	public void finalize() throws Throwable {
-		super.finalize();
 	}
 }
