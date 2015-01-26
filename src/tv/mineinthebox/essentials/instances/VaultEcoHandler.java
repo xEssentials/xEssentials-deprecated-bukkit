@@ -26,7 +26,7 @@ public class VaultEcoHandler implements Economy {
 	public VaultEcoHandler(xEssentials pl) {
 		this.pl = pl;
 		this.manager = pl.getManagers().getPlayerManager();
-		xEssentials.log(String.format("[%s][Economy] %s hooked.", name), LogType.INFO);
+		xEssentials.log(String.format("[vault-economy] %s hooked.", name), LogType.INFO);
 	}
 
 	@Override
