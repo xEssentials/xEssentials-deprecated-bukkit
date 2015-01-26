@@ -12,6 +12,12 @@ import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdTpa {
+	
+	private final xEssentials pl;
+	
+	public CmdTpa(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	public boolean execute(final CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("tpa")) {
@@ -27,23 +33,23 @@ public class CmdTpa {
 							sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/tpa help " + ChatColor.WHITE + ": shows help");
 							sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/tpa <player> " + ChatColor.WHITE + ": sent a tpa request to a player");
 						} else {
-							final Player victem = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+							final Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 							final String victemName = victem.getName();
 							final String senderName = sender.getName();
 							if(victem instanceof Player) {
-								XPlayer xpp = xEssentials.getManagers().getPlayerManager().getPlayer(victem.getName());
+								XPlayer xpp = pl.getManagers().getPlayerManager().getPlayer(victem.getName());
 								if(xpp.isVanished()) {
 									sender.sendMessage(ChatColor.RED + "this player is offline!");
 									return false;
 								}
-								if(!(xEssentials.getManagers().getTpaManager().containsKey(victem.getName()) || xEssentials.getManagers().getTpaManager().containsValue(victem.getName()))) {
-									xEssentials.getManagers().getTpaManager().put(victem.getName(), sender.getName());
+								if(!(pl.getManagers().getTpaManager().containsKey(victem.getName()) || pl.getManagers().getTpaManager().containsValue(victem.getName()))) {
+									pl.getManagers().getTpaManager().put(victem.getName(), sender.getName());
 									Bukkit.getScheduler().scheduleSyncDelayedTask(xEssentials.getPlugin(), new Runnable() {
 
 										@Override
 										public void run() {
-											if(xEssentials.getManagers().getTpaManager().containsKey(victemName)) {
-												xEssentials.getManagers().getTpaManager().remove(victemName);
+											if(pl.getManagers().getTpaManager().containsKey(victemName)) {
+												pl.getManagers().getTpaManager().remove(victemName);
 												if(sender instanceof Player) {
 													sender.sendMessage(ChatColor.RED + "the tpa request to player " + victemName + " has been over time!");
 												}

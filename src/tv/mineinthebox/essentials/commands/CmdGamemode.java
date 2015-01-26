@@ -14,6 +14,12 @@ import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.hook.WorldEditHook;
 
 public class CmdGamemode {
+	
+	private final xEssentials pl;
+	
+	public CmdGamemode(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("gamemode")) {
@@ -102,7 +108,7 @@ public class CmdGamemode {
 				}
 			} else if(args.length == 2) {
 				if(sender.hasPermission(PermissionKey.CMD_GAMEMODE.getPermission())) {
-					Player p = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]).getPlayer();
+					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]).getPlayer();
 					if(p instanceof Player) {
 						if(args[0].equalsIgnoreCase("s") || args[0].equalsIgnoreCase("0")) {
 							if(p.getGameMode() != GameMode.SURVIVAL) {

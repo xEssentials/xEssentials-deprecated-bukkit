@@ -9,11 +9,16 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
 public class PlayerConfig {
+	
+	private final xEssentials pl;
+	
+	public PlayerConfig(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	/**
 	 * @author xize
@@ -21,7 +26,7 @@ public class PlayerConfig {
 	 * @return int
 	 */
 	public int getOfflineCache() {
-		return (Integer) Configuration.getConfigValue(ConfigType.PLAYER, "offline-cache");
+		return (Integer) pl.getConfiguration().getConfigValue(ConfigType.PLAYER, "offline-cache");
 	}
 	
 	/**
@@ -30,7 +35,7 @@ public class PlayerConfig {
 	 * @return boolean
 	 */
 	public boolean isSeperatedInventorysEnabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.PLAYER, "useSeperatedInventorys");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PLAYER, "useSeperatedInventorys");
 		return bol;
 	}
 
@@ -40,7 +45,7 @@ public class PlayerConfig {
 	 * @return boolean
 	 */
 	public boolean isWorldBorderEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.PLAYER, "worldborder-enable");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PLAYER, "worldborder-enable");
 	}
 
 	/**
@@ -49,7 +54,7 @@ public class PlayerConfig {
 	 * @return boolean
 	 */
 	public int getWorldBorderSize() {
-		return (Integer) Configuration.getConfigValue(ConfigType.PLAYER, "worldborder-radius");
+		return (Integer) pl.getConfiguration().getConfigValue(ConfigType.PLAYER, "worldborder-radius");
 	}
 
 	/**
@@ -78,7 +83,7 @@ public class PlayerConfig {
 	 * @return boolean
 	 */
 	public boolean isSaveInventoryEnabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.PLAYER, "savePlayerInventory");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PLAYER, "savePlayerInventory");
 		return bol;
 	}
 
@@ -88,7 +93,7 @@ public class PlayerConfig {
 	 * @return boolean
 	 */
 	public boolean isGodModeInAfkEnabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.PLAYER, "godmodeInAfk");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PLAYER, "godmodeInAfk");
 		return bol;
 	}
 
@@ -98,7 +103,7 @@ public class PlayerConfig {
 	 * @return Boolean
 	 */
 	public boolean isHungerCancelled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.PLAYER, "hunger");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PLAYER, "hunger");
 		return bol;
 	}
 
@@ -108,7 +113,7 @@ public class PlayerConfig {
 	 * @return Boolean
 	 */
 	public boolean isKeepInventoryOnDeathEnabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.PLAYER, "keepinv");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PLAYER, "keepinv");
 		return bol;
 	}
 
@@ -118,7 +123,7 @@ public class PlayerConfig {
 	 * @return boolean
 	 */
 	public boolean isCanEntityStealHatOnPlayersDeath() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.PLAYER, "entitysCanUseHeadOnPlayerDeath");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PLAYER, "entitysCanUseHeadOnPlayerDeath");
 		return bol;
 	}
 
@@ -128,7 +133,7 @@ public class PlayerConfig {
 	 * @return boolean
 	 */
 	public boolean canUseMoreHomes() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.PLAYER, "canDefaultUseMoreHomes");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PLAYER, "canDefaultUseMoreHomes");
 		return bol;
 	}
 
@@ -138,7 +143,7 @@ public class PlayerConfig {
 	 * @return int
 	 */
 	public int getMaxHomesAllowed() {
-		int i = (Integer) Configuration.getConfigValue(ConfigType.PLAYER, "maxHomes");
+		int i = (Integer) pl.getConfiguration().getConfigValue(ConfigType.PLAYER, "maxHomes");
 		return i;
 	}
 
@@ -148,7 +153,7 @@ public class PlayerConfig {
 	 * @return Boolean
 	 */
 	public boolean isPortalsDisabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.PLAYER, "DisablePortals");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PLAYER, "DisablePortals");
 	}
 
 	/**
@@ -157,7 +162,7 @@ public class PlayerConfig {
 	 * @return Boolean
 	 */
 	public boolean isCustomPortalSizeDisabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.PLAYER, "DisableCustomSize");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PLAYER, "DisableCustomSize");
 	}
 
 	/**
@@ -166,7 +171,7 @@ public class PlayerConfig {
 	 * @return boolean
 	 */
 	public boolean isBroadcastAchievementsEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.PLAYER, "PlayerAchievements");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PLAYER, "PlayerAchievements");
 	}
 
 	/**
@@ -175,7 +180,7 @@ public class PlayerConfig {
 	 * @return booelan
 	 */
 	public boolean isAutoAnvilEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.PLAYER, "anvil");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PLAYER, "anvil");
 	}
 
 	/**
@@ -185,7 +190,7 @@ public class PlayerConfig {
 	 * @return
 	 */
 	public boolean isAutoRespawnEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.PLAYER, "force-respawn");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PLAYER, "force-respawn");
 	}
 
 	/**

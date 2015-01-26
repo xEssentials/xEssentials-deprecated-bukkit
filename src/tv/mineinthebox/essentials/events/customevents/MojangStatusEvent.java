@@ -12,10 +12,12 @@ public class MojangStatusEvent extends Event {
 
 	private MojangStatusResponse resp;
 	private MojangStatus status;
+	private final xEssentials pl;
 	
-	public MojangStatusEvent(MojangStatus status, MojangStatusResponse resp) {
+	public MojangStatusEvent(MojangStatus status, MojangStatusResponse resp, xEssentials pl) {
 		this.resp = resp;
 		this.status = status;
+		this.pl = pl;
 	}
 	
 	/**
@@ -42,7 +44,7 @@ public class MojangStatusEvent extends Event {
 	 * @return xEssentialsPlayer[]
 	 */
 	public XPlayer[] getPlayers() {
-		return xEssentials.getManagers().getPlayerManager().getPlayers();
+		return pl.getManagers().getPlayerManager().getPlayers();
 	}
 	
 	private static final HandlerList handlers = new HandlerList();

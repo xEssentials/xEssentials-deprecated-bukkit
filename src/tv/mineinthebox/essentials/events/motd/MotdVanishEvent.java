@@ -8,7 +8,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
@@ -21,9 +20,17 @@ import com.comphenix.protocol.wrappers.WrappedGameProfile;
 
 public class MotdVanishEvent {
 	
-	private static ListIterator<String> it = Configuration.getMotdConfig().getMotdMessages();
+	private final xEssentials pl;
+	private final ListIterator<String> it;
 	
-	public static void initPacketListener(){
+	public MotdVanishEvent(xEssentials pl) {
+		this.pl = pl;
+		this.it = pl.getConfiguration().getMotdConfig().getMotdMessages();
+		
+	}
+	
+	//TODO:method was static not sure why.
+	public void initPacketListener(){
 		ProtocolLibrary.getProtocolManager().addPacketListener(
 				new PacketAdapter(xEssentials.getPlugin(), PacketType.Status.Server.OUT_SERVER_INFO) {
 					@SuppressWarnings("deprecation")
@@ -31,7 +38,7 @@ public class MotdVanishEvent {
 					public void onPacketSending(PacketEvent event) {
 						event.getPacket().getServerPings().getValues().get(0).setPlayersOnline(getOnlinePlayers());
 						event.getPacket().getServerPings().getValues().get(0).setPlayersMaximum(Bukkit.getMaxPlayers());
-						if(Configuration.getMotdConfig().isRandomMotdEnabled()) {
+						if(pl.getConfiguration().getMotdConfig().isRandomMotdEnabled()) {
 							if(it.hasNext()) {
 								event.getPacket().getServerPings().getValues().get(0).setMotD(ChatColor.translateAlternateColorCodes('&', it.next()));	
 							} else {
@@ -43,12 +50,12 @@ public class MotdVanishEvent {
 								}
 							}
 						} else {
-							event.getPacket().getServerPings().getValues().get(0).setMotD(ChatColor.translateAlternateColorCodes('&', Configuration.getMotdConfig().getMotdMessage()));	
+							event.getPacket().getServerPings().getValues().get(0).setMotD(ChatColor.translateAlternateColorCodes('&', pl.getConfiguration().getMotdConfig().getMotdMessage()));	
 						}
 						List<WrappedGameProfile> players = new ArrayList<WrappedGameProfile>();
 						for(Player p : Bukkit.getOnlinePlayers()) {
-							if(xEssentials.getManagers().getPlayerManager().isOnline(p.getName())) {
-								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+							if(pl.getManagers().getPlayerManager().isOnline(p.getName())) {
+								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 								if(!xp.isVanished()) {
 									players.add(new WrappedGameProfile("id"+String.valueOf(players.size()+1), ChatColor.translateAlternateColorCodes('&', p.getName())));
 								}
@@ -60,11 +67,11 @@ public class MotdVanishEvent {
 				});
 	}
 
-	private static int getOnlinePlayers() {
+	private int getOnlinePlayers() {
 		int i = 0;
 		for(Player p : Bukkit.getOnlinePlayers()) {
-			if(xEssentials.getManagers().getPlayerManager().isOnline(p.getName())) {
-				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+			if(pl.getManagers().getPlayerManager().isOnline(p.getName())) {
+				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(!xp.isVanished()) {
 					i++;
 				}

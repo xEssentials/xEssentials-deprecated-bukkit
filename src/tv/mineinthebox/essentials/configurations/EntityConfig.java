@@ -3,11 +3,17 @@ package tv.mineinthebox.essentials.configurations;
 import java.util.HashMap;
 import java.util.Map;
 
-import tv.mineinthebox.essentials.Configuration;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
 
 public class EntityConfig {
+	
+	private final xEssentials pl;
+	
+	public EntityConfig(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	/**
 	 * @author xize
@@ -15,7 +21,7 @@ public class EntityConfig {
 	 * @return boolean
 	 */
 	public boolean isWeatherDisabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "disableWeather");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "disableWeather");
 		return bol;
 	}
 
@@ -25,7 +31,7 @@ public class EntityConfig {
 	 * @return boolean
 	 */
 	public boolean isFireSpreadDisabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "disableFirespread");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "disableFirespread");
 		return bol;
 	}
 	
@@ -35,7 +41,7 @@ public class EntityConfig {
 	 * @return boolean
 	 */
 	public boolean isRealisticGlassEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "realisticglass");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "realisticglass");
 	}
 
 	/**
@@ -44,7 +50,7 @@ public class EntityConfig {
 	 * @return boolean
 	 */
 	public boolean isLeaveDecayDisabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "disableleavedecay");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "disableleavedecay");
 	}
 	
 	/**
@@ -53,7 +59,7 @@ public class EntityConfig {
 	 * @return boolean
 	 */
 	public boolean isExplosionsDisabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "disableExplosion");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "disableExplosion");
 		return bol;
 	}
 
@@ -63,7 +69,7 @@ public class EntityConfig {
 	 * @return boolean
 	 */
 	public boolean isFireworksDisabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "disableFirework");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "disableFirework");
 		return bol;
 	}
 
@@ -73,7 +79,7 @@ public class EntityConfig {
 	 * @return boolean
 	 */
 	public boolean isWitherGriefDisabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "disableWitherGrief");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "disableWitherGrief");
 		return bol;
 	}
 
@@ -83,7 +89,7 @@ public class EntityConfig {
 	 * @return boolean
 	 */
 	public boolean isEnderManGriefDisabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "disableEndermanGrief");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "disableEndermanGrief");
 		return bol;
 	}
 
@@ -93,7 +99,7 @@ public class EntityConfig {
 	 * @return boolean
 	 */
 	public boolean isEnderDragonGriefDisabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "disableEnderdragonGrief");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "disableEnderdragonGrief");
 		return bol;
 	}
 
@@ -103,7 +109,7 @@ public class EntityConfig {
 	 * @return boolean
 	 */
 	public boolean isCustomZombieAggroRangeEnabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "zombieCustomAggroEnable");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "zombieCustomAggroEnable");
 		return bol;
 	}
 
@@ -113,7 +119,7 @@ public class EntityConfig {
 	 * @return Integer
 	 */
 	public Integer getCustomZombieAggroRange() {
-		int number = (Integer) Configuration.getConfigValue(ConfigType.ENTITY, "zombieCustomAggroRange");
+		int number = (Integer) pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "zombieCustomAggroRange");
 		return number;
 	}
 
@@ -123,7 +129,7 @@ public class EntityConfig {
 	 * @return boolean
 	 */
 	public boolean isSpawnEggsDisabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "disableSpawnEggs");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "disableSpawnEggs");
 		return bol;
 	}
 
@@ -133,7 +139,7 @@ public class EntityConfig {
 	 * @return boolean
 	 */
 	public boolean isLoggingSpawnEggsEnabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "logSpawnEggs");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "logSpawnEggs");
 		return bol;
 	}
 
@@ -143,7 +149,7 @@ public class EntityConfig {
 	 * @return boolean
 	 */
 	public boolean isBloodEnabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "blood");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "blood");
 		return bol;
 	}
 
@@ -153,16 +159,16 @@ public class EntityConfig {
 	 * @return Boolean
 	 */
 	public boolean isCleanUpOnChunkUnloadEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "cleanup");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "cleanup");
 	}
 
 	/**
 	 * @author xize
-	 * @param returns true whenever the configuration 'Remove-Flying-Projectiles-On-ChunkLoad' is enabled this will enable the functional base to remove witherskulls and fireballs on chunk load so the server cannot be abused nor get laggy due this. 
+	 * @param returns true whenever the pl.getConfiguration() 'Remove-Flying-Projectiles-On-ChunkLoad' is enabled this will enable the functional base to remove witherskulls and fireballs on chunk load so the server cannot be abused nor get laggy due this. 
 	 * @return boolean
 	 */
 	public boolean isChunkProtectionEnabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "AntiFireball");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "AntiFireball");
 		return bol;
 	}
 
@@ -173,7 +179,7 @@ public class EntityConfig {
 	 */
 	@SuppressWarnings("unchecked")
 	public HashMap<String, Map<Boolean, String[]>> getEntitys() {
-		return (HashMap<String, Map<Boolean, String[]>>) Configuration.getConfigValue(ConfigType.ENTITY, "allowToSpawn");
+		return (HashMap<String, Map<Boolean, String[]>>) pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "allowToSpawn");
 	}
 
 	/**
@@ -182,7 +188,7 @@ public class EntityConfig {
 	 * @return Boolean
 	 */
 	public boolean isExplosionRegenEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "regen");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "regen");
 	}
 
 	/**
@@ -191,7 +197,7 @@ public class EntityConfig {
 	 * @return Boolean
 	 */
 	public boolean isStonePressurePlate() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "plates");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "plates");
 	}
 
 	/**
@@ -200,7 +206,7 @@ public class EntityConfig {
 	 * @return Boolean
 	 */
 	public boolean isRealisticWaterEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.ENTITY, "realisticwater");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "realisticwater");
 	}
 
 	/**
@@ -209,7 +215,7 @@ public class EntityConfig {
 	 * @return Boolean
 	 */
 	public boolean isRealisticTreesEnabled() {
-		return (Boolean)Configuration.getConfigValue(ConfigType.ENTITY, "realistictrees");
+		return (Boolean)pl.getConfiguration().getConfigValue(ConfigType.ENTITY, "realistictrees");
 	}
 
 }

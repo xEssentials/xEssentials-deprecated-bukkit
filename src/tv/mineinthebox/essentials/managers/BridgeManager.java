@@ -8,14 +8,19 @@ import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.instances.Bridge;
 
 public class BridgeManager {
+	
+	private final xEssentials pl;
 
 	private final HashMap<String, Bridge> bridges = new HashMap<String, Bridge>();
+	
+	public BridgeManager(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	public boolean contains(Bridge bridge) {
 		return bridges.containsValue(bridge);
@@ -86,15 +91,15 @@ public class BridgeManager {
 			File[] files = dir.listFiles();
 			for(File f : files) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-				Bridge bridge = new Bridge(f, con);
+				Bridge bridge = new Bridge(f, con, pl);
 				if(bridge.getWorld() instanceof World) {
-					if(Configuration.getDebugConfig().isEnabled()) {
-						xEssentials.getPlugin().log("bridge " + bridge.getId() + " has been registered at: (" + bridge.getSigns()[0].getWorld().getName() + " x:" + bridge.getSigns()[0].getX()+" y:" + bridge.getSigns()[0].getY() + " z:" + bridge.getSigns()[0].getZ()+")", LogType.DEBUG);	
+					if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+						xEssentials.log("bridge " + bridge.getId() + " has been registered at: (" + bridge.getSigns()[0].getWorld().getName() + " x:" + bridge.getSigns()[0].getX()+" y:" + bridge.getSigns()[0].getY() + " z:" + bridge.getSigns()[0].getZ()+")", LogType.DEBUG);	
 					}
 					addBridge(bridge);
 				} else {
-					if(Configuration.getDebugConfig().isEnabled()) {
-						xEssentials.getPlugin().log("unregistering gate " + bridge.getId() + " world is not active.", LogType.DEBUG);	
+					if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+						xEssentials.log("unregistering gate " + bridge.getId() + " world is not active.", LogType.DEBUG);	
 					}
 					bridge.remove();
 				}

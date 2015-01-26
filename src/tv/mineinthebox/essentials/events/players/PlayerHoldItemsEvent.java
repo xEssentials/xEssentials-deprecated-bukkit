@@ -11,9 +11,15 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class PlayerHoldItemsEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public PlayerHoldItemsEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {
-		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getEntity().getName());
+		XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getEntity().getName());
 		if(e.getEntity().getGameMode() == GameMode.SURVIVAL) {
 			xp.saveSurvivalInventory();
 		}
@@ -21,7 +27,7 @@ public class PlayerHoldItemsEvent implements Listener {
 	
 	@EventHandler
 	public void onRespawn(PlayerRespawnEvent e) {
-		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		e.getPlayer().getInventory().setContents(xp.getSurvivalInventory());
 		e.getPlayer().getInventory().setArmorContents(xp.getSurvivalArmorInventory());
 	}

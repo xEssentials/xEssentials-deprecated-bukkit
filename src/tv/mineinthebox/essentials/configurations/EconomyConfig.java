@@ -1,9 +1,15 @@
 package tv.mineinthebox.essentials.configurations;
 
-import tv.mineinthebox.essentials.Configuration;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
 public class EconomyConfig {
+	
+	private final xEssentials pl;
+	
+	public EconomyConfig(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	/**
 	 * @author xize
@@ -11,7 +17,7 @@ public class EconomyConfig {
 	 * @return Boolean
 	 */
 	public boolean isEconomyEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.ECONOMY, "enable");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.ECONOMY, "enable");
 	}
 	
 	/**
@@ -20,7 +26,7 @@ public class EconomyConfig {
 	 * @return String
 	 */
 	public String getCurency() {
-		return (String) Configuration.getConfigValue(ConfigType.ECONOMY, "currency");
+		return (String) pl.getConfiguration().getConfigValue(ConfigType.ECONOMY, "currency");
 	}
 	
 	/**
@@ -29,7 +35,7 @@ public class EconomyConfig {
 	 * @return Double
 	 */
 	public Double getStartersMoney() {
-		return (Double) Configuration.getConfigValue(ConfigType.ECONOMY, "startersAmount");
+		return (Double) pl.getConfiguration().getConfigValue(ConfigType.ECONOMY, "startersAmount");
 	}
 
 }

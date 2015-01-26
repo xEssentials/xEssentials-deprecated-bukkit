@@ -4,10 +4,16 @@ import java.util.List;
 
 import org.bukkit.ChatColor;
 
-import tv.mineinthebox.essentials.Configuration;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
 public class ChatConfig {
+	
+	private final xEssentials pl;
+	
+	public ChatConfig(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	/**
 	 * @author xize
@@ -15,7 +21,7 @@ public class ChatConfig {
 	 * @return Boolean
 	 */
 	public boolean isChatHighLightEnabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.CHAT, "enable");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.CHAT, "enable");
 		return bol;
 	}
 	
@@ -25,7 +31,7 @@ public class ChatConfig {
 	 * @return Boolean
 	 */
 	public boolean isSmilleysEnabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.CHAT, "smilleysEnable");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.CHAT, "smilleysEnable");
 		return bol;
 	}
 	
@@ -35,7 +41,7 @@ public class ChatConfig {
 	 * @return String
 	 */
 	public String getHashTag() {
-		String hashTag = ChatColor.translateAlternateColorCodes('&', (String)Configuration.getConfigValue(ConfigType.CHAT, "hashTag"));
+		String hashTag = ChatColor.translateAlternateColorCodes('&', (String)pl.getConfiguration().getConfigValue(ConfigType.CHAT, "hashTag"));
 		return hashTag;
 	}
 	
@@ -45,7 +51,7 @@ public class ChatConfig {
 	 * @return boolean
 	 */
 	public boolean isAntiAdvertiseEnabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.CHAT, "antiAddvertiseEnabled");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.CHAT, "antiAddvertiseEnabled");
 		return bol;
 	}
 	
@@ -55,7 +61,7 @@ public class ChatConfig {
 	 * @return Boolean
 	 */
 	public boolean isRssBroadcastEnabled() {
-		Boolean bol = (Boolean) Configuration.getConfigValue(ConfigType.CHAT, "RssEnabled");
+		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.CHAT, "RssEnabled");
 		return bol;
 	}
 	
@@ -65,7 +71,7 @@ public class ChatConfig {
 	 * @return String
 	 */
 	public String getRssUrl() {
-		return (String)Configuration.getConfigValue(ConfigType.CHAT, "RssUrl");
+		return (String)pl.getConfiguration().getConfigValue(ConfigType.CHAT, "RssUrl");
 	}
 	
 	/**
@@ -74,7 +80,7 @@ public class ChatConfig {
 	 * @return Boolean
 	 */
 	public boolean isMojangStatusEnabled() {
-		return (Boolean)Configuration.getConfigValue(ConfigType.CHAT, "MojangStatus");
+		return (Boolean)pl.getConfiguration().getConfigValue(ConfigType.CHAT, "MojangStatus");
 	}
 	
 	/**
@@ -83,7 +89,7 @@ public class ChatConfig {
 	 * @return boolean
 	 */
 	public boolean isSwearFilterEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.CHAT, "swearenable");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.CHAT, "swearenable");
 	}
 	
 	/**
@@ -94,7 +100,7 @@ public class ChatConfig {
 	@SuppressWarnings("unchecked")
 	public String getSwearWords() {
 		String badword = "(";
-		for(String word : (List<String>)Configuration.getConfigValue(ConfigType.CHAT, "swearwords")) {
+		for(String word : (List<String>)pl.getConfiguration().getConfigValue(ConfigType.CHAT, "swearwords")) {
 			badword += word +"|";
 		}
 		badword += ")";
@@ -107,7 +113,7 @@ public class ChatConfig {
 	 * @return boolean
 	 */
 	public boolean isSwearWarningEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.CHAT, "swearwarningenable");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.CHAT, "swearwarningenable");
 	}
 	
 	/**
@@ -116,7 +122,7 @@ public class ChatConfig {
 	 * @return int
 	 */
 	public int getMaxWarningLevel() {
-		return (Integer) Configuration.getConfigValue(ConfigType.CHAT, "swearwarninglevel");
+		return (Integer) pl.getConfiguration().getConfigValue(ConfigType.CHAT, "swearwarninglevel");
 	}
 	
 	/**
@@ -125,7 +131,7 @@ public class ChatConfig {
 	 * @return String
 	 */
 	public String getWarningCommand() {
-		return ((String) Configuration.getConfigValue(ConfigType.CHAT, "swearwarningpunish")).replace("/", "");
+		return ((String) pl.getConfiguration().getConfigValue(ConfigType.CHAT, "swearwarningpunish")).replace("/", "");
 	}
 	
 	/**
@@ -134,7 +140,7 @@ public class ChatConfig {
 	 * @return String
 	 */
 	public String getWarningMessage() {
-		return ChatColor.translateAlternateColorCodes('&', (String)Configuration.getConfigValue(ConfigType.CHAT, "swearwarningmessage"));
+		return ChatColor.translateAlternateColorCodes('&', (String)pl.getConfiguration().getConfigValue(ConfigType.CHAT, "swearwarningmessage"));
 	}
 
 	

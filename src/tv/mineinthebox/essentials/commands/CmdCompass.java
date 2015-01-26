@@ -15,10 +15,16 @@ import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdCompass {
+	
+	private final xEssentials pl;
+	
+	public CmdCompass(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
-		for(XOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer name : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
 				s.add(name.getUser());
 			}
@@ -42,7 +48,7 @@ public class CmdCompass {
 		if(cmd.getName().equalsIgnoreCase("compass")) {
 			if(sender.hasPermission(PermissionKey.CMD_COMPASS.getPermission())) {
 				if(sender instanceof Player) {
-					XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+					XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 					if(args.length == 0) {
 						if(xp.hasCompass()) {
 							xp.removeCompass();
@@ -51,8 +57,8 @@ public class CmdCompass {
 							sender.sendMessage(ChatColor.RED + "you don't have any player set on your compass!, use /compass player instead use /compass alone to unbind the command from your clock");
 						}
 					} else if(args.length == 1) {
-						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
+							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							xp.setCompass(off.getUser());
 							sender.sendMessage(ChatColor.GREEN + "you have successfully added " + off.getUser() + " to your clock!");
 						} else {

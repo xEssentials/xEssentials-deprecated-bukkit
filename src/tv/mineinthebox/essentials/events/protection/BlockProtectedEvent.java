@@ -12,7 +12,6 @@ import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
@@ -20,6 +19,12 @@ public class BlockProtectedEvent implements Listener {
 
 	private final BlockFace[] faces = {BlockFace.UP, BlockFace.DOWN, BlockFace.SELF, BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST};
 
+	private final xEssentials pl;
+	
+	public BlockProtectedEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	/**
 	 * @author xize
 	 * @param returns true whenever the player can place the block, false if the face sides does not match the specified criteria.
@@ -30,11 +35,11 @@ public class BlockProtectedEvent implements Listener {
 	private boolean canBlockPlaced(Player p, Block block) {
 		for(BlockFace face : faces) {
 			Block block1 = block.getRelative(face);
-			if(xEssentials.getManagers().getProtectionDBManager().isRegistered(block1)) {
+			if(pl.getManagers().getProtectionDBManager().isRegistered(block1)) {
 				if(p.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 					return true;
 				} else {
-					if(!xEssentials.getManagers().getProtectionDBManager().isOwner(p.getName(), block1)) {
+					if(!pl.getManagers().getProtectionDBManager().isOwner(p.getName(), block1)) {
 						return false;
 					}	
 				}
@@ -46,7 +51,7 @@ public class BlockProtectedEvent implements Listener {
 	private boolean canBlockDestroyed(Block block) {
 		for(BlockFace face : faces) {
 			Block block1 = block.getRelative(face);
-			if(xEssentials.getManagers().getProtectionDBManager().isRegistered(block1)) {
+			if(pl.getManagers().getProtectionDBManager().isRegistered(block1)) {
 				return true;
 			}
 		}
@@ -59,7 +64,7 @@ public class BlockProtectedEvent implements Listener {
 			return;
 		}
 		if(!canBlockPlaced(e.getPlayer(), e.getBlock())) {
-			e.getPlayer().sendMessage(Configuration.getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getBlock().getType().name()));
+			e.getPlayer().sendMessage(pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getBlock().getType().name()));
 			e.setCancelled(true);
 		}
 	}
@@ -67,7 +72,7 @@ public class BlockProtectedEvent implements Listener {
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onBreak(BlockPlaceEvent e) {
 		if(!canBlockPlaced(e.getPlayer(), e.getBlock())) {
-			e.getPlayer().sendMessage(Configuration.getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getBlock().getType().name()));
+			e.getPlayer().sendMessage(pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getBlock().getType().name()));
 			e.setCancelled(true);
 		}
 	}
@@ -76,7 +81,7 @@ public class BlockProtectedEvent implements Listener {
 	public void onBreak(PlayerInteractEvent e) {
 		if(e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if(!canBlockPlaced(e.getPlayer(), e.getClickedBlock())) {
-				e.getPlayer().sendMessage(Configuration.getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getClickedBlock().getType().name()));
+				e.getPlayer().sendMessage(pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getClickedBlock().getType().name()));
 				e.setCancelled(true);
 			}
 		}

@@ -25,6 +25,12 @@ public class CallMojangStatus {
 	
 	private volatile boolean stop = false;
 
+	private volatile xEssentials pl;
+	
+	public CallMojangStatus(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	private void startMojangCheck() {
 		new BukkitRunnable() {
 
@@ -56,38 +62,38 @@ public class CallMojangStatus {
 					if(this.status != null) {
 						if(this.status.isLoginServerActive() != stat.isLoginServerActive()) {
 							if(stat.isLoginServerActive()) {
-								Bukkit.getPluginManager().callEvent(new MojangStatusEvent(stat, MojangStatusResponse.LOGIN_SERVER_ACTIVE));
+								Bukkit.getPluginManager().callEvent(new MojangStatusEvent(stat, MojangStatusResponse.LOGIN_SERVER_ACTIVE, pl));
 							} else {
-								Bukkit.getPluginManager().callEvent(new MojangStatusEvent(stat, MojangStatusResponse.LOGIN_SERVER_DOWN));
+								Bukkit.getPluginManager().callEvent(new MojangStatusEvent(stat, MojangStatusResponse.LOGIN_SERVER_DOWN, pl));
 							}
 						}
 						if(this.status.isSessionServerActive() != stat.isSessionServerActive()) {
 							if(stat.isSessionServerActive()) {
-								Bukkit.getPluginManager().callEvent(new MojangStatusEvent(stat, MojangStatusResponse.SESSION_SERVER_ACTIVE));
+								Bukkit.getPluginManager().callEvent(new MojangStatusEvent(stat, MojangStatusResponse.SESSION_SERVER_ACTIVE, pl));
 							} else {
-								Bukkit.getPluginManager().callEvent(new MojangStatusEvent(stat, MojangStatusResponse.SESSION_SERVER_DOWN));
+								Bukkit.getPluginManager().callEvent(new MojangStatusEvent(stat, MojangStatusResponse.SESSION_SERVER_DOWN, pl));
 							}
 						}
 						if(this.status.isSkinServerActive() != stat.isSkinServerActive()) {
 							if(stat.isSkinServerActive()) {
-								Bukkit.getPluginManager().callEvent(new MojangStatusEvent(stat, MojangStatusResponse.SKIN_SERVER_UP));
+								Bukkit.getPluginManager().callEvent(new MojangStatusEvent(stat, MojangStatusResponse.SKIN_SERVER_UP, pl));
 							} else {
-								Bukkit.getPluginManager().callEvent(new MojangStatusEvent(stat, MojangStatusResponse.SKIN_SERVER_DOWN));
+								Bukkit.getPluginManager().callEvent(new MojangStatusEvent(stat, MojangStatusResponse.SKIN_SERVER_DOWN, pl));
 							}
 						}
 						this.status = stat;
 					} else {
-						Bukkit.getPluginManager().callEvent(new MojangStatusEvent(stat, MojangStatusResponse.UNKNOWN));
+						Bukkit.getPluginManager().callEvent(new MojangStatusEvent(stat, MojangStatusResponse.UNKNOWN, pl));
 						this.status = stat;
 					}
 				} catch(UnknownHostException e) {
-					xEssentials.getPlugin().log("couldn't connect to status.mojang.com, is the server down or your connection?", LogType.SEVERE);
+					xEssentials.log("couldn't connect to status.mojang.com, is the server down or your connection?", LogType.SEVERE);
 				} catch (FileNotFoundException e) {
-					xEssentials.getPlugin().log("couldn't find the current page, please talk to xize the developer of xEssentials for support!", LogType.SEVERE);
+					xEssentials.log("couldn't find the current page, please talk to xize the developer of xEssentials for support!", LogType.SEVERE);
 				} catch (IOException e) {
-					xEssentials.getPlugin().log("couldn't connect to status.mojang.com, the website seems down", LogType.SEVERE);
+					xEssentials.log("couldn't connect to status.mojang.com, the website seems down", LogType.SEVERE);
 				} catch (ParseException e) {
-					xEssentials.getPlugin().log("detected malformed json stats from status.mojang.com", LogType.SEVERE);
+					xEssentials.log("detected malformed json stats from status.mojang.com", LogType.SEVERE);
 					e.printStackTrace();
 				} finally {
 					try {

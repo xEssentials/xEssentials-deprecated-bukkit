@@ -28,7 +28,12 @@ import tv.mineinthebox.essentials.instances.RegenObject;
 
 public class ExplosionRegenEvent implements Listener {
 	
-	private static HashSet<FallingBlock> fallingBlocks = new HashSet<FallingBlock>();
+	private final HashSet<FallingBlock> fallingBlocks = new HashSet<FallingBlock>();
+	private final xEssentials pl;
+	
+	public ExplosionRegenEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onExplosion(EntityExplodeEvent e) {
@@ -64,8 +69,8 @@ public class ExplosionRegenEvent implements Listener {
 			blocks.remove(block);
 		}
 		
-		RegenObject regen = new RegenObject(data);
-		xEssentials.getManagers().getExplosionRegenManager().getList.add(regen);
+		RegenObject regen = new RegenObject(data, pl);
+		pl.getManagers().getExplosionRegenManager().getList.add(regen);
 	}
 
 	@SuppressWarnings("deprecation")

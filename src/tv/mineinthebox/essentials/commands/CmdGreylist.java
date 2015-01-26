@@ -5,7 +5,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.GreyListCause;
@@ -16,6 +15,12 @@ import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 public class CmdGreylist {
+	
+	private final xEssentials pl;
+	
+	public CmdGreylist(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("greylist")) {
@@ -36,15 +41,15 @@ public class CmdGreylist {
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/greylist add <player> " + ChatColor.WHITE + ": excempt the player to the greylist");
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/greylist remove <player> " + ChatColor.WHITE + ": remove the player from the greylist");
 					} else if(args[0].equalsIgnoreCase("on")) {
-						if(!Configuration.getGrayListConfig().isEnabled()) {
-							Configuration.getGrayListConfig().setEnabled(true);
+						if(!pl.getConfiguration().getGrayListConfig().isEnabled()) {
+							pl.getConfiguration().getGrayListConfig().setEnabled(true);
 							sender.sendMessage(ChatColor.GREEN + "you have successfully enabled the greylist server!");
 						} else {
 							sender.sendMessage(ChatColor.RED + "the greylist server whas already active!");
 						}
 					} else if(args[0].equalsIgnoreCase("off")) {
-						if(Configuration.getGrayListConfig().isEnabled()) {
-							Configuration.getGrayListConfig().setEnabled(false);
+						if(pl.getConfiguration().getGrayListConfig().isEnabled()) {
+							pl.getConfiguration().getGrayListConfig().setEnabled(false);
 							sender.sendMessage(ChatColor.GREEN + "you have successfully disabled the greylist server!");
 						} else {
 							sender.sendMessage(ChatColor.RED + "the greylist server whas already shuted down!");
@@ -52,28 +57,28 @@ public class CmdGreylist {
 					}
 				} else if(args.length == 2) {
 					if(args[0].equalsIgnoreCase("add")) {
-						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[1])) {
-							if(xEssentials.getManagers().getPlayerManager().isOnline(args[1])) {
-								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
+						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[1])) {
+							if(pl.getManagers().getPlayerManager().isOnline(args[1])) {
+								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[1]);
 								xp.setGreyListed(true);
 								if(Hooks.isVaultPermissionsEnabled()) {
-									String oldGroup = xEssentials.getManagers().getVaultManager().getGroup(xp.getPlayer());
-									String newGroup = Configuration.getGrayListConfig().getGroup();
-									xEssentials.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), xp.getUser(), newGroup);
-									Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(xp.getPlayer(), newGroup, oldGroup, GreyListCause.COMMAND));
+									String oldGroup = pl.getManagers().getVaultManager().getGroup(xp.getPlayer());
+									String newGroup = pl.getConfiguration().getGrayListConfig().getGroup();
+									pl.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), xp.getUser(), newGroup);
+									Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(xp.getPlayer(), newGroup, oldGroup, GreyListCause.COMMAND, pl));
 								} else {
 									sender.sendMessage(ChatColor.RED + "no vault installed!");
 									return false;
 								}
 								sender.sendMessage(ChatColor.GREEN + "you successfully greylisted " + xp.getUser());
 							} else {
-								XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
+								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 								off.setGreyListed(true);
 								if(Hooks.isVaultPermissionsEnabled()) {
-									String oldGroup = xEssentials.getManagers().getVaultManager().getGroup(Bukkit.getWorlds().get(0), off.getUser());
-									String newGroup = Configuration.getGrayListConfig().getGroup();
-									xEssentials.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), off.getUser(), newGroup);
-									Bukkit.getPluginManager().callEvent(new OfflinePlayerGreyListedEvent(off.getUser(), newGroup, oldGroup, GreyListCause.COMMAND));
+									String oldGroup = pl.getManagers().getVaultManager().getGroup(Bukkit.getWorlds().get(0), off.getUser());
+									String newGroup = pl.getConfiguration().getGrayListConfig().getGroup();
+									pl.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), off.getUser(), newGroup);
+									Bukkit.getPluginManager().callEvent(new OfflinePlayerGreyListedEvent(off.getUser(), newGroup, oldGroup, GreyListCause.COMMAND, pl));
 								} else {
 									sender.sendMessage(ChatColor.RED + "no vault installed!");
 									return false;
@@ -84,24 +89,24 @@ public class CmdGreylist {
 							sender.sendMessage(ChatColor.RED + "this player has never played before!");
 						}
 					} else if(args[0].equalsIgnoreCase("remove")) {
-						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[1])) {
-							if(xEssentials.getManagers().getPlayerManager().isOnline(args[1])) {
-								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
+						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[1])) {
+							if(pl.getManagers().getPlayerManager().isOnline(args[1])) {
+								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[1]);
 								xp.setGreyListed(false);
 								if(Hooks.isVaultPermissionsEnabled()) {
-									String DefaultGroup = xEssentials.getManagers().getVaultManager().getDefaultGroup();
-									xEssentials.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), xp.getUser(), DefaultGroup);
+									String DefaultGroup = pl.getManagers().getVaultManager().getDefaultGroup();
+									pl.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), xp.getUser(), DefaultGroup);
 								} else {
 									sender.sendMessage(ChatColor.RED + "no vault intalled!");
 									return false;
 								}
 								sender.sendMessage(ChatColor.GREEN + "you have successfully removed " + xp.getUser() + " from the greylist!");
 							} else {
-								XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
+								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 								off.setGreyListed(false);
 								if(Hooks.isVaultPermissionsEnabled()) {
-									String DefaultGroup = xEssentials.getManagers().getVaultManager().getDefaultGroup();
-									xEssentials.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), off.getUser(), DefaultGroup);
+									String DefaultGroup = pl.getManagers().getVaultManager().getDefaultGroup();
+									pl.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), off.getUser(), DefaultGroup);
 								} else {
 									sender.sendMessage(ChatColor.RED + "no vault intalled!");
 									return false;

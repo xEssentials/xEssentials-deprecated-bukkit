@@ -12,12 +12,18 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdWall {
 	
+	private final xEssentials pl;
+	
+	public CmdWall(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("wall")) {
 			if(sender.hasPermission(PermissionKey.CMD_WALL.getPermission())) {
 				if(sender instanceof Player) {
 					if(args.length == 0) {
-						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.isWallMode()) {
 							xp.setWallMode(false, xp.getWallModeRange());
 							sender.sendMessage(ChatColor.GRAY + "wall mode disabled!");
@@ -31,7 +37,7 @@ public class CmdWall {
 							sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/wall " + ChatColor.WHITE + ": creates a wall within a block section");
 							sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/wall <number>" + ChatColor.WHITE + ": creates a wall within a range in a block section");
 						} else {
-							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 							int range = Integer.parseInt(args[0]);
 							xp.setWallMode(true, range);
 							sender.sendMessage(ChatColor.GRAY + "wall mode is enabled!");

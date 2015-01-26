@@ -10,14 +10,7 @@ import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.server.PluginDisableEvent;
-import org.bukkit.event.server.PluginEnableEvent;
-import org.bukkit.plugin.Plugin;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
@@ -26,52 +19,20 @@ import tv.mineinthebox.essentials.managers.xEssentialsPlayerManager;
 public class VaultEcoHandler implements Economy {
 
 	private final String name = "xEssentials-eco";
-	private final xEssentialsPlayerManager manager = xEssentials.getManagers().getPlayerManager();
-	private xEssentials plugin = null;
+	private final xEssentialsPlayerManager manager;
+	
+	private final xEssentials pl;
 
-	public VaultEcoHandler(xEssentials plugin) {
-		this.plugin = plugin;
-		Bukkit.getServer().getPluginManager().registerEvents(new EconomyServerListener(this), plugin);
-		if (this.plugin == null) {
-			this.plugin = xEssentials.getPlugin();
-			if (plugin != null && plugin.isEnabled()) {
-				xEssentials.getPlugin().log(String.format("[%s][Economy] %s hooked.", name), LogType.INFO);
-			}
-		}
-	}
-
-	public class EconomyServerListener implements Listener {
-		VaultEcoHandler economy = null;
-
-		public EconomyServerListener(VaultEcoHandler economy) {
-			this.economy = economy;
-		}
-
-		@EventHandler(priority = EventPriority.MONITOR)
-		public void onPluginEnable(PluginEnableEvent e) {
-			if (economy.plugin == null) {
-				if(((Plugin)xEssentials.getPlugin()).equals(e.getPlugin())) {
-					this.economy.plugin = (xEssentials) e.getPlugin();
-					xEssentials.getPlugin().log(String.format("[%s][Economy] %s hooked.", plugin.getDescription().getName(), economy.name), LogType.INFO);
-				}
-			}
-		}
-
-		@EventHandler(priority = EventPriority.MONITOR)
-		public void onPluginDisable(PluginDisableEvent e) {
-			if (economy.plugin != null) {
-				if(((Plugin)xEssentials.getPlugin()).equals(e.getPlugin())) {
-					economy.plugin = null;
-					//xEssentials.getPlugin().log(String.format("[%s][Economy] %s unhooked.", plugin.getDescription().getName(), economy.name), LogType.INFO);
-				}
-			}
-		}
+	public VaultEcoHandler(xEssentials pl) {
+		this.pl = pl;
+		this.manager = pl.getManagers().getPlayerManager();
+		xEssentials.log(String.format("[%s][Economy] %s hooked.", name), LogType.INFO);
 	}
 
 	@Override
 	public boolean isEnabled() {
-		if(plugin != null) {
-			return plugin.isEnabled();
+		if(pl != null) {
+			return pl.isEnabled();
 		} else {
 			return false;
 		}
@@ -100,12 +61,12 @@ public class VaultEcoHandler implements Economy {
 
 	@Override
 	public String currencyNamePlural() {
-		return Configuration.getEconomyConfig().getCurency();
+		return pl.getConfiguration().getEconomyConfig().getCurency();
 	}
 
 	@Override
 	public String currencyNameSingular() {
-		return Configuration.getEconomyConfig().getCurency();
+		return pl.getConfiguration().getEconomyConfig().getCurency();
 	}
 
 	@Override
@@ -370,7 +331,7 @@ public class VaultEcoHandler implements Economy {
 		if(manager.isEssentialsPlayer("town-"+playerName)) {
 			return false;
 		} else {
-			XOfflinePlayer off = new xEssentialsOfflinePlayer(Bukkit.getOfflinePlayer(playerName));
+			XOfflinePlayer off = new xEssentialsOfflinePlayer(Bukkit.getOfflinePlayer(playerName), pl);
 			return (off != null);
 		}
 	}
@@ -380,7 +341,7 @@ public class VaultEcoHandler implements Economy {
 		if(manager.isEssentialsPlayer("town-"+player.getName())) {
 			return false;
 		} else {
-			XOfflinePlayer off = new xEssentialsOfflinePlayer(player);
+			XOfflinePlayer off = new xEssentialsOfflinePlayer(player, pl);
 			return (off != null);
 		}
 	}
@@ -391,7 +352,7 @@ public class VaultEcoHandler implements Economy {
 		if(manager.isEssentialsPlayer("town-"+playerName)) {
 			return false;
 		} else {
-			XOfflinePlayer off = new xEssentialsOfflinePlayer(Bukkit.getOfflinePlayer(playerName));
+			XOfflinePlayer off = new xEssentialsOfflinePlayer(Bukkit.getOfflinePlayer(playerName), pl);
 			return (off != null);
 		}
 	}
@@ -401,7 +362,7 @@ public class VaultEcoHandler implements Economy {
 		if(manager.isEssentialsPlayer("town-"+player.getName())) {
 			return false;
 		} else {
-			XOfflinePlayer off = new xEssentialsOfflinePlayer(player);
+			XOfflinePlayer off = new xEssentialsOfflinePlayer(player, pl);
 			return (off != null);
 		}
 	}

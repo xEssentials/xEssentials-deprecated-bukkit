@@ -13,6 +13,12 @@ import tv.mineinthebox.essentials.events.players.TeleportBackEvent;
 
 public class CmdBack {
 	
+	private final xEssentials pl;
+	
+	public CmdBack(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("back")) {
 			if(sender.hasPermission(PermissionKey.CMD_BACK.getPermission())) {
@@ -31,7 +37,7 @@ public class CmdBack {
 						Warnings.getWarnings(sender).consoleMessage();
 					}
 				} else if(args.length == 1) {
-					Player p = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 					if(p instanceof Player) {
 						if(TeleportBackEvent.locations.containsKey(p.getName())) {
 							Location loc = TeleportBackEvent.locations.get(p.getName());

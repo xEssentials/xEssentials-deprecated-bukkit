@@ -25,7 +25,6 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PlayerTaskEnum;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
@@ -37,9 +36,11 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	private final FileConfiguration con;
 	private String player;
 	private AlternateAccount accounts;
+	private final xEssentials pl;
 
-	public xEssentialsOfflinePlayer(String player) {
-			this.f = xEssentials.getManagers().getPlayerManager().getOfflinePlayerFile(player);
+	public xEssentialsOfflinePlayer(String player, xEssentials pl) {
+		this.pl = pl;	
+		this.f = pl.getManagers().getPlayerManager().getOfflinePlayerFile(player);
 			this.player = player;
 			if(!this.f.getName().equals(null)) {
 				if(this.f.exists()){
@@ -53,7 +54,8 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	}
 	
 	//this is ment for a dummy profile.
-	public xEssentialsOfflinePlayer(OfflinePlayer offliner) {
+	public xEssentialsOfflinePlayer(OfflinePlayer offliner, xEssentials pl) {
+		this.pl = pl;
 		this.f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players" + File.separator + "town-"+offliner.getName() + ".yml");
 		if(!this.f.exists()) {
 			this.con = YamlConfiguration.loadConfiguration(this.f);
@@ -64,13 +66,12 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			this.con.set("torch", false);
 			this.con.set("firefly", false);
 			this.con.set("uuid", offliner.getUniqueId().toString());
-			if(Configuration.getEconomyConfig().isEconomyEnabled()){
-				this.con.set("money", Configuration.getEconomyConfig().getStartersMoney());
+			if(pl.getConfiguration().getEconomyConfig().isEconomyEnabled()){
+				this.con.set("money", pl.getConfiguration().getEconomyConfig().getStartersMoney());
 			}
 			try {
 				this.con.save(this.f);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			save();
@@ -134,7 +135,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		try {
 			con.save(f);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		save();
@@ -147,7 +147,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		try {
 			con.save(f);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		save();
@@ -170,7 +169,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		try {
 			con.save(f);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		save();
@@ -202,7 +200,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		try {
 			con.save(f);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		save();
@@ -300,7 +297,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		try {
 			con.save(f);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		save();
@@ -372,7 +368,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			try {
 				con.save(f);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			save();
@@ -403,7 +398,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		try {
 			con.save(f);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		save();
@@ -416,7 +410,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		try {
 			con.save(f);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		save();
@@ -427,7 +420,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		if(accounts instanceof AlternateAccount) {
 			return accounts;
 		} else {
-			this.accounts = new AlternateAccount(this);
+			this.accounts = new AlternateAccount(this, pl);
 			return accounts;
 		}
 	}
@@ -462,7 +455,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			try {
 				con.save(f);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			save();	
@@ -473,7 +465,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			try {
 				con.save(f);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			save();
@@ -509,7 +500,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		try {
 			con.save(f);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		save();
@@ -580,7 +570,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		try {
 			con.save(f);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		save();
@@ -602,7 +591,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		try {
 			con.save(f);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		save();
@@ -628,7 +616,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 
 	@Override
 	public XPlayer getEssentialsPlayer() {
-		return xEssentials.getManagers().getPlayerManager().getPlayer(getUser());
+		return pl.getManagers().getPlayerManager().getPlayer(getUser());
 	}
 
 	@Override
@@ -669,7 +657,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		try {
 			con.save(f);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		save();
@@ -682,7 +669,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		try {
 			con.save(f);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		save();
@@ -701,13 +687,10 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 				con.load(f);
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvalidConfigurationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

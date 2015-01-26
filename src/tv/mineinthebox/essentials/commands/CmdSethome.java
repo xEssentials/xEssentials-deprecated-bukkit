@@ -5,21 +5,26 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdSethome {
+	
+	private final xEssentials pl;
+	
+	public CmdSethome(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("sethome")) {
 			if(sender instanceof Player) {
 				if(sender.hasPermission(PermissionKey.CMD_SET_HOME.getPermission())) {
 					if(args.length == 0) {
-						if(xEssentials.getManagers().getPlayerManager().isOnline(sender.getName())) {
-							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+						if(pl.getManagers().getPlayerManager().isOnline(sender.getName())) {
+							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 							xp.setHome("default");
 							sender.sendMessage(ChatColor.GREEN + "successfully set default home ;-)");
 						} else {
@@ -39,13 +44,13 @@ public class CmdSethome {
 						} else if(args[0].equalsIgnoreCase("default")) {
 							sender.sendMessage(ChatColor.RED + "you cannot use this name!, use /sethome instead");
 						} else {
-							if(sender.hasPermission(PermissionKey.MULTIPLE_HOMES.getPermission()) || Configuration.getPlayerConfig().canUseMoreHomes()) {
-								if(!xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-									XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+							if(sender.hasPermission(PermissionKey.MULTIPLE_HOMES.getPermission()) || pl.getConfiguration().getPlayerConfig().canUseMoreHomes()) {
+								if(!pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
+									XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 									if(xp.isStaff()) {
 										xp.setHome(args[0]);
 										sender.sendMessage(ChatColor.GREEN + "you successfully set your new custom home!");
-									} else if(!(xp.getAmountOfHomes() > (Configuration.getPlayerConfig().getMaxHomesAllowed())-1)) {
+									} else if(!(xp.getAmountOfHomes() > (pl.getConfiguration().getPlayerConfig().getMaxHomesAllowed())-1)) {
 										xp.setHome(args[0]);
 										sender.sendMessage(ChatColor.GREEN + "you successfully set your new custom home!");
 									} else {

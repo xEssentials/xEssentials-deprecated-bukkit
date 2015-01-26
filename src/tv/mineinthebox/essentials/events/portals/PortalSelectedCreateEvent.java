@@ -20,14 +20,19 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.events.customevents.EssentialsPortalCreateEvent;
 import tv.mineinthebox.essentials.instances.Portal;
 
 public class PortalSelectedCreateEvent implements Listener {
 
-	HashMap<String, Block[]> locations = new HashMap<String, Block[]>(); 
+	private final HashMap<String, Block[]> locations = new HashMap<String, Block[]>();
+	
+	private final xEssentials pl;
+	
+	public PortalSelectedCreateEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler
 	public void onCreate(PlayerInteractEvent e) {
@@ -50,10 +55,10 @@ public class PortalSelectedCreateEvent implements Listener {
 						Block[] frameblocks = getFrameBlocks(pos1.getBlock(), pos2.getBlock());
 						File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "portals" + File.separator + e.getPlayer().getMetadata("portal").get(0).asString() + ".yml");
 						FileConfiguration con = save(f, frameblocks, portalblocks);
-						Portal portal = new Portal(con, f);
+						Portal portal = new Portal(con, f, pl);
 						portal.setClosed(false);
 						e.getPlayer().sendMessage(ChatColor.GRAY + "portal created with name " + portal.getPortalName() + "!");
-						Bukkit.getPluginManager().callEvent(new EssentialsPortalCreateEvent(e.getPlayer(), portal));
+						Bukkit.getPluginManager().callEvent(new EssentialsPortalCreateEvent(e.getPlayer(), portal, pl));
 						e.getPlayer().removeMetadata("portal", xEssentials.getPlugin());
 						locations.remove(e.getPlayer().getName());
 					} else {
@@ -77,7 +82,7 @@ public class PortalSelectedCreateEvent implements Listener {
 		}
 		
 		if(e.getBlock().getType() == Material.PORTAL) {
-			for(Portal portal : Configuration.getPortalConfig().getPortals().values()) {
+			for(Portal portal : pl.getConfiguration().getPortalConfig().getPortals().values()) {
 				if(portal.getInnerBlocks().contains(e.getBlock())) {
 					e.setCancelled(true);
 					break;

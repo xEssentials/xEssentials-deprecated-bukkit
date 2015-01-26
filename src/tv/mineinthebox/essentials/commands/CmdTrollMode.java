@@ -12,11 +12,17 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdTrollMode {
 	
+	private final xEssentials pl;
+	
+	public CmdTrollMode(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("trollmode")) {
 			if(sender.hasPermission(PermissionKey.CMD_TROLLMODE.getPermission())) {
 				if(sender instanceof Player) {
-					XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+					XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 					if(xp.isTrollMode()) {
 						if(xp.getPlayer().getPassenger() instanceof Player) {
 							Player p = (Player) xp.getPlayer().getPassenger();

@@ -12,6 +12,12 @@ import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdSpectate {
+	
+	private final xEssentials pl;
+	
+	public CmdSpectate(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
@@ -25,7 +31,7 @@ public class CmdSpectate {
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/spectate stop " + ChatColor.WHITE + ": stops the current spectate session");
 					} else if(args.length == 1) {
 						if(args[0].equalsIgnoreCase("stop")) {
-							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 							if(xp.isSpectate()) {
 								xp.stopSpectate();
 								sender.sendMessage(ChatColor.GREEN + "successfully stopped spectate.");
@@ -39,7 +45,7 @@ public class CmdSpectate {
 									sender.sendMessage(ChatColor.RED + "you cannot spectate yourself!");
 									return false;
 								}
-								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 								xp.spectate(target);
 								sender.sendMessage(ChatColor.GREEN + "successfully spectating player " + target.getName());
 							}

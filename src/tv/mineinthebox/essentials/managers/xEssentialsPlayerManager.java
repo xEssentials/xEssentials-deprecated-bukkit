@@ -9,7 +9,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.xEssentialsOfflinePlayer;
 import tv.mineinthebox.essentials.instances.xEssentialsPlayer;
@@ -19,6 +18,12 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 public class xEssentialsPlayerManager {
 
 	private final HashMap<String, XPlayer> players = new HashMap<String, XPlayer>();
+	
+	private final xEssentials pl;
+	
+	public xEssentialsPlayerManager(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	/**
 	 * @author xize
@@ -89,7 +94,7 @@ public class xEssentialsPlayerManager {
 				}
 			}
 		});
-		int playerSize = (list.length < Configuration.getPlayerConfig().getOfflineCache() ? list.length : Configuration.getPlayerConfig().getOfflineCache());
+		int playerSize = (list.length < pl.getConfiguration().getPlayerConfig().getOfflineCache() ? list.length : pl.getConfiguration().getPlayerConfig().getOfflineCache());
 		int index = 0;
 		XOfflinePlayer[] offliners = new XOfflinePlayer[playerSize];
 		for(int i = 0; i < list.length; i++) {
@@ -130,7 +135,7 @@ public class xEssentialsPlayerManager {
 								if(players.containsKey(con.getString("user"))) {
 									return players.get(con.getString("user"));
 								} else {
-									xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(con.getString("user"));
+									xEssentialsOfflinePlayer off = new xEssentialsOfflinePlayer(con.getString("user"), pl);
 									return off;	
 								}
 							}
@@ -207,12 +212,12 @@ public class xEssentialsPlayerManager {
 	 * @return void
 	 */
 	public void reloadPlayerBase() {
-		for(XPlayer xp : xEssentials.getManagers().getPlayerManager().getPlayers()) {
+		for(XPlayer xp : pl.getManagers().getPlayerManager().getPlayers()) {
 			xp.save();
 		}
 		players.clear();
-		for(Player p : xEssentials.getOnlinePlayers()) {
-			XPlayer xp = new xEssentialsPlayer(p, xEssentials.getManagers().getPlayerManager().getOfflinePlayer(p.getName()).getUniqueId().replaceAll("-", ""));
+		for(Player p : pl.getOnlinePlayers()) {
+			XPlayer xp = new xEssentialsPlayer(p, pl.getManagers().getPlayerManager().getOfflinePlayer(p.getName()).getUniqueId().replaceAll("-", ""), pl);
 			players.put(p.getName().toLowerCase(), xp);
 		}
 	}

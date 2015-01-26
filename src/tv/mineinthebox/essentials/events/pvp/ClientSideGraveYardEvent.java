@@ -15,11 +15,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 
 public class ClientSideGraveYardEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public ClientSideGraveYardEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@SuppressWarnings("deprecation")
 	@EventHandler
@@ -59,14 +64,14 @@ public class ClientSideGraveYardEvent implements Listener {
 				}
 			}
 		} catch(NoClassDefFoundError r) {
-			xEssentials.getPlugin().log("ClientSideGraveYards is only supported for Craftbukkit 1.7.2 R1, disabling configuration option...", LogType.SEVERE);
-			xEssentials.getPlugin().log("if you want more compatability please install ProtocolLib or update to the correct craftbukkit.", LogType.SEVERE);
+			xEssentials.log("ClientSideGraveYards is only supported for Craftbukkit 1.7.2 R1, disabling configuration option...", LogType.SEVERE);
+			xEssentials.log("if you want more compatability please install ProtocolLib or update to the correct craftbukkit.", LogType.SEVERE);
 			try {
 				File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "pvp.yml");
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				con.set("createClientSideGraveyard", false);
 				con.save(f);
-				Configuration.reloadConfiguration();
+				pl.getConfiguration().reloadConfiguration();
 			} catch(Exception rr) {
 				rr.printStackTrace();
 			}

@@ -10,14 +10,20 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
-import tv.mineinthebox.essentials.Configuration;
+import tv.mineinthebox.essentials.xEssentials;
 
 public class EntitySpawnEventManagerEvent implements Listener {
 
+	private final xEssentials pl;
+	
+	public EntitySpawnEventManagerEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@EventHandler
 	public void onEntitySpawn(CreatureSpawnEvent e) {
-			if(Configuration.getEntityConfig().getEntitys().containsKey(e.getEntityType().name().toLowerCase())) {
-				Iterator<Entry<Boolean, String[]>> it = Configuration.getEntityConfig().getEntitys().get(e.getEntityType().name().toLowerCase()).entrySet().iterator();
+			if(pl.getConfiguration().getEntityConfig().getEntitys().containsKey(e.getEntityType().name().toLowerCase())) {
+				Iterator<Entry<Boolean, String[]>> it = pl.getConfiguration().getEntityConfig().getEntitys().get(e.getEntityType().name().toLowerCase()).entrySet().iterator();
 				while(it.hasNext()) {
 					Entry<Boolean, String[]> entry = it.next();
 					if(!entry.getKey()) {

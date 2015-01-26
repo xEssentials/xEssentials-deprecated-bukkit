@@ -9,9 +9,15 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdEditSign {
 	
+	private final xEssentials pl;
+	
+	public CmdEditSign(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("editsign")) {
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 			if(xp.isEditSignEnabled()) {
 				xp.setEditSign(false);
 				sender.sendMessage(ChatColor.GREEN + "you have disabled editsign modus");

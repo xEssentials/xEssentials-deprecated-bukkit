@@ -10,7 +10,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChatEvent;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 
 @SuppressWarnings("deprecation")
@@ -19,12 +18,18 @@ public class HumanSpamEvent implements Listener {
 	private final HashMap<String, String> message1 = new HashMap<String, String>();
 	private final HashMap<String, String> message2 = new HashMap<String, String>();
 	
+	private final xEssentials pl;
+	
+	public HumanSpamEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void slowSpamCheck(PlayerChatEvent e) {
 		final Player p = (Player) e.getPlayer();
 		if(message2.containsKey(e.getPlayer().getName())) {
 			if(message2.get(e.getPlayer().getName()).equalsIgnoreCase(e.getMessage())) {
-				e.getPlayer().kickPlayer(Configuration.getBanConfig().getHumanSpamBanMessage());
+				e.getPlayer().kickPlayer(pl.getConfiguration().getBanConfig().getHumanSpamBanMessage());
 				message2.remove(e.getPlayer().getName());
 			} else {
 				message2.remove(e.getPlayer().getName());

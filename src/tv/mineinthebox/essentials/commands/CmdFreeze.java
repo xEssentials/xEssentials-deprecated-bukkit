@@ -14,9 +14,15 @@ import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 
 public class CmdFreeze {
 	
+	private final xEssentials pl;
+	
+	public CmdFreeze(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
-		for(XOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer name : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
 				s.add(name.getUser());
 			}
@@ -43,7 +49,7 @@ public class CmdFreeze {
 					sender.sendMessage(ChatColor.GOLD + ".oO___[freeze help]___Oo.");
 					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/freeze <player> " + ChatColor.WHITE + ": freezes the player movements");
 				} else if(args.length == 1) {
-					if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
+					if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
 						sender.sendMessage(ChatColor.RED + "player is not online!");
 					} else {
 						Warnings.getWarnings(sender).playerHasNeverPlayedBefore();

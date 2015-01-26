@@ -11,6 +11,12 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.Gate;
 
 public class RemoveGateEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public RemoveGateEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler
 	public void onRemove(BlockBreakEvent e) {
@@ -21,7 +27,7 @@ public class RemoveGateEvent implements Listener {
 		if(e.getBlock().getType() == Material.WALL_SIGN) {
 			Sign sign = (Sign) e.getBlock().getState();
 			if(sign.getLine(0).equalsIgnoreCase(ChatColor.DARK_PURPLE + "[Gate]")) {
-				Gate gate = xEssentials.getManagers().getGateManager().getGateBySign(e.getBlock());
+				Gate gate = pl.getManagers().getGateManager().getGateBySign(e.getBlock());
 				if(gate instanceof Gate) {
 					gate.remove();
 				}

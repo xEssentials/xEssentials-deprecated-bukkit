@@ -8,14 +8,20 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
-import tv.mineinthebox.essentials.Configuration;
+import tv.mineinthebox.essentials.xEssentials;
 
 @SuppressWarnings("deprecation")
 public class BlockBlackListEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public BlockBlackListEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void onBreak(BlockBreakEvent e) {
-		for(String s : Configuration.getBlockConfig().getBlockBlackList()) {
+		for(String s : pl.getConfiguration().getBlockConfig().getBlockBlackList()) {
 			String[] mats = s.split(":");
 			Byte subData = Byte.parseByte(mats[1]);
 			Material mat = Material.getMaterial(mats[0]);
@@ -31,7 +37,7 @@ public class BlockBlackListEvent implements Listener {
 	
 	@EventHandler
 	public void onPlace(BlockPlaceEvent e) {
-		for(String s : Configuration.getBlockConfig().getBlockBlackList()) {
+		for(String s : pl.getConfiguration().getBlockConfig().getBlockBlackList()) {
 			String[] mats = s.split(":");
 			Byte subData = Byte.parseByte(mats[1]);
 			Material mat = Material.getMaterial(mats[0]);

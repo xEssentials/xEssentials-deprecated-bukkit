@@ -51,31 +51,33 @@ import tv.mineinthebox.simpleserver.SimpleServer;
 
 public class Configuration {
 
-	//this will be the configs loaded in the memory
-	//this will used by events and in events without instancing every time a new object this will be painfully awful in PlayerMoveEvent.
-	private final static EnumMap<ConfigType, HashMap<String, Object>> configure = new EnumMap<ConfigType, HashMap<String, Object>>(ConfigType.class);
+	private BanConfig banconfig;
+	private BlockConfig blockconfig;
+	private BroadcastConfig broadcastconfig;
+	private ChatConfig chatconfig;
+	private CommandConfig commandconfig;
+	private EconomyConfig economyconfig;
+	private EntityConfig entityconfig;
+	private GreylistConfig greylistconfig;
+	private KitConfig kitconfig;
+	private MotdConfig motdconfig;
+	private PlayerConfig playerconfig;
+	private PortalConfig portalconfig;
+	private ProtectionConfig protectionconfig;
+	private PvpConfig pvpconfig;
+	private RulesConfig rulesconfig;
+	private ShopConfig shopconfig;
+	private MiscConfig miscconfig;
+	private SignConfig signconfig;
+	private VoteConfig voteconfig;
+	private DebugConfig debugconfig;
 
-	private static BanConfig banconfig;
-	private static BlockConfig blockconfig;
-	private static BroadcastConfig broadcastconfig;
-	private static ChatConfig chatconfig;
-	private static CommandConfig commandconfig;
-	private static EconomyConfig economyconfig;
-	private static EntityConfig entityconfig;
-	private static GreylistConfig greylistconfig;
-	private static KitConfig kitconfig;
-	private static MotdConfig motdconfig;
-	private static PlayerConfig playerconfig;
-	private static PortalConfig portalconfig;
-	private static ProtectionConfig protectionconfig;
-	private static PvpConfig pvpconfig;
-	private static RulesConfig rulesconfig;
-	private static ShopConfig shopconfig;
-	private static MiscConfig miscconfig;
-	private static SignConfig signconfig;
-	private static VoteConfig voteconfig;
-	private static DebugConfig debugconfig;
-
+	private final EnumMap<ConfigType, HashMap<String, Object>> configure = new EnumMap<ConfigType, HashMap<String, Object>>(ConfigType.class);
+	private final xEssentials pl;
+	
+	public Configuration(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	/**
 	 * 
@@ -341,16 +343,19 @@ public class Configuration {
 				List<String> orginal = Arrays.asList(con.getConfigurationSection("command").getKeys(false).toArray(new String[0]));
 
 				if(commands.size() != orginal.size()) {
-					xEssentials.getPlugin().log("new commands detected!, adding them right now inside the command config!", LogType.INFO);
+					xEssentials.getPlugin();
+					xEssentials.log("new commands detected!, adding them right now inside the command config!", LogType.INFO);
 					for(String cmd : commands) {
 						if(!orginal.contains(cmd)) {
-							xEssentials.getPlugin().log("registering new command: " + cmd + " in commands.yml", LogType.INFO);
+							xEssentials.getPlugin();
+							xEssentials.log("registering new command: " + cmd + " in commands.yml", LogType.INFO);
 							con.set("command."+cmd+".enable", true);
 						}
 					}
 					con.save(f);
 				} else {
-					xEssentials.getPlugin().log("there where no newer commands found to be added in commands.yml", LogType.INFO);
+					xEssentials.getPlugin();
+					xEssentials.log("there where no newer commands found to be added in commands.yml", LogType.INFO);
 				}
 			}
 		} catch(Exception e) {
@@ -413,10 +418,12 @@ public class Configuration {
 					}
 				}
 				if(entitys.size() != newentities.size()) {
-					xEssentials.getPlugin().log("new entities detected!, adding them right now inside the entity config!", LogType.INFO);
+					xEssentials.getPlugin();
+					xEssentials.log("new entities detected!, adding them right now inside the entity config!", LogType.INFO);
 					for(String entity : newentities) {
 						if(!entitys.contains(newentities)) {
-							xEssentials.getPlugin().log("found new entity: " + entity + " adding now to entity.yml", LogType.INFO);
+							xEssentials.getPlugin();
+							xEssentials.log("found new entity: " + entity + " adding now to entity.yml", LogType.INFO);
 							con.set("mobs.allowToSpawn."+serialize_name(entity) + ".canSpawn", true);
 
 							String biomes = "";
@@ -430,7 +437,7 @@ public class Configuration {
 					}
 					con.save(f);
 				} else {
-					xEssentials.getPlugin().log("there where no newer entitys found to be added in entity.yml", LogType.INFO);
+					xEssentials.log("there where no newer entitys found to be added in entity.yml", LogType.INFO);
 				}
 			}
 		} catch(Exception e) {
@@ -959,7 +966,7 @@ public class Configuration {
 	 * @return List<String>()
 	 */
 	@SuppressWarnings("deprecation")
-	private static List<String> serializeItemList(List<String> list) {
+	private  List<String> serializeItemList(List<String> list) {
 		List<String> updatedMaterialList = new ArrayList<String>();
 		for(int i = 0; i < list.size(); i++) {
 			String name = list.get(i);
@@ -978,7 +985,7 @@ public class Configuration {
 							Material mat = Material.getMaterial(names[0].toUpperCase());
 							updatedMaterialList.add(mat.name()+":"+dura);
 						} catch(NumberFormatException e) {
-							xEssentials.getPlugin().log("invalid durabillity found in blocks.yml! name: " + names[1], LogType.SEVERE);
+							xEssentials.log("invalid durabillity found in blocks.yml! name: " + names[1], LogType.SEVERE);
 						}
 					}
 				} else {
@@ -992,19 +999,19 @@ public class Configuration {
 		return updatedMaterialList;
 	}
 
-	private static boolean isValidMaterial(String s) {
+	private  boolean isValidMaterial(String s) {
 		try {
 			Material mat = Material.getMaterial(s.toUpperCase());
 			if(mat != null) {
 				return true;
 			}
 		} catch(IllegalArgumentException e) {
-			xEssentials.getPlugin().log("invalid Material name in blocks.yml! called: " + s, LogType.SEVERE);
+			xEssentials.log("invalid Material name in blocks.yml! called: " + s, LogType.SEVERE);
 		}
 		return false;
 	}
 
-	private static Boolean isNumberic(String arg) {
+	private  Boolean isNumberic(String arg) {
 		try {
 			Integer i = Integer.parseInt(arg);
 			if(i != null) {
@@ -1016,7 +1023,7 @@ public class Configuration {
 		return false;
 	}
 
-	private static Boolean isBlockNumberic(String s) {
+	private  Boolean isBlockNumberic(String s) {
 		if(s.contains(":")) {
 			String[] split = s.split(":");
 			try {
@@ -1039,11 +1046,11 @@ public class Configuration {
 	 * @param returns a list with Material names, this can be used for auto complete functions in commands
 	 * @return List<String>()
 	 */
-	public static List<String> getMaterials() {
+	public  List<String> getMaterials() {
 		return materials;
 	}
 
-	private static List<String> materials = new ArrayList<String>();
+	private  List<String> materials = new ArrayList<String>();
 
 	/**
 	 * @author xize
@@ -1052,7 +1059,7 @@ public class Configuration {
 	 * @param returns the value per category so we can easier maintain this in the feature.
 	 * @return Object
 	 */
-	public static Object getConfigValue(ConfigType type, String hashName) {
+	public  Object getConfigValue(ConfigType type, String hashName) {
 		try {
 			return configure.get(type).get(hashName);
 		} catch(Exception e) {
@@ -1063,24 +1070,14 @@ public class Configuration {
 
 	/**
 	 * @author xize
-	 * @param set a config value in the memory, this is deprecated as we using our update system.
-	 * @return void
-	 * @deprecated
-	 */
-	public static void setConfigValue(ConfigType type, String hashName, Object value) {
-		configure.get(type).put(hashName, value);
-	}
-
-	/**
-	 * @author xize
 	 * @param get the full memory configuration for protections
 	 * @return ProtectionConfig
 	 */
-	public static ProtectionConfig getProtectionConfig() {
+	public  ProtectionConfig getProtectionConfig() {
 		if(protectionconfig instanceof ProtectionConfig) {
 			return protectionconfig;
 		} else {
-			protectionconfig = new ProtectionConfig();
+			protectionconfig = new ProtectionConfig(pl);
 			return protectionconfig;
 		}
 	}
@@ -1090,11 +1087,11 @@ public class Configuration {
 	 * @param returns the memory version of MiscConfig
 	 * @return MiscConfig
 	 */
-	public static MiscConfig getMiscConfig() {
+	public  MiscConfig getMiscConfig() {
 		if(miscconfig instanceof MiscConfig) {
 			return miscconfig;
 		} else {
-			miscconfig = new MiscConfig();
+			miscconfig = new MiscConfig(pl);
 			return miscconfig;
 		}
 	}
@@ -1104,11 +1101,11 @@ public class Configuration {
 	 * @param gets the full memory configuration for bans
 	 * @return BanConfig
 	 */
-	public static BanConfig getBanConfig() {
+	public BanConfig getBanConfig() {
 		if(banconfig instanceof BanConfig) {
 			return banconfig;
 		} else {
-			banconfig = new BanConfig();
+			banconfig = new BanConfig(pl);
 			return banconfig;
 		}
 	}
@@ -1118,11 +1115,11 @@ public class Configuration {
 	 * @param get the GreyList config
 	 * @return GreylistConfig
 	 */
-	public static GreylistConfig getGrayListConfig() {
+	public  GreylistConfig getGrayListConfig() {
 		if(greylistconfig instanceof GreylistConfig) {
 			return greylistconfig;
 		} else {
-			greylistconfig = new GreylistConfig();
+			greylistconfig = new GreylistConfig(pl);
 			return greylistconfig;
 		}
 	}
@@ -1132,11 +1129,11 @@ public class Configuration {
 	 * @param returns the EconomyConfig as memory loaded
 	 * @return EconomyConfig
 	 */
-	public static EconomyConfig getEconomyConfig() {
+	public  EconomyConfig getEconomyConfig() {
 		if(economyconfig instanceof EconomyConfig) {
 			return economyconfig;
 		} else {
-			economyconfig = new EconomyConfig();
+			economyconfig = new EconomyConfig(pl);
 			return economyconfig;
 		}
 	}
@@ -1146,11 +1143,11 @@ public class Configuration {
 	 * @param returns the BlockConfig
 	 * @return BlockConfig
 	 */
-	public static BlockConfig getBlockConfig() {
+	public  BlockConfig getBlockConfig() {
 		if(blockconfig instanceof BlockConfig) {
 			return blockconfig;
 		} else {
-			blockconfig = new BlockConfig();
+			blockconfig = new BlockConfig(pl);
 			return blockconfig;
 		}
 	}
@@ -1160,11 +1157,11 @@ public class Configuration {
 	 * @param gets the full memory configuration for broadcasts
 	 * @return BroadcastConfig
 	 */
-	public static BroadcastConfig getBroadcastConfig() {
+	public  BroadcastConfig getBroadcastConfig() {
 		if(broadcastconfig instanceof BroadcastConfig) {
 			return broadcastconfig;
 		} else {
-			broadcastconfig = new BroadcastConfig();
+			broadcastconfig = new BroadcastConfig(pl);
 			return broadcastconfig;
 		}
 	}
@@ -1174,11 +1171,11 @@ public class Configuration {
 	 * @param returns the memory version of CommandConfig
 	 * @return CommandConfig
 	 */
-	public static CommandConfig getCommandConfig() {
+	public  CommandConfig getCommandConfig() {
 		if(commandconfig instanceof CommandConfig) {
 			return commandconfig;
 		} else {
-			commandconfig = new CommandConfig();
+			commandconfig = new CommandConfig(pl);
 			return commandconfig;
 		}
 	}
@@ -1188,11 +1185,11 @@ public class Configuration {
 	 * @param get the full memory configuration for Kits
 	 * @return KitConfig
 	 */
-	public static KitConfig getKitConfig() {
+	public  KitConfig getKitConfig() {
 		if(kitconfig instanceof KitConfig) {
 			return kitconfig;
 		} else {
-			kitconfig = new KitConfig();
+			kitconfig = new KitConfig(pl);
 			return kitconfig;
 		}
 	}
@@ -1202,11 +1199,11 @@ public class Configuration {
 	 * @param gets the full memory configuration for chat
 	 * @return ChatConfig
 	 */
-	public static ChatConfig getChatConfig() {
+	public  ChatConfig getChatConfig() {
 		if(chatconfig instanceof ChatConfig) {
 			return chatconfig;
 		} else {
-			chatconfig = new ChatConfig();
+			chatconfig = new ChatConfig(pl);
 			return chatconfig;
 		}
 	}
@@ -1216,11 +1213,11 @@ public class Configuration {
 	 * @param returns the full memory configuration for shops
 	 * @return ShopConfig
 	 */
-	public static ShopConfig getShopConfig() {
+	public  ShopConfig getShopConfig() {
 		if(shopconfig instanceof ShopConfig) {
 			return shopconfig;
 		} else {
-			shopconfig = new ShopConfig();
+			shopconfig = new ShopConfig(pl);
 			return shopconfig;
 		}
 	}
@@ -1230,11 +1227,11 @@ public class Configuration {
 	 * @param gets the full memory configuration for entitys
 	 * @return enityConfig
 	 */
-	public static EntityConfig getEntityConfig() {
+	public  EntityConfig getEntityConfig() {
 		if(entityconfig instanceof EntityConfig) {
 			return entityconfig;
 		} else {
-			entityconfig = new EntityConfig();
+			entityconfig = new EntityConfig(pl);
 			return entityconfig;
 		}
 	}
@@ -1244,11 +1241,11 @@ public class Configuration {
 	 * @param gets the full memory configuration for motd
 	 * @return motdConfig
 	 */
-	public static MotdConfig getMotdConfig() {
+	public  MotdConfig getMotdConfig() {
 		if(motdconfig instanceof MotdConfig) {
 			return motdconfig;
 		} else {
-			motdconfig = new MotdConfig();
+			motdconfig = new MotdConfig(pl);
 			return motdconfig;
 		}
 	}
@@ -1258,11 +1255,11 @@ public class Configuration {
 	 * @param gets the full memory configuration for all players
 	 * @return playerConfig
 	 */
-	public static PlayerConfig getPlayerConfig() {
+	public  PlayerConfig getPlayerConfig() {
 		if(playerconfig instanceof PlayerConfig) {
 			return playerconfig;
 		} else {
-			playerconfig = new PlayerConfig();
+			playerconfig = new PlayerConfig(pl);
 			return playerconfig;
 		}
 	}
@@ -1272,11 +1269,11 @@ public class Configuration {
 	 * @param gets the full memory configuration for pvp
 	 * @return pvpConfig
 	 */
-	public static PvpConfig getPvpConfig() {
+	public  PvpConfig getPvpConfig() {
 		if(pvpconfig instanceof PvpConfig) {
 			return pvpconfig;
 		} else {
-			pvpconfig = new PvpConfig();
+			pvpconfig = new PvpConfig(pl);
 			return pvpconfig;
 		}
 	}
@@ -1286,11 +1283,11 @@ public class Configuration {
 	 * @param returns the memory portal configuration
 	 * @return PortalConfig
 	 */
-	public static PortalConfig getPortalConfig() {
+	public  PortalConfig getPortalConfig() {
 		if(portalconfig instanceof PortalConfig) {
 			return portalconfig;
 		} else {
-			portalconfig = new PortalConfig();
+			portalconfig = new PortalConfig(pl);
 			return portalconfig;
 		}
 	}
@@ -1300,11 +1297,11 @@ public class Configuration {
 	 * @param gets the full memory configuration for rules
 	 * @return rulesConfig
 	 */
-	public static RulesConfig getRulesConfig() {
+	public  RulesConfig getRulesConfig() {
 		if(rulesconfig instanceof RulesConfig) {
 			return rulesconfig;
 		} else {
-			rulesconfig = new RulesConfig();
+			rulesconfig = new RulesConfig(pl);
 			return rulesconfig;
 		}
 	}
@@ -1314,11 +1311,11 @@ public class Configuration {
 	 * @param gets the full memory configuration for signs
 	 * @return rulesConfig
 	 */
-	public static SignConfig getSignConfig() {
+	public  SignConfig getSignConfig() {
 		if(signconfig instanceof SignConfig) {
 			return signconfig;
 		} else {
-			signconfig = new SignConfig();
+			signconfig = new SignConfig(pl);
 			return signconfig;
 		}
 	}
@@ -1328,11 +1325,11 @@ public class Configuration {
 	 * @param returns the full memory configuration for votes
 	 * @return VoteConfig
 	 */
-	public static VoteConfig getVoteConfig() {
+	public  VoteConfig getVoteConfig() {
 		if(voteconfig instanceof VoteConfig) {
 			return voteconfig;
 		} else {
-			voteconfig = new VoteConfig();
+			voteconfig = new VoteConfig(pl);
 			return voteconfig;
 		}
 	}
@@ -1342,38 +1339,38 @@ public class Configuration {
 	 * @param returns the debug configuration
 	 * @return DebugConfig
 	 */
-	public static DebugConfig getDebugConfig() {
+	public  DebugConfig getDebugConfig() {
 		if(debugconfig instanceof DebugConfig) {
 			return debugconfig;
 		} else {
-			debugconfig = new DebugConfig();
+			debugconfig = new DebugConfig(pl);
 			return debugconfig;
 		}
 	}
 
-	public static boolean isSilenceToggled = false;
+	public  boolean isSilenceToggled = false;
 
 	public boolean reload() {
-		Handler handler = new Handler();
-		CustomEventHandler customhandler = new CustomEventHandler();
+		Handler handler = new Handler(pl);
+		CustomEventHandler customhandler = new CustomEventHandler(pl);
 		handler.stop();
-		if(xEssentials.getManagers().getBroadcastManager().isRunning()) {
-			xEssentials.getManagers().getBroadcastManager().stop();
+		if(pl.getManagers().getBroadcastManager().isRunning()) {
+			pl.getManagers().getBroadcastManager().stop();
 		}
-		if(xEssentials.getManagers().getGreylistManager() != null) {
-			if(xEssentials.getManagers().getGreylistManager().isRunning()) {
-				SimpleServer server = xEssentials.getManagers().getGreylistManager();
-				xEssentials.getPlugin().log("stopping server " + server.getName() + " at port " + server.getPort(), LogType.INFO);
+		if(pl.getManagers().getGreylistManager() != null) {
+			if(pl.getManagers().getGreylistManager().isRunning()) {
+				SimpleServer server = pl.getManagers().getGreylistManager();
+				xEssentials.log("stopping server " + server.getName() + " at port " + server.getPort(), LogType.INFO);
 				try {
 					server.stopServer();
-					xEssentials.getPlugin().log("server successfully stopped!", LogType.INFO);
+					xEssentials.log("server successfully stopped!", LogType.INFO);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
 		}
-		if(xEssentials.getManagers().getRealisticWaterManager().isRunning()) {
-			xEssentials.getManagers().getRealisticWaterManager().stop();
+		if(pl.getManagers().getRealisticWaterManager().isRunning()) {
+			pl.getManagers().getRealisticWaterManager().stop();
 		}
 		//clear responsible from the deepest tree in the HashMap in case things could get persistent in the jvm things need to be better safe than not.
 		for(ConfigType aEnum : ConfigType.values()) {
@@ -1384,27 +1381,27 @@ public class Configuration {
 		configure.clear();
 		createConfigs();
 		HandleCommandManager();
-		if(Configuration.getGrayListConfig().isEnabled()) {
-			SimpleServer server = xEssentials.getManagers().getGreylistManager();
-			server.addListener(new GreyListServer());
+		if(getGrayListConfig().isEnabled()) {
+			SimpleServer server = pl.getManagers().getGreylistManager();
+			server.addListener(new GreyListServer(pl));
 			try {
 				server.startServer();
-				xEssentials.getPlugin().log(server.getName() + " has been started on port " + server.getPort(), LogType.INFO);
+				xEssentials.log(server.getName() + " has been started on port " + server.getPort(), LogType.INFO);
 			} catch (Exception e) {
-				xEssentials.getPlugin().log("failed to create server " + server.getName() + " on port " + server.getPort(), LogType.SEVERE);
+				xEssentials.log("failed to create server " + server.getName() + " on port " + server.getPort(), LogType.SEVERE);
 				e.printStackTrace();
 			}
 		}
-		if(Configuration.getMiscConfig().isGatesEnabled()) {
-			xEssentials.getManagers().getGateManager().reloadGates();
+		if(getMiscConfig().isGatesEnabled()) {
+			pl.getManagers().getGateManager().reloadGates();
 		}
-		if(Configuration.getMiscConfig().isBridgesEnabled()) {
-			xEssentials.getManagers().getBridgeManager().reloadBridges();
+		if(getMiscConfig().isBridgesEnabled()) {
+			pl.getManagers().getBridgeManager().reloadBridges();
 		}
-		if(Configuration.getEntityConfig().isRealisticWaterEnabled()) {
-			xEssentials.getManagers().getRealisticWaterManager().start();
+		if(getEntityConfig().isRealisticWaterEnabled()) {
+			pl.getManagers().getRealisticWaterManager().start();
 		}
-		xEssentials.getManagers().getPlayerManager().reloadPlayerBase(); 
+		pl.getManagers().getPlayerManager().reloadPlayerBase(); 
 		handler.start();
 		customhandler.startCustomEvents();
 
@@ -1416,29 +1413,29 @@ public class Configuration {
 	 * @param handles the commands, for disable, enable
 	 * @param this manager manages automaticly the commands defined in the commands.yml
 	 */
-	public static void HandleCommandManager() {
+	public void HandleCommandManager() {
 		CommandList cmdlist = new CommandList();
-		List<String> unregCommands = new ArrayList<String>(Configuration.getCommandConfig().getUnregisteredCommands());
+		List<String> unregCommands = new ArrayList<String>(getCommandConfig().getUnregisteredCommands());
 
-		if(!Configuration.getEconomyConfig().isEconomyEnabled()) {
+		if(!getEconomyConfig().isEconomyEnabled()) {
 			unregCommands.add("money");
 		}
-		if(!Configuration.getProtectionConfig().isProtectionEnabled()) {
+		if(!getProtectionConfig().isProtectionEnabled()) {
 			unregCommands.add("cprivate");
 			unregCommands.add("cmodify");
 			unregCommands.add("cremove");
 		}
-		if(!Configuration.getPortalConfig().isPortalEnabled()) {
+		if(!getPortalConfig().isPortalEnabled()) {
 			unregCommands.add("portals");
 		}
 
 		for(String cmd : cmdlist.getAllCommands) {			
-			if(!unregCommands.contains(cmd) && !Configuration.getCommandConfig().isRegistered(cmd)) {
+			if(!unregCommands.contains(cmd) && !getCommandConfig().isRegistered(cmd)) {
 				PluginCommand command = CommandHelper.createPluginCommand(cmd);
-				Configuration.getCommandConfig().registerBukkitCommand(command);   
-			} else if(unregCommands.contains(cmd) && Configuration.getCommandConfig().isRegistered(cmd)) {
+				getCommandConfig().registerBukkitCommand(command);   
+			} else if(unregCommands.contains(cmd) && getCommandConfig().isRegistered(cmd)) {
 				PluginCommand command = xEssentials.getPlugin().getCommand(cmd);
-				Configuration.getCommandConfig().unRegisterBukkitCommand(command);
+				getCommandConfig().unRegisterBukkitCommand(command);
 			}
 		}
 	}
@@ -1448,14 +1445,13 @@ public class Configuration {
 	 * @param reloads the configuration included with event checks
 	 * @return boolean
 	 */
-	public static boolean reloadConfiguration() {
-		Configuration conf = new Configuration();
-		return conf.reload();
+	public  boolean reloadConfiguration() {
+		return reload();
 	}
 
 	/**
 	 * @author xize
-	 * @param makes sure the static fields will be finalized and no duplicates will be created on a /reload.
+	 * @param makes sure the  fields will be finalized and no duplicates will be created on a /reload.
 	 */
 	@Override
 	public void finalize() throws Throwable {

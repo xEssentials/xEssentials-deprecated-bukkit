@@ -14,12 +14,17 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.instances.RssFeed;
 
-public class CallRssFeedEvent  {
+public class CallRssFeedEvent {
+	
+	private volatile xEssentials pl;
+	
+	public CallRssFeedEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	private volatile RssFeed feed;
 	private volatile boolean stop = false;
@@ -50,7 +55,7 @@ public class CallRssFeedEvent  {
 					String link = null;
 					String title = null;
 					this.isItemFound = false;
-					this.url = new URL(Configuration.getChatConfig().getRssUrl());
+					this.url = new URL(pl.getConfiguration().getChatConfig().getRssUrl());
 					this.httpcon = (HttpURLConnection) url.openConnection();
 					this.httpcon.addRequestProperty("User-Agent", "Mozilla/4.76");
 					this.httpcon.setUseCaches(false);
@@ -97,25 +102,25 @@ public class CallRssFeedEvent  {
 					if(feed != null) {
 						if(!feed.getTitle().equalsIgnoreCase(afeed.getTitle())) {
 							feed = afeed;
-							for(Player p : xEssentials.getOnlinePlayers()) {
+							for(Player p : pl.getOnlinePlayers()) {
 								Bukkit.getPluginManager().callEvent(new RssFeedEvent(p, feed));        
 							}        
 						}
 					} else {
 						feed = afeed;
-						for(Player p : xEssentials.getOnlinePlayers()) {
+						for(Player p : pl.getOnlinePlayers()) {
 							Bukkit.getPluginManager().callEvent(new RssFeedEvent(p, feed));        
 						}
 					}
 				} catch(NullPointerException e1) {
-					xEssentials.getPlugin().log("couldn't create a stored RssFeed object, probably because you don't have a propper connection at first run.", LogType.SEVERE);
+					xEssentials.log("couldn't create a stored RssFeed object, probably because you don't have a propper connection at first run.", LogType.SEVERE);
 				} catch (MalformedURLException e1) {
-					xEssentials.getPlugin().log("the url is wrong for the RSS!", LogType.SEVERE);
+					xEssentials.log("the url is wrong for the RSS!", LogType.SEVERE);
 				} catch (IOException e1) {
 					if(!e1.getMessage().contains("502")) {
-						xEssentials.getPlugin().log("connection timeout for the RSS event!", LogType.SEVERE);	
-						if(Configuration.getDebugConfig().isEnabled()) {
-							xEssentials.getPlugin().log("since the RSS timed out we want to be sure what is going on, error stack:", LogType.DEBUG);
+						xEssentials.log("connection timeout for the RSS event!", LogType.SEVERE);	
+						if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+							xEssentials.log("since the RSS timed out we want to be sure what is going on, error stack:", LogType.DEBUG);
 							e1.printStackTrace();
 						}
 					}

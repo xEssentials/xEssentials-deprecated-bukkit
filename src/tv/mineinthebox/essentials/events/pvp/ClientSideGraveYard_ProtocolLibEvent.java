@@ -16,15 +16,21 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
+import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.enums.LogType;
+
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
 
-import tv.mineinthebox.essentials.Configuration;
-import tv.mineinthebox.essentials.xEssentials;
-import tv.mineinthebox.essentials.enums.LogType;
-
 public class ClientSideGraveYard_ProtocolLibEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public ClientSideGraveYard_ProtocolLibEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void getGrave(PlayerDeathEvent e) {
@@ -72,14 +78,14 @@ public class ClientSideGraveYard_ProtocolLibEvent implements Listener {
 				}
 			}
 		} catch(NoClassDefFoundError r) {
-			xEssentials.getPlugin().log("ClientSideGraveYards is only supported for Craftbukkit 1.7.2 R1, disabling configuration option...", LogType.SEVERE);
-			xEssentials.getPlugin().log("if you want more compataibillity please install ProtocolLib or update to the correct craftbukkit.", LogType.SEVERE);
+			xEssentials.log("ClientSideGraveYards is only supported for Craftbukkit 1.7.2 R1, disabling configuration option...", LogType.SEVERE);
+			xEssentials.log("if you want more compataibillity please install ProtocolLib or update to the correct craftbukkit.", LogType.SEVERE);
 			try {
 				File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "pvp.yml");
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				con.set("createClientSideGraveyard", false);
 				con.save(f);
-				Configuration.reloadConfiguration();
+				pl.getConfiguration().reloadConfiguration();
 			} catch(Exception rr) {
 				rr.printStackTrace();
 			}

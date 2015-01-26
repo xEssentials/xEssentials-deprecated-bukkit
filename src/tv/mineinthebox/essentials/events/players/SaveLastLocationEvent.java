@@ -10,18 +10,24 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class SaveLastLocationEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public SaveLastLocationEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@EventHandler
 	public void doSaveLocation(PlayerQuitEvent e) {
-		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			xp.saveLastLocation();
 		}
 	}
 	
 	@EventHandler
 	public void doSaveLocation(PlayerKickEvent e) {
-		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+		XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			xp.saveLastLocation();
 		}
 	}

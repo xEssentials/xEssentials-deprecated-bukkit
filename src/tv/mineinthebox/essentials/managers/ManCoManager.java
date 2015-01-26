@@ -13,6 +13,12 @@ import tv.mineinthebox.manco.instances.NormalCrate;
 
 public class ManCoManager {
 	
+	private final xEssentials pl;
+	
+	public ManCoManager(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	/**
 	 * @author xize
 	 * @param returns the crate of this player
@@ -39,9 +45,9 @@ public class ManCoManager {
 	 * @return NormalCrate
 	 */
 	public NormalCrate spawnRandomCrate(String player) {
-		if(xEssentials.getManagers().getPlayerManager().isOnline(player)) {
+		if(pl.getManagers().getPlayerManager().isOnline(player)) {
 			Random rand = new Random();
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(player);
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(player);
 			CratePlayer cratePlayer = ManCo.getApi().getCratePlayer(player);
 			NormalCrate crate = ManCo.getApi().getCrates()[rand.nextInt(ManCo.getApi().getCrates().length)];
 			return ManCo.getApi().spawnCrate(cratePlayer, crate, xp.getPlayer().getLocation());

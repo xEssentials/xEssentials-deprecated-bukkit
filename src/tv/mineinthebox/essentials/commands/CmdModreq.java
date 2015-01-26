@@ -15,6 +15,12 @@ import tv.mineinthebox.essentials.instances.Modreq;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdModreq {
+	
+	private final xEssentials pl;
+	
+	public CmdModreq(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("modreq")) {
@@ -26,8 +32,8 @@ public class CmdModreq {
 						if(args[0].equalsIgnoreCase("help")) {
 							sendHelp(sender);
 						} else {
-							if(xEssentials.getManagers().getPlayerManager().isOnline(sender.getName())) {
-								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+							if(pl.getManagers().getPlayerManager().isOnline(sender.getName())) {
+								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 								xp.createModreq(args[0]);
 								int lastID = xp.getModreqs().length;
 								Modreq mod = xp.getModreq((lastID-1));
@@ -44,8 +50,8 @@ public class CmdModreq {
 						}
 					} else {
 						String message = Arrays.toString(args).replace("[", "").replace("]", "").replace(",", "");
-						if(xEssentials.getManagers().getPlayerManager().isOnline(sender.getName())) {
-							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+						if(pl.getManagers().getPlayerManager().isOnline(sender.getName())) {
+							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 							xp.createModreq(message);
 							int lastID = xp.getModreqs().length;
 							Modreq mod = xp.getModreq((lastID-1));

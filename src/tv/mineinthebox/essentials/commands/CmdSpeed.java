@@ -12,11 +12,17 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdSpeed {
 	
+	private final xEssentials pl;
+	
+	public CmdSpeed(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("speed")) {
 			if(sender.hasPermission(PermissionKey.CMD_SPEED.getPermission())) {
 				if(sender instanceof Player) {
-					XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+					XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 					if(xp.isSpeedEnabled()) {
 						xp.removeSpeed();
 						sender.sendMessage(ChatColor.GREEN + "speed disabled!");

@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>tv.mineinthebox.essentials</groupId>
 	<artifactId>xEssentials</artifactId>
-	<version>3.8-SNAPSHOT</version>
+	<version>3.9-SNAPSHOT</version>
 	<build>
 		<sourceDirectory>${project.basedir}</sourceDirectory>
 		<resources>

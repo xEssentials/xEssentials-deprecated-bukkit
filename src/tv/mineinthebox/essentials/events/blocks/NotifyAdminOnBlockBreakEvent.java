@@ -9,25 +9,30 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
 public class NotifyAdminOnBlockBreakEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public NotifyAdminOnBlockBreakEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onBreak(BlockBreakEvent e) {
-		List<String> blocks = Configuration.getBlockConfig().getBlocksFromNotify();
+		List<String> blocks = pl.getConfiguration().getBlockConfig().getBlocksFromNotify();
 		for(String s : blocks) {
 			String[] mats = s.split(":");
 			Byte subData = Byte.parseByte(mats[1]);
 			Material mat = Material.getMaterial(mats[0]);
 			if(e.getBlock().getType() == mat) {
 				if(e.getBlock().getState().getData().getData() == subData) {
-					for(Player p : xEssentials.getOnlinePlayers()) {
+					for(Player p : pl.getOnlinePlayers()) {
 						if(p.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-							p.sendMessage(Configuration.getBlockConfig().getNotifyOnBreakMessage().replace("%PLAYER%", e.getPlayer().getName()).replace("%BLOCK%", e.getBlock().getType().name()+":"+subData).replace("%LOCATION%", "x: " + e.getBlock().getX() + " y: " + e.getBlock().getY() + " z: " + e.getBlock().getZ() + " world: " + e.getBlock().getWorld().getName()));
+							p.sendMessage(pl.getConfiguration().getBlockConfig().getNotifyOnBreakMessage().replace("%PLAYER%", e.getPlayer().getName()).replace("%BLOCK%", e.getBlock().getType().name()+":"+subData).replace("%LOCATION%", "x: " + e.getBlock().getX() + " y: " + e.getBlock().getY() + " z: " + e.getBlock().getZ() + " world: " + e.getBlock().getWorld().getName()));
 						}
 					}
 					break;

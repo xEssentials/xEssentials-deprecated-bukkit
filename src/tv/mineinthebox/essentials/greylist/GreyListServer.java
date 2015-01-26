@@ -3,7 +3,6 @@ package tv.mineinthebox.essentials.greylist;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.GreyListCause;
 import tv.mineinthebox.essentials.enums.LogType;
@@ -18,48 +17,54 @@ import tv.mineinthebox.simpleserver.events.manager.ServerListener;
 
 public class GreyListServer implements ServerListener {
 	
+	private final xEssentials pl;
+	
+	public GreyListServer(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@ServerEvent
 	public void onRequest(SimpleServerEvent e) {
 		if(e.isGetRequest()) {
 			if(e.getUri().startsWith("/adduser/") && e.getUri().length() > "/adduser/".length()) {
 				String user = e.getUri().substring("/adduser/".length());
-				if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(user)) {
-					XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(user);
+				if(pl.getManagers().getPlayerManager().isEssentialsPlayer(user)) {
+					XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(user);
 					if(!off.isGreyListed()) {
 						e.setMimeType(MimeType.MIME_JSON);
 						e.setContent("{\"xEssentials\": {\"response\": \"success\"}}\n\r".getBytes());
-						if(Configuration.getDebugConfig().isEnabled()) {
-							xEssentials.getPlugin().log("player: " + off.getUser() + " has been greylisted, result: " + off.isGreyListed() + " if this is true its wrong", LogType.DEBUG);	
+						if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+							xEssentials.log("player: " + off.getUser() + " has been greylisted, result: " + off.isGreyListed() + " if this is true its wrong", LogType.DEBUG);	
 						}
 						if(off instanceof XPlayer) {
 							XPlayer xp = (XPlayer)off;
 							off.setGreyListed(true);
-							xp.getPlayer().sendMessage(ChatColor.GREEN + "you are successfully promoted to " + Configuration.getGrayListConfig().getGroup());
+							xp.getPlayer().sendMessage(ChatColor.GREEN + "you are successfully promoted to " + pl.getConfiguration().getGrayListConfig().getGroup());
 							if(Hooks.isVaultPermissionsEnabled()) {
-								String oldGroup = xEssentials.getManagers().getVaultManager().getGroup(off.getPlayer().getWorld(), off.getUser());
-								String newgroup = Configuration.getGrayListConfig().getGroup();
-								xEssentials.getManagers().getVaultManager().setGroup(off.getPlayer().getWorld(), off.getUser(), newgroup);
-								Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(off.getPlayer(), newgroup, oldGroup, GreyListCause.SITE));
+								String oldGroup = pl.getManagers().getVaultManager().getGroup(off.getPlayer().getWorld(), off.getUser());
+								String newgroup = pl.getConfiguration().getGrayListConfig().getGroup();
+								pl.getManagers().getVaultManager().setGroup(off.getPlayer().getWorld(), off.getUser(), newgroup);
+								Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(off.getPlayer(), newgroup, oldGroup, GreyListCause.SITE, pl));
 							}
 						} else {
 							off.setGreyListed(true);
 							if(Hooks.isVaultPermissionsEnabled()) {
-								String oldGroup = xEssentials.getManagers().getVaultManager().getGroup(off.getLastLocation().getWorld(), user);
-								String newgroup = Configuration.getGrayListConfig().getGroup();
-								xEssentials.getManagers().getVaultManager().setGroup(off.getLastLocation().getWorld(), off.getUser(), newgroup);
-								Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(off.getPlayer(), newgroup, oldGroup, GreyListCause.SITE));
+								String oldGroup = pl.getManagers().getVaultManager().getGroup(off.getLastLocation().getWorld(), user);
+								String newgroup = pl.getConfiguration().getGrayListConfig().getGroup();
+								pl.getManagers().getVaultManager().setGroup(off.getLastLocation().getWorld(), off.getUser(), newgroup);
+								Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(off.getPlayer(), newgroup, oldGroup, GreyListCause.SITE, pl));
 							}
 						}
 					} else {
-						if(Configuration.getDebugConfig().isEnabled()) {
-							xEssentials.getPlugin().log("player: " + off.getUser() + " was already greylisted", LogType.DEBUG);	
+						if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+							xEssentials.log("player: " + off.getUser() + " was already greylisted", LogType.DEBUG);	
 						}
 						e.setMimeType(MimeType.MIME_JSON);
 						e.setContent("{\"xEssentials\": {\"response\": \"greylisted\"}}\n\r".getBytes());
 					}
 				} else {
-					if(Configuration.getDebugConfig().isEnabled()) {
-						xEssentials.getPlugin().log("player: " + user + " does not exist for the greylist request /adduser/"+user, LogType.DEBUG);	
+					if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+						xEssentials.log("player: " + user + " does not exist for the greylist request /adduser/"+user, LogType.DEBUG);	
 					}
 					e.setMimeType(MimeType.MIME_JSON);
 					e.setContent("{\"xEssentials\": {\"response\": \"notexist\"}}\n\r".getBytes());

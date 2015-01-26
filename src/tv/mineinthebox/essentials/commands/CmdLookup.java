@@ -25,6 +25,12 @@ import tv.mineinthebox.essentials.enums.ServiceType;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 
 public class CmdLookup {
+	
+	private final xEssentials pl;
+	
+	public CmdLookup(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("lookup")) {
@@ -54,8 +60,8 @@ public class CmdLookup {
 						}
 						sender.sendMessage(ChatColor.GRAY + "services: " + build.toString());
 					} else {
-						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
+							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							try {
 								EnumMap<ServiceType, List<String>> messages = getLookupReasons(off.getUser());
 								for(ServiceType type : ServiceType.values()) {
@@ -71,7 +77,8 @@ public class CmdLookup {
 									}
 								}
 							} catch (Exception e) {
-								xEssentials.getPlugin().log("could not lookup ban status of player " + off.getUser() + " on api.fishbans.com", LogType.SEVERE);
+								xEssentials.getPlugin();
+								xEssentials.log("could not lookup ban status of player " + off.getUser() + " on api.fishbans.com", LogType.SEVERE);
 							}
 						} else {
 							try {
@@ -89,7 +96,8 @@ public class CmdLookup {
 									}
 								}
 							} catch (Exception e) {
-								xEssentials.getPlugin().log("could not lookup ban status of player " + args[0] + " on api.fishbans.com", LogType.SEVERE);
+								xEssentials.getPlugin();
+								xEssentials.log("could not lookup ban status of player " + args[0] + " on api.fishbans.com", LogType.SEVERE);
 							}
 						}
 					}
@@ -111,7 +119,8 @@ public class CmdLookup {
 								}
 							} catch (Exception e) {
 								e.printStackTrace();
-								xEssentials.getPlugin().log("could not lookup ban status of player " + args[1] + " on api.fishbans.com", LogType.SEVERE);
+								xEssentials.getPlugin();
+								xEssentials.log("could not lookup ban status of player " + args[1] + " on api.fishbans.com", LogType.SEVERE);
 							}
 						}
 					} catch(IllegalArgumentException r) {

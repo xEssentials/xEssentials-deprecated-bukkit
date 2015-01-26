@@ -15,6 +15,12 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdMute {
 	
+	private final xEssentials pl;
+	
+	public CmdMute(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("mute")) {
@@ -33,8 +39,8 @@ public class CmdMute {
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/mute <player> <params> " + ChatColor.WHITE + ": mutes a player followed by the params");
 						sender.sendMessage(ChatColor.RED + "Params: " + ChatColor.GRAY + "1D, 1M, 1Y");
 					} else {
-						if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+						if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
+							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 							Date date = new Date(System.currentTimeMillis());
 							date.setDate(date.getDate() + 1);
 							xp.mute(date.getTime());
@@ -42,7 +48,7 @@ public class CmdMute {
 							xp.getPlayer().sendMessage(ChatColor.GREEN + sender.getName() + " has muted you for one day!");
 						} else {
 							try {
-								XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								Date date = new Date(System.currentTimeMillis());
 								date.setDate(date.getDate() + 1);
 								off.mute(date.getTime());
@@ -53,8 +59,8 @@ public class CmdMute {
 						}
 					}
 				} else {
-					if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+					if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
+						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 						Date date = new Date(System.currentTimeMillis());
 						String[] newArgs = Arrays.toString(args).replace(args[0]+",", "").replace("[", "").replace("]", "").split(",");
 						for(int i = 0; i < newArgs.length;i++) {
@@ -78,7 +84,7 @@ public class CmdMute {
 						xp.getPlayer().sendMessage(ChatColor.GREEN + sender.getName() + " has muted you till " + date.toString());
 					} else {
 						try {
-							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							Date date = new Date(System.currentTimeMillis());
 							String[] newArgs = Arrays.toString(args).replace(args[0]+",", "").replace("[", "").replace("]", "").split(",");
 							for(int i = 0; i < newArgs.length;i++) {

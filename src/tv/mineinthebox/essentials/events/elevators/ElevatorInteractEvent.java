@@ -12,10 +12,16 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import tv.mineinthebox.essentials.Configuration;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
 public class ElevatorInteractEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public ElevatorInteractEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
@@ -96,12 +102,12 @@ public class ElevatorInteractEvent implements Listener {
 	}
 
 	private boolean isObstructed(Sign sign) {
-		int blockx = sign.getX() - (Configuration.getMiscConfig().getMaxElevatorObstructionSize()/2);
-		int blockz = sign.getZ() - (Configuration.getMiscConfig().getMaxElevatorObstructionSize()/2);
+		int blockx = sign.getX() - (pl.getConfiguration().getMiscConfig().getMaxElevatorObstructionSize()/2);
+		int blockz = sign.getZ() - (pl.getConfiguration().getMiscConfig().getMaxElevatorObstructionSize()/2);
 
-		for(int x = 0; x < Configuration.getMiscConfig().getMaxElevatorObstructionSize(); x++) {
-			for(int y = 0; y < Configuration.getMiscConfig().getMaxElevatorObstructionSize(); y++) {
-				for(int z = 0; z < Configuration.getMiscConfig().getMaxElevatorObstructionSize(); z++) {
+		for(int x = 0; x < pl.getConfiguration().getMiscConfig().getMaxElevatorObstructionSize(); x++) {
+			for(int y = 0; y < pl.getConfiguration().getMiscConfig().getMaxElevatorObstructionSize(); y++) {
+				for(int z = 0; z < pl.getConfiguration().getMiscConfig().getMaxElevatorObstructionSize(); z++) {
 					Block block = new Location(sign.getWorld(), blockx+x, sign.getY()+y, blockz+z).getBlock();
 					if(block.getType() != Material.AIR && block.getType() != Material.SIGN_POST && block.getType() != Material.WALL_SIGN) {
 						block.setType(Material.GLOWSTONE);

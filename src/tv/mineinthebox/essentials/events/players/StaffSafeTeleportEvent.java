@@ -21,11 +21,17 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 public class StaffSafeTeleportEvent implements Listener {
 
 	private HashMap<String, Integer> staff = new HashMap<String, Integer>();
+	
+	private final xEssentials pl;
+	
+	public StaffSafeTeleportEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler
 	public void onStaffTeleport(PlayerTeleportEvent e) {
 		if(e.getCause() == TeleportCause.PLUGIN) {
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isStaff()) {
 				if(xp.isVanished()) {
 					return;

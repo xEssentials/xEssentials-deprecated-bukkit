@@ -1,9 +1,15 @@
 package tv.mineinthebox.essentials.configurations;
 
-import tv.mineinthebox.essentials.Configuration;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
 public class DebugConfig {
+	
+	private final xEssentials pl;
+	
+	public DebugConfig(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	/**
 	 * @author xize
@@ -11,7 +17,7 @@ public class DebugConfig {
 	 * @return Boolean
 	 */
 	public boolean isEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.DEBUG, "debug");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.DEBUG, "debug");
 	}
 
 }

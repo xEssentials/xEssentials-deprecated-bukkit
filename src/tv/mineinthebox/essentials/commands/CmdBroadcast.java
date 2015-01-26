@@ -11,12 +11,17 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
 public class CmdBroadcast {
+	
+	private final xEssentials pl;
+	
+	public CmdBroadcast(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("broadcast")) {
@@ -42,8 +47,8 @@ public class CmdBroadcast {
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/broadcast add message " + ChatColor.WHITE + ": add a new broadcast");
 					} else if(args[0].equalsIgnoreCase("list")) {
 						sender.sendMessage(ChatColor.GOLD + ".oO___[broadcast messages]___Oo.");
-						for(int i = 0; i < Configuration.getBroadcastConfig().getMessages().size(); i++) {
-							String broadcast = ChatColor.translateAlternateColorCodes('&', Configuration.getBroadcastConfig().getMessages().get(i));
+						for(int i = 0; i < pl.getConfiguration().getBroadcastConfig().getMessages().size(); i++) {
+							String broadcast = ChatColor.translateAlternateColorCodes('&', pl.getConfiguration().getBroadcastConfig().getMessages().get(i));
 							sender.sendMessage(ChatColor.GREEN + "id: " + i + ChatColor.GRAY + " message: " + broadcast);
 						}
 					} else if(args[0].equalsIgnoreCase("stop")) {
@@ -52,7 +57,7 @@ public class CmdBroadcast {
 							FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 							con.set("broadcast.enable", false);
 							con.save(f);
-							Configuration.reloadConfiguration();
+							pl.getConfiguration().reloadConfiguration();
 							sender.sendMessage(ChatColor.GREEN + "successfully disabled broadcast!");
 						} catch(Exception e) {
 							e.printStackTrace();
@@ -63,7 +68,7 @@ public class CmdBroadcast {
 							FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 							con.set("broadcast.enable", true);
 							con.save(f);
-							Configuration.reloadConfiguration();
+							pl.getConfiguration().reloadConfiguration();
 							sender.sendMessage(ChatColor.GREEN + "successfully enabled broadcast!");
 						} catch(Exception e) {
 							e.printStackTrace();
@@ -72,7 +77,7 @@ public class CmdBroadcast {
 				} else if(args.length == 2) {
 					if(args[0].equalsIgnoreCase("remove")) {
 						List<String> list = new ArrayList<String>();
-						for(String s : Configuration.getBroadcastConfig().getMessages()) {
+						for(String s : pl.getConfiguration().getBroadcastConfig().getMessages()) {
 							list.add(s);
 						}
 						try {
@@ -84,7 +89,7 @@ public class CmdBroadcast {
 								FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 								con.set("broadcast.messages", list);
 								con.save(f);
-								Configuration.reloadConfiguration();
+								pl.getConfiguration().reloadConfiguration();
 								sender.sendMessage(ChatColor.GREEN + "you have successfully removed broadcast id: " + id);
 							} catch(Exception e) {
 								e.printStackTrace();
@@ -98,7 +103,7 @@ public class CmdBroadcast {
 				} else if(args.length > 2) {
 					if(args[0].equalsIgnoreCase("add")) {
 						List<String> list = new ArrayList<String>();
-						for(String s : Configuration.getBroadcastConfig().getMessages()) {
+						for(String s : pl.getConfiguration().getBroadcastConfig().getMessages()) {
 							list.add(s);
 						}
 						String message = Arrays.toString(args).replace(args[0]+"," + " ", "").replace(",", "").replace("[", "").replace("]", "");
@@ -108,7 +113,7 @@ public class CmdBroadcast {
 							FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 							con.set("broadcast.messages", list);
 							con.save(f);
-							Configuration.reloadConfiguration();
+							pl.getConfiguration().reloadConfiguration();
 							sender.sendMessage(ChatColor.GREEN + "you have successfully added the new broadcast!");
 						} catch(Exception e) {
 							e.printStackTrace();

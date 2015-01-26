@@ -1,40 +1,46 @@
 package tv.mineinthebox.essentials.configurations;
 
-import tv.mineinthebox.essentials.Configuration;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
 public class SignConfig {
+	
+	private final xEssentials pl;
+	
+	public SignConfig(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	public boolean isColorSignEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.SIGN, "color");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.SIGN, "color");
 	}
 	
 	public boolean isFireworkSignEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.SIGN, "firework");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.SIGN, "firework");
 	}
 	
 	public boolean isFreeSignEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.SIGN, "freesign");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.SIGN, "freesign");
 	}
 	
 	public boolean isGetYourHeadSignEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.SIGN, "headsign");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.SIGN, "headsign");
 	}
 	
 	public boolean isBoomSignEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.SIGN, "boom");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.SIGN, "boom");
 	}
 	
 	public boolean isWarpSignEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.SIGN, "warp");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.SIGN, "warp");
 	}
 	
 	public boolean isWildSignEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.SIGN, "wild");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.SIGN, "wild");
 	}
 	
 	public boolean isDispenserEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.SIGN, "dispenser");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.SIGN, "dispenser");
 	}
 
 }

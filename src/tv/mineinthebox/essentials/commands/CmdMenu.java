@@ -23,10 +23,16 @@ import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdMenu {
+	
+	private final xEssentials pl;
+
+	public CmdMenu(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
-		for(XOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer name : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
 				s.add(name.getUser());
 			}
@@ -54,9 +60,9 @@ public class CmdMenu {
 						sender.sendMessage(ChatColor.GOLD + ".oO___[quick menu help]___Oo.");
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/menu <player> " + ChatColor.WHITE + ": opens a quick menu of this player!");
 					} else if(args.length == 1) {
-						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-							if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
+							if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
+								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 								Inventory inv = Bukkit.createInventory(null, 36, ChatColor.DARK_PURPLE + "Quick menu: " + xp.getUser());
 
 								String[] tntLore = {ChatColor.DARK_PURPLE + "when activated this player gets launched high in the air!", ChatColor.DARK_PURPLE + "then as followed the player falls safely on the ground again:)"};
@@ -88,7 +94,7 @@ public class CmdMenu {
 								p.openInventory(inv);
 								p.playSound(p.getLocation(), Sound.CHEST_OPEN, 1, 0);
 							} else {
-								XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								Inventory inv = Bukkit.createInventory(p, 36, ChatColor.DARK_PURPLE + "Quick menu: " + off.getUser());
 
 								String[] banlore = {ChatColor.DARK_PURPLE + "this will stop the player for playing on this server for ever!"};

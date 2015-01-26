@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,8 +15,11 @@ import org.bukkit.block.Block;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
+import tv.mineinthebox.essentials.enums.ProtectionType;
 
 public class ProtectionDBManager {
+	
+	private final HashMap<String, Object[]> session = new HashMap<String, Object[]>();
 
 	public ProtectionDBManager() {
 		File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "databases");
@@ -25,14 +29,39 @@ public class ProtectionDBManager {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			if(isNewDatabase()) {
-				xEssentials.getPlugin().log("there whas no protection database found, creating a new one.", LogType.INFO);
+				xEssentials.log("there whas no protection database found, creating a new one.", LogType.INFO);
 				createTables();
 			} else {
-				xEssentials.getPlugin().log("connected to the protection database!", LogType.INFO);
+				xEssentials.log("connected to the protection database!", LogType.INFO);
 			}
 		} catch (Exception e) {
-			xEssentials.getPlugin().log("couldn't find sqlite in craftbukkit, this is probably because you are running a outdated build!", LogType.SEVERE);
+			xEssentials.log("couldn't find sqlite in craftbukkit, this is probably because you are running a outdated build!", LogType.SEVERE);
 		}
+	}
+	
+	public void addSession(String player, ProtectionType type) {
+		Object[] obj = new Object[2];
+		obj[0] = type;
+		session.put(player.toLowerCase(), obj);
+	}
+	
+	public void addSession(String player, String otherplayer, ProtectionType type) {
+		Object[] obj = new Object[2];
+		obj[0] = type;
+		obj[1] = otherplayer;
+		session.put(player.toLowerCase(), obj);
+	}
+	
+	public Object[] getSessionData(String player) {
+		return session.get(player);
+	}
+	
+	public boolean hasSession(String player) {
+		return session.containsKey(player.toLowerCase());
+	}
+	
+	public void removeSession(String player) {
+		session.remove(player.toLowerCase());
 	}
 
 	/**
@@ -296,7 +325,7 @@ public class ProtectionDBManager {
 			Connection con = DriverManager.getConnection("jdbc:sqlite:plugins/xEssentials/databases/protection.db");
 			return con;
 		} catch (Exception e) {
-			xEssentials.getPlugin().log("couldn't find sqlite in craftbukkit, this is probably because you are running a outdated build!", LogType.SEVERE);
+			xEssentials.log("couldn't find sqlite in craftbukkit, this is probably because you are running a outdated build!", LogType.SEVERE);
 		}
 		return null;
 	}

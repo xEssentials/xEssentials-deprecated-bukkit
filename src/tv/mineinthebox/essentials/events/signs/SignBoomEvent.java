@@ -23,10 +23,17 @@ import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class SignBoomEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public SignBoomEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 
 	@EventHandler
 	public void m(PlayerMoveEvent e) {
-		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		if(xp.isBoom()) {
 			if(e.getPlayer().getPlayer().getLocation().getBlock().getRelative(BlockFace.SELF).getType() == Material.WEB) {
 				xp.removeBoom();
@@ -39,7 +46,7 @@ public class SignBoomEvent implements Listener {
 	public void damage(EntityDamageEvent p) {
 		if(p.getEntity() instanceof Player && p.getCause() == DamageCause.FALL) {
 			Player ap = (Player) p.getEntity();
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(ap.getName());
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(ap.getName());
 			if(xp.isBoom()) {
 				xp.removeBoom();
 				p.setCancelled(true);
@@ -80,7 +87,7 @@ public class SignBoomEvent implements Listener {
 						//log.info("This player has interacted with this sign");
 						//s.getPlayer().getServer().dispatchCommand(Bukkit.getConsoleSender(), "boom " + s.getPlayer().getName());
 						s.getPlayer().sendMessage(ChatColor.GOLD + "[Boom] " + ChatColor.GREEN + "boooooom!");
-						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(s.getPlayer().getName());
+						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(s.getPlayer().getName());
 						xp.setBoom();
 						Location loc = s.getPlayer().getLocation();
 						loc.setY(loc.getY() + 100);
@@ -96,8 +103,8 @@ public class SignBoomEvent implements Listener {
 
 	@EventHandler
 	public void newplayer(PlayerKickEvent e) {
-		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isBoom()) {
 				xp.removeBoom();
 			}
@@ -106,8 +113,8 @@ public class SignBoomEvent implements Listener {
 
 	@EventHandler
 	public void pquit(PlayerKickEvent e) {
-		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isBoom()) {
 				xp.removeBoom();
 			}

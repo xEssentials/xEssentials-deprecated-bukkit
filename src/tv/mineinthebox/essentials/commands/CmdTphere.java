@@ -13,6 +13,12 @@ import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdTphere {
+	
+	private final xEssentials pl;
+	
+	public CmdTphere(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("tphere")) {
@@ -28,8 +34,8 @@ public class CmdTphere {
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tphere <player> " + ChatColor.WHITE + ": teleports a player to you!");
 					} else {
 						if(sender instanceof Player) {
-							XPlayer p = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
-							XOfflinePlayer victem = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+							XPlayer p = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
+							XOfflinePlayer victem = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							if(victem.getPlayer() instanceof Player) {
 								if(p.isVanished()) {
 									if(victem.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {

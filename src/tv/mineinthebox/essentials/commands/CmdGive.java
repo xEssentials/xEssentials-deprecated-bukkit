@@ -11,15 +11,21 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.Warnings;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
 public class CmdGive {
+	
+	private final xEssentials pl;
+	
+	public CmdGive(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	private List<String> getContainedMaterials(String material) {
 		List<String> list = new ArrayList<String>();
-		for(String mat : Configuration.getMaterials()) {
+		for(String mat : pl.getConfiguration().getMaterials()) {
 			if(mat.startsWith(material.toUpperCase())) {
 				list.add(mat);
 			}

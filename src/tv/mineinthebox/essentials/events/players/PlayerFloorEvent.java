@@ -13,6 +13,12 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class PlayerFloorEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public PlayerFloorEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlace(BlockPlaceEvent e) {
@@ -20,7 +26,7 @@ public class PlayerFloorEvent implements Listener {
 			return;
 		}
 		
-		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		if(xp.isFloorMode()) {
 			xp.setFloorMode(false, xp.getFloorModeRange());
 			Location loc = e.getBlockPlaced().getLocation();

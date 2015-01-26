@@ -13,6 +13,12 @@ import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.Backpack;
 
 public class CmdClear {
+	
+	private final xEssentials pl;
+	
+	public CmdClear(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
@@ -24,9 +30,9 @@ public class CmdClear {
 						int i = 0;
 						for(ItemStack stack : p.getInventory().getContents()) {
 							if(stack != null) {
-								if(xEssentials.getManagers().getBackPackManager().isBackpack(stack)) {
+								if(pl.getManagers().getBackPackManager().isBackpack(stack)) {
 									try {
-										Backpack pack = xEssentials.getManagers().getBackPackManager().getBackpackByItem(stack);
+										Backpack pack = pl.getManagers().getBackPackManager().getBackpackByItem(stack);
 										pack.remove();
 									} catch (Exception e) {
 										sender.sendMessage(ChatColor.RED + "there is a backpack conflict with a other plugin, if this persist please disable the /clear command in commands.yml.");
@@ -37,9 +43,9 @@ public class CmdClear {
 						}
 						for(ItemStack stack : p.getInventory().getArmorContents()) {
 							if(stack != null) {
-								if(xEssentials.getManagers().getBackPackManager().isBackpack(stack)) {
+								if(pl.getManagers().getBackPackManager().isBackpack(stack)) {
 									try {
-										Backpack pack = xEssentials.getManagers().getBackPackManager().getBackpackByItem(stack);
+										Backpack pack = pl.getManagers().getBackPackManager().getBackpackByItem(stack);
 									    pack.remove();
 									} catch (Exception e) {
 										sender.sendMessage(ChatColor.RED + "there is a backpack conflict with a other plugin, if this persist please disable the /clear command in commands.yml.");
@@ -62,9 +68,9 @@ public class CmdClear {
 					int i = 0;
 					for(ItemStack stack : p.getInventory().getContents()) {
 						if(stack != null) {
-							if(xEssentials.getManagers().getBackPackManager().isBackpack(stack)) {
+							if(pl.getManagers().getBackPackManager().isBackpack(stack)) {
 								try {
-									Backpack pack = xEssentials.getManagers().getBackPackManager().getBackpackByItem(stack);
+									Backpack pack = pl.getManagers().getBackPackManager().getBackpackByItem(stack);
 									pack.remove();
 								} catch (Exception e) {
 									sender.sendMessage(ChatColor.RED + "there is a backpack conflict with a other plugin, if this persist please disable the /clear command in commands.yml.");
@@ -75,9 +81,9 @@ public class CmdClear {
 					}
 					for(ItemStack stack : p.getInventory().getArmorContents()) {
 						if(stack != null) {
-							if(xEssentials.getManagers().getBackPackManager().isBackpack(stack)) {
+							if(pl.getManagers().getBackPackManager().isBackpack(stack)) {
 								try {
-									Backpack pack = xEssentials.getManagers().getBackPackManager().getBackpackByItem(stack);
+									Backpack pack = pl.getManagers().getBackPackManager().getBackpackByItem(stack);
 									pack.remove();
 								} catch (Exception e) {
 									sender.sendMessage(ChatColor.RED + "there is a backpack conflict with a other plugin, if this persist please disable the /clear command in commands.yml.");

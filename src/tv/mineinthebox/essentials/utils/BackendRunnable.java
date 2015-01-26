@@ -41,7 +41,7 @@ public class BackendRunnable implements Runnable {
 			Connection con = DriverManager.getConnection("jdbc:sqlite:plugins/xEssentials/databases/players.db");
 			return con;
 		} catch (Exception e) {
-			xEssentials.getPlugin().log("couldn't find sqlite in craftbukkit, this is probably because you are running a outdated build!", LogType.SEVERE);
+			xEssentials.log("couldn't find sqlite in craftbukkit, this is probably because you are running a outdated build!", LogType.SEVERE);
 		}
 		return null;
 	}

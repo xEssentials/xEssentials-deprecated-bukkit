@@ -11,6 +11,12 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.Bridge;
 
 public class RemoveBridgeEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public RemoveBridgeEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler
 	public void onBreak(BlockBreakEvent e) {
@@ -21,8 +27,8 @@ public class RemoveBridgeEvent implements Listener {
 		if(e.getBlock().getType() == Material.SIGN_POST) {
 			Sign sign = (Sign)e.getBlock().getState();
 			if(sign.getLine(0).equalsIgnoreCase(ChatColor.DARK_PURPLE + "[Bridge]")) {
-				if(xEssentials.getManagers().getBridgeManager().isBridgeSign(e.getBlock())) {
-					Bridge bridge = xEssentials.getManagers().getBridgeManager().getBridgeBySign(e.getBlock());
+				if(pl.getManagers().getBridgeManager().isBridgeSign(e.getBlock())) {
+					Bridge bridge = pl.getManagers().getBridgeManager().getBridgeBySign(e.getBlock());
 					if(bridge instanceof Bridge) {
 						e.getPlayer().sendMessage(ChatColor.GREEN + "you have successfully removed the bridge!");
 						bridge.remove();

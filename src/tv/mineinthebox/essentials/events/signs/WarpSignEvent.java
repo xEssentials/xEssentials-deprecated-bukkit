@@ -13,11 +13,17 @@ import tv.mineinthebox.essentials.enums.PermissionKey;
 
 public class WarpSignEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public WarpSignEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@EventHandler
 	public void onCreateSign(SignChangeEvent e) {
 		if(e.getLine(0).equalsIgnoreCase("[warp]")) {
 			if(e.getPlayer().hasPermission(PermissionKey.SIGN_WARP_SIGN.getPermission())) {
-				if(xEssentials.getManagers().getWarpManager().isWarp(e.getLine(1))) {
+				if(pl.getManagers().getWarpManager().isWarp(e.getLine(1))) {
 					e.setLine(0, ChatColor.BLUE + "[warp]");
 					e.getPlayer().sendMessage(ChatColor.GREEN + "you have successfully created a warp sign!");
 				} else {
@@ -37,7 +43,7 @@ public class WarpSignEvent implements Listener {
 			if(e.getClickedBlock().getState() instanceof Sign) {
 				Sign sign = (Sign) e.getClickedBlock().getState();
 				if(sign.getLine(0).equalsIgnoreCase(ChatColor.BLUE + "[warp]")) {
-					if(xEssentials.getManagers().getWarpManager().isWarp(sign.getLine(1))) {
+					if(pl.getManagers().getWarpManager().isWarp(sign.getLine(1))) {
 						e.getPlayer().performCommand("warp " + sign.getLine(1));
 					}
 					e.setCancelled(true);

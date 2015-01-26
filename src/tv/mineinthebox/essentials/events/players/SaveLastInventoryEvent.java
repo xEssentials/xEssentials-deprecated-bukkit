@@ -10,18 +10,24 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class SaveLastInventoryEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public SaveLastInventoryEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@EventHandler
 	public void onQuitSaveInventory(PlayerQuitEvent e) {
-		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			xp.saveOfflineInventory();
 		}
 	}
 	
 	@EventHandler
 	public void onQuitSaveInventory(PlayerKickEvent e) {
-		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			xp.saveOfflineInventory();
 		}
 	}	

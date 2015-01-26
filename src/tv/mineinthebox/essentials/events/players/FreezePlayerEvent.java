@@ -10,9 +10,15 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class FreezePlayerEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public FreezePlayerEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@EventHandler
 	public void onMove(PlayerMoveEvent e) {
-		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		if(xp.isFreezed()) {
 			Location from = e.getFrom();
 			from.setPitch(e.getTo().getPitch());

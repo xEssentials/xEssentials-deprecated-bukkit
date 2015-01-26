@@ -11,11 +11,17 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class FireflyEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public FireflyEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onFirefly(PlayerMoveEvent e) {
-		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+		XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isFirefly()) {
 				if(e.getFrom().distance(e.getTo()) > 0) {
 					if(xp.isVanished()) {

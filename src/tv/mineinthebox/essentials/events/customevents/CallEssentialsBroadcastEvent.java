@@ -8,23 +8,25 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 
 public class CallEssentialsBroadcastEvent {
-
-	private ListIterator<String> it;
-	private final String suffix = Configuration.getBroadcastConfig().getSuffix();
-	private final String prefix = Configuration.getBroadcastConfig().getPrefix();
 	
-	private static BukkitTask task;
+	private ListIterator<String> it;
+	private BukkitTask task;
+	
+	private final xEssentials pl;
+	
+	public CallEssentialsBroadcastEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	/**
 	 * @author xize
 	 * @param starts the broadcast system
 	 */
 	public void start() {
-		this.it = Configuration.getBroadcastConfig().getMessages().listIterator();
+		this.it = pl.getConfiguration().getBroadcastConfig().getMessages().listIterator();
 		startBroadcast();
 	}
 	
@@ -49,6 +51,14 @@ public class CallEssentialsBroadcastEvent {
 		return false;
 	}
 	
+	public String getPrefix() {
+		return pl.getConfiguration().getBroadcastConfig().getPrefix();
+	}
+	
+	public String getSuffix() {
+		return pl.getConfiguration().getBroadcastConfig().getSuffix();
+	}
+	
 	private void startBroadcast() {
 		task = Bukkit.getScheduler().runTaskTimer(xEssentials.getPlugin(), new Runnable() {
 
@@ -56,15 +66,15 @@ public class CallEssentialsBroadcastEvent {
 			public void run() {
 				if(it.hasNext()) {
 					String message = it.next();
-					for(Player p : xEssentials.getOnlinePlayers()) {
+					for(Player p : pl.getOnlinePlayers()) {
 						if(message.contains("%p")) {
-							p.sendMessage(prefix + suffix + message.replaceAll("%p",ChatColor.GREEN + Configuration.getChatConfig().getHashTag() + p.getName() + suffix));
+							p.sendMessage(getPrefix() + getSuffix() + message.replaceAll("%p",ChatColor.GREEN + pl.getConfiguration().getChatConfig().getHashTag() + p.getName() + getSuffix()));
 							p.getWorld().playSound(p.getPlayer().getLocation(), Sound.NOTE_PIANO, 10, 100);
 							p.getWorld().playSound(p.getPlayer().getLocation(), Sound.NOTE_BASS_DRUM, 10, 100);
 							p.getWorld().playSound(p.getPlayer().getLocation(), Sound.NOTE_SNARE_DRUM, 10, 100);
 							Bukkit.getPluginManager().callEvent(new EssentialsBroadcastEvent(message, p.getName()));
 						} else {
-							p.sendMessage(prefix + suffix + message);
+							p.sendMessage(getPrefix() + getSuffix() + message);
 							Bukkit.getPluginManager().callEvent(new EssentialsBroadcastEvent(message, null));
 						}
 					}
@@ -72,15 +82,15 @@ public class CallEssentialsBroadcastEvent {
 					while(it.hasPrevious()) {it.previous();}
 					if(it.hasNext()) {
 						String message = it.next();
-						for(Player p : xEssentials.getOnlinePlayers()) {
+						for(Player p : pl.getOnlinePlayers()) {
 							if(message.contains("%p")) {
-								p.sendMessage(prefix + suffix + message.replaceAll("%p",ChatColor.GREEN + p.getName() + suffix));
+								p.sendMessage(getPrefix() + getSuffix() + message.replaceAll("%p",ChatColor.GREEN + p.getName() + getSuffix()));
 								p.getWorld().playSound(p.getPlayer().getLocation(), Sound.NOTE_PIANO, 10, 100);
 								p.getWorld().playSound(p.getPlayer().getLocation(), Sound.NOTE_BASS_DRUM, 10, 100);
 								p.getWorld().playSound(p.getPlayer().getLocation(), Sound.NOTE_SNARE_DRUM, 10, 100);
 								Bukkit.getPluginManager().callEvent(new EssentialsBroadcastEvent(message, p.getName()));
 							} else {
-								p.sendMessage(prefix + suffix + message);
+								p.sendMessage(getPrefix() + getSuffix() + message);
 								Bukkit.getPluginManager().callEvent(new EssentialsBroadcastEvent(message, null));
 							}
 						}

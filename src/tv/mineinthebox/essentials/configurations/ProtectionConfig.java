@@ -2,10 +2,16 @@ package tv.mineinthebox.essentials.configurations;
 
 import org.bukkit.ChatColor;
 
-import tv.mineinthebox.essentials.Configuration;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
 public class ProtectionConfig {
+	
+	private final xEssentials pl;
+	
+	public ProtectionConfig(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	/**
 	 * @author xize
@@ -13,11 +19,11 @@ public class ProtectionConfig {
 	 * @return Boolean
 	 */
 	public boolean isProtectionEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.PROTECTION, "enable");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PROTECTION, "enable");
 	}
 	
 	public boolean isChestProtectionEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.PROTECTION, "chestEnable");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PROTECTION, "chestEnable");
 	}
 	
 	/**
@@ -26,7 +32,7 @@ public class ProtectionConfig {
 	 * @return Boolean
 	 */
 	public boolean isSignProtectionEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.PROTECTION, "signEnable");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PROTECTION, "signEnable");
 	}
 	
 	/**
@@ -35,7 +41,7 @@ public class ProtectionConfig {
 	 * @return Boolean
 	 */
 	public boolean isFurnaceProtectionEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.PROTECTION, "furnaceEnable");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PROTECTION, "furnaceEnable");
 	}
 	
 	/**
@@ -44,7 +50,7 @@ public class ProtectionConfig {
 	 * @return Boolean
 	 */
 	public boolean isJukeboxProtectionEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.PROTECTION, "jukeboxEnable");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PROTECTION, "jukeboxEnable");
 	}
 	
 	/**
@@ -53,7 +59,7 @@ public class ProtectionConfig {
 	 * @return Boolean
 	 */
 	public boolean isDispenserEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.PROTECTION, "dispenserEnable");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PROTECTION, "dispenserEnable");
 	}
 	/**
 	 * @author xize
@@ -61,7 +67,7 @@ public class ProtectionConfig {
 	 * @return String
 	 */
 	public String getDisallowMessage() {
-		return ChatColor.translateAlternateColorCodes('&', ((String) Configuration.getConfigValue(ConfigType.PROTECTION, "messageDisallow")));
+		return ChatColor.translateAlternateColorCodes('&', ((String) pl.getConfiguration().getConfigValue(ConfigType.PROTECTION, "messageDisallow")));
 	}
 
 }

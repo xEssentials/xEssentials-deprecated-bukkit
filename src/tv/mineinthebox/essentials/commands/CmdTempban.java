@@ -21,6 +21,12 @@ import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdTempban {
+	
+	private final xEssentials pl;
+	
+	public CmdTempban(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
@@ -40,8 +46,8 @@ public class CmdTempban {
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tempban <player> <message> <1D> " + ChatColor.WHITE + "tempban a player with a disered message for one day!");
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "variables for ban time are: 1Y, 1M, 1D");
 					} else {
-						if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+						if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
+							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 							Date date = new Date(System.currentTimeMillis());
 							date.setDate(date.getDate()+1);
 							xp.setTempbanned(date.getTime(), "the ban hammer has  spoken!", sender.getName());
@@ -49,7 +55,7 @@ public class CmdTempban {
 							sender.sendMessage(ChatColor.GREEN + "player successfully tempbanned for 1 day");
 						} else {
 							try {
-								XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								Date date = new Date(System.currentTimeMillis());
 								date.setDate(date.getDate()+1);
 								off.setTempbanned(date.getTime(), "the ban hammer has spoken!", sender.getName());
@@ -81,8 +87,8 @@ public class CmdTempban {
 						}
 					}
 				} else if(args.length > 1) {
-					if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+					if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
+						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 						Date date = convertArgsToDate(args);
 						String[] newArgs = getClearDescription(args);
 						String banMessage = Arrays.toString(newArgs).replace(args[0], "").replace("[", "").replace(",", "").replace("]", "");
@@ -91,7 +97,7 @@ public class CmdTempban {
 						sender.sendMessage(ChatColor.GREEN + "successfully tempbanned player " + xp.getUser() + " till " + date.toString());
 					} else {
 						try {
-							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							Date date = convertArgsToDate(args);
 							String[] newArgs = getClearDescription(args);
 							String banMessage = Arrays.toString(newArgs).replace(args[0], "").replace("[", "").replace(",", "").replace("]", "");
@@ -175,7 +181,7 @@ public class CmdTempban {
 					}
 				}
 			} else {
-				xEssentials.getPlugin().log("Player is not tempbanned because, you used to many arguments!", LogType.SEVERE);
+				xEssentials.log("Player is not tempbanned because, you used to many arguments!", LogType.SEVERE);
 			}
 		}
 		return date;

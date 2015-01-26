@@ -8,15 +8,21 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import tv.mineinthebox.essentials.Configuration;
+import tv.mineinthebox.essentials.xEssentials;
 
 @SuppressWarnings("deprecation")
 public class ItemBlackListEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public ItemBlackListEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void onUse(PlayerInteractEvent e) {
 		if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-			for(String s : Configuration.getBlockConfig().getItemBlackList()) {
+			for(String s : pl.getConfiguration().getBlockConfig().getItemBlackList()) {
 				String[] mats = s.split(":");
 				Byte subData = Byte.parseByte(mats[1]);
 				Material mat = Material.getMaterial(mats[0]);

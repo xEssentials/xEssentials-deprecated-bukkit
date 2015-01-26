@@ -11,12 +11,18 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class ChairDisableMonsterEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public ChairDisableMonsterEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@EventHandler
 	public void onTarget(EntityTargetEvent e) {
 		if(e.getTarget() instanceof Player) {
 			Player p = (Player) e.getTarget();
-			if(xEssentials.getManagers().getPlayerManager().isOnline(p.getName())) {
-				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+			if(pl.getManagers().getPlayerManager().isOnline(p.getName())) {
+				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.isInChair()) {
 					e.setCancelled(true);
 				}
@@ -28,8 +34,8 @@ public class ChairDisableMonsterEvent implements Listener {
 	public void onTarget(EntityTargetLivingEntityEvent e) {
 		if(e.getTarget() instanceof Player) {
 			Player p = (Player) e.getTarget();
-			if(xEssentials.getManagers().getPlayerManager().isOnline(p.getName())) {
-				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+			if(pl.getManagers().getPlayerManager().isOnline(p.getName())) {
+				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.isInChair()) {
 					e.setCancelled(true);
 				}

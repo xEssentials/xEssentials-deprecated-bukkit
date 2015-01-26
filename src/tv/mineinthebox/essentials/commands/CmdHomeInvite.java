@@ -16,6 +16,12 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdHomeInvite {
 
+	private final xEssentials pl;
+
+	public CmdHomeInvite(xEssentials pl) {
+		this.pl = pl;
+	}
+
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("homeinvite")) {
 			if(sender instanceof Player) {
@@ -36,45 +42,45 @@ public class CmdHomeInvite {
 							sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/homeinvite <player> " + ChatColor.WHITE + ": invites a player to your default home");
 							sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/homeinvite <player> <home>" + ChatColor.WHITE + ": invites a player to your custom home");
 						} else if(args[0].equalsIgnoreCase("accept")) {
-							if(xEssentials.getManagers().getHomeInviteManager().containsKey(sender.getName())) {
+							if(pl.getManagers().getHomeInviteManager().containsKey(sender.getName())) {
 								Player p = (Player) sender;
-								Home home = xEssentials.getManagers().getHomeInviteManager().getRequestedHome(sender.getName());
-								sender.sendMessage(ChatColor.GREEN + "you have accepted " + ChatColor.GRAY + xEssentials.getManagers().getHomeInviteManager().get(sender.getName()).getUser() + ChatColor.GREEN + " his home request!");
+								Home home = pl.getManagers().getHomeInviteManager().getRequestedHome(sender.getName());
+								sender.sendMessage(ChatColor.GREEN + "you have accepted " + ChatColor.GRAY + pl.getManagers().getHomeInviteManager().get(sender.getName()).getUser() + ChatColor.GREEN + " his home request!");
 								p.teleport(home.getLocation(), TeleportCause.COMMAND);
-								XOfflinePlayer off = xEssentials.getManagers().getHomeInviteManager().get(sender.getName());
+								XOfflinePlayer off = pl.getManagers().getHomeInviteManager().get(sender.getName());
 								if(off.getPlayer() instanceof Player) {
 									off.getPlayer().sendMessage(ChatColor.GRAY + sender.getName() + ChatColor.GREEN + " has accepted your home request");
 								}
-								xEssentials.getManagers().getHomeInviteManager().remove(sender.getName());
-								xEssentials.getManagers().getHomeInviteManager().removeRequestedHome(sender.getName());
+								pl.getManagers().getHomeInviteManager().remove(sender.getName());
+								pl.getManagers().getHomeInviteManager().removeRequestedHome(sender.getName());
 							} else {
 								sender.sendMessage(ChatColor.RED + "you don't have home requests open!");
 							}
 						} else if(args[0].equalsIgnoreCase("deny")) {
-							if(xEssentials.getManagers().getHomeInviteManager().containsKey(sender.getName())) {
-								XOfflinePlayer off = xEssentials.getManagers().getHomeInviteManager().get(sender.getName());
+							if(pl.getManagers().getHomeInviteManager().containsKey(sender.getName())) {
+								XOfflinePlayer off = pl.getManagers().getHomeInviteManager().get(sender.getName());
 								if(off.getPlayer() instanceof Player) {
 									off.getPlayer().sendMessage(ChatColor.RED + "your invite has been canceled by " + ChatColor.GRAY + sender.getName());
 								}
 								sender.sendMessage(ChatColor.GREEN + "successfully canceled home invite for player " + ChatColor.GRAY + off.getUser());
-								xEssentials.getManagers().getHomeInviteManager().remove(sender.getName());
-								xEssentials.getManagers().getHomeInviteManager().removeRequestedHome(sender.getName());
+								pl.getManagers().getHomeInviteManager().remove(sender.getName());
+								pl.getManagers().getHomeInviteManager().removeRequestedHome(sender.getName());
 							} else {
 								sender.sendMessage(ChatColor.RED + "you don't have home requests open!");
 							}
 						} else {
-							if(!xEssentials.getManagers().getHomeInviteManager().containsKey(args[0])) {
-								XOfflinePlayer xp = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(sender.getName());
+							if(!pl.getManagers().getHomeInviteManager().containsKey(args[0])) {
+								XOfflinePlayer xp = pl.getManagers().getPlayerManager().getOfflinePlayer(sender.getName());
 								if(xp.hasHome()) {
-									Player victem = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+									Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 									if(victem instanceof Player) {
-										XPlayer xpp = xEssentials.getManagers().getPlayerManager().getPlayer(victem.getName());
+										XPlayer xpp = pl.getManagers().getPlayerManager().getPlayer(victem.getName());
 										if(xpp.isVanished()) {
 											sender.sendMessage(ChatColor.RED + "player is not online!");
 											return false;
 										}
-										xEssentials.getManagers().getHomeInviteManager().put(victem.getName(), xp);
-										if(xEssentials.getManagers().getHomeInviteManager().setRequestedHome(victem.getName(), "default")) {
+										pl.getManagers().getHomeInviteManager().put(victem.getName(), xp);
+										if(pl.getManagers().getHomeInviteManager().setRequestedHome(victem.getName(), "default")) {
 											delayed(victem.getName(), xp.getUser());
 											sender.sendMessage(ChatColor.GREEN + "you successfully sended a home request to " + ChatColor.GRAY + victem.getName());
 											victem.sendMessage(ChatColor.GRAY + sender.getName() + ChatColor.GREEN + " has invited you to his default home type:");
@@ -94,18 +100,18 @@ public class CmdHomeInvite {
 							}
 						}
 					} else if(args.length == 2) {
-						if(!xEssentials.getManagers().getHomeInviteManager().containsKey(args[0])) {
-							XOfflinePlayer xp = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(sender.getName());
+						if(!pl.getManagers().getHomeInviteManager().containsKey(args[0])) {
+							XOfflinePlayer xp = pl.getManagers().getPlayerManager().getOfflinePlayer(sender.getName());
 							if(xp.hasHome()) {
-								Player victem = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+								Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 								if(victem instanceof Player) {
-									XPlayer xpp = xEssentials.getManagers().getPlayerManager().getPlayer(victem.getName());
+									XPlayer xpp = pl.getManagers().getPlayerManager().getPlayer(victem.getName());
 									if(xpp.isVanished()) {
 										sender.sendMessage(ChatColor.RED + "player is not online!");
 										return false;
 									}
-									xEssentials.getManagers().getHomeInviteManager().put(victem.getName(), xp);
-									if(xEssentials.getManagers().getHomeInviteManager().setRequestedHome(victem.getName(), args[1])) {
+									pl.getManagers().getHomeInviteManager().put(victem.getName(), xp);
+									if(pl.getManagers().getHomeInviteManager().setRequestedHome(victem.getName(), args[1])) {
 										delayed(victem.getName(), xp.getUser());
 										sender.sendMessage(ChatColor.GREEN + "you successfully sended a home request to " + ChatColor.GRAY + victem.getName());
 										victem.sendMessage(ChatColor.GRAY + sender.getName() + ChatColor.GREEN + " has invited you to his default home type:");
@@ -139,17 +145,17 @@ public class CmdHomeInvite {
 
 			@Override
 			public void run() {
-				if(xEssentials.getManagers().getHomeInviteManager().containsKey(requester)) {
-					Player rp = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(victem).getPlayer();
-					Player vp = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(requester).getPlayer();
+				if(pl.getManagers().getHomeInviteManager().containsKey(requester)) {
+					Player rp = pl.getManagers().getPlayerManager().getOfflinePlayer(victem).getPlayer();
+					Player vp = pl.getManagers().getPlayerManager().getOfflinePlayer(requester).getPlayer();
 					if(rp instanceof Player) {
 						rp.sendMessage(ChatColor.GRAY + requester + ChatColor.RED + " has not accepted your home request, over time.");
 					}
 					if(vp instanceof Player) {
 						vp.sendMessage(ChatColor.GRAY + victem + ChatColor.GREEN + " his home invite has been over time and canceled out.");
 					}
-					xEssentials.getManagers().getHomeInviteManager().remove(requester);
-					xEssentials.getManagers().getHomeInviteManager().removeRequestedHome(requester);
+					pl.getManagers().getHomeInviteManager().remove(requester);
+					pl.getManagers().getHomeInviteManager().removeRequestedHome(requester);
 				}
 			}
 

@@ -6,12 +6,17 @@ import java.util.HashMap;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ConfigType;
 import tv.mineinthebox.essentials.instances.Portal;
 
 public class PortalConfig {
+	
+	private final xEssentials pl;
+	
+	public PortalConfig(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	/**
 	 * @author xize
@@ -19,7 +24,7 @@ public class PortalConfig {
 	 * @return Boolean
 	 */
 	public boolean isPortalEnabled() {
-		return (Boolean) Configuration.getConfigValue(ConfigType.PORTAL, "enable");
+		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PORTAL, "enable");
 	}
 
 	/**
@@ -28,7 +33,7 @@ public class PortalConfig {
 	 * @return Integer
 	 */
 	public int getCooldown() {
-		return (Integer) Configuration.getConfigValue(ConfigType.PORTAL, "cooldown");
+		return (Integer) pl.getConfiguration().getConfigValue(ConfigType.PORTAL, "cooldown");
 	}
 
 	private HashMap<String, Portal> portals;
@@ -46,7 +51,7 @@ public class PortalConfig {
 				File[] list = dir.listFiles();
 				for(File f : list) {
 					FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-					Portal portal = new Portal(con, f);
+					Portal portal = new Portal(con, f, pl);
 					portals.put(portal.getPortalName(), portal);
 				}
 			}
@@ -60,7 +65,7 @@ public class PortalConfig {
 					portals.clear();
 					for(File f : list) {
 						FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-						Portal portal = new Portal(con, f);
+						Portal portal = new Portal(con, f, pl);
 						portals.put(portal.getPortalName(), portal);
 					}
 				}

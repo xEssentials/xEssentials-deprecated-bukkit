@@ -18,6 +18,12 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
 public class CmdSpawn {
+	
+	private final xEssentials pl;
+	
+	public CmdSpawn(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("spawn")) {
@@ -56,7 +62,7 @@ public class CmdSpawn {
 				}
 			} else if(args.length == 1) {
 				if(sender.hasPermission(PermissionKey.CMD_SPAWN_OTHERS.getPermission())) {
-					Player victem = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+					Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 					if(victem instanceof Player) {
 						try {
 							File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "spawn.yml");

@@ -12,6 +12,12 @@ import tv.mineinthebox.essentials.instances.Modreq;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdClaim {
+	
+	private final xEssentials pl;
+	
+	public CmdClaim(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("claim")) {
@@ -29,8 +35,8 @@ public class CmdClaim {
 						sender.sendMessage(ChatColor.RED + "you forgot to use the tickets ID as second argument");
 					}
 				} else {
-					if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+					if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
+						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 						if(xp.hasModreqsOpen()) {
 							try {
 								int id = Integer.parseInt(args[1]);

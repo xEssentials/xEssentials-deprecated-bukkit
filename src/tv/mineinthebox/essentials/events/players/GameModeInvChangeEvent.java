@@ -13,9 +13,15 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class GameModeInvChangeEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public GameModeInvChangeEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@EventHandler
 	public void onChangeInventory(PlayerGameModeChangeEvent e) {
-		XPlayer p = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer p = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		if(e.getNewGameMode() == GameMode.SURVIVAL) {
 			p.saveCreativeInventory();
 			if(p.hasSurvivalInventory()) {

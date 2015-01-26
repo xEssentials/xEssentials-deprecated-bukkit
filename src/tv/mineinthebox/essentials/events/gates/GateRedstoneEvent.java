@@ -14,6 +14,12 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.Gate;
 
 public class GateRedstoneEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public GateRedstoneEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler
 	public void onRedstone(BlockRedstoneEvent e) {
@@ -22,7 +28,7 @@ public class GateRedstoneEvent implements Listener {
 				return;
 			}
 			
-			for(Gate gate : xEssentials.getManagers().getGateManager().getGates()) {
+			for(Gate gate : pl.getManagers().getGateManager().getGates()) {
 				if(doesMatch(e.getBlock(), gate)) {
 					if(gate.isToggled()) {
 						gate.toggleGate();
@@ -33,8 +39,8 @@ public class GateRedstoneEvent implements Listener {
 				}
 			}
 			
-			if(xEssentials.getManagers().getGateManager().isGateFrameBlock(e.getBlock())) {
-				Gate gate = xEssentials.getManagers().getGateManager().getGateFromFrameBlock(e.getBlock());
+			if(pl.getManagers().getGateManager().isGateFrameBlock(e.getBlock())) {
+				Gate gate = pl.getManagers().getGateManager().getGateFromFrameBlock(e.getBlock());
 				if(gate instanceof Gate) {
 					gate.toggleGate();	
 				}

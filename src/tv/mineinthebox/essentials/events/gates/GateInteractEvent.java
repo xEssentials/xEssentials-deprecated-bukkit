@@ -12,6 +12,12 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.Gate;
 
 public class GateInteractEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public GateInteractEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
@@ -19,7 +25,7 @@ public class GateInteractEvent implements Listener {
 			if(e.getClickedBlock().getType() == Material.WALL_SIGN) {
 				Sign sign = (Sign) e.getClickedBlock().getState();
 				if(sign.getLine(0).equalsIgnoreCase(ChatColor.DARK_PURPLE + "[Gate]")) {
-					Gate gate = xEssentials.getManagers().getGateManager().getGateBySign(e.getClickedBlock());
+					Gate gate = pl.getManagers().getGateManager().getGateBySign(e.getClickedBlock());
 					if(gate instanceof Gate) {
 						if(gate.isToggled()) {
 							gate.toggleGate();

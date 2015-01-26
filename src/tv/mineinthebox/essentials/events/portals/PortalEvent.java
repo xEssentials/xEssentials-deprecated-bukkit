@@ -16,13 +16,19 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import tv.mineinthebox.essentials.Configuration;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.Portal;
 
 public class PortalEvent implements Listener {
 
-	private HashMap<String, Long> time = new HashMap<String, Long>();
-
+	private final HashMap<String, Long> time = new HashMap<String, Long>();
+	private final xEssentials pl;
+	
+	public PortalEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
+	
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onEnter(PlayerPortalEvent e) {
@@ -36,9 +42,9 @@ public class PortalEvent implements Listener {
 		if(!(block instanceof Block)) {
 			return;
 		}
-		for(Portal portal : Configuration.getPortalConfig().getPortals().values()) {
+		for(Portal portal : pl.getConfiguration().getPortalConfig().getPortals().values()) {
 			if(portal.getInnerBlocks().contains(block)) {
-				if(Configuration.getPortalConfig().getCooldown() > 0) {
+				if(pl.getConfiguration().getPortalConfig().getCooldown() > 0) {
 					if(time.containsKey(e.getPlayer().getName())) {
 						if(time.get(e.getPlayer().getName()) < System.currentTimeMillis()) {
 							time.remove(e.getPlayer().getName());
@@ -51,7 +57,7 @@ public class PortalEvent implements Listener {
 						}
 					} else {
 						Date date = new Date(System.currentTimeMillis());
-						date.setSeconds(date.getSeconds()+Configuration.getPortalConfig().getCooldown());
+						date.setSeconds(date.getSeconds()+pl.getConfiguration().getPortalConfig().getCooldown());
 						time.put(e.getPlayer().getName(), date.getTime());
 					}
 				}
@@ -86,7 +92,7 @@ public class PortalEvent implements Listener {
 		if(!(block instanceof Block)) {
 			return;
 		}
-		for(Portal portal : Configuration.getPortalConfig().getPortals().values()) {
+		for(Portal portal : pl.getConfiguration().getPortalConfig().getPortals().values()) {
 			if(portal.getInnerBlocks().contains(block)) {
 				if(e.getEntity() instanceof Item) {
 					e.setCancelled(true);

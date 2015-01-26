@@ -12,6 +12,12 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdUnban {
 	
+	private final xEssentials pl;
+	
+	public CmdUnban(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("unban")) {
 			if(sender.hasPermission(PermissionKey.CMD_UNBAN.getPermission())) {
@@ -25,8 +31,8 @@ public class CmdUnban {
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/unban <player> " + ChatColor.WHITE + ": unbans a player with a default message");
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/unban help " + ChatColor.WHITE + ": shows help");
 					} else {
-						if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+						if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
+							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 							if(xp.isPermBanned() || xp.isTempBanned()) {
 								xp.unban();
 								sender.sendMessage(ChatColor.GREEN + xp.getUser() + " has been unbanned!");
@@ -35,7 +41,7 @@ public class CmdUnban {
 							}
 						} else {
 							try {
-								XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								if(off.isPermBanned() || off.isTempBanned()) {
 									off.unban();
 									sender.sendMessage(ChatColor.GREEN + off.getUser() + " has been unbanned!");

@@ -9,7 +9,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
@@ -18,13 +17,19 @@ public class HumanSpamCommandEvent implements Listener {
 	private final HashMap<String, String> cmdmsg1 = new HashMap<String, String>();
 	private final HashMap<String, String> cmdmsg2 = new HashMap<String, String>();
 	
+	private final xEssentials pl;
+	
+	public HumanSpamCommandEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@EventHandler
 	public void slowcmdSpamCheck(PlayerCommandPreprocessEvent e) {
 		final Player p = (Player) e.getPlayer();
 		if(e.getMessage().startsWith("/") && !e.getPlayer().hasPermission(PermissionKey.IGNORE_HUMAN_SPAM.getPermission())) {
 			if(cmdmsg2.containsKey(e.getPlayer().getName())) {
 				if(cmdmsg2.get(e.getPlayer().getName()).equalsIgnoreCase(e.getMessage())) {
-					e.getPlayer().kickPlayer(Configuration.getBanConfig().getHumanSpamBanMessage());
+					e.getPlayer().kickPlayer(pl.getConfiguration().getBanConfig().getHumanSpamBanMessage());
 					cmdmsg2.remove(e.getPlayer().getName());
 				} else {
 					cmdmsg2.remove(e.getPlayer().getName());

@@ -11,6 +11,12 @@ import tv.mineinthebox.essentials.enums.PermissionKey;
 
 public class CmdExplode {
 	
+	private final xEssentials pl;
+	
+	public CmdExplode(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("explode")) {
 			if(sender.hasPermission(PermissionKey.CMD_EXPLODE.getPermission())) {
@@ -23,7 +29,7 @@ public class CmdExplode {
 						Warnings.getWarnings(sender).consoleMessage();
 					}
 				} else if(args.length == 1) {
-					Player p = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 					if(p instanceof Player) {
 						p.getWorld().createExplosion(p.getLocation(), 6f);
 						p.sendMessage(ChatColor.GRAY + "you got exploded!");

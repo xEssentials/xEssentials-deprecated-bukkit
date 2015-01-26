@@ -12,10 +12,16 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class ModreqJoinEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public ModreqJoinEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@EventHandler
 	public void modreqOnJoin(PlayerJoinEvent e) {
-		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.hasModreqDoneMessage()) {
 				String[] messages = xp.getModreqDoneMessage().split(",");
 				e.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',messages[0]));
@@ -32,7 +38,7 @@ public class ModreqJoinEvent implements Listener {
 		if(e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 			Boolean areModreqsOpen = false;
 			int i = 0;
-			for(XOfflinePlayer off : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+			for(XOfflinePlayer off : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
 				if(off.hasModreqsOpen()) {
 					areModreqsOpen = true;
 					i = (i+off.getModreqs().length);

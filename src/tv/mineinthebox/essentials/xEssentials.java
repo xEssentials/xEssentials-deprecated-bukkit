@@ -27,37 +27,43 @@ import tv.mineinthebox.simpleserver.SimpleServer;
 
 public class xEssentials extends JavaPlugin {
 
-	private static xEssentials pl;
-
-	private final Configuration conf = new Configuration();
-	private final Handler Handler = new Handler();
-	private final CustomEventHandler customhandler = new CustomEventHandler();
-	private final CommandList cmdlist = new CommandList();
-	private final MojangUUID uuid = new MojangUUID();
-
-	private static Manager manager;
+	private Configuration conf;
+	private Handler handler;
+	private CustomEventHandler customhandler;
+	private CommandList cmdlist;
+	private MojangUUID uuid;
+	private Manager manager;
 
 	public void onEnable() {
-		pl = this;
-		log("has been enabled", LogType.INFO);
+		
+		this.conf = new Configuration(this);
+		this.handler = new Handler(this);
+		this.customhandler = new CustomEventHandler(this);
+		this.cmdlist = new CommandList();
+		this.uuid = new MojangUUID(this);
+		this.manager = new Manager(this);
+		
 		conf.createConfigs();
-		manager = new Manager();
-		Handler.start();
+		handler.start();
 		customhandler.startCustomEvents();
-		if(xEssentials.getOnlinePlayers().length > 0) {
-			xEssentials.getManagers().getPlayerManager().reloadPlayerBase();
+		
+		if(getOnlinePlayers().length > 0) {
+			getManagers().getPlayerManager().reloadPlayerBase();
 		}
 		for(String cmd : cmdlist.getAllCommands) {
-			getCommand(cmd).setExecutor(new SimpleCommand());	
+			getCommand(cmd).setExecutor(new SimpleCommand(this));	
 		}
-		if(Configuration.getEntityConfig().isRealisticGlassEnabled()) {
-			xEssentials.getManagers().getRealisticGlassManager().loadGlassBlocks();
+		if(conf.getEntityConfig().isRealisticGlassEnabled()) {
+			getManagers().getRealisticGlassManager().loadGlassBlocks();
 		}
-		xEssentials.getManagers().getTPSManager().startTps();
-		Configuration.HandleCommandManager();
-		if(Configuration.getGrayListConfig().isEnabled()) {
-			SimpleServer server = xEssentials.getManagers().getGreylistManager();
-			server.addListener(new GreyListServer());
+		
+		getManagers().getTPSManager().startTps();
+		
+		conf.HandleCommandManager();
+		
+		if(conf.getGrayListConfig().isEnabled()) {
+			SimpleServer server = getManagers().getGreylistManager();
+			server.addListener(new GreyListServer(this));
 			try {
 				server.startServer();
 				log(server.getName() + " has been started on port " + server.getPort(), LogType.INFO);
@@ -68,46 +74,47 @@ public class xEssentials extends JavaPlugin {
 		}
 
 		if(Hooks.isVaultEnabled()) {
-			if(Configuration.getEconomyConfig().isEconomyEnabled()) {
-				xEssentials.getManagers().getVaultManager().hookEconomyInVault();
+			if(conf.getEconomyConfig().isEconomyEnabled()) {
+				getManagers().getVaultManager().hookEconomyInVault();
 			}
 		}
 
-		if(Configuration.getEntityConfig().isExplosionRegenEnabled()) {
-			xEssentials.getManagers().getExplosionRegenManager().loadRegenObjects();
+		if(conf.getEntityConfig().isExplosionRegenEnabled()) {
+			getManagers().getExplosionRegenManager().loadRegenObjects();
 		}
 
-		if(Configuration.getMiscConfig().isGatesEnabled()) {
-			xEssentials.getManagers().getGateManager().reloadGates();
+		if(conf.getMiscConfig().isGatesEnabled()) {
+			getManagers().getGateManager().reloadGates();
 		}
-		if(Configuration.getMiscConfig().isBridgesEnabled()) {
-			xEssentials.getManagers().getBridgeManager().reloadBridges();
+		if(conf.getMiscConfig().isBridgesEnabled()) {
+			getManagers().getBridgeManager().reloadBridges();
 		}
-		if(Configuration.getEntityConfig().isRealisticWaterEnabled()) {
-			xEssentials.getManagers().getRealisticWaterManager().start();
+		if(conf.getEntityConfig().isRealisticWaterEnabled()) {
+			getManagers().getRealisticWaterManager().start();
 		}
-		xEssentials.getManagers().getBackPackManager().loadBackpacks();
+		getManagers().getBackPackManager().loadBackpacks();
+		log("has been enabled", LogType.INFO);
 	}
 
 	public void onDisable() {
 		
-		for(XPlayer xp : xEssentials.getManagers().getPlayerManager().getPlayers()) {
+		for(XPlayer xp : getManagers().getPlayerManager().getPlayers()) {
 			xp.save();
 		}
 		
 		if(getUUIDManager().isExecutorServiceRunning()) {
 			getUUIDManager().shutdownExecutorService();
 		}
-		xEssentials.getManagers().getPlayerManager().clear();
-		if(Configuration.getEntityConfig().isRealisticGlassEnabled()) {
-			xEssentials.getManagers().getRealisticGlassManager().saveGlassBlocks();
+		getManagers().getPlayerManager().clear();
+		if(conf.getEntityConfig().isRealisticGlassEnabled()) {
+			getManagers().getRealisticGlassManager().saveGlassBlocks();
 		}
-		if(Configuration.getChatConfig().isRssBroadcastEnabled()) {
-			xEssentials.getManagers().getRssManager().saveLastFeed();
+		if(conf.getChatConfig().isRssBroadcastEnabled()) {
+			getManagers().getRssManager().saveLastFeed();
 		}
 
-		if(xEssentials.getManagers().getGreylistManager().isRunning()) {
-			SimpleServer server = xEssentials.getManagers().getGreylistManager();
+		if(getManagers().getGreylistManager().isRunning()) {
+			SimpleServer server = getManagers().getGreylistManager();
 			log("stopping server " + server.getName() + " at port " + server.getPort(), LogType.INFO);
 			try {
 				server.stopServer();
@@ -117,11 +124,11 @@ public class xEssentials extends JavaPlugin {
 			}
 		}
 
-		if(xEssentials.getManagers().getBroadcastManager().isRunning()) {
-			xEssentials.getManagers().getBroadcastManager().stop();
+		if(getManagers().getBroadcastManager().isRunning()) {
+			getManagers().getBroadcastManager().stop();
 		}
 
-		if(Configuration.getEntityConfig().isExplosionRegenEnabled()) {
+		if(conf.getEntityConfig().isExplosionRegenEnabled()) {
 			for(World w : Bukkit.getWorlds()) {
 				for(Entity entity : w.getEntities()) {
 					if(entity instanceof FallingBlock) {
@@ -132,13 +139,13 @@ public class xEssentials extends JavaPlugin {
 					}
 				}
 			}
-			xEssentials.getManagers().getExplosionRegenManager().saveRegenObjects();
-			if(Configuration.getMiscConfig().isChairsEnabled()) {
-				xEssentials.getManagers().getChairManager().killAll();	
+			getManagers().getExplosionRegenManager().saveRegenObjects();
+			if(conf.getMiscConfig().isChairsEnabled()) {
+				getManagers().getChairManager().killAll();	
 			}
 		}
-		if(Configuration.getEntityConfig().isRealisticWaterEnabled()) {
-			xEssentials.getManagers().getRealisticWaterManager().stop();
+		if(conf.getEntityConfig().isRealisticWaterEnabled()) {
+			getManagers().getRealisticWaterManager().stop();
 		}
 
 		try {
@@ -157,7 +164,7 @@ public class xEssentials extends JavaPlugin {
 	 * @param uses to log things through the console
 	 * 
 	 */
-	public void log(String message, LogType type) {
+	public static void log(String message, LogType type) {
 		Bukkit.getConsoleSender().sendMessage(type.getPrefix() + message);
 	}
 
@@ -169,7 +176,7 @@ public class xEssentials extends JavaPlugin {
 	 * 
 	 */
 	public static xEssentials getPlugin() {
-		return pl;
+		return xEssentials.getPlugin(xEssentials.class);
 	}
 
 	/**
@@ -177,7 +184,7 @@ public class xEssentials extends JavaPlugin {
 	 * @param returns the managers
 	 * @return Manager
 	 */
-	public static Manager getManagers() {
+	public Manager getManagers() {
 		return manager;
 	}
 
@@ -192,8 +199,12 @@ public class xEssentials extends JavaPlugin {
 	 * @throws IllegalAccessException 
 	 * @throws IllegalArgumentException 
 	 */
-	public static Player[] getOnlinePlayers() {
+	public Player[] getOnlinePlayers() {
 		return OnlinePlayersHelper.getOnlinePlayers();
+	}
+	
+	public Configuration getConfiguration() {
+		return conf;
 	}
 
 	/**
@@ -203,10 +214,5 @@ public class xEssentials extends JavaPlugin {
 	 */
 	public static MojangUUID getUUIDManager() {
 		return xEssentials.getPlugin().uuid;
-	}
-
-	@Override
-	public void finalize() throws Throwable {
-		super.finalize();
 	}
 }

@@ -12,11 +12,17 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdKnock {
 	
+	private final xEssentials pl;
+	
+	public CmdKnock(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("knock")) {
 			if(sender instanceof Player) {
 				if(sender.hasPermission(PermissionKey.CMD_KNOCK.getPermission())) {
-					XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+					XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 					if(xp.isKnock()) {
 						sender.sendMessage(ChatColor.GREEN + "you disabled antiknockback!");
 						xp.setKnock(false);

@@ -14,11 +14,17 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdPowerTool {
 	
+	private final xEssentials pl;
+	
+	public CmdPowerTool(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("powertool")) {
 			if(sender.hasPermission(PermissionKey.CMD_POWERTOOL.getPermission())) {
 				if(sender instanceof Player) {
-					XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+					XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 					if(xp.getPlayer().getItemInHand() != null) {
 						if(args.length > 0) {
 							xp.setPowerTool(xp.getPlayer().getItemInHand(), Arrays.toString(args).replace("[", "").replace(",", "").replace("]", ""));

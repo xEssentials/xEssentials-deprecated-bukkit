@@ -10,6 +10,12 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class AntiKnockBackEvent implements Listener {
+
+	private final xEssentials pl;
+	
+	public AntiKnockBackEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onAttack(EntityDamageEvent e) {
@@ -18,7 +24,7 @@ public class AntiKnockBackEvent implements Listener {
 		}
 		if(e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 			if(xp.isKnock()) {
 				double damage = e.getDamage();
 				e.setCancelled(true);

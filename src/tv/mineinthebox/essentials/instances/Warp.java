@@ -20,16 +20,19 @@ public class Warp {
 	private final File f;
 	private Player p;
 	private boolean isWarpOwner = false;
+	private final xEssentials pl;
 	
-	public Warp(FileConfiguration con, File f) {
+	public Warp(FileConfiguration con, File f, xEssentials pl) {
 		this.con = con;
 		this.f = f;
+		this.pl = pl;
 	}
 	
-	public Warp(FileConfiguration con, File f, Player p) {
+	public Warp(FileConfiguration con, File f, Player p, xEssentials pl) {
 		this.con = con;
 		this.f = f;
 		this.p = p;
+		this.pl = pl;
 		if(this.con.getString("warp.uuid").equalsIgnoreCase(p.getUniqueId().toString())) {
 			this.isWarpOwner = true;
 			if(!p.getName().equalsIgnoreCase(this.con.getString("warp.owner"))) {
@@ -37,7 +40,6 @@ public class Warp {
 				try {
 					this.con.save(this.f);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				update();
@@ -113,7 +115,7 @@ public class Warp {
 	 * @return xEssentialsOfflinePlayer
 	 */
 	public XOfflinePlayer getWarpOwner() {
-		return xEssentials.getManagers().getPlayerManager().getOfflinePlayer(con.getString("user"));
+		return pl.getManagers().getPlayerManager().getOfflinePlayer(con.getString("user"));
 	}
 	
 	public void removeWarp() {
@@ -124,13 +126,10 @@ public class Warp {
 		try {
 			con.load(f);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvalidConfigurationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

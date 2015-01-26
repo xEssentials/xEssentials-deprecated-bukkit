@@ -7,7 +7,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
@@ -17,9 +16,15 @@ import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 
 public class CmdPlayerInfo {
 	
+	private final xEssentials pl;
+	
+	public CmdPlayerInfo(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
-		for(XOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer name : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
 				s.add(name.getUser());
 			}
@@ -52,11 +57,11 @@ public class CmdPlayerInfo {
 						sender.sendMessage(ChatColor.GOLD + ".oO___[Player info help]___Oo.");
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/playerinfo <player> " + ChatColor.WHITE + ": shows all the information of this player!");
 					} else {
-						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
+							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							sender.sendMessage(ChatColor.GOLD + ".oO___[showing information about " + off.getUser() + "]___Oo.");
 							sender.sendMessage(ChatColor.GRAY + "file name: " + ChatColor.GREEN + off.getUniqueId()+".yml");
-							if(Configuration.getGrayListConfig().isEnabled()) {
+							if(pl.getConfiguration().getGrayListConfig().isEnabled()) {
 								sender.sendMessage(ChatColor.GRAY + "is greylisted: " + off.isGreyListed());
 							}
 							sender.sendMessage(ChatColor.GRAY + "ip: " +ChatColor.GREEN+ off.getIp());

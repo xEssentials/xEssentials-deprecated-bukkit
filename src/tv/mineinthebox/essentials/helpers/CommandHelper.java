@@ -116,7 +116,7 @@ public class CommandHelper {
 			mf.setInt(constructor, constructor.getModifiers() &~Modifier.PROTECTED);
 
 			PluginCommand command = (PluginCommand) constructor.newInstance(cmd, xEssentials.getPlugin());
-			command.setExecutor(new SimpleCommand());
+			command.setExecutor(new SimpleCommand(xEssentials.getPlugin()));
 			List<String> aliases = (List<String>) xEssentials.getPlugin().getDescription().getCommands().get(command.getName()).get("aliases");
 			command.setAliases(aliases);
 

@@ -11,6 +11,12 @@ import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdUnmute {
+	
+	private final xEssentials pl;
+	
+	public CmdUnmute(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("unmute")) {
@@ -20,8 +26,8 @@ public class CmdUnmute {
 					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/unmute help " + ChatColor.WHITE + ": shows help");
 					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/unmute <player> " + ChatColor.WHITE + "unmute a player!");
 				} else if(args.length == 1) {
-					if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+					if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
+						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 						if(xp.isMuted()) {
 							xp.unmute();
 							sender.sendMessage(ChatColor.GREEN + "you successfully unmuted the player " + xp.getUser());
@@ -31,7 +37,7 @@ public class CmdUnmute {
 						}
 					} else {
 						try {
-							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							if(off.isMuted()) {
 								off.unmute();
 								sender.sendMessage(ChatColor.GREEN + "you successfully unmuted the offline player " + off.getUser() + "!");

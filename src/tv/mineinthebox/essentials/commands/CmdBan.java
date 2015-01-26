@@ -21,9 +21,15 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdBan {
 
+	private xEssentials pl;
+	
+	public CmdBan(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
-		for(XOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer name : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
 				s.add(name.getUser());
 			}
@@ -63,14 +69,14 @@ public class CmdBan {
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/ban <player> <message> " + ChatColor.WHITE + ": bans a player with a given up description");
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/ban help " + ChatColor.WHITE + ": shows help");
 					} else {
-						if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+						if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
+							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 							xp.setPermBanned("The ban hammer has spoken!", sender.getName());
 							sender.sendMessage(ChatColor.GREEN + "successfully banned player " + xp.getUser());
 							xp.getPlayer().kickPlayer(xp.getBanMessage());
 						} else {
 							try {
-								XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								off.setPermBanned("The ban hammer has spoken!", sender.getName());
 								sender.sendMessage(ChatColor.GREEN + "successfully banned player " + off.getUser());
 							} catch(NullPointerException e) {
@@ -98,14 +104,14 @@ public class CmdBan {
 						}
 					}
 				} else if(args.length > 1) {
-					if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+					if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
+						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 						String message = Arrays.toString(args).replace(args[0], "").replace("[", "").replace(",", "").replace("]", "");
 						xp.setPermBanned(message, sender.getName());
 						xp.getPlayer().kickPlayer(message);
 					} else {
 						try {
-							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							String message = Arrays.toString(args).replace(args[0], "").replace("[", "").replace(",", "").replace("]", "");
 							off.setPermBanned(message, sender.getName());
 						} catch(NullPointerException e) {

@@ -29,11 +29,11 @@ public class AlternateAccount {
 	private String name;
 	private JSONObject json;
 
-	public AlternateAccount(xEssentialsPlayer xp) {
+	public AlternateAccount(xEssentialsPlayer xp, xEssentials pl) {
 		this.name = xp.getUser();
 		List<String> list = new ArrayList<String>();
 		List<XOfflinePlayer> list2 = new ArrayList<XOfflinePlayer>();
-		for(XOfflinePlayer offs : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer offs : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(!xp.getUser().equalsIgnoreCase(offs.getUser())) {
 				if(xp.getIp().equalsIgnoreCase(offs.getIp())) {
 					list.add(offs.getUser());
@@ -47,11 +47,11 @@ public class AlternateAccount {
 		this.args = alts;
 	}
 
-	public AlternateAccount(xEssentialsOfflinePlayer xp) {
+	public AlternateAccount(xEssentialsOfflinePlayer xp, xEssentials pl) {
 		this.name = xp.getUser();
 		List<String> list = new ArrayList<String>();
 		List<XOfflinePlayer> list2 = new ArrayList<XOfflinePlayer>();
-		for(XOfflinePlayer offs : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer offs : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(!xp.getUser().equalsIgnoreCase(offs.getUser())) {
 				if(xp.getIp().equalsIgnoreCase(offs.getIp())) {
 					list.add(offs.getUser());

@@ -21,10 +21,16 @@ import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdTeleport {
+	
+	private final xEssentials pl;
+	
+	public CmdTeleport(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
-		for(XOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer name : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
 				s.add(name.getUser());
 			}
@@ -59,10 +65,10 @@ public class CmdTeleport {
 						sendHelp(sender);
 					} else {
 						if(sender instanceof Player) {
-							XPlayer p = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+							XPlayer p = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 							Player to = Bukkit.getPlayer(args[0]);
 							if(to instanceof Player) {
-								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 								if(xp.isVanished()) {
 									if(p.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 										p.vanish();
@@ -73,7 +79,7 @@ public class CmdTeleport {
 								sender.sendMessage(ChatColor.GREEN + "teleporting to online location of player " + xp.getUser() + " ;-)");
 							} else {
 								try {
-									XOfflinePlayer offliner = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+									XOfflinePlayer offliner = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 									offliner.getLastLocation().getWorld().refreshChunk(offliner.getLastLocation().getChunk().getX(), offliner.getLastLocation().getChunk().getZ());
 									p.getPlayer().teleport(offliner.getLastLocation(), TeleportCause.COMMAND);
 									sender.sendMessage(ChatColor.GREEN + "teleporting to last offline location of player " + offliner.getUser() + " ;-)");
@@ -92,12 +98,12 @@ public class CmdTeleport {
 				if(args[0].equalsIgnoreCase("crate")) {
 					if(sender.hasPermission(PermissionKey.CMD_TELEPORT.getPermission())) {
 						if(sender instanceof Player) {
-							Player to = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]).getPlayer();
+							Player to = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]).getPlayer();
 							Player p = (Player) sender;
 							if(to instanceof Player) {
 								if(Hooks.isManCoEnabled()) {
-									if(xEssentials.getManagers().getManCoManager().hasCrate(to)) {
-										Location loc = xEssentials.getManagers().getManCoManager().getCrateLocation(to);
+									if(pl.getManagers().getManCoManager().hasCrate(to)) {
+										Location loc = pl.getManagers().getManCoManager().getCrateLocation(to);
 										p.teleport(loc, TeleportCause.COMMAND);
 										sender.sendMessage(ChatColor.GREEN + "teleporting to " + to.getName() + " his ManCo crate ;-)");
 									} else {

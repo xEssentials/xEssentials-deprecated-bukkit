@@ -11,17 +11,22 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.Backpack;
 
 public class CmdBackpack {
+	
+	private final xEssentials pl;
+	
+	public CmdBackpack(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	private List<String> getContainedMaterials(String material) {
 		List<String> list = new ArrayList<String>();
-		for(String mat : Configuration.getMaterials()) {
+		for(String mat : pl.getConfiguration().getMaterials()) {
 			if(mat.startsWith(material.toUpperCase())) {
 				list.add(mat);
 			}
@@ -79,7 +84,7 @@ public class CmdBackpack {
 									item.setDurability(dura);
 									sender.sendMessage(ChatColor.GRAY + "giving " + item.getType().name() + ":"+dura + " amount: 1 to player " + p.getName());
 									try {
-										Backpack backpack = xEssentials.getManagers().getBackPackManager().createBackpack(item.getType(), item.getDurability());
+										Backpack backpack = pl.getManagers().getBackPackManager().createBackpack(item.getType(), item.getDurability());
 										p.getInventory().addItem(backpack.getBackPackItem());
 										p.sendMessage(ChatColor.GREEN + "you retrieved items from " + sender.getName());
 									} catch(IllegalArgumentException e) {
@@ -94,7 +99,7 @@ public class CmdBackpack {
 									Short dura = Short.parseShort(data[1]);
 									ItemStack item = new ItemStack(mat, 1);
 									item.setDurability(dura);
-									Backpack backpack = xEssentials.getManagers().getBackPackManager().createBackpack(item.getType(), item.getDurability());
+									Backpack backpack = pl.getManagers().getBackPackManager().createBackpack(item.getType(), item.getDurability());
 									try {
 										p.getInventory().addItem(backpack.getBackPackItem());
 										p.sendMessage(ChatColor.GREEN + "you retrieved items from " + sender.getName());
@@ -106,7 +111,7 @@ public class CmdBackpack {
 								if(isNumberic(args[1])) {
 									Material mat = Material.getMaterial(Integer.parseInt(args[1]));
 									ItemStack item = new ItemStack(mat, 1);
-									Backpack backpack = xEssentials.getManagers().getBackPackManager().createBackpack(item.getType(), item.getDurability());
+									Backpack backpack = pl.getManagers().getBackPackManager().createBackpack(item.getType(), item.getDurability());
 									try {
 										p.getInventory().addItem(backpack.getBackPackItem());
 										p.sendMessage(ChatColor.GREEN + "you retrieved items from " + sender.getName());
@@ -116,7 +121,7 @@ public class CmdBackpack {
 								} else {
 									Material mat = Material.getMaterial(args[1].toUpperCase());
 									ItemStack item = new ItemStack(mat, 1);
-									Backpack backpack = xEssentials.getManagers().getBackPackManager().createBackpack(item.getType(), item.getDurability());
+									Backpack backpack = pl.getManagers().getBackPackManager().createBackpack(item.getType(), item.getDurability());
 									try {
 									p.getInventory().addItem(backpack.getBackPackItem());
 										p.sendMessage(ChatColor.GREEN + "you retrieved items from " + sender.getName());

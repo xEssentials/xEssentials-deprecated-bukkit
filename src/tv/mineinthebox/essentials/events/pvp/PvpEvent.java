@@ -8,9 +8,15 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-import tv.mineinthebox.essentials.Configuration;
+import tv.mineinthebox.essentials.xEssentials;
 
 public class PvpEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public PvpEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler(priority = EventPriority.LOW, ignoreCancelled=true)
 	public void onDamage(EntityDamageByEntityEvent e) {
@@ -18,7 +24,7 @@ public class PvpEvent implements Listener {
 			if(e.getEntity() instanceof Player) {
 				//Player damager = (Player) e.getDamager();
 				//damager.sendMessage(ChatColor.RED + "you are not allowed to pvp on this server!");
-				if(!Configuration.getPvpConfig().isFakePvpEnabled()) {
+				if(!pl.getConfiguration().getPvpConfig().isFakePvpEnabled()) {
 					e.setCancelled(true);
 				}
 			}

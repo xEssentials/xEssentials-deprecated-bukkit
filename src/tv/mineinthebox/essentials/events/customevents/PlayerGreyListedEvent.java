@@ -17,12 +17,15 @@ public class PlayerGreyListedEvent extends PlayerEvent implements Cancellable {
 	private String OldGroup;
 	private boolean cancel;
 	private GreyListCause cause;
+	
+	private final xEssentials pl;
 
-	public PlayerGreyListedEvent(Player who, String group, String OldGroup, GreyListCause cause) {
+	public PlayerGreyListedEvent(Player who, String group, String OldGroup, GreyListCause cause, xEssentials pl) {
 		super(who);
 		this.group = group;
 		this.OldGroup = OldGroup;
 		this.cause = cause;
+		this.pl = pl;
 	}
 
 	/**
@@ -58,7 +61,7 @@ public class PlayerGreyListedEvent extends PlayerEvent implements Cancellable {
 	 * @return xEssentialsPlayer
 	 */
 	public XPlayer getEssentialsPlayer() {
-		return xEssentials.getManagers().getPlayerManager().getPlayer(player.getName());
+		return pl.getManagers().getPlayerManager().getPlayer(player.getName());
 	}
 
 	public HandlerList getHandlers() {
@@ -76,7 +79,7 @@ public class PlayerGreyListedEvent extends PlayerEvent implements Cancellable {
 	public void setCancelled(boolean bol) {
 		if(bol) {
 			cancel = true;
-			xEssentials.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), player.getName(), OldGroup);
+			pl.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), player.getName(), OldGroup);
 		}
 	}
 

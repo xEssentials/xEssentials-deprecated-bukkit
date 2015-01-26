@@ -15,11 +15,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.Bridge;
 
 public class BridgeCreateEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public BridgeCreateEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	@EventHandler
 	public void onCreate(SignChangeEvent e) {
@@ -83,8 +88,8 @@ public class BridgeCreateEvent implements Listener {
 					con.set("blocks", locs);
 					con.save(f);
 					
-					Bridge bridge = new Bridge(f, con);
-					xEssentials.getManagers().getBridgeManager().addBridge(bridge);
+					Bridge bridge = new Bridge(f, con, pl);
+					pl.getManagers().getBridgeManager().addBridge(bridge);
 					
 					e.setLine(0, ChatColor.DARK_PURPLE + "[Bridge]");
 					e.getPlayer().sendMessage(ChatColor.GREEN + "you have successfully created a bridge!, and connected them.");
@@ -101,7 +106,7 @@ public class BridgeCreateEvent implements Listener {
 	
 	private boolean hasSignOnOtherSide(Block block) {
 		
-		for(int x = block.getX(); x < (block.getX()+Configuration.getMiscConfig().getMaxBridgeSize()); x++) {
+		for(int x = block.getX(); x < (block.getX()+pl.getConfiguration().getMiscConfig().getMaxBridgeSize()); x++) {
 			Block blocksign = block.getWorld().getBlockAt(x, block.getY(), block.getZ());
 			if(blocksign.getType() == Material.SIGN_POST) {
 				Sign sign = (Sign) blocksign.getState();
@@ -111,7 +116,7 @@ public class BridgeCreateEvent implements Listener {
 			}
 		}
 		
-		for(int x = block.getX(); x > (block.getX() - Configuration.getMiscConfig().getMaxBridgeSize()); x--) {
+		for(int x = block.getX(); x > (block.getX() - pl.getConfiguration().getMiscConfig().getMaxBridgeSize()); x--) {
 			Block blocksign = block.getWorld().getBlockAt(x, block.getY(), block.getZ());
 			if(blocksign.getType() == Material.SIGN_POST) {
 				Sign sign = (Sign) blocksign.getState();
@@ -121,7 +126,7 @@ public class BridgeCreateEvent implements Listener {
 			}
 		}
 		
-		for(int z = block.getZ(); z < (block.getZ()+Configuration.getMiscConfig().getMaxBridgeSize()); z++) {
+		for(int z = block.getZ(); z < (block.getZ()+pl.getConfiguration().getMiscConfig().getMaxBridgeSize()); z++) {
 			Block blocksign = block.getWorld().getBlockAt(block.getX(), block.getY(), z);
 			if(blocksign.getType() == Material.SIGN_POST) {
 				Sign sign = (Sign) blocksign.getState();
@@ -133,7 +138,7 @@ public class BridgeCreateEvent implements Listener {
 			}
 		}
 		
-		for(int z = block.getZ(); z > (block.getZ() - Configuration.getMiscConfig().getMaxBridgeSize()); z--) {
+		for(int z = block.getZ(); z > (block.getZ() - pl.getConfiguration().getMiscConfig().getMaxBridgeSize()); z--) {
 			Block blocksign = block.getWorld().getBlockAt(block.getX(), block.getY(), z);
 			if(blocksign.getType() == Material.SIGN_POST) {
 				Sign sign = (Sign) blocksign.getState();
@@ -147,7 +152,7 @@ public class BridgeCreateEvent implements Listener {
 
 	private Block getOtherSignBlock(Block block) {
 		
-		for(int x = block.getX(); x < (block.getX()+Configuration.getMiscConfig().getMaxBridgeSize()); x++) {
+		for(int x = block.getX(); x < (block.getX()+pl.getConfiguration().getMiscConfig().getMaxBridgeSize()); x++) {
 			Block blocksign = block.getWorld().getBlockAt(x, block.getY(), block.getZ());
 			if(blocksign.getType() == Material.SIGN_POST) {
 				Sign sign = (Sign) blocksign.getState();
@@ -157,7 +162,7 @@ public class BridgeCreateEvent implements Listener {
 			}
 		}
 		
-		for(int x = block.getX(); x > (block.getX()-Configuration.getMiscConfig().getMaxBridgeSize()); x--) {
+		for(int x = block.getX(); x > (block.getX()-pl.getConfiguration().getMiscConfig().getMaxBridgeSize()); x--) {
 			Block blocksign = block.getWorld().getBlockAt(x, block.getY(), block.getZ());
 			if(blocksign.getType() == Material.SIGN_POST) {
 				Sign sign = (Sign) blocksign.getState();
@@ -167,7 +172,7 @@ public class BridgeCreateEvent implements Listener {
 			}
 		}
 		
-		for(int z = block.getZ(); z < (block.getZ()+Configuration.getMiscConfig().getMaxBridgeSize()); z++) {
+		for(int z = block.getZ(); z < (block.getZ()+pl.getConfiguration().getMiscConfig().getMaxBridgeSize()); z++) {
 			Block blocksign = block.getWorld().getBlockAt(block.getX(), block.getY(), z);
 			if(blocksign.getType() == Material.SIGN_POST) {
 				Sign sign = (Sign) blocksign.getState();
@@ -179,7 +184,7 @@ public class BridgeCreateEvent implements Listener {
 			}
 		}
 		
-		for(int z = block.getZ(); z > (block.getZ()-Configuration.getMiscConfig().getMaxBridgeSize()); z--) {
+		for(int z = block.getZ(); z > (block.getZ()-pl.getConfiguration().getMiscConfig().getMaxBridgeSize()); z--) {
 			Block blocksign = block.getWorld().getBlockAt(block.getX(), block.getY(), z);
 			if(blocksign.getType() == Material.SIGN_POST) {
 				Sign sign = (Sign) blocksign.getState();

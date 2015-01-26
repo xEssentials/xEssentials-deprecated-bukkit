@@ -11,14 +11,20 @@ import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdTorch {
+
+	private final xEssentials pl;
+	
+	public CmdTorch(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("torch")) {
 			if(sender.hasPermission(PermissionKey.CMD_TORCH.getPermission())) {
 				if(sender instanceof Player) {
-					if(xEssentials.getManagers().getPlayerManager().isOnline(sender.getName())) {
+					if(pl.getManagers().getPlayerManager().isOnline(sender.getName())) {
 						Player p = (Player) sender;
-						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 						if(xp.isTorch()) {
 							xp.setTorch(false);
 							p.sendMessage(ChatColor.GREEN + "successfully disabled torch");

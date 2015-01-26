@@ -7,25 +7,23 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 
-import tv.mineinthebox.essentials.Configuration;
+import tv.mineinthebox.essentials.xEssentials;
 
 public class MotdEvent implements Listener {
-
-	private ListIterator<String> it = Configuration.getMotdConfig().getMotdMessages();
+	
+	private final xEssentials pl;
+	private final ListIterator<String> it;
+	
+	public MotdEvent(xEssentials pl) {
+		this.pl = pl;
+		this.it = pl.getConfiguration().getMotdConfig().getMotdMessages();
+	}
 
 	@EventHandler
 	public void onMotdEvent(ServerListPingEvent e) {
-		//new feature from bukkit!, this will hide players from being vanished
-		/*
-		if(e.getNumPlayers() > 0) {
-			if(e.iterator().hasNext()) {
-				e.iterator().remove();
-			}
-		}
-		*/
-		if(Configuration.getMotdConfig().isNormalMotdEnabled()) {
-			e.setMotd(ChatColor.translateAlternateColorCodes('&', Configuration.getMotdConfig().getMotdMessage()));
-		} else if(Configuration.getMotdConfig().isRandomMotdEnabled()) {
+		if(pl.getConfiguration().getMotdConfig().isNormalMotdEnabled()) {
+			e.setMotd(ChatColor.translateAlternateColorCodes('&', pl.getConfiguration().getMotdConfig().getMotdMessage()));
+		} else if(pl.getConfiguration().getMotdConfig().isRandomMotdEnabled()) {
 			if(it.hasNext()) {
 				e.setMotd(ChatColor.translateAlternateColorCodes('&', it.next()));
 			} else {

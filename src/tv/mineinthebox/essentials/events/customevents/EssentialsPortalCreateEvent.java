@@ -8,7 +8,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
 
-import tv.mineinthebox.essentials.Configuration;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.Portal;
 
 public class EssentialsPortalCreateEvent extends PlayerEvent implements Cancellable {
@@ -17,9 +17,12 @@ public class EssentialsPortalCreateEvent extends PlayerEvent implements Cancella
 	private boolean cancel = false;
 	private final Portal portal;
 	
-	public EssentialsPortalCreateEvent(Player who, Portal portal) {
+	private final xEssentials pl;
+	
+	public EssentialsPortalCreateEvent(Player who, Portal portal, xEssentials pl) {
 		super(who);
 		this.portal = portal;
+		this.pl = pl;
 	}
 	
 	/**
@@ -29,7 +32,7 @@ public class EssentialsPortalCreateEvent extends PlayerEvent implements Cancella
 	 * @throws NullPointerException - when the name does not exist
 	 */
 	public Portal getPortalByName(String name) throws Exception {
-		return Configuration.getPortalConfig().getPortal(name);
+		return pl.getConfiguration().getPortalConfig().getPortal(name);
 	}
 	
 	/**
@@ -38,7 +41,7 @@ public class EssentialsPortalCreateEvent extends PlayerEvent implements Cancella
 	 * @return Portal[]
 	 */
 	public Portal[] getPortals() {
-		return Configuration.getPortalConfig().getPortals().values().toArray(new Portal[Configuration.getPortalConfig().getPortals().size()]);
+		return pl.getConfiguration().getPortalConfig().getPortals().values().toArray(new Portal[pl.getConfiguration().getPortalConfig().getPortals().size()]);
 	}
 	
 	/**

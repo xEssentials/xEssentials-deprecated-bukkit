@@ -18,17 +18,18 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 
 public class Portal implements Comparable<String> {
 
 	private final FileConfiguration con;
 	private final File f;
+	private final xEssentials pl;
 
-	public Portal(FileConfiguration con, File f) {
+	public Portal(FileConfiguration con, File f, xEssentials pl) {
 		this.con = con;
 		this.f = f;
+		this.pl = pl;
 	}
 
 	/**
@@ -105,7 +106,7 @@ public class Portal implements Comparable<String> {
 		File f1 = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "portals" + File.separator + con.getString("linked") + ".yml");
 		if(f1.exists()) {
 			FileConfiguration con1 = YamlConfiguration.loadConfiguration(f1);
-			return new Portal(con1, f1);	
+			return new Portal(con1, f1, pl);	
 		}
 		return null;
 	}
@@ -125,7 +126,6 @@ public class Portal implements Comparable<String> {
 		try {
 			con.save(f);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -144,7 +144,7 @@ public class Portal implements Comparable<String> {
 				con.set("linked", name);
 				con.save(f);
 				update();
-				Portal portal = Configuration.getPortalConfig().getPortal(name);
+				Portal portal = pl.getConfiguration().getPortalConfig().getPortal(name);
 				portal.linkPortal(getPortalName(), false);
 			} else {
 				con.set("linked", name);
@@ -257,13 +257,10 @@ public class Portal implements Comparable<String> {
 		try {
 			con.load(f);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvalidConfigurationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

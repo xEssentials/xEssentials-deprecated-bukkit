@@ -13,12 +13,18 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdNuke {
 	
+	private final xEssentials pl;
+	
+	public CmdNuke(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("nuke")) {
 			if(sender.hasPermission(PermissionKey.CMD_NUKE.getPermission())) {
 				if(args.length == 0) {
 					if(sender instanceof Player) {
-						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						for(Entity entity : xp.getPlayer().getNearbyEntities(40, 40, 40)) {
 							if(entity instanceof Player) {
 								Player p = (Player) entity;
@@ -31,9 +37,9 @@ public class CmdNuke {
 						Warnings.getWarnings(sender).consoleMessage();
 					}
 				} else if(args.length == 1) {
-					Player p = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 					if(p instanceof Player) {
-						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 						for(Entity entity : xp.getPlayer().getNearbyEntities(40, 40, 40)) {
 							if(entity instanceof Player) {
 								Player r = (Player) entity;

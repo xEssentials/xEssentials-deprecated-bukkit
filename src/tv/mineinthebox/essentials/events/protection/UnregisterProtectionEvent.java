@@ -1,7 +1,5 @@
 package tv.mineinthebox.essentials.events.protection;
 
-import java.util.HashSet;
-
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,27 +9,39 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
-import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.enums.ProtectionType;
+import tv.mineinthebox.essentials.managers.ProtectionDBManager;
 
 public class UnregisterProtectionEvent implements Listener {
-
-	public static HashSet<String> players = new HashSet<String>();
+	
+	private final ProtectionDBManager manager;
+	
+	public UnregisterProtectionEvent(xEssentials pl) {
+		this.manager = pl.getManagers().getProtectionDBManager();
+	}
 
 	@EventHandler(ignoreCancelled = true)
 	public void onInteract(PlayerInteractEvent e) {
 		if(e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-			if(players.contains(e.getPlayer().getName())) {
-				if(xEssentials.getManagers().getProtectionDBManager().isRegistered(e.getClickedBlock())) {
-					if(xEssentials.getManagers().getProtectionDBManager().isOwner(e.getPlayer().getName(), e.getClickedBlock()) || e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-						xEssentials.getManagers().getProtectionDBManager().unregister(e.getPlayer().getName(), e.getClickedBlock());
-						e.getPlayer().sendMessage(ChatColor.GREEN + "you have successfully unregistered " + e.getClickedBlock().getType().name());
-						players.remove(e.getPlayer().getName());
+			if(manager.hasSession(e.getPlayer().getName())) {
+				ProtectionType type = (ProtectionType)manager.getSessionData(e.getPlayer().getName())[0];
+				if(type == ProtectionType.REMOVE) {
+					if(manager.isRegistered(e.getClickedBlock())) {
+						if(manager.isOwner(e.getPlayer().getName(), e.getClickedBlock())) {
+							manager.unregister(e.getPlayer().getName(), e.getClickedBlock());
+							e.getPlayer().sendMessage(ChatColor.GRAY + "you have successfully unregistered " + e.getClickedBlock().getType().name());
+							manager.removeSession(e.getPlayer().getName());
+							e.setCancelled(true);
+						} else {
+							e.getPlayer().sendMessage(ChatColor.RED + "you are not the owner of this block!");
+							manager.removeSession(e.getPlayer().getName());
+							e.setCancelled(true);
+						}
+					} else {
+						e.getPlayer().sendMessage(ChatColor.RED + "this block was already unregistered.");
+						manager.removeSession(e.getPlayer().getName());
 						e.setCancelled(true);
 					}
-				} else {
-					e.getPlayer().sendMessage(ChatColor.RED + "this block was already unregistered.");
-					players.remove(e.getPlayer().getName());
-					e.setCancelled(true);
 				}
 			}
 		}
@@ -39,15 +49,15 @@ public class UnregisterProtectionEvent implements Listener {
 	
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
-		if(players.contains(e.getPlayer().getName())) {
-			players.remove(e.getPlayer().getName());
+		if(manager.hasSession(e.getPlayer().getName())){
+			manager.removeSession(e.getPlayer().getName());
 		}
 	}
 	
 	@EventHandler
 	public void onQuit(PlayerKickEvent e) {
-		if(players.contains(e.getPlayer().getName())) {
-			players.remove(e.getPlayer().getName());
+		if(manager.hasSession(e.getPlayer().getName())){
+			manager.removeSession(e.getPlayer().getName());
 		}
 	}
 

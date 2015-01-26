@@ -9,12 +9,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.instances.Shop;
 
 public class AdminShopInventoryEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public AdminShopInventoryEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler
 	public void onOpen(InventoryClickEvent e) {
@@ -32,10 +37,10 @@ public class AdminShopInventoryEvent implements Listener {
 				Sign sign = (Sign)p.getMetadata("shop").get(0).value();
 				Shop shop = new Shop(sign);
 
-				if(Configuration.getEconomyConfig().isEconomyEnabled()) {
+				if(pl.getConfiguration().getEconomyConfig().isEconomyEnabled()) {
 					if(p.getInventory().firstEmpty() != -1) {
-						if(xEssentials.getManagers().getEcoManager().hasEnough(e.getWhoClicked().getName(), shop.getBuyPrice())) {
-							xEssentials.getManagers().getEcoManager().withdrawMoney(p.getName(), shop.getBuyPrice());
+						if(pl.getManagers().getEcoManager().hasEnough(e.getWhoClicked().getName(), shop.getBuyPrice())) {
+							pl.getManagers().getEcoManager().withdrawMoney(p.getName(), shop.getBuyPrice());
 							p.getInventory().addItem(shop.getItem());
 							p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1F, 1F);
 							p.sendMessage(ChatColor.GREEN + "[Shop] " + ChatColor.GRAY + " you successfully bought a item from the admin shop!");
@@ -51,8 +56,8 @@ public class AdminShopInventoryEvent implements Listener {
 					}
 				} else if(Hooks.isVaultEcoEnabled()) {
 					if(p.getInventory().firstEmpty() != -1) {
-						if(xEssentials.getManagers().getVaultManager().hasEnough(e.getWhoClicked().getName(), shop.getBuyPrice())) {
-							xEssentials.getManagers().getVaultManager().withdraw(p.getName(), shop.getBuyPrice());
+						if(pl.getManagers().getVaultManager().hasEnough(e.getWhoClicked().getName(), shop.getBuyPrice())) {
+							pl.getManagers().getVaultManager().withdraw(p.getName(), shop.getBuyPrice());
 							p.getInventory().addItem(shop.getItem());
 							p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1F, 1F);
 							p.sendMessage(ChatColor.GREEN + "[Shop] " + ChatColor.GRAY + " you successfully bought a item from the admin shop!");

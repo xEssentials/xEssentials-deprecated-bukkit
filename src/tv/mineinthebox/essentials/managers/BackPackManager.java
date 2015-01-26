@@ -20,7 +20,13 @@ import tv.mineinthebox.essentials.instances.Backpack;
 public class BackPackManager {
 
 	private final Set<Backpack> backpacks = new HashSet<Backpack>();
+	
+	private final xEssentials pl;
 
+	public BackPackManager(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	public boolean isBackpack(Backpack pack) {
 		return backpacks.contains(pack);
 	}
@@ -83,7 +89,7 @@ public class BackPackManager {
 				File[] files = dir.listFiles();
 				for(File f : files) {
 					FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-					Backpack pack = new Backpack(f, con);
+					Backpack pack = new Backpack(f, con, pl);
 					backpacks.add(pack);
 				}
 			}
@@ -117,7 +123,7 @@ public class BackPackManager {
 			e.printStackTrace();
 		}
 
-		Backpack pack = new Backpack(f, con);
+		Backpack pack = new Backpack(f, con, pl);
 		addBackpack(pack);
 		return pack;
 	}

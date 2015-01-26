@@ -9,11 +9,16 @@ import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.hook.Hooks;
 
 public class KillBountyEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public KillBountyEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	@EventHandler
 	public void onSpawn(CreatureSpawnEvent e) {
@@ -30,8 +35,8 @@ public class KillBountyEvent implements Listener {
 				if(e.getEntity().hasMetadata("spawner")) {
 					return;
 				}
-				xEssentials.getManagers().getVaultManager().desposit(p, Configuration.getPvpConfig().getKillBountyPrice());
-				p.sendMessage(ChatColor.GOLD + "you earned " + Configuration.getPvpConfig().getKillBountyPrice() + "$! by killing " + ChatColor.GREEN + e.getEntity().getType().name().toLowerCase().replace("_", " "));
+				pl.getManagers().getVaultManager().desposit(p, pl.getConfiguration().getPvpConfig().getKillBountyPrice());
+				p.sendMessage(ChatColor.GOLD + "you earned " + pl.getConfiguration().getPvpConfig().getKillBountyPrice() + "$! by killing " + ChatColor.GREEN + e.getEntity().getType().name().toLowerCase().replace("_", " "));
 			}
 		}
 	}

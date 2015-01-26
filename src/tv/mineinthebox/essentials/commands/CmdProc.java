@@ -16,9 +16,15 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdProc {
 	
+	private final xEssentials pl;
+	
+	public CmdProc(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
-		for(XOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer name : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
 				s.add(name.getUser());
 			}
@@ -43,7 +49,7 @@ public class CmdProc {
 			if(sender.hasPermission(PermissionKey.CMD_PROC.getPermission())) {
 				if(args.length == 0) {
 					if(sender instanceof Player) {
-						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.hasProc()) {
 							xp.setProc(false);
 							sender.sendMessage(ChatColor.GREEN + "proc has been disabled");
@@ -55,9 +61,9 @@ public class CmdProc {
 						Warnings.getWarnings(sender).consoleMessage();
 					}
 				} else if(args.length == 1) {
-					if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-						if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+					if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
+						if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
+							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 							if(xp.hasProc()) {
 								xp.setProc(false);
 								sender.sendMessage(ChatColor.GREEN + "proc has been disabled for player " + xp.getUser() + "!");

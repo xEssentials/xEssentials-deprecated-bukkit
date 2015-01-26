@@ -13,13 +13,19 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdDrunk {
 	
+	private final xEssentials pl;
+	
+	public CmdDrunk(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("drunk")) {
 			if(sender.hasPermission(PermissionKey.CMD_DRUNK.getPermission())) {
 				if(args.length == 0) {
 					if(sender instanceof Player) {
-						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.isDrunk()) {
 							xp.setDrunk(false);
 							sender.sendMessage(ChatColor.GREEN + "you have successfully disabled drunk chat");
@@ -33,7 +39,7 @@ public class CmdDrunk {
 				} else if(args.length == 1) {
 					Player p = Bukkit.getPlayer(args[0]);
 					if(p instanceof Player) {
-						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 						if(xp.isDrunk()) {
 							xp.setDrunk(false);
 							p.sendMessage(ChatColor.GREEN + sender.getName() + " has successfully disabled drunk chat on you");
@@ -44,7 +50,7 @@ public class CmdDrunk {
 							sender.sendMessage(ChatColor.GREEN + "you have enabled drunk mode for " + p.getName());
 						}
 					} else {
-						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
+						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
 							sender.sendMessage(ChatColor.RED + "player is offline!");
 						} else {
 							Warnings.getWarnings(sender).playerHasNeverPlayedBefore();

@@ -18,10 +18,16 @@ import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdTpId {
+	
+	private final xEssentials pl;
+	
+	public CmdTpId(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
-		for(XOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer name : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
 				s.add(name.getUser());
 			}
@@ -31,8 +37,8 @@ public class CmdTpId {
 
 	private List<String> getModreqs(String player, String id) {
 		List<String> s = new ArrayList<String>();
-		if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(player)) {
-			XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(player);
+		if(pl.getManagers().getPlayerManager().isEssentialsPlayer(player)) {
+			XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(player);
 			for(Modreq mod : off.getModreqs()) {
 				String id2 = mod.getId()+"";
 				if(id2.startsWith(id)) {
@@ -72,9 +78,9 @@ public class CmdTpId {
 				} else if(args.length == 2) {
 					if(sender instanceof Player) {
 						Player p = (Player) sender;
-						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-							if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
+							if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
+								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 								if(xp.hasModreqsOpen()) {
 									if(isNumberic(args[1])) {
 										int id = Integer.parseInt(args[1]);
@@ -92,7 +98,7 @@ public class CmdTpId {
 									}
 								}
 							} else {
-								XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								if(off.hasModreqsOpen()) {
 									if(isNumberic(args[1])) {
 										int id = Integer.parseInt(args[1]);

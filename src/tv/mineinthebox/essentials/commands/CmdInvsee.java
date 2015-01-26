@@ -16,9 +16,15 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdInvsee {
 	
+	private final xEssentials pl;
+	
+	public CmdInvsee(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
-		for(XOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer name : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
 				s.add(name.getUser());
 			} else if("help".toUpperCase().startsWith(p.toUpperCase())) {
@@ -59,10 +65,10 @@ public class CmdInvsee {
 					if(sender instanceof Player) {
 						if(sender.hasPermission(PermissionKey.CMD_INVSEE.getPermission())) {
 							Player p = (Player) sender;
-							Player a = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+							Player a = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 							if(a instanceof Player) {
-								if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
-									XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+								if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
+									XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 									p.openInventory(xp.getOnlineInventory());
 									sender.sendMessage(ChatColor.GREEN + "opening live inventory of player " + xp.getUser());
 								} else {
@@ -70,7 +76,7 @@ public class CmdInvsee {
 								}
 							} else {
 								try {
-									XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+									XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 									if(off.hasOfflineInventory()) {
 										p.openInventory(off.getOfflineInventory(p));
 										sender.sendMessage(ChatColor.GREEN + "opening offline inventory of player " + off.getUser());

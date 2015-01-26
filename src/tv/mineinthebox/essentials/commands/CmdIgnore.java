@@ -15,10 +15,16 @@ import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdIgnore {
+	
+	private final xEssentials pl;
+	
+	public CmdIgnore(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
-		for(XOfflinePlayer name : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+		for(XOfflinePlayer name : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
 			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
 				s.add(name.getUser());
 			}
@@ -46,9 +52,9 @@ public class CmdIgnore {
 						sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/ignore <player> " + ChatColor.WHITE + ": toggles ignore for the specified player");
 					} else if(args.length == 1) {
 						if(!sender.getName().equalsIgnoreCase(args[0])) {
-							if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-								String name = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getUser();
-								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+							if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
+								String name = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getUser();
+								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 								if(xp.hasIgnoredPlayers()) {
 									if(xp.getIgnoredPlayers().contains(name)) {
 										xp.removeIgnoredPlayer(name);

@@ -14,11 +14,11 @@ public class PlayerAfkEvent extends PlayerEvent {
 	private boolean whasAfk;
 	private XPlayer xp;
 	
-	public PlayerAfkEvent(Player who, Boolean isAfk, Boolean whasAfk) {
+	public PlayerAfkEvent(Player who, boolean isAfk, boolean whasAfk, xEssentials pl) {
 		super(who);
 		this.isAfk = isAfk;
 		this.whasAfk = whasAfk;
-		this.xp = xEssentials.getManagers().getPlayerManager().getPlayer(who.getName());
+		this.xp = pl.getManagers().getPlayerManager().getPlayer(who.getName());
 	}
 	
 	/**

@@ -13,17 +13,22 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.Portal;
 
 public class CmdPortals {
+	
+	private final xEssentials pl;
+	
+	public CmdPortals(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	private List<String> getPortals(String p) {
 		List<String> list = new ArrayList<String>();
-		for(Portal portal : Configuration.getPortalConfig().getPortals().values()) {
+		for(Portal portal : pl.getConfiguration().getPortalConfig().getPortals().values()) {
 			if(portal.getPortalName().startsWith(p)) {
 				list.add(portal.getPortalName());
 			}
@@ -74,7 +79,7 @@ public class CmdPortals {
 						File dir = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "portals");
 						if(dir.isDirectory()) {
 							StringBuilder build = new StringBuilder();
-							HashMap<String, Portal> portals = new HashMap<String, Portal>(Configuration.getPortalConfig().getPortals());
+							HashMap<String, Portal> portals = new HashMap<String, Portal>(pl.getConfiguration().getPortalConfig().getPortals());
 							for(int i = 0; i < portals.values().size(); i++) {
 								Portal portal = portals.values().toArray(new Portal[portals.size()])[i];
 								if(i == portals.values().size()) {
@@ -101,7 +106,7 @@ public class CmdPortals {
 						}
 					} else if(args[0].equalsIgnoreCase("remove")) {
 						try {
-							Portal portal = Configuration.getPortalConfig().getPortal(args[1]);
+							Portal portal = pl.getConfiguration().getPortalConfig().getPortal(args[1]);
 							portal.remove();
 							sender.sendMessage(ChatColor.GREEN + "you have successfully removed portal " + args[1]);
 						} catch(Exception e) {
@@ -124,8 +129,8 @@ public class CmdPortals {
 				} else if(args.length == 3) {
 					if(args[0].equalsIgnoreCase("link")) {
 						try {
-							Portal portal1 = Configuration.getPortalConfig().getPortal(args[1]);
-							Portal portal2 = Configuration.getPortalConfig().getPortal(args[2]);
+							Portal portal1 = pl.getConfiguration().getPortalConfig().getPortal(args[1]);
+							Portal portal2 = pl.getConfiguration().getPortalConfig().getPortal(args[2]);
 							portal1.linkPortal(portal2.getPortalName(), true);
 							sender.sendMessage(ChatColor.GREEN + "you have successfully linked portal " + portal1.getPortalName() + " to " + portal2.getPortalName());
 						} catch(Exception e) {

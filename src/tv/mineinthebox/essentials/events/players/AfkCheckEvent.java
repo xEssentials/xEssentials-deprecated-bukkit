@@ -14,13 +14,18 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.events.customevents.PlayerAfkEvent;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 @SuppressWarnings("deprecation")
 public class AfkCheckEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public AfkCheckEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler
 	public void removeAfk(PlayerMoveEvent e) {
@@ -36,24 +41,24 @@ public class AfkCheckEvent implements Listener {
 			double destz = (distanceZmax - distanceZmin);
 
 			if(destx > 0.0) {
-				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 				if(xp.isAfk()) {
 					if(xp.isVanished()) {
 						return;
 					}
 					xp.removeAfk();
 					Bukkit.broadcastMessage(ChatColor.GREEN + e.getPlayer().getName() + " is no longer afk");
-					Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), false, true));
+					Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), false, true, pl));
 				}
 			} else if(destz > 0.0) {
-				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 				if(xp.isAfk()) {
 					if(xp.isVanished()) {
 						return;
 					}
 					xp.removeAfk();
 					Bukkit.broadcastMessage(ChatColor.GREEN + e.getPlayer().getName() + " is no longer afk");
-					Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), false, true));
+					Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), false, true, pl));
 				}
 			}
 		}
@@ -66,8 +71,8 @@ public class AfkCheckEvent implements Listener {
 		}
 		if(e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
-			if(Configuration.getPlayerConfig().isGodModeInAfkEnabled()) {
-				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+			if(pl.getConfiguration().getPlayerConfig().isGodModeInAfkEnabled()) {
+				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.isAfk()) {
 					e.setCancelled(true);
 				}
@@ -82,8 +87,8 @@ public class AfkCheckEvent implements Listener {
 		}
 		if(e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
-			if(Configuration.getPlayerConfig().isGodModeInAfkEnabled()) {
-				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+			if(pl.getConfiguration().getPlayerConfig().isGodModeInAfkEnabled()) {
+				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.isAfk()) {
 					e.setDamage(0.0F);
 					e.setCancelled(true);
@@ -96,8 +101,8 @@ public class AfkCheckEvent implements Listener {
 	public void isGodModeAfk(EntityTargetEvent e) {
 		if(e.getTarget() instanceof Player) {
 			Player p = (Player) e.getTarget();
-			if(Configuration.getPlayerConfig().isGodModeInAfkEnabled()) {
-				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+			if(pl.getConfiguration().getPlayerConfig().isGodModeInAfkEnabled()) {
+				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.isAfk()) {
 					e.setCancelled(true);
 				}
@@ -109,8 +114,8 @@ public class AfkCheckEvent implements Listener {
 	public void isGodModeAfk(EntityTargetLivingEntityEvent e) {
 		if(e.getTarget() instanceof Player) {
 			Player p = (Player) e.getTarget();
-			if(Configuration.getPlayerConfig().isGodModeInAfkEnabled()) {
-				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+			if(pl.getConfiguration().getPlayerConfig().isGodModeInAfkEnabled()) {
+				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.isAfk()) {
 					e.setCancelled(true);
 				}
@@ -123,8 +128,8 @@ public class AfkCheckEvent implements Listener {
 	public void isGodModeAfk(FoodLevelChangeEvent e) {
 		if(e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
-			if(Configuration.getPlayerConfig().isGodModeInAfkEnabled()) {
-				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+			if(pl.getConfiguration().getPlayerConfig().isGodModeInAfkEnabled()) {
+				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.isAfk()) {
 					e.setCancelled(true);
 				}
@@ -134,7 +139,7 @@ public class AfkCheckEvent implements Listener {
 
 	@EventHandler
 	public void chatAfk(PlayerChatEvent e) {
-		for(XPlayer xp : xEssentials.getManagers().getPlayerManager().getPlayers()) {
+		for(XPlayer xp : pl.getManagers().getPlayerManager().getPlayers()) {
 			if(e.getMessage().contains(xp.getPlayer().getName())) {
 				if(xp.isAfk()) {
 					e.getPlayer().sendMessage(ChatColor.GREEN + xp.getPlayer().getName() + " has been afk [ " + xp.getAfkReason() + " ]");

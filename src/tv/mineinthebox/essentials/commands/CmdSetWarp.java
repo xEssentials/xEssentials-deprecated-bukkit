@@ -11,6 +11,12 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdSetWarp {
 	
+	private final xEssentials pl;
+	
+	public CmdSetWarp(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("setwarp")) {
 			if(sender.hasPermission(PermissionKey.CMD_SETWARP.getPermission())) {
@@ -21,10 +27,10 @@ public class CmdSetWarp {
 				} else if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("help")) {
 						sender.sendMessage(ChatColor.RED + "you cannot make a warp named help.");
-					} else if(!xEssentials.getManagers().getWarpManager().isWarp(args[0])) {
-						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(sender.getName())) {
-							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
-							xEssentials.getManagers().getWarpManager().setWarp(args[0], xp.getPlayer(), xp.getPlayer().getLocation());
+					} else if(!pl.getManagers().getWarpManager().isWarp(args[0])) {
+						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(sender.getName())) {
+							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
+							pl.getManagers().getWarpManager().setWarp(args[0], xp.getPlayer(), xp.getPlayer().getLocation());
 							sender.sendMessage(ChatColor.GREEN + "you successfully saved your warp!");
 						} else {
 							Warnings.getWarnings(sender).consoleMessage();

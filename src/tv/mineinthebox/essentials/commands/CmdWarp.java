@@ -17,8 +17,14 @@ import tv.mineinthebox.essentials.instances.Warp;
 
 public class CmdWarp {
 	
+	private final xEssentials pl;
+	
+	public CmdWarp(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	private List<String> getwarps(String p) {
-		List<Warp> s = new ArrayList<Warp>(Arrays.asList(xEssentials.getManagers().getWarpManager().getWarps()));
+		List<Warp> s = new ArrayList<Warp>(Arrays.asList(pl.getManagers().getWarpManager().getWarps()));
 		List<String> tabs = new ArrayList<String>();
 		for(Warp warp : s) {
 			if(warp.getWarpName().toLowerCase().startsWith(p.toLowerCase())) {
@@ -61,8 +67,8 @@ public class CmdWarp {
 					} else {
 						if(sender instanceof Player) {
 							Player p = (Player) sender;
-							if(xEssentials.getManagers().getWarpManager().isWarp(args[0])) {
-								Warp warp = xEssentials.getManagers().getWarpManager().getWarp(args[0], (Player)sender);
+							if(pl.getManagers().getWarpManager().isWarp(args[0])) {
+								Warp warp = pl.getManagers().getWarpManager().getWarp(args[0], (Player)sender);
 								warp.getWarpLocation().getWorld().refreshChunk(warp.getWarpLocation().getChunk().getX(), warp.getWarpLocation().getChunk().getZ());
 								p.teleport(warp.getWarpLocation(), TeleportCause.COMMAND);
 								sender.sendMessage(ChatColor.GREEN + "teleporting to warp " + warp.getWarpName());
@@ -74,10 +80,10 @@ public class CmdWarp {
 						}
 					}
 				} else if(args.length == 2) {
-					Player p = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 					if(p instanceof Player) {
-						if(xEssentials.getManagers().getWarpManager().isWarp(args[1])) {
-							Warp warp = xEssentials.getManagers().getWarpManager().getWarp(args[1], (Player)sender);
+						if(pl.getManagers().getWarpManager().isWarp(args[1])) {
+							Warp warp = pl.getManagers().getWarpManager().getWarp(args[1], (Player)sender);
 							warp.getWarpLocation().getWorld().refreshChunk(warp.getWarpLocation().getChunk().getX(), warp.getWarpLocation().getChunk().getZ());
 							p.teleport(warp.getWarpLocation(), TeleportCause.COMMAND);
 							p.sendMessage(ChatColor.GREEN + "teleporting to warp " + warp.getWarpName());

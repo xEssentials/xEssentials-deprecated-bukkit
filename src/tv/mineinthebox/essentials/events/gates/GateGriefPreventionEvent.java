@@ -11,11 +11,17 @@ import tv.mineinthebox.essentials.xEssentials;
 
 public class GateGriefPreventionEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public GateGriefPreventionEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	
 	@EventHandler
 	public void onExplosive(EntityExplodeEvent e) {
 		for(Block block : e.blockList()) {
-			if(xEssentials.getManagers().getGateManager().isGateFenceBlock(block) || xEssentials.getManagers().getGateManager().isGateFrameBlock(block)) {
+			if(pl.getManagers().getGateManager().isGateFenceBlock(block) || pl.getManagers().getGateManager().isGateFrameBlock(block)) {
 				e.setCancelled(true);
 				break;
 			}
@@ -25,7 +31,7 @@ public class GateGriefPreventionEvent implements Listener {
 	@EventHandler
 	public void onPiston(BlockPistonExtendEvent e) {
 		for(Block block : e.getBlocks()) {
-			if(xEssentials.getManagers().getGateManager().isGateFenceBlock(block) || xEssentials.getManagers().getGateManager().isGateFrameBlock(block)) {
+			if(pl.getManagers().getGateManager().isGateFenceBlock(block) || pl.getManagers().getGateManager().isGateFrameBlock(block)) {
 				e.setCancelled(true);
 				break;
 			}
@@ -34,7 +40,7 @@ public class GateGriefPreventionEvent implements Listener {
 
 	@EventHandler
 	public void onPiston(BlockPistonRetractEvent e) {
-		if(xEssentials.getManagers().getGateManager().isGateFenceBlock(e.getBlock()) || xEssentials.getManagers().getGateManager().isGateFrameBlock(e.getBlock())) {
+		if(pl.getManagers().getGateManager().isGateFenceBlock(e.getBlock()) || pl.getManagers().getGateManager().isGateFrameBlock(e.getBlock())) {
 			e.setCancelled(true);
 		}
 	}

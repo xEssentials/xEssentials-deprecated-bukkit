@@ -8,6 +8,12 @@ import org.bukkit.event.block.BlockBreakEvent;
 import tv.mineinthebox.essentials.xEssentials;
 
 public class GateBreakEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public GateBreakEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler
 	public void onBreak(BlockBreakEvent e) {
@@ -15,10 +21,10 @@ public class GateBreakEvent implements Listener {
 			return;
 		}
 		
-		if(xEssentials.getManagers().getGateManager().isGateFenceBlock(e.getBlock())) {
+		if(pl.getManagers().getGateManager().isGateFenceBlock(e.getBlock())) {
 			e.getPlayer().sendMessage(ChatColor.RED + "you cannot break this block!");
 			e.setCancelled(true);
-		} else if(xEssentials.getManagers().getGateManager().isGateFrameBlock(e.getBlock())) {
+		} else if(pl.getManagers().getGateManager().isGateFrameBlock(e.getBlock())) {
 			e.getPlayer().sendMessage(ChatColor.RED + "you cannot break this block!");
 			e.setCancelled(true);
 		}

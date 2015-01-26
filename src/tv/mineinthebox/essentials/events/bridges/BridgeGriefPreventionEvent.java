@@ -11,10 +11,16 @@ import tv.mineinthebox.essentials.xEssentials;
 
 public class BridgeGriefPreventionEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public BridgeGriefPreventionEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@EventHandler
 	public void onExplosive(EntityExplodeEvent e) {
 		for(Block block : e.blockList()) {
-			if(xEssentials.getManagers().getBridgeManager().isBridgeBlock(block) || xEssentials.getManagers().getBridgeManager().isBridgeSign(block)) {
+			if(pl.getManagers().getBridgeManager().isBridgeBlock(block) || pl.getManagers().getBridgeManager().isBridgeSign(block)) {
 				e.setCancelled(true);
 			}
 		}
@@ -23,7 +29,7 @@ public class BridgeGriefPreventionEvent implements Listener {
 	@EventHandler
 	public void onPiston(BlockPistonExtendEvent e) {
 		for(Block block : e.getBlocks()) {
-			if(xEssentials.getManagers().getBridgeManager().isBridgeBlock(block) || xEssentials.getManagers().getBridgeManager().isBridgeSign(block)) {
+			if(pl.getManagers().getBridgeManager().isBridgeBlock(block) || pl.getManagers().getBridgeManager().isBridgeSign(block)) {
 				e.setCancelled(true);
 				break;
 			}
@@ -32,7 +38,7 @@ public class BridgeGriefPreventionEvent implements Listener {
 
 	@EventHandler
 	public void onPiston(BlockPistonRetractEvent e) {
-		if(xEssentials.getManagers().getBridgeManager().isBridgeBlock(e.getBlock()) || xEssentials.getManagers().getBridgeManager().isBridgeSign(e.getBlock())) {
+		if(pl.getManagers().getBridgeManager().isBridgeBlock(e.getBlock()) || pl.getManagers().getBridgeManager().isBridgeSign(e.getBlock())) {
 			e.setCancelled(true);
 		}
 	}

@@ -11,6 +11,12 @@ import tv.mineinthebox.essentials.enums.PermissionKey;
 
 public class CmdSmite {
 	
+	private final xEssentials pl;
+	
+	public CmdSmite(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("smite")) {
 			if(sender.hasPermission(PermissionKey.CMD_SMITE.getPermission())) {
@@ -23,7 +29,7 @@ public class CmdSmite {
 						Warnings.getWarnings(sender).consoleMessage();
 					}
 				} else if(args.length == 1) {
-					Player p =xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 					if(p instanceof Player) {
 						p.getWorld().strikeLightning(p.getLocation());
 						p.sendMessage(ChatColor.GRAY + "you got smited!");

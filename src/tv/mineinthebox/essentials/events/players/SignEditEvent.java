@@ -12,13 +12,18 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Sign;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.hook.LWCHook;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class SignEditEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public SignEditEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onEditSign(SignChangeEvent e) {
@@ -26,17 +31,17 @@ public class SignEditEvent implements Listener {
 		Block other = e.getBlock().getRelative(sign.getFacing().getOppositeFace());
 		if(other.getType() == Material.WALL_SIGN || other.getType() == Material.SIGN_POST) {
 			org.bukkit.block.Sign signn = (org.bukkit.block.Sign)other.getState();
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isEditSignEnabled()) {
-				if(Configuration.getProtectionConfig().isProtectionEnabled()) {
-					if(xEssentials.getManagers().getProtectionDBManager().isOwner(e.getPlayer().getName(), other)) {
+				if(pl.getConfiguration().getProtectionConfig().isProtectionEnabled()) {
+					if(pl.getManagers().getProtectionDBManager().isOwner(e.getPlayer().getName(), other)) {
 						signn.setLine(0, e.getLine(0));
 						signn.setLine(1, e.getLine(1));
 						signn.setLine(2, e.getLine(2));
 						signn.setLine(3, e.getLine(3));
 						signn.update(true);
 						e.getPlayer().sendMessage(ChatColor.GREEN + "successfully edited sign.");
-						xEssentials.getManagers().getProtectionDBManager().unregister(e.getPlayer().getName(), e.getBlock());
+						pl.getManagers().getProtectionDBManager().unregister(e.getPlayer().getName(), e.getBlock());
 						e.getBlock().setType(Material.AIR);
 						Bukkit.getPluginManager().callEvent(new BlockPlaceEvent(signn.getBlock(), signn, signn.getBlock(), new ItemStack(Material.SIGN, 1), e.getPlayer(), true));
 					} else {

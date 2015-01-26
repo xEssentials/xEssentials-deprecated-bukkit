@@ -11,13 +11,19 @@ import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdFloor {
+	
+	private final xEssentials pl;
+	
+	public CmdFloor(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("floor")) {
 			if(sender.hasPermission(PermissionKey.CMD_FLOOR.getPermission())) {
 				if(sender instanceof Player) {
 					if(args.length == 0) {
-						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.isFloorMode()) {
 							xp.setFloorMode(false, xp.getFloorModeRange());
 							sender.sendMessage(ChatColor.GRAY + "floor mode disabled!");
@@ -31,7 +37,7 @@ public class CmdFloor {
 							sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/floor " + ChatColor.WHITE + ": creates a floor within a block section");
 							sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/floor <number>" + ChatColor.WHITE + ": creates a floor within a range in a block section");
 						} else {
-							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 							int range = Integer.parseInt(args[0]);
 							xp.setFloorMode(true, range);
 							sender.sendMessage(ChatColor.GRAY + "floor mode is enabled!");

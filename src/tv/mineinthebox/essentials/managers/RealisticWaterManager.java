@@ -22,7 +22,12 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 public class RealisticWaterManager {
 
 	private final Random rand = new Random();
+	private final xEssentials pl;
 	private boolean cancel = false;
+	
+	public RealisticWaterManager(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	public void stop() {
 		this.cancel = true;
@@ -43,8 +48,8 @@ public class RealisticWaterManager {
 				if(cancel) {
 					cancel();
 				}
-				for(Player p : xEssentials.getOnlinePlayers()) {
-					XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+				for(Player p : pl.getOnlinePlayers()) {
+					XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 					if(hasWaterBlocksNearby(p)) {
 						if(p.getLocation().getBlock().getRelative(BlockFace.UP).getRelative(BlockFace.UP).getType() != Material.STATIONARY_WATER && !xp.isVanished() && !xp.isFishing()) {
 								Block[] water = getWaterBlocks(p);

@@ -9,13 +9,18 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class RemoveShopEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public RemoveShopEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	@EventHandler
 	public void onRemove(BlockBreakEvent e) {
@@ -24,12 +29,12 @@ public class RemoveShopEvent implements Listener {
 		if(e.getBlock().getType() == Material.SIGN_POST || e.getBlock().getType() == Material.WALL_SIGN) {
 			Sign sign = (Sign) e.getBlock().getState();
 			if(isShopSign(sign.getLines(), false)) {
-				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 				if(xp.isShop(e.getBlock().getLocation())) {
 					xp.removeShop(e.getBlock().getLocation());
 					e.getPlayer().sendMessage(ChatColor.GREEN + "[Shop] " + ChatColor.GRAY + " shop unregistered!");
 				} else if(e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-					for(XOfflinePlayer off : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+					for(XOfflinePlayer off : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
 						if(off.isShop(e.getBlock().getLocation())) {
 							off.removeShop(e.getBlock().getLocation());
 							e.getPlayer().sendMessage(ChatColor.GREEN + "[Shop] " + ChatColor.GRAY + " shop of " + off.getUser() + " is unregistered!");
@@ -75,7 +80,7 @@ public class RemoveShopEvent implements Listener {
 	
 	private boolean isShopSign(String[] lines, boolean isAdmin) {
 		if(isAdmin) {
-			if(lines[0].equalsIgnoreCase(ChatColor.stripColor(Configuration.getShopConfig().getAdminShopPrefix()))) {
+			if(lines[0].equalsIgnoreCase(ChatColor.stripColor(pl.getConfiguration().getShopConfig().getAdminShopPrefix()))) {
 				if(lines[1].matches("[0-9]+")) {
 					int amount = Integer.parseInt(lines[1]);
 					if(amount <= 64) {

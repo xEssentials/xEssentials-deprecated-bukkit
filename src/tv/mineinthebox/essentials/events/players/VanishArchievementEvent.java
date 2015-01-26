@@ -9,9 +9,15 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class VanishArchievementEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public VanishArchievementEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@EventHandler
 	public void hideAchievement(PlayerAchievementAwardedEvent e) {
-		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		if(xp.isVanished()) {
 			e.setCancelled(true);
 		}

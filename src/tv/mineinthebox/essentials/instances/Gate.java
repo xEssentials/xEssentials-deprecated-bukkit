@@ -19,12 +19,14 @@ public class Gate {
 
 	private final File f;
 	private final FileConfiguration con;
+	private final xEssentials pl;
 
 	private Block sign;
 
-	public Gate(File f, FileConfiguration con) {
+	public Gate(File f, FileConfiguration con, xEssentials pl) {
 		this.f = f;
 		this.con = con;
+		this.pl = pl;
 	}
 
 	public Block getSignBlock() {
@@ -121,8 +123,8 @@ public class Gate {
 		} else {
 			f.delete();
 		}
-		if(xEssentials.getManagers().getGateManager().contains(this)) {
-			xEssentials.getManagers().getGateManager().removeGate(this);
+		if(pl.getManagers().getGateManager().contains(this)) {
+			pl.getManagers().getGateManager().removeGate(this);
 		}
 	}
 

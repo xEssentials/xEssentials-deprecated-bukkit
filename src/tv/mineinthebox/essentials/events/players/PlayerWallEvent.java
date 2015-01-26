@@ -13,6 +13,12 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class PlayerWallEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public PlayerWallEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@SuppressWarnings("deprecation")
 	@EventHandler
@@ -21,7 +27,7 @@ public class PlayerWallEvent implements Listener {
 			return;
 		}
 
-		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		if(xp.isWallMode()) {
 			xp.setWallMode(false, xp.getWallModeRange());
 			Location loc = e.getBlockPlaced().getLocation();

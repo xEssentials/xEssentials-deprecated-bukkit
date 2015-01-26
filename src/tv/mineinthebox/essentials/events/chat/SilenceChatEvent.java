@@ -27,7 +27,7 @@ public class SilenceChatEvent implements Listener {
 			e.getPlayer().sendMessage(ChatColor.GREEN + "all chat activity has been halted!, please wait a few minuts.");
 			e.setCancelled(true);
 		} else {
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isSilenced()) {
 				e.getPlayer().sendMessage(ChatColor.GREEN + "you have silenced your chat, so you cannot chat unless you unmute your self with /silence");
 				e.setCancelled(true);
@@ -39,7 +39,7 @@ public class SilenceChatEvent implements Listener {
 			Iterator<Player> it = e.getRecipients().iterator();
 			
 			for(Player p = null; it.hasNext(); p=it.next()) {
-				XPlayer xp2 = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+				XPlayer xp2 = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp2.isSilenced()) {
 					it.remove();
 				}

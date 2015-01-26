@@ -14,13 +14,18 @@ import org.bukkit.Bukkit;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 
 public class MojangUUID {
 
 	private ExecutorService service;
+	
+	private final xEssentials pl;
+	
+	public MojangUUID(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	public boolean isVersionSupported() {
 		if(isClass("net.minecraft.util.com.mojang.authlib.GameProfile")) {
@@ -74,13 +79,13 @@ public class MojangUUID {
 	@SuppressWarnings("deprecation")
 	public String getUniqueId(String name) throws Exception {
 		if(isVersionSupported()) {
-			if(Configuration.getDebugConfig().isEnabled()) {
-				xEssentials.getPlugin().log("version is supported, we are using the build in uuid system instead", LogType.DEBUG);
+			if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+				xEssentials.log("version is supported, we are using the build in uuid system instead", LogType.DEBUG);
 			}
 			return Bukkit.getPlayer(name).getUniqueId().toString().replaceAll("-", "");
 		} else {
-			if(Configuration.getDebugConfig().isEnabled()) {
-				xEssentials.getPlugin().log("this version of bukkit does not have a inbuild version of the uuid system, so we will fetch the uuid manually", LogType.DEBUG);
+			if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+				xEssentials.log("this version of bukkit does not have a inbuild version of the uuid system, so we will fetch the uuid manually", LogType.DEBUG);
 			}
 			String uuid = "";
 			if(service != null) {

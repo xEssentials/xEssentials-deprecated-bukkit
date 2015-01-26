@@ -11,11 +11,17 @@ import tv.mineinthebox.essentials.hook.WorldGuardHook;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class PlayerJoinMessageEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public PlayerJoinMessageEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler
 	public void onjoin(PlayerJoinEvent e) {
-		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			
 			xp.setCustomName(xp.getCustomName());
 			

@@ -11,7 +11,6 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerEvent;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.instances.xEssentialsOfflinePlayer;
@@ -24,10 +23,14 @@ public class PlayerChatHighLightEvent extends PlayerEvent implements Cancellable
 	private String[] CalledPlayerNames;
 
 	private static final HandlerList handlers = new HandlerList();
-	public PlayerChatHighLightEvent(PlayerChatEvent e, String[] CalledPlayerNames) {
+	
+	private final xEssentials pl;
+	
+	public PlayerChatHighLightEvent(PlayerChatEvent e, String[] CalledPlayerNames, xEssentials pl) {
 		super(e.getPlayer());
 		this.e = e;
 		this.CalledPlayerNames = CalledPlayerNames;
+		this.pl = pl;
 	}
 
 	/**
@@ -38,8 +41,8 @@ public class PlayerChatHighLightEvent extends PlayerEvent implements Cancellable
 	public xEssentialsOfflinePlayer[] getCalledPlayers() {
 		List<XOfflinePlayer> offPlayers = new ArrayList<XOfflinePlayer>();
 		for(int i = 0; i < CalledPlayerNames.length; i++) {
-			if(!xEssentials.getManagers().getPlayerManager().getOfflinePlayer(CalledPlayerNames[i]).equals(null) || xEssentials.getManagers().getPlayerManager().getOfflinePlayer(CalledPlayerNames[i]) != null) {
-				offPlayers.add(xEssentials.getManagers().getPlayerManager().getOfflinePlayer(CalledPlayerNames[i]));
+			if(!pl.getManagers().getPlayerManager().getOfflinePlayer(CalledPlayerNames[i]).equals(null) || pl.getManagers().getPlayerManager().getOfflinePlayer(CalledPlayerNames[i]) != null) {
+				offPlayers.add(pl.getManagers().getPlayerManager().getOfflinePlayer(CalledPlayerNames[i]));
 			}
 		}
 		xEssentialsOfflinePlayer[] offs = offPlayers.toArray(new xEssentialsOfflinePlayer[offPlayers.size()]);
@@ -79,7 +82,7 @@ public class PlayerChatHighLightEvent extends PlayerEvent implements Cancellable
 	 * @return String
 	 */
 	public String getHashTag() {
-		return Configuration.getChatConfig().getHashTag();
+		return pl.getConfiguration().getChatConfig().getHashTag();
 	}
 
 	/**
@@ -98,7 +101,7 @@ public class PlayerChatHighLightEvent extends PlayerEvent implements Cancellable
 	 */
 	public String getSuffix() {
 		if(Hooks.isVaultChatEnabled()) {
-			return ChatColor.translateAlternateColorCodes('&', xEssentials.getManagers().getVaultManager().getSuffix(getPlayer().getName(), xEssentials.getManagers().getVaultManager().getGroup(getPlayer())));
+			return ChatColor.translateAlternateColorCodes('&', pl.getManagers().getVaultManager().getSuffix(getPlayer().getName(), pl.getManagers().getVaultManager().getGroup(getPlayer())));
 		} else {
 			return ChatColor.RESET+"";
 		}

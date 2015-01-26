@@ -1,6 +1,6 @@
 package tv.mineinthebox.essentials.managers;
 
-import tv.mineinthebox.essentials.Configuration;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.events.customevents.CallEssentialsBroadcastEvent;
 import tv.mineinthebox.essentials.events.customevents.CallMojangStatus;
 import tv.mineinthebox.essentials.events.customevents.CallRssFeedEvent;
@@ -30,6 +30,12 @@ public class Manager {
 	private ChairManager chair;
 	private ManCoManager manco;
 	private RealisticWaterManager water;
+	
+	private final xEssentials pl;
+	
+	public Manager(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	/**
 	 * @author xize
@@ -62,7 +68,7 @@ public class Manager {
 	 */
 	public RegenManager getExplosionRegenManager() {
 		if(!(regen instanceof RegenManager)) {
-			this.regen = new RegenManager();
+			this.regen = new RegenManager(pl);
 		}
 		return regen;
 	}
@@ -98,7 +104,7 @@ public class Manager {
 	 */
 	public GateManager getGateManager() {
 		if(!(gate instanceof GateManager)) {
-			this.gate = new GateManager();
+			this.gate = new GateManager(pl);
 		}
 		return gate;
 	}
@@ -110,7 +116,7 @@ public class Manager {
 	 */
 	public BackPackManager getBackPackManager() {
 		if(!(backpacks instanceof BackPackManager)) {
-			this.backpacks = new BackPackManager();
+			this.backpacks = new BackPackManager(pl);
 		}
 		return backpacks;
 	}
@@ -122,7 +128,7 @@ public class Manager {
 	 */
 	public xEssentialsPlayerManager getPlayerManager() {
 		if(!(players instanceof xEssentialsPlayerManager)) {
-			this.players = new xEssentialsPlayerManager();
+			this.players = new xEssentialsPlayerManager(pl);
 		}
 		return players;
 	}
@@ -134,7 +140,7 @@ public class Manager {
 	 */
 	public WarpManager getWarpManager() {
 		if(!(warp instanceof WarpManager)) {
-			this.warp = new WarpManager();
+			this.warp = new WarpManager(pl);
 		}
 		return warp;
 	}
@@ -146,7 +152,7 @@ public class Manager {
 	 */
 	public EconomyManager getEcoManager() {
 		if(!(econ instanceof EconomyManager)) {
-			this.econ = new EconomyManager();
+			this.econ = new EconomyManager(pl);
 		}
 		return econ;
 	}
@@ -170,7 +176,7 @@ public class Manager {
 	 */
 	public SimpleServer getGreylistManager() {
 		if(!(greylist instanceof SimpleServer)) {
-			this.greylist = new SimpleServer(Configuration.getGrayListConfig().getPort(), "greylist");
+			this.greylist = new SimpleServer(pl.getConfiguration().getGrayListConfig().getPort(), "greylist");
 		}
 		return greylist;
 	}
@@ -194,7 +200,7 @@ public class Manager {
 	 */
 	public CallRssFeedEvent getRssManager() {
 		if(!(rss instanceof CallRssFeedEvent)) {
-			this.rss = new CallRssFeedEvent();
+			this.rss = new CallRssFeedEvent(pl);
 		}
 		return rss;
 	}
@@ -206,7 +212,7 @@ public class Manager {
 	 */
 	public CallMojangStatus getMojangStatusManager() {
 		if(!(moj instanceof CallMojangStatus)) {
-			this.moj = new CallMojangStatus();
+			this.moj = new CallMojangStatus(pl);
 		}
 		return moj;
 	}
@@ -218,7 +224,7 @@ public class Manager {
 	 */
 	public CallEssentialsBroadcastEvent getBroadcastManager() {
 		if(!(broadcast instanceof CallEssentialsBroadcastEvent)) {
-			this.broadcast = new CallEssentialsBroadcastEvent();
+			this.broadcast = new CallEssentialsBroadcastEvent(pl);
 		}
 		return broadcast;
 	}
@@ -230,7 +236,7 @@ public class Manager {
 	 */
 	public BridgeManager getBridgeManager() {
 		if(!(bridge instanceof BridgeManager)) {
-			this.bridge = new BridgeManager();
+			this.bridge = new BridgeManager(pl);
 		}
 		return bridge;
 	}
@@ -242,7 +248,7 @@ public class Manager {
 	 */
 	public ChairManager getChairManager() {
 		if(!(chair instanceof ChairManager)) {
-			this.chair = new ChairManager();
+			this.chair = new ChairManager(pl);
 		}
 		return chair;
 	}
@@ -254,7 +260,7 @@ public class Manager {
 	 */
 	public ManCoManager getManCoManager() {
 		if(!(manco instanceof ManCoManager)) {
-			this.manco = new ManCoManager();
+			this.manco = new ManCoManager(pl);
 		}
 		return manco;
 	}
@@ -266,7 +272,7 @@ public class Manager {
 	 */
 	public RealisticWaterManager getRealisticWaterManager() {
 		if(!(water instanceof RealisticWaterManager)) {
-			this.water = new RealisticWaterManager();
+			this.water = new RealisticWaterManager(pl);
 		}
 		return water;
 	}

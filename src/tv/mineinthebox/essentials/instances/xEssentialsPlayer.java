@@ -36,7 +36,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.enums.PermissionKey;
@@ -48,17 +47,19 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 @SuppressWarnings("deprecation")
 public class xEssentialsPlayer implements XPlayer {
 
-	private Player player;
-	private File f;
-	private FileConfiguration con;
+	private final Player player;
+	private final File f;
+	private final FileConfiguration con;
+	private final xEssentials pl;
 	private Item Potato;
 	private AlternateAccount accounts;
 	private BukkitTask spectate;
 	private BukkitTask pwnagetask;
 
-	public xEssentialsPlayer(Player player, String UUID) {
-		if(Configuration.getDebugConfig().isEnabled()) {
-			xEssentials.getPlugin().log("setting profile for player " + player.getName(), LogType.DEBUG);
+	public xEssentialsPlayer(Player player, String UUID, xEssentials pl) {
+		this.pl = pl;
+		if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+			xEssentials.log("setting profile for player " + player.getName(), LogType.DEBUG);
 		}
 		this.player = player;
 		if(Bukkit.getOnlineMode()) {
@@ -67,13 +68,13 @@ public class xEssentialsPlayer implements XPlayer {
 			this.f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players"+File.separator+player.getName().toLowerCase()+".yml");
 		}
 		if(this.f.exists()){
-			if(Configuration.getDebugConfig().isEnabled()) {
-				xEssentials.getPlugin().log("profile found, checking for a possible name change!", LogType.DEBUG);
+			if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+				xEssentials.log("profile found, checking for a possible name change!", LogType.DEBUG);
 			}
 			this.con = YamlConfiguration.loadConfiguration(this.f);
 			if(!this.con.getString("user").equalsIgnoreCase(player.getName())) {
-				if(Configuration.getDebugConfig().isEnabled()) {
-					xEssentials.getPlugin().log("the players name is changed from " + this.con.getString("user") + " to " + player.getName(), LogType.DEBUG);
+				if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+					xEssentials.log("the players name is changed from " + this.con.getString("user") + " to " + player.getName(), LogType.DEBUG);
 				}
 				String oldName = this.con.getString("user");
 				this.con.set("user", player.getName());
@@ -87,12 +88,12 @@ public class xEssentialsPlayer implements XPlayer {
 				//call the custom event whenever we noticed the name has been changed!
 				//Bukkit.getPluginManager().callEvent(new PlayerNameChangeEvent(oldName, player.getName(), player, this));
 				setNameHistory(oldName);
-				if(Configuration.getProtectionConfig().isProtectionEnabled()) {
-					xEssentials.getManagers().getProtectionDBManager().updatePlayer(oldName, player.getName());
+				if(pl.getConfiguration().getProtectionConfig().isProtectionEnabled()) {
+					pl.getManagers().getProtectionDBManager().updatePlayer(oldName, player.getName());
 				}
 			} else {
-				if(Configuration.getDebugConfig().isEnabled()) {
-					xEssentials.getPlugin().log("players name is still intact and matches with: " + UUID, LogType.DEBUG);
+				if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+					xEssentials.log("players name is still intact and matches with: " + UUID, LogType.DEBUG);
 				}
 				this.con.set("ip", player.getAddress().getAddress().getHostAddress());
 				try {
@@ -104,13 +105,13 @@ public class xEssentialsPlayer implements XPlayer {
 			}
 		} else {
 			//check if the player file is just a normal name if it is we rename the file to the UUID spec, then cancelling futher code execution.
-			if(Configuration.getDebugConfig().isEnabled()) {
-				xEssentials.getPlugin().log("profile not found, checking for non converted names in order to convert...", LogType.DEBUG);
+			if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+				xEssentials.log("profile not found, checking for non converted names in order to convert...", LogType.DEBUG);
 			}
 			File possiblename = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "players" + File.separator + player.getName().toLowerCase() + ".yml");
 			if(possiblename.exists()) {
-				if(Configuration.getDebugConfig().isEnabled()) {
-					xEssentials.getPlugin().log("profile of "+player.getName()+" has been successfull found and renamed to the uuid spec", LogType.DEBUG);
+				if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+					xEssentials.log("profile of "+player.getName()+" has been successfull found and renamed to the uuid spec", LogType.DEBUG);
 				}
 				possiblename.renameTo(this.f);
 				this.con = YamlConfiguration.loadConfiguration(this.f);
@@ -124,8 +125,8 @@ public class xEssentialsPlayer implements XPlayer {
 			this.con.set("torch", false);
 			this.con.set("firefly", false);
 			this.con.set("uuid", player.getUniqueId().toString());
-			if(Configuration.getEconomyConfig().isEconomyEnabled()){
-				this.con.set("money", Configuration.getEconomyConfig().getStartersMoney());
+			if(pl.getConfiguration().getEconomyConfig().isEconomyEnabled()){
+				this.con.set("money", pl.getConfiguration().getEconomyConfig().getStartersMoney());
 			}
 			try {
 				this.con.save(this.f);
@@ -577,7 +578,7 @@ public class xEssentialsPlayer implements XPlayer {
 
 	@Override
 	public void vanish() {
-		for(Player p : xEssentials.getOnlinePlayers()) {
+		for(Player p : pl.getOnlinePlayers()) {
 			if(!player.equals(p)) {
 				p.hidePlayer(player);
 			}
@@ -588,7 +589,7 @@ public class xEssentialsPlayer implements XPlayer {
 
 	@Override
 	public void unvanish() {
-		for(Player p : xEssentials.getOnlinePlayers()) {
+		for(Player p : pl.getOnlinePlayers()) {
 			if(!player.equals(p)) {
 				p.showPlayer(player);
 			}
@@ -625,7 +626,7 @@ public class xEssentialsPlayer implements XPlayer {
 
 	@Override
 	public void unvanish(boolean sillenced) {
-		for(Player p : xEssentials.getOnlinePlayers()) {
+		for(Player p : pl.getOnlinePlayers()) {
 			if(!player.equals(p)) {
 				p.showPlayer(player);
 			}
@@ -933,7 +934,7 @@ public class xEssentialsPlayer implements XPlayer {
 
 	@Override
 	public XOfflinePlayer getCompass() {
-		return xEssentials.getManagers().getPlayerManager().getOfflinePlayer(con.getString("isCompass.follow"));
+		return pl.getManagers().getPlayerManager().getOfflinePlayer(con.getString("isCompass.follow"));
 	}
 
 	@Override
@@ -1496,7 +1497,7 @@ public class xEssentialsPlayer implements XPlayer {
 				block.setType(Material.CHEST);
 			}
 			Chest chest = (Chest)block.getState();
-			return new Shop(chest, sign, xEssentials.getManagers().getPlayerManager().getOfflinePlayer(getUser()));
+			return new Shop(chest, sign, pl.getManagers().getPlayerManager().getOfflinePlayer(getUser()));
 		}
 		return null;
 	}
@@ -1537,7 +1538,7 @@ public class xEssentialsPlayer implements XPlayer {
 
 	@Override
 	public XPlayer getEssentialsPlayer() {
-		return xEssentials.getManagers().getPlayerManager().getPlayer(getUser());
+		return pl.getManagers().getPlayerManager().getPlayer(getUser());
 	}
 
 	@Override

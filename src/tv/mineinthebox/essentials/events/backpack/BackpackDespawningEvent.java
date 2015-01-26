@@ -1,21 +1,26 @@
 package tv.mineinthebox.essentials.events.backpack;
 
-import static tv.mineinthebox.essentials.xEssentials.getManagers;
-
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.ItemDespawnEvent;
 
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.Backpack;
 
 public class BackpackDespawningEvent implements Listener {
+
+	private final xEssentials pl;
+	
+	public BackpackDespawningEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	@EventHandler
 	public void onItemDespawn(ItemDespawnEvent e) {
-		if(getManagers().getBackPackManager().isBackpack(e.getEntity().getItemStack())) {
-			Backpack pack = getManagers().getBackPackManager().getBackpackByItem(e.getEntity().getItemStack());
+		if(pl.getManagers().getBackPackManager().isBackpack(e.getEntity().getItemStack())) {
+			Backpack pack = pl.getManagers().getBackPackManager().getBackpackByItem(e.getEntity().getItemStack());
 			pack.remove();
 		}
 	}
@@ -24,8 +29,8 @@ public class BackpackDespawningEvent implements Listener {
 	public void onCombustEvent(EntityCombustEvent e) {
 		if(e.getEntity() instanceof Item) {
 			Item item = (Item) e.getEntity();
-			if(getManagers().getBackPackManager().isBackpack(item.getItemStack())) {
-				Backpack pack = getManagers().getBackPackManager().getBackpackByItem(item.getItemStack());
+			if(pl.getManagers().getBackPackManager().isBackpack(item.getItemStack())) {
+				Backpack pack = pl.getManagers().getBackPackManager().getBackpackByItem(item.getItemStack());
 				pack.remove();
 			}
 		}

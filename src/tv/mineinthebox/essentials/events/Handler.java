@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.events.backpack.BackpackDespawningEvent;
 import tv.mineinthebox.essentials.events.backpack.OpenBackPackEvent;
@@ -148,6 +147,12 @@ import tv.mineinthebox.essentials.events.vote.VoteMoneyEvent;
 import tv.mineinthebox.essentials.hook.Hooks;
 
 public class Handler {
+	
+	private final xEssentials pl;
+	
+	public Handler(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	/**
 	 * @author xize
@@ -157,240 +162,241 @@ public class Handler {
 
 	public void start() {
 		//memory system
-		setListener(new LoadMemoryEvent());
+		setListener(new LoadMemoryEvent(pl));
 		if(Hooks.isWorldGuardEnabled()) {setListener(new PlayerZoneEvent());}
-		setListener(new VanishEvent());
-		setListener(new VanishArchievementEvent());
-		if(Configuration.getPlayerConfig().isSeperatedInventorysEnabled()) {
-			setListener(new GameModeInvChangeEvent());
+		setListener(new VanishEvent(pl));
+		setListener(new VanishArchievementEvent(pl));
+		if(pl.getConfiguration().getPlayerConfig().isSeperatedInventorysEnabled()) {
+			setListener(new GameModeInvChangeEvent(pl));
 		}
-		if(Configuration.getPlayerConfig().isSaveInventoryEnabled()) {
-			setListener(new SaveLastInventoryEvent());
-		} else if(Configuration.getPvpConfig().isReplaceNpcEnabled()) {
-			setListener(new SaveLastInventoryEvent());
+		if(pl.getConfiguration().getPlayerConfig().isSaveInventoryEnabled()) {
+			setListener(new SaveLastInventoryEvent(pl));
+		} else if(pl.getConfiguration().getPvpConfig().isReplaceNpcEnabled()) {
+			setListener(new SaveLastInventoryEvent(pl));
 		}
-		if(Configuration.getPlayerConfig().isWorldBorderEnabled()) {
-			if(Configuration.getPlayerConfig().isVanillaBorderSupported()) {
-				setListener(new PlayerVanillaBorderEvent());	
+		if(pl.getConfiguration().getPlayerConfig().isWorldBorderEnabled()) {
+			if(pl.getConfiguration().getPlayerConfig().isVanillaBorderSupported()) {
+				setListener(new PlayerVanillaBorderEvent(pl));	
 			} else {
-				setListener(new PlayerBorderEvent());
+				setListener(new PlayerBorderEvent(pl));
 			}
 		}
-		if(Configuration.getChatConfig().isRssBroadcastEnabled()) {
+		if(pl.getConfiguration().getChatConfig().isRssBroadcastEnabled()) {
 			setListener(new BroadcastSiteNewsEvent());
 		}
-		setListener(new SaveLastLocationEvent());
-		setListener(new TorchEvent());
-		setListener(new FireflyEvent());
-		setListener(new FlyEvent());
-		setListener(new PlayerJoinMessageEvent());
-		setListener(new PlayerQuitMessageEvent());
-		setListener(new ModreqJoinEvent());
+		setListener(new SaveLastLocationEvent(pl));
+		setListener(new TorchEvent(pl));
+		setListener(new FireflyEvent(pl));
+		setListener(new FlyEvent(pl));
+		setListener(new PlayerJoinMessageEvent(pl));
+		setListener(new PlayerQuitMessageEvent(pl));
+		setListener(new ModreqJoinEvent(pl));
 		if(Hooks.isProtocolLibEnabled()) {
-			MotdVanishEvent.initPacketListener();
+			MotdVanishEvent vanish = new MotdVanishEvent(pl);
+			vanish.initPacketListener();
 		} else {
-			setListener(new MotdEvent());
+			setListener(new MotdEvent(pl));
 		}
 		//entity yml
-		setListener(new EntitySpawnEventManagerEvent());
-		if(Configuration.getEntityConfig().isRealisticWaterEnabled()) {setListener(new RealisticWaterEvent());}
-		if(Configuration.getEntityConfig().isStonePressurePlate()) {setListener(new EntityPressurePlateInteractEvent());}
-		if(Configuration.getEntityConfig().isCleanUpOnChunkUnloadEnabled()) {setListener(new CleanupUnloadedChunkEvent());}
-		if(Configuration.getEntityConfig().isChunkProtectionEnabled()) {setListener(new ChunkProtectionEvent());}
-		if(Configuration.getEntityConfig().isWeatherDisabled()) {setListener(new DisableWeatherEvent());}
-		if(Configuration.getEntityConfig().isFireSpreadDisabled()) {setListener(new DisableFireSpreadEvent());}
-		if(Configuration.getEntityConfig().isExplosionsDisabled()) {setListener(new DisableExplosionEvent());}
-		if(Configuration.getEntityConfig().isFireworksDisabled()) {setListener(new DisableFireworkEvent());}
-		if(Configuration.getEntityConfig().isWitherGriefDisabled()) {setListener(new DisableWitherGriefEvent());}
-		if(Configuration.getEntityConfig().isEnderManGriefDisabled()) {setListener(new DisableEndermanGriefEvent());}
-		if(Configuration.getEntityConfig().isEnderDragonGriefDisabled()) {setListener(new DisableEndDragonGriefEvent());}
-		if(Configuration.getEntityConfig().isCustomZombieAggroRangeEnabled()) {setListener(new CustomZombieAggroRangeEvent());}
-		if(Configuration.getEntityConfig().isLoggingSpawnEggsEnabled()) {setListener(new SpawnEggLogEvent());}
-		if(Configuration.getEntityConfig().isExplosionRegenEnabled()) {setListener(new ExplosionRegenEvent());}
-		if(Configuration.getEntityConfig().isBloodEnabled()) {setListener(new EntityBleedEvent());}
+		setListener(new EntitySpawnEventManagerEvent(pl));
+		if(pl.getConfiguration().getEntityConfig().isRealisticWaterEnabled()) {setListener(new RealisticWaterEvent());}
+		if(pl.getConfiguration().getEntityConfig().isStonePressurePlate()) {setListener(new EntityPressurePlateInteractEvent());}
+		if(pl.getConfiguration().getEntityConfig().isCleanUpOnChunkUnloadEnabled()) {setListener(new CleanupUnloadedChunkEvent());}
+		if(pl.getConfiguration().getEntityConfig().isChunkProtectionEnabled()) {setListener(new ChunkProtectionEvent(pl));}
+		if(pl.getConfiguration().getEntityConfig().isWeatherDisabled()) {setListener(new DisableWeatherEvent());}
+		if(pl.getConfiguration().getEntityConfig().isFireSpreadDisabled()) {setListener(new DisableFireSpreadEvent());}
+		if(pl.getConfiguration().getEntityConfig().isExplosionsDisabled()) {setListener(new DisableExplosionEvent());}
+		if(pl.getConfiguration().getEntityConfig().isFireworksDisabled()) {setListener(new DisableFireworkEvent());}
+		if(pl.getConfiguration().getEntityConfig().isWitherGriefDisabled()) {setListener(new DisableWitherGriefEvent());}
+		if(pl.getConfiguration().getEntityConfig().isEnderManGriefDisabled()) {setListener(new DisableEndermanGriefEvent());}
+		if(pl.getConfiguration().getEntityConfig().isEnderDragonGriefDisabled()) {setListener(new DisableEndDragonGriefEvent());}
+		if(pl.getConfiguration().getEntityConfig().isCustomZombieAggroRangeEnabled()) {setListener(new CustomZombieAggroRangeEvent(pl));}
+		if(pl.getConfiguration().getEntityConfig().isLoggingSpawnEggsEnabled()) {setListener(new SpawnEggLogEvent());}
+		if(pl.getConfiguration().getEntityConfig().isExplosionRegenEnabled()) {setListener(new ExplosionRegenEvent(pl));}
+		if(pl.getConfiguration().getEntityConfig().isBloodEnabled()) {setListener(new EntityBleedEvent());}
 		//chat.yml
-		if(Configuration.getChatConfig().isSwearFilterEnabled()) {
-			setListener(new AntiSwearEvent());
+		if(pl.getConfiguration().getChatConfig().isSwearFilterEnabled()) {
+			setListener(new AntiSwearEvent(pl));
 		}
-		setListener(new DrunkChatEvent());
-		setListener(new SilenceChatEvent());
-		setListener(new PlayerIgnorePlayerChatEvent());
-		if(Configuration.getChatConfig().isMojangStatusEnabled()) {setListener(new PublishMojangStatusEvent());}
-		if(Configuration.getChatConfig().isChatHighLightEnabled()) {setListener(new ChatHighLightEvent());}
-		if(Configuration.getChatConfig().isSmilleysEnabled()) {setListener(new ChatSmilleyEvent());}
-		if(Configuration.getChatConfig().isAntiAdvertiseEnabled()) {setListener(new AntiAddvertiseEvent());}
-		setListener(new MuteEvent());
+		setListener(new DrunkChatEvent(pl));
+		setListener(new SilenceChatEvent(pl));
+		setListener(new PlayerIgnorePlayerChatEvent(pl));
+		if(pl.getConfiguration().getChatConfig().isMojangStatusEnabled()) {setListener(new PublishMojangStatusEvent());}
+		if(pl.getConfiguration().getChatConfig().isChatHighLightEnabled()) {setListener(new ChatHighLightEvent(pl));}
+		if(pl.getConfiguration().getChatConfig().isSmilleysEnabled()) {setListener(new ChatSmilleyEvent());}
+		if(pl.getConfiguration().getChatConfig().isAntiAdvertiseEnabled()) {setListener(new AntiAddvertiseEvent(pl));}
+		setListener(new MuteEvent(pl));
 		//player.yml
 		setListener(new PlayerShootbowSoundEvent());
-		setListener(new SignEditEvent());
-		if(Configuration.getPlayerConfig().isAutoRespawnEnabled()) {setListener(new PlayerForceRespawnEvent());}
-		setListener(new AntiKnockBackEvent());
+		setListener(new SignEditEvent(pl));
+		if(pl.getConfiguration().getPlayerConfig().isAutoRespawnEnabled()) {setListener(new PlayerForceRespawnEvent());}
+		setListener(new AntiKnockBackEvent(pl));
 		setListener(new FirstJoinTeleportEvent());
-		setListener(new MobProcEvent());
-		setListener(new CommandRestrictEvent());
-		setListener(new TrollModeEvent());
-		setListener(new FreezePlayerEvent());
-		setListener(new InventoryMenuEvent());
-		setListener(new CompassEvent());
+		setListener(new MobProcEvent(pl));
+		setListener(new CommandRestrictEvent(pl));
+		setListener(new TrollModeEvent(pl));
+		setListener(new FreezePlayerEvent(pl));
+		setListener(new InventoryMenuEvent(pl));
+		setListener(new CompassEvent(pl));
 		setListener(new FakeNukeEvent());
-		setListener(new PowerToolEvent());
-		setListener(new PlayerTaskLoginEvent());
-		setListener(new StaffSafeTeleportEvent());
+		setListener(new PowerToolEvent(pl));
+		setListener(new PlayerTaskLoginEvent(pl));
+		setListener(new StaffSafeTeleportEvent(pl));
 		setListener(new PlayerDeathBackEvent());
 		setListener(new TeleportBackEvent());
 		setListener(new PlayerRespawnTeleportEvent());
-		setListener(new PotatoMoveEvent());
-		setListener(new AfkCheckEvent());
+		setListener(new PotatoMoveEvent(pl));
+		setListener(new AfkCheckEvent(pl));
 		setListener(new PlayerCheckNameEvent());
-		setListener(new PlayerFloorEvent());
-		setListener(new PlayerWallEvent());
-		setListener(new DoubleJumpEvent());
-		if(Configuration.getPlayerConfig().isCustomPortalSizeDisabled()) {setListener(new PortalSizeEvent());}
-		if(Configuration.getPlayerConfig().isPortalsDisabled()) {setListener(new DisablePortalCreationEvent());}
-		if(Configuration.getPlayerConfig().isHungerCancelled()) {setListener(new HungerEvent());}
-		if(Configuration.getPlayerConfig().isKeepInventoryOnDeathEnabled()) {setListener(new PlayerHoldItemsEvent());}
-		if(Configuration.getPlayerConfig().isCanEntityStealHatOnPlayersDeath()) {setListener(new EntityUseHeadOnPlayerDeathEvent());}
-		if(!Configuration.getPlayerConfig().isBroadcastAchievementsEnabled()) {setListener(new AchievementEvent());}
-		if(Configuration.getEntityConfig().isLeaveDecayDisabled()) {setListener(new StopLeavesDecayEvent());}
-		if(Configuration.getEntityConfig().isRealisticGlassEnabled()) {
+		setListener(new PlayerFloorEvent(pl));
+		setListener(new PlayerWallEvent(pl));
+		setListener(new DoubleJumpEvent(pl));
+		if(pl.getConfiguration().getPlayerConfig().isCustomPortalSizeDisabled()) {setListener(new PortalSizeEvent());}
+		if(pl.getConfiguration().getPlayerConfig().isPortalsDisabled()) {setListener(new DisablePortalCreationEvent());}
+		if(pl.getConfiguration().getPlayerConfig().isHungerCancelled()) {setListener(new HungerEvent());}
+		if(pl.getConfiguration().getPlayerConfig().isKeepInventoryOnDeathEnabled()) {setListener(new PlayerHoldItemsEvent(pl));}
+		if(pl.getConfiguration().getPlayerConfig().isCanEntityStealHatOnPlayersDeath()) {setListener(new EntityUseHeadOnPlayerDeathEvent());}
+		if(!pl.getConfiguration().getPlayerConfig().isBroadcastAchievementsEnabled()) {setListener(new AchievementEvent());}
+		if(pl.getConfiguration().getEntityConfig().isLeaveDecayDisabled()) {setListener(new StopLeavesDecayEvent());}
+		if(pl.getConfiguration().getEntityConfig().isRealisticGlassEnabled()) {
 			RealisticGlassEvent glass = new RealisticGlassEvent();
 			setListener(glass);
 			glass.startRegen();
 		}
-		if(Configuration.getPlayerConfig().isAutoAnvilEnabled()) {setListener(new AnvilResetEvent());}
-		if(Configuration.getEntityConfig().isRealisticTreesEnabled()) {setListener(new RealisticTreeEvent());}
+		if(pl.getConfiguration().getPlayerConfig().isAutoAnvilEnabled()) {setListener(new AnvilResetEvent());}
+		if(pl.getConfiguration().getEntityConfig().isRealisticTreesEnabled()) {setListener(new RealisticTreeEvent());}
 		//pvp.yml
-		if(Configuration.getPvpConfig().isFakePvpEnabled()) {setListener(new FakePvpEvent());}
-		if(Configuration.getPvpConfig().isPvpDisabled()) {setListener(new PvpEvent());}
-		if(Configuration.getPvpConfig().isClientGravesEnabled()) {
+		if(pl.getConfiguration().getPvpConfig().isFakePvpEnabled()) {setListener(new FakePvpEvent());}
+		if(pl.getConfiguration().getPvpConfig().isPvpDisabled()) {setListener(new PvpEvent(pl));}
+		if(pl.getConfiguration().getPvpConfig().isClientGravesEnabled()) {
 			if(Hooks.isProtocolLibEnabled()) {
-				setListener(new ClientSideGraveYard_ProtocolLibEvent());
+				setListener(new ClientSideGraveYard_ProtocolLibEvent(pl));
 			} else {
-				setListener(new ClientSideGraveYardEvent());
+				setListener(new ClientSideGraveYardEvent(pl));
 			}
 		}
-		if(Configuration.getPvpConfig().isKillBountyEnabled()) {setListener(new KillBountyEvent());}
-		if(Configuration.getPvpConfig().isReplaceNpcEnabled()) { setListener(new NpcReplacePlayerEvent()); }
+		if(pl.getConfiguration().getPvpConfig().isKillBountyEnabled()) {setListener(new KillBountyEvent(pl));}
+		if(pl.getConfiguration().getPvpConfig().isReplaceNpcEnabled()) { setListener(new NpcReplacePlayerEvent(pl)); }
 		//ban.yml
-		if(Configuration.getBanConfig().isPwnAgeEnabled()) {setListener(new PwnAgeProtectionEvent());}
-		if(Configuration.getBanConfig().isFloodSpamEnabled()) {setListener(new FloodSpamEvent());}
-		if(Configuration.getBanConfig().isHumanSpamEnabled()) {
-			setListener(new HumanSpamEvent());
-			setListener(new HumanSpamCommandEvent());
+		if(pl.getConfiguration().getBanConfig().isPwnAgeEnabled()) {setListener(new PwnAgeProtectionEvent(pl));}
+		if(pl.getConfiguration().getBanConfig().isFloodSpamEnabled()) {setListener(new FloodSpamEvent(pl));}
+		if(pl.getConfiguration().getBanConfig().isHumanSpamEnabled()) {
+			setListener(new HumanSpamEvent(pl));
+			setListener(new HumanSpamCommandEvent(pl));
 		}
-		if(Configuration.getBanConfig().isAlternateAccountsEnabled()) {setListener(new ShowAlternateAccountsEvent());}
+		if(pl.getConfiguration().getBanConfig().isAlternateAccountsEnabled()) {setListener(new ShowAlternateAccountsEvent(pl));}
 		//signs
-		if(Configuration.getSignConfig().isColorSignEnabled()) {
+		if(pl.getConfiguration().getSignConfig().isColorSignEnabled()) {
 			setListener(new ColorSignEvent());	
 		}
-		if(Configuration.getSignConfig().isFreeSignEnabled()) {
+		if(pl.getConfiguration().getSignConfig().isFreeSignEnabled()) {
 			setListener(new FreeSignEvent());	
 		}
-		if(Configuration.getSignConfig().isFireworkSignEnabled()) {
-			setListener(new FireworkSignEvent());	
+		if(pl.getConfiguration().getSignConfig().isFireworkSignEnabled()) {
+			setListener(new FireworkSignEvent(pl));	
 		}
-		if(Configuration.getSignConfig().isBoomSignEnabled()) {
-			setListener(new SignBoomEvent());	
+		if(pl.getConfiguration().getSignConfig().isBoomSignEnabled()) {
+			setListener(new SignBoomEvent(pl));	
 		}
-		if(Configuration.getSignConfig().isGetYourHeadSignEnabled()) {
+		if(pl.getConfiguration().getSignConfig().isGetYourHeadSignEnabled()) {
 			setListener(new GetYourHeadSignEvent());	
 		}
-		if(Configuration.getSignConfig().isWarpSignEnabled()) {
-			setListener(new WarpSignEvent());	
+		if(pl.getConfiguration().getSignConfig().isWarpSignEnabled()) {
+			setListener(new WarpSignEvent(pl));	
 		}
-		if(Configuration.getSignConfig().isWildSignEnabled()) {
+		if(pl.getConfiguration().getSignConfig().isWildSignEnabled()) {
 			setListener(new WildSignEvent());	
 		}
-		if(Configuration.getSignConfig().isDispenserEnabled()) {
+		if(pl.getConfiguration().getSignConfig().isDispenserEnabled()) {
 			setListener(new DispenseSignEvent());
 		}
-		if(Configuration.getShopConfig().isShopEnabled()) {
+		if(pl.getConfiguration().getShopConfig().isShopEnabled()) {
 			//TO-DO:recreate shops.
-			setListener(new CreateShopEvent());
-			setListener(new ShopInteractEvent());
-			setListener(new RemoveShopEvent());
-			setListener(new AdminShopInventoryEvent());
+			setListener(new CreateShopEvent(pl));
+			setListener(new ShopInteractEvent(pl));
+			setListener(new RemoveShopEvent(pl));
+			setListener(new AdminShopInventoryEvent(pl));
 		}
 		
 		//block events
-		if(Configuration.getBlockConfig().isNotifyOnBreakEnabled()) {setListener(new NotifyAdminOnBlockBreakEvent());}
-		if(Configuration.getBlockConfig().isBedrockBreakDisabled()) {setListener(new BedrockBreakEvent());}
-		if(Configuration.getBlockConfig().isBedrockPlaceDisabled()) {setListener(new BedrockPlaceEvent());}
-		if(Configuration.getBlockConfig().isNotifyOnConsumeEnabled()) {setListener(new NotifyItemUseEvent());}
-		if(Configuration.getBlockConfig().isBlockBlacklistEnabled()) {setListener(new BlockBlackListEvent());}
-		if(Configuration.getBlockConfig().isItemBlacklistEnabled()) {setListener(new ItemBlackListEvent());}
+		if(pl.getConfiguration().getBlockConfig().isNotifyOnBreakEnabled()) {setListener(new NotifyAdminOnBlockBreakEvent(pl));}
+		if(pl.getConfiguration().getBlockConfig().isBedrockBreakDisabled()) {setListener(new BedrockBreakEvent());}
+		if(pl.getConfiguration().getBlockConfig().isBedrockPlaceDisabled()) {setListener(new BedrockPlaceEvent());}
+		if(pl.getConfiguration().getBlockConfig().isNotifyOnConsumeEnabled()) {setListener(new NotifyItemUseEvent(pl));}
+		if(pl.getConfiguration().getBlockConfig().isBlockBlacklistEnabled()) {setListener(new BlockBlackListEvent(pl));}
+		if(pl.getConfiguration().getBlockConfig().isItemBlacklistEnabled()) {setListener(new ItemBlackListEvent(pl));}
 		
 		//protection events
-		if(Configuration.getProtectionConfig().isProtectionEnabled()) {
-			setListener(new UnregisterProtectionEvent());
-			setListener(new RegisterProtectionEvent());
-			setListener(new ModifyProtectionEvent());
+		if(pl.getConfiguration().getProtectionConfig().isProtectionEnabled()) {
+			setListener(new UnregisterProtectionEvent(pl));
+			setListener(new RegisterProtectionEvent(pl));
+			setListener(new ModifyProtectionEvent(pl));
 			//setListener(new HopperEvent());
-			setListener(new BlockProtectedEvent());
-			if(Configuration.getProtectionConfig().isSignProtectionEnabled()) {setListener(new SignProtectedEvent());}
-			if(Configuration.getProtectionConfig().isChestProtectionEnabled()) {setListener(new ChestProtectedEvent());}
-			if(Configuration.getProtectionConfig().isFurnaceProtectionEnabled()) {setListener(new FurnaceProtectedEvent());}
-			if(Configuration.getProtectionConfig().isJukeboxProtectionEnabled()) {setListener(new JukeboxProtectedEvent());}
-			if(Configuration.getProtectionConfig().isDispenserEnabled()) {setListener(new DispenserProtectionEvent());}
+			setListener(new BlockProtectedEvent(pl));
+			if(pl.getConfiguration().getProtectionConfig().isSignProtectionEnabled()) {setListener(new SignProtectedEvent(pl));}
+			if(pl.getConfiguration().getProtectionConfig().isChestProtectionEnabled()) {setListener(new ChestProtectedEvent(pl));}
+			if(pl.getConfiguration().getProtectionConfig().isFurnaceProtectionEnabled()) {setListener(new FurnaceProtectedEvent(pl));}
+			if(pl.getConfiguration().getProtectionConfig().isJukeboxProtectionEnabled()) {setListener(new JukeboxProtectedEvent(pl));}
+			if(pl.getConfiguration().getProtectionConfig().isDispenserEnabled()) {setListener(new DispenserProtectionEvent(pl));}
 		}
 		
 		//portal events
-		if(Configuration.getPortalConfig().isPortalEnabled()) {
-			setListener(new PortalSelectedCreateEvent());
-			setListener(new PortalEvent());
-			setListener(new PortalActivateEvent());
+		if(pl.getConfiguration().getPortalConfig().isPortalEnabled()) {
+			setListener(new PortalSelectedCreateEvent(pl));
+			setListener(new PortalEvent(pl));
+			setListener(new PortalActivateEvent(pl));
 		}
 		
 		//backpack events
-		setListener(new BackpackDespawningEvent());
-		setListener(new OpenBackPackEvent());
+		setListener(new BackpackDespawningEvent(pl));
+		setListener(new OpenBackPackEvent(pl));
 		
 		//gate events
-		if(Configuration.getMiscConfig().isGatesEnabled()) {
-			setListener(new GateCreateEvent());
-			setListener(new GateInteractEvent());
-			setListener(new GateBreakEvent());
-			setListener(new RemoveGateEvent());
-			setListener(new GateGriefPreventionEvent());
-			if(Configuration.getMiscConfig().isGateRedstoneEnabled()) {
-				setListener(new GateRedstoneEvent());
+		if(pl.getConfiguration().getMiscConfig().isGatesEnabled()) {
+			setListener(new GateCreateEvent(pl));
+			setListener(new GateInteractEvent(pl));
+			setListener(new GateBreakEvent(pl));
+			setListener(new RemoveGateEvent(pl));
+			setListener(new GateGriefPreventionEvent(pl));
+			if(pl.getConfiguration().getMiscConfig().isGateRedstoneEnabled()) {
+				setListener(new GateRedstoneEvent(pl));
 			}
 		}
 		
 		//bridge events
-		if(Configuration.getMiscConfig().isBridgesEnabled()) {
-			setListener(new BridgeCreateEvent());
-			setListener(new BridgeInteractEvent());
-			setListener(new BridgeBreakEvent());
-			setListener(new BridgeGriefPreventionEvent());
-			setListener(new RemoveBridgeEvent());
+		if(pl.getConfiguration().getMiscConfig().isBridgesEnabled()) {
+			setListener(new BridgeCreateEvent(pl));
+			setListener(new BridgeInteractEvent(pl));
+			setListener(new BridgeBreakEvent(pl));
+			setListener(new BridgeGriefPreventionEvent(pl));
+			setListener(new RemoveBridgeEvent(pl));
 		}
 		
 		//elevator events
-		if(Configuration.getMiscConfig().isElevatorsEnabled()) {
+		if(pl.getConfiguration().getMiscConfig().isElevatorsEnabled()) {
 			setListener(new ElevatorCreateEvent());
-			setListener(new ElevatorInteractEvent());
+			setListener(new ElevatorInteractEvent(pl));
 		}
 		
 		//chair events
-		if(Configuration.getMiscConfig().isChairsEnabled()) {
-			setListener(new PlayerSitOnChairEvent());
-			if(Configuration.getMiscConfig().isChairMonsterOff()) {
-				setListener(new ChairDisableMonsterEvent());
+		if(pl.getConfiguration().getMiscConfig().isChairsEnabled()) {
+			setListener(new PlayerSitOnChairEvent(pl));
+			if(pl.getConfiguration().getMiscConfig().isChairMonsterOff()) {
+				setListener(new ChairDisableMonsterEvent(pl));
 			}
 		}
 		
-		if(Configuration.getMiscConfig().isBooksEnabled()) {
-			setListener(new BookInteractEvent());
+		if(pl.getConfiguration().getMiscConfig().isBooksEnabled()) {
+			setListener(new BookInteractEvent(pl));
 		}
 		
 		//vote
-		if(Configuration.getVoteConfig().isVoteEnabled() && Hooks.isVotifierEnabled()) {
-			if(Configuration.getVoteConfig().isMoneyRewardEnabled() && Hooks.isVaultEcoEnabled()) {setListener(new VoteMoneyEvent());}
-			if(Configuration.getVoteConfig().isRewardCrateEnabled() && Hooks.isManCoEnabled()) {setListener(new VoteCrateEvent());}
+		if(pl.getConfiguration().getVoteConfig().isVoteEnabled() && Hooks.isVotifierEnabled()) {
+			if(pl.getConfiguration().getVoteConfig().isMoneyRewardEnabled() && Hooks.isVaultEcoEnabled()) {setListener(new VoteMoneyEvent(pl));}
+			if(pl.getConfiguration().getVoteConfig().isRewardCrateEnabled() && Hooks.isManCoEnabled()) {setListener(new VoteCrateEvent(pl));}
 		}
 			
-		setListener(new RemoveMemoryEvent());
+		setListener(new RemoveMemoryEvent(pl));
 	}
 
 	/**
@@ -403,7 +409,7 @@ public class Handler {
 	}
 
 	private void setListener(Listener listener) {
-		Bukkit.getPluginManager().registerEvents(listener, xEssentials.getPlugin());
+		Bukkit.getPluginManager().registerEvents(listener, pl);
 	}
 
 }

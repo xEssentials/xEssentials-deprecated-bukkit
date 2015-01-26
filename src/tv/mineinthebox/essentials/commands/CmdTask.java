@@ -14,6 +14,12 @@ import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 
 public class CmdTask {
 	
+	private final xEssentials pl;
+	
+	public CmdTask(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("task")) {
 			if(sender.hasPermission(PermissionKey.CMD_TASK.getPermission())) {
@@ -33,8 +39,8 @@ public class CmdTask {
 					}
 				} else if(args.length > 2) {
 					if(args[0].equalsIgnoreCase("player")) {
-						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[1])) {
-							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
+						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[1])) {
+							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 							PlayerTaskEnum playerenum = PlayerTaskEnum.PLAYER;
 							String command = Arrays.toString(args).replace("[", "").replace(",", "").replace("]", "").replace(args[0]+" ", "").replace(args[1] + " ", "");
 							off.PrepareLoginTask(command, playerenum);
@@ -43,8 +49,8 @@ public class CmdTask {
 							sender.sendMessage(ChatColor.RED + "this player has never played on this server!");
 						}
 					} else if(args[0].equalsIgnoreCase("console")) {
-						if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(args[1])) {
-							XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
+						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[1])) {
+							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 							PlayerTaskEnum playerenum = PlayerTaskEnum.CONSOLE;
 							String command = Arrays.toString(args).replace("[", "").replace(",", "").replace("]", "").replace(args[0] + " ", "").replace(args[1]+ " ", "");
 							off.PrepareLoginTask(command, playerenum);

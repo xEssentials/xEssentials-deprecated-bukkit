@@ -21,13 +21,19 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class TorchEvent implements Listener {
 	
-	private Map<String, LinkedList<BlockState>> list = new HashMap<String, LinkedList<BlockState>>();
+	private final Map<String, LinkedList<BlockState>> list = new HashMap<String, LinkedList<BlockState>>();
+	
+	private final xEssentials pl;
+	
+	public TorchEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onTorchMove(PlayerMoveEvent e) {
-		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isTorch()) {
 				if(e.getFrom().distanceSquared(e.getTo()) > 0) {
 					if(e.getPlayer().getItemInHand().getType() == Material.TORCH) {

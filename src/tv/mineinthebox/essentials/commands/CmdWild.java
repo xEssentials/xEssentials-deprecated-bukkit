@@ -17,6 +17,12 @@ public class CmdWild {
 	private int xRadius = 10000;
 	private int zRadius = 10000;
 	
+	private final xEssentials pl;
+	
+	public CmdWild(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("wild")) {
 			if(sender.hasPermission(PermissionKey.CMD_WILD.getPermission())) {
@@ -35,7 +41,7 @@ public class CmdWild {
 						Warnings.getWarnings(sender).consoleMessage();
 					}
 				} else if(args.length == 1) {
-					Player p = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 					if(p instanceof Player) {
 						Random randx = new Random(xRadius);
 						Random randz = new Random(zRadius);

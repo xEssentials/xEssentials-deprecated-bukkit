@@ -15,11 +15,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.Gate;
 
 public class GateCreateEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public GateCreateEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler
 	public void onCreate(SignChangeEvent e) {
@@ -34,7 +39,7 @@ public class GateCreateEvent implements Listener {
 				
 				pilar1.add(firstBlock);
 				
-				for(int y = 0; y < Configuration.getMiscConfig().getMaxGateSize(); y++) {
+				for(int y = 0; y < pl.getConfiguration().getMiscConfig().getMaxGateSize(); y++) {
 					Block block = firstBlock.getLocation().add(0, y, 0).getBlock();
 					if(block.getType() != Material.AIR) {
 						pilar1.add(block);
@@ -58,7 +63,7 @@ public class GateCreateEvent implements Listener {
 				Block horizontalBlock = pilar1.get(pilar1.size()-1).getRelative(BlockFace.UP);
 				horizontalPilar.add(horizontalBlock);
 				
-				for(int i = 0; i < Configuration.getMiscConfig().getMaxGateSize(); i++) {
+				for(int i = 0; i < pl.getConfiguration().getMiscConfig().getMaxGateSize(); i++) {
 					Block block = horizontalPilar.get(horizontalPilar.size()-1).getRelative(face);
 					if(block.getType() != Material.AIR) {
 						horizontalPilar.add(block);
@@ -126,8 +131,8 @@ public class GateCreateEvent implements Listener {
 					con.set("blocks", allBlocks.toArray());
 					con.save(f); 
 					e.setLine(0, ChatColor.DARK_PURPLE + "[Gate]");
-					Gate gate = new Gate(f, con);
-					xEssentials.getManagers().getGateManager().addGate(gate);
+					Gate gate = new Gate(f, con, pl);
+					pl.getManagers().getGateManager().addGate(gate);
 					e.getPlayer().sendMessage(ChatColor.GREEN + "you have successfully created a gate!");
 				} catch(Exception r) {
 					r.printStackTrace();

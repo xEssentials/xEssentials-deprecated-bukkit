@@ -13,13 +13,19 @@ import tv.mineinthebox.essentials.instances.Bridge;
 
 public class BridgeInteractEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public BridgeInteractEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@EventHandler
 	public void onBridge(PlayerInteractEvent e) {
 		if(e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if(e.getClickedBlock().getType() == Material.SIGN_POST) {
 				Sign sign = (Sign) e.getClickedBlock().getState();
 				if(sign.getLine(0).equalsIgnoreCase(ChatColor.DARK_PURPLE + "[Bridge]")) {
-					Bridge bridge = xEssentials.getManagers().getBridgeManager().getBridgeBySign(sign.getBlock());
+					Bridge bridge = pl.getManagers().getBridgeManager().getBridgeBySign(sign.getBlock());
 					if(bridge instanceof Bridge) {
 						if(bridge.isToggled()) {
 							bridge.toggleBridge();

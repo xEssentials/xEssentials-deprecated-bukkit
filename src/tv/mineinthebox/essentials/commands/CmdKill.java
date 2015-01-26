@@ -11,13 +11,19 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
 public class CmdKill {
+
+	private final xEssentials pl;
+	
+	public CmdKill(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("kill")) {
 			if(sender.hasPermission(PermissionKey.CMD_KILL.getPermission())) {
 				if(args.length == 1) {
-					if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) {
+					if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
 						Player p = (Player) Bukkit.getPlayer(args[0]);
 						p.damage(p.getMaxHealth());
 						p.sendMessage(ChatColor.GRAY + "you are killed by " + sender.getName());

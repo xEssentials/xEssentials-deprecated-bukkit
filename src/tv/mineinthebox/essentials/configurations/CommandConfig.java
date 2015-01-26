@@ -6,11 +6,17 @@ import java.util.List;
 
 import org.bukkit.command.PluginCommand;
 
-import tv.mineinthebox.essentials.Configuration;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ConfigType;
 import tv.mineinthebox.essentials.helpers.CommandHelper;
 
 public class CommandConfig {
+	
+	private final xEssentials pl;
+	
+	public CommandConfig(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	/**
 	 * @author xize
@@ -19,7 +25,7 @@ public class CommandConfig {
 	 */
 	@SuppressWarnings("unchecked")
 	public HashMap<String, Boolean> getCommandList() {
-		return (HashMap<String, Boolean>) Configuration.getConfigValue(ConfigType.COMMAND, "commands");
+		return (HashMap<String, Boolean>) pl.getConfiguration().getConfigValue(ConfigType.COMMAND, "commands");
 	}
 
 	/**

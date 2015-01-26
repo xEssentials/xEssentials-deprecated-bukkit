@@ -32,6 +32,12 @@ public class MobProcEvent implements Listener, Runnable {
 	private final int proctime = 5;
 
 	private static BukkitTask task; 
+	
+	private final xEssentials pl;
+	
+	public MobProcEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler
 	public void onProc(EntityDamageByEntityEvent e) {
@@ -39,7 +45,7 @@ public class MobProcEvent implements Listener, Runnable {
 			Monster monster = (Monster) e.getEntity();
 			if(e.getDamager() instanceof Player) {
 				Player p = (Player) e.getDamager();
-				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.hasProc()) {
 					if(player.containsKey(xp.getUser())) {
 						monster.setHealth(0);
@@ -60,7 +66,7 @@ public class MobProcEvent implements Listener, Runnable {
 						return;
 					}
 				}
-				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.hasProc()) {
 					Random rand = new Random();
 					p.getWorld().playSound(p.getLocation(), Sound.ENDERDRAGON_GROWL, 1F, 1F);

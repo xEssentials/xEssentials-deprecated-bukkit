@@ -13,12 +13,18 @@ import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class InventoryMenuEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public InventoryMenuEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
 		if(e.getInventory().getTitle().contains(ChatColor.DARK_PURPLE + "Quick menu: ")) {
-			if(xEssentials.getManagers().getPlayerManager().isOnline(extractPlayerNameFromTitle(e.getInventory().getTitle()))) {
-				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(extractPlayerNameFromTitle(e.getInventory().getTitle()));
+			if(pl.getManagers().getPlayerManager().isOnline(extractPlayerNameFromTitle(e.getInventory().getTitle()))) {
+				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(extractPlayerNameFromTitle(e.getInventory().getTitle()));
 				Player p = (Player) e.getWhoClicked();
 				e.setCancelled(true);
 				if(isButton(e.getCurrentItem())) {
@@ -43,7 +49,7 @@ public class InventoryMenuEvent implements Listener {
 					}
 				}
 			} else {
-				XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(extractPlayerNameFromTitle(e.getInventory().getTitle()));
+				XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(extractPlayerNameFromTitle(e.getInventory().getTitle()));
 				Player p = (Player) e.getWhoClicked();
 				if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "ban the player for playing on this server!")) {
 					e.getWhoClicked().closeInventory();

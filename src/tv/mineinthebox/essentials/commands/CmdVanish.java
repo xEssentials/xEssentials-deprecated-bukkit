@@ -15,13 +15,19 @@ import tv.mineinthebox.essentials.hook.WorldGuardHook;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdVanish {
+	
+	private final xEssentials pl;
+	
+	public CmdVanish(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("vanish")) {
 			if(sender instanceof Player) {
 				if(sender.hasPermission(PermissionKey.CMD_VANISH.getPermission())) {
 					Player p = (Player) sender;
-					XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+					XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 					if(args.length == 0) {
 						if(xp.isVanished()) {
 							xp.unvanish();

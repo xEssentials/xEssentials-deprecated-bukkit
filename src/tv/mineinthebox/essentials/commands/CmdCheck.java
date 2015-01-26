@@ -13,13 +13,19 @@ import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdCheck {
+	
+	private final xEssentials pl;
+	
+	public CmdCheck(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(sender.hasPermission(PermissionKey.CMD_CHECK.getPermission())) {
 			if(args.length == 0) {
 				if(sender instanceof Player) {
-					if(xEssentials.getManagers().getPlayerManager().isOnline(sender.getName())) {
-						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+					if(pl.getManagers().getPlayerManager().isOnline(sender.getName())) {
+						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						sender.sendMessage(ChatColor.GOLD + ".oO___[currently open Modreqs]___Oo.");
 						for(Modreq mod : xp.getModreqs()) {
 							sender.sendMessage(ChatColor.GRAY + "id: " + ChatColor.GREEN + mod.getId() + ChatColor.GRAY + " message: " + ChatColor.GREEN + mod.getMessage() + ChatColor.GRAY + " published: " + ChatColor.GREEN + mod.getDate());
@@ -34,7 +40,7 @@ public class CmdCheck {
 				if(args[0].equalsIgnoreCase("list")) {
 					sender.sendMessage(ChatColor.GOLD + ".oO___[Modreq list]___Oo.");
 					if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-						for(XOfflinePlayer off : xEssentials.getManagers().getPlayerManager().getOfflinePlayers()) {
+						for(XOfflinePlayer off : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
 							if(off.hasModreqsOpen()) {
 								for(Modreq mod : off.getModreqs()) {
 									sender.sendMessage(ChatColor.GRAY + "id: " + ChatColor.GREEN + mod.getId() + ChatColor.GRAY + " message: " + ChatColor.GREEN + mod.getMessage() + ChatColor.GRAY + " published: " + ChatColor.GREEN + mod.getDate() + ChatColor.GRAY + " by: " + ChatColor.GREEN + off.getUser());	
@@ -47,8 +53,8 @@ public class CmdCheck {
 
 				} else {
 					if(sender instanceof Player) {
-						if(xEssentials.getManagers().getPlayerManager().isOnline(sender.getName())) {
-							XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+						if(pl.getManagers().getPlayerManager().isOnline(sender.getName())) {
+							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 							try {
 								int id = Integer.parseInt(args[0]);
 								if(xp.isValidModreqId(id)) {
@@ -71,10 +77,10 @@ public class CmdCheck {
 			} else if(args.length == 2) {
 				if(args[0].equalsIgnoreCase("list")) {
 					if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-						Player victem = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]).getPlayer();
+						Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]).getPlayer();
 						if(victem instanceof Player) {
-							if(xEssentials.getManagers().getPlayerManager().isOnline(args[1])) {
-								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[1]);
+							if(pl.getManagers().getPlayerManager().isOnline(args[1])) {
+								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[1]);
 								if(xp.hasModreqsOpen()) {
 									sender.sendMessage(ChatColor.GOLD + ".oO___[Modreq list of player " + args[1] + "]___Oo.");
 									for(Modreq mod : xp.getModreqs()) {
@@ -88,7 +94,7 @@ public class CmdCheck {
 							}
 						} else {
 							try {
-								XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
+								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 								if(off.hasModreqsOpen()) {
 									sender.sendMessage(ChatColor.GOLD + ".oO___[Modreq list of player " + args[1] + "]___Oo.");
 									for(Modreq mod : off.getModreqs()) {
@@ -106,10 +112,10 @@ public class CmdCheck {
 					}
 				} else {
 					if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) { 
-						Player p = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+						Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 						if(p instanceof Player) {
-							if(xEssentials.getManagers().getPlayerManager().isOnline(args[0])) { 
-								XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(args[0]);
+							if(pl.getManagers().getPlayerManager().isOnline(args[0])) { 
+								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 								if(xp.hasModreqsOpen()) {
 									try {
 										int id = Integer.parseInt(args[1]);
@@ -131,7 +137,7 @@ public class CmdCheck {
 							}
 						} else {
 							try {
-								XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
+								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								if(off.hasModreqsOpen()) {
 									try {
 										int id = Integer.parseInt(args[1]);

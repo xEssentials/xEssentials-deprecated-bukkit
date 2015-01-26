@@ -12,20 +12,26 @@ import tv.mineinthebox.essentials.enums.PermissionKey;
 
 public class CmdTpAccept {
 	
+	private final xEssentials pl;
+	
+	public CmdTpAccept(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("tpaccept")) {
 			if(sender.hasPermission(PermissionKey.CMD_TP_ACCEPT.getPermission())) {
-				if(xEssentials.getManagers().getTpaManager().containsKey(sender.getName())) {
+				if(pl.getManagers().getTpaManager().containsKey(sender.getName())) {
 					Player p = (Player) sender;
-					Player victem = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(xEssentials.getManagers().getTpaManager().get(sender.getName())).getPlayer();
+					Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(pl.getManagers().getTpaManager().get(sender.getName())).getPlayer();
 					if(victem instanceof Player) {
 						victem.teleport(p, TeleportCause.COMMAND);
 						victem.sendMessage(ChatColor.GREEN + sender.getName() + " has successfully accepted your tpa request!");
 						sender.sendMessage(ChatColor.GREEN + "you have successfully accepted " + victem.getName() + " his tpa request!");
-						xEssentials.getManagers().getTpaManager().remove(sender.getName());
+						pl.getManagers().getTpaManager().remove(sender.getName());
 					} else {
 						sender.sendMessage(ChatColor.RED + "the player went offline!");
-						xEssentials.getManagers().getTpaManager().remove(sender.getName());
+						pl.getManagers().getTpaManager().remove(sender.getName());
 					}
 				} else {
 					sender.sendMessage(ChatColor.RED + "you don't have tpa requests open!");

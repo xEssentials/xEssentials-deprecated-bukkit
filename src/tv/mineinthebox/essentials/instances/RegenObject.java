@@ -16,12 +16,13 @@ import tv.mineinthebox.essentials.xEssentials;
 public class RegenObject implements Runnable {
 
 	private final LinkedHashMap<Location, MaterialData> blocks;
-	
+	private final xEssentials pl;
 	private BukkitTask task;
 
-	public RegenObject(LinkedHashMap<Location, MaterialData> blocks) {
+	public RegenObject(LinkedHashMap<Location, MaterialData> blocks, xEssentials pl) {
 		this.blocks = blocks;
 		startRegen();
+		this.pl = pl;
 	}
 	
 	public RegenObject getValue() {
@@ -47,8 +48,8 @@ public class RegenObject implements Runnable {
 			this.task.cancel();
 			this.task = null;
 		}
-		if(xEssentials.getManagers().getExplosionRegenManager().getList.contains(this)) {
-			xEssentials.getManagers().getExplosionRegenManager().getList.remove(this);
+		if(pl.getManagers().getExplosionRegenManager().getList.contains(this)) {
+			pl.getManagers().getExplosionRegenManager().getList.remove(this);
 		}
 		
 	}

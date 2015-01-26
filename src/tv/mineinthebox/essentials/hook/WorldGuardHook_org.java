@@ -50,7 +50,7 @@ public class WorldGuardHook_org {
 	 * @return void
 	 */
 	public static void sendVanishQuitMessage(Player p) {
-		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+		XPlayer xp = xEssentials.getPlugin().getManagers().getPlayerManager().getPlayer(p.getName());
 		if(!xp.isVanished()) {
 			if(Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
 				WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
@@ -75,7 +75,7 @@ public class WorldGuardHook_org {
 	 * @return void
 	 */
 	public static void sendVanishJoinMessage(Player p) {
-		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+		XPlayer xp = xEssentials.getPlugin().getManagers().getPlayerManager().getPlayer(p.getName());
 		if(xp.isVanished()) {
 			if(Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
 				WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");

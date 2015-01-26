@@ -13,6 +13,12 @@ import tv.mineinthebox.essentials.xEssentials;
 public class ChairManager {
 
 	private final HashMap<String, Entity> hash = new HashMap<String, Entity>();
+	
+	private final xEssentials pl;
+	
+	public ChairManager(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	public void addChicken(Player p, Chicken chicken) {
 		hash.put(p.getName(), chicken);
@@ -32,8 +38,8 @@ public class ChairManager {
 	}
 	
 	public void killAll() {
-		for(String player : xEssentials.getManagers().getChairManager().getPlayers()) {
-			xEssentials.getManagers().getChairManager().removeChicken(player);
+		for(String player : pl.getManagers().getChairManager().getPlayers()) {
+			pl.getManagers().getChairManager().removeChicken(player);
 		}
 	}
 	

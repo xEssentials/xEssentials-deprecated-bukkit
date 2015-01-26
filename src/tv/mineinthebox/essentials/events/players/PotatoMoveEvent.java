@@ -17,17 +17,22 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class PotatoMoveEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public PotatoMoveEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler
 	public void onPotatoMove(PlayerMoveEvent e) {
-		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isPotato()) {
 				if(e.getFrom().distanceSquared(e.getTo()) > 0) {
 					Item item = xp.getPotato();
@@ -43,7 +48,7 @@ public class PotatoMoveEvent implements Listener {
 		if(e.getItem().getItemStack().getType() == Material.POTATO_ITEM) {
 			for(Entity entity : e.getItem().getNearbyEntities(5, 5, 5)) {
 				if(entity instanceof Player) {
-					XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(((Player) entity).getName());
+					XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(((Player) entity).getName());
 					if(xp.isPotato()) {
 						if(e.getItem().equals(xp.getPotato())) {
 							e.setCancelled(true);
@@ -56,8 +61,8 @@ public class PotatoMoveEvent implements Listener {
 
 	@EventHandler
 	public void onDrop(PlayerDropItemEvent e) {
-		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isPotato()) {
 				e.getPlayer().sendMessage(ChatColor.GREEN + "potatos cannot pickup items!");
 				e.setCancelled(true);
@@ -71,8 +76,8 @@ public class PotatoMoveEvent implements Listener {
 			return;
 		}
 
-		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isPotato()) {
 				e.getPlayer().sendMessage(ChatColor.GREEN + "potatos cannot place blocks!");
 				e.setCancelled(true);
@@ -82,8 +87,8 @@ public class PotatoMoveEvent implements Listener {
 
 	@EventHandler
 	public void onPlace(BlockBreakEvent e) {
-		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isPotato()) {
 				e.getPlayer().sendMessage(ChatColor.GREEN + "potatos cannot break blocks!");
 				e.setCancelled(true);
@@ -93,11 +98,11 @@ public class PotatoMoveEvent implements Listener {
 
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
-		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			if(Configuration.getDebugConfig().isEnabled()) {
-				xEssentials.getPlugin().log("player "+ e.getPlayer().getName() +" is still online for quit event for potato event and gets removed now.", LogType.DEBUG);
+		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+			if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+				xEssentials.log("player "+ e.getPlayer().getName() +" is still online for quit event for potato event and gets removed now.", LogType.DEBUG);
 			}
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp instanceof XPlayer) {	
 				if(xp.isPotato()) {
 					xp.unvanish();
@@ -114,11 +119,11 @@ public class PotatoMoveEvent implements Listener {
 
 	@EventHandler
 	public void onQuit(PlayerKickEvent e) {
-		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			if(Configuration.getDebugConfig().isEnabled()) {
-				xEssentials.getPlugin().log("player "+ e.getPlayer().getName() +" is still online for kick event for potato event and gets removed now.", LogType.DEBUG);
+		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+			if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+				xEssentials.log("player "+ e.getPlayer().getName() +" is still online for kick event for potato event and gets removed now.", LogType.DEBUG);
 			}
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp instanceof XPlayer) {	
 				if(xp.isPotato()) {
 					xp.unvanish();

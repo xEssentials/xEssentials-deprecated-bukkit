@@ -1,7 +1,5 @@
 package tv.mineinthebox.essentials.events.backpack;
 
-import static tv.mineinthebox.essentials.xEssentials.getManagers;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -17,12 +15,18 @@ import tv.mineinthebox.essentials.instances.Backpack;
 
 public class OpenBackPackEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public OpenBackPackEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@EventHandler
 	public void interact(PlayerInteractEvent e) {
 		if(e.getAction() == Action.LEFT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR) {
 			if(e.getItem() != null) {
-				if(getManagers().getBackPackManager().isBackpack(e.getItem())) {
-					Backpack pack = getManagers().getBackPackManager().getBackpackByItem(e.getItem());
+				if(pl.getManagers().getBackPackManager().isBackpack(e.getItem())) {
+					Backpack pack = pl.getManagers().getBackPackManager().getBackpackByItem(e.getItem());
 					e.getPlayer().sendMessage(ChatColor.GREEN + "opening backpack");
 					e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.CHEST_OPEN, 1F, 1F);
 					e.getPlayer().openInventory(pack.getInventory());
@@ -35,8 +39,8 @@ public class OpenBackPackEvent implements Listener {
 	@EventHandler
 	public void onMove(InventoryClickEvent e) {
 		if(e.getCurrentItem() != null) {
-			if(xEssentials.getManagers().getBackPackManager().getBackpackById(e.getInventory().getTitle()) != null) {
-				if(xEssentials.getManagers().getBackPackManager().isBackpack(e.getCurrentItem())) {
+			if(pl.getManagers().getBackPackManager().getBackpackById(e.getInventory().getTitle()) != null) {
+				if(pl.getManagers().getBackPackManager().isBackpack(e.getCurrentItem())) {
 					((Player)e.getWhoClicked()).sendMessage(ChatColor.RED + "you cannot move backpacks");
 					e.setCancelled(true);	
 				}
@@ -46,7 +50,7 @@ public class OpenBackPackEvent implements Listener {
 	
 	@EventHandler
 	public void onClose(InventoryCloseEvent e) {
-		Backpack pack = getManagers().getBackPackManager().getBackpackById(e.getInventory().getTitle());
+		Backpack pack = pl.getManagers().getBackPackManager().getBackpackById(e.getInventory().getTitle());
 		if(pack instanceof Backpack) {
 			pack.setContents(e.getInventory().getContents());
 			e.getPlayer().setItemInHand(pack.getBackPackItem());

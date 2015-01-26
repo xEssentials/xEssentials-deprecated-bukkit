@@ -20,10 +20,16 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 @SuppressWarnings("deprecation")
 public class AntiAddvertiseEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public AntiAddvertiseEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler
 	public void onAntiAddvertise(PlayerChatEvent e) {
-		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		e.setMessage(ipcheck(e.getMessage(), xp));
 	}
 
@@ -32,8 +38,8 @@ public class AntiAddvertiseEvent implements Listener {
 		if(e.hasBookContents()) {
 			if(e.getBookItem().getType() == Material.WRITTEN_BOOK) {
 				if(e.getBookContents().hasAuthor()) {
-					if(xEssentials.getManagers().getPlayerManager().isEssentialsPlayer(e.getBookContents().getAuthor())) {
-						XOfflinePlayer off = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(e.getBookContents().getAuthor());
+					if(pl.getManagers().getPlayerManager().isEssentialsPlayer(e.getBookContents().getAuthor())) {
+						XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(e.getBookContents().getAuthor());
 						for(String bookPage : e.getBookContents().getPages()) {
 							if(ipcheck(bookPage, off)) {
 								e.getPlayer().sendMessage(ChatColor.RED + "you cannot open this book, this book contains addvertises from " + off.getUser());
@@ -64,7 +70,7 @@ public class AntiAddvertiseEvent implements Listener {
 	@EventHandler
 	public void onPreprocess(PlayerCommandPreprocessEvent e) {
 		if(e.getMessage().startsWith("/")) {
-			e.setMessage(ipcheck(e.getMessage(), xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName())));
+			e.setMessage(ipcheck(e.getMessage(), pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName())));
 		}
 	}
 

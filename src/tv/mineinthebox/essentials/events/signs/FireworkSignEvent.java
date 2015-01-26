@@ -7,9 +7,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.FireworkEffect;
+import org.bukkit.FireworkEffect.Type;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.FireworkEffect.Type;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
@@ -19,12 +19,17 @@ import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.inventory.meta.FireworkMeta;
 
-import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
 public class FireworkSignEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public FireworkSignEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	public HashMap<String, String> colours = new HashMap<String, String>();
 
@@ -61,14 +66,14 @@ public class FireworkSignEvent implements Listener {
 	@EventHandler
 	public void redstone(BlockRedstoneEvent e) {
 		if(e.getBlock().getType() == Material.SIGN_POST) {
-			if(Configuration.getDebugConfig().isEnabled()) {
-				xEssentials.getPlugin().log("a sign has been powered by redstone", LogType.DEBUG);
+			if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+				xEssentials.log("a sign has been powered by redstone", LogType.DEBUG);
 			}
 			if(e.getNewCurrent() > 0) {
 				Sign sign = (Sign) e.getBlock().getState();
 				if(sign.getLine(0).contains("[Firework]") || sign.getLine(0).contains("[firework]")) {
-					if(Configuration.getDebugConfig().isEnabled()) {
-						xEssentials.getPlugin().log("sign is a firework sign", LogType.DEBUG);
+					if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+						xEssentials.log("sign is a firework sign", LogType.DEBUG);
 					}
 					for(DyeColor colour : DyeColor.values()) {
 						colours.put(colour.name(), colour.name());

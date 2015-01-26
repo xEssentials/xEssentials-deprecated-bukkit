@@ -4,10 +4,16 @@ import java.util.List;
 
 import org.bukkit.ChatColor;
 
-import tv.mineinthebox.essentials.Configuration;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
 public class RulesConfig {
+	
+	private final xEssentials pl;
+	
+	public RulesConfig(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	/**
 	 * @author xize
@@ -15,7 +21,7 @@ public class RulesConfig {
 	 * @return String
 	 */
 	public String getPrefix() {
-		String s = ChatColor.translateAlternateColorCodes('&', (String) Configuration.getConfigValue(ConfigType.RULES, "prefix"));
+		String s = ChatColor.translateAlternateColorCodes('&', (String) pl.getConfiguration().getConfigValue(ConfigType.RULES, "prefix"));
 		return s;
 	}
 	
@@ -25,7 +31,7 @@ public class RulesConfig {
 	 * @return String
 	 */
 	public String getSuffix() {
-		String s = ChatColor.translateAlternateColorCodes('&', (String) Configuration.getConfigValue(ConfigType.RULES, "suffix"));
+		String s = ChatColor.translateAlternateColorCodes('&', (String) pl.getConfiguration().getConfigValue(ConfigType.RULES, "suffix"));
 		return s;
 	}
 	
@@ -36,7 +42,7 @@ public class RulesConfig {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<String> getRules() {
-		List<String> list = (List<String>)Configuration.getConfigValue(ConfigType.RULES, "rules");
+		List<String> list = (List<String>)pl.getConfiguration().getConfigValue(ConfigType.RULES, "rules");
 		return list;
 	}
 }

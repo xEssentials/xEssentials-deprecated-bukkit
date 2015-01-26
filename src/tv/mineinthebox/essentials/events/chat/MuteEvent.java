@@ -6,19 +6,24 @@ import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerChatEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
+@SuppressWarnings("deprecation")
 public class MuteEvent implements Listener {
 	
-	//loads as last so no other event can override this ;-)
+	private final xEssentials pl;
+	
+	public MuteEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onMute(AsyncPlayerChatEvent e) {
-		if(xEssentials.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+	public void onMute(PlayerChatEvent e) {
+		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isMuted()) {
 				if(System.currentTimeMillis() > xp.getMutedTime()) {
 					e.getPlayer().sendMessage(ChatColor.GREEN + "you are now allowed to talk again!");

@@ -6,23 +6,28 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.Smilley;
 import tv.mineinthebox.essentials.hook.Hooks;
 
+@SuppressWarnings("deprecation")
 public class PlayerChatSmilleyEvent extends PlayerEvent implements Cancellable {
 
-	private AsyncPlayerChatEvent e;
+	private PlayerChatEvent e;
 	private String[] CalledSmilleys;
 
 	private static final HandlerList handlers = new HandlerList();
-	public PlayerChatSmilleyEvent(AsyncPlayerChatEvent e, String[] CalledSmilleys) {
+	
+	private final xEssentials pl;
+	
+	public PlayerChatSmilleyEvent(PlayerChatEvent e, String[] CalledSmilleys, xEssentials pl) {
 		super(e.getPlayer());
 		this.e = e;
 		this.CalledSmilleys = CalledSmilleys;
+		this.pl = pl;
 	}
 
 	/**
@@ -88,7 +93,7 @@ public class PlayerChatSmilleyEvent extends PlayerEvent implements Cancellable {
 	 */
 	public String getSuffix() {
 		if(Hooks.isVaultChatEnabled()) {
-			return ChatColor.translateAlternateColorCodes('&', xEssentials.getManagers().getVaultManager().getSuffix(getPlayer().getName(), xEssentials.getManagers().getVaultManager().getGroup(getPlayer())));
+			return ChatColor.translateAlternateColorCodes('&', pl.getManagers().getVaultManager().getSuffix(getPlayer().getName(), pl.getManagers().getVaultManager().getGroup(getPlayer())));
 		} else {
 			return ChatColor.RESET+"";
 		}

@@ -23,7 +23,13 @@ import tv.mineinthebox.essentials.instances.RegenObject;
 
 public class RegenManager {
 	
-	public HashSet<RegenObject> getList = new HashSet<RegenObject>();
+	public final HashSet<RegenObject> getList = new HashSet<RegenObject>();
+	
+	private final xEssentials pl;
+	
+	public RegenManager(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	/**
 	 * @author xize
@@ -41,7 +47,6 @@ public class RegenManager {
 			try {
 				con.save(f);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -81,7 +86,7 @@ public class RegenManager {
 					
 				});
 				
-				RegenObject regen = new RegenObject(datamap);
+				RegenObject regen = new RegenObject(datamap, pl);
 				getList.add(regen);
 				
 				f.delete();

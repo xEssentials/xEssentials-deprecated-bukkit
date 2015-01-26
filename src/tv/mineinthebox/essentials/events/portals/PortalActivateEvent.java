@@ -14,10 +14,16 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
 
-import tv.mineinthebox.essentials.Configuration;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.Portal;
 
 public class PortalActivateEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public PortalActivateEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler
 	public void onPowered(BlockRedstoneEvent e) {
@@ -27,7 +33,7 @@ public class PortalActivateEvent implements Listener {
 				return;
 			}
 
-			for(Portal portal : Configuration.getPortalConfig().getPortals().values()) {
+			for(Portal portal : pl.getConfiguration().getPortalConfig().getPortals().values()) {
 				if(doesMatch(e.getBlock(), portal)) {
 					if(portal.isClosed()) {
 						portal.setClosed(false);
@@ -55,7 +61,7 @@ public class PortalActivateEvent implements Listener {
 		}
 
 		if(e.getBlock().getType() == Material.PORTAL) {
-			for(Portal portal : Configuration.getPortalConfig().getPortals().values()) {
+			for(Portal portal : pl.getConfiguration().getPortalConfig().getPortals().values()) {
 				if(portal.getInnerBlocks().contains(e.getBlock())) {
 					e.setCancelled(true);
 				}
@@ -70,7 +76,7 @@ public class PortalActivateEvent implements Listener {
 		}
 
 		if(e.getBlock().getType() == Material.PORTAL) {
-			for(Portal portal : Configuration.getPortalConfig().getPortals().values()) {
+			for(Portal portal : pl.getConfiguration().getPortalConfig().getPortals().values()) {
 				if(portal.getInnerBlocks().contains(e.getBlock())) {
 					if(e.getPlayer().getGameMode() == GameMode.CREATIVE) {
 						e.getPlayer().sendMessage(ChatColor.RED + "you can only break this portal, if you remove this portal.");

@@ -13,6 +13,12 @@ import tv.mineinthebox.essentials.instances.Warp;
 
 public class WarpManager {
 	
+	private final xEssentials pl;
+	
+	public WarpManager(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	/**
 	 * @author xize
 	 * @param name - the name of the warp
@@ -32,7 +38,7 @@ public class WarpManager {
 		if(isWarp(warpname)) {
 			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "warps" + File.separator + warpname.toLowerCase()+".yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-			return new Warp(con, f, p);
+			return new Warp(con, f, p, pl);
 		}
 		throw new NullPointerException("warp does not exist");
 	}
@@ -61,7 +67,7 @@ public class WarpManager {
 		int i = 0;
 		for(File f : files) {
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-			warps[i] = new Warp(con, f);
+			warps[i] = new Warp(con, f, pl);
 			i++;
 		}
 		return warps;
@@ -74,7 +80,7 @@ public class WarpManager {
 		Warp[] warps = new Warp[i];
 		for(File f : files) {
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-			Warp warp = new Warp(con, f, p);
+			Warp warp = new Warp(con, f, p, pl);
 			if(warp.isOwner()) {
 				warps[i] = warp;
 			}

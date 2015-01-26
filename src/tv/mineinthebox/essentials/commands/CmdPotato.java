@@ -18,13 +18,19 @@ import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdPotato {
+	
+	private final xEssentials pl;
+	
+	public CmdPotato(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("potato")) {
 			if(sender.hasPermission(PermissionKey.CMD_POTATO.getPermission())) {
 				if(args.length == 0) {
 					if(sender instanceof Player) {
-						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						xp.vanish();
 						Item item = xp.getPlayer().getWorld().dropItem(xp.getPlayer().getLocation(), new ItemStack(Material.POTATO_ITEM));
 						xp.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 100));
@@ -38,9 +44,9 @@ public class CmdPotato {
 						Warnings.getWarnings(sender).consoleMessage();
 					}
 				} else if(args.length == 1) {
-					Player p = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 					if(p instanceof Player) {
-						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(p.getName());
+						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 						xp.vanish();
 						Item item = xp.getPlayer().getWorld().dropItem(xp.getPlayer().getLocation(), new ItemStack(Material.POTATO_ITEM));
 						xp.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 100));
@@ -67,7 +73,7 @@ public class CmdPotato {
 
 			@Override
 			public void run() {
-				XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(player);
+				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(player);
 				if(xp instanceof XPlayer) {
 					if(xp.isPotato()) {
 						xp.unvanish(true);

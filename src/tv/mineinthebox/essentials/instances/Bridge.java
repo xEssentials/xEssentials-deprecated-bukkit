@@ -18,10 +18,12 @@ public class Bridge {
 
 	private final File f;
 	private final FileConfiguration con;
+	private final xEssentials pl;
 
-	public Bridge(File f, FileConfiguration con) {
+	public Bridge(File f, FileConfiguration con, xEssentials pl) {
 		this.f = f;
 		this.con = con;
+		this.pl = pl;
 	}
 	
 	public String getId() {
@@ -98,8 +100,8 @@ public class Bridge {
 		} else {
 			f.delete();
 		}
-		if(xEssentials.getManagers().getBridgeManager().contains(this)) {
-			xEssentials.getManagers().getBridgeManager().removeBridge(this);
+		if(pl.getManagers().getBridgeManager().contains(this)) {
+			pl.getManagers().getBridgeManager().removeBridge(this);
 		}
 	}
 

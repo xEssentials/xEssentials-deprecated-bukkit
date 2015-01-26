@@ -12,12 +12,18 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdFirefly {
 	
+	private final xEssentials pl;
+	
+	public CmdFirefly(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("firefly")) {
 			if(sender instanceof Player) {
 				if(sender.hasPermission(PermissionKey.CMD_FIREFLY.getPermission())) {
-					if(xEssentials.getManagers().getPlayerManager().isOnline(sender.getName())) {
-						XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(sender.getName());
+					if(pl.getManagers().getPlayerManager().isOnline(sender.getName())) {
+						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.isFirefly()) {
 							xp.setFirefly(false);
 							sender.sendMessage(ChatColor.GREEN + "you successfully disabled firefly!");
@@ -26,7 +32,7 @@ public class CmdFirefly {
 							sender.sendMessage(ChatColor.GREEN + "you successfully enabled firefly!");
 						}
 					} else {
-						sender.sendMessage(ChatColor.RED + "you don't seems to be listed at our global list, please reload xEssentials");
+						sender.sendMessage(ChatColor.RED + "you don't seems to be listed at our global list, please reload pl");
 					}
 				} else {
 					Warnings.getWarnings(sender).noPermission();

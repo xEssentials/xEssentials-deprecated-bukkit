@@ -13,10 +13,16 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class TrollModeEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public TrollModeEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	@EventHandler
 	public void onTroll(PlayerInteractEntityEvent e) {
-		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		if(xp.isTrollMode()) {
 			if(e.getRightClicked() instanceof Player) {
 				Player p = (Player) e.getRightClicked();
@@ -29,7 +35,7 @@ public class TrollModeEvent implements Listener {
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
 		if(e.getAction() == Action.LEFT_CLICK_BLOCK) {
-			XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isTrollMode()) {
 				if(xp.getPlayer().getPassenger() instanceof Player) {
 					Player p = (Player) xp.getPlayer().getPassenger();

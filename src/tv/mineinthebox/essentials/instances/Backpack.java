@@ -1,7 +1,5 @@
 package tv.mineinthebox.essentials.instances;
 
-import static tv.mineinthebox.essentials.xEssentials.getManagers;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,14 +12,18 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import tv.mineinthebox.essentials.xEssentials;
+
 public class Backpack {
 	
 	private final File f;
 	private final FileConfiguration con;
+	private final xEssentials pl;
 	
-	public Backpack(File f, FileConfiguration con) {
+	public Backpack(File f, FileConfiguration con, xEssentials pl) {
 		this.f = f;
 		this.con = con;
+		this.pl = pl;
 	}
 	
 	/**
@@ -109,8 +111,8 @@ public class Backpack {
 	}
 	
 	public void remove() {
-		if(getManagers().getBackPackManager().isBackpack(this)) { 
-			getManagers().getBackPackManager().removeBackpack(this);
+		if(pl.getManagers().getBackPackManager().isBackpack(this)) { 
+			pl.getManagers().getBackPackManager().removeBackpack(this);
 		}
 		f.delete();
 	}

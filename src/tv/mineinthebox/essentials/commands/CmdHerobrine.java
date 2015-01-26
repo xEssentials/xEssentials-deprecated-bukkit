@@ -18,6 +18,12 @@ import tv.mineinthebox.essentials.enums.PermissionKey;
 
 public class CmdHerobrine {
 	
+	private final xEssentials pl;
+	
+	public CmdHerobrine(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("herobrine")) {
 			if(sender.hasPermission(PermissionKey.CMD_HEROBRINE.getPermission())) {
@@ -43,7 +49,7 @@ public class CmdHerobrine {
 						Warnings.getWarnings(sender).consoleMessage();
 					}
 				} else if(args.length == 1) {
-					Player p = xEssentials.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 					if(p instanceof Player) {
 						Skeleton zombe = (Skeleton) p.getWorld().spawnEntity(p.getLocation().add(6, 0, 6), EntityType.SKELETON);
 						ItemStack item = new ItemStack(Material.SKULL_ITEM);

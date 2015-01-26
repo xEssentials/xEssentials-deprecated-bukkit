@@ -15,13 +15,19 @@ import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdList {
+	
+	private final xEssentials pl;
+	
+	public CmdList(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("list")) {
 			if(sender.hasPermission(PermissionKey.CMD_LIST.getPermission())) {
 				if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 					List<String> players = new ArrayList<String>();
-					for(XPlayer xp : xEssentials.getManagers().getPlayerManager().getPlayers()) {
+					for(XPlayer xp : pl.getManagers().getPlayerManager().getPlayers()) {
 						if(xp.isPotato()) {
 							players.add(ChatColor.GREEN + "(Potato)"+ChatColor.GRAY + xp.getUser());
 						} else if(xp.isVanished()) {
@@ -45,7 +51,7 @@ public class CmdList {
 					return false;
 				}
 				List<String> players = new ArrayList<String>();
-				for(XPlayer xp : xEssentials.getManagers().getPlayerManager().getPlayers()) {
+				for(XPlayer xp : pl.getManagers().getPlayerManager().getPlayers()) {
 					if(xp.isPotato()) {
 						players.add(ChatColor.GREEN + "(Potato)" + ChatColor.GRAY + xp.getUser());
 					} else if(xp.isAfk()) {

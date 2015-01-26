@@ -11,9 +11,15 @@ import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class PowerToolEvent implements Listener {
 
+	private final xEssentials pl;
+
+	public PowerToolEvent(xEssentials pl) {
+		this.pl = pl;	
+	}
+
 	@EventHandler
 	public void onPowerTool(PlayerInteractEvent e) {
-		XPlayer xp = xEssentials.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+		XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		if(e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {
 			if(xp.hasPowerTool() && xp.getPlayer().hasPermission(PermissionKey.CMD_POWERTOOL.getPermission())) {
 				xp.getPlayer().performCommand(xp.getPowerTool());
