@@ -960,6 +960,7 @@ public class xEssentialsPlayer implements XPlayer {
 			String[] a = {s};
 			con.set("IgnoredPlayers", Arrays.asList(a).toArray());
 		}
+		save();
 	}
 
 	@Override
