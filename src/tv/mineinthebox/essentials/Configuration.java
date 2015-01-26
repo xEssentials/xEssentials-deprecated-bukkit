@@ -138,7 +138,7 @@ public class Configuration {
 
 	private void createDebugConfig() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "debug.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "debug.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				FileConfigurationOptions opt = con.options();
@@ -153,7 +153,7 @@ public class Configuration {
 
 	private void createVoteConfig() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "vote.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "vote.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				con.set("vote.enable", false);
@@ -171,7 +171,7 @@ public class Configuration {
 
 	private void createMiscConfig() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "misc.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "misc.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				con.set("gates.enable", true);
@@ -201,7 +201,7 @@ public class Configuration {
 
 	private void createSignConfig() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "signs.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "signs.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				con.set("signs.colorsign.enable", true);
@@ -221,7 +221,7 @@ public class Configuration {
 
 	private void createPortalConfig() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "portal.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "portal.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				con.set("portals.enable", false);
@@ -235,7 +235,7 @@ public class Configuration {
 
 	private void createProtectionConfig() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "protection.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "protection.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				con.set("protection.enable", true);
@@ -254,7 +254,7 @@ public class Configuration {
 
 	private void createShopConfig() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "shops.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "shops.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				con.set("shop.enable", false);
@@ -268,7 +268,7 @@ public class Configuration {
 
 	private void createBlockConfig() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "blocks.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "blocks.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				con.set("disable-bedrock-place", false);
@@ -294,7 +294,7 @@ public class Configuration {
 
 	private void createEconomyConfig() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "economy.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "economy.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				con.set("economy.enable", true);
@@ -309,7 +309,7 @@ public class Configuration {
 
 	private void createCommandConfig() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "commands.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "commands.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				FileConfigurationOptions opt = con.options();
@@ -343,18 +343,15 @@ public class Configuration {
 				List<String> orginal = Arrays.asList(con.getConfigurationSection("command").getKeys(false).toArray(new String[0]));
 
 				if(commands.size() != orginal.size()) {
-					xEssentials.getPlugin();
 					xEssentials.log("new commands detected!, adding them right now inside the command config!", LogType.INFO);
 					for(String cmd : commands) {
 						if(!orginal.contains(cmd)) {
-							xEssentials.getPlugin();
 							xEssentials.log("registering new command: " + cmd + " in commands.yml", LogType.INFO);
 							con.set("command."+cmd+".enable", true);
 						}
 					}
 					con.save(f);
 				} else {
-					xEssentials.getPlugin();
 					xEssentials.log("there where no newer commands found to be added in commands.yml", LogType.INFO);
 				}
 			}
@@ -365,7 +362,7 @@ public class Configuration {
 
 	private void createEntityConfig() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "entity.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "entity.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				con.set("disable-weather", false);
@@ -418,11 +415,9 @@ public class Configuration {
 					}
 				}
 				if(entitys.size() != newentities.size()) {
-					xEssentials.getPlugin();
 					xEssentials.log("new entities detected!, adding them right now inside the entity config!", LogType.INFO);
 					for(String entity : newentities) {
 						if(!entitys.contains(newentities)) {
-							xEssentials.getPlugin();
 							xEssentials.log("found new entity: " + entity + " adding now to entity.yml", LogType.INFO);
 							con.set("mobs.allowToSpawn."+serialize_name(entity) + ".canSpawn", true);
 
@@ -447,7 +442,7 @@ public class Configuration {
 
 	private void createGreyListConfig() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "greylist.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "greylist.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				con.set("greylist.enable", false);
@@ -463,7 +458,7 @@ public class Configuration {
 	@SuppressWarnings("deprecation")
 	private void createKitConfig() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "kits.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "kits.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				FileConfigurationOptions opt = con.options();
@@ -485,7 +480,7 @@ public class Configuration {
 
 	private void createPlayerConfig() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "player.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "player.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				con.set("cache-offline-profiles.amount", 10);
@@ -513,7 +508,7 @@ public class Configuration {
 
 	private void createMotdConfig() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "motd.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "motd.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				ArrayList<String> list = new ArrayList<String>();
@@ -533,7 +528,7 @@ public class Configuration {
 
 	private void createBanConfig() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "ban.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "ban.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				con.set("ban.system.enablePwnAgeProtection", false);
@@ -553,7 +548,7 @@ public class Configuration {
 
 	private void createBroadcastConfig() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "broadcast.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "broadcast.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				ArrayList<String> list = new ArrayList<String>();
@@ -574,7 +569,7 @@ public class Configuration {
 
 	private void createChatConfig() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "chat.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "chat.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				con.set("chat.enable.playerHighlights", false);
@@ -604,7 +599,7 @@ public class Configuration {
 
 	private void createPvpConfig() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "pvp.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "pvp.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				con.set("disable-pvp.enable", false);
@@ -622,7 +617,7 @@ public class Configuration {
 
 	private void createRulesConfig() {
 		try {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "rules.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "rules.yml");
 			if(!f.exists()) {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				ArrayList<String> list = new ArrayList<String>();
@@ -646,7 +641,7 @@ public class Configuration {
 	//no worries me is gonna create a wrap so we can use its power without knowing every key:D
 	private void loadSystemPresets(ConfigType cfg) {
 		if(cfg == ConfigType.GREYLIST) {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "greylist.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "greylist.yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			HashMap<String, Object> hash = new HashMap<String, Object>();
 			hash.put("enable", con.getBoolean("greylist.enable"));
@@ -655,7 +650,7 @@ public class Configuration {
 			configure.put(ConfigType.GREYLIST, hash);
 		} else if(cfg == ConfigType.BAN) {
 			try {
-				File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "ban.yml");
+				File f = new File(pl.getDataFolder() + File.separator + "ban.yml");
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				HashMap<String, Object> hash = new HashMap<String, Object>();
 				hash.put("enablePwnAgeProtection", con.getBoolean("ban.system.enablePwnAgeProtection"));
@@ -673,7 +668,7 @@ public class Configuration {
 			}
 		} else if(cfg == ConfigType.BROADCAST) {
 			try {
-				File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "broadcast.yml");
+				File f = new File(pl.getDataFolder() + File.separator + "broadcast.yml");
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				HashMap<String, Object> hash = new HashMap<String, Object>();
 				hash.put("enable", con.getBoolean("broadcast.enable"));
@@ -687,7 +682,7 @@ public class Configuration {
 			}
 		} else if(cfg == ConfigType.CHAT) {
 			try {
-				File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "chat.yml");
+				File f = new File(pl.getDataFolder() + File.separator + "chat.yml");
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				HashMap<String, Object> hash = new HashMap<String, Object>();
 				hash.put("enable", con.getBoolean("chat.enable.playerHighlights"));
@@ -710,7 +705,7 @@ public class Configuration {
 			}
 		} else if(cfg == ConfigType.ENTITY) {
 			try {
-				File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "entity.yml");
+				File f = new File(pl.getDataFolder() + File.separator + "entity.yml");
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				HashMap<String, Object> hash = new HashMap<String, Object>();
 				hash.put("disableWeather", con.getBoolean("disable-weather"));
@@ -748,7 +743,7 @@ public class Configuration {
 				e.printStackTrace();
 			}
 		} else if(cfg == ConfigType.MOTD) {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "motd.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "motd.yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			HashMap<String, Object> hash = new HashMap<String, Object>();
 			hash.put("NormalEnable", con.getBoolean("motd.normal.enable"));
@@ -758,7 +753,7 @@ public class Configuration {
 			configure.put(ConfigType.MOTD, hash);
 
 		} else if(cfg == ConfigType.PLAYER) {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "player.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "player.yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			HashMap<String, Object> hash = new HashMap<String, Object>();
 			hash.put("offline-cache", con.getInt("cache-offline-profiles.amount"));
@@ -780,7 +775,7 @@ public class Configuration {
 			configure.put(ConfigType.PLAYER, hash);
 
 		} else if(cfg == ConfigType.PVP) {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "pvp.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "pvp.yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			HashMap<String, Object> hash = new HashMap<String, Object>();
 			hash.put("disablepvp", con.getBoolean("disable-pvp.enable"));
@@ -792,7 +787,7 @@ public class Configuration {
 			configure.put(ConfigType.PVP, hash);
 
 		} else if(cfg == ConfigType.RULES) {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "rules.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "rules.yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			HashMap<String, Object> hash = new HashMap<String, Object>();
 			hash.put("prefix", con.getString("rules.prefix"));
@@ -801,7 +796,7 @@ public class Configuration {
 			configure.put(ConfigType.RULES, hash);
 
 		} else if(cfg == ConfigType.BLOCKS) {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "blocks.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "blocks.yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			HashMap<String, Object> hash = new HashMap<String, Object>();
 			hash.put("DisableBedrockPlace", con.getBoolean("disable-bedrock-place"));
@@ -818,7 +813,7 @@ public class Configuration {
 			hash.put("getItemBlacklist", serializeItemList(con.getStringList("item.blacklist.items")));
 			configure.put(ConfigType.BLOCKS, hash);
 		} else if(cfg == ConfigType.KITS) {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "kits.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "kits.yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			HashMap<String, Object> hash = new HashMap<String, Object>();
 			HashMap<String, Kit> kitss = new HashMap<String, Kit>();
@@ -831,7 +826,7 @@ public class Configuration {
 			hash.put("kits", kitss);
 			configure.put(ConfigType.KITS, hash);
 		} else if(cfg == ConfigType.COMMAND) {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "commands.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "commands.yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			HashMap<String, Object> hash = new HashMap<String, Object>();
 			HashMap<String, Boolean> commands = new HashMap<String, Boolean>();
@@ -842,7 +837,7 @@ public class Configuration {
 			hash.put("commands", commands);
 			configure.put(ConfigType.COMMAND, hash);
 		} else if(cfg == ConfigType.ECONOMY) {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "economy.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "economy.yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			HashMap<String, Object> hash = new HashMap<String, Object>();
 			hash.put("enable", con.getBoolean("economy.enable"));
@@ -850,14 +845,14 @@ public class Configuration {
 			hash.put("startersAmount", con.getDouble("economy.startersAmount"));
 			configure.put(ConfigType.ECONOMY, hash);
 		} else if(cfg == ConfigType.SHOP) {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "shops.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "shops.yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			HashMap<String, Object> hash = new HashMap<String, Object>();
 			hash.put("enable", con.getBoolean("shop.enable"));
 			hash.put("adminshopprefix", con.getString("shop.admin.shop-admin-prefix"));	
 			configure.put(ConfigType.SHOP, hash);
 		} else if(cfg == ConfigType.PROTECTION) {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "protection.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "protection.yml");
 			FileConfiguration con= YamlConfiguration.loadConfiguration(f);
 			HashMap<String, Object> hash = new HashMap<String, Object>();
 			hash.put("enable", con.getBoolean("protection.enable"));
@@ -869,14 +864,14 @@ public class Configuration {
 			hash.put("messageDisallow", con.getString("protection.message.disallow"));
 			configure.put(ConfigType.PROTECTION, hash);
 		} else if(cfg == ConfigType.PORTAL) {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "portal.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "portal.yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			HashMap<String, Object> hash = new HashMap<String, Object>();
 			hash.put("enable", con.getBoolean("portals.enable"));
 			hash.put("cooldown", con.getInt("portals.cooldown"));
 			configure.put(ConfigType.PORTAL, hash);
 		} else if(cfg == ConfigType.MISC) {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "misc.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "misc.yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			HashMap<String, Object> hash = new HashMap<String, Object>();
 			hash.put("gatesEnable", con.getBoolean("gates.enable"));
@@ -892,7 +887,7 @@ public class Configuration {
 			hash.put("bookTexts", con.getStringList("bookcases.texts"));
 			configure.put(ConfigType.MISC, hash);
 		} else if(cfg == ConfigType.SIGN) {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "signs.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "signs.yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			HashMap<String, Object> hash = new HashMap<String, Object>();
 			hash.put("color", con.getBoolean("signs.colorsign.enable"));
@@ -905,7 +900,7 @@ public class Configuration {
 			hash.put("dispenser", con.getBoolean("signs.dispenser.enable"));
 			configure.put(ConfigType.SIGN, hash);
 		} else if(cfg == ConfigType.VOTE) {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "vote.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "vote.yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			HashMap<String, Object> hash = new HashMap<String, Object>();
 			hash.put("enable", con.getBoolean("vote.enable"));
@@ -916,7 +911,7 @@ public class Configuration {
 			hash.put("rewardcrateenabled", con.getBoolean("vote.reward-type.crate.enable"));
 			configure.put(ConfigType.VOTE, hash);
 		} else if(cfg == ConfigType.DEBUG) {
-			File f = new File(xEssentials.getPlugin().getDataFolder() + File.separator + "debug.yml");
+			File f = new File(pl.getDataFolder() + File.separator + "debug.yml");
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			HashMap<String, Object> hash = new HashMap<String, Object>();
 			hash.put("debug", con.getBoolean("debug-mode"));
@@ -1434,7 +1429,7 @@ public class Configuration {
 				PluginCommand command = CommandHelper.createPluginCommand(cmd);
 				getCommandConfig().registerBukkitCommand(command);   
 			} else if(unregCommands.contains(cmd) && getCommandConfig().isRegistered(cmd)) {
-				PluginCommand command = xEssentials.getPlugin().getCommand(cmd);
+				PluginCommand command = pl.getCommand(cmd);
 				getCommandConfig().unRegisterBukkitCommand(command);
 			}
 		}
