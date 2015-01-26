@@ -1,6 +1,7 @@
 package tv.mineinthebox.essentials.events.players;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -26,7 +27,13 @@ public class PlayerBorderEvent implements Listener {
 		int x = e.getPlayer().getLocation().getBlockX();
 		int z = e.getPlayer().getLocation().getBlockZ();
 		if(!(x <= xmax && x >= xmin && z <= zmax && z >= zmin)) {
-			e.getPlayer().teleport(e.getFrom());
+			
+			Location loc = e.getFrom();
+			loc.add(0, 1, 0);
+			loc.setPitch(e.getPlayer().getLocation().getPitch());
+			loc.setYaw(e.getPlayer().getLocation().getYaw());
+			
+			e.getPlayer().teleport(loc);
 			e.getPlayer().sendMessage(ChatColor.RED + "you are at the worldborder!, please return.");
 		}
 	}
