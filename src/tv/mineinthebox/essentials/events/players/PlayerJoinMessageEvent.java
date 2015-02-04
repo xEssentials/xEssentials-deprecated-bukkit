@@ -7,7 +7,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.hook.Hooks;
-import tv.mineinthebox.essentials.hook.WorldGuardHook;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class PlayerJoinMessageEvent implements Listener {
@@ -29,7 +28,7 @@ public class PlayerJoinMessageEvent implements Listener {
 				if(xp.isVanished()) {
 					e.setJoinMessage("");
 				} else {
-					e.setJoinMessage(WorldGuardHook.sendJoinMessage(e.getPlayer()));	
+					e.setJoinMessage(pl.getManagers().getWorldGuardManager().sendJoinMessage(e.getPlayer()));	
 				}
 			} else {
 				if(xp.isStaff()) {

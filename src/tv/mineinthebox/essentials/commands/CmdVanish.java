@@ -11,7 +11,6 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.events.customevents.VanishChangeEvent;
 import tv.mineinthebox.essentials.hook.Hooks;
-import tv.mineinthebox.essentials.hook.WorldGuardHook;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdVanish {
@@ -72,7 +71,7 @@ public class CmdVanish {
 							if(xp.isVanished()) {
 								xp.unvanish(true);
 								if(Hooks.isWorldGuardEnabled()) {
-									Bukkit.broadcastMessage(WorldGuardHook.sendJoinMessage(xp.getPlayer()));
+									Bukkit.broadcastMessage(pl.getManagers().getWorldGuardManager().sendJoinMessage(xp.getPlayer()));
 								} else {
 									if(xp.isStaff()) {
 										if(xp.getPlayer().getName().equalsIgnoreCase("Xeph0re")) {
@@ -90,7 +89,7 @@ public class CmdVanish {
 						} else if(args[0].equalsIgnoreCase("fq") || args[0].equalsIgnoreCase("fakequit")) {
 							xp.vanish();
 							if(Hooks.isWorldGuardEnabled()) {
-								Bukkit.broadcastMessage(WorldGuardHook.sendQuitMessage(xp.getPlayer()));
+								Bukkit.broadcastMessage(pl.getManagers().getWorldGuardManager().sendQuitMessage(xp.getPlayer()));
 							} else {
 								if(xp.isStaff()) {
 									if(xp.getPlayer().getName().equalsIgnoreCase("Xeph0re")) {

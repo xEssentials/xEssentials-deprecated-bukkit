@@ -112,6 +112,7 @@ import tv.mineinthebox.essentials.events.players.TorchEvent;
 import tv.mineinthebox.essentials.events.players.TrollModeEvent;
 import tv.mineinthebox.essentials.events.players.VanishArchievementEvent;
 import tv.mineinthebox.essentials.events.players.VanishEvent;
+import tv.mineinthebox.essentials.events.players.WorldGuardMonsterEvent;
 import tv.mineinthebox.essentials.events.portals.PortalActivateEvent;
 import tv.mineinthebox.essentials.events.portals.PortalEvent;
 import tv.mineinthebox.essentials.events.portals.PortalSelectedCreateEvent;
@@ -163,7 +164,7 @@ public class Handler {
 	public void start() {
 		//memory system
 		setListener(new LoadMemoryEvent(pl));
-		if(Hooks.isWorldGuardEnabled()) {setListener(new PlayerZoneEvent());}
+		if(Hooks.isWorldGuardEnabled()) {setListener(new PlayerZoneEvent(pl));}
 		setListener(new VanishEvent(pl));
 		setListener(new VanishArchievementEvent(pl));
 		if(pl.getConfiguration().getPlayerConfig().isSeperatedInventorysEnabled()) {
@@ -227,6 +228,9 @@ public class Handler {
 		if(pl.getConfiguration().getChatConfig().isAntiAdvertiseEnabled()) {setListener(new AntiAddvertiseEvent(pl));}
 		setListener(new MuteEvent(pl));
 		//player.yml
+		if(Hooks.isWorldGuardEnabled()) {
+			setListener(new WorldGuardMonsterEvent(pl));
+		}
 		setListener(new PlayerShootbowSoundEvent());
 		setListener(new SignEditEvent(pl));
 		if(pl.getConfiguration().getPlayerConfig().isAutoRespawnEnabled()) {setListener(new PlayerForceRespawnEvent(pl));}
@@ -266,7 +270,7 @@ public class Handler {
 		if(pl.getConfiguration().getPlayerConfig().isAutoAnvilEnabled()) {setListener(new AnvilResetEvent());}
 		if(pl.getConfiguration().getEntityConfig().isRealisticTreesEnabled()) {setListener(new RealisticTreeEvent(pl));}
 		//pvp.yml
-		if(pl.getConfiguration().getPvpConfig().isFakePvpEnabled()) {setListener(new FakePvpEvent());}
+		if(pl.getConfiguration().getPvpConfig().isFakePvpEnabled()) {setListener(new FakePvpEvent(pl));}
 		if(pl.getConfiguration().getPvpConfig().isPvpDisabled()) {setListener(new PvpEvent(pl));}
 		if(pl.getConfiguration().getPvpConfig().isClientGravesEnabled()) {
 			if(Hooks.isProtocolLibEnabled()) {

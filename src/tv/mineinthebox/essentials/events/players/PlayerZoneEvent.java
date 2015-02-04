@@ -3,14 +3,20 @@ package tv.mineinthebox.essentials.events.players;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.events.customevents.PlayerChunkMoveEvent;
-import tv.mineinthebox.essentials.hook.WorldGuardHook;
 
 public class PlayerZoneEvent implements Listener {
 	
+	private final xEssentials pl;
+	
+	public PlayerZoneEvent(xEssentials pl) {
+		this.pl = pl;
+	}
+	
 	@EventHandler
 	public void onChunk(final PlayerChunkMoveEvent e) {
-		WorldGuardHook.sendRegionMessage(e.getPlayer(), e.getFrom().getChunk(), e.getTo().getChunk());
+		pl.getManagers().getWorldGuardManager().sendRegionMessage(e.getPlayer(), e.getFrom().getChunk(), e.getTo().getChunk());
 	}
 
 }

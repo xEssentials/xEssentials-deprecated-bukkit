@@ -7,7 +7,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.hook.Hooks;
-import tv.mineinthebox.essentials.hook.WorldGuardHook;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class PlayerQuitMessageEvent implements Listener {
@@ -26,7 +25,7 @@ public class PlayerQuitMessageEvent implements Listener {
 				if(xp.isVanished()) {
 					e.setQuitMessage("");
 				} else {
-					e.setQuitMessage(WorldGuardHook.sendQuitMessage(e.getPlayer()));	
+					e.setQuitMessage(pl.getManagers().getWorldGuardManager().sendQuitMessage(e.getPlayer()));	
 				}
 			} else {
 				if(xp.isStaff()) {

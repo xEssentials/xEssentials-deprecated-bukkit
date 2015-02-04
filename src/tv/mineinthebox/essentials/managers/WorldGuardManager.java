@@ -1,4 +1,10 @@
-package tv.mineinthebox.essentials.hook;
+package tv.mineinthebox.essentials.managers;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -8,14 +14,19 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.flags.DefaultFlag;
+import com.sk89q.worldguard.protection.flags.Flag;
+import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.flags.StateFlag.State;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
-public class WorldGuardHook {
+public class WorldGuardManager {
+
+	public final StateFlag MONSTER_FLAG = new MonsterFlag();
 
 	/**
 	 * @author xize
@@ -23,7 +34,7 @@ public class WorldGuardHook {
 	 * @param gets the location by using the world
 	 * @return Location
 	 */
-	public static Location getRegionLocation(String region, World w) {
+	public Location getRegionLocation(String region, World w) {
 		WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
 		ProtectedRegion reg = wg.getRegionManager(w).getRegion(region);
 		Location loc = new Location(w, reg.getMaximumPoint().getX(), 70, reg.getMinimumPoint().getZ(), 0,0);
@@ -36,7 +47,7 @@ public class WorldGuardHook {
 	 * @param World
 	 * @return boolean
 	 */
-	public static boolean isValidRegion(String region, World w) {
+	public boolean isValidRegion(String region, World w) {
 		WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
 		if(wg.getRegionManager(w).hasRegion(region)) {
 			return true;
@@ -50,7 +61,7 @@ public class WorldGuardHook {
 	 * @return void
 	 */
 	@SuppressWarnings("unchecked")
-	public static void sendVanishQuitMessage(Player p) {
+	public void sendVanishQuitMessage(Player p) {
 		XPlayer xp = xEssentials.getPlugin().getManagers().getPlayerManager().getPlayer(p.getName());
 		if(!xp.isVanished()) {
 			if(Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
@@ -81,7 +92,7 @@ public class WorldGuardHook {
 	 * @return void
 	 */
 	@SuppressWarnings("unchecked")
-	public static void sendVanishJoinMessage(Player p) {
+	public void sendVanishJoinMessage(Player p) {
 		XPlayer xp = xEssentials.getPlugin().getManagers().getPlayerManager().getPlayer(p.getName());
 		if(xp.isVanished()) {
 			if(Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
@@ -112,7 +123,7 @@ public class WorldGuardHook {
 	 * @return String
 	 */
 	@SuppressWarnings("unchecked")
-	public static String sendJoinMessage(Player p ) {
+	public String sendJoinMessage(Player p ) {
 		WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
 		if(p.getPlayer().hasPermission("xEssentials.isStaff")) {
 			try {
@@ -161,7 +172,7 @@ public class WorldGuardHook {
 	 * @return String
 	 */
 	@SuppressWarnings("unchecked")
-	public static String sendQuitMessage(Player p) {
+	public String sendQuitMessage(Player p) {
 		WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
 		if(p.getPlayer().hasPermission("xEssentials.isStaff")) {
 			try {
@@ -200,16 +211,41 @@ public class WorldGuardHook {
 	 * @return boolean
 	 */
 	@SuppressWarnings("unchecked")
-	public static boolean isInRegion(Location loc) {
+	public boolean isInRegion(Location loc) {
 		WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
 		try {
 			Iterable<ProtectedRegion> regionset = (Iterable<ProtectedRegion>)wg.getRegionManager(loc.getWorld()).getClass().getMethod("getApplicableRegions", Location.class).invoke(wg.getRegionManager(loc.getWorld()), loc);
-		for(ProtectedRegion region : regionset) {
-			if(region.getFlag(DefaultFlag.MOB_SPAWNING) == State.DENY || region.getFlag(DefaultFlag.PVP) == State.DENY) {
-				//player has entered
-				return true;
-			}
+			return regionset.iterator().hasNext();
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
+		return false;
+	}
+
+	/**
+	 * @author xize
+	 * @param loc - gets a regionset by a location
+	 * @return Iterable<protectionRegion>
+	 */
+	@SuppressWarnings("unchecked")
+	public Iterable<ProtectedRegion> getRegion(Location loc) {
+		WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
+		try {
+			Iterable<ProtectedRegion> regionset = (Iterable<ProtectedRegion>)wg.getRegionManager(loc.getWorld()).getClass().getMethod("getApplicableRegions", Location.class).invoke(wg.getRegionManager(loc.getWorld()), loc);
+			return regionset;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public boolean isFlagAllowed(StateFlag flag, Location loc) {
+		WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
+		try {
+			Object obj = wg.getRegionManager(loc.getWorld()).getClass().getMethod("getApplicableRegions", Location.class).invoke(wg.getRegionManager(loc.getWorld()), loc);
+			Method m1 = obj.getClass().getMethod("allows", StateFlag.class);
+			boolean bol = (Boolean)m1.invoke(obj, flag);
+			return bol;
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -224,7 +260,7 @@ public class WorldGuardHook {
 	 * @param to
 	 * return void
 	 */
-	public static void sendRegionMessage(Player p, Chunk from, Chunk to) {
+	public void sendRegionMessage(Player p, Chunk from, Chunk to) {
 		if(from.getX() != to.getX() || from.getZ() != to.getZ()) {
 			if(!isInRegion(from.getBlock(1, 1, 1).getLocation()) && isInRegion(to.getBlock(1, 1, 1).getLocation())) {
 				p.getPlayer().sendMessage(ChatColor.GOLD + ".oO___[Entering safe zone]___Oo.");
@@ -232,6 +268,82 @@ public class WorldGuardHook {
 				p.getPlayer().sendMessage(ChatColor.GOLD + ".oO___[Leaving safe zone]___Oo.");
 			}
 		}
+	}
+
+	private void registerFlag(Flag<?> flag) throws Exception {
+		Field f1 = DefaultFlag.class.getDeclaredField("flagsList");
+		Field f2 = Field.class.getDeclaredField("modifiers");
+		f2.setAccessible(true);
+		f2.setInt(f1, f1.getModifiers() &~Modifier.FINAL);
+		f1.setAccessible(true);
+
+		Flag<?>[] flags = DefaultFlag.getFlags();
+
+		List<Flag<?>> flaglist = Arrays.asList(flags);
+		if(!flaglist.contains(flag)) {
+			Flag<?>[] newflags = Arrays.copyOf(flags, flags.length+1);
+			newflags[newflags.length-1] = flag;
+			f1.set(null, newflags);	
+		}
+
+		f1.setAccessible(false);
+		f2.setAccessible(false);
+	}
+
+	private void unregisterFlag(Flag<?> flag) throws Exception {
+		Field f1 = DefaultFlag.class.getDeclaredField("flagsList");
+		Field f2 = Field.class.getDeclaredField("modifiers");
+		f2.setAccessible(true);
+		f2.setInt(f1, f1.getModifiers() &~Modifier.FINAL);
+		f1.setAccessible(true);
+
+		Flag<?>[] flags = DefaultFlag.getFlags();
+
+		List<Flag<?>> flaglist = Arrays.asList(flags);
+		if(flaglist.contains(flag)) {
+			flaglist.remove(flag);
+			Flag<?>[] newflags = flaglist.toArray(new Flag<?>[flaglist.size()]);
+			f1.set(null, newflags);	
+		}
+
+		f1.setAccessible(false);
+		f2.setAccessible(false);
+	}
+
+	public void registerMonsterFlag() {
+		try {
+			registerFlag(MONSTER_FLAG);
+			xEssentials.log("added new worldguard flag: monster-spawn", LogType.INFO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void unregisterMonsterFlag() {
+		try {
+			unregisterFlag(MONSTER_FLAG);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public StateFlag getMonsterFlag() {
+		return MONSTER_FLAG;
+	}
+	
+	public void reloadWG() {
+		WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
+		wg.getRegionContainer().reload();
+	}
+
+	private class MonsterFlag extends StateFlag {
+
+		public MonsterFlag() {
+			super("monster-spawn", true);
+		}
+
 	}
 
 }

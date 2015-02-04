@@ -31,6 +31,7 @@ public class Manager {
 	private ManCoManager manco;
 	private RealisticWaterManager water;
 	private TeleportManager teleport;
+	private WorldGuardManager worldguard;
 	
 	private final xEssentials pl;
 	
@@ -283,5 +284,14 @@ public class Manager {
 			this.teleport = new TeleportManager();
 		}
 		return teleport;
+	}
+	
+	public WorldGuardManager getWorldGuardManager() {
+		if(!(worldguard instanceof WorldGuardManager)) {
+			this.worldguard = new WorldGuardManager();
+			this.worldguard.registerMonsterFlag();
+			this.worldguard.reloadWG();
+		}
+		return worldguard;
 	}
 }

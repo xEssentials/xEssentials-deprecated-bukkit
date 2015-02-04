@@ -8,10 +8,16 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.hook.Hooks;
-import tv.mineinthebox.essentials.hook.WorldGuardHook;
 
 public class FakePvpEvent implements Listener {
+	
+	private final xEssentials pl;
+	
+	public FakePvpEvent(xEssentials pl) {
+		this.pl = pl;
+	}
 	
 	@EventHandler(priority = EventPriority.LOW)
 	public void onDamage(EntityDamageByEntityEvent e) {
@@ -25,7 +31,7 @@ public class FakePvpEvent implements Listener {
 					e.setCancelled(true);
 				} else {
 					if(Hooks.isWorldGuardEnabled()) {
-						if(WorldGuardHook.isInRegion(p.getLocation())) {
+						if(pl.getManagers().getWorldGuardManager().isInRegion(p.getLocation())) {
 							e.setCancelled(true);
 							return;
 						}

@@ -16,7 +16,6 @@ import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.hook.Hooks;
-import tv.mineinthebox.essentials.hook.WorldGuardHook;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
@@ -126,8 +125,8 @@ public class CmdTeleport {
 						if(sender instanceof Player) {
 							if(Hooks.isWorldGuardEnabled()) {
 								Player p = (Player) sender;
-								if(WorldGuardHook.isValidRegion(args[1], p.getWorld())) {
-									Location loc = WorldGuardHook.getRegionLocation(args[1], p.getWorld());
+								if(pl.getManagers().getWorldGuardManager().isValidRegion(args[1], p.getWorld())) {
+									Location loc = pl.getManagers().getWorldGuardManager().getRegionLocation(args[1], p.getWorld());
 									loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 									p.teleport(loc, TeleportCause.COMMAND);
 									sender.sendMessage(ChatColor.GREEN + "teleporting to region " + args[1] + " ;-)");
