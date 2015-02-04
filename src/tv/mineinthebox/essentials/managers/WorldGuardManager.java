@@ -26,7 +26,7 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 public class WorldGuardManager {
 
-	public final StateFlag MONSTER_SPAWN = new MonsterFlag();
+	private final StateFlag MONSTER_SPAWN = new MonsterFlag();
 
 	/**
 	 * @author xize
