@@ -15,18 +15,18 @@ import org.bukkit.entity.Player;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
+import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.flags.DefaultFlag;
 import com.sk89q.worldguard.protection.flags.Flag;
 import com.sk89q.worldguard.protection.flags.StateFlag;
-import com.sk89q.worldguard.protection.flags.StateFlag.State;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 public class WorldGuardManager {
 
-	public final StateFlag MONSTER_FLAG = new MonsterFlag();
+	public final StateFlag MONSTER_SPAWN = new MonsterFlag();
 
 	/**
 	 * @author xize
@@ -60,27 +60,10 @@ public class WorldGuardManager {
 	 * @param sends the quit message for fake quiting
 	 * @return void
 	 */
-	@SuppressWarnings("unchecked")
 	public void sendVanishQuitMessage(Player p) {
 		XPlayer xp = xEssentials.getPlugin().getManagers().getPlayerManager().getPlayer(p.getName());
 		if(!xp.isVanished()) {
-			if(Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
-				WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
-				try {
-					Iterable<ProtectedRegion> regionset = (Iterable<ProtectedRegion>)wg.getRegionManager(p.getWorld()).getClass().getMethod("getApplicableRegions", Location.class).invoke(wg.getRegionManager(p.getWorld()), p.getLocation());
-					for(ProtectedRegion region : regionset) {
-						if(region.getFlag(DefaultFlag.MOB_SPAWNING) == State.DENY) {
-							Bukkit.broadcastMessage(ChatColor.RED + "Whoosh!" + ChatColor.GRAY + " staff member " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has left the game safely!");
-							xp.vanish();
-							return;
-						}
-					}
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
-				Bukkit.broadcastMessage(ChatColor.RED + "Whoosh!" + ChatColor.GRAY + " staff member " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has left the game in wild!");
-				xp.vanish();
-			}
+			sendQuitMessage(p);
 		} else {
 			p.sendMessage(ChatColor.RED + "you are allready vanished so you can't fake quit, use /vanish fakejoin instead or /vanish");
 		}
@@ -91,27 +74,10 @@ public class WorldGuardManager {
 	 * @param sends a fake join message
 	 * @return void
 	 */
-	@SuppressWarnings("unchecked")
 	public void sendVanishJoinMessage(Player p) {
 		XPlayer xp = xEssentials.getPlugin().getManagers().getPlayerManager().getPlayer(p.getName());
 		if(xp.isVanished()) {
-			if(Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
-				WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
-				try {
-					Iterable<ProtectedRegion> regionset = (Iterable<ProtectedRegion>)wg.getRegionManager(p.getWorld()).getClass().getMethod("getApplicableRegions", Location.class).invoke(wg.getRegionManager(p.getWorld()), p.getLocation());
-					for(ProtectedRegion region : regionset) {
-						if(region.getFlag(DefaultFlag.MOB_SPAWNING) == State.DENY) {
-							Bukkit.broadcastMessage(ChatColor.GRAY + "a safe staff member " + p.getDisplayName() + ChatColor.GRAY + " has been appeared!");
-							xp.vanish();
-							return;
-						}
-					}
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
-				Bukkit.broadcastMessage(ChatColor.GRAY + "a wild staff member " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has been appeared!");
-				xp.unvanish();
-			}
+			sendJoinMessage(p);
 		} else {
 			p.sendMessage(ChatColor.RED + "you are allready are unvanished so you can't fake join, use /vanish fakequit instead or /vanish");
 		}
@@ -122,47 +88,33 @@ public class WorldGuardManager {
 	 * @param sends normal join message and if they are joined in the wild or in the spawn
 	 * @return String
 	 */
-	@SuppressWarnings("unchecked")
 	public String sendJoinMessage(Player p ) {
-		WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
-		if(p.getPlayer().hasPermission("xEssentials.isStaff")) {
-			try {
-				Iterable<ProtectedRegion> regionset = (Iterable<ProtectedRegion>)wg.getRegionManager(p.getWorld()).getClass().getMethod("getApplicableRegions", Location.class).invoke(wg.getRegionManager(p.getWorld()), p.getLocation());
-				for(ProtectedRegion region : regionset) {
-					if(region.getFlag(DefaultFlag.MOB_SPAWNING) == State.DENY) {
-						String message;
-						if(p.getName().equalsIgnoreCase("Xeph0re")) {
-							message = ChatColor.GRAY + "a safe Developer of xEssentials " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has been appeared!";	
-						} else {
-							message = ChatColor.GRAY + "a safe staff member " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has been appeared!";	
-						}
-						return message;
-					}
+		if(p.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
+			if(isSafeZone(p.getLocation())) {
+				String message;
+				if(p.getName().equalsIgnoreCase("Xeph0re")) {
+					message = ChatColor.GRAY + "a safe Developer of xEssentials " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has been appeared!";	
+				} else {
+					message = ChatColor.GRAY + "a safe staff member " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has been appeared!";	
 				}
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-			String message;
-			if(p.getName().equalsIgnoreCase("Xeph0re")) {
-				message = ChatColor.GRAY + "a wild Developer of xEssentials " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has been appeared!";	
+				return message;
 			} else {
-				message = ChatColor.GRAY + "a wild staff member " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has been appeared!";	
-			}
-			return message;
-		} else {
-			try {
-				Iterable<ProtectedRegion> regionset = (Iterable<ProtectedRegion>)wg.getRegionManager(p.getWorld()).getClass().getMethod("getApplicableRegions", Location.class).invoke(wg.getRegionManager(p.getWorld()), p.getLocation());
-				for(ProtectedRegion region : regionset) {
-					if(region.getFlag(DefaultFlag.MOB_SPAWNING) == State.DENY) {
-						String message = ChatColor.GRAY + "a safe " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has been appeared!";
-						return message;
-					}
+				String message;
+				if(p.getName().equalsIgnoreCase("Xeph0re")) {
+					message = ChatColor.GRAY + "a wild Developer of xEssentials " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has been appeared!";	
+				} else {
+					message = ChatColor.GRAY + "a wild staff member " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has been appeared!";	
 				}
-			} catch(Exception e) {
-				e.printStackTrace();
+				return message;
 			}
-			String message = ChatColor.GRAY + "a wild " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has been appeared!";
-			return message;
+		} else {
+			if(isSafeZone(p.getLocation())) {
+				String message = ChatColor.GRAY + "a safe " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has been appeared!";
+				return message;
+			} else {
+				String message = ChatColor.GRAY + "a wild " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has been appeared!";
+				return message;
+			}
 		}
 	}
 
@@ -171,37 +123,23 @@ public class WorldGuardManager {
 	 * @param sends normal quit message and if they are joined in the wild or in the spawn
 	 * @return String
 	 */
-	@SuppressWarnings("unchecked")
 	public String sendQuitMessage(Player p) {
-		WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
-		if(p.getPlayer().hasPermission("xEssentials.isStaff")) {
-			try {
-				Iterable<ProtectedRegion> regionset = (Iterable<ProtectedRegion>)wg.getRegionManager(p.getWorld()).getClass().getMethod("getApplicableRegions", Location.class).invoke(wg.getRegionManager(p.getWorld()), p.getLocation());
-				for(ProtectedRegion region : regionset) {
-					if(region.getFlag(DefaultFlag.MOB_SPAWNING) == State.DENY) {
-						String message = ChatColor.RED + "Whoosh!" + ChatColor.GRAY + " staff member " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has left the game safely!";
-						return message;
-					}
-				}
-			} catch(Exception e) {
-				e.printStackTrace();
+		if(p.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
+			if(isSafeZone(p.getLocation())) {
+				String message = ChatColor.RED + "Whoosh!" + ChatColor.GRAY + " staff member " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has left the game safely!";
+				return message;
+			} else {
+				String message = ChatColor.RED + "Whoosh!" + ChatColor.GRAY + " staff member " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has left the game in wild!";
+				return message;
 			}
-			String message = ChatColor.RED + "Whoosh!" + ChatColor.GRAY + " staff member " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has left the game in wild!";
-			return message;
 		} else {
-			try {
-				Iterable<ProtectedRegion> regionset = (Iterable<ProtectedRegion>)wg.getRegionManager(p.getWorld()).getClass().getMethod("getApplicableRegions", Location.class).invoke(wg.getRegionManager(p.getWorld()), p.getLocation());
-				for(ProtectedRegion region : regionset) {
-					if(region.getFlag(DefaultFlag.MOB_SPAWNING) == State.DENY) {
-						String message = ChatColor.RED + "Whoosh! " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has left the game safely!";
-						return message;
-					}
-				}
-			} catch(Exception e) {
-				e.printStackTrace();
+			if(isSafeZone(p.getLocation())) {
+				String message = ChatColor.RED + "Whoosh! " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has left the game safely!";
+				return message;
+			} else {
+				String message = ChatColor.RED + "Whoosh! " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has left the game in wild!";
+				return message;	
 			}
-			String message = ChatColor.RED + "Whoosh! " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has left the game in wild!";
-			return message;
 		}
 	}
 
@@ -252,6 +190,15 @@ public class WorldGuardManager {
 		return false;
 	}
 
+	public boolean isSafeZone(Location loc) {
+		if(isInRegion(loc)) {
+			if(!isFlagAllowed(DefaultFlag.MOB_SPAWNING, loc) || !isFlagAllowed(MONSTER_SPAWN, loc) && !isFlagAllowed(DefaultFlag.PVP, loc)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 	/**
 	 * @author xize
@@ -262,9 +209,9 @@ public class WorldGuardManager {
 	 */
 	public void sendRegionMessage(Player p, Chunk from, Chunk to) {
 		if(from.getX() != to.getX() || from.getZ() != to.getZ()) {
-			if(!isInRegion(from.getBlock(1, 1, 1).getLocation()) && isInRegion(to.getBlock(1, 1, 1).getLocation())) {
+			if(!isSafeZone(from.getBlock(1, 1, 1).getLocation()) && isSafeZone(to.getBlock(1, 1, 1).getLocation())) {
 				p.getPlayer().sendMessage(ChatColor.GOLD + ".oO___[Entering safe zone]___Oo.");
-			} else if(isInRegion(from.getBlock(1, 1, 1).getLocation()) && !isInRegion(to.getBlock(1, 1, 1).getLocation())) {
+			} else if(isSafeZone(from.getBlock(1, 1, 1).getLocation()) && !isSafeZone(to.getBlock(1, 1, 1).getLocation())) {
 				p.getPlayer().sendMessage(ChatColor.GOLD + ".oO___[Leaving safe zone]___Oo.");
 			}
 		}
@@ -312,7 +259,7 @@ public class WorldGuardManager {
 
 	public void registerMonsterFlag() {
 		try {
-			registerFlag(MONSTER_FLAG);
+			registerFlag(MONSTER_SPAWN);
 			xEssentials.log("added new worldguard flag: monster-spawn", LogType.INFO);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -322,7 +269,7 @@ public class WorldGuardManager {
 
 	public void unregisterMonsterFlag() {
 		try {
-			unregisterFlag(MONSTER_FLAG);
+			unregisterFlag(MONSTER_SPAWN);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -330,9 +277,9 @@ public class WorldGuardManager {
 	}
 
 	public StateFlag getMonsterFlag() {
-		return MONSTER_FLAG;
+		return MONSTER_SPAWN;
 	}
-	
+
 	public void reloadWG() {
 		WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
 		wg.getRegionContainer().reload();

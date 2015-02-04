@@ -19,7 +19,7 @@ public class WorldGuardMonsterEvent implements Listener {
 	public void onSpawn(CreatureSpawnEvent e) {
 		if(e.getEntity() instanceof Monster) {
 			if(pl.getManagers().getWorldGuardManager().isInRegion(e.getLocation())) {
-				if(!pl.getManagers().getWorldGuardManager().isFlagAllowed(pl.getManagers().getWorldGuardManager().MONSTER_FLAG, e.getLocation())) {
+				if(!pl.getManagers().getWorldGuardManager().isFlagAllowed(pl.getManagers().getWorldGuardManager().MONSTER_SPAWN, e.getLocation())) {
 					e.setCancelled(true);
 				}
 			}
