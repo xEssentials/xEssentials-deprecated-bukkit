@@ -62,6 +62,7 @@ public class CmdTpId {
 		return null;
 	}
 
+	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("tp-id")) {
 			if(sender.hasPermission(PermissionKey.CMD_TP_ID.getPermission())) {

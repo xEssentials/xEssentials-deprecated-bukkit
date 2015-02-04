@@ -46,6 +46,7 @@ public class CmdWarp {
 		return null;
 	}
 
+	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("warp")) {
 			if(sender.hasPermission(PermissionKey.CMD_WARP.getPermission())) {

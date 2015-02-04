@@ -21,6 +21,7 @@ public class CmdBack {
 		this.manager = pl.getManagers().getTeleportManager();
 	}
 	
+	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("back")) {
 			if(sender.hasPermission(PermissionKey.CMD_BACK.getPermission())) {
