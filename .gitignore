@@ -1,6 +1,10 @@
 /bin/
 /target/
 /.settings/
+.settings/
+.settings
 .classpath
 .project
 .settings
+org.eclipse.jdt.core.prefs
+org.eclipse.m2e.core.prefs
