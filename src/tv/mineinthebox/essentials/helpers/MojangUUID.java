@@ -125,7 +125,7 @@ class Lastname implements Callable<String> {
 	 */
 
 	private UUID uuid;
-	private final  String REPO = " https://api.mojang.com/user/profiles/";
+	private final  String REPO = "https://api.mojang.com/user/profiles/";
 	private final JSONParser jsonParser = new JSONParser();
 
 	public Lastname(String uuid) {
