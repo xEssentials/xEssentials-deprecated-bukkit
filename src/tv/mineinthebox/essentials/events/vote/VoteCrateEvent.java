@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.manco.enums.CrateType;
-import tv.mineinthebox.manco.instances.NormalCrate;
+import tv.mineinthebox.manco.interfaces.Crate;
 
 import com.vexsoftware.votifier.model.Vote;
 import com.vexsoftware.votifier.model.VotifierEvent;
@@ -27,7 +27,7 @@ public class VoteCrateEvent implements Listener {
 		Vote vote = e.getVote();
 		if(pl.getManagers().getPlayerManager().isEssentialsPlayer(vote.getUsername())) {
 			Player p = Bukkit.getPlayer(vote.getUsername());
-				NormalCrate crate = pl.getManagers().getManCoManager().spawnRandomCrate(vote.getUsername());
+				Crate crate = pl.getManagers().getManCoManager().spawnRandomCrate(vote.getUsername());
 				if(p.isOnline()) {
 					p.sendMessage(pl.getConfiguration().getVoteConfig().getVotePersonalMessage().replaceAll("%player%", p.getName()).replaceAll("%reward%", (crate.getType() == CrateType.RARE ? ChatColor.DARK_PURPLE + crate.getCrateName() : crate.getCrateName())));
 					Bukkit.broadcastMessage(pl.getConfiguration().getVoteConfig().getVoteBroadcastMessage().replaceAll("%player%", vote.getUsername()).replaceAll("%reward%", (crate.getType() == CrateType.RARE ? ChatColor.DARK_PURPLE + crate.getCrateName() : crate.getCrateName())));
