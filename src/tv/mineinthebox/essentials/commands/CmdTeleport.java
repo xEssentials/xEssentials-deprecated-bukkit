@@ -20,9 +20,9 @@ import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdTeleport {
-	
+
 	private final xEssentials pl;
-	
+
 	public CmdTeleport(xEssentials pl) {
 		this.pl = pl;
 	}
@@ -77,13 +77,13 @@ public class CmdTeleport {
 								p.getPlayer().teleport(to.getPlayer());
 								sender.sendMessage(ChatColor.GREEN + "teleporting to online location of player " + xp.getUser() + " ;-)");
 							} else {
-								try {
+								if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
 									XOfflinePlayer offliner = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 									offliner.getLastLocation().getWorld().refreshChunk(offliner.getLastLocation().getChunk().getX(), offliner.getLastLocation().getChunk().getZ());
 									p.getPlayer().teleport(offliner.getLastLocation(), TeleportCause.COMMAND);
 									sender.sendMessage(ChatColor.GREEN + "teleporting to last offline location of player " + offliner.getUser() + " ;-)");
-								} catch(NullPointerException e) {
-									Warnings.getWarnings(sender).playerHasNeverPlayedBefore();
+								} else {
+									Warnings.getWarnings(sender).playerHasNeverPlayedBefore();	
 								}
 							}
 						} else {
