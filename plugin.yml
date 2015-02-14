@@ -14,271 +14,356 @@ loadbefore: [Towny]
 commands:
   home:
      description: allows you to use the home command
+     permission: xEssentials.command.home
      aliases: []
   sethome:
      description: allows you to set your home
+     permission: xEssentials.command.sethome     
      aliases: []
   gamemode:
      description: allows you to set your gamemode
+     permission: xEssentials.command.gamemode
      aliases: [gm]
   setspawn:
      description: allows you to set spawn
+     permission: xEssentials.command.setspawn
      aliases: []
   spawn:
      description: teleports to spawn
+     permission: xEssentials.command.spawn
      aliases: []
   teleport:
      description: allows you to teleport
+     permission: xEssentials.command.teleport
      aliases: [tp]
   vanish:
      description: allows you to vanish yourself
+     permission: xEssentials.command.vanish
      aliases: [v]
   invsee:
      description: see a inventory of a player
+     permission: xEssentials.command.invsee
      aliases: []
   torch:
      description: toggles torch
+     permission: xEssentials.command.torch
      aliases: []
   spawnmob:
      description: spawn a mob
+     permission: xEssentials.command.spawnmob
      aliases: []
   firefly:
      description: toggles firefly
+     permission: xEssentials.command.firefly
      aliases: []
   fly:
      description: toggles fly
+     permission: xEssentials.command.fly
      aliases: []
   modreq:
      description: create a modreq
+     permission: xEssentials.command.modreq
      aliases: []
   check:
      description: check all your modreqs
+     permission: xEssentials.command.check
      aliases: []
   done:
      description: done a modreq
+     permission: xEssentials.command.done
      aliases: []
   claim:
      description: claim a modreq
+     permission: xEssentials.command.claim
      aliases: []
   xEssentials:
      description: xEssentials
+     permission: xEssentials.command.xEssentials
      aliases: []
   ban:
      description: ban a player
+     permission: xEssentials.command.ban
      aliases: []
   tempban:
      description: tempban a player
+     permission: xEssentials.command.tempban
      aliases: [tb]
   unban:
      description: unban a player
+     permission: xEssentials.command.unban
      aliases: [pardon]
   mute:
      description: mute a player
+     permission: xEssentials.command.mute
      aliases: []
   unmute:
      description: unmute a player
+     permission: xEssentials.command.unmute
      aliases: []
   tphere:
      description: tphere a player
+     permission: xEssentials.command.tphere
      aliases: []
   tpa:
      description: sent a tpa request to a player
+     permission: xEssentials.command.tpa
      aliases: []
   tpaccept:
      description: accept a tpa!
+     permission: xEssentials.command.tpaccept
      aliases: []
   tpdeny:
      description: deny a tpa!
+     permission: xEssentials.command.tpdeny
      aliases: []
   list:
      description: shows a list of all online players
+     permission: xEssentials.command.list
      aliases: []
   afk:
      description: set your to afk
+     permission: xEssentials.command.afk
      aliases: []
   homeinvite:
      description: home invites
+     permission: xEssentials.command.homeinvite
      aliases: [hi]
   more:
      description: clones the item in your hand
+     permission: xEssentials.command.more
      aliases: []
   smite:
      description: smite a player
+     permission: xEssentials.command.smite
      aliases: []
   explode:
      description: explode a player
+     permission: xEssentials.command.explode
      aliases: []
   potato:
      description: change a player to a potato
+     permission: xEssentials.command.potato
      aliases: []
   back:
      description: teleport back to your last location
+     permission: xEssentials.command.back
      aliases: []
   boom:
      description: launch a player in the sky!
+     permission: xEssentials.command.boom
      aliases: []
   spawner:
      description: change spawners
+     permission: xEssentials.command.spawner
      aliases: []
   speed:
      description: change your walk speed
+     permission: xEssentials.command.speed
      aliases: []
   hand:
      description: check the item in your hand
+     permission: xEssentials.command.hand
      aliases: []
   task:
      description: do a task
+     permission: xEssentials.command.task
      aliases: []
   powertool:
      description: activate a powertool
+     permission: xEssentials.command.powertool
      aliases: [pt]
   nuke:
      description: activates a nuke
+     permission: xEssentials.command.nuke
      aliases: []
   fakenuke:
      description: activates a fake nuke
+     permission: xEssentials.command.fakenuke
      aliases: []
   compass:
      description: activates the compass following
+     permission: xEssentials.command.compass
      aliases: []
   hat:
      description: use items as hat
+     permission: xEssentials.command.hat
      aliases: []
   herobrine:
      description: summon a Herobrine
+     permission: xEssentials.command.herobrine
      aliases: [hb]
   greylist:
      description: greylist management
+     permission: xEssentials.command.greylist
      aliases: [gl]
   menu:
      description: shows admin menu
+     permission: xEssentials.command.menu
      aliases: [m]
   rules:
      description: shows all the rules
-     aliases: [m]
+     permission: xEssentials.command.rules
+     aliases: []
   broadcast:
      description: show configuration of broadcasts
+     permission: xEssentials.command.broadcast
      aliases: [bc]
   give:
      description: give items to players
-     aliases: []
+     permission: xEssentials.command.give
+     aliases: [i]
   tp-id:
      description: use tp-id for modreqs
+     permission: xEssentials.command.tpid
      aliases: []
   silence:
      description: silence your chat
+     permission: xEssentials.command.silence
      aliases: []
   ignore:
      description: ignore players
+     permission: xEssentials.command.ignore
      aliases: []
   freeze:
      description: freeze a player
+     permission: xEssentials.command.freeze
      aliases: []
   trollmode:
      description: troll a player by sitting on his head
+     permission: xEssentials.command.trollmode
      aliases: [troll]
   commandrestrict:
      description: restrict a command of a player
+     permission: xEssentials.command.commandrestrict
      aliases: [restrict]
   playerinfo:
      description: shows the player info of a player
+     permission: xEssentials.command.playerinfo
      aliases: [info]
   kit:
      description: get a kit
+     permission: xEssentials.command.kit
      aliases: []
   kits:
      description: shows a list of kits
+     permission: xEssentials.command.kits
      aliases: []
   warp:
      description: warp to a location
+     permission: xEssentials.command.warp
      aliases: []
   setwarp:
      description: setwarp to a location
+     permission: xEssentials.command.setwarp
      aliases: []
   delwarp:
      description: delete a warp
+     permission: xEssentials.command.delwarp
      aliases: []
   warps:
      description: shows a list of all warps
+     permission: xEssentials.command.warps
      aliases: []
   wild:
      description: teleport to the wild!
+     permission: xEssentials.command.wild
      aliases: []
   money:
      description: economy money command
+     permission: xEssentials.command.money
      aliases: [bal]
   cprivate:
      description: allows you to select a block to make it private
+     permission: xEssentials.command.cprivate
      aliases: []
   cremove:
      description: allows you to remove a block protection to make it public
+     permission: xEssentials.command.cremove
      aliases: []
   cmodify:
      description: modify a protected block
+     permission: xEssentials.command.cmodify
      aliases: []
   portals:
      description: portal and multi world management
-     aliases: [portal, mvp]
+     permission: xEssentials.command.portals
+     aliases: [portal]
   arrow:
      description: a arrow machine gun
+     permission: xEssentials.command.arrow
      aliases: []
   test:
      description: a arrow machine gun
      aliases: []
-  spleef:
-     description: the spleef minigame command!
-     aliases: []
   lookup:
      description: look a player up whenever they are banned or not
+     permission: xEssentials.command.lookup
      aliases: []
   proc:
      description: proc
+     permission: xEssentials.command.proc
      aliases: []
   kill:
      description: kills someone
+     permission: xEssentials.command.kill
      aliases: []
   backpack:
      description: gives backpacks
+     permission: xEssentials.command.backpack
      aliases: []
   trollblock:
      description: change blocks into paranoid troll blocks
+     permission: xEssentials.command.trollblock
      aliases: []
   knock:
      description: enables or disables anti knockback
+     permission: xEssentials.command.knock
      aliases: []
   clear:
      description: clear a inventory
+     permission: xEssentials.command.clear
      aliases: []
   fire:
      description: set a player on fire
+     permission: xEssentials.command.fire
      aliases: []
   doublejump:
      description: allows a player to double jump
+     permission: xEssentials.command.doublejump
      aliases: []
   nick:
      description: changes a player name
+     permission: xEssentials.command.nick
      aliases: [nickname]
   spectate:
      description: spectate a player
+     permission: xEssentials.command.spectate
      aliases: []
   editsign:
      description: edit a sign
+     permission: xEssentials.command.editsign
      aliases: [es]
   drunk:
      description: talk drunk and derpish
+     permission: xEssentials.command.drunk
      aliases: [derp]
   spawnerblock:
      description: creates a tempory spawner
+     permission: xEssentials.command.spawnerblock
      aliases: [sb]
   floor:
      description: makes a floor like a fast place!
+     permission: xEssentials.command.floor
      aliases: [fl]
   wall:
      description: makes a wall like a fast place!
+     permission: xEssentials.command.wall
      aliases: [wl]
   nether:
      description: teleport to the nether on exact coords
+     permission: xEssentials.command.nether
      aliases: []
   getchunkfile:
      description: finds the chunk as a file
+     permission: xEssentials.command.getchunkfile
      aliases: [findchunk, chunkfinder]
