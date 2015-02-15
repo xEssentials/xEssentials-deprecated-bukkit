@@ -30,7 +30,6 @@ public class WildSignEvent implements Listener {
 	private int xRadius = 10000;
 	private int zRadius = 10000;
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
 		if(e.getAction() == Action.RIGHT_CLICK_BLOCK) {

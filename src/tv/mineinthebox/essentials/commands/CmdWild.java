@@ -23,7 +23,6 @@ public class CmdWild {
 		this.pl = pl;
 	}
 	
-	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("wild")) {
 			if(sender.hasPermission(PermissionKey.CMD_WILD.getPermission())) {

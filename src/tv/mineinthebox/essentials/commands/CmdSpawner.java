@@ -15,6 +15,7 @@ import tv.mineinthebox.essentials.enums.PermissionKey;
 
 public class CmdSpawner {
 	
+	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("spawner")) {
 			if(sender instanceof Player) {
@@ -49,7 +50,6 @@ public class CmdSpawner {
 									} else if(type == EntityType.PLAYER) {
 										sender.sendMessage(ChatColor.RED + "player entities cannot used through Bukkit");
 									} else {
-										@SuppressWarnings("deprecation")
 										Block block = p.getTargetBlock(null, 50);
 										if(block.getType() == Material.MOB_SPAWNER) {
 											CreatureSpawner spawner = (CreatureSpawner) block.getState();

@@ -297,9 +297,4 @@ public class SpawnerBlock implements Block {
 		return this.block.setTypeIdAndData(arg0, arg1, arg2);
 	}
 
-	@Override
-	public void setType(Material arg0, boolean arg1) {
-		this.block.setType(arg0, arg1);
-	}
-
 }
