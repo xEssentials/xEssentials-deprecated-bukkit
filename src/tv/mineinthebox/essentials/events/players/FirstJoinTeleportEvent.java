@@ -45,12 +45,15 @@ public class FirstJoinTeleportEvent implements Listener {
 					Double x = con.getDouble("x");
 					Double y = con.getDouble("y");
 					Double z = con.getDouble("z");
-					int yaw = con.getInt("yaw");
+					float yaw = con.getInt("yaw");
 					String world = con.getString("world");
 					World w = Bukkit.getWorld(world);
 					if(w instanceof World) {
 						Location loc = new Location(w, x, y, z, yaw, e.getPlayer().getLocation().getPitch());
-						e.getPlayer().teleport(loc);
+						boolean bol = e.getPlayer().teleport(loc);
+						if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+							xEssentials.log("did teleportation for first joining player succeeded?: " + (bol ? "success" : "failure"), LogType.DEBUG);
+						}
 					} else {
 						e.getPlayer().sendMessage(ChatColor.RED + "the world does not exists for the spawn!");
 					}
