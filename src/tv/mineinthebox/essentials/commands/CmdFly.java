@@ -23,19 +23,14 @@ public class CmdFly {
 			if(sender.hasPermission(PermissionKey.CMD_FLY.getPermission())) {
 				if(args.length == 0) {
 					if(sender instanceof Player) {
-						Player p = (Player) sender;
 						if(pl.getManagers().getPlayerManager().isOnline(sender.getName())) {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 							if(xp.isFlying()) {
-								xp.setFlying(false);
 								sender.sendMessage(ChatColor.GRAY + "successfully disabled fly mode");
-								p.setFlying(false);
-								p.setAllowFlight(false);
+								xp.setFlying(false);
 							} else {
-								xp.setFlying(true);
 								sender.sendMessage(ChatColor.GRAY + "successfully enabled fly mode");
-								p.setAllowFlight(true);
-								p.setFlying(true);
+								xp.setFlying(true);
 							}
 						} else {
 							sender.sendMessage(ChatColor.RED + "something went wrong, please reload pl");

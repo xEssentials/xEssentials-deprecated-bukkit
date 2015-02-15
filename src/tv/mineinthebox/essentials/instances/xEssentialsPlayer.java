@@ -485,6 +485,13 @@ public class xEssentialsPlayer implements XPlayer {
 
 	@Override
 	public void setFlying(boolean bol) {
+		if(bol) {
+			player.setAllowFlight(true);
+			player.setFlying(true);
+		} else {
+			player.setAllowFlight(false);
+			player.setFlying(false);
+		}
 		con.set("fly", bol);
 	}
 
