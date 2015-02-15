@@ -1,7 +1,6 @@
 package tv.mineinthebox.essentials.configurations;
 
 import java.io.File;
-import java.lang.reflect.Method;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -55,26 +54,6 @@ public class PlayerConfig {
 	 */
 	public int getWorldBorderSize() {
 		return (Integer) pl.getConfiguration().getConfigValue(ConfigType.PLAYER, "worldborder-radius");
-	}
-
-	/**
-	 * @author xize
-	 * @param returns true if its supported else false
-	 * @return boolean
-	 */
-	public boolean isVanillaBorderSupported() {
-		try {
-			Class<?> w = Class.forName("org.bukkit.World");
-			Method[] methods = w.getMethods();
-			for(int i = 0; i < methods.length; i++) {
-				if(methods[i].getName().equalsIgnoreCase("getWorldBorder")) {
-					return true;
-				}
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return false;
 	}
 
 	/**

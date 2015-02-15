@@ -96,7 +96,6 @@ import tv.mineinthebox.essentials.events.players.PlayerQuitMessageEvent;
 import tv.mineinthebox.essentials.events.players.PlayerRespawnTeleportEvent;
 import tv.mineinthebox.essentials.events.players.PlayerShootbowSoundEvent;
 import tv.mineinthebox.essentials.events.players.PlayerTaskLoginEvent;
-import tv.mineinthebox.essentials.events.players.PlayerVanillaBorderEvent;
 import tv.mineinthebox.essentials.events.players.PlayerWallEvent;
 import tv.mineinthebox.essentials.events.players.PlayerZoneEvent;
 import tv.mineinthebox.essentials.events.players.PortalSizeEvent;
@@ -176,11 +175,7 @@ public class Handler {
 			setListener(new SaveLastInventoryEvent(pl));
 		}
 		if(pl.getConfiguration().getPlayerConfig().isWorldBorderEnabled()) {
-			if(pl.getConfiguration().getPlayerConfig().isVanillaBorderSupported()) {
-				setListener(new PlayerVanillaBorderEvent(pl));	
-			} else {
 				setListener(new PlayerBorderEvent(pl));
-			}
 		}
 		if(pl.getConfiguration().getChatConfig().isRssBroadcastEnabled()) {
 			setListener(new BroadcastSiteNewsEvent());
