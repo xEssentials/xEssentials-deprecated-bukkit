@@ -27,6 +27,11 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 public class WorldGuardManager {
 
 	private final StateFlag MONSTER_SPAWN = new MonsterFlag();
+	private final xEssentials pl;
+	
+	public WorldGuardManager(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	/**
 	 * @author xize
@@ -61,7 +66,7 @@ public class WorldGuardManager {
 	 * @return void
 	 */
 	public void sendVanishQuitMessage(Player p) {
-		XPlayer xp = xEssentials.getPlugin().getManagers().getPlayerManager().getPlayer(p.getName());
+		XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 		if(!xp.isVanished()) {
 			sendQuitMessage(p);
 		} else {
@@ -75,7 +80,7 @@ public class WorldGuardManager {
 	 * @return void
 	 */
 	public void sendVanishJoinMessage(Player p) {
-		XPlayer xp = xEssentials.getPlugin().getManagers().getPlayerManager().getPlayer(p.getName());
+		XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 		if(xp.isVanished()) {
 			sendJoinMessage(p);
 		} else {
@@ -262,7 +267,6 @@ public class WorldGuardManager {
 			registerFlag(MONSTER_SPAWN);
 			xEssentials.log("added new worldguard flag: monster-spawn", LogType.INFO);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -271,7 +275,6 @@ public class WorldGuardManager {
 		try {
 			unregisterFlag(MONSTER_SPAWN);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

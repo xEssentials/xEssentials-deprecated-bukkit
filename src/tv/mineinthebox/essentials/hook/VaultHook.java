@@ -20,8 +20,10 @@ public class VaultHook {
 	private Economy econ;
 	private Chat chat;
 	private Permission perm;
+	private final xEssentials pl;
 
-	public VaultHook() {
+	public VaultHook(xEssentials pl) {
+		this.pl = pl;
 		RegisteredServiceProvider<Economy> ep = Bukkit.getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
 		RegisteredServiceProvider<Chat> cp = Bukkit.getServer().getServicesManager().getRegistration(net.milkbowl.vault.chat.Chat.class);
 		RegisteredServiceProvider<Permission> pp = Bukkit.getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
@@ -188,7 +190,7 @@ public class VaultHook {
 		if(econ != null) {
 			Bukkit.getServer().getServicesManager().unregister(econ);
 		}
-		Bukkit.getServer().getServicesManager().register(Economy.class, new VaultEcoHandler(xEssentials.getPlugin()), xEssentials.getPlugin(), ServicePriority.Highest);
+		Bukkit.getServer().getServicesManager().register(Economy.class, new VaultEcoHandler(pl), pl, ServicePriority.Highest);
 	}
 
 }

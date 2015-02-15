@@ -45,7 +45,6 @@ import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.events.CustomEventHandler;
 import tv.mineinthebox.essentials.events.Handler;
 import tv.mineinthebox.essentials.greylist.GreyListServer;
-import tv.mineinthebox.essentials.helpers.CommandHelper;
 import tv.mineinthebox.essentials.instances.Kit;
 import tv.mineinthebox.simpleserver.SimpleServer;
 
@@ -1426,7 +1425,7 @@ public class Configuration {
 
 		for(String cmd : cmdlist.getAllCommands) {			
 			if(!unregCommands.contains(cmd) && !getCommandConfig().isRegistered(cmd)) {
-				PluginCommand command = CommandHelper.createPluginCommand(cmd);
+				PluginCommand command = pl.getManagers().getCommandManager().createPluginCommand(cmd);
 				getCommandConfig().registerBukkitCommand(command);   
 			} else if(unregCommands.contains(cmd) && getCommandConfig().isRegistered(cmd)) {
 				PluginCommand command = pl.getCommand(cmd);

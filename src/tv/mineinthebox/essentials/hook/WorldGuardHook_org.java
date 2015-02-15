@@ -1,28 +1,9 @@
 package tv.mineinthebox.essentials.hook;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.entity.Player;
-
-import tv.mineinthebox.essentials.xEssentials;
-import tv.mineinthebox.essentials.interfaces.XPlayer;
-
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import com.sk89q.worldguard.protection.flags.DefaultFlag;
-import com.sk89q.worldguard.protection.flags.StateFlag.State;
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 public class WorldGuardHook_org {
+/*
 
-	/**
-	 * @author xize
-	 * @param gets the region location by using the region name
-	 * @param gets the location by using the world
-	 * @return Location
-	 */
 	public static Location getRegionLocation(String region, World w) {
 		WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
 		ProtectedRegion reg = wg.getRegionManager(w).getRegion(region);
@@ -30,12 +11,6 @@ public class WorldGuardHook_org {
 		return loc;
 	}
 
-	/**
-	 * @author xize
-	 * @param region name
-	 * @param World
-	 * @return boolean
-	 */
 	public static boolean isValidRegion(String region, World w) {
 		WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
 		if(wg.getRegionManager(w).hasRegion(region)) {
@@ -44,11 +19,6 @@ public class WorldGuardHook_org {
 		return false;
 	}
 
-	/**
-	 * @author xize
-	 * @param sends the quit message for fake quiting
-	 * @return void
-	 */
 	public static void sendVanishQuitMessage(Player p) {
 		XPlayer xp = xEssentials.getPlugin().getManagers().getPlayerManager().getPlayer(p.getName());
 		if(!xp.isVanished()) {
@@ -69,11 +39,6 @@ public class WorldGuardHook_org {
 		}
 	}
 
-	/**
-	 * @author xize
-	 * @param sends a fake join message
-	 * @return void
-	 */
 	public static void sendVanishJoinMessage(Player p) {
 		XPlayer xp = xEssentials.getPlugin().getManagers().getPlayerManager().getPlayer(p.getName());
 		if(xp.isVanished()) {
@@ -94,11 +59,6 @@ public class WorldGuardHook_org {
 		}
 	}
 
-	/**
-	 * @author xize
-	 * @param sends normal join message and if they are joined in the wild or in the spawn
-	 * @return String
-	 */
 	public static String sendJoinMessage(Player p ) {
 		WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
 		if(p.getPlayer().hasPermission("xEssentials.isStaff")) {
@@ -132,11 +92,6 @@ public class WorldGuardHook_org {
 		}
 	}
 
-	/**
-	 * @author xize
-	 * @param sends normal quit message and if they are joined in the wild or in the spawn
-	 * @return String
-	 */
 	public static String sendQuitMessage(Player p) {
 		WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
 		if(p.getPlayer().hasPermission("xEssentials.isStaff")) {
@@ -160,11 +115,6 @@ public class WorldGuardHook_org {
 		}
 	}
 
-	/**
-	 * @author xize
-	 * @param checks whenever location is inside a region
-	 * @return boolean
-	 */
 	public static boolean isInRegion(Location loc) {
 		WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
 		for(ProtectedRegion region : wg.getRegionManager(loc.getWorld()).getApplicableRegions(loc)) {
@@ -177,13 +127,6 @@ public class WorldGuardHook_org {
 	}
 
 
-	/**
-	 * @author xize
-	 * @param p
-	 * @param from
-	 * @param to
-	 * return void
-	 */
 	public static void sendRegionMessage(Player p, Chunk from, Chunk to) {
 		if(from.getX() != to.getX() || from.getZ() != to.getZ()) {
 			if(!isInRegion(from.getBlock(1, 1, 1).getLocation()) && isInRegion(to.getBlock(1, 1, 1).getLocation())) {
@@ -193,5 +136,5 @@ public class WorldGuardHook_org {
 			}
 		}
 	}
-
+*/
 }

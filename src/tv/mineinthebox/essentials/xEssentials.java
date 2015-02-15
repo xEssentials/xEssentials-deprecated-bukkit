@@ -169,7 +169,7 @@ public class xEssentials extends JavaPlugin implements xEssentialsApi {
 	 * @return xEssentials (JavaPlugin)
 	 * 
 	 */
-	public static xEssentials getPlugin() {
+	public xEssentials getPlugin() {
 		return xEssentials.getPlugin(xEssentials.class);
 	}
 

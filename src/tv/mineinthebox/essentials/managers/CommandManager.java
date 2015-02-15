@@ -1,4 +1,4 @@
-package tv.mineinthebox.essentials.helpers;
+package tv.mineinthebox.essentials.managers;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -15,7 +15,13 @@ import org.bukkit.plugin.Plugin;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.commands.SimpleCommand;
 
-public class CommandHelper {
+public class CommandManager {
+
+	private final xEssentials pl;
+
+	public CommandManager(xEssentials pl) {
+		this.pl = pl;
+	}
 
 	/**
 	 * @author zeeveener
@@ -27,7 +33,7 @@ public class CommandHelper {
 	 * @throws IllegalArgumentException
 	 * @throws IllegalAccessException
 	 */
-	private static Object getPrivateField(Object object, String field)throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+	private Object getPrivateField(Object object, String field)throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
 		Class<?> clazz = object.getClass();
 		Field objectField = clazz.getDeclaredField(field);
 		objectField.setAccessible(true);
@@ -38,10 +44,12 @@ public class CommandHelper {
 	}
 
 	/**
-	 * @author zeeveener
-	 * @param unregister a command, credits to zeeveener for his awesome code to unregister commands!
+	 * unregister a command, credits to zeeveener for his awesome code to unregister commands!
+	 * 
+	 * @author zeeveener, xize
+	 * @param cmd - the command to be unregistered
 	 */
-	public static void unRegisterBukkitCommand(PluginCommand cmd) {
+	public void unRegisterBukkitCommand(PluginCommand cmd) {
 		try {
 			Object result = getPrivateField(Bukkit.getServer().getPluginManager(), "commandMap");
 			SimpleCommandMap commandMap = (SimpleCommandMap) result;
@@ -49,14 +57,14 @@ public class CommandHelper {
 			@SuppressWarnings("unchecked")
 			HashMap<String, Command> knownCommands = (HashMap<String, Command>) map;
 			knownCommands.remove("xessentials"+":"+cmd.getName());
-			if(knownCommands.containsKey(cmd.getName()) && knownCommands.get(cmd.getName().toLowerCase()).toString().contains(xEssentials.getPlugin().getName())) {
+			if(knownCommands.containsKey(cmd.getName()) && knownCommands.get(cmd.getName().toLowerCase()).toString().contains(pl.getName())) {
 				knownCommands.remove(cmd.getName());
 			}
 			for (String alias : cmd.getAliases()){
-				if(knownCommands.containsKey("xessentials:"+alias) && knownCommands.get("xessentials:"+alias).toString().contains(xEssentials.getPlugin().getName())){
+				if(knownCommands.containsKey("xessentials:"+alias) && knownCommands.get("xessentials:"+alias).toString().contains(pl.getName())){
 					knownCommands.remove("xessentials:"+alias);
 				}
-				if(knownCommands.containsKey(alias) && knownCommands.get(alias).toString().contains(xEssentials.getPlugin().getName())){
+				if(knownCommands.containsKey(alias) && knownCommands.get(alias).toString().contains(pl.getName())){
 					knownCommands.remove(alias);
 				}
 			}
@@ -65,14 +73,21 @@ public class CommandHelper {
 		}
 	}
 
-	public static boolean isRegistered(String cmd) {
+	/**
+	 * returns true if the command is registered inside xEssentials otherwise false
+	 * 
+	 * @author xize
+	 * @param cmd - the command
+	 * @return boolean
+	 */
+	public boolean isRegistered(String cmd) {
 		try {
 			Object result = getPrivateField(Bukkit.getServer().getPluginManager(), "commandMap");
 			SimpleCommandMap commandMap = (SimpleCommandMap) result;
 			Object map = getPrivateField(commandMap, "knownCommands");
 			@SuppressWarnings("unchecked")
 			HashMap<String, Command> knownCommands = (HashMap<String, Command>) map;
-			if(knownCommands.containsKey("xessentials"+":"+cmd) || (knownCommands.containsKey(cmd) && knownCommands.get(cmd).toString().contains(xEssentials.getPlugin().getName()))) {
+			if(knownCommands.containsKey("xessentials"+":"+cmd) || (knownCommands.containsKey(cmd) && knownCommands.get(cmd).toString().contains(pl.getName()))) {
 				return true;
 			}
 		} catch (Exception e) {
@@ -81,8 +96,14 @@ public class CommandHelper {
 		return false;
 	}
 
+	/**
+	 * re-registers the command in the plugin
+	 * 
+	 * @author zeeveener, xize
+	 * @param cmd - the command
+	 */
 	@SuppressWarnings("unchecked")
-	public static void registerBukkitCommand(PluginCommand cmd) {
+	public void registerBukkitCommand(PluginCommand cmd) {
 		try {
 			Object result = getPrivateField(Bukkit.getServer().getPluginManager(), "commandMap");
 			SimpleCommandMap commandMap = (SimpleCommandMap) result;
@@ -90,7 +111,7 @@ public class CommandHelper {
 			HashMap<String, Command> knownCommands = (HashMap<String, Command>) map;
 			knownCommands.put("xessentials:"+cmd.getName(), cmd);
 			knownCommands.put(cmd.getName(), cmd);
-			List<String> aliases = (List<String>)xEssentials.getPlugin().getDescription().getCommands().get(cmd.getName()).get("aliases");
+			List<String> aliases = (List<String>)pl.getDescription().getCommands().get(cmd.getName()).get("aliases");
 			for(String alias : aliases){
 				if(!knownCommands.containsKey("xessentials:"+alias)){
 					knownCommands.put("xessentials:"+alias, cmd);
@@ -104,8 +125,15 @@ public class CommandHelper {
 		}
 	}
 
+	/**
+	 * forces to create a PluginCommand
+	 * 
+	 * @author xize
+	 * @param cmd - the command to be created as instance
+	 * @return PluginCommand
+	 */
 	@SuppressWarnings("unchecked")
-	public static PluginCommand createPluginCommand(String cmd) {
+	public PluginCommand createPluginCommand(String cmd) {
 		try {
 			//forcibly make a new PluginCommand object
 			Class<?> clazz = Class.forName("org.bukkit.command.PluginCommand");
@@ -115,9 +143,9 @@ public class CommandHelper {
 			mf.setAccessible(true);
 			mf.setInt(constructor, constructor.getModifiers() &~Modifier.PROTECTED);
 
-			PluginCommand command = (PluginCommand) constructor.newInstance(cmd, xEssentials.getPlugin());
-			command.setExecutor(new SimpleCommand(xEssentials.getPlugin()));
-			List<String> aliases = (List<String>) xEssentials.getPlugin().getDescription().getCommands().get(command.getName()).get("aliases");
+			PluginCommand command = (PluginCommand) constructor.newInstance(cmd, pl);
+			command.setExecutor(new SimpleCommand(pl));
+			List<String> aliases = (List<String>) pl.getDescription().getCommands().get(command.getName()).get("aliases");
 			command.setAliases(aliases);
 
 			constructor.setAccessible(false);

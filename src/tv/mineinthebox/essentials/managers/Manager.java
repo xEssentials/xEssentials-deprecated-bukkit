@@ -32,6 +32,7 @@ public class Manager {
 	private RealisticWaterManager water;
 	private TeleportManager teleport;
 	private WorldGuardManager worldguard;
+	private CommandManager commandmanager;
 	
 	private final xEssentials pl;
 	
@@ -190,7 +191,7 @@ public class Manager {
 	 */
 	public VaultHook getVaultManager() {
 		if(!(vault instanceof VaultHook)) {
-			this.vault = new VaultHook();
+			this.vault = new VaultHook(pl);
 		}
 		return vault;
 	}
@@ -288,10 +289,17 @@ public class Manager {
 	
 	public WorldGuardManager getWorldGuardManager() {
 		if(!(worldguard instanceof WorldGuardManager)) {
-			this.worldguard = new WorldGuardManager();
+			this.worldguard = new WorldGuardManager(pl);
 			this.worldguard.registerMonsterFlag();
 			this.worldguard.reloadWG();
 		}
 		return worldguard;
+	}
+	
+	public CommandManager getCommandManager() {
+		if(!(commandmanager instanceof CommandManager)) {
+			this.commandmanager = new CommandManager(pl);
+		}
+		return commandmanager;
 	}
 }

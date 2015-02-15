@@ -8,7 +8,6 @@ import org.bukkit.command.PluginCommand;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ConfigType;
-import tv.mineinthebox.essentials.helpers.CommandHelper;
 
 public class CommandConfig {
 	
@@ -49,14 +48,14 @@ public class CommandConfig {
 	 * @param unregister a command, credits to zeeveener for his awesome code to unregister commands!
 	 */
 	public void unRegisterBukkitCommand(PluginCommand cmd) {
-		CommandHelper.unRegisterBukkitCommand(cmd);
+		pl.getManagers().getCommandManager().unRegisterBukkitCommand(cmd);
 	}
 	
 	public boolean isRegistered(String cmd) {
-		return CommandHelper.isRegistered(cmd);
+		return pl.getManagers().getCommandManager().isRegistered(cmd);
 	}
 	
 	public void registerBukkitCommand(PluginCommand cmd) {
-		CommandHelper.registerBukkitCommand(cmd);
+		pl.getManagers().getCommandManager().registerBukkitCommand(cmd);
 	}
 }
