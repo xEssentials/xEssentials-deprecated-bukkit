@@ -13,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.enums.LogType;
 
 public class FirstJoinTeleportEvent implements Listener {
 
@@ -27,9 +28,19 @@ public class FirstJoinTeleportEvent implements Listener {
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
 		if(!e.getPlayer().hasPlayedBefore()) {
+			
+			if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+				xEssentials.log("player " + e.getPlayer().getName() + " has not played before!, teleporting to spawn", LogType.DEBUG);
+			}
+			
 			try {
 				File f = new File(pl.getDataFolder() + File.separator + "spawn.yml");
 				if(f.exists()) {
+					
+					if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+						xEssentials.log("spawn file exist!", LogType.DEBUG);
+					}
+					
 					FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 					Double x = con.getDouble("x");
 					Double y = con.getDouble("y");
@@ -48,6 +59,10 @@ public class FirstJoinTeleportEvent implements Listener {
 				}
 			} catch(Exception r) {
 				r.printStackTrace();
+			}
+		} else {
+			if(pl.getConfiguration().getDebugConfig().isEnabled()) {
+				xEssentials.log("player " + e.getPlayer().getName() + " seems to exist already, not teleporting to spawn", LogType.DEBUG);
 			}
 		}
 	}
