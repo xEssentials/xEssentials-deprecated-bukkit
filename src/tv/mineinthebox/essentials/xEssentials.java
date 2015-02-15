@@ -163,17 +163,6 @@ public class xEssentials extends JavaPlugin implements xEssentialsApi {
 	}
 
 	/**
-	 * 
-	 * @author xize
-	 * @param returns a static instance back for the plugin
-	 * @return xEssentials (JavaPlugin)
-	 * 
-	 */
-	public xEssentials getPlugin() {
-		return xEssentials.getPlugin(xEssentials.class);
-	}
-
-	/**
 	 * @author xize
 	 * @param returns the managers
 	 * @return Manager
