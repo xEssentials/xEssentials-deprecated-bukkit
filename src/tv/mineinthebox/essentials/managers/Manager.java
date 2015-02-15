@@ -41,9 +41,10 @@ public class Manager {
 	}
 	
 	/**
+	 * returns the tick count of the server
+	 * 
 	 * @author xize
-	 * @param returns the tps speedness of the server.
-	 * @return TPS
+	 * @return TPSManager
 	 */
 	public TPSManager getTPSManager() {
 		if(!(tps instanceof TPSManager)) {
@@ -53,8 +54,9 @@ public class Manager {
 	}
 	
 	/**
+	 * returns the tpa manager
+	 * 
 	 * @author xize
-	 * @param returns the Tpa manager
 	 * @return TpaManager
 	 */
 	public TpaManager getTpaManager() {
@@ -65,9 +67,10 @@ public class Manager {
 	}
 	
 	/**
+	 * returns the explosion regen manager
+	 * 
 	 * @author xize
-	 * @param returns the regen list
-	 * @return RegenList
+	 * @return RegenManager
 	 */
 	public RegenManager getExplosionRegenManager() {
 		if(!(regen instanceof RegenManager)) {
@@ -77,9 +80,10 @@ public class Manager {
 	}
 	
 	/**
+	 * returns the protection manager
+	 * 
 	 * @author xize
-	 * @param returns the protection database
-	 * @return ProtectionDB
+	 * @return ProtectionDBManager
 	 */
 	public ProtectionDBManager getProtectionDBManager() {
 		if(!(protectiondb instanceof ProtectionDBManager)) {
@@ -89,8 +93,9 @@ public class Manager {
 	}
 	
 	/**
+	 * returns the home invites manager
+	 * 
 	 * @author xize
-	 * @param returns the HomeInviteManager
 	 * @return HomeInviteManager
 	 */
 	public HomeInviteManager getHomeInviteManager() {
@@ -101,8 +106,9 @@ public class Manager {
 	}
 	
 	/**
+	 * returns the Gate manager
+	 * 
 	 * @author xize
-	 * @param returns the Gate manager
 	 * @return GateManager
 	 */
 	public GateManager getGateManager() {
@@ -113,9 +119,10 @@ public class Manager {
 	}
 	
 	/**
+	 * returns the backpack manager
+	 * 
 	 * @author xize
-	 * @param returns the backpack manager
-	 * @return BackPackData
+	 * @return BackPackManager
 	 */
 	public BackPackManager getBackPackManager() {
 		if(!(backpacks instanceof BackPackManager)) {
@@ -125,8 +132,9 @@ public class Manager {
 	}
 	
 	/**
+	 * returns the player manager
+	 * 
 	 * @author xize
-	 * @param returns the player manager.
 	 * @return xEssentialsPlayerManager
 	 */
 	public xEssentialsPlayerManager getPlayerManager() {
@@ -137,8 +145,9 @@ public class Manager {
 	}
 	
 	/**
+	 * returns the warp manager
+	 * 
 	 * @author xize
-	 * @param returns the warp manager
 	 * @return WarpManager
 	 */
 	public WarpManager getWarpManager() {
@@ -149,8 +158,9 @@ public class Manager {
 	}
 	
 	/**
+	 * returns the economy manager
+	 * 
 	 * @author xize
-	 * @param returns the economy manager
 	 * @return EconomyManager
 	 */
 	public EconomyManager getEcoManager() {
@@ -161,9 +171,10 @@ public class Manager {
 	}
 	
 	/**
+	 * returns the glass regen manager
+	 * 
 	 * @author xize
-	 * @param returns the RealisticGlass manager.
-	 * @return RealisticGlass
+	 * @return RealisticGlassEvent
 	 */
 	public RealisticGlassEvent getRealisticGlassManager() {
 		if(!(glass instanceof RealisticGlassEvent)) {
@@ -173,9 +184,10 @@ public class Manager {
 	}
 	
 	/**
+	 * returns the greylist server
+	 * 
 	 * @author xize
-	 * @param returns the greylist manager
-	 * @return GreyListServer
+	 * @return SimpleServer
 	 */
 	public SimpleServer getGreylistManager() {
 		if(!(greylist instanceof SimpleServer)) {
@@ -185,8 +197,9 @@ public class Manager {
 	}
 	
 	/**
+	 * returns the vault manager
+	 * 
 	 * @author xize
-	 * @param returns the vault manager
 	 * @return VaultHook
 	 */
 	public VaultHook getVaultManager() {
@@ -197,8 +210,9 @@ public class Manager {
 	}
 	
 	/**
+	 * returns the rss manager
+	 * 
 	 * @author xize
-	 * @param returns the rss manager
 	 * @return CallRssFeedEvent
 	 */
 	public CallRssFeedEvent getRssManager() {
@@ -209,8 +223,9 @@ public class Manager {
 	}
 	
 	/**
+	 * returns the mojang status service manager
+	 * 
 	 * @author xize
-	 * @param returns the mojang status service manager
 	 * @return CallMojangStatus
 	 */
 	public CallMojangStatus getMojangStatusManager() {
@@ -221,8 +236,9 @@ public class Manager {
 	}
 	
 	/**
+	 * returns the broadcast manager
+	 * 
 	 * @author xize
-	 * @param returns the broadcast manager
 	 * @return CallEssentialsBroadcastEvent
 	 */
 	public CallEssentialsBroadcastEvent getBroadcastManager() {
@@ -233,8 +249,9 @@ public class Manager {
 	}
 	
 	/**
+	 * returns the bridge manager
+	 * 
 	 * @author xize
-	 * @param returns the  bridge manager
 	 * @return BridgeManager
 	 */
 	public BridgeManager getBridgeManager() {
@@ -245,8 +262,9 @@ public class Manager {
 	}
 	
 	/**
+	 * returns the chair manager
+	 * 
 	 * @author xize
-	 * @param returns the chair manager
 	 * @return ChairManager
 	 */
 	public ChairManager getChairManager() {
@@ -257,8 +275,9 @@ public class Manager {
 	}
 	
 	/**
+	 * returns ManCo manager
+	 * 
 	 * @author xize
-	 * @param returns the ManCo manager
 	 * @return ManCoManager
 	 */
 	public ManCoManager getManCoManager() {
@@ -269,8 +288,9 @@ public class Manager {
 	}
 	
 	/**
+	 * returns the water manager
+	 * 
 	 * @author xize
-	 * @param returns the water manager
 	 * @return RealisticWaterManager
 	 */
 	public RealisticWaterManager getRealisticWaterManager() {
@@ -280,6 +300,12 @@ public class Manager {
 		return water;
 	}
 	
+	/**
+	 * returns the teleport manager
+	 * 
+	 * @author xize
+	 * @return TeleportManager
+	 */
 	public TeleportManager getTeleportManager() {
 		if(!(teleport instanceof TeleportManager)) {
 			this.teleport = new TeleportManager();
@@ -287,6 +313,12 @@ public class Manager {
 		return teleport;
 	}
 	
+	/**
+	 * returns the Worldguard manager
+	 * 
+	 * @author xize
+	 * @return WorldGuardManager
+	 */
 	public WorldGuardManager getWorldGuardManager() {
 		if(!(worldguard instanceof WorldGuardManager)) {
 			this.worldguard = new WorldGuardManager(pl);
@@ -296,6 +328,12 @@ public class Manager {
 		return worldguard;
 	}
 	
+	/**
+	 * returns the command manager
+	 * 
+	 * @author xize, zeeveener
+	 * @return CommandManager
+	 */
 	public CommandManager getCommandManager() {
 		if(!(commandmanager instanceof CommandManager)) {
 			this.commandmanager = new CommandManager(pl);
