@@ -900,7 +900,7 @@ public class xEssentialsPlayer implements XPlayer {
 		if(accounts instanceof AlternateAccount) {
 			return accounts;
 		} else {
-			//this.accounts = new AlternateAccount(this);
+			this.accounts = new AlternateAccount(this, pl);
 			return accounts;
 		}
 	}
@@ -908,8 +908,10 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public boolean hasAlternateAccounts() {
 		AlternateAccount alts = getAlternateAccounts();
-		if(alts.getAltNames().length > 0) {
-			return true;
+		if(alts instanceof AlternateAccount) {
+			if(alts.getAltNames().length > 0) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -1132,7 +1134,7 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean withdrawMoney(double price) {
 		if((getMoney()-price) >= 0.0) {
@@ -1141,7 +1143,7 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean payMoney(double money) {
 		Double moneya = (getMoney()-money);
@@ -1312,11 +1314,11 @@ public class xEssentialsPlayer implements XPlayer {
 				spectate = null;
 			}
 			player.chat("/spawn");
-			
+
 			ItemStack[] contents = null;
-			
+
 			Object c = con.get("spectate-inventory");
-			
+
 			if(c instanceof List) {
 				contents = ((List<ItemStack>)c).toArray(new ItemStack[0]);
 			} else {
@@ -1332,7 +1334,7 @@ public class xEssentialsPlayer implements XPlayer {
 		if(pa.equals(player)) {
 			return;
 		}
-		
+
 		con.set("spectate-inventory", player.getInventory().getContents());
 		this.spectate = new BukkitRunnable() {
 
