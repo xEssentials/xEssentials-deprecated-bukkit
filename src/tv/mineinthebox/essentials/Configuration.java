@@ -588,7 +588,6 @@ public class Configuration {
 				con.set("swearfilter.warning.message", "&cplease dont swear, you are now at warning %w");
 				con.set("rss.useRssBroadcast", false);
 				con.set("rss.useRssUrl", "https://mojang.com/feed/");
-				con.set("checkMojangStatus", false);
 				con.save(f);
 			}
 		} catch(Exception e) {
@@ -690,7 +689,6 @@ public class Configuration {
 				hash.put("antiAddvertiseEnabled", con.getBoolean("chat.enable.antiAddvertise"));
 				hash.put("RssEnabled", con.getBoolean("rss.useRssBroadcast"));
 				hash.put("RssUrl", con.getString("rss.useRssUrl"));
-				hash.put("MojangStatus", con.getBoolean("checkMojangStatus"));
 				hash.put("swearenable", con.getBoolean("swearfilter.enable"));
 				hash.put("swearwords", con.getStringList("swearfilter.words"));
 				hash.put("swearwarningenable", con.getBoolean("swearfilter.warning.enable"));

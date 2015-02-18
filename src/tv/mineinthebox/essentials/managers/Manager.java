@@ -2,7 +2,6 @@ package tv.mineinthebox.essentials.managers;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.events.customevents.CallEssentialsBroadcastEvent;
-import tv.mineinthebox.essentials.events.customevents.CallMojangStatus;
 import tv.mineinthebox.essentials.events.customevents.CallRssFeedEvent;
 import tv.mineinthebox.essentials.events.entity.RealisticGlassEvent;
 import tv.mineinthebox.essentials.hook.VaultHook;
@@ -24,7 +23,6 @@ public class Manager {
 	private SimpleServer greylist;
 	private VaultHook vault;
 	private CallRssFeedEvent rss;
-	private CallMojangStatus moj;
 	private CallEssentialsBroadcastEvent broadcast;
 	private BridgeManager bridge;
 	private ChairManager chair;
@@ -220,19 +218,6 @@ public class Manager {
 			this.rss = new CallRssFeedEvent(pl);
 		}
 		return rss;
-	}
-	
-	/**
-	 * returns the mojang status service manager
-	 * 
-	 * @author xize
-	 * @return CallMojangStatus
-	 */
-	public CallMojangStatus getMojangStatusManager() {
-		if(!(moj instanceof CallMojangStatus)) {
-			this.moj = new CallMojangStatus(pl);
-		}
-		return moj;
 	}
 	
 	/**

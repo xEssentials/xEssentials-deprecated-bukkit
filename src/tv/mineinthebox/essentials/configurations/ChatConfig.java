@@ -16,19 +16,21 @@ public class ChatConfig {
 	}
 	
 	/**
+	 * returns true if chat highlight is enabled, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns whenever the chat system is enabled!
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean isChatHighLightEnabled() {
 		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.CHAT, "enable");
 		return bol;
 	}
-	
+
 	/**
+	 * returns true if smilley's are enabled, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns whenever smilleys are enabled
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean isSmilleysEnabled() {
 		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.CHAT, "smilleysEnable");
@@ -36,8 +38,9 @@ public class ChatConfig {
 	}
 	
 	/**
+	 * returns the hashtag defined from the config which will be used to highlight a players name like +someplayer in chat
+	 * 
 	 * @author xize
-	 * @param returns the hashTag
 	 * @return String
 	 */
 	public String getHashTag() {
@@ -46,8 +49,9 @@ public class ChatConfig {
 	}
 	
 	/**
+	 * returns true if anti addvertise is enabled, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns the boolean whenever advertise is disabled
 	 * @return boolean
 	 */
 	public boolean isAntiAdvertiseEnabled() {
@@ -56,9 +60,10 @@ public class ChatConfig {
 	}
 	
 	/**
+	 * returns true if rss broadcast is enabled, otherwise false
+	 * 
 	 * @author xize
-	 * @param when enabled our custom event will trigger and broadcast the lastest news thread!
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean isRssBroadcastEnabled() {
 		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.CHAT, "RssEnabled");
@@ -66,8 +71,9 @@ public class ChatConfig {
 	}
 	
 	/**
+	 * returns the url formatted in a {@link java.lang.String} from the config
+	 * 
 	 * @author xize
-	 * @param this will returns the global url list where we try to get our RSS news
 	 * @return String
 	 */
 	public String getRssUrl() {
@@ -75,17 +81,9 @@ public class ChatConfig {
 	}
 	
 	/**
+	 * returns true whenever the swear filter is enabled, otherwise false
+	 * 
 	 * @author xize
-	 * @param when enabled, players get automatic a broadcast depending on the situation of auth servers, session servers and skin servers in minecraft
-	 * @return Boolean
-	 */
-	public boolean isMojangStatusEnabled() {
-		return (Boolean)pl.getConfiguration().getConfigValue(ConfigType.CHAT, "MojangStatus");
-	}
-	
-	/**
-	 * @author xize
-	 * @param returns true if the anti swear system is enabled
 	 * @return boolean
 	 */
 	public boolean isSwearFilterEnabled() {
@@ -93,8 +91,9 @@ public class ChatConfig {
 	}
 	
 	/**
+	 * returns a list of disallowed swear words
+	 * 
 	 * @author xize
-	 * @param returns the list of swear words as lowercase
 	 * @return String
 	 */
 	@SuppressWarnings("unchecked")
@@ -108,8 +107,9 @@ public class ChatConfig {
 	}
 	
 	/**
+	 * returns true whenever a warning has been set for swear word usage
+	 * 
 	 * @author xize
-	 * @param returns the warning mode of the censor system
 	 * @return boolean
 	 */
 	public boolean isSwearWarningEnabled() {
@@ -117,8 +117,9 @@ public class ChatConfig {
 	}
 	
 	/**
+	 * 
+	 * 
 	 * @author xize
-	 * @param returns the max level of warnings a player could get before getting punished.
 	 * @return int
 	 */
 	public int getMaxWarningLevel() {
@@ -126,8 +127,9 @@ public class ChatConfig {
 	}
 	
 	/**
+	 * returns the warning command, or also known as punish command
+	 * 
 	 * @author xize
-	 * @param returns the punish command, when the user is getting over the warning limit
 	 * @return String
 	 */
 	public String getWarningCommand() {
@@ -135,8 +137,9 @@ public class ChatConfig {
 	}
 	
 	/**
+	 * returns the warning message when someone swears
+	 * 
 	 * @author xize
-	 * @param returns the warning message
 	 * @return String
 	 */
 	public String getWarningMessage() {

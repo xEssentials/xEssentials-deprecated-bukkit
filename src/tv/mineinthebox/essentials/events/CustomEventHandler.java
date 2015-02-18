@@ -28,9 +28,6 @@ public class CustomEventHandler {
 		if(pl.getConfiguration().getChatConfig().isRssBroadcastEnabled()) {
 			pl.getManagers().getRssManager().start();
 		}
-		if(pl.getConfiguration().getChatConfig().isMojangStatusEnabled()) {
-			pl.getManagers().getMojangStatusManager().start();
-		}
 		if(pl.getConfiguration().getChatConfig().isChatHighLightEnabled()) {setListener(new CallPlayerHighLightEvent(pl));}
 		if(pl.getConfiguration().getChatConfig().isSmilleysEnabled()) {setListener(new CallPlayerChatSmilleyEvent(pl));}
 		if(pl.getConfiguration().getBroadcastConfig().isBroadcastEnabled()) {pl.getManagers().getBroadcastManager().start();}

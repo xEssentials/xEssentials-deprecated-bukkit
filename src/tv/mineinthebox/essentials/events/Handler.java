@@ -34,7 +34,6 @@ import tv.mineinthebox.essentials.events.chat.ChatSmilleyEvent;
 import tv.mineinthebox.essentials.events.chat.DrunkChatEvent;
 import tv.mineinthebox.essentials.events.chat.MuteEvent;
 import tv.mineinthebox.essentials.events.chat.PlayerIgnorePlayerChatEvent;
-import tv.mineinthebox.essentials.events.chat.PublishMojangStatusEvent;
 import tv.mineinthebox.essentials.events.chat.SilenceChatEvent;
 import tv.mineinthebox.essentials.events.elevators.ElevatorCreateEvent;
 import tv.mineinthebox.essentials.events.elevators.ElevatorInteractEvent;
@@ -217,7 +216,6 @@ public class Handler {
 		setListener(new DrunkChatEvent(pl));
 		setListener(new SilenceChatEvent(pl));
 		setListener(new PlayerIgnorePlayerChatEvent(pl));
-		if(pl.getConfiguration().getChatConfig().isMojangStatusEnabled()) {setListener(new PublishMojangStatusEvent());}
 		if(pl.getConfiguration().getChatConfig().isChatHighLightEnabled()) {setListener(new ChatHighLightEvent(pl));}
 		if(pl.getConfiguration().getChatConfig().isSmilleysEnabled()) {setListener(new ChatSmilleyEvent());}
 		if(pl.getConfiguration().getChatConfig().isAntiAdvertiseEnabled()) {setListener(new AntiAddvertiseEvent(pl));}
