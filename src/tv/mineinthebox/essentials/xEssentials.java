@@ -44,7 +44,6 @@ public class xEssentials extends JavaPlugin implements xEssentialsApi {
 		this.uuid = new MojangUUID(this);
 		this.manager = new Manager(this);
 		
-		conf.createConfigs();
 		handler.start();
 		customhandler.startCustomEvents();
 		

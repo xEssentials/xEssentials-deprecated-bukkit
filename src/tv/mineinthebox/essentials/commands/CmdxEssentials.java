@@ -34,7 +34,7 @@ public class CmdxEssentials {
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/xEssentials tps " + ChatColor.WHITE + ": shows tps of the server");
 					} else if(args[0].equalsIgnoreCase("reload")) {
 						sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2[&3xEssentials&2]&f " + ChatColor.GRAY + "reloading xEssentials version " + pl.getDescription().getVersion()));
-						pl.getConfiguration().reloadConfiguration();
+						pl.getConfiguration().reload();
 						sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2[&3xEssentials&2]&f " + ChatColor.GRAY + "reload completed!"));
 					} else if(args[0].equalsIgnoreCase("tps")) {
 						if(sender.hasPermission(PermissionKey.CMD_TPS.getPermission())) {

@@ -85,7 +85,7 @@ public class ClientSideGraveYard_ProtocolLibEvent implements Listener {
 				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 				con.set("createClientSideGraveyard", false);
 				con.save(f);
-				pl.getConfiguration().reloadConfiguration();
+				pl.getConfiguration().reload();
 			} catch(Exception rr) {
 				rr.printStackTrace();
 			}

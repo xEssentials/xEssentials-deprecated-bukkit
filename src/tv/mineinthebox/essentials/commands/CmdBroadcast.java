@@ -57,7 +57,7 @@ public class CmdBroadcast {
 							FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 							con.set("broadcast.enable", false);
 							con.save(f);
-							pl.getConfiguration().reloadConfiguration();
+							pl.getConfiguration().reload();
 							sender.sendMessage(ChatColor.GREEN + "successfully disabled broadcast!");
 						} catch(Exception e) {
 							e.printStackTrace();
@@ -68,7 +68,7 @@ public class CmdBroadcast {
 							FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 							con.set("broadcast.enable", true);
 							con.save(f);
-							pl.getConfiguration().reloadConfiguration();
+							pl.getConfiguration().reload();
 							sender.sendMessage(ChatColor.GREEN + "successfully enabled broadcast!");
 						} catch(Exception e) {
 							e.printStackTrace();
@@ -89,7 +89,7 @@ public class CmdBroadcast {
 								FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 								con.set("broadcast.messages", list);
 								con.save(f);
-								pl.getConfiguration().reloadConfiguration();
+								pl.getConfiguration().reload();
 								sender.sendMessage(ChatColor.GREEN + "you have successfully removed broadcast id: " + id);
 							} catch(Exception e) {
 								e.printStackTrace();
@@ -113,7 +113,7 @@ public class CmdBroadcast {
 							FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 							con.set("broadcast.messages", list);
 							con.save(f);
-							pl.getConfiguration().reloadConfiguration();
+							pl.getConfiguration().reload();
 							sender.sendMessage(ChatColor.GREEN + "you have successfully added the new broadcast!");
 						} catch(Exception e) {
 							e.printStackTrace();
