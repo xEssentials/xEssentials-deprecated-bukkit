@@ -33,11 +33,11 @@ public class CmdSilence {
 				} else if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("all")) {
 						if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-							if(pl.getConfiguration().isSilenceToggled) {
-								pl.getConfiguration().isSilenceToggled = false;
+							if(pl.getConfiguration().isChatSillenced()) {
+								pl.getConfiguration().toggleSillenceChat();
 								Bukkit.broadcastMessage(ChatColor.GREEN + "All server chat is now unhalted!");
 							} else {
-								pl.getConfiguration().isSilenceToggled = true;
+								pl.getConfiguration().toggleSillenceChat();
 								Bukkit.broadcastMessage(ChatColor.GREEN + "All server chat is now halted!");
 							}
 						} else {

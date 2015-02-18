@@ -23,7 +23,7 @@ public class SilenceChatEvent implements Listener {
 
 	@EventHandler(priority = EventPriority.LOW)
 	public void onChat(PlayerChatEvent e) {
-		if(pl.getConfiguration().isSilenceToggled) {
+		if(pl.getConfiguration().isChatSillenced()) {
 			e.getPlayer().sendMessage(ChatColor.GREEN + "all chat activity has been halted!, please wait a few minuts.");
 			e.setCancelled(true);
 		} else {

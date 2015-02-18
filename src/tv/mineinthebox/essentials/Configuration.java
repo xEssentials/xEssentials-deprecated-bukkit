@@ -76,16 +76,10 @@ public class Configuration {
 	
 	public Configuration(xEssentials pl) {
 		this.pl = pl;
+		createConfigs();
 	}
 
-	/**
-	 * 
-	 * @author xize
-	 * @param checks if the config exists else create new configuration files
-	 * @return void
-	 * 
-	 */
-	public void createConfigs() {
+	private void createConfigs() {
 		createEntityConfig();
 		createPlayerConfig();
 		createMotdConfig();
@@ -1340,7 +1334,15 @@ public class Configuration {
 		}
 	}
 
-	public boolean isSilenceToggled = false;
+	private boolean isSilenceToggled = false;
+	
+	public void toggleSillenceChat() {
+		this.isSilenceToggled = !this.isSilenceToggled;
+	}
+	
+	public boolean isChatSillenced() {
+		return this.isSilenceToggled;
+	}
 
 	public boolean reload() {
 		Handler handler = new Handler(pl);
@@ -1430,14 +1432,5 @@ public class Configuration {
 				getCommandConfig().unRegisterBukkitCommand(command);
 			}
 		}
-	}
-
-	/**
-	 * @author xize
-	 * @param reloads the configuration included with event checks
-	 * @return boolean
-	 */
-	public boolean reloadConfiguration() {
-		return reload();
 	}
 }
