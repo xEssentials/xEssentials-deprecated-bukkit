@@ -1,10 +1,5 @@
 package tv.mineinthebox.essentials.configurations;
 
-import java.io.File;
-
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
@@ -17,8 +12,9 @@ public class GreylistConfig {
 	}
 	
 	/**
+	 * returns true if the greylist system is enabled, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true whenever its enabled
 	 * @return boolean
 	 */
 	public boolean isEnabled() {
@@ -27,28 +23,10 @@ public class GreylistConfig {
 	}
 	
 	/**
+	 * returns the greylist servers port
+	 * 
 	 * @author xize
-	 * @param change the internal system for greylists.
-	 * @param boolean
-	 */
-	public void setEnabled(boolean bol) {
-		try {
-			File f = new File(pl.getDataFolder() + File.separator + "greylist.yml");
-			if(f.exists()) {
-				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-				con.set("greylist.enable", bol);
-				con.save(f);
-				pl.getConfiguration().reloadConfiguration();
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * @author xize
-	 * @param returns the greylist servers port
-	 * @return int
+	 * @return Integer
 	 */
 	public int getPort() {
 		int port = (Integer) pl.getConfiguration().getConfigValue(ConfigType.GREYLIST, "port");
@@ -56,8 +34,9 @@ public class GreylistConfig {
 	}
 	
 	/**
+	 * returns the group where the player should be placed to
+	 * 
 	 * @author xize
-	 * @param returns the group where the player gets set.
 	 * @return String
 	 */
 	public String getGroup() {

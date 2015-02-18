@@ -28,32 +28,14 @@ public class CmdGreylist {
 				if(args.length == 0) {
 					sender.sendMessage(ChatColor.GOLD + ".oO___[greylist help]___Oo.");
 					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/greylist help " + ChatColor.WHITE + ": shows help");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/greylist on " + ChatColor.WHITE + ": activates greylist");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/greylist off " + ChatColor.WHITE + ": disable greylist");
 					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/greylist add <player> " + ChatColor.WHITE + ": excempt the player to the greylist");
 					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/greylist remove <player> " + ChatColor.WHITE + ": remove the player from the greylist");
 				} else if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("help")) {
 						sender.sendMessage(ChatColor.GOLD + ".oO___[greylist help]___Oo.");
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/greylist help " + ChatColor.WHITE + ": shows help");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/greylist on " + ChatColor.WHITE + ": activates greylist");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/greylist off " + ChatColor.WHITE + ": disable greylist");
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/greylist add <player> " + ChatColor.WHITE + ": excempt the player to the greylist");
 						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/greylist remove <player> " + ChatColor.WHITE + ": remove the player from the greylist");
-					} else if(args[0].equalsIgnoreCase("on")) {
-						if(!pl.getConfiguration().getGrayListConfig().isEnabled()) {
-							pl.getConfiguration().getGrayListConfig().setEnabled(true);
-							sender.sendMessage(ChatColor.GREEN + "you have successfully enabled the greylist server!");
-						} else {
-							sender.sendMessage(ChatColor.RED + "the greylist server whas already active!");
-						}
-					} else if(args[0].equalsIgnoreCase("off")) {
-						if(pl.getConfiguration().getGrayListConfig().isEnabled()) {
-							pl.getConfiguration().getGrayListConfig().setEnabled(false);
-							sender.sendMessage(ChatColor.GREEN + "you have successfully disabled the greylist server!");
-						} else {
-							sender.sendMessage(ChatColor.RED + "the greylist server whas already shuted down!");
-						}
 					}
 				} else if(args.length == 2) {
 					if(args[0].equalsIgnoreCase("add")) {
