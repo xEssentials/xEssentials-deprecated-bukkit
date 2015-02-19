@@ -12,14 +12,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
-public class MotdConfig implements Configuration {
-
-	private final File f;
-	private final FileConfiguration con;
+public class MotdConfig extends Configuration {
 
 	public MotdConfig(File f, FileConfiguration con) {
-		this.f = f;
-		this.con = con;
+		super(f, con);
 	}
 
 	/**

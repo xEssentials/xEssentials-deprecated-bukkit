@@ -10,14 +10,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
-public class EconomyConfig implements Configuration {
-	
-	private final File f;
-	private final FileConfiguration con;
+public class EconomyConfig extends Configuration {
 	
 	public EconomyConfig(File f, FileConfiguration con) {
-		this.f = f;
-		this.con = con;
+		super(f, con);
 	}
 	
 	/**

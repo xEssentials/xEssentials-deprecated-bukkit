@@ -1,8 +1,27 @@
 package tv.mineinthebox.essentials;
 
+import java.io.File;
+
+import org.bukkit.configuration.file.FileConfiguration;
+
 import tv.mineinthebox.essentials.enums.ConfigType;
 
-public interface Configuration {
+public abstract class Configuration {
+	
+	protected final File f;
+	protected final FileConfiguration con;
+	protected xEssentials pl;
+	
+	public Configuration(File f, FileConfiguration con) {
+		this.f = f;
+		this.con = con;
+	}
+	
+	public Configuration(xEssentials pl, File f, FileConfiguration con) {
+		this.pl = pl;
+		this.f = f;
+		this.con = con;
+	}
 
 	/**
 	 * returns the name of the configuration
@@ -10,7 +29,7 @@ public interface Configuration {
 	 * @author xize
 	 * @return String
 	 */
-	public String getName();
+	public abstract String getName();
 	
 	/**
 	 * returns the configuration type
@@ -18,7 +37,7 @@ public interface Configuration {
 	 * @author xize
 	 * @return ConfigType
 	 */
-	public ConfigType getType();
+	public abstract ConfigType getType();
 	
 	/**
 	 * returns true if the configuration has been generated and saved to a file, otherwise false
@@ -26,7 +45,7 @@ public interface Configuration {
 	 * @author xize
 	 * @return boolean
 	 */
-	public boolean isGenerated();
+	public abstract boolean isGenerated();
 	
 	/**
 	 * returns true if the {@link #generateConfig()} should be called once and not more times
@@ -34,20 +53,20 @@ public interface Configuration {
 	 * @author xize
 	 * @return boolean
 	 */
-	public boolean isGeneratedOnce();
+	public abstract boolean isGeneratedOnce();
 	
 	/**
 	 * generates the configuration
 	 * 
 	 * @author xize
 	 */
-	public void generateConfig();
+	public abstract void generateConfig();
 	
 	/**
 	 * reloads the file into the memory
 	 * 
 	 * @author xize
 	 */
-	public void reload();
+	public abstract void reload();
 	
 }

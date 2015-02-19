@@ -15,16 +15,10 @@ import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
-public class PlayerConfig implements Configuration {
-	
-	private final xEssentials pl;
-	private final File f;
-	private FileConfiguration con;
+public class PlayerConfig extends Configuration {
 	
 	public PlayerConfig(xEssentials pl, File f, FileConfiguration con) {
-		this.pl = pl;
-		this.f = f;
-		this.con = con;
+		super(pl, f, con);
 	}
 
 	/**

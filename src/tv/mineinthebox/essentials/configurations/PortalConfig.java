@@ -14,18 +14,12 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ConfigType;
 import tv.mineinthebox.essentials.instances.Portal;
 
-public class PortalConfig implements Configuration {
-	
-	private final xEssentials pl;
-	private final File f;
-	private final FileConfiguration con;
+public class PortalConfig extends Configuration {
 	
 	private HashMap<String, Portal> portals;
 	
 	public PortalConfig(xEssentials pl, File f, FileConfiguration con) {
-		this.pl = pl;
-		this.f = f;
-		this.con = con;
+		super(pl, f, con);
 	}
 
 	/**

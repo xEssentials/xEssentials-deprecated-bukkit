@@ -20,17 +20,12 @@ import tv.mineinthebox.essentials.commands.CommandList;
 import tv.mineinthebox.essentials.enums.ConfigType;
 import tv.mineinthebox.essentials.enums.LogType;
 
-public class CommandConfig implements Configuration {
+public class CommandConfig extends Configuration {
 	
-	private final xEssentials pl;
-	private final File f;
-	private final FileConfiguration con;
 	private final HashMap<String, Boolean> commands = new HashMap<String, Boolean>();
 	
 	public CommandConfig(xEssentials pl, File f, FileConfiguration con) {
-		this.pl = pl;
-		this.f = f;
-		this.con = con;
+		super(pl, f, con);
 		
 		String[] commandlist = con.getConfigurationSection("command").getKeys(false).toArray(new String[0]);
 		for(String cmd : commandlist) {

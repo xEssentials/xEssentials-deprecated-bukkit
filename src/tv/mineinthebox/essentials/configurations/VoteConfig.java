@@ -12,14 +12,10 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
-public class VoteConfig implements Configuration {
-	
-	private final File f;
-	private final FileConfiguration con;
+public class VoteConfig extends Configuration {
 	
 	public VoteConfig(File f, FileConfiguration con) {
-		this.f = f;
-		this.con = con;
+		super(f, con);
 	}
 	
 	/**

@@ -14,14 +14,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
-public class BlockConfig implements Configuration {
-	
-	private final File f;
-	private final FileConfiguration con;
+public class BlockConfig extends Configuration {
 	
 	public BlockConfig(File f, FileConfiguration con) {
-		this.f = f;
-		this.con = con;
+		super(f, con);
 	}
 	
 	/**
@@ -184,7 +180,6 @@ public class BlockConfig implements Configuration {
 			try {
 				con.save(f);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

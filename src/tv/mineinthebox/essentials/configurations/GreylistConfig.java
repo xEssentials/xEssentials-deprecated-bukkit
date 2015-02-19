@@ -11,14 +11,10 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
-public class GreylistConfig implements Configuration {
-	
-	private final File f;
-	private final FileConfiguration con;
+public class GreylistConfig extends Configuration {
 	
 	public GreylistConfig(File f, FileConfiguration con) {
-		this.f = f;
-		this.con = con;
+		super(f, con);
 	}
 	
 	/**

@@ -19,15 +19,12 @@ import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.enums.ConfigType;
 import tv.mineinthebox.essentials.instances.Kit;
 
-public class KitConfig implements Configuration {
+public class KitConfig extends Configuration {
 	
-	private final File f;
-	private final FileConfiguration con;
 	private final HashMap<String, Kit> kitss = new HashMap<String, Kit>();
 	
 	public KitConfig(File f, FileConfiguration con) {
-		this.f = f;
-		this.con = con;
+		super(f, con);
 		
 		Kit[] kits = parseKits(con);
 		for(Kit kit : kits) {

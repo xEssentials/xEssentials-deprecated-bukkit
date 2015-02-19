@@ -11,14 +11,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
-public class ChatConfig implements Configuration {
-	
-	private final File f;
-	private final FileConfiguration con;
+public class ChatConfig extends Configuration {
 	
 	public ChatConfig(File f, FileConfiguration con) {
-		this.f = f;
-		this.con = con;
+		super(f, con);
 	}
 	
 	/**

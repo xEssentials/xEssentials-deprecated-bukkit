@@ -21,15 +21,12 @@ import tv.mineinthebox.essentials.enums.ConfigType;
 import tv.mineinthebox.essentials.enums.LogType;
 
 
-public class EntityConfig implements Configuration {
+public class EntityConfig extends Configuration {
 	
-	private final File f;
-	private final FileConfiguration con;
 	private final HashMap<String, Map<Boolean, String[]>> entitys = new HashMap<String, Map<Boolean, String[]>>();
 	
 	public EntityConfig(File f, FileConfiguration con) {
-		this.f = f;
-		this.con = con;
+		super(f, con);
 		
 		for(String key : con.getConfigurationSection("mobs.allowToSpawn").getKeys(false)) {
 			Map<Boolean, String[]> map = new HashMap<Boolean, String[]>();
