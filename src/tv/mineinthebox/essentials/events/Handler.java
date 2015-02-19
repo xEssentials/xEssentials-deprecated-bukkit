@@ -195,9 +195,9 @@ public class Handler {
 		//entity yml
 		setListener(new EntitySpawnEventManagerEvent(pl));
 		if(pl.getConfiguration().getEntityConfig().isRealisticWaterEnabled()) {setListener(new RealisticWaterEvent());}
-		if(pl.getConfiguration().getEntityConfig().isStonePressurePlate()) {setListener(new EntityPressurePlateInteractEvent());}
+		if(pl.getConfiguration().getEntityConfig().isStonePressurePlatesDisabledForMobs()) {setListener(new EntityPressurePlateInteractEvent());}
 		if(pl.getConfiguration().getEntityConfig().isCleanUpOnChunkUnloadEnabled()) {setListener(new CleanupUnloadedChunkEvent());}
-		if(pl.getConfiguration().getEntityConfig().isChunkProtectionEnabled()) {setListener(new ChunkProtectionEvent(pl));}
+		if(pl.getConfiguration().getEntityConfig().isProjectileRemovalEnabled()) {setListener(new ChunkProtectionEvent(pl));}
 		if(pl.getConfiguration().getEntityConfig().isWeatherDisabled()) {setListener(new DisableWeatherEvent());}
 		if(pl.getConfiguration().getEntityConfig().isFireSpreadDisabled()) {setListener(new DisableFireSpreadEvent());}
 		if(pl.getConfiguration().getEntityConfig().isExplosionsDisabled()) {setListener(new DisableExplosionEvent());}

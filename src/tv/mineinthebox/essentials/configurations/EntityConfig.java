@@ -191,26 +191,22 @@ public class EntityConfig implements Configuration {
 	}
 
 	/**
-	 * returns true if chunk protection is enabled, otherwise false
-	 * NOTE: this method will be renamed
+	 * returns true if projectile protection is enabled, otherwise false
 	 * 
-	 * @deprecated
 	 * @author xize
 	 * @return boolean
 	 */
-	public boolean isChunkProtectionEnabled() {
+	public boolean isProjectileRemovalEnabled() {
 		return con.getBoolean("remove-flying-projectiles-on-chunkload");
 	}
 
 	/**
 	 * returns the entity configuration which could spawn and which not
-	 * NOTE: this method will be renamed to something better named
 	 * 
 	 * @author xize
-	 * @deprecated
 	 * @return HashMap<String, Map<Boolean, String[]>>
 	 */
-	public HashMap<String, Map<Boolean, String[]>> getEntitys() {
+	public HashMap<String, Map<Boolean, String[]>> getEntitySpawnMap() {
 		return entitys;
 	}
 
@@ -226,13 +222,11 @@ public class EntityConfig implements Configuration {
 
 	/**
 	 * returns true if mobs should not activate stone pressure plates, otherwise false
-	 * NOTE: this method will be renamed
 	 * 
-	 * @deprecated
 	 * @author xize
 	 * @return boolean
 	 */
-	public boolean isStonePressurePlate() {
+	public boolean isStonePressurePlatesDisabledForMobs() {
 		return con.getBoolean("disable-stone-pressureplates-for-mobs");
 	}
 

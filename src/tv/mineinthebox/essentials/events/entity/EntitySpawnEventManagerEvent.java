@@ -22,8 +22,8 @@ public class EntitySpawnEventManagerEvent implements Listener {
 	
 	@EventHandler
 	public void onEntitySpawn(CreatureSpawnEvent e) {
-			if(pl.getConfiguration().getEntityConfig().getEntitys().containsKey(e.getEntityType().name().toLowerCase())) {
-				Iterator<Entry<Boolean, String[]>> it = pl.getConfiguration().getEntityConfig().getEntitys().get(e.getEntityType().name().toLowerCase()).entrySet().iterator();
+			if(pl.getConfiguration().getEntityConfig().getEntitySpawnMap().containsKey(e.getEntityType().name().toLowerCase())) {
+				Iterator<Entry<Boolean, String[]>> it = pl.getConfiguration().getEntityConfig().getEntitySpawnMap().get(e.getEntityType().name().toLowerCase()).entrySet().iterator();
 				while(it.hasNext()) {
 					Entry<Boolean, String[]> entry = it.next();
 					if(!entry.getKey()) {
