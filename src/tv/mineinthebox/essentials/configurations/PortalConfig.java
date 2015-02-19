@@ -1,47 +1,58 @@
 package tv.mineinthebox.essentials.configurations;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ConfigType;
 import tv.mineinthebox.essentials.instances.Portal;
 
-public class PortalConfig {
+public class PortalConfig implements Configuration {
 	
 	private final xEssentials pl;
+	private final File f;
+	private final FileConfiguration con;
 	
-	public PortalConfig(xEssentials pl) {
+	private HashMap<String, Portal> portals;
+	
+	public PortalConfig(xEssentials pl, File f, FileConfiguration con) {
 		this.pl = pl;
+		this.f = f;
+		this.con = con;
 	}
 
 	/**
+	 * returns true if custom portals are enabled
+	 * 
 	 * @author xize
-	 * @param returns true whenever the portal is enabled
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean isPortalEnabled() {
-		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PORTAL, "enable");
+		return con.getBoolean("portals.enable");
 	}
 
 	/**
+	 * returns the cooldown time the player should wait before teleporting again
+	 * 
 	 * @author xize
-	 * @param returns the cooldown time
 	 * @return Integer
 	 */
 	public int getCooldown() {
-		return (Integer) pl.getConfiguration().getConfigValue(ConfigType.PORTAL, "cooldown");
+		return con.getInt("portals.cooldown");
 	}
 
-	private HashMap<String, Portal> portals;
-
 	/**
+	 * returns a HashMap whereas the key is the name of the portal and the value its contents
+	 * 
 	 * @author xize
-	 * @param returns a HashMap of Portals
-	 * @return HashMap<String, Portal>()
+	 * @return HashMap<String, Portal>
 	 */
 	public HashMap<String, Portal> getPortals() {
 		if(!(portals instanceof HashMap)) {
@@ -75,16 +86,64 @@ public class PortalConfig {
 	}
 
 	/**
+	 * returns the portal by name
+	 * 
 	 * @author xize
-	 * @param name - the name of the portal
+	 * @param name - the name of the possible portal
 	 * @return Portal
-	 * @throws NullPointerException - when the name does not exist
+	 * @throws NullPointerException when the portal does not exist
 	 */
-	public Portal getPortal(String name) throws Exception {
+	public Portal getPortal(String name) throws NullPointerException {
 		if(getPortals().containsKey(name)) {
 			return getPortals().get(name);
 		}
 		throw new NullPointerException("portal name does not exist!");
+	}
+
+	@Override
+	public String getName() {
+		return getType().name();
+	}
+
+	@Override
+	public ConfigType getType() {
+		return ConfigType.PORTAL;
+	}
+	
+	@Override
+	public boolean isGenerated() {
+		return f.exists();
+	}
+	
+	@Override
+	public boolean isGeneratedOnce() {
+		return true;
+	}
+
+	@Override
+	public void generateConfig() {
+		if(!isGenerated()) {
+			con.set("portals.enable", false);
+			con.set("portals.cooldown", 30);
+			try {
+				con.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void reload() {
+		try {
+			con.load(f);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

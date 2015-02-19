@@ -1,58 +1,117 @@
 package tv.mineinthebox.essentials.configurations;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-import tv.mineinthebox.essentials.xEssentials;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
+
+import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
-public class MotdConfig {
+public class MotdConfig implements Configuration {
 
-	private final xEssentials pl;
+	private final File f;
+	private final FileConfiguration con;
 
-	public MotdConfig(xEssentials pl) {
-		this.pl = pl;
+	public MotdConfig(File f, FileConfiguration con) {
+		this.f = f;
+		this.con = con;
 	}
 
 	/**
+	 * returns true if the normal motd system is enabled, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true whenever the normal motd system is enabled
 	 * @return boolean
 	 */
 	public boolean isNormalMotdEnabled() {
-		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.MOTD, "NormalEnable");
-		return bol;
+		return con.getBoolean("motd.normal.enable");
 	}
 
 	/**
+	 * returns true if the random motd system is enabled, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true whenever the random motd system is enabled
 	 * @return boolean
 	 */
 	public boolean isRandomMotdEnabled() {
-		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.MOTD, "RandomEnable");
-		return bol;
+		return con.getBoolean("motd.random.enable");
 	}
 
 	/**
+	 * returns all random motd messages
+	 * 
 	 * @author xize
-	 * @param returns a List of all motd messages for the random motd system
-	 * @return List<String>()
+	 * @return ListIterator<String>
 	 */
-	@SuppressWarnings("unchecked")
 	public ListIterator<String> getMotdMessages() {
-		ArrayList<String> list = (ArrayList<String>) pl.getConfiguration().getConfigValue(ConfigType.MOTD, "messages");
-		return list.listIterator();
+		return con.getStringList("motd.messages").listIterator();
 	}
 
 	/**
+	 * returns a singular motd message
+	 * 
 	 * @author xize
-	 * @param returns a single motd message for the normal motd system
 	 * @return String
+	 * @see #isNormalMotdEnabled()
 	 */
 	public String getMotdMessage() {
-		String s = (String) pl.getConfiguration().getConfigValue(ConfigType.MOTD, "message");
-		return s;
+		return con.getString("motd.message");
 	}
 
+	@Override
+	public String getName() {
+		return getType().name();
+	}
+
+	@Override
+	public ConfigType getType() {
+		return ConfigType.MOTD;
+	}
+	
+	@Override
+	public boolean isGenerated() {
+		return f.exists();
+	}
+	
+	@Override
+	public boolean isGeneratedOnce() {
+		return true;
+	}
+
+	@Override
+	public void generateConfig() {
+		if(!isGenerated()) {
+			ArrayList<String> list = new ArrayList<String>();
+			list.add("message 1");
+			list.add("message 2");
+			con.set("motd.normal.enable", false);
+			con.set("motd.random.enable", false);
+			con.set("motd.messages", list);
+			con.set("motd.message", "default motd for xEssentials");
+			try {
+				con.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void reload() {
+		try {
+			con.load(f);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

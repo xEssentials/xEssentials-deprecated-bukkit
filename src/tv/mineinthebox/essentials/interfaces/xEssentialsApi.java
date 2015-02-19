@@ -1,6 +1,6 @@
 package tv.mineinthebox.essentials.interfaces;
 
-import tv.mineinthebox.essentials.Configuration;
+import tv.mineinthebox.essentials.GlobalConfiguration;
 import tv.mineinthebox.essentials.managers.Manager;
 
 public interface xEssentialsApi {
@@ -19,7 +19,7 @@ public interface xEssentialsApi {
 	 * @author xize
 	 * @return Configuration
 	 */
-	public Configuration getConfiguration();
+	public GlobalConfiguration getConfiguration();
 	
 	
 

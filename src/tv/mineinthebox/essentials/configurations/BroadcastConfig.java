@@ -1,67 +1,119 @@
 package tv.mineinthebox.essentials.configurations;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
 
-import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
-public class BroadcastConfig {
+public class BroadcastConfig implements Configuration {
 	
-	private final xEssentials pl;
+	private final File f;
+	private final FileConfiguration con;
 	
-	public BroadcastConfig(xEssentials pl) {
-		this.pl = pl;
+	public BroadcastConfig(File f, FileConfiguration con) {
+		this.f = f;
+		this.con = con;
 	}
 	
 	/**
+	 * returns true if broadcast system is enabeld otherwise false
 	 * 
 	 * @author xize
-	 * @param returns boolean whenever our broadcast system is enabled
 	 * @return boolean
-	 * 
 	 */
 	public boolean isBroadcastEnabled() {
-		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.BROADCAST, "enable");
-		return bol;
+		return con.getBoolean("broadcast.enable");
 	}
 	
 	/**
+	 * returns the prefix being given in the broadcast config
 	 * 
 	 * @author xize
-	 * @param returns the prefix for the broadcast
 	 * @return String
-	 * 
 	 */
 	public String getPrefix() {
-		String s = ChatColor.translateAlternateColorCodes('&', (String)pl.getConfiguration().getConfigValue(ConfigType.BROADCAST, "prefix"));
-		return s;
+		return con.getString("broadcast.prefix");
 	}
 	
 	/**
+	 * returns the suffix being given in the broadcast config
 	 * 
 	 * @author xize
-	 * @param returns the suffix for the broadcast
 	 * @return String
-	 * 
 	 */
 	public String getSuffix() {
-		String s = ChatColor.translateAlternateColorCodes('&', (String)pl.getConfiguration().getConfigValue(ConfigType.BROADCAST, "suffix"));
+		String s = ChatColor.translateAlternateColorCodes('&', con.getString("broadcast.suffix"));
 		return s;
 	}
 	
 	/**
+	 * returns all broadcast messages
 	 * 
 	 * @author xize
-	 * @param gets the list containing all broadcast messages
 	 * @return List<String>
-	 * 
 	 */
-	@SuppressWarnings("unchecked")
 	public List<String> getMessages() {
-		List<String> list = (List<String>)pl.getConfiguration().getConfigValue(ConfigType.BROADCAST, "messages");
-		return list;
+		return con.getStringList("broadcast.messages");
+	}
+
+	@Override
+	public String getName() {
+		return getType().name();
+	}
+
+	@Override
+	public ConfigType getType() {
+		return ConfigType.BROADCAST;
+	}
+	
+	@Override
+	public boolean isGenerated() {
+		return f.exists();
+	}
+	
+	@Override
+	public boolean isGeneratedOnce() {
+		return true;
+	}
+
+	@Override
+	public void generateConfig() {
+		if(!isGenerated()) {
+			ArrayList<String> list = new ArrayList<String>();
+			list.add("&ebroadcast 1");
+			list.add("&ebroadcast 2");
+			list.add("&ebroadcast 3");
+			con.set("broadcast.enable", false);
+			con.set("broadcast.prefix", "&e[broadcast]");
+			con.set("broadcast.suffix", "&2");
+			con.set("broadcast.messages", list);
+			try {
+				con.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void reload() {
+		try {
+			con.load(f);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

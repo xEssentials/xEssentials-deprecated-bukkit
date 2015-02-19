@@ -1,18 +1,24 @@
 package tv.mineinthebox.essentials.configurations;
 
-import java.util.List;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
 
-import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
-public class ChatConfig {
+public class ChatConfig implements Configuration {
 	
-	private final xEssentials pl;
+	private final File f;
+	private final FileConfiguration con;
 	
-	public ChatConfig(xEssentials pl) {
-		this.pl = pl;
+	public ChatConfig(File f, FileConfiguration con) {
+		this.f = f;
+		this.con = con;
 	}
 	
 	/**
@@ -22,8 +28,7 @@ public class ChatConfig {
 	 * @return boolean
 	 */
 	public boolean isChatHighLightEnabled() {
-		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.CHAT, "enable");
-		return bol;
+		return con.getBoolean("chat.enable.playerHighlights");
 	}
 
 	/**
@@ -33,8 +38,7 @@ public class ChatConfig {
 	 * @return boolean
 	 */
 	public boolean isSmilleysEnabled() {
-		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.CHAT, "smilleysEnable");
-		return bol;
+		return con.getBoolean("chat.enable.smilleys");
 	}
 	
 	/**
@@ -44,8 +48,7 @@ public class ChatConfig {
 	 * @return String
 	 */
 	public String getHashTag() {
-		String hashTag = ChatColor.translateAlternateColorCodes('&', (String)pl.getConfiguration().getConfigValue(ConfigType.CHAT, "hashTag"));
-		return hashTag;
+		return ChatColor.translateAlternateColorCodes('&', con.getString("chat.enable.hashtag"));
 	}
 	
 	/**
@@ -55,8 +58,7 @@ public class ChatConfig {
 	 * @return boolean
 	 */
 	public boolean isAntiAdvertiseEnabled() {
-		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.CHAT, "antiAddvertiseEnabled");
-		return bol;
+		return con.getBoolean("chat.enable.antiAddvertise");
 	}
 	
 	/**
@@ -66,8 +68,7 @@ public class ChatConfig {
 	 * @return boolean
 	 */
 	public boolean isRssBroadcastEnabled() {
-		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.CHAT, "RssEnabled");
-		return bol;
+		return con.getBoolean("rss.useRssBroadcast");
 	}
 	
 	/**
@@ -77,7 +78,7 @@ public class ChatConfig {
 	 * @return String
 	 */
 	public String getRssUrl() {
-		return (String)pl.getConfiguration().getConfigValue(ConfigType.CHAT, "RssUrl");
+		return con.getString("rss.useRssUrl");
 	}
 	
 	/**
@@ -87,7 +88,7 @@ public class ChatConfig {
 	 * @return boolean
 	 */
 	public boolean isSwearFilterEnabled() {
-		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.CHAT, "swearenable");
+		return con.getBoolean("swearfilter.enable");
 	}
 	
 	/**
@@ -96,10 +97,9 @@ public class ChatConfig {
 	 * @author xize
 	 * @return String
 	 */
-	@SuppressWarnings("unchecked")
 	public String getSwearWords() {
 		String badword = "(";
-		for(String word : (List<String>)pl.getConfiguration().getConfigValue(ConfigType.CHAT, "swearwords")) {
+		for(String word : con.getStringList("swearfilter.words")) {
 			badword += word +"|";
 		}
 		badword += ")";
@@ -113,17 +113,17 @@ public class ChatConfig {
 	 * @return boolean
 	 */
 	public boolean isSwearWarningEnabled() {
-		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.CHAT, "swearwarningenable");
+		return con.getBoolean("swearfilter.warning.enable");
 	}
 	
 	/**
-	 * 
+	 * returns the max amount of warnings a player could get before doing something
 	 * 
 	 * @author xize
-	 * @return int
+	 * @return Integer
 	 */
 	public int getMaxWarningLevel() {
-		return (Integer) pl.getConfiguration().getConfigValue(ConfigType.CHAT, "swearwarninglevel");
+		return con.getInt("swearfilter.warning.level");
 	}
 	
 	/**
@@ -133,7 +133,7 @@ public class ChatConfig {
 	 * @return String
 	 */
 	public String getWarningCommand() {
-		return ((String) pl.getConfiguration().getConfigValue(ConfigType.CHAT, "swearwarningpunish")).replace("/", "");
+		return con.getString("swearfilter.warning.punish-command").replace("/", "");
 	}
 	
 	/**
@@ -143,7 +143,69 @@ public class ChatConfig {
 	 * @return String
 	 */
 	public String getWarningMessage() {
-		return ChatColor.translateAlternateColorCodes('&', (String)pl.getConfiguration().getConfigValue(ConfigType.CHAT, "swearwarningmessage"));
+		return ChatColor.translateAlternateColorCodes('&', con.getString("swearfilter.warning.message"));
+	}
+
+	@Override
+	public String getName() {
+		return getType().name();
+	}
+
+	@Override
+	public ConfigType getType() {
+		return ConfigType.CHAT;
+	}
+	
+	@Override
+	public boolean isGenerated() {
+		return f.exists();
+	}
+	
+	@Override
+	public boolean isGeneratedOnce() {
+		return true;
+	}
+
+	@Override
+	public void generateConfig() {
+		if(!isGenerated()) {
+			con.set("chat.enable.playerHighlights", false);
+			con.set("chat.enable.smilleys", false);
+			con.set("chat.enable.hashtag", "&e@");
+			con.set("chat.enable.antiAddvertise", false);
+			con.set("swearfilter.enable", false);
+			con.set("swearfilter.words", new String[] {
+					"fuck",
+					"suck",
+					"shit",
+					"ass"
+			});
+			con.set("swearfilter.warning.enable", false);
+			con.set("swearfilter.warning.level", 3);
+			con.set("swearfilter.warning.punish-command", "/kick %p you shouldn't spam people!");
+			con.set("swearfilter.warning.message", "&cplease dont swear, you are now at warning %w");
+			con.set("rss.useRssBroadcast", false);
+			con.set("rss.useRssUrl", "https://mojang.com/feed/");
+			try {
+				con.save(f);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void reload() {
+		try {
+			con.load(f);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+		}
 	}
 
 	

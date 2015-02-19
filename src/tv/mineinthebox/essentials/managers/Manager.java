@@ -189,7 +189,7 @@ public class Manager {
 	 */
 	public SimpleServer getGreylistManager() {
 		if(!(greylist instanceof SimpleServer)) {
-			this.greylist = new SimpleServer(pl.getConfiguration().getGrayListConfig().getPort(), "greylist");
+			this.greylist = new SimpleServer(pl.getConfiguration().getGreyListConfig().getPort(), "greylist");
 		}
 		return greylist;
 	}

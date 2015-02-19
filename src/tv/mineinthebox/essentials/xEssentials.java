@@ -28,7 +28,7 @@ import tv.mineinthebox.simpleserver.SimpleServer;
 
 public class xEssentials extends JavaPlugin implements xEssentialsApi {
 
-	private Configuration conf;
+	private GlobalConfiguration conf;
 	private Handler handler;
 	private CustomEventHandler customhandler;
 	private CommandList cmdlist;
@@ -36,17 +36,17 @@ public class xEssentials extends JavaPlugin implements xEssentialsApi {
 	private Manager manager;
 
 	public void onEnable() {
-		
-		this.conf = new Configuration(this);
+
+		this.conf = new GlobalConfiguration(this);
 		this.handler = new Handler(this);
 		this.customhandler = new CustomEventHandler(this);
 		this.cmdlist = new CommandList();
 		this.uuid = new MojangUUID(this);
 		this.manager = new Manager(this);
-		
+
 		handler.start();
 		customhandler.startCustomEvents();
-		
+
 		if(getOnlinePlayers().length > 0) {
 			getManagers().getPlayerManager().reloadPlayerBase();
 		}
@@ -56,12 +56,10 @@ public class xEssentials extends JavaPlugin implements xEssentialsApi {
 		if(conf.getEntityConfig().isRealisticGlassEnabled()) {
 			getManagers().getRealisticGlassManager().loadGlassBlocks();
 		}
-		
+
 		getManagers().getTPSManager().startTps();
-		
-		conf.HandleCommandManager();
-		
-		if(conf.getGrayListConfig().isEnabled()) {
+
+		if(conf.getGreyListConfig().isEnabled()) {
 			SimpleServer server = getManagers().getGreylistManager();
 			server.addListener(new GreyListServer(this));
 			try {
@@ -97,11 +95,11 @@ public class xEssentials extends JavaPlugin implements xEssentialsApi {
 	}
 
 	public void onDisable() {
-		
+
 		for(XPlayer xp : getManagers().getPlayerManager().getPlayers()) {
 			xp.save();
 		}
-		
+
 		if(getUUIDManager().isExecutorServiceRunning()) {
 			getUUIDManager().shutdownExecutorService();
 		}
@@ -185,9 +183,9 @@ public class xEssentials extends JavaPlugin implements xEssentialsApi {
 	public Player[] getOnlinePlayers() {
 		return OnlinePlayersHelper.getOnlinePlayers();
 	}
-	
+
 	@Override
-	public Configuration getConfiguration() {
+	public GlobalConfiguration getConfiguration() {
 		return conf;
 	}
 

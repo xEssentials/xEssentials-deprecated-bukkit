@@ -1,130 +1,206 @@
 package tv.mineinthebox.essentials.configurations;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
 
-import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
-public class BlockConfig {
+public class BlockConfig implements Configuration {
 	
-	private final xEssentials pl;
+	private final File f;
+	private final FileConfiguration con;
 	
-	public BlockConfig(xEssentials pl) {
-		this.pl = pl;
+	public BlockConfig(File f, FileConfiguration con) {
+		this.f = f;
+		this.con = con;
 	}
 	
 	/**
+	 * returns true if bedrock is not allowed to be placed otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true whenever the bedrock place is disabled
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean isBedrockPlaceDisabled() {
-		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.BLOCKS, "DisableBedrockPlace");
+		return con.getBoolean("disable-bedrock-place");
 	}
 	
 	/**
+	 * returns true if breaking bedrock is not allowed otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true whenever the bedrock break is disabled
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean isBedrockBreakDisabled() {
-		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.BLOCKS, "DisableBedrockBreak");
+		return con.getBoolean("disable-bedrock-break");
 	}
 	
 	/**
+	 * returns true if notifications for block breaks are enabled otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true whenever this notify option is enabled
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean isNotifyOnBreakEnabled() {
-		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.BLOCKS, "NotifyOnBreak");
+		return con.getBoolean("notify-admin-on-block-break.enable");
 	}
 	
 	/**
+	 * returns the formatted notify of a block break message whereas %PLAYER% is the player, %BLOCK% the block and %LOCATION% the location
+	 * 
 	 * @author xize
-	 * @param returns the message whenever a player tries to break a specific block
 	 * @return String
 	 */
 	public String getNotifyOnBreakMessage() {
-		return ChatColor.translateAlternateColorCodes('&', (String)pl.getConfiguration().getConfigValue(ConfigType.BLOCKS, "NotifyOnBreakMessage"));
+		return ChatColor.translateAlternateColorCodes('&', con.getString("notify-admin-on-block-break.message"));
 	}
 	
 	/**
+	 * returns a serialized list of blocks with the following serialized format: Material:data
+	 * 
 	 * @author xize
-	 * @param returns the blocks as a true serialized String Material:Durabillity
-	 * @return List<String>()
+	 * @return List<String>
 	 */
-	@SuppressWarnings("unchecked")
 	public List<String> getBlocksFromNotify() {
-		return (List<String>) pl.getConfiguration().getConfigValue(ConfigType.BLOCKS, "NotifyOnBreakBlocks");
+		return con.getStringList("notify-admin-on-block-break.blocks");
 	}
 	
 	/**
+	 * returns true if notifications for item consume is enabled otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true whenever this option is enabled
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean isNotifyOnConsumeEnabled() {
-		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.BLOCKS, "NotifyOnItemUse");
+		return con.getBoolean("notify-admin-on-item-use.enable");
 	}
 	
 	/**
+	 * returns the formated notification for consumed items
+	 * 
 	 * @author xize
-	 * @param returns the message whenever a player is using a consumed item
 	 * @return String
 	 */
 	public String getNotifyOnConsumeMessage() {
-		return ChatColor.translateAlternateColorCodes('&', (String) pl.getConfiguration().getConfigValue(ConfigType.BLOCKS, "NotifyOnItemUseMessage"));
+		return ChatColor.translateAlternateColorCodes('&', con.getString("notify-admin-on-item-use.message"));
 	}
 	
 	/**
+	 * returns the blacklist of possible consumed items
+	 * 
 	 * @author xize
-	 * @param returns the list of consumed items
-	 * @return List<String>()
+	 * @return List<String>
 	 */
-	@SuppressWarnings("unchecked")
 	public List<String> getConsumedItemsFromNotify() {
-		return (List<String>) pl.getConfiguration().getConfigValue(ConfigType.BLOCKS, "NotifyOnItemUseItems");
+		return con.getStringList("notify-admin-on-item-use.items");
 	}
 	
 	/**
+	 * returns true if the block blocklist is enabled otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true whenever the block blacklist is enabled
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean isBlockBlacklistEnabled() {
-		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.BLOCKS, "isBlockBlackListEnabled");
+		return con.getBoolean("block.blacklist.enable");
 	}
 	
 	/**
+	 * returns a list of blacklisted blocks
+	 * 
 	 * @author xize
-	 * @param returns the block black list
-	 * @return List<String>()
+	 * @return List<String>
 	 */
-	@SuppressWarnings("unchecked")
 	public List<String> getBlockBlackList() {
-		return (List<String>)pl.getConfiguration().getConfigValue(ConfigType.BLOCKS, "getBlockBlacklist");
+		return con.getStringList("block.blacklist.blocks");
 	}
 	
 	/**
-	 * @author xize
-	 * @param returns true whenever the item black list is enabled 
-	 * @return Boolean
+	 * returns the item black list
+	 * 
+	 * @author xize 
+	 * @return boolean
 	 */
-	public boolean isItemBlacklistEnabled() {
-		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.BLOCKS, "getItemBlackListEnabled");
+	public boolean isItemBlacklistEnabled() { 
+		return con.getBoolean("item.blacklist.enable");
 	}
 	
 	/**
+	 * returns a list of items being blacklisted
+	 * 
 	 * @author xize
-	 * @param returns the Item blacklist
-	 * @return List<String>()
+	 * @return List<String>
 	 */
-	@SuppressWarnings("unchecked")
 	public List<String> getItemBlackList() {
-		return (List<String>)pl.getConfiguration().getConfigValue(ConfigType.BLOCKS, "getItemBlacklist");
+		return con.getStringList("item.blacklist.items");
+	}
+
+	@Override
+	public String getName() {
+		return getType().name();
+	}
+
+	@Override
+	public ConfigType getType() {
+		return ConfigType.BLOCKS;
+	}
+	
+	@Override
+	public boolean isGenerated() {
+		return f.exists();
+	}
+	
+	@Override
+	public boolean isGeneratedOnce() {
+		return true;
+	}
+
+	@Override
+	public void generateConfig() {
+		if(!isGenerated()) {
+			con.set("disable-bedrock-place", false);
+			con.set("disable-bedrock-break", false);
+			con.set("notify-admin-on-block-break.enable", false);
+			con.set("notify-admin-on-block-break.message", "&2%PLAYER% &7has tried to break &2%BLOCK%&7 at &2%LOCATION%");
+			String[] blocks = {Material.GLASS.name(), Material.DIAMOND_ORE.name(), "2:0", Material.COBBLESTONE.name()+":2"};
+			con.set("notify-admin-on-block-break.blocks", Arrays.asList(blocks).toArray());
+			con.set("notify-admin-on-item-use.enable", false);
+			con.set("notify-admin-on-item-use.message", "&2%PLAYER% &7has tried to use &2%ITEM% &7at &2%LOCATION%");
+			String[] items = {Material.FLINT_AND_STEEL.name(), Material.FIREBALL.name(), Material.FIRE.name()};
+			con.set("notify-admin-on-item-use.items", Arrays.asList(items).toArray());
+			con.set("block.blacklist.enable", false);
+			con.set("block.blacklist.blocks", blocks);
+			con.set("item.blacklist.enable", false);
+			con.set("item.blacklist.items", items);
+			try {
+				con.save(f);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void reload() {
+		try {
+			con.load(f);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

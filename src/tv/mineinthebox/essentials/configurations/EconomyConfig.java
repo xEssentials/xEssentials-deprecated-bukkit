@@ -1,41 +1,100 @@
 package tv.mineinthebox.essentials.configurations;
 
-import tv.mineinthebox.essentials.xEssentials;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
+
+import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
-public class EconomyConfig {
+public class EconomyConfig implements Configuration {
 	
-	private final xEssentials pl;
+	private final File f;
+	private final FileConfiguration con;
 	
-	public EconomyConfig(xEssentials pl) {
-		this.pl = pl;
+	public EconomyConfig(File f, FileConfiguration con) {
+		this.f = f;
+		this.con = con;
 	}
 	
 	/**
+	 * returns true if the xEssentials economy is enabled
+	 * 
 	 * @author xize
-	 * @param returns true whenever the economy system is enabled
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean isEconomyEnabled() {
-		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.ECONOMY, "enable");
+		return con.getBoolean("economy.enable");
 	}
 	
 	/**
+	 * returns the currency symbol
+	 * 
 	 * @author xize
-	 * @param returns the currency in a string
 	 * @return String
 	 */
 	public String getCurency() {
-		return (String) pl.getConfiguration().getConfigValue(ConfigType.ECONOMY, "currency");
+		return con.getString("economy.currency");
 	}
 	
 	/**
+	 * returns the starters money what a player receives on first join
+	 * 
 	 * @author xize
-	 * @param returns the starters amount of money for new players
-	 * @return Double
+	 * @return double
 	 */
-	public Double getStartersMoney() {
-		return (Double) pl.getConfiguration().getConfigValue(ConfigType.ECONOMY, "startersAmount");
+	public double getStartersMoney() {
+		return con.getDouble("economy.startersAmount");
+	}
+
+	@Override
+	public String getName() {
+		return getType().name();
+	}
+
+	@Override
+	public ConfigType getType() {
+		return ConfigType.ECONOMY;
+	}
+	
+	@Override
+	public boolean isGenerated() {
+		return f.exists();
+	}
+	
+	@Override
+	public boolean isGeneratedOnce() {
+		return true;
+	}
+
+	@Override
+	public void generateConfig() {
+		if(!isGenerated()) {
+			con.set("economy.enable", true);
+			con.set("economy.currency", "$");
+			con.set("economy.startersAmount", 10.0);
+			try {
+				con.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void reload() {
+		try {
+			con.load(f);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

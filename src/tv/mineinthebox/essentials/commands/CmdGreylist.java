@@ -45,7 +45,7 @@ public class CmdGreylist {
 								xp.setGreyListed(true);
 								if(Hooks.isVaultPermissionsEnabled()) {
 									String oldGroup = pl.getManagers().getVaultManager().getGroup(xp.getPlayer());
-									String newGroup = pl.getConfiguration().getGrayListConfig().getGroup();
+									String newGroup = pl.getConfiguration().getGreyListConfig().getGroup();
 									pl.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), xp.getUser(), newGroup);
 									Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(xp.getPlayer(), newGroup, oldGroup, GreyListCause.COMMAND, pl));
 								} else {
@@ -58,7 +58,7 @@ public class CmdGreylist {
 								off.setGreyListed(true);
 								if(Hooks.isVaultPermissionsEnabled()) {
 									String oldGroup = pl.getManagers().getVaultManager().getGroup(Bukkit.getWorlds().get(0), off.getUser());
-									String newGroup = pl.getConfiguration().getGrayListConfig().getGroup();
+									String newGroup = pl.getConfiguration().getGreyListConfig().getGroup();
 									pl.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), off.getUser(), newGroup);
 									Bukkit.getPluginManager().callEvent(new OfflinePlayerGreyListedEvent(off.getUser(), newGroup, oldGroup, GreyListCause.COMMAND, pl));
 								} else {

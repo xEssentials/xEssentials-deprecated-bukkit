@@ -1,73 +1,133 @@
 package tv.mineinthebox.essentials.configurations;
 
-import tv.mineinthebox.essentials.xEssentials;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
+
+import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
-public class PvpConfig {
+public class PvpConfig implements Configuration {
 	
-	private final xEssentials pl;
+	private final File f;
+	private final FileConfiguration con;
 	
-	public PvpConfig(xEssentials pl) {
-		this.pl = pl;
+	public PvpConfig(File f, FileConfiguration con) {
+		this.f = f;
+		this.con = con;
 	}
 	
 	/**
+	 * returns true if pvp is disabled, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true when pvp is disabled
 	 * @return boolean
 	 */
 	public boolean isPvpDisabled() {
-		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PVP, "disablepvp");
-		return bol;
+		return con.getBoolean("disable-pvp.enable");
 	}
 	
 	/**
+	 * returns true if fake pvp is enabled and people can attack each other but cannot kill each other, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true when fake pvp is enabled
 	 * @return boolean
 	 */
 	public boolean isFakePvpEnabled() {
-		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PVP, "fakepvp");
+		return con.getBoolean("disable-pvp.fakepvp");
 	}
 	
 	/**
+	 * returns true if client side graves are enabled, once when a player dies
+	 * 
 	 * @author xize
-	 * @param returns when client graves are enabled
 	 * @return boolean
 	 */
 	public boolean isClientGravesEnabled() {
-		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PVP, "createClientSideGraveyard");
-		return bol;
+		return con.getBoolean("createClientSideGraveyard");
 	}
 	
 	/**
+	 * returns true if killbounty is enabled, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns when killBounty is enabled
 	 * @return boolean
 	 */
 	public boolean isKillBountyEnabled() {
-		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PVP, "killBountyEnable");
-		return bol;
+		return con.getBoolean("killBounty.enable");
 	}
 	
 	/**
+	 * returns the amount of money a player can earn by killing a entity
+	 * 
 	 * @author xize
-	 * @param returns the price of killbountys
-	 * @return Double
+	 * @return double
 	 */
 	public Double getKillBountyPrice() {
-		Double d = (Double) pl.getConfiguration().getConfigValue(ConfigType.PVP, "killBountyEarn");
-		return d;
+		return con.getDouble("killBounty.earn");
 	}
-	
+
 	/**
+	 * returns true if combat log is enabled, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true when players needs to be replaced with npcs
 	 * @return boolean
 	 */
 	public boolean isReplaceNpcEnabled() {
-		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.PVP, "npcReplaceLoggers");
-		return bol;
+		return con.getBoolean("npcReplaceLoggers");
+	}
+
+	@Override
+	public String getName() {
+		return getType().name();
+	}
+
+	@Override
+	public ConfigType getType() {
+		return ConfigType.PVP;
+	}
+	
+	@Override
+	public boolean isGenerated() {
+		return f.exists();
+	}
+	
+	@Override
+	public boolean isGeneratedOnce() {
+		return true;
+	}
+
+	@Override
+	public void generateConfig() {
+		if(!isGenerated()) {
+			con.set("disable-pvp.enable", false);
+			con.set("disable-pvp.fakepvp", false);
+			con.set("createClientSideGraveyard", false);
+			con.set("killBounty.enable", false);
+			con.set("killBounty.earn", 5.0);
+			con.set("npcReplaceLoggers", false);
+			try {
+				con.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void reload() {
+		try {
+			con.load(f);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

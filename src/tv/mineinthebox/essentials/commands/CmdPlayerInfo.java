@@ -61,7 +61,7 @@ public class CmdPlayerInfo {
 							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							sender.sendMessage(ChatColor.GOLD + ".oO___[showing information about " + off.getUser() + "]___Oo.");
 							sender.sendMessage(ChatColor.GRAY + "file name: " + ChatColor.GREEN + off.getUniqueId()+".yml");
-							if(pl.getConfiguration().getGrayListConfig().isEnabled()) {
+							if(pl.getConfiguration().getGreyListConfig().isEnabled()) {
 								sender.sendMessage(ChatColor.GRAY + "is greylisted: " + off.isGreyListed());
 							}
 							sender.sendMessage(ChatColor.GRAY + "ip: " +ChatColor.GREEN+ off.getIp());

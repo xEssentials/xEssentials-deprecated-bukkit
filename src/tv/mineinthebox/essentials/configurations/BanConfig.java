@@ -1,105 +1,154 @@
 package tv.mineinthebox.essentials.configurations;
 
-import tv.mineinthebox.essentials.xEssentials;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
+
+import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
-public class BanConfig {
+public class BanConfig implements Configuration {
 	
-	private final xEssentials pl;
+	private final File f;
+	private final FileConfiguration con;
 	
-	public BanConfig(xEssentials pl) {
-		this.pl = pl;
+	public BanConfig(File f, FileConfiguration con) {
+		this.f = f;
+		this.con = con;
 	}
 	
 	/**
+	 * returns true if anti pwnage is enabled otherwise false
 	 * 
 	 * @author xize
-	 * @param returns whenever PwnAge security is enabled
 	 * @return boolean
-	 * 
 	 */
 	public boolean isPwnAgeEnabled() {
-		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.BAN, "enablePwnAgeProtection");
-		return bol;
+		return con.getBoolean("ban.system.enablePwnAgeProtection");
 	}
 	
 	/**
+	 * returns true if anti flood spam is enabled otherwise false
 	 * 
 	 * @author xize
-	 * @param returns whenever flood spam checks are enabled!
 	 * @return boolean
-	 *
 	 */
 	public boolean isFloodSpamEnabled() {
-		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.BAN, "enableAntiFloodSpam");
-		return bol;
+		return con.getBoolean("ban.system.enableAntiFloodSpam");
 	}
 	
 	/**
+	 * returns true if anti human spam is enabled otherwise false
 	 * 
 	 * @author xize
-	 * @param returns whenever human spam is enabled
 	 * @return boolean
-	 * 
 	 */
 	public boolean isHumanSpamEnabled() {
-		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.BAN, "enableHumanSpamProtection");
-		return bol;
+		return con.getBoolean("ban.system.enableHumanSpamProtection");
 	}
 	
 	/**
+	 * returns the anti pwnage spam ban message
 	 * 
 	 * @author xize
-	 * @param returns ban message for pwnAge spam
 	 * @return String
-	 * 
 	 */
 	public String getPwnAgeSpamBanMessage() {
-		String s = (String) pl.getConfiguration().getConfigValue(ConfigType.BAN, "PwnAgeProtectionBanMessage");
-		return s;
+		return con.getString("ban.system.PwnAgeProtection.banMessage");
 	}
 	
 	/**
+	 * returns the anti flood spam ban message
 	 * 
 	 * @author xize
-	 * @param returns the ban message for flood spam 
 	 * @return String
-	 * 
 	 */
 	public String getFloodSpamBanMessage() {
-		String s = (String) pl.getConfiguration().getConfigValue(ConfigType.BAN, "AntiFloodSpamBanMessage");
-		return s;
+		return con.getString("ban.system.AntiFloodSpam.banMessage");
 	}
 	
 	/**
+	 * returns the anti human spam ban message
 	 * 
 	 * @author xize
-	 * @param returns the ban message for human spam
 	 * @return String
 	 */
 	public String getHumanSpamBanMessage() {
-		String s = (String) pl.getConfiguration().getConfigValue(ConfigType.BAN, "HumanSpamProtectionBanMessage");
-		return s;
+		return con.getString("ban.system.HumanSpamProtection.banMessage");
 	}
 	
 	/**
+	 * returns true if alternate account system is enabled otherwise false
 	 * 
 	 * @author xize
-	 * @param returns the boolean if the alternate accounts are enabled!
-	 * @returns boolean
-	 * 
+	 * @return boolean
 	 */
 	public boolean isAlternateAccountsEnabled() {
-		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.BAN, "showAlternateAccounts");
-		return bol;
+		return con.getBoolean("ban.system.showAlternateAccounts");
 	}
 	
 	/**
+	 * returns true if fishbans lookup is enabled otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true if fishbans lookup service is enabled!
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean isFishbansEnabled() {
-		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.BAN, "fishbans");
+		return con.getBoolean("ban.system.services.fishbans");
+	}
+
+	@Override
+	public String getName() {
+		return getType().name();
+	}
+
+	@Override
+	public ConfigType getType() {
+		return ConfigType.BAN;
+	}
+	
+	@Override
+	public boolean isGenerated() {
+		return f.exists();
+	}
+	
+	@Override
+	public boolean isGeneratedOnce() {
+		return true;
+	}
+
+	@Override
+	public void generateConfig() {
+		if(!isGenerated()) {
+			con.set("ban.system.enablePwnAgeProtection", false);
+			con.set("ban.system.enableAntiFloodSpam", false);
+			con.set("ban.system.enableHumanSpamProtection", false);
+			con.set("ban.system.PwnAgeProtection.banMessage", "[PwnAge] spam hacks");
+			con.set("ban.system.AntiFloodSpam.banMessage", "[FloodSpam] spam hacks");
+			con.set("ban.system.HumanSpamProtection.banMessage", "[normal spam] dont spam!");
+			con.set("ban.system.showAlternateAccounts", false);
+			con.set("ban.system.services.fishbans", false);
+			try {
+				con.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void reload() {
+		try {
+			con.load(f);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+		}
 	}
 }

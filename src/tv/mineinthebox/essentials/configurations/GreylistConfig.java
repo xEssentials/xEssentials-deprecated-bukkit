@@ -1,14 +1,24 @@
 package tv.mineinthebox.essentials.configurations;
 
-import tv.mineinthebox.essentials.xEssentials;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
-public class GreylistConfig {
+public class GreylistConfig implements Configuration {
 	
-	private final xEssentials pl;
+	private final File f;
+	private final FileConfiguration con;
 	
-	public GreylistConfig(xEssentials pl) {
-		this.pl = pl;
+	public GreylistConfig(File f, FileConfiguration con) {
+		this.f = f;
+		this.con = con;
 	}
 	
 	/**
@@ -18,8 +28,7 @@ public class GreylistConfig {
 	 * @return boolean
 	 */
 	public boolean isEnabled() {
-		Boolean bol = (Boolean) pl.getConfiguration().getConfigValue(ConfigType.GREYLIST, "enable");
-		return bol;
+		return con.getBoolean("greylist.enable");
 	}
 	
 	/**
@@ -29,8 +38,7 @@ public class GreylistConfig {
 	 * @return Integer
 	 */
 	public int getPort() {
-		int port = (Integer) pl.getConfiguration().getConfigValue(ConfigType.GREYLIST, "port");
-		return port;
+		return con.getInt("greylist.serverport");
 	}
 	
 	/**
@@ -40,8 +48,55 @@ public class GreylistConfig {
 	 * @return String
 	 */
 	public String getGroup() {
-		String group = (String) pl.getConfiguration().getConfigValue(ConfigType.GREYLIST, "group");
-		return group;
+		return con.getString("greylist.group");
+	}
+
+	@Override
+	public String getName() {
+		return getType().name();
+	}
+
+	@Override
+	public ConfigType getType() {
+		return ConfigType.GREYLIST;
+	}
+	
+	@Override
+	public boolean isGenerated() {
+		return f.exists();
+	}
+	
+	@Override
+	public boolean isGeneratedOnce() {
+		return true;
+	}
+
+	@Override
+	public void generateConfig() {
+		if(!isGenerated()) {
+			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
+			con.set("greylist.enable", false);
+			con.set("greylist.serverport", 8001);
+			con.set("greylist.group", "citizen");
+			try {
+				con.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void reload() {
+		try {
+			con.load(f);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

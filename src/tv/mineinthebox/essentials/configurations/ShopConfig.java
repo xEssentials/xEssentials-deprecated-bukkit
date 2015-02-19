@@ -1,24 +1,90 @@
 package tv.mineinthebox.essentials.configurations;
 
-import org.bukkit.ChatColor;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
-import tv.mineinthebox.essentials.xEssentials;
+import org.bukkit.ChatColor;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
+
+import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.enums.ConfigType;
 
-public class ShopConfig {
+public class ShopConfig implements Configuration {
 	
-	private final xEssentials pl;
+	private final File f;
+	private final FileConfiguration con;
 	
-	public ShopConfig(xEssentials pl) {
-		this.pl = pl;
+	public ShopConfig(File f, FileConfiguration con) {
+		this.f = f;
+		this.con = con;
 	}
 	
+	/**
+	 * returns true if the shops are enabled, otherwise false
+	 * 
+	 * @author xize
+	 * @return boolean
+	 */
 	public boolean isShopEnabled() {
-		return (Boolean) pl.getConfiguration().getConfigValue(ConfigType.SHOP, "enable");
+		return con.getBoolean("shop.enable");
 	}
 	
+	/**
+	 * returns the Admin Shop sign prefix
+	 * 
+	 * @author xize
+	 * @return String
+	 */
 	public String getAdminShopPrefix() {
-		return ChatColor.translateAlternateColorCodes('&', ((String) pl.getConfiguration().getConfigValue(ConfigType.SHOP, "adminshopprefix")));
+		return ChatColor.translateAlternateColorCodes('&', con.getString("shop.admin.shop-admin-prefix"));
+	}
+
+	@Override
+	public String getName() {
+		return getType().name();
+	}
+
+	@Override
+	public ConfigType getType() {
+		return ConfigType.SHOP;
+	}
+	
+	@Override
+	public boolean isGenerated() {
+		return f.exists();
+	}
+	
+	@Override
+	public boolean isGeneratedOnce() {
+		return true;
+	}
+
+	@Override
+	public void generateConfig() {
+		if(!isGenerated()) {
+			con.set("shop.enable", false);
+			con.set("shop.admin.shop-admin-prefix", "Admin Shop");
+			try {
+				con.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void reload() {
+		try {
+			con.load(f);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

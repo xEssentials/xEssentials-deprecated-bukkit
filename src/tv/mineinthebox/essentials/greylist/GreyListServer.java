@@ -39,10 +39,10 @@ public class GreyListServer implements ServerListener {
 						if(off instanceof XPlayer) {
 							XPlayer xp = (XPlayer)off;
 							off.setGreyListed(true);
-							xp.getPlayer().sendMessage(ChatColor.GREEN + "you are successfully promoted to " + pl.getConfiguration().getGrayListConfig().getGroup());
+							xp.getPlayer().sendMessage(ChatColor.GREEN + "you are successfully promoted to " + pl.getConfiguration().getGreyListConfig().getGroup());
 							if(Hooks.isVaultPermissionsEnabled()) {
 								String oldGroup = pl.getManagers().getVaultManager().getGroup(off.getPlayer().getWorld(), off.getUser());
-								String newgroup = pl.getConfiguration().getGrayListConfig().getGroup();
+								String newgroup = pl.getConfiguration().getGreyListConfig().getGroup();
 								pl.getManagers().getVaultManager().setGroup(off.getPlayer().getWorld(), off.getUser(), newgroup);
 								Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(off.getPlayer(), newgroup, oldGroup, GreyListCause.SITE, pl));
 							}
@@ -50,7 +50,7 @@ public class GreyListServer implements ServerListener {
 							off.setGreyListed(true);
 							if(Hooks.isVaultPermissionsEnabled()) {
 								String oldGroup = pl.getManagers().getVaultManager().getGroup(off.getLastLocation().getWorld(), user);
-								String newgroup = pl.getConfiguration().getGrayListConfig().getGroup();
+								String newgroup = pl.getConfiguration().getGreyListConfig().getGroup();
 								pl.getManagers().getVaultManager().setGroup(off.getLastLocation().getWorld(), off.getUser(), newgroup);
 								Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(off.getPlayer(), newgroup, oldGroup, GreyListCause.SITE, pl));
 							}
