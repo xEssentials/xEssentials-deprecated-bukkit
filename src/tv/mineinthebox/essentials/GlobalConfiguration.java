@@ -274,8 +274,11 @@ public class GlobalConfiguration {
 		if(pl.getManagers().getRealisticWaterManager().isRunning()) {
 			pl.getManagers().getRealisticWaterManager().stop();
 		}
-		configurations.clear();
-		createConfigs();
+		
+		for(Configuration conf : configurations.values()) {
+			conf.reload();
+		}
+		
 		HandleCommandManager();
 		if(getGreyListConfig().isEnabled()) {
 			SimpleServer server = pl.getManagers().getGreylistManager();
