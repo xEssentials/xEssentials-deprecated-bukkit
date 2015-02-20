@@ -2,6 +2,8 @@ package tv.mineinthebox.essentials.enums;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -67,18 +69,62 @@ public enum ConfigType {
 	 * @author xize
 	 * @param pl - the plugin instance
 	 * @return Configuration
+	 * @deprecated this method is very redurant, and we believe reflection is not a way to accomplish this in any way, instead we need to come on a better OO design than this.
 	 */
 	public Configuration getNewConfiguration(xEssentials pl) {
 		try {
-			Constructor<?> constr = clazz.getConstructors()[0];
+			final Constructor<?> constr = clazz.getConstructors()[0];
+			
+			List<Class<?>> classes = new ArrayList<Class<?>>() { private static final long serialVersionUID = 1L; {
+				for(Class<?> aclass : constr.getParameterTypes()) {
+					add(aclass);
+				}
+			}};
+			
 			if(constr.getParameterTypes().length == 2) {
-				File f = new File(pl.getDataFolder() + File.separator + name);
-				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-				return (Configuration) constr.newInstance(new Object[] {f, con});
+				if(classes.contains(File.class) && classes.contains(FileConfiguration.class)) {
+					
+					File f = new File(pl.getDataFolder() + File.separator + name);
+					FileConfiguration con = YamlConfiguration.loadConfiguration(f);
+					
+					
+					if(constr.getParameterTypes()[0] == File.class) {
+						return (Configuration) constr.newInstance(new Object[] {f, con});
+					} else if(constr.getParameterTypes()[0] == FileConfiguration.class) {
+						return (Configuration) constr.newInstance(new Object[] {con, f});
+					}
+					
+				} else {
+					throw new Exception("configuration " + constr.getClass().getName() + " has an invalid constructor");
+				}
 			} else if(constr.getParameterTypes().length == 3) {
-				File f = new File(pl.getDataFolder() + File.separator + name);
-				FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-				return (Configuration) constr.newInstance(new Object[] {pl, f, con});
+				if(classes.contains(xEssentials.class) && classes.contains(File.class) && classes.contains(FileConfiguration.class)) {
+					File f = new File(pl.getDataFolder() + File.separator + name);
+					FileConfiguration con = YamlConfiguration.loadConfiguration(f);
+					
+					if(constr.getParameterTypes()[0] == xEssentials.class) {
+						if(constr.getParameterTypes()[1] == File.class) {
+							return (Configuration)constr.newInstance(new Object[] {pl, f, con});
+						} else if(constr.getParameterTypes()[1] == FileConfiguration.class) {
+							return (Configuration)constr.newInstance(new Object[] {pl, con, f});
+						}
+					} else if(constr.getParameterTypes()[0] == File.class) {
+						if(constr.getParameterTypes()[1] == xEssentials.class) {
+							return (Configuration)constr.newInstance(new Object[] {f, pl, con});
+						} else if(constr.getParameterTypes()[1] == FileConfiguration.class) {
+							return (Configuration)constr.newInstance(new Object[] {f, con, pl});
+						}
+					} else if(constr.getParameterTypes()[0] == FileConfiguration.class) {
+						if(constr.getParameterTypes()[1] == xEssentials.class) {
+							return (Configuration)constr.newInstance(new Object[] {con, pl, f});
+						} else if(constr.getParameterTypes()[1] == File.class) {
+							return (Configuration)constr.newInstance(new Object[] {con, f, pl});
+						}
+					}
+					
+				} else {
+					throw new Exception("configuration " + constr.getClass().getName() + " has an invalid constructor");
+				}
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
