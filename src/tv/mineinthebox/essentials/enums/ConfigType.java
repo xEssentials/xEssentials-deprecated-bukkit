@@ -1,12 +1,8 @@
 package tv.mineinthebox.essentials.enums;
 
 import java.io.File;
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
@@ -34,33 +30,31 @@ import tv.mineinthebox.essentials.configurations.VoteConfig;
 
 public enum ConfigType {
 
-	ENTITY("entity.yml",  EntityConfig.class),
-	PLAYER("player.yml", PlayerConfig.class),
-	BAN("ban.yml", BanConfig.class),
-	MOTD("motd.yml", MotdConfig.class),
-	BROADCAST("broadcast.yml", BroadcastConfig.class),
-	CHAT("chat.yml", ChatConfig.class),
-	PVP("pvp.yml", PvpConfig.class),
-	RULES("rules.yml", RulesConfig.class),
-	GREYLIST("greylist.yml", GreylistConfig.class),
-	BLOCKS("blocks.yml", BlockConfig.class),
-	KITS("kits.yml", KitConfig.class),
-	COMMAND("commands.yml", CommandConfig.class),
-	ECONOMY("economy.yml", EconomyConfig.class),
-	SHOP("shops.yml", ShopConfig.class),
-	PROTECTION("protection.yml", ProtectionConfig.class),
-	PORTAL("portal.yml", PortalConfig.class),
-	MISC("misc.yml", MiscConfig.class),
-	SIGN("signs.yml", SignConfig.class),
-	VOTE("vote.yml", VoteConfig.class),
-	DEBUG("debug.yml", DebugConfig.class);
+	ENTITY("entity.yml"),
+	PLAYER("player.yml"),
+	BAN("ban.yml"),
+	MOTD("motd.yml"),
+	BROADCAST("broadcast.yml"),
+	CHAT("chat.yml"),
+	PVP("pvp.yml"),
+	RULES("rules.yml"),
+	GREYLIST("greylist.yml"),
+	BLOCKS("blocks.yml"),
+	KITS("kits.yml"),
+	COMMAND("commands.yml"),
+	ECONOMY("economy.yml"),
+	SHOP("shops.yml"),
+	PROTECTION("protection.yml"),
+	PORTAL("portal.yml"),
+	MISC("misc.yml"),
+	SIGN("signs.yml"),
+	VOTE("vote.yml"),
+	DEBUG("debug.yml");
 
 	private final String name;
-	private final Class<? extends Configuration> clazz;
-
-	private ConfigType(String name, Class<? extends Configuration> clazz) {
+	
+	private ConfigType(String name) {
 		this.name = name;
-		this.clazz = clazz;
 	}
 
 	/**
@@ -69,67 +63,53 @@ public enum ConfigType {
 	 * @author xize
 	 * @param pl - the plugin instance
 	 * @return Configuration
-	 * @deprecated this method is very redurant, and we believe reflection is not a way to accomplish this in any way, instead we need to come on a better OO design than this.
 	 */
-	public Configuration getNewConfiguration(xEssentials pl) {
-		try {
-			final Constructor<?> constr = clazz.getConstructors()[0];
+	public static Configuration getNewConfiguration(xEssentials pl, File f, FileConfiguration con, ConfigType type) {
+		switch(type) {
+		case BAN:
+			return new BanConfig(f, con);
+		case BLOCKS:
+			return new BlockConfig(f, con);
+		case BROADCAST:
+			return new BroadcastConfig(f, con);
+		case CHAT:
+			return new ChatConfig(f, con);
+		case COMMAND:
+			return new CommandConfig(pl, f, con);
+		case DEBUG:
+			return new DebugConfig(f, con);
+		case ECONOMY:
+			return new EconomyConfig(f, con);
+		case ENTITY:
+			return new EntityConfig(f, con);
+		case GREYLIST:
+			return new GreylistConfig(f, con);
+		case KITS:
+			return new KitConfig(f, con);
+		case MISC:
+			return new MiscConfig(f, con);
+		case MOTD:
+			return new MotdConfig(f, con);
+		case PLAYER:
+			return new PlayerConfig(pl, f, con);
+		case PORTAL:
+			return new PortalConfig(pl, f, con);
+		case PROTECTION:
+			return new ProtectionConfig(f, con);
+		case PVP:
+			return new PvpConfig(f, con);
+		case RULES:
+			return new RulesConfig(f, con);
+		case SHOP:
+			return new ShopConfig(f, con);
+		case SIGN:
+			return new SignConfig(f, con);
+		case VOTE:
+			return new VoteConfig(f, con);
+		default:
+			return null;
 			
-			List<Class<?>> classes = new ArrayList<Class<?>>() { private static final long serialVersionUID = 1L; {
-				for(Class<?> aclass : constr.getParameterTypes()) {
-					add(aclass);
-				}
-			}};
-			
-			if(constr.getParameterTypes().length == 2) {
-				if(classes.contains(File.class) && classes.contains(FileConfiguration.class)) {
-					
-					File f = new File(pl.getDataFolder() + File.separator + name);
-					FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-					
-					
-					if(constr.getParameterTypes()[0] == File.class) {
-						return (Configuration) constr.newInstance(new Object[] {f, con});
-					} else if(constr.getParameterTypes()[0] == FileConfiguration.class) {
-						return (Configuration) constr.newInstance(new Object[] {con, f});
-					}
-					
-				} else {
-					throw new Exception("configuration " + constr.getClass().getName() + " has an invalid constructor");
-				}
-			} else if(constr.getParameterTypes().length == 3) {
-				if(classes.contains(xEssentials.class) && classes.contains(File.class) && classes.contains(FileConfiguration.class)) {
-					File f = new File(pl.getDataFolder() + File.separator + name);
-					FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-					
-					if(constr.getParameterTypes()[0] == xEssentials.class) {
-						if(constr.getParameterTypes()[1] == File.class) {
-							return (Configuration)constr.newInstance(new Object[] {pl, f, con});
-						} else if(constr.getParameterTypes()[1] == FileConfiguration.class) {
-							return (Configuration)constr.newInstance(new Object[] {pl, con, f});
-						}
-					} else if(constr.getParameterTypes()[0] == File.class) {
-						if(constr.getParameterTypes()[1] == xEssentials.class) {
-							return (Configuration)constr.newInstance(new Object[] {f, pl, con});
-						} else if(constr.getParameterTypes()[1] == FileConfiguration.class) {
-							return (Configuration)constr.newInstance(new Object[] {f, con, pl});
-						}
-					} else if(constr.getParameterTypes()[0] == FileConfiguration.class) {
-						if(constr.getParameterTypes()[1] == xEssentials.class) {
-							return (Configuration)constr.newInstance(new Object[] {con, pl, f});
-						} else if(constr.getParameterTypes()[1] == File.class) {
-							return (Configuration)constr.newInstance(new Object[] {con, f, pl});
-						}
-					}
-					
-				} else {
-					throw new Exception("configuration " + constr.getClass().getName() + " has an invalid constructor");
-				}
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
 		}
-		return null;
 	}
 
 	/**

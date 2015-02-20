@@ -1,5 +1,6 @@
 package tv.mineinthebox.essentials;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -7,6 +8,8 @@ import java.util.List;
 
 import org.bukkit.Material;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 import tv.mineinthebox.essentials.commands.CommandList;
 import tv.mineinthebox.essentials.configurations.BanConfig;
@@ -371,7 +374,9 @@ public class GlobalConfiguration {
 
 	private void createConfigs() {
 		for(ConfigType type : ConfigType.values()) {
-			Configuration conf = type.getNewConfiguration(pl);
+			File f = new File(pl.getDataFolder() + File.separator + type.getFileName());
+			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
+			Configuration conf = ConfigType.getNewConfiguration(pl, f, con, type);
 			if(conf.isGeneratedOnce()) {
 				if(!conf.isGenerated()) {
 					conf.generateConfig();
