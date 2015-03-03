@@ -20,18 +20,20 @@ import tv.mineinthebox.essentials.enums.ConfigType;
 import tv.mineinthebox.essentials.instances.Kit;
 
 public class KitConfig extends Configuration {
-	
+
 	private final HashMap<String, Kit> kitss = new HashMap<String, Kit>();
-	
+
 	public KitConfig(File f, FileConfiguration con) {
 		super(f, con);
-		
-		Kit[] kits = parseKits(con);
-		for(Kit kit : kits) {
-			kitss.put(kit.getKitName(), kit);
+
+		if(isGenerated()) {
+			Kit[] kits = parseKits(con);
+			for(Kit kit : kits) {
+				kitss.put(kit.getKitName(), kit);
+			}
 		}
 	}
-	
+
 	/**
 	 * returns true if the kit cooldown is enabled, otherwise false
 	 * 
@@ -41,7 +43,7 @@ public class KitConfig extends Configuration {
 	public boolean isCooldownEnabled() {
 		return con.getBoolean("cooldown.isEnabled");
 	}
-	
+
 	/**
 	 * returns te kit cooldown
 	 * 
@@ -51,7 +53,7 @@ public class KitConfig extends Configuration {
 	public int getCoolDown() {
 		return con.getInt("cooldown.time");
 	}
-	
+
 	/**
 	 * returns a map where the key is the kit name and where the value is the kits content
 	 * 
@@ -61,7 +63,7 @@ public class KitConfig extends Configuration {
 	public Map<String, Kit> getConfigKits() {
 		return Collections.unmodifiableMap(kitss);
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	private Kit[] parseKits(FileConfiguration con) {
 		List<Kit> kits = new ArrayList<Kit>();
@@ -92,7 +94,7 @@ public class KitConfig extends Configuration {
 		}
 		return kits.toArray(new Kit[kits.size()]);
 	}
-	
+
 	private boolean isNumberic(String arg) {
 		try {
 			Integer i = Integer.parseInt(arg);
@@ -114,12 +116,12 @@ public class KitConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.KITS;
 	}
-	
+
 	@Override
 	public boolean isGenerated() {
 		return f.exists();
 	}
-	
+
 	@Override
 	public boolean isGeneratedOnce() {
 		return true;
