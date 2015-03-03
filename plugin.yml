@@ -367,3 +367,7 @@ commands:
      description: finds the chunk as a file
      permission: xEssentials.command.getchunkfile
      aliases: [findchunk, chunkfinder]
+  opkit:
+     description: opens a opkit selector
+     permission: xEssentials.command.opkit
+     aliases: []

@@ -286,6 +286,9 @@ public class SimpleCommand implements CommandExecutor, TabCompleter {
 		} else if(cmd.getName().equalsIgnoreCase("getchunkfile")) {
 			CmdGetChunkFile chunk = new CmdGetChunkFile();
 			return chunk.execute(sender, cmd, args);
+		} else if(cmd.getName().equalsIgnoreCase("opkit")) {
+			CmdOpkit opkit = new CmdOpkit();
+			return opkit.execute(sender, cmd, args);
 		}
 		return false;
 	}
