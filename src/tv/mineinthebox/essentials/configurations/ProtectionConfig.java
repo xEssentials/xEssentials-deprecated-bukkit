@@ -110,12 +110,12 @@ public class ProtectionConfig extends Configuration {
 	@Override
 	public void generateConfig() {
 		if(!isGenerated()) {
-			con.set("protection.enable", true);
-			con.set("protection.protect.signs", true);
-			con.set("protection.protect.chests", true);
-			con.set("protection.protect.furnace", true);
-			con.set("protection.protect.jukebox", true);
-			con.set("protection.protect.dispenser", true);
+			con.set("protection.enable", false);
+			con.set("protection.protect.signs", false);
+			con.set("protection.protect.chests", false);
+			con.set("protection.protect.furnace", false);
+			con.set("protection.protect.jukebox", false);
+			con.set("protection.protect.dispenser", false);
 			con.set("protection.message.disallow", "&cthis %BLOCK% has been protected by a spell");
 			try {
 				con.save(f);
