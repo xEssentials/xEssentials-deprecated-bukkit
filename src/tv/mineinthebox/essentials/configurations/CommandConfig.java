@@ -21,18 +21,20 @@ import tv.mineinthebox.essentials.enums.ConfigType;
 import tv.mineinthebox.essentials.enums.LogType;
 
 public class CommandConfig extends Configuration {
-	
+
 	private final HashMap<String, Boolean> commands = new HashMap<String, Boolean>();
-	
+
 	public CommandConfig(xEssentials pl, File f, FileConfiguration con) {
 		super(pl, f, con);
-		
-		String[] commandlist = con.getConfigurationSection("command").getKeys(false).toArray(new String[0]);
-		for(String cmd : commandlist) {
-			commands.put(cmd, con.getBoolean("command."+cmd+".enable"));
+
+		if(isGenerated()) {
+			String[] commandlist = con.getConfigurationSection("command").getKeys(false).toArray(new String[0]);
+			for(String cmd : commandlist) {
+				commands.put(cmd, con.getBoolean("command."+cmd+".enable"));
+			}
 		}
 	}
-	
+
 
 	/**
 	 * returns a HashMap with the commands
@@ -81,7 +83,7 @@ public class CommandConfig extends Configuration {
 	public boolean isRegistered(String cmd) {
 		return pl.getManagers().getCommandManager().isRegistered(cmd);
 	}
-	
+
 	/**
 	 * registers a bukkit command
 	 * 
@@ -108,7 +110,7 @@ public class CommandConfig extends Configuration {
 	public boolean isGenerated() {
 		return f.exists();
 	}
-	
+
 	@Override
 	public boolean isGeneratedOnce() {
 		return false;
@@ -133,13 +135,13 @@ public class CommandConfig extends Configuration {
 			for(String command : commands) {
 				con.set("command."+command+".enable", true);
 			}
-			
+
 			try {
 				con.save(f);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+
 		} else {
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			CommandList commandlist = new CommandList();
@@ -162,19 +164,19 @@ public class CommandConfig extends Configuration {
 						con.set("command."+cmd+".enable", true);
 					}
 				}
-				
+
 				try {
 					con.save(f);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
+
 			} else {
 				xEssentials.log("there where no newer commands found to be added in commands.yml", LogType.INFO);
 			}
 		}
 	}
-	
+
 	@Override
 	public void reload() {
 		commands.clear();
