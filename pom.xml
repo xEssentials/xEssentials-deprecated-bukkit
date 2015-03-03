@@ -79,10 +79,6 @@
 			<url>http://maven.sk89q.com/repo/</url>
 		</repository>
 		<repository>
-			<id>comphenix-repo</id>
-			<url>http://repo.comphenix.net/content/groups/public</url>
-		</repository>
-		<repository>
 			<id>lwc</id>
 			<url>http://andune.com/nexus/content/repositories/public/</url>
 		</repository>
@@ -105,12 +101,6 @@
 		<dependency>
 			<groupId>com.sk89q</groupId>
 			<artifactId>worldguard</artifactId>
-			<scope>provided</scope>
-			<version>LATEST</version>
-		</dependency>
-		<dependency>
-			<groupId>com.comphenix.protocol</groupId>
-			<artifactId>ProtocolLib</artifactId>
 			<scope>provided</scope>
 			<version>LATEST</version>
 		</dependency>

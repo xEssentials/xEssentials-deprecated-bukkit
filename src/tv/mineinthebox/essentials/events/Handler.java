@@ -62,7 +62,8 @@ import tv.mineinthebox.essentials.events.gates.GateGriefPreventionEvent;
 import tv.mineinthebox.essentials.events.gates.GateInteractEvent;
 import tv.mineinthebox.essentials.events.gates.GateRedstoneEvent;
 import tv.mineinthebox.essentials.events.gates.RemoveGateEvent;
-import tv.mineinthebox.essentials.events.motd.MotdEvent;
+import tv.mineinthebox.essentials.events.motd.NormalMotdEvent;
+import tv.mineinthebox.essentials.events.motd.RandomMotdEvent;
 import tv.mineinthebox.essentials.events.motd.MotdVanishEvent;
 import tv.mineinthebox.essentials.events.players.AchievementEvent;
 import tv.mineinthebox.essentials.events.players.AfkCheckEvent;
@@ -124,7 +125,6 @@ import tv.mineinthebox.essentials.events.protection.RegisterProtectionEvent;
 import tv.mineinthebox.essentials.events.protection.SignProtectedEvent;
 import tv.mineinthebox.essentials.events.protection.UnregisterProtectionEvent;
 import tv.mineinthebox.essentials.events.pvp.ClientSideGraveYardEvent;
-import tv.mineinthebox.essentials.events.pvp.ClientSideGraveYard_ProtocolLibEvent;
 import tv.mineinthebox.essentials.events.pvp.FakePvpEvent;
 import tv.mineinthebox.essentials.events.pvp.KillBountyEvent;
 import tv.mineinthebox.essentials.events.pvp.NpcReplacePlayerEvent;
@@ -146,9 +146,9 @@ import tv.mineinthebox.essentials.events.vote.VoteMoneyEvent;
 import tv.mineinthebox.essentials.hook.Hooks;
 
 public class Handler {
-	
+
 	private final xEssentials pl;
-	
+
 	public Handler(xEssentials pl) {
 		this.pl = pl;
 	}
@@ -174,7 +174,7 @@ public class Handler {
 			setListener(new SaveLastInventoryEvent(pl));
 		}
 		if(pl.getConfiguration().getPlayerConfig().isWorldBorderEnabled()) {
-				setListener(new PlayerBorderEvent(pl));
+			setListener(new PlayerBorderEvent(pl));
 		}
 		if(pl.getConfiguration().getChatConfig().isRssBroadcastEnabled()) {
 			setListener(new BroadcastSiteNewsEvent());
@@ -186,12 +186,12 @@ public class Handler {
 		setListener(new PlayerJoinMessageEvent(pl));
 		setListener(new PlayerQuitMessageEvent(pl));
 		setListener(new ModreqJoinEvent(pl));
-		if(Hooks.isProtocolLibEnabled()) {
-			MotdVanishEvent vanish = new MotdVanishEvent(pl);
-			vanish.initPacketListener();
-		} else {
-			setListener(new MotdEvent(pl));
+		if(pl.getConfiguration().getMotdConfig().isRandomMotdEnabled()) {
+			setListener(new RandomMotdEvent(pl));
+		} else if(pl.getConfiguration().getMotdConfig().isNormalMotdEnabled()) {
+			setListener(new NormalMotdEvent(pl));
 		}
+		setListener(new MotdVanishEvent(pl));
 		//entity yml
 		setListener(new EntitySpawnEventManagerEvent(pl));
 		if(pl.getConfiguration().getEntityConfig().isRealisticWaterEnabled()) {setListener(new RealisticWaterEvent());}
@@ -266,11 +266,7 @@ public class Handler {
 		if(pl.getConfiguration().getPvpConfig().isFakePvpEnabled()) {setListener(new FakePvpEvent(pl));}
 		if(pl.getConfiguration().getPvpConfig().isPvpDisabled()) {setListener(new PvpEvent(pl));}
 		if(pl.getConfiguration().getPvpConfig().isClientGravesEnabled()) {
-			if(Hooks.isProtocolLibEnabled()) {
-				setListener(new ClientSideGraveYard_ProtocolLibEvent(pl));
-			} else {
-				setListener(new ClientSideGraveYardEvent(pl));
-			}
+			setListener(new ClientSideGraveYardEvent(pl));
 		}
 		if(pl.getConfiguration().getPvpConfig().isKillBountyEnabled()) {setListener(new KillBountyEvent(pl));}
 		if(pl.getConfiguration().getPvpConfig().isReplaceNpcEnabled()) { setListener(new NpcReplacePlayerEvent(pl)); }
@@ -314,7 +310,7 @@ public class Handler {
 			setListener(new RemoveShopEvent(pl));
 			setListener(new AdminShopInventoryEvent(pl));
 		}
-		
+
 		//block events
 		if(pl.getConfiguration().getBlockConfig().isNotifyOnBreakEnabled()) {setListener(new NotifyAdminOnBlockBreakEvent(pl));}
 		if(pl.getConfiguration().getBlockConfig().isBedrockBreakDisabled()) {setListener(new BedrockBreakEvent());}
@@ -322,7 +318,7 @@ public class Handler {
 		if(pl.getConfiguration().getBlockConfig().isNotifyOnConsumeEnabled()) {setListener(new NotifyItemUseEvent(pl));}
 		if(pl.getConfiguration().getBlockConfig().isBlockBlacklistEnabled()) {setListener(new BlockBlackListEvent(pl));}
 		if(pl.getConfiguration().getBlockConfig().isItemBlacklistEnabled()) {setListener(new ItemBlackListEvent(pl));}
-		
+
 		//protection events
 		if(pl.getConfiguration().getProtectionConfig().isProtectionEnabled()) {
 			setListener(new UnregisterProtectionEvent(pl));
@@ -336,18 +332,18 @@ public class Handler {
 			if(pl.getConfiguration().getProtectionConfig().isJukeboxProtectionEnabled()) {setListener(new JukeboxProtectedEvent(pl));}
 			if(pl.getConfiguration().getProtectionConfig().isDispenserEnabled()) {setListener(new DispenserProtectionEvent(pl));}
 		}
-		
+
 		//portal events
 		if(pl.getConfiguration().getPortalConfig().isPortalEnabled()) {
 			setListener(new PortalSelectedCreateEvent(pl));
 			setListener(new PortalEvent(pl));
 			setListener(new PortalActivateEvent(pl));
 		}
-		
+
 		//backpack events
 		setListener(new BackpackDespawningEvent(pl));
 		setListener(new OpenBackPackEvent(pl));
-		
+
 		//gate events
 		if(pl.getConfiguration().getMiscConfig().isGatesEnabled()) {
 			setListener(new GateCreateEvent(pl));
@@ -359,7 +355,7 @@ public class Handler {
 				setListener(new GateRedstoneEvent(pl));
 			}
 		}
-		
+
 		//bridge events
 		if(pl.getConfiguration().getMiscConfig().isBridgesEnabled()) {
 			setListener(new BridgeCreateEvent(pl));
@@ -368,13 +364,13 @@ public class Handler {
 			setListener(new BridgeGriefPreventionEvent(pl));
 			setListener(new RemoveBridgeEvent(pl));
 		}
-		
+
 		//elevator events
 		if(pl.getConfiguration().getMiscConfig().isElevatorsEnabled()) {
 			setListener(new ElevatorCreateEvent());
 			setListener(new ElevatorInteractEvent(pl));
 		}
-		
+
 		//chair events
 		if(pl.getConfiguration().getMiscConfig().isChairsEnabled()) {
 			setListener(new PlayerSitOnChairEvent(pl));
@@ -382,17 +378,17 @@ public class Handler {
 				setListener(new ChairDisableMonsterEvent(pl));
 			}
 		}
-		
+
 		if(pl.getConfiguration().getMiscConfig().isBooksEnabled()) {
 			setListener(new BookInteractEvent(pl));
 		}
-		
+
 		//vote
 		if(pl.getConfiguration().getVoteConfig().isVoteEnabled() && Hooks.isVotifierEnabled()) {
 			if(pl.getConfiguration().getVoteConfig().isMoneyRewardEnabled() && Hooks.isVaultEcoEnabled()) {setListener(new VoteMoneyEvent(pl));}
 			if(pl.getConfiguration().getVoteConfig().isRewardCrateEnabled() && Hooks.isManCoEnabled()) {setListener(new VoteCrateEvent(pl));}
 		}
-			
+
 		setListener(new RemoveMemoryEvent(pl));
 	}
 
