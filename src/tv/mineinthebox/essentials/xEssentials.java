@@ -38,6 +38,7 @@ public class xEssentials extends JavaPlugin implements xEssentialsApi {
 	public void onEnable() {
 
 		this.conf = new GlobalConfiguration(this);
+		
 		this.handler = new Handler(this);
 		this.customhandler = new CustomEventHandler(this);
 		this.cmdlist = new CommandList();

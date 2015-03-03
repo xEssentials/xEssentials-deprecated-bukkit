@@ -22,18 +22,19 @@ import tv.mineinthebox.essentials.enums.LogType;
 
 
 public class EntityConfig extends Configuration {
-	
+
 	private final HashMap<String, Map<Boolean, String[]>> entitys = new HashMap<String, Map<Boolean, String[]>>();
-	
+
 	public EntityConfig(File f, FileConfiguration con) {
 		super(f, con);
-		
-		for(String key : con.getConfigurationSection("mobs.allowToSpawn").getKeys(false)) {
-			Map<Boolean, String[]> map = new HashMap<Boolean, String[]>();
-			boolean bol = con.getBoolean("mobs.allowToSpawn." + key + ".canSpawn");
-			String[] biomes = con.getStringList("mobs.allowToSpawn." + key + ".allowedBiomes").toArray(new String[0]);
-			map.put(bol, biomes);
-			entitys.put(key, map);
+		if(isGenerated()) {
+			for(String key : con.getConfigurationSection("mobs.allowToSpawn").getKeys(false)) {
+				Map<Boolean, String[]> map = new HashMap<Boolean, String[]>();
+				boolean bol = con.getBoolean("mobs.allowToSpawn." + key + ".canSpawn");
+				String[] biomes = con.getStringList("mobs.allowToSpawn." + key + ".allowedBiomes").toArray(new String[0]);
+				map.put(bol, biomes);
+				entitys.put(key, map);
+			}
 		}
 	}
 
@@ -56,7 +57,7 @@ public class EntityConfig extends Configuration {
 	public boolean isFireSpreadDisabled() {
 		return con.getBoolean("disable-firespread");
 	}
-	
+
 	/**
 	 * returns true if realistic glass is enabled, otherwise false
 	 * 
@@ -76,7 +77,7 @@ public class EntityConfig extends Configuration {
 	public boolean isLeaveDecayDisabled() {
 		return con.getBoolean("disable-leave-decay");
 	}
-	
+
 	/**
 	 * returns true if explosions are disabled, otherwise false
 	 * 
@@ -256,12 +257,12 @@ public class EntityConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.ENTITY;
 	}
-	
+
 	@Override
 	public boolean isGenerated() {
 		return f.exists();
 	}
-	
+
 	@Override
 	public boolean isGeneratedOnce() {
 		return false;
@@ -362,7 +363,7 @@ public class EntityConfig extends Configuration {
 		} catch (InvalidConfigurationException e) {
 			e.printStackTrace();
 		}
-		
+
 		for(String key : con.getConfigurationSection("mobs.allowToSpawn").getKeys(false)) {
 			Map<Boolean, String[]> map = new HashMap<Boolean, String[]>();
 			boolean bol = con.getBoolean("mobs.allowToSpawn." + key + ".canSpawn");
@@ -370,9 +371,9 @@ public class EntityConfig extends Configuration {
 			map.put(bol, biomes);
 			entitys.put(key, map);
 		}
-		
+
 	}
-	
+
 	private String serialize_name(String mob) {
 		return mob.toString().toLowerCase();
 	}
