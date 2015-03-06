@@ -382,6 +382,7 @@ public class GlobalConfiguration {
 					conf.generateConfig();
 				}
 			} else {
+				//Entity config and command config.
 				conf.generateConfig();
 			}
 			configurations.put(type, conf);

@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -26,13 +27,6 @@ public class CommandConfig extends Configuration {
 
 	public CommandConfig(xEssentials pl, File f, FileConfiguration con) {
 		super(pl, f, con);
-
-		if(isGenerated()) {
-			String[] commandlist = con.getConfigurationSection("command").getKeys(false).toArray(new String[0]);
-			for(String cmd : commandlist) {
-				commands.put(cmd, con.getBoolean("command."+cmd+".enable"));
-			}
-		}
 	}
 
 
@@ -44,6 +38,26 @@ public class CommandConfig extends Configuration {
 	 */
 	public HashMap<String, Boolean> getCommandList() {
 		return commands;
+	}
+	
+	/**
+	 * returns the prefix for the global command template
+	 * 
+	 * @author xize
+	 * @return String
+	 */
+	public String getPrefix() {
+		return ChatColor.translateAlternateColorCodes('&', con.getString("global-command-display.prefix"));
+	}
+	
+	/**
+	 * returns the suffix for the global command template
+	 * 
+	 * @author xize
+	 * @return String
+	 */
+	public String getSuffix() {
+		return ChatColor.translateAlternateColorCodes('&', con.getString("global-command-display.suffix"));
 	}
 
 	/**
@@ -125,6 +139,9 @@ public class CommandConfig extends Configuration {
 			CommandList list = new CommandList();
 			List<String> commands = new ArrayList<String>(Arrays.asList(list.getAllCommands));
 
+			con.set("global-command-display.prefix", "&2[%s]:  ");
+			con.set("global-command-display.suffix", "&7");
+			
 			//blacklist, this will be handle by the configuration it self.
 			commands.remove("money");
 			commands.remove("cprivate");
@@ -139,11 +156,11 @@ public class CommandConfig extends Configuration {
 			try {
 				con.save(f);
 			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
+			reload();
 		} else {
-			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			CommandList commandlist = new CommandList();
 			List<String> commands = new ArrayList<String>(Arrays.asList(commandlist.getAllCommands));
 
@@ -164,13 +181,12 @@ public class CommandConfig extends Configuration {
 						con.set("command."+cmd+".enable", true);
 					}
 				}
-
 				try {
 					con.save(f);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-
+				reload();
 			} else {
 				xEssentials.log("there where no newer commands found to be added in commands.yml", LogType.INFO);
 			}
@@ -189,9 +205,8 @@ public class CommandConfig extends Configuration {
 		} catch (InvalidConfigurationException e) {
 			e.printStackTrace();
 		}
-		String[] commandlist = con.getConfigurationSection("command").getKeys(false).toArray(new String[0]);
-		for(String cmd : commandlist) {
-			commands.put(cmd, con.getBoolean("command."+cmd+".enable"));
-		}
+		
+		generateConfig();
+		
 	}
 }

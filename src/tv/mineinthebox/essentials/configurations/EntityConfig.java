@@ -12,7 +12,6 @@ import java.util.Map;
 import org.bukkit.block.Biome;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 
 import tv.mineinthebox.essentials.Configuration;
@@ -27,15 +26,6 @@ public class EntityConfig extends Configuration {
 
 	public EntityConfig(File f, FileConfiguration con) {
 		super(f, con);
-		if(isGenerated()) {
-			for(String key : con.getConfigurationSection("mobs.allowToSpawn").getKeys(false)) {
-				Map<Boolean, String[]> map = new HashMap<Boolean, String[]>();
-				boolean bol = con.getBoolean("mobs.allowToSpawn." + key + ".canSpawn");
-				String[] biomes = con.getStringList("mobs.allowToSpawn." + key + ".allowedBiomes").toArray(new String[0]);
-				map.put(bol, biomes);
-				entitys.put(key, map);
-			}
-		}
 	}
 
 	/**
@@ -310,16 +300,17 @@ public class EntityConfig extends Configuration {
 			try {
 				con.save(f);
 			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			reload();
 		} else {
 			//because if the file exist we go check if the entitys are up to date if its not we surely update it.
-			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			List<String> entitys = Arrays.asList(con.getConfigurationSection("mobs.allowToSpawn").getKeys(false).toArray(new String[0]));
 			List<String> newentities = new ArrayList<String>();
 			for(EntityType entity : EntityType.values()) {
 				if(entity.isAlive()) {
-					if(entity != EntityType.PLAYER) {
+					if(entity != EntityType.PLAYER && !entity.name().contains("ARMOR")) {
 						newentities.add(serialize_name(entity.name()));
 					}
 				}
@@ -327,7 +318,7 @@ public class EntityConfig extends Configuration {
 			if(entitys.size() != newentities.size()) {
 				xEssentials.log("new entities detected!, adding them right now inside the entity config!", LogType.INFO);
 				for(String entity : newentities) {
-					if(!entitys.contains(newentities)) {
+					if(!entitys.contains(entity)) {
 						xEssentials.log("found new entity: " + entity + " adding now to entity.yml", LogType.INFO);
 						con.set("mobs.allowToSpawn."+serialize_name(entity) + ".canSpawn", true);
 
@@ -338,12 +329,12 @@ public class EntityConfig extends Configuration {
 						}
 
 						con.set("mobs.allowToSpawn."+serialize_name(entity) + ".allowedBiomes", Arrays.asList(biomes.split(",")).toArray());
+						try {
+							con.save(f);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 					}
-				}
-				try {
-					con.save(f);
-				} catch (IOException e) {
-					e.printStackTrace();
 				}
 			} else {
 				xEssentials.log("there where no newer entitys found to be added in entity.yml", LogType.INFO);
@@ -364,13 +355,7 @@ public class EntityConfig extends Configuration {
 			e.printStackTrace();
 		}
 
-		for(String key : con.getConfigurationSection("mobs.allowToSpawn").getKeys(false)) {
-			Map<Boolean, String[]> map = new HashMap<Boolean, String[]>();
-			boolean bol = con.getBoolean("mobs.allowToSpawn." + key + ".canSpawn");
-			String[] biomes = con.getStringList("mobs.allowToSpawn." + key + ".allowedBiomes").toArray(new String[0]);
-			map.put(bol, biomes);
-			entitys.put(key, map);
-		}
+		generateConfig();
 
 	}
 
