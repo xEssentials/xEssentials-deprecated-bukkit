@@ -225,7 +225,7 @@ public class Handler {
 		if(Hooks.isWorldGuardEnabled()) {
 			setListener(new WorldGuardMonsterEvent(pl));
 		}
-		setListener(new OpKitEvent());
+		setListener(new OpKitEvent(pl));
 		setListener(new PlayerShootbowSoundEvent());
 		setListener(new SignEditEvent(pl));
 		if(pl.getConfiguration().getPlayerConfig().isAutoRespawnEnabled()) {setListener(new PlayerForceRespawnEvent(pl));}
