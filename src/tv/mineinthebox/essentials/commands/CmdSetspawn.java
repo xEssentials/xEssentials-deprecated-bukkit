@@ -9,15 +9,15 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
-public class CmdSetspawn {
+public class CmdSetspawn extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdSetspawn(xEssentials pl) {
+	public CmdSetspawn(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -36,15 +36,15 @@ public class CmdSetspawn {
 						con.set("world", p.getWorld().getName());
 						con.save(f);
 						p.getWorld().setSpawnLocation(p.getLocation().getBlockX(), p.getLocation().getBlockY(), p.getLocation().getBlockZ());
-						sender.sendMessage(ChatColor.GREEN + "spawn successfully set ;-)");
+						sendMessage(ChatColor.GREEN + "spawn successfully set ;-)");
 					} catch(Exception e) {
 						e.printStackTrace();
 					}
 				} else {
-					Warnings.getWarnings(sender).noPermission();
+					getWarning(WarningType.NO_PERMISSION);
 				}
 			} else {
-				Warnings.getWarnings(sender).consoleMessage();
+				getWarning(WarningType.PLAYER_ONLY);
 			}
 		}
 		return false;

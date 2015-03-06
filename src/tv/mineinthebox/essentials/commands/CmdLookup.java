@@ -17,18 +17,18 @@ import org.bukkit.command.CommandSender;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.enums.ServiceType;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 
-public class CmdLookup {
+public class CmdLookup extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdLookup(xEssentials pl) {
+	public CmdLookup(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 
@@ -36,18 +36,10 @@ public class CmdLookup {
 		if(cmd.getName().equalsIgnoreCase("lookup")) {
 			if(sender.hasPermission(PermissionKey.CMD_LOOKUP.getPermission())) {
 				if(args.length == 0) {
-					sender.sendMessage(ChatColor.GOLD + ".oO___[lookup]___Oo.");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/lookup help " + ChatColor.WHITE + ": shows help");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/lookup services " + ChatColor.WHITE + ": get a list of all services");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/lookup <player> " + ChatColor.WHITE + ": lookup a player on every service");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/lookup <service> <player> " + ChatColor.WHITE + ": lookup a player on a service");
+					showHelp();
 				} else if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("help")) {
-						sender.sendMessage(ChatColor.GOLD + ".oO___[lookup]___Oo.");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/lookup help " + ChatColor.WHITE + ": shows help");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/lookup services " + ChatColor.WHITE + ": get a list of all services");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/lookup <player> " + ChatColor.WHITE + ": lookup a player on every service");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/lookup <service> <player> " + ChatColor.WHITE + ": lookup a player on a service");
+						showHelp();
 					} else if(args[0].equalsIgnoreCase("services")) {
 						StringBuilder build = new StringBuilder();
 						for(int i = 0; i < ServiceType.values().length;i++) {
@@ -58,7 +50,7 @@ public class CmdLookup {
 								build.append(type.getService() + ", ");
 							}
 						}
-						sender.sendMessage(ChatColor.GRAY + "services: " + build.toString());
+						sendMessage(ChatColor.GRAY + "services: " + build.toString());
 					} else {
 						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
 							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
@@ -113,7 +105,7 @@ public class CmdLookup {
 										sender.sendMessage(argss[0] + ": " + ChatColor.GRAY + argss[1]);
 									}
 								} else {
-									sender.sendMessage(ChatColor.RED + "this player is not banned on this service!");
+									sendMessage(ChatColor.RED + "this player is not banned on this service!");
 								}
 							} catch (Exception e) {
 								e.printStackTrace();
@@ -121,11 +113,11 @@ public class CmdLookup {
 							}
 						}
 					} catch(IllegalArgumentException r) {
-						sender.sendMessage(ChatColor.RED + "invalid service name!");
+						sendMessage(ChatColor.RED + "invalid service name!");
 					}
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;
@@ -205,6 +197,15 @@ public class CmdLookup {
 		}
 		map.put(type, bans);
 		return map;
+	}
+
+	@Override
+	public void showHelp() {
+		sender.sendMessage(ChatColor.GOLD + ".oO___[lookup]___Oo.");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/lookup help " + ChatColor.WHITE + ": shows help");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/lookup services " + ChatColor.WHITE + ": get a list of all services");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/lookup <player> " + ChatColor.WHITE + ": lookup a player on every service");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/lookup <service> <player> " + ChatColor.WHITE + ": lookup a player on a service");
 	}
 
 }

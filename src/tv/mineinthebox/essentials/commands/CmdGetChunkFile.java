@@ -8,10 +8,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
-public class CmdGetChunkFile {
+public class CmdGetChunkFile extends CommandTemplate {
+
+	public CmdGetChunkFile(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
+	}
 
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("getchunkfile")) {
@@ -22,15 +26,12 @@ public class CmdGetChunkFile {
 						Chunk chunk = p.getLocation().getChunk();
 						int x = chunk.getX() >> 5; //or do (chunk.getX()/32)
 						int z = chunk.getZ() >> 5; //or do (chunk.getZ()/32)
-						sender.sendMessage(ChatColor.GRAY + "the chunk is called in this file: r." + x + "."+z+".mca in folder " + Bukkit.getWorldContainer().toString() + "/"+p.getWorld().getName());
+						sendMessage(ChatColor.GRAY + "the chunk is called in this file: r." + x + "."+z+".mca in folder " + Bukkit.getWorldContainer().toString() + "/"+p.getWorld().getName());
 					} else if(args.length == 1) {
 						if(args[0].equalsIgnoreCase("help")) {
-							sender.sendMessage(ChatColor.GOLD + ".oO___[Chunk File Finder]___Oo.");
-							sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/getchunkfile help " + ChatColor.WHITE + ": shows help");	
-							sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/getchunkfile " + ChatColor.WHITE + ": gets the chunk file on your location");
-							sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/getchunkfile <x> <z> " + ChatColor.WHITE + ": gets the chunk file on x and z axis");
+							showHelp();
 						} else {
-							sender.sendMessage(ChatColor.RED + "unknown argument!");
+							sendMessage(ChatColor.RED + "unknown argument!");
 						}
 					} else if(args.length == 2) {
 						try {
@@ -42,19 +43,27 @@ public class CmdGetChunkFile {
 							int x = chunk.getX() >> 5;
 							int z= chunk.getZ() >> 5;
 							
-							sender.sendMessage(ChatColor.GRAY + "the chunk is called in this file: r." + x + "."+z+".mca in folder " + Bukkit.getWorldContainer().toString() + "/"+p.getWorld().getName());
+							sendMessage(ChatColor.GRAY + "the chunk is called in this file: r." + x + "."+z+".mca in folder " + Bukkit.getWorldContainer().toString() + "/"+p.getWorld().getName());
 						} catch(NumberFormatException e) {
-							sender.sendMessage(ChatColor.RED + "last 2 arguments have to be a number!");
+							sendMessage(ChatColor.RED + "last 2 arguments have to be a number!");
 						}
 					}
 				} else {
-					Warnings.getWarnings(sender).consoleMessage();
+					getWarning(WarningType.PLAYER_ONLY);
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void showHelp() {
+		sender.sendMessage(ChatColor.GOLD + ".oO___[Chunk File Finder]___Oo.");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/getchunkfile help " + ChatColor.WHITE + ": shows help");	
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/getchunkfile " + ChatColor.WHITE + ": gets the chunk file on your location");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/getchunkfile <x> <z> " + ChatColor.WHITE + ": gets the chunk file on x and z axis");
 	}
 
 }

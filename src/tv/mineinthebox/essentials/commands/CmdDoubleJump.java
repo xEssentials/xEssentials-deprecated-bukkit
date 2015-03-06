@@ -8,17 +8,17 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdDoubleJump {
+public class CmdDoubleJump extends CommandTemplate {
 
 	private final xEssentials pl;
 
-	public CmdDoubleJump(xEssentials pl) {
+	public CmdDoubleJump(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;	
 	}
 
@@ -52,10 +52,10 @@ public class CmdDoubleJump {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.hasDoubleJump()) {
 							xp.setDoubleJump(false);
-							sender.sendMessage(ChatColor.GREEN + "disabled double jump");
+							sendMessage(ChatColor.GREEN + "disabled double jump");
 						} else {
 							xp.setDoubleJump(true);
-							sender.sendMessage(ChatColor.GREEN + "enabled double jump");
+							sendMessage(ChatColor.GREEN + "enabled double jump");
 						}
 					} else if(args.length == 1) {
 						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
@@ -63,25 +63,25 @@ public class CmdDoubleJump {
 								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 								if(xp.hasDoubleJump()) {
 									xp.setDoubleJump(false);
-									xp.getPlayer().sendMessage(ChatColor.GREEN + sender.getName() + " has turned off your double jump");
-									sender.sendMessage(ChatColor.GREEN + "disabled double jump on online player " + xp.getUser());
+									sendMessageTo(xp.getPlayer(), ChatColor.GREEN + sender.getName() + " has turned off your double jump");
+									sendMessage(ChatColor.GREEN + "disabled double jump on online player " + xp.getUser());
 								} else {
 									xp.setDoubleJump(false);
-									xp.getPlayer().sendMessage(ChatColor.GREEN + sender.getName() + " has turned on your double jump");
-									sender.sendMessage(ChatColor.GREEN + "enabled double jump on online player " + xp.getUser());
+									sendMessageTo(xp.getPlayer(), ChatColor.GREEN + sender.getName() + " has turned on your double jump");
+									sendMessage(ChatColor.GREEN + "enabled double jump on online player " + xp.getUser());
 								}
 							} else {
-								sender.sendMessage(ChatColor.RED + "player is offline!");
+								sendMessage(ChatColor.RED + "player is offline!");
 							}
 						} else {
-							Warnings.getWarnings(sender).playerHasNeverPlayedBefore();
+							getWarning(WarningType.NEVER_PLAYED_BEFORE);
 						}
 					}
 				} else {
-					Warnings.getWarnings(sender).noPermission();
+					getWarning(WarningType.NO_PERMISSION);
 				}
 			} else {
-				Warnings.getWarnings(sender).consoleMessage();
+				getWarning(WarningType.PLAYER_ONLY);
 			}
 		}
 		return false;

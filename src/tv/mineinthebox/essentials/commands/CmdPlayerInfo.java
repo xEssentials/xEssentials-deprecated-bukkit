@@ -7,18 +7,18 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.AlternateAccount;
 import tv.mineinthebox.essentials.instances.RestrictedCommand;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 
-public class CmdPlayerInfo {
+public class CmdPlayerInfo extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdPlayerInfo(xEssentials pl) {
+	public CmdPlayerInfo(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -50,12 +50,10 @@ public class CmdPlayerInfo {
 		if(cmd.getName().equalsIgnoreCase("playerinfo")) {
 			if(sender.hasPermission(PermissionKey.CMD_PLAYER_INFO.getPermission())) {
 				if(args.length == 0) {
-					sender.sendMessage(ChatColor.GOLD + ".oO___[Player info help]___Oo.");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/playerinfo <player> " + ChatColor.WHITE + ": shows all the information of this player!");
+					showHelp();
 				} else if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("help")) {
-						sender.sendMessage(ChatColor.GOLD + ".oO___[Player info help]___Oo.");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/playerinfo <player> " + ChatColor.WHITE + ": shows all the information of this player!");
+						showHelp();
 					} else {
 						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
 							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
@@ -87,15 +85,21 @@ public class CmdPlayerInfo {
 								}
 							}
 						} else {
-							Warnings.getWarnings(sender).playerHasNeverPlayedBefore();
+							getWarning(WarningType.NEVER_PLAYED_BEFORE);
 						}
 					}
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	public void showHelp() {
+		sender.sendMessage(ChatColor.GOLD + ".oO___[Player info help]___Oo.");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/playerinfo <player> " + ChatColor.WHITE + ": shows all the information of this player!");
 	}
 
 }

@@ -6,16 +6,16 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdSpectate {
+public class CmdSpectate extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdSpectate(xEssentials pl) {
+	public CmdSpectate(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 
@@ -25,40 +25,45 @@ public class CmdSpectate {
 			if(sender.hasPermission(PermissionKey.CMD_SPECTATE.getPermission())) {
 				if(sender instanceof Player) {
 					if(args.length == 0) {
-						sender.sendMessage(ChatColor.GOLD + ".oO___[spectate]___Oo.");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/spectate " + ChatColor.WHITE + ": shows help");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/spectate <player> " + ChatColor.WHITE + ": spectates someone");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/spectate stop " + ChatColor.WHITE + ": stops the current spectate session");
+						showHelp();
 					} else if(args.length == 1) {
 						if(args[0].equalsIgnoreCase("stop")) {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 							if(xp.isSpectate()) {
 								xp.stopSpectate();
-								sender.sendMessage(ChatColor.GREEN + "successfully stopped spectate.");
+								sendMessage(ChatColor.GREEN + "successfully stopped spectate.");
 							} else {
-								sender.sendMessage(ChatColor.RED + "you never spectated someone!");
+								sendMessage(ChatColor.RED + "you never spectated someone!");
 							}
 						} else {
 							Player target = Bukkit.getPlayer(args[0]);
 							if(target instanceof Player) {
 								if(sender.getName().equalsIgnoreCase(target.getName())) {
-									sender.sendMessage(ChatColor.RED + "you cannot spectate yourself!");
+									sendMessage(ChatColor.RED + "you cannot spectate yourself!");
 									return false;
 								}
 								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 								xp.spectate(target);
-								sender.sendMessage(ChatColor.GREEN + "successfully spectating player " + target.getName());
+								sendMessage(ChatColor.GREEN + "successfully spectating player " + target.getName());
 							}
 						}
 					}
 				} else {
-					Warnings.getWarnings(sender).consoleMessage();
+					getWarning(WarningType.PLAYER_ONLY);
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	public void showHelp() {
+		sender.sendMessage(ChatColor.GOLD + ".oO___[spectate]___Oo.");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/spectate " + ChatColor.WHITE + ": shows help");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/spectate <player> " + ChatColor.WHITE + ": spectates someone");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/spectate stop " + ChatColor.WHITE + ": stops the current spectate session");
 	}
 
 }

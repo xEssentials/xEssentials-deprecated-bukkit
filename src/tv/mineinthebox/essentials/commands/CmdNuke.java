@@ -6,16 +6,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdNuke {
+public class CmdNuke extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdNuke(xEssentials pl) {
+	public CmdNuke(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -28,13 +28,13 @@ public class CmdNuke {
 						for(Entity entity : xp.getPlayer().getNearbyEntities(40, 40, 40)) {
 							if(entity instanceof Player) {
 								Player p = (Player) entity;
-								p.sendMessage(ChatColor.GRAY + "May death rain upon them");
+								sendMessageTo(p, ChatColor.GRAY + "May death rain upon them");
 							}
 						}
-						sender.sendMessage(ChatColor.GRAY + "May death rain upon them");
+						sendMessage(ChatColor.GRAY + "May death rain upon them");
 						xp.nuke();
 					} else {
-						Warnings.getWarnings(sender).consoleMessage();
+						getWarning(WarningType.PLAYER_ONLY);
 					}
 				} else if(args.length == 1) {
 					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
@@ -43,17 +43,17 @@ public class CmdNuke {
 						for(Entity entity : xp.getPlayer().getNearbyEntities(40, 40, 40)) {
 							if(entity instanceof Player) {
 								Player r = (Player) entity;
-								r.sendMessage(ChatColor.GRAY + "May death rain upon them");
+								sendMessageTo(r, ChatColor.GRAY + "May death rain upon them");
 							}
 						}
-						sender.sendMessage(ChatColor.GRAY + "May death rain upon them");
+						sendMessage(ChatColor.GRAY + "May death rain upon them");
 						xp.nuke();
 					} else {
-						sender.sendMessage(ChatColor.RED + "this player is not online!");
+						sendMessage(ChatColor.RED + "this player is not online!");
 					}
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;

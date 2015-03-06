@@ -10,16 +10,20 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
-public class CmdArrow {
-	
+public class CmdArrow extends CommandTemplate {
+
+	public CmdArrow(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
+	}
+
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("arrow")) {
 			if(sender.hasPermission(PermissionKey.CMD_ARROW.getPermission())) {
 				if(sender instanceof Player) {
-					Player p = (Player) sender;
+					Player p = (Player)sender;
 					
 					Location eye = p.getEyeLocation();
 					int range = 2;
@@ -30,11 +34,11 @@ public class CmdArrow {
 					for(Entity entity : p.getNearbyEntities(20, 20, 20)) {
 						if(entity instanceof Player) {
 							Player p1 = (Player) entity;
-							p1.sendMessage(ChatColor.GRAY + sender.getName() + " used a arrow machine gun uopen them all >:) !");
+							sendMessageTo(p1, ChatColor.GRAY + sender.getName() + " used a arrow machine gun uopen them all >:) !");
 						}
 					}
 					
-					p.sendMessage(ChatColor.GRAY + sender.getName() + " used a arrow machine gun uopen them all >:) !");
+					sendMessage(ChatColor.GRAY + sender.getName() + " used a arrow machine gun uopen them all >:) !");
 					
 					for(int i = 0; i < loops; i++) {
 						int x = rand.nextInt(range);
@@ -47,10 +51,10 @@ public class CmdArrow {
 						
 					}
 				} else {
-					Warnings.getWarnings(sender).consoleMessage();
+					getWarning(WarningType.PLAYER_ONLY);
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;

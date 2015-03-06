@@ -10,19 +10,19 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.Warp;
 
-public class CmdWarp {
-	
+public class CmdWarp extends CommandTemplate {
+
 	private final xEssentials pl;
-	
-	public CmdWarp(xEssentials pl) {
+
+	public CmdWarp(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
-	
+
 	private List<String> getwarps(String p) {
 		List<Warp> s = new ArrayList<Warp>(Arrays.asList(pl.getManagers().getWarpManager().getWarps()));
 		List<String> tabs = new ArrayList<String>();
@@ -33,7 +33,7 @@ public class CmdWarp {
 		}
 		return tabs;
 	}
-	
+
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("warp")) {
 			if(args.length == 1) {
@@ -50,20 +50,10 @@ public class CmdWarp {
 		if(cmd.getName().equalsIgnoreCase("warp")) {
 			if(sender.hasPermission(PermissionKey.CMD_WARP.getPermission())) {
 				if(args.length == 0) {
-					sender.sendMessage(ChatColor.GOLD + ".oO___[warp help]___Oo.");
-					sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/warp help " + ChatColor.WHITE + ": shows help");
-					sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/warp <warp> " + ChatColor.WHITE + ": allows you to teleport to the warp");
-					if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/warp <player> <warp> " + ChatColor.WHITE + ": teleports a player to a warp");
-					}
+					showHelp();
 				} else if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("help")) {
-						sender.sendMessage(ChatColor.GOLD + ".oO___[warp help]___Oo.");
-						sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/warp help " + ChatColor.WHITE + ": shows help");
-						sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/warp <warp> " + ChatColor.WHITE + ": allows you to teleport to the warp");
-						if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-							sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/warp <player> <warp> " + ChatColor.WHITE + ": teleports a player to a warp");
-						}
+						showHelp();
 					} else {
 						if(sender instanceof Player) {
 							Player p = (Player) sender;
@@ -71,12 +61,12 @@ public class CmdWarp {
 								Warp warp = pl.getManagers().getWarpManager().getWarp(args[0], (Player)sender);
 								warp.getWarpLocation().getWorld().refreshChunk(warp.getWarpLocation().getChunk().getX(), warp.getWarpLocation().getChunk().getZ());
 								p.teleport(warp.getWarpLocation(), TeleportCause.COMMAND);
-								sender.sendMessage(ChatColor.GREEN + "teleporting to warp " + warp.getWarpName());
+								sendMessage(ChatColor.GREEN + "teleporting to warp " + warp.getWarpName());
 							} else {
-								sender.sendMessage(ChatColor.RED + "warp doesn't exist!");
+								sendMessage(ChatColor.RED + "warp doesn't exist!");
 							}
 						} else {
-							Warnings.getWarnings(sender).consoleMessage();
+							getWarning(WarningType.PLAYER_ONLY);
 						}
 					}
 				} else if(args.length == 2) {
@@ -86,19 +76,29 @@ public class CmdWarp {
 							Warp warp = pl.getManagers().getWarpManager().getWarp(args[1], (Player)sender);
 							warp.getWarpLocation().getWorld().refreshChunk(warp.getWarpLocation().getChunk().getX(), warp.getWarpLocation().getChunk().getZ());
 							p.teleport(warp.getWarpLocation(), TeleportCause.COMMAND);
-							p.sendMessage(ChatColor.GREEN + "teleporting to warp " + warp.getWarpName());
+							sendMessageTo(p, ChatColor.GREEN + "teleporting to warp " + warp.getWarpName());
 						} else {
-							sender.sendMessage(ChatColor.RED + "warp doesn't exist!");
+							sendMessage(ChatColor.RED + "warp doesn't exist!");
 						}
 					} else {
-						Warnings.getWarnings(sender).playerHasNeverPlayedBefore();
+						getWarning(WarningType.NEVER_PLAYED_BEFORE);
 					}
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void showHelp() {
+		sender.sendMessage(ChatColor.GOLD + ".oO___[warp help]___Oo.");
+		sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/warp help " + ChatColor.WHITE + ": shows help");
+		sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/warp <warp> " + ChatColor.WHITE + ": allows you to teleport to the warp");
+		if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
+			sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/warp <player> <warp> " + ChatColor.WHITE + ": teleports a player to a warp");
+		}
 	}
 
 }

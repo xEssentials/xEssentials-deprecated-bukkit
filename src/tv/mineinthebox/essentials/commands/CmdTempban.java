@@ -13,18 +13,18 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdTempban {
+public class CmdTempban extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdTempban(xEssentials pl) {
+	public CmdTempban(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 
@@ -33,18 +33,10 @@ public class CmdTempban {
 		if(cmd.getName().equalsIgnoreCase("tempban")) {
 			if(sender.hasPermission(PermissionKey.CMD_TEMP_BAN.getPermission())) {
 				if(args.length == 0) {
-					sender.sendMessage(ChatColor.GOLD + ".oO___[tempban help]___Oo.");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tempban <player> " + ChatColor.WHITE + ": tempban a player");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tempban <player> <message> " + ChatColor.WHITE + ": tempban a player with a desired message!");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tempban <player> <message> <1D> " + ChatColor.WHITE + "tempban a player with a disered message for one day!");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "variables for ban time are: 1Y, 1M, 1D");
+					showHelp();
 				} else if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("help")) {
-						sender.sendMessage(ChatColor.GOLD + ".oO___[tempban help]___Oo.");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tempban <player> " + ChatColor.WHITE + ": tempban a player");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tempban <player> <message> " + ChatColor.WHITE + ": tempban a player with a desired message!");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tempban <player> <message> <1D> " + ChatColor.WHITE + "tempban a player with a disered message for one day!");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "variables for ban time are: 1Y, 1M, 1D");
+						showHelp();
 					} else {
 						if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
@@ -52,14 +44,14 @@ public class CmdTempban {
 							date.setDate(date.getDate()+1);
 							xp.setTempbanned(date.getTime(), "the ban hammer has  spoken!", sender.getName());
 							xp.getPlayer().kickPlayer("the ban hammer has spoken!");
-							sender.sendMessage(ChatColor.GREEN + "player successfully tempbanned for 1 day");
+							sendMessage(ChatColor.GREEN + "player successfully tempbanned for 1 day");
 						} else {
 							try {
 								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								Date date = new Date(System.currentTimeMillis());
 								date.setDate(date.getDate()+1);
 								off.setTempbanned(date.getTime(), "the ban hammer has spoken!", sender.getName());
-								sender.sendMessage(ChatColor.GREEN + "player successfully tempbanned for 1 day");
+								sendMessage(ChatColor.GREEN + "player successfully tempbanned for 1 day");
 							} catch(NullPointerException e) {						
 								try {
 									File f = new File(pl.getDataFolder() + File.separator + "players" + File.separator + args[0].toLowerCase() + ".yml");
@@ -79,7 +71,7 @@ public class CmdTempban {
 									con.set("torch", false);
 									con.set("firefly", false);
 									con.save(f);
-									sender.sendMessage(ChatColor.GREEN + "successfully temp banned player " + args[0] + " however keep in mind this player has never played before");
+									sendMessage(ChatColor.GREEN + "successfully temp banned player " + args[0] + " however keep in mind this player has never played before");
 								} catch(Exception r) {
 									r.printStackTrace();
 								}
@@ -94,7 +86,7 @@ public class CmdTempban {
 						String banMessage = Arrays.toString(newArgs).replace(args[0], "").replace("[", "").replace(",", "").replace("]", "");
 						xp.setTempbanned(date.getTime(), banMessage, sender.getName());
 						xp.getPlayer().kickPlayer(banMessage);
-						sender.sendMessage(ChatColor.GREEN + "successfully tempbanned player " + xp.getUser() + " till " + date.toString());
+						sendMessage(ChatColor.GREEN + "successfully tempbanned player " + xp.getUser() + " till " + date.toString());
 					} else {
 						try {
 							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
@@ -102,7 +94,7 @@ public class CmdTempban {
 							String[] newArgs = getClearDescription(args);
 							String banMessage = Arrays.toString(newArgs).replace(args[0], "").replace("[", "").replace(",", "").replace("]", "");
 							off.setTempbanned(date.getTime(), banMessage, sender.getName());
-							sender.sendMessage(ChatColor.GREEN + "successfully tempbanned player " + off.getUser() + " till " + date.toString());
+							sendMessage(ChatColor.GREEN + "successfully tempbanned player " + off.getUser() + " till " + date.toString());
 						} catch(NullPointerException e) {
 							try {
 								File f = new File(pl.getDataFolder() + File.separator + "players" + File.separator + args[0].toLowerCase() + ".yml");
@@ -123,7 +115,7 @@ public class CmdTempban {
 								con.set("torch", false);
 								con.set("firefly", false);
 								con.save(f);
-								sender.sendMessage(ChatColor.GREEN + "successfully temp banned player " + args[0] + " however keep in mind this player has never played before");
+								sendMessage(ChatColor.GREEN + "successfully temp banned player " + args[0] + " however keep in mind this player has never played before");
 							} catch(Exception r) {
 								r.printStackTrace();
 							}
@@ -132,7 +124,7 @@ public class CmdTempban {
 				}
 			}
 		} else {
-			Warnings.getWarnings(sender).noPermission();
+			getWarning(WarningType.NO_PERMISSION);
 		}
 		return false;
 	}
@@ -211,6 +203,15 @@ public class CmdTempban {
 		} catch(NumberFormatException e) {
 			return false;
 		}
+	}
+	
+	@Override
+	public void showHelp() {
+		sender.sendMessage(ChatColor.GOLD + ".oO___[tempban help]___Oo.");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tempban <player> " + ChatColor.WHITE + ": tempban a player");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tempban <player> <message> " + ChatColor.WHITE + ": tempban a player with a desired message!");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tempban <player> <message> <1D> " + ChatColor.WHITE + "tempban a player with a disered message for one day!");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "variables for ban time are: 1Y, 1M, 1D");
 	}
 
 }

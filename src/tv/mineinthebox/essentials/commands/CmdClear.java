@@ -7,16 +7,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.Backpack;
 
-public class CmdClear {
+public class CmdClear extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdClear(xEssentials pl) {
+	public CmdClear(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 
@@ -35,7 +35,7 @@ public class CmdClear {
 										Backpack pack = pl.getManagers().getBackPackManager().getBackpackByItem(stack);
 										pack.remove();
 									} catch (Exception e) {
-										sender.sendMessage(ChatColor.RED + "there is a backpack conflict with a other plugin, if this persist please disable the /clear command in commands.yml.");
+										sendMessage(ChatColor.RED + "there is a backpack conflict with a other plugin, if this persist please disable the /clear command in commands.yml.");
 									}
 								}
 								i += stack.getAmount();	
@@ -48,7 +48,7 @@ public class CmdClear {
 										Backpack pack = pl.getManagers().getBackPackManager().getBackpackByItem(stack);
 									    pack.remove();
 									} catch (Exception e) {
-										sender.sendMessage(ChatColor.RED + "there is a backpack conflict with a other plugin, if this persist please disable the /clear command in commands.yml.");
+										sendMessage(ChatColor.RED + "there is a backpack conflict with a other plugin, if this persist please disable the /clear command in commands.yml.");
 									}
 								}
 								i += stack.getAmount();	
@@ -59,9 +59,9 @@ public class CmdClear {
 						p.getInventory().setChestplate(null);
 						p.getInventory().setLeggings(null);
 						p.getInventory().setBoots(null);
-						sender.sendMessage(ChatColor.GREEN + "you have successfully removed " + i + " items");
+						sendMessage(ChatColor.GREEN + "you have successfully removed " + i + " items");
 					} else {
-						Warnings.getWarnings(sender).consoleMessage();
+						getWarning(WarningType.PLAYER_ONLY);
 					}
 				} else if(args.length == 1) {
 					Player p = Bukkit.getPlayer(args[0]);
@@ -73,7 +73,7 @@ public class CmdClear {
 									Backpack pack = pl.getManagers().getBackPackManager().getBackpackByItem(stack);
 									pack.remove();
 								} catch (Exception e) {
-									sender.sendMessage(ChatColor.RED + "there is a backpack conflict with a other plugin, if this persist please disable the /clear command in commands.yml.");
+									sendMessage(ChatColor.RED + "there is a backpack conflict with a other plugin, if this persist please disable the /clear command in commands.yml.");
 								}
 							}
 							i += stack.getAmount();	
@@ -86,7 +86,7 @@ public class CmdClear {
 									Backpack pack = pl.getManagers().getBackPackManager().getBackpackByItem(stack);
 									pack.remove();
 								} catch (Exception e) {
-									sender.sendMessage(ChatColor.RED + "there is a backpack conflict with a other plugin, if this persist please disable the /clear command in commands.yml.");
+									sendMessage(ChatColor.RED + "there is a backpack conflict with a other plugin, if this persist please disable the /clear command in commands.yml.");
 								}
 							}
 							i += stack.getAmount();	
@@ -97,10 +97,10 @@ public class CmdClear {
 					p.getInventory().setChestplate(null);
 					p.getInventory().setLeggings(null);
 					p.getInventory().setBoots(null);
-					sender.sendMessage(ChatColor.GREEN + "you have successfully removed " + i + " items from " + p.getName() + " his inventory");
+					sendMessage(ChatColor.GREEN + "you have successfully removed " + i + " items from " + p.getName() + " his inventory");
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;

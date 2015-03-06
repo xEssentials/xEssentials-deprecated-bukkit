@@ -13,15 +13,15 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
-public class CmdSpawn {
+public class CmdSpawn extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdSpawn(xEssentials pl) {
+	public CmdSpawn(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 
@@ -44,21 +44,21 @@ public class CmdSpawn {
 								if(w instanceof World) {
 									Location loc = new Location(w, x, y, z, yaw, p.getLocation().getPitch());
 									p.teleport(loc, TeleportCause.COMMAND);
-									p.sendMessage(ChatColor.GREEN + "teleporting to spawn ;-)");
+									sendMessage(ChatColor.GREEN + "teleporting to spawn ;-)");
 								} else {
-									sender.sendMessage(ChatColor.RED + "the world does not exists for the spawn!");
+									sendMessage(ChatColor.RED + "the world does not exists for the spawn!");
 								}
 							} else {
-								sender.sendMessage(ChatColor.RED + "warning the spawn is not set");
+								sendMessage(ChatColor.RED + "warning the spawn is not set");
 							}
 						} catch(Exception e) {
 							e.printStackTrace();
 						}
 					} else {
-						Warnings.getWarnings(sender).noPermission();
+						getWarning(WarningType.NO_PERMISSION);
 					}
 				} else {
-					Warnings.getWarnings(sender).consoleMessage();
+					getWarning(WarningType.PLAYER_ONLY);
 				}
 			} else if(args.length == 1) {
 				if(sender.hasPermission(PermissionKey.CMD_SPAWN_OTHERS.getPermission())) {
@@ -77,22 +77,22 @@ public class CmdSpawn {
 								if(w instanceof World) {
 									Location loc = new Location(w, x, y, z, yaw, victem.getLocation().getPitch());
 									victem.teleport(loc, TeleportCause.COMMAND);
-									victem.sendMessage(ChatColor.GREEN + sender.getName() +  " teleported you to spawn ;-)");
-									sender.sendMessage(ChatColor.GREEN + "successfully teleported " + victem.getName() + " to spawn ;-)");
+									sendMessageTo(victem, ChatColor.GREEN + sender.getName() +  " teleported you to spawn ;-)");
+									sendMessage(ChatColor.GREEN + "successfully teleported " + victem.getName() + " to spawn ;-)");
 								} else {
-									sender.sendMessage(ChatColor.RED + "the world does not exists for the spawn!");
+									sendMessage(ChatColor.RED + "the world does not exists for the spawn!");
 								}
 							} else {
-								sender.sendMessage(ChatColor.RED + "warning the spawn is not set");
+								sendMessage(ChatColor.RED + "warning the spawn is not set");
 							}
 						} catch(Exception e) {
 							e.printStackTrace();
 						}
 					} else {
-						sender.sendMessage(ChatColor.RED + "this player is not online!");
+						sendMessage(ChatColor.RED + "this player is not online!");
 					}
 				} else {
-					Warnings.getWarnings(sender).noPermission();
+					getWarning(WarningType.NO_PERMISSION);
 				}
 			}
 		}

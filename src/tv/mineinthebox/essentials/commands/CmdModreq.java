@@ -8,17 +8,17 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.Modreq;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdModreq {
+public class CmdModreq extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdModreq(xEssentials pl) {
+	public CmdModreq(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 
@@ -27,10 +27,10 @@ public class CmdModreq {
 			if(sender instanceof Player) {
 				if(sender.hasPermission(PermissionKey.CMD_MODREQ.getPermission())) {
 					if(args.length == 0) {
-						sendHelp(sender);
+						showHelp();
 					} else if(args.length == 1) {
 						if(args[0].equalsIgnoreCase("help")) {
-							sendHelp(sender);
+							showHelp();
 						} else {
 							if(pl.getManagers().getPlayerManager().isOnline(sender.getName())) {
 								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
@@ -39,13 +39,13 @@ public class CmdModreq {
 								Modreq mod = xp.getModreq((lastID-1));
 								for(Player p : Bukkit.getOnlinePlayers()) {
 									if(p.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-										Bukkit.broadcastMessage(ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY  + sender.getName() + ChatColor.GRAY + " has created a new modreq!");
-										Bukkit.broadcastMessage(ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY + "id: " + ChatColor.GREEN + mod.getId() + ChatColor.GRAY + " message: " + ChatColor.GREEN + mod.getMessage() + ChatColor.GRAY + " date: " + ChatColor.GREEN + mod.getDate());
+										sendMessageTo(p, ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY  + sender.getName() + ChatColor.GRAY + " has created a new modreq!");
+										sendMessageTo(p, ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY + "id: " + ChatColor.GREEN + mod.getId() + ChatColor.GRAY + " message: " + ChatColor.GREEN + mod.getMessage() + ChatColor.GRAY + " date: " + ChatColor.GREEN + mod.getDate());
 									}
 								}
-								sender.sendMessage(ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY + "successfully created a modreq!");
+								sendMessage(ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY + "successfully created a modreq!");
 							} else {
-								sender.sendMessage(ChatColor.RED + "something went wrong please reload xEssentials!");
+								sendMessage(ChatColor.RED + "something went wrong please reload xEssentials!");
 							}
 						}
 					} else {
@@ -57,26 +57,27 @@ public class CmdModreq {
 							Modreq mod = xp.getModreq((lastID-1));
 							for(Player p : Bukkit.getOnlinePlayers()) {
 								if(p.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-									Bukkit.broadcastMessage(ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY  + sender.getName() + ChatColor.GRAY + " has created a new modreq!");
-									Bukkit.broadcastMessage(ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY + "id: " + ChatColor.GREEN + mod.getId() + ChatColor.GRAY + " message: " + ChatColor.GREEN + mod.getMessage() + ChatColor.GRAY + " date: " + ChatColor.GREEN + mod.getDate());
+									sendMessageTo(p, ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY  + sender.getName() + ChatColor.GRAY + " has created a new modreq!");
+									sendMessageTo(p, ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY + "id: " + ChatColor.GREEN + mod.getId() + ChatColor.GRAY + " message: " + ChatColor.GREEN + mod.getMessage() + ChatColor.GRAY + " date: " + ChatColor.GREEN + mod.getDate());
 								}
 							}
-							sender.sendMessage(ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY + "successfully created a modreq!");
+							sendMessage(ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY + "successfully created a modreq!");
 						} else {
-							sender.sendMessage(ChatColor.RED + "something went wrong please reload xEssentials!");
+							sendMessage(ChatColor.RED + "something went wrong please reload xEssentials!");
 						}
 					}
 				} else {
-					Warnings.getWarnings(sender).noPermission();
+					getWarning(WarningType.NO_PERMISSION);
 				}
 			} else {
-				Warnings.getWarnings(sender).consoleMessage();
+				getWarning(WarningType.PLAYER_ONLY);
 			}
 		}
 		return false;
 	}
-	
-	private void sendHelp(CommandSender sender) {
+
+	@Override
+	public void showHelp() {
 		sender.sendMessage(ChatColor.GOLD + ".oO___[modreq help]___Oo.");
 		sender.sendMessage(ChatColor.GRAY + "Default: " + ChatColor.GRAY + "/modreq " + ChatColor.WHITE + ": shows help");
 		sender.sendMessage(ChatColor.GRAY + "Default: " + ChatColor.GRAY + "/modreq help " + ChatColor.WHITE + ": shows help");

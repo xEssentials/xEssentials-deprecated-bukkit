@@ -9,17 +9,17 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.Warp;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdDelWarp {
+public class CmdDelWarp extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdDelWarp(xEssentials pl) {
+	public CmdDelWarp(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -66,52 +66,51 @@ public class CmdDelWarp {
 		if(cmd.getName().equalsIgnoreCase("delwarp")) {
 			if(sender.hasPermission(PermissionKey.CMD_DELWARP.getPermission())) {
 				if(args.length == 0) {
-					sender.sendMessage(ChatColor.GOLD + ".oO___[delwarp help]___Oo.");
-					sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/delwarp help " + ChatColor.WHITE + ": shows help");
-					if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/delwarp <warp> " + ChatColor.WHITE + ": deletes the warp");
-					} else {
-						sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/delwarp <warp> " + ChatColor.WHITE + ": deletes the warp you own");
-					}
+					showHelp();
 				} else if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("help")) {
-						sender.sendMessage(ChatColor.GOLD + ".oO___[delwarp help]___Oo.");
-						sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/delwarp help " + ChatColor.WHITE + ": shows help");
-						if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-							sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/delwarp <warp> " + ChatColor.WHITE + ": deletes the warp");
-						} else {
-							sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/delwarp <warp> " + ChatColor.WHITE + ": deletes the warp you own");
-						}
+						showHelp();
 					} else if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 						if(pl.getManagers().getWarpManager().isWarp(args[0].toLowerCase())) {
 							Warp warp = pl.getManagers().getWarpManager().getWarp(args[0].toLowerCase(), (Player)sender);
 							if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 								warp.removeWarp();
-								sender.sendMessage(ChatColor.GREEN + "you successfully removed the warp ");
+								sendMessage(ChatColor.GREEN + "you successfully removed the warp ");
 							} else {
-								sender.sendMessage(ChatColor.RED + "you dont have permission to remove the warp");
+								sendMessage(ChatColor.RED + "you dont have permission to remove the warp");
 							}
 						} else {
-							sender.sendMessage(ChatColor.RED + "warp does not exist!");
+							sendMessage(ChatColor.RED + "warp does not exist!");
 						}
 					} else {
 						if(pl.getManagers().getWarpManager().isWarp(args[0].toLowerCase())) {
 							Warp warp = pl.getManagers().getWarpManager().getWarp(args[0].toLowerCase(), (Player)sender);
 							if(warp.isOwner()) {
-								sender.sendMessage(ChatColor.GREEN + "you successfully removed the warp ");
+								sendMessage(ChatColor.GREEN + "you successfully removed the warp ");
 							} else {
-								sender.sendMessage(ChatColor.RED + "you are not the owner of this warp!");
+								sendMessage(ChatColor.RED + "you are not the owner of this warp!");
 							}
 						} else {
-							sender.sendMessage(ChatColor.RED + "warp does not exist!");
+							sendMessage(ChatColor.RED + "warp does not exist!");
 						}
 					}
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void showHelp() {
+		sender.sendMessage(ChatColor.GOLD + ".oO___[delwarp help]___Oo.");
+		sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/delwarp help " + ChatColor.WHITE + ": shows help");
+		if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
+			sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/delwarp <warp> " + ChatColor.WHITE + ": deletes the warp");
+		} else {
+			sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/delwarp <warp> " + ChatColor.WHITE + ": deletes the warp you own");
+		}
 	}
 
 }

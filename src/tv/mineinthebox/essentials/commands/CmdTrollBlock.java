@@ -7,16 +7,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.TrollBlock;
 
-public class CmdTrollBlock {
+public class CmdTrollBlock extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdTrollBlock(xEssentials pl) {
+	public CmdTrollBlock(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -29,12 +29,12 @@ public class CmdTrollBlock {
 					ItemStack item = new ItemStack(Material.GOLDEN_APPLE, 1);
 					TrollBlock block = new TrollBlock(p.getTargetBlock(null, 100), item, p, pl);
 					block.startTroll();
-					sender.sendMessage(ChatColor.GREEN + block.getType().name().toLowerCase().replace("_", "") + " is now a troll block!");
+					sendMessage(ChatColor.GREEN + block.getType().name().toLowerCase().replace("_", "") + " is now a troll block!");
 				} else {
-					Warnings.getWarnings(sender).consoleMessage();
+					getWarning(WarningType.PLAYER_ONLY);
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;

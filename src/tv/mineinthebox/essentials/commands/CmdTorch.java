@@ -5,16 +5,16 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdTorch {
+public class CmdTorch extends CommandTemplate {
 
 	private final xEssentials pl;
 	
-	public CmdTorch(xEssentials pl) {
+	public CmdTorch(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -27,19 +27,19 @@ public class CmdTorch {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 						if(xp.isTorch()) {
 							xp.setTorch(false);
-							p.sendMessage(ChatColor.GREEN + "successfully disabled torch");
+							sendMessageTo(p, ChatColor.GREEN + "successfully disabled torch");
 						} else {
 							xp.setTorch(true);
-							p.sendMessage(ChatColor.GREEN + "successfully enabled torch");
+							sendMessageTo(p, ChatColor.GREEN + "successfully enabled torch");
 						}
 					} else {
-						sender.sendMessage(ChatColor.RED + "you where not found in our global HashMap, please reload xEssentials in order to fix this problem");
+						sendMessage(ChatColor.RED + "you where not found in our global HashMap, please reload xEssentials in order to fix this problem");
 					}
 				} else {
-					Warnings.getWarnings(sender).consoleMessage();
+					getWarning(WarningType.PLAYER_ONLY);
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;

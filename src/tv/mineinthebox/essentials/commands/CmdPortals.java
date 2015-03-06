@@ -13,16 +13,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.Portal;
 
-public class CmdPortals {
+public class CmdPortals extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdPortals(xEssentials pl) {
+	public CmdPortals(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 
@@ -59,22 +59,10 @@ public class CmdPortals {
 		if(cmd.getName().equalsIgnoreCase("portals")) {
 			if(sender.hasPermission(PermissionKey.CMD_PORTALS.getPermission())) {
 				if(args.length == 0) {
-					sender.sendMessage(ChatColor.GOLD + ".oO___[portals help]___Oo.");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals help " + ChatColor.WHITE + ": shows help");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals list " + ChatColor.WHITE + ": shows a list of all portal names");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals teleport <world> " + ChatColor.WHITE + ": teleports to the spawn point of a other world.");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals create <portal-name> " + ChatColor.WHITE + ": creates a selection and adress a name/id to it");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals delete <portal-name> " + ChatColor.WHITE + ": delete a portal");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals link <portal1> <portal2> " + ChatColor.WHITE + ": links portals to each other.");
+					showHelp();
 				} else if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("help")) {
-						sender.sendMessage(ChatColor.GOLD + ".oO___[portals help]___Oo.");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals help " + ChatColor.WHITE + ": shows help");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals list " + ChatColor.WHITE + ": shows a list of all portal names");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals teleport <world> " + ChatColor.WHITE + ": teleports to the spawn point of a other world.");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals create <portal-name> " + ChatColor.WHITE + ": creates a selection and adress a name/id to it");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals delete <portal-name> " + ChatColor.WHITE + ": delete a portal");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals link <portal1> <portal2> " + ChatColor.WHITE + ": links portals to each other.");
+						showHelp();
 					} else if(args[0].equalsIgnoreCase("list")) {
 						File dir = new File(pl.getDataFolder() + File.separator + "portals");
 						if(dir.isDirectory()) {
@@ -91,7 +79,7 @@ public class CmdPortals {
 							sender.sendMessage(ChatColor.GOLD + ".oO___[portal list]____Oo.");
 							sender.sendMessage(build.toString());
 						} else {
-							sender.sendMessage(ChatColor.RED + "no portals where found!");
+							sendMessage(ChatColor.RED + "no portals where found!");
 						}
 					}
 				} else if(args.length == 2) {
@@ -100,17 +88,17 @@ public class CmdPortals {
 						if(!f.exists()) {
 							Player p = (Player) sender;
 							p.setMetadata("portal", new FixedMetadataValue(pl, args[1]));
-							sender.sendMessage(ChatColor.GREEN + "now right click a block to set your first pos!");
+							sendMessage(ChatColor.GREEN + "now right click a block to set your first pos!");
 						} else {
-							sender.sendMessage(ChatColor.RED + "this portal name does already exist!");
+							sendMessage(ChatColor.RED + "this portal name does already exist!");
 						}
 					} else if(args[0].equalsIgnoreCase("remove")) {
 						try {
 							Portal portal = pl.getConfiguration().getPortalConfig().getPortal(args[1]);
 							portal.remove();
-							sender.sendMessage(ChatColor.GREEN + "you have successfully removed portal " + args[1]);
+							sendMessage(ChatColor.GREEN + "you have successfully removed portal " + args[1]);
 						} catch(Exception e) {
-							sender.sendMessage(ChatColor.RED + "this portal does not exist!");
+							sendMessage(ChatColor.RED + "this portal does not exist!");
 						}
 					} else if(args[0].equalsIgnoreCase("teleport")) {
 						World w = Bukkit.getWorld(args[1]);
@@ -118,12 +106,12 @@ public class CmdPortals {
 							if(sender instanceof Player) {
 								Player p = (Player) sender;
 								p.teleport(w.getSpawnLocation());
-								sender.sendMessage(ChatColor.GREEN + "teleported to spawn location of the world " + w.getName());
+								sendMessage(ChatColor.GREEN + "teleported to spawn location of the world " + w.getName());
 							} else {
-								Warnings.getWarnings(sender).consoleMessage();
+								getWarning(WarningType.PLAYER_ONLY);
 							}
 						} else {
-							sender.sendMessage(ChatColor.RED + "world is not loaded.");
+							sendMessage(ChatColor.RED + "world is not loaded.");
 						}
 					}
 				} else if(args.length == 3) {
@@ -132,17 +120,28 @@ public class CmdPortals {
 							Portal portal1 = pl.getConfiguration().getPortalConfig().getPortal(args[1]);
 							Portal portal2 = pl.getConfiguration().getPortalConfig().getPortal(args[2]);
 							portal1.linkPortal(portal2.getPortalName(), true);
-							sender.sendMessage(ChatColor.GREEN + "you have successfully linked portal " + portal1.getPortalName() + " to " + portal2.getPortalName());
+							sendMessage(ChatColor.GREEN + "you have successfully linked portal " + portal1.getPortalName() + " to " + portal2.getPortalName());
 						} catch(Exception e) {
-							sender.sendMessage(ChatColor.RED + "one of the portals has a invalid name!");
+							sendMessage(ChatColor.RED + "one of the portals has a invalid name!");
 						}
 					}
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	public void showHelp() {
+		sender.sendMessage(ChatColor.GOLD + ".oO___[portals help]___Oo.");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals help " + ChatColor.WHITE + ": shows help");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals list " + ChatColor.WHITE + ": shows a list of all portal names");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals teleport <world> " + ChatColor.WHITE + ": teleports to the spawn point of a other world.");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals create <portal-name> " + ChatColor.WHITE + ": creates a selection and adress a name/id to it");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals delete <portal-name> " + ChatColor.WHITE + ": delete a portal");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/portals link <portal1> <portal2> " + ChatColor.WHITE + ": links portals to each other.");
 	}
 
 }

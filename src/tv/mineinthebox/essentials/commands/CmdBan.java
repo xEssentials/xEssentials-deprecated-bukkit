@@ -13,17 +13,17 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdBan {
+public class CmdBan extends CommandTemplate {
 
-	private xEssentials pl;
+	private final xEssentials pl;
 	
-	public CmdBan(xEssentials pl) {
+	public CmdBan(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -58,27 +58,21 @@ public class CmdBan {
 		if(cmd.getName().equalsIgnoreCase("ban")) {
 			if(sender.hasPermission(PermissionKey.CMD_BAN.getPermission())) {
 				if(args.length == 0) {
-					sender.sendMessage(ChatColor.GOLD + ".oO___[ban help]___Oo.");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/ban <player> " + ChatColor.WHITE + ": bans a player with a default message");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/ban <player> <message> " + ChatColor.WHITE + ": bans a player with a given up description");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/ban help " + ChatColor.WHITE + ": shows help");
+					showHelp();
 				} else if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("help")) {
-						sender.sendMessage(ChatColor.GOLD + ".oO___[ban help]___Oo.");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/ban <player> " + ChatColor.WHITE + ": bans a player with a default message");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/ban <player> <message> " + ChatColor.WHITE + ": bans a player with a given up description");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/ban help " + ChatColor.WHITE + ": shows help");
+						showHelp();
 					} else {
 						if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 							xp.setPermBanned("The ban hammer has spoken!", sender.getName());
-							sender.sendMessage(ChatColor.GREEN + "successfully banned player " + xp.getUser());
+							sendMessage(ChatColor.GREEN + "successfully banned player " + xp.getUser());
 							xp.getPlayer().kickPlayer(xp.getBanMessage());
 						} else {
 							try {
 								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								off.setPermBanned("The ban hammer has spoken!", sender.getName());
-								sender.sendMessage(ChatColor.GREEN + "successfully banned player " + off.getUser());
+								sendMessage(ChatColor.GREEN + "successfully banned player " + off.getUser());
 							} catch(NullPointerException e) {
 								try {
 									File f = new File(pl.getDataFolder() + File.separator + "players" + File.separator + args[0].toLowerCase() + ".yml");
@@ -96,7 +90,7 @@ public class CmdBan {
 									con.set("torch", false);
 									con.set("firefly", false);
 									con.save(f);
-									sender.sendMessage(ChatColor.GREEN + "successfully banned player " + args[0] + " however keep in mind this player has never played before");
+									sendMessage(ChatColor.GREEN + "successfully banned player " + args[0] + " however keep in mind this player has never played before");
 								} catch(Exception r) {
 									r.printStackTrace();
 								}
@@ -132,7 +126,7 @@ public class CmdBan {
 								con.set("torch", false);
 								con.set("firefly", false);
 								con.save(f);
-								sender.sendMessage(ChatColor.GREEN + "successfully banned player " + args[0] + " however keep in mind this player has never played before");
+								sendMessage(ChatColor.GREEN + "successfully banned player " + args[0] + " however keep in mind this player has never played before");
 							} catch(Exception r) {
 								r.printStackTrace();
 							}
@@ -140,10 +134,18 @@ public class CmdBan {
 					}
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void showHelp() {
+		sender.sendMessage(ChatColor.GOLD + ".oO___[ban help]___Oo.");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/ban <player> " + ChatColor.WHITE + ": bans a player with a default message");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/ban <player> <message> " + ChatColor.WHITE + ": bans a player with a given up description");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/ban help " + ChatColor.WHITE + ": shows help");
 	}
 
 }

@@ -4,15 +4,15 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
-public class CmdxEssentials {
+public class CmdxEssentials extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdxEssentials(xEssentials pl) {
+	public CmdxEssentials(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 
@@ -20,22 +20,14 @@ public class CmdxEssentials {
 		if(cmd.getName().equalsIgnoreCase("xEssentials")) {
 			if(sender.hasPermission(PermissionKey.CMD_XESSENTIALS.getPermission())) {
 				if(args.length == 0) {
-					sender.sendMessage(ChatColor.GOLD + ".oO___[xEssentials version " + pl.getDescription().getVersion() + "___Oo.");
-					sender.sendMessage(ChatColor.GREEN + "this plugin is written by Xeph0re AKA xize ");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/xEssentials reload " + ChatColor.WHITE + ": reloads the plugin");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/xEssentials help " + ChatColor.WHITE + ": shows help");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/xEssentials tps " + ChatColor.WHITE + ": shows tps of the server");
+					showHelp();
 				} else if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("help")) {
-						sender.sendMessage(ChatColor.GOLD + ".oO___[xEssentials version " + pl.getDescription().getVersion() + "___Oo.");
-						sender.sendMessage(ChatColor.GREEN + "this plugin is written by Xeph0re AKA xize ");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/xEssentials reload " + ChatColor.WHITE + ": reloads the plugin");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/xEssentials help " + ChatColor.WHITE + ": shows help");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/xEssentials tps " + ChatColor.WHITE + ": shows tps of the server");
+						showHelp();
 					} else if(args[0].equalsIgnoreCase("reload")) {
-						sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2[&3xEssentials&2]&f " + ChatColor.GRAY + "reloading xEssentials version " + pl.getDescription().getVersion()));
+						sendMessage("reloading xEssentials version " + pl.getDescription().getVersion());
 						pl.getConfiguration().reload();
-						sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2[&3xEssentials&2]&f " + ChatColor.GRAY + "reload completed!"));
+						sendMessage("reload completed!");
 					} else if(args[0].equalsIgnoreCase("tps")) {
 						if(sender.hasPermission(PermissionKey.CMD_TPS.getPermission())) {
 							ChatColor tpsColor = null;
@@ -52,14 +44,22 @@ public class CmdxEssentials {
 							}
 							sender.sendMessage(ChatColor.GRAY + "ticks: " + tpsColor + pl.getManagers().getTPSManager().getServerTicks());
 						} else {
-							Warnings.getWarnings(sender).noPermission();
+							getWarning(WarningType.NO_PERMISSION);
 						}
 					}
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;
+	}
+	
+	public void showHelp() {
+		sender.sendMessage(ChatColor.GOLD + ".oO___[xEssentials version " + pl.getDescription().getVersion() + "___Oo.");
+		sender.sendMessage(ChatColor.GREEN + "this plugin is written by Xeph0re AKA xize ");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/xEssentials reload " + ChatColor.WHITE + ": reloads the plugin");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/xEssentials help " + ChatColor.WHITE + ": shows help");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/xEssentials tps " + ChatColor.WHITE + ": shows tps of the server");
 	}
 }

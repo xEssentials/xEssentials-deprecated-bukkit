@@ -5,15 +5,15 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
-public class CmdSmite {
+public class CmdSmite extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdSmite(xEssentials pl) {
+	public CmdSmite(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -24,17 +24,17 @@ public class CmdSmite {
 					if(sender instanceof Player) {
 						Player p = (Player) sender;
 						p.getWorld().strikeLightning(p.getLocation());
-						p.sendMessage(ChatColor.GRAY + "you have smited yourself!");
+						sendMessage(ChatColor.GRAY + "you have smited yourself!");
 					} else {
-						Warnings.getWarnings(sender).consoleMessage();
+						getWarning(WarningType.PLAYER_ONLY);
 					}
 				} else if(args.length == 1) {
 					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
 					if(p instanceof Player) {
 						p.getWorld().strikeLightning(p.getLocation());
-						p.sendMessage(ChatColor.GRAY + "you got smited!");
+						sendMessage(ChatColor.GRAY + "you got smited!");
 					} else {
-						sender.sendMessage(ChatColor.RED + "the player is not online");
+						sendMessage(ChatColor.RED + "the player is not online");
 					}
 				}
 			}

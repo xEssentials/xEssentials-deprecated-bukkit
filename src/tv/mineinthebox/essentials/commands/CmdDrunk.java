@@ -6,16 +6,16 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdDrunk {
+public class CmdDrunk extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdDrunk(xEssentials pl) {
+	public CmdDrunk(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -28,13 +28,13 @@ public class CmdDrunk {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.isDrunk()) {
 							xp.setDrunk(false);
-							sender.sendMessage(ChatColor.GREEN + "you have successfully disabled drunk chat");
+							sendMessage(ChatColor.GREEN + "you have successfully disabled drunk chat");
 						} else {
 							xp.setDrunk(true);
-							sender.sendMessage(ChatColor.GREEN + "you have successfully enabled drunk chat");
+							sendMessage(ChatColor.GREEN + "you have successfully enabled drunk chat");
 						}
 					} else {
-						Warnings.getWarnings(sender).consoleMessage();
+						getWarning(WarningType.PLAYER_ONLY);
 					}
 				} else if(args.length == 1) {
 					Player p = Bukkit.getPlayer(args[0]);
@@ -42,23 +42,23 @@ public class CmdDrunk {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 						if(xp.isDrunk()) {
 							xp.setDrunk(false);
-							p.sendMessage(ChatColor.GREEN + sender.getName() + " has successfully disabled drunk chat on you");
-							sender.sendMessage(ChatColor.GREEN + "you have disabled drunk mode for " + p.getName());
+							sendMessageTo(p, ChatColor.GREEN + sender.getName() + " has successfully disabled drunk chat on you");
+							sendMessage(ChatColor.GREEN + "you have disabled drunk mode for " + p.getName());
 						} else {
 							xp.setDrunk(true);
-							p.sendMessage(ChatColor.GREEN + sender.getName() + " has successfully enabled drunk chat on you");
-							sender.sendMessage(ChatColor.GREEN + "you have enabled drunk mode for " + p.getName());
+							sendMessageTo(p, ChatColor.GREEN + sender.getName() + " has successfully enabled drunk chat on you");
+							sendMessage(ChatColor.GREEN + "you have enabled drunk mode for " + p.getName());
 						}
 					} else {
 						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-							sender.sendMessage(ChatColor.RED + "player is offline!");
+							sendMessage(ChatColor.RED + "player is offline!");
 						} else {
-							Warnings.getWarnings(sender).playerHasNeverPlayedBefore();
+							getWarning(WarningType.NEVER_PLAYED_BEFORE);
 						}
 					}
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;

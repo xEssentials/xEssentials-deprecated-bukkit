@@ -4,15 +4,15 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
-public class CmdWarps {
+public class CmdWarps extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdWarps(xEssentials pl) {
+	public CmdWarps(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 
@@ -35,7 +35,7 @@ public class CmdWarps {
 					sender.sendMessage(ChatColor.RED + "no warps could be found!");
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;

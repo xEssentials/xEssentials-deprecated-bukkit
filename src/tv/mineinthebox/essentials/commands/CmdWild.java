@@ -8,18 +8,18 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
-public class CmdWild {
+public class CmdWild extends CommandTemplate {
 	
 	private int xRadius = 10000;
 	private int zRadius = 10000;
 	
 	private final xEssentials pl;
 	
-	public CmdWild(xEssentials pl) {
+	public CmdWild(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -36,9 +36,9 @@ public class CmdWild {
 						Location loc = new Location(p.getWorld(), x, p.getWorld().getHighestBlockYAt(x, z), z);
 						loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 						p.teleport(loc);
-						sender.sendMessage(ChatColor.GREEN + "you successfully has teleported to the wild!");
+						sendMessage(ChatColor.GREEN + "you successfully has teleported to the wild!");
 					} else {
-						Warnings.getWarnings(sender).consoleMessage();
+						getWarning(WarningType.PLAYER_ONLY);
 					}
 				} else if(args.length == 1) {
 					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
@@ -50,13 +50,13 @@ public class CmdWild {
 						Location loc = new Location(p.getWorld(), x, p.getWorld().getHighestBlockYAt(x, z), z);
 						loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 						p.teleport(loc);
-						p.sendMessage(ChatColor.GREEN + "you successfully has teleported to the wild!");	
+						sendMessageTo(p, ChatColor.GREEN + "you successfully has teleported to the wild!");	
 					} else {
 						sender.sendMessage(ChatColor.RED + "this player is not online!");
 					}
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;

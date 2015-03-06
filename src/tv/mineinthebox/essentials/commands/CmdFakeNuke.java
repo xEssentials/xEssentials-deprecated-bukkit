@@ -7,16 +7,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdFakeNuke {
+public class CmdFakeNuke extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdFakeNuke(xEssentials pl) {
+	public CmdFakeNuke(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -36,7 +36,7 @@ public class CmdFakeNuke {
 						xp.getPlayer().getWorld().playSound(xp.getPlayer().getLocation(), Sound.FUSE, 0.98F, 0.98F);
 						xp.fakenuke();
 					} else {
-						Warnings.getWarnings(sender).consoleMessage();
+						getWarning(WarningType.PLAYER_ONLY);
 					}
 				} else if(args.length == 1) {
 					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
@@ -52,11 +52,11 @@ public class CmdFakeNuke {
 						xp.getPlayer().getWorld().playSound(xp.getPlayer().getLocation(), Sound.FUSE, 0.98F, 0.98F);
 						xp.fakenuke();
 					} else {
-						sender.sendMessage(ChatColor.RED + "this player is not online!");
+						sendMessage(ChatColor.RED + "this player is not online!");
 					}
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;

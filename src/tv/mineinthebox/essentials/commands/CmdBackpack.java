@@ -11,16 +11,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.Backpack;
 
-public class CmdBackpack {
+public class CmdBackpack extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdBackpack(xEssentials pl) {
+	public CmdBackpack(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 
@@ -48,24 +48,26 @@ public class CmdBackpack {
 		}
 		return null;
 	}
-
+	
 	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("backpack")) {
 			if(sender.hasPermission(PermissionKey.CMD_BACKPACK.getPermission())) {
 				if(args.length == 0) {
-					sender.sendMessage(ChatColor.GOLD + ".oO___[backpack help]___Oo.");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/backpack " + ChatColor.WHITE + ": shows help");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/backpack help " + ChatColor.WHITE + ": shows help");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/backpack <player> <item:subdata> " + ChatColor.WHITE + ": adds a backpack on a item.");
+					if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
+						showHelp();
+					} else {
+						sendMessage(ChatColor.RED + "you dont have permission!");
+					}
 				} else if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("help")) {
-						sender.sendMessage(ChatColor.GOLD + ".oO___[backpack help]___Oo.");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/backpack " + ChatColor.WHITE + ": shows help");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/backpack help " + ChatColor.WHITE + ": shows help");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/backpack <player> <item:subdata> " + ChatColor.WHITE + ": adds a backpack on a item.");
+						if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
+							showHelp();
+						} else {
+							sendMessage(ChatColor.RED + "you dont have permission!");
+						}
 					} else {
-						sender.sendMessage(ChatColor.RED + "we don't know much about this argument!");
+						sendMessage(ChatColor.RED + "we don't know much about this argument!");
 					}
 				} else if(args.length == 2) {
 					try {
@@ -75,25 +77,25 @@ public class CmdBackpack {
 								String[] data = args[1].split(":");
 								if(isNumberic(data[0])) {
 									if(!isNumberic(data[1])) {
-										sender.sendMessage(ChatColor.RED + "the sub data value needs to be a number!");
+										sendMessage(ChatColor.RED + "the sub data value needs to be a number!");
 										return false;
 									}
 									Material mat = Material.getMaterial(Integer.parseInt(data[0]));
 									Short dura = Short.parseShort(data[1]);
 									ItemStack item = new ItemStack(mat, 1);
 									item.setDurability(dura);
-									sender.sendMessage(ChatColor.GRAY + "giving " + item.getType().name() + ":"+dura + " amount: 1 to player " + p.getName());
+									sendMessage(ChatColor.GRAY + "giving " + item.getType().name() + ":"+dura + " amount: 1 to player " + p.getName());
 									try {
 										Backpack backpack = pl.getManagers().getBackPackManager().createBackpack(item.getType(), item.getDurability());
 										p.getInventory().addItem(backpack.getBackPackItem());
-										p.sendMessage(ChatColor.GREEN + "you retrieved items from " + sender.getName());
+										sendMessageTo(p, ChatColor.GREEN + "you retrieved items from " + sender.getName());
 									} catch(IllegalArgumentException e) {
-										sender.sendMessage(ChatColor.RED + p.getName() + " is to full");
+										sendMessage(ChatColor.RED + p.getName() + " is to full");
 									}
 								} else {
 									Material mat = Material.getMaterial(data[0].toUpperCase());
 									if(!isNumberic(data[1])) {
-										sender.sendMessage(ChatColor.RED + "the sub data value needs to be a number!");
+										sendMessage(ChatColor.RED + "the sub data value needs to be a number!");
 										return false;
 									}
 									Short dura = Short.parseShort(data[1]);
@@ -102,9 +104,9 @@ public class CmdBackpack {
 									Backpack backpack = pl.getManagers().getBackPackManager().createBackpack(item.getType(), item.getDurability());
 									try {
 										p.getInventory().addItem(backpack.getBackPackItem());
-										p.sendMessage(ChatColor.GREEN + "you retrieved items from " + sender.getName());
+										sendMessageTo(p, ChatColor.GREEN + "you retrieved items from " + sender.getName());
 									} catch(IllegalArgumentException e) {
-										sender.sendMessage(ChatColor.RED + p.getName() + " is to full");
+										sendMessage(ChatColor.RED + p.getName() + " is to full");
 									}
 								}						
 							} else {
@@ -114,9 +116,9 @@ public class CmdBackpack {
 									Backpack backpack = pl.getManagers().getBackPackManager().createBackpack(item.getType(), item.getDurability());
 									try {
 										p.getInventory().addItem(backpack.getBackPackItem());
-										p.sendMessage(ChatColor.GREEN + "you retrieved items from " + sender.getName());
+										sendMessageTo(p, ChatColor.GREEN + "you retrieved items from " + sender.getName());
 									} catch(IllegalArgumentException e) {
-										sender.sendMessage(ChatColor.RED + p.getName() + " is to full");
+										sendMessage(ChatColor.RED + p.getName() + " is to full");
 									}
 								} else {
 									Material mat = Material.getMaterial(args[1].toUpperCase());
@@ -124,21 +126,21 @@ public class CmdBackpack {
 									Backpack backpack = pl.getManagers().getBackPackManager().createBackpack(item.getType(), item.getDurability());
 									try {
 									p.getInventory().addItem(backpack.getBackPackItem());
-										p.sendMessage(ChatColor.GREEN + "you retrieved items from " + sender.getName());
+										sendMessageTo(p, ChatColor.GREEN + "you retrieved items from " + sender.getName());
 									} catch(IllegalArgumentException e) {
-										sender.sendMessage(ChatColor.RED + p.getName() + " is to full");
+										sendMessage(ChatColor.RED + p.getName() + " is to full");
 									}
 								}
 							}
 						} else {
-							sender.sendMessage(ChatColor.RED + "this player is not online!");
+							sendMessage(ChatColor.RED + "this player is not online!");
 						}
 					} catch(NullPointerException e) {
-						sender.sendMessage(ChatColor.RED + "invalid item!");
+						sendMessage(ChatColor.RED + "invalid item!");
 					}
 				}
 			} else {
-				Warnings.getWarnings(sender);
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;
@@ -154,5 +156,13 @@ public class CmdBackpack {
 			return false;
 		}
 		return false;
+	}
+
+	@Override
+	public void showHelp() {
+		sender.sendMessage(ChatColor.GOLD + ".oO___[backpack help]___Oo.");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/backpack " + ChatColor.WHITE + ": shows help");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/backpack help " + ChatColor.WHITE + ": shows help");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/backpack <player> <item:subdata> " + ChatColor.WHITE + ": adds a backpack on a item.");
 	}
 }

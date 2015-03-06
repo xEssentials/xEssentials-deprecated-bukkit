@@ -10,11 +10,15 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import tv.mineinthebox.essentials.Warnings;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
-public class CmdSpawner {
+public class CmdSpawner extends CommandTemplate {
 	
+	public CmdSpawner(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
+	}
+
 	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("spawner")) {
@@ -39,38 +43,38 @@ public class CmdSpawner {
 					} else if(args.length == 1) {
 						Player p = (Player) sender;
 						if(args[0].equalsIgnoreCase("give")) {
-							sender.sendMessage(ChatColor.GREEN + "added spawner in your inventory");
+							sendMessage(ChatColor.GREEN + "added spawner in your inventory");
 							p.getInventory().addItem(new ItemStack(Material.MOB_SPAWNER));
 						} else {
 							try {
 								EntityType type = EntityType.valueOf(args[0].toUpperCase());
 								if(type.isAlive()) {
 									if(type == EntityType.WITHER) {
-										sender.sendMessage(ChatColor.RED + "you are not allowed to make wither spawners");
+										sendMessage(ChatColor.RED + "you are not allowed to make wither spawners");
 									} else if(type == EntityType.PLAYER) {
-										sender.sendMessage(ChatColor.RED + "player entities cannot used through Bukkit");
+										sendMessage(ChatColor.RED + "player entities cannot used through Bukkit");
 									} else {
 										Block block = p.getTargetBlock(null, 50);
 										if(block.getType() == Material.MOB_SPAWNER) {
 											CreatureSpawner spawner = (CreatureSpawner) block.getState();
 											String old = spawner.getSpawnedType().name();
-											sender.sendMessage(ChatColor.GREEN + "successfully changed spawner from " + old.toLowerCase() + " to " + type.name().toLowerCase());
+											sendMessage(ChatColor.GREEN + "successfully changed spawner from " + old.toLowerCase() + " to " + type.name().toLowerCase());
 											spawner.setSpawnedType(type);
 										}
 									}
 								} else {
-									sender.sendMessage(ChatColor.RED + "this is not a peacefull mob or a hostile mob");
+									sendMessage(ChatColor.RED + "this is not a peacefull mob or a hostile mob");
 								}
 							} catch(IllegalArgumentException e) {
-								sender.sendMessage(ChatColor.RED + "this mob does not exist!");
+								sendMessage(ChatColor.RED + "this mob does not exist!");
 							}
 						}
 					}
 				} else {
-					Warnings.getWarnings(sender).noPermission();
+					getWarning(WarningType.NO_PERMISSION);
 				}
 			} else { 
-				Warnings.getWarnings(sender).consoleMessage();
+				getWarning(WarningType.PLAYER_ONLY);
 			}
 		}
 		return false;

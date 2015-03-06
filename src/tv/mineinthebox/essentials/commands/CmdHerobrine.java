@@ -12,15 +12,15 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
-public class CmdHerobrine {
+public class CmdHerobrine extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdHerobrine(xEssentials pl) {
+	public CmdHerobrine(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -44,9 +44,9 @@ public class CmdHerobrine {
 						zombe.getEquipment().setItemInHand(new ItemStack(Material.DIAMOND_SWORD,1));
 						zombe.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 10), false);
 						zombe.setCustomName("Herobrine");
-						sender.sendMessage(ChatColor.GREEN + "you have successfully summoned a Herobrine!");
+						sendMessage(ChatColor.GREEN + "you have successfully summoned a Herobrine!");
 					} else {
-						Warnings.getWarnings(sender).consoleMessage();
+						getWarning(WarningType.PLAYER_ONLY);
 					}
 				} else if(args.length == 1) {
 					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
@@ -65,13 +65,13 @@ public class CmdHerobrine {
 						zombe.getEquipment().setItemInHand(new ItemStack(Material.DIAMOND_SWORD,1));
 						zombe.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 10), false);
 						zombe.setCustomName("Herobrine");
-						sender.sendMessage(ChatColor.GREEN + "you have successfully summoned a Herobrine! near player " + p.getName());
+						sendMessage(ChatColor.GREEN + "you have successfully summoned a Herobrine! near player " + p.getName());
 					} else {
-						sender.sendMessage(ChatColor.RED + "this player is not online!");
+						sendMessage(ChatColor.RED + "this player is not online!");
 					}
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;

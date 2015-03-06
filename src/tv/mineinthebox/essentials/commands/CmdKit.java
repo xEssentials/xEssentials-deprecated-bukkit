@@ -10,17 +10,17 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.Kit;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdKit {
+public class CmdKit extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdKit(xEssentials pl) {
+	public CmdKit(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -47,9 +47,7 @@ public class CmdKit {
 			if(sender instanceof Player) {
 				if(sender.hasPermission(PermissionKey.CMD_KIT.getPermission())) {
 					if(args.length == 0) {
-						sender.sendMessage(ChatColor.GOLD + ".oO___[kit help]___Oo.");
-						sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/kit <kit name> " + ChatColor.WHITE + ": get the kit by name in your inventory!");
-						sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/kits" + ChatColor.WHITE + ": shows you all the kits!");
+						showHelp();
 					} else if(args.length == 1) {
 						HashMap<String, Kit> kits = new HashMap<String, Kit>(pl.getConfiguration().getKitConfig().getConfigKits());
 						if(kits.containsKey(args[0])) {
@@ -60,41 +58,48 @@ public class CmdKit {
 										long cooldown = xp.getKitCooldown() / 1000L + (long)pl.getConfiguration().getKitConfig().getCoolDown() - System.currentTimeMillis() / 1000L;
 										if(cooldown > 0L) {
 											DecimalFormat df = new DecimalFormat("#.##");
-											sender.sendMessage(ChatColor.RED + "you cannot use kits at this time please wait " + df.format((double)cooldown/60.0D) + " seconds!");
+											sendMessage(ChatColor.RED + "you cannot use kits at this time please wait " + df.format((double)cooldown/60.0D) + " seconds!");
 											return false;
 										} else {
 											xp.removeKitCoolDown();
 											Kit kit = kits.get(args[0]);
 											xp.getPlayer().getInventory().addItem(kit.getKitItems());
-											sender.sendMessage(ChatColor.GREEN + "enjoy your " + kit.getKitName() + "!");
+											sendMessage(ChatColor.GREEN + "enjoy your " + kit.getKitName() + "!");
 											xp.setKitCooldown(System.currentTimeMillis());
 										}
 									} else {
 										Kit kit = kits.get(args[0]);
 										xp.getPlayer().getInventory().addItem(kit.getKitItems());
-										sender.sendMessage(ChatColor.GREEN + "enjoy your " + kit.getKitName() + "!");
+										sendMessage(ChatColor.GREEN + "enjoy your " + kit.getKitName() + "!");
 										xp.setKitCooldown(System.currentTimeMillis());
 									}
 								} else {
 									Kit kit = kits.get(args[0]);
 									xp.getPlayer().getInventory().addItem(kit.getKitItems());
-									sender.sendMessage(ChatColor.GREEN + "enjoy your " + kit.getKitName() + "!");
+									sendMessage(ChatColor.GREEN + "enjoy your " + kit.getKitName() + "!");
 								}
 							} else {
-								Warnings.getWarnings(sender).noPermission();
+								getWarning(WarningType.NO_PERMISSION);
 							}
 						} else {
-							sender.sendMessage(ChatColor.RED + "this kit does not exist!");
+							sendMessage(ChatColor.RED + "this kit does not exist!");
 						}
 					}
 				} else {
-					Warnings.getWarnings(sender).noPermission();
+					getWarning(WarningType.NO_PERMISSION);
 				}
 			} else {
-				Warnings.getWarnings(sender).consoleMessage();
+				getWarning(WarningType.PLAYER_ONLY);
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void showHelp() {
+		sender.sendMessage(ChatColor.GOLD + ".oO___[kit help]___Oo.");
+		sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/kit <kit name> " + ChatColor.WHITE + ": get the kit by name in your inventory!");
+		sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/kits" + ChatColor.WHITE + ": shows you all the kits!");
 	}
 
 }

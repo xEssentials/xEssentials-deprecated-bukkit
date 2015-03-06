@@ -8,17 +8,17 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdIgnore {
+public class CmdIgnore extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdIgnore(xEssentials pl) {
+	public CmdIgnore(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 
@@ -48,8 +48,7 @@ public class CmdIgnore {
 			if(sender instanceof Player) {
 				if(sender.hasPermission(PermissionKey.CMD_IGNORE.getPermission())) {
 					if(args.length == 0) {
-						sender.sendMessage(ChatColor.GOLD + ".oO___[ignore help]___Oo.");
-						sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/ignore <player> " + ChatColor.WHITE + ": toggles ignore for the specified player");
+						showHelp();
 					} else if(args.length == 1) {
 						if(!sender.getName().equalsIgnoreCase(args[0])) {
 							if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
@@ -58,30 +57,36 @@ public class CmdIgnore {
 								if(xp.hasIgnoredPlayers()) {
 									if(xp.getIgnoredPlayers().contains(name)) {
 										xp.removeIgnoredPlayer(name);
-										sender.sendMessage(ChatColor.GREEN + "you successfully stopped ignoring player " + name);
+										sendMessage(ChatColor.GREEN + "you successfully stopped ignoring player " + name);
 									} else {
 										xp.addIgnoredPlayer(name);
-										sender.sendMessage(ChatColor.GREEN + "you are now ignoring player " + name);
+										sendMessage(ChatColor.GREEN + "you are now ignoring player " + name);
 									}
 								} else {
 									xp.addIgnoredPlayer(name);
-									sender.sendMessage(ChatColor.GREEN + "you are now ignoring player " + name);
+									sendMessage(ChatColor.GREEN + "you are now ignoring player " + name);
 								}
 							} else {
-								Warnings.getWarnings(sender).playerHasNeverPlayedBefore();
+								getWarning(WarningType.NEVER_PLAYED_BEFORE);
 							}
 						} else {
-							sender.sendMessage(ChatColor.RED + "you cannot ignore yourself...");
+							sendMessage(ChatColor.RED + "you cannot ignore yourself...");
 						}
 					}
 				} else {
-					Warnings.getWarnings(sender).noPermission();
+					getWarning(WarningType.NO_PERMISSION);
 				}
 			} else {
-				Warnings.getWarnings(sender).consoleMessage();
+				getWarning(WarningType.PLAYER_ONLY);
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void showHelp() {
+		sender.sendMessage(ChatColor.GOLD + ".oO___[ignore help]___Oo.");
+		sender.sendMessage(ChatColor.DARK_GRAY + "Default: " + ChatColor.GRAY + "/ignore <player> " + ChatColor.WHITE + ": toggles ignore for the specified player");
 	}
 
 }

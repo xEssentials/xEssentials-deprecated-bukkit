@@ -5,16 +5,16 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdFirefly {
+public class CmdFirefly extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdFirefly(xEssentials pl) {
+	public CmdFirefly(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -26,19 +26,19 @@ public class CmdFirefly {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.isFirefly()) {
 							xp.setFirefly(false);
-							sender.sendMessage(ChatColor.GREEN + "you successfully disabled firefly!");
+							sendMessage(ChatColor.GREEN + "you successfully disabled firefly!");
 						} else {
 							xp.setFirefly(true);
-							sender.sendMessage(ChatColor.GREEN + "you successfully enabled firefly!");
+							sendMessage(ChatColor.GREEN + "you successfully enabled firefly!");
 						}
 					} else {
-						sender.sendMessage(ChatColor.RED + "you don't seems to be listed at our global list, please reload pl");
+						sendMessage(ChatColor.RED + "you don't seems to be listed at our global list, please reload pl");
 					}
 				} else {
-					Warnings.getWarnings(sender).noPermission();
+					getWarning(WarningType.NO_PERMISSION);
 				}
 			} else {
-				Warnings.getWarnings(sender).consoleMessage();
+				getWarning(WarningType.PLAYER_ONLY);
 			}
 		}
 		return false;

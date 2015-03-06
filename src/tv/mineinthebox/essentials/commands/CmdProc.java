@@ -8,17 +8,17 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdProc {
+public class CmdProc extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdProc(xEssentials pl) {
+	public CmdProc(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -52,13 +52,13 @@ public class CmdProc {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.hasProc()) {
 							xp.setProc(false);
-							sender.sendMessage(ChatColor.GREEN + "proc has been disabled");
+							sendMessage(ChatColor.GREEN + "proc has been disabled");
 						} else {
 							xp.setProc(true);
-							sender.sendMessage(ChatColor.GREEN + "proc has been enabled!");
+							sendMessage(ChatColor.GREEN + "proc has been enabled!");
 						}
 					} else {
-						Warnings.getWarnings(sender).consoleMessage();
+						getWarning(WarningType.PLAYER_ONLY);
 					}
 				} else if(args.length == 1) {
 					if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
@@ -66,18 +66,18 @@ public class CmdProc {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 							if(xp.hasProc()) {
 								xp.setProc(false);
-								sender.sendMessage(ChatColor.GREEN + "proc has been disabled for player " + xp.getUser() + "!");
+								sendMessage(ChatColor.GREEN + "proc has been disabled for player " + xp.getUser() + "!");
 							} else {
 								xp.setProc(true);
-								sender.sendMessage(ChatColor.GREEN + "proc has been enabled for player " + xp.getUser() + "!");
+								sendMessage(ChatColor.GREEN + "proc has been enabled for player " + xp.getUser() + "!");
 							}
 						}
 					} else {
-						Warnings.getWarnings(sender).playerHasNeverPlayedBefore();
+						getWarning(WarningType.NEVER_PLAYED_BEFORE);
 					}
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;

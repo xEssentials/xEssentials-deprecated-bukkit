@@ -7,11 +7,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import tv.mineinthebox.essentials.Warnings;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.OpKit;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
-public class CmdOpkit {
+public class CmdOpkit extends CommandTemplate {
+	
+	public CmdOpkit(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
+	}
 	
 	private final Inventory inv = Bukkit.createInventory(null, 9, ChatColor.GOLD + "op kit"); {
 		inv.setItem(0, OpKit.STONE_KIT.getButton());
@@ -24,13 +28,13 @@ public class CmdOpkit {
 			if(sender.hasPermission(PermissionKey.CMD_OPKIT.getPermission())) {
 				if(sender instanceof Player) {
 					Player p = (Player) sender;
-					sender.sendMessage(ChatColor.GREEN + "[Op kit] " + ChatColor.GRAY + "opening opkit selector!");
+					sendMessage(ChatColor.GREEN + "[Op kit] " + ChatColor.GRAY + "opening opkit selector!");
 					p.openInventory(inv);
 				} else {
-					Warnings.getWarnings(sender).consoleMessage();
+					getWarning(WarningType.PLAYER_ONLY);
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;

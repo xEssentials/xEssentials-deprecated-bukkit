@@ -6,15 +6,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
-public class CmdTpAccept {
+public class CmdTpAccept extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdTpAccept(xEssentials pl) {
+	public CmdTpAccept(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -26,18 +26,18 @@ public class CmdTpAccept {
 					Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(pl.getManagers().getTpaManager().get(sender.getName())).getPlayer();
 					if(victem instanceof Player) {
 						victem.teleport(p, TeleportCause.COMMAND);
-						victem.sendMessage(ChatColor.GREEN + sender.getName() + " has successfully accepted your tpa request!");
-						sender.sendMessage(ChatColor.GREEN + "you have successfully accepted " + victem.getName() + " his tpa request!");
+						sendMessageTo(victem, ChatColor.GREEN + sender.getName() + " has successfully accepted your tpa request!");
+						sendMessage(ChatColor.GREEN + "you have successfully accepted " + victem.getName() + " his tpa request!");
 						pl.getManagers().getTpaManager().remove(sender.getName());
 					} else {
-						sender.sendMessage(ChatColor.RED + "the player went offline!");
+						sendMessage(ChatColor.RED + "the player went offline!");
 						pl.getManagers().getTpaManager().remove(sender.getName());
 					}
 				} else {
-					sender.sendMessage(ChatColor.RED + "you don't have tpa requests open!");
+					sendMessage(ChatColor.RED + "you don't have tpa requests open!");
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;

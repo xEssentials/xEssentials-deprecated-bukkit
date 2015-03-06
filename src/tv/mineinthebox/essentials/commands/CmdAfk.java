@@ -8,17 +8,17 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.events.customevents.PlayerAfkEvent;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdAfk {
+public class CmdAfk extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdAfk(xEssentials pl) {
+	public CmdAfk(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 
@@ -29,20 +29,20 @@ public class CmdAfk {
 					if(args.length == 0) {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						xp.setAfk("no reason given in");
-						Bukkit.broadcastMessage(ChatColor.GREEN + sender.getName() + " has been afk");
+						broadcast(ChatColor.GREEN + sender.getName() + " has been afk");
 						Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), true, false, pl));
 					} else  {
 						String message = Arrays.toString(args).replace("[", "").replace(",", "").replace("]", "");
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						xp.setAfk(message);
-						Bukkit.broadcastMessage(ChatColor.GREEN + sender.getName() + " has been afk [ "+xp.getAfkReason()+" ]");
+						broadcast(ChatColor.GREEN + sender.getName() + " has been afk [ "+xp.getAfkReason()+" ]");
 						Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), true, false, pl));
 					}
 				} else {
-					Warnings.getWarnings(sender).noPermission();
+					getWarning(WarningType.NO_PERMISSION);
 				}
 			} else {
-				Warnings.getWarnings(sender).consoleMessage();
+				getWarning(WarningType.PLAYER_ONLY);
 			}
 		}
 		return false;

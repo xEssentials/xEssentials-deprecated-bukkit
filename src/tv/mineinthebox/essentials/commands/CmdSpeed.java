@@ -5,16 +5,16 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdSpeed {
+public class CmdSpeed extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdSpeed(xEssentials pl) {
+	public CmdSpeed(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -25,16 +25,16 @@ public class CmdSpeed {
 					XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 					if(xp.isSpeedEnabled()) {
 						xp.removeSpeed();
-						sender.sendMessage(ChatColor.GREEN + "speed disabled!");
+						sendMessage(ChatColor.GREEN + "speed disabled!");
 					} else {
 						xp.setSpeed(1);
-						sender.sendMessage(ChatColor.GREEN + "speed enabled!");
+						sendMessage(ChatColor.GREEN + "speed enabled!");
 					}
 				} else {
-					Warnings.getWarnings(sender).consoleMessage();
+					getWarning(WarningType.PLAYER_ONLY);
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;

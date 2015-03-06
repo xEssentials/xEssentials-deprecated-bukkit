@@ -4,17 +4,17 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.RestrictedCommand;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 
-public class CmdCommandRestrict {
+public class CmdCommandRestrict extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdCommandRestrict(xEssentials pl) {
+	public CmdCommandRestrict(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 
@@ -22,20 +22,10 @@ public class CmdCommandRestrict {
 		if(cmd.getName().equalsIgnoreCase("CommandRestrict")) {
 			if(sender.hasPermission(PermissionKey.CMD_COMMAND_RESTRICT.getPermission())) {
 				if(args.length == 0) {
-					sender.sendMessage(ChatColor.GOLD + ".oO___[CommandRestriction help]___Oo.");
-					sender.sendMessage(ChatColor.RED + "warning, use this inside one line!, do not create this with spaces!");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/commandrestrict <player:command>:<message>" + ChatColor.WHITE + ": restrict a command specific for this player, with a custom message");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/commandrestrict <player:command>:<message>:<taskcommand> " + ChatColor.WHITE + ": restrict a command specific for this player, with a custom task");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/commandrestrict list <player> " + ChatColor.WHITE + ": shows a list with id's of current restricted commands of the player");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/commandrestrict remove <player> <id> " + ChatColor.WHITE + ": remove a id from the list of this player");
+					showHelp();
 				} else if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("help")) {
-						sender.sendMessage(ChatColor.GOLD + ".oO___[CommandRestriction help]___Oo.");
-						sender.sendMessage(ChatColor.RED + "warning, use this inside one line!, do not create this with spaces!");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/commandrestrict <player:command>:<message>" + ChatColor.WHITE + ": restrict a command specific for this player, with a custom message");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/commandrestrict <player:command>:<message>:<taskcommand> " + ChatColor.WHITE + ": restrict a command specific for this player, with a custom task");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/commandrestrict list <player> " + ChatColor.WHITE + ": shows a list with id's of current restricted commands of the player");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/commandrestrict remove <player> <id> " + ChatColor.WHITE + ": remove a id from the list of this player");
+						showHelp();
 					} else {
 						createRestriction(args, sender);
 					}
@@ -48,7 +38,7 @@ public class CmdCommandRestrict {
 								sender.sendMessage(ChatColor.GREEN +""+ i + ChatColor.GRAY + ": " + off.getCommandRestrictions().get(i).getCommand());
 							}
 						} else {
-							sender.sendMessage(ChatColor.RED + off.getUser() + " doesn't have any command restrictions!");
+							sendMessage(ChatColor.RED + off.getUser() + " doesn't have any command restrictions!");
 						}
 					} else {
 						createRestriction(args, sender);
@@ -62,15 +52,15 @@ public class CmdCommandRestrict {
 									XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 									RestrictedCommand restriction = off.getCommandRestrictions().get(i);
 									off.removeCommandRestriction(restriction);
-									sender.sendMessage(ChatColor.GREEN + "you have successfully removed the command restriction of player " + off.getUser());
+									sendMessage(ChatColor.GREEN + "you have successfully removed the command restriction of player " + off.getUser());
 								} catch(IndexOutOfBoundsException e) {
-									sender.sendMessage(ChatColor.RED + "this id does not exist!");
+									sendMessage(ChatColor.RED + "this id does not exist!");
 								}
 							} else {
-								sender.sendMessage(ChatColor.RED + "the third argument is not a number!");
+								sendMessage(ChatColor.RED + "the third argument is not a number!");
 							}
 						} else {
-							Warnings.getWarnings(sender).playerHasNeverPlayedBefore();
+							getWarning(WarningType.NEVER_PLAYED_BEFORE);
 						}
 					} else {
 						createRestriction(args, sender);
@@ -79,7 +69,7 @@ public class CmdCommandRestrict {
 					createRestriction(args, sender);
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;
@@ -97,12 +87,12 @@ public class CmdCommandRestrict {
 					XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(playername);
 					if(!off.hasContainedRestriction(restrictedCommand)) {
 						off.setCommandRestriction(restrictedCommand, message, null);
-						sender.sendMessage(ChatColor.GREEN + "you have successfully set the restricted command for player " + off.getUser());
+						sendMessage(ChatColor.GREEN + "you have successfully set the restricted command for player " + off.getUser());
 					} else {
-						sender.sendMessage(ChatColor.RED + "this player has already this command restricted!");
+						sendMessage(ChatColor.RED + "this player has already this command restricted!");
 					}
 				} else {
-					sender.sendMessage(ChatColor.RED + "this player has never played before!");
+					sendMessage(ChatColor.RED + "this player has never played before!");
 				}
 			} else if(split.length == 4) {
 				String playername = split[0];
@@ -113,18 +103,18 @@ public class CmdCommandRestrict {
 					XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(playername);
 					if(!off.hasContainedRestriction(restrictedCommand)) {
 						off.setCommandRestriction(restrictedCommand, message, taskcommand);
-						sender.sendMessage(ChatColor.GREEN + "you have successfully set the restricted command for player " + off.getUser());
+						sendMessage(ChatColor.GREEN + "you have successfully set the restricted command for player " + off.getUser());
 					} else {
-						sender.sendMessage(ChatColor.RED + "this player has already this command restricted!");
+						sendMessage(ChatColor.RED + "this player has already this command restricted!");
 					}
 				} else {
-					sender.sendMessage(ChatColor.RED + "this player has never played before!");
+					sendMessage(ChatColor.RED + "this player has never played before!");
 				}
 			} else {
-				sender.sendMessage(ChatColor.RED + "invalid arguments!");
+				sendMessage(ChatColor.RED + "invalid arguments!");
 			}
 		} else {
-			sender.sendMessage(ChatColor.RED + "we don't know much about these arguments!");
+			sendMessage(ChatColor.RED + "we don't know much about these arguments!");
 		}
 	}
 
@@ -150,5 +140,15 @@ public class CmdCommandRestrict {
 			}
 		}
 		return build.toString();
+	}
+
+	@Override
+	public void showHelp() {
+		sender.sendMessage(ChatColor.GOLD + ".oO___[CommandRestriction help]___Oo.");
+		sender.sendMessage(ChatColor.RED + "warning, use this inside one line!, do not create this with spaces!");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/commandrestrict <player:command>:<message>" + ChatColor.WHITE + ": restrict a command specific for this player, with a custom message");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/commandrestrict <player:command>:<message>:<taskcommand> " + ChatColor.WHITE + ": restrict a command specific for this player, with a custom task");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/commandrestrict list <player> " + ChatColor.WHITE + ": shows a list with id's of current restricted commands of the player");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/commandrestrict remove <player> <id> " + ChatColor.WHITE + ": remove a id from the list of this player");
 	}
 }

@@ -5,16 +5,16 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdWall {
+public class CmdWall extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdWall(xEssentials pl) {
+	public CmdWall(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -26,31 +26,36 @@ public class CmdWall {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.isWallMode()) {
 							xp.setWallMode(false, xp.getWallModeRange());
-							sender.sendMessage(ChatColor.GRAY + "wall mode disabled!");
+							sendMessage(ChatColor.GRAY + "wall mode disabled!");
 						} else {
 							xp.setWallMode(true, 8);
-							sender.sendMessage(ChatColor.GRAY + "wall mode is enabled!");
+							sendMessage(ChatColor.GRAY + "wall mode is enabled!");
 						}
 					} else if(args.length == 1) {
 						if(args[0].equalsIgnoreCase("help")) {
-							sender.sendMessage(ChatColor.GOLD + ".oO___[wall]___Oo.");
-							sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/wall " + ChatColor.WHITE + ": creates a wall within a block section");
-							sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/wall <number>" + ChatColor.WHITE + ": creates a wall within a range in a block section");
+							showHelp();
 						} else {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 							int range = Integer.parseInt(args[0]);
 							xp.setWallMode(true, range);
-							sender.sendMessage(ChatColor.GRAY + "wall mode is enabled!");
+							sendMessage(ChatColor.GRAY + "wall mode is enabled!");
 						}
 					}
 				} else {
-					Warnings.getWarnings(sender).consoleMessage();
+					getWarning(WarningType.PLAYER_ONLY);
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	public void showHelp() {
+		sender.sendMessage(ChatColor.GOLD + ".oO___[wall]___Oo.");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/wall " + ChatColor.WHITE + ": creates a wall within a block section");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/wall <number>" + ChatColor.WHITE + ": creates a wall within a range in a block section");
 	}
 
 }

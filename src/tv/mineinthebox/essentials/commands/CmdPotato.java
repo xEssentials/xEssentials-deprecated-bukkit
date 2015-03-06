@@ -12,16 +12,16 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdPotato {
+public class CmdPotato extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdPotato(xEssentials pl) {
+	public CmdPotato(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 
@@ -37,11 +37,11 @@ public class CmdPotato {
 						xp.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 100));
 						xp.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 3));
 						xp.getPlayer().getWorld().playSound(xp.getPlayer().getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
-						sender.sendMessage(ChatColor.GREEN + "you are turned into a potato!");
+						sendMessage(ChatColor.GREEN + "you are turned into a potato!");
 						xp.setPotato(item);
 						onPotatoSchedule(xp.getUser());
 					} else {
-						Warnings.getWarnings(sender).consoleMessage();
+						getWarning(WarningType.PLAYER_ONLY);
 					}
 				} else if(args.length == 1) {
 					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
@@ -53,16 +53,16 @@ public class CmdPotato {
 						xp.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 100));
 						xp.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 3));
 						xp.getPlayer().getWorld().playSound(xp.getPlayer().getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
-						xp.getPlayer().sendMessage(ChatColor.GREEN + "you are turned into a potato!");
+						sendMessageTo(xp.getPlayer(), ChatColor.GREEN + "you are turned into a potato!");
 						xp.setPotato(item);
 						onPotatoSchedule(xp.getUser());
-						sender.sendMessage(ChatColor.GREEN + "you successfully changed " + xp.getPlayer().getName() + " into a potato!");
+						sendMessage(ChatColor.GREEN + "you successfully changed " + xp.getPlayer().getName() + " into a potato!");
 					} else {
 						sender.sendMessage(ChatColor.RED + "the player is not online!");
 					}
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;
@@ -77,7 +77,7 @@ public class CmdPotato {
 				if(xp instanceof XPlayer) {
 					if(xp.isPotato()) {
 						xp.unvanish(true);
-						xp.getPlayer().sendMessage(ChatColor.GREEN + "you are not longer cursed as potato!");
+						sendMessageTo(xp.getPlayer(), ChatColor.GREEN + "you are not longer cursed as potato!");
 						xp.getPlayer().removePotionEffect(PotionEffectType.BLINDNESS);
 						xp.getPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
 						xp.getPlayer().removePotionEffect(PotionEffectType.SPEED);

@@ -4,17 +4,17 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdUnmute {
+public class CmdUnmute extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdUnmute(xEssentials pl) {
+	public CmdUnmute(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 
@@ -22,38 +22,43 @@ public class CmdUnmute {
 		if(cmd.getName().equalsIgnoreCase("unmute")) {
 			if(sender.hasPermission(PermissionKey.CMD_UNMUTE.getPermission())) {
 				if(args.length == 0) {
-					sender.sendMessage(ChatColor.GOLD + ".oO___[unmute help]___Oo.");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/unmute help " + ChatColor.WHITE + ": shows help");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/unmute <player> " + ChatColor.WHITE + "unmute a player!");
+					showHelp();
 				} else if(args.length == 1) {
 					if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 						if(xp.isMuted()) {
 							xp.unmute();
-							sender.sendMessage(ChatColor.GREEN + "you successfully unmuted the player " + xp.getUser());
-							xp.getPlayer().sendMessage(ChatColor.GREEN + sender.getName() + " has unmuted your chat!");
+							sendMessage(ChatColor.GREEN + "you successfully unmuted the player " + xp.getUser());
+							sendMessageTo(xp.getPlayer(), ChatColor.GREEN + sender.getName() + " has unmuted your chat!");
 						} else {
-							sender.sendMessage(ChatColor.RED + "this player is already unmuted!");
+							sendMessage(ChatColor.RED + "this player is already unmuted!");
 						}
 					} else {
 						try {
 							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							if(off.isMuted()) {
 								off.unmute();
-								sender.sendMessage(ChatColor.GREEN + "you successfully unmuted the offline player " + off.getUser() + "!");
+								sendMessage(ChatColor.GREEN + "you successfully unmuted the offline player " + off.getUser() + "!");
 							} else {
-								sender.sendMessage(ChatColor.RED + "this offline player is already unmuted!");
+								sendMessage(ChatColor.RED + "this offline player is already unmuted!");
 							}
 						} catch(NullPointerException e) {
-							Warnings.getWarnings(sender).playerHasNeverPlayedBefore();
+							getWarning(WarningType.NEVER_PLAYED_BEFORE);
 						}
 					}
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	public void showHelp() {
+		sender.sendMessage(ChatColor.GOLD + ".oO___[unmute help]___Oo.");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/unmute help " + ChatColor.WHITE + ": shows help");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/unmute <player> " + ChatColor.WHITE + "unmute a player!");
 	}
 
 }

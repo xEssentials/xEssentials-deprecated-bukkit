@@ -7,16 +7,16 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 
-public class CmdFreeze {
+public class CmdFreeze extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdFreeze(xEssentials pl) {
+	public CmdFreeze(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -46,20 +46,25 @@ public class CmdFreeze {
 		if(cmd.getName().equalsIgnoreCase("freeze")) {
 			if(sender.hasPermission(PermissionKey.CMD_FREEZE.getPermission())) {
 				if(args.length == 0) {
-					sender.sendMessage(ChatColor.GOLD + ".oO___[freeze help]___Oo.");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/freeze <player> " + ChatColor.WHITE + ": freezes the player movements");
+					showHelp();
 				} else if(args.length == 1) {
 					if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-						sender.sendMessage(ChatColor.RED + "player is not online!");
+						sendMessage(ChatColor.RED + "player is not online!");
 					} else {
-						Warnings.getWarnings(sender).playerHasNeverPlayedBefore();
+						getWarning(WarningType.NEVER_PLAYED_BEFORE);
 					}
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void showHelp() {
+		sender.sendMessage(ChatColor.GOLD + ".oO___[freeze help]___Oo.");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/freeze <player> " + ChatColor.WHITE + ": freezes the player movements");
 	}
 
 }

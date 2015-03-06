@@ -6,15 +6,15 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
-public class CmdKill {
+public class CmdKill extends CommandTemplate {
 
 	private final xEssentials pl;
 	
-	public CmdKill(xEssentials pl) {
+	public CmdKill(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -26,15 +26,15 @@ public class CmdKill {
 					if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
 						Player p = (Player) Bukkit.getPlayer(args[0]);
 						p.damage(p.getMaxHealth());
-						p.sendMessage(ChatColor.GRAY + "you are killed by " + sender.getName());
+						sendMessageTo(p, ChatColor.GRAY + "you are killed by " + sender.getName());
 					} else {
-						sender.sendMessage(ChatColor.RED + "player is not online!");
+						sendMessage(ChatColor.RED + "player is not online!");
 					}
 				} else {
-					sender.sendMessage(ChatColor.RED + "wrong syntax use \"/kill <player>\"");
+					sendMessage(ChatColor.RED + "wrong syntax use \"/kill <player>\"");
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;

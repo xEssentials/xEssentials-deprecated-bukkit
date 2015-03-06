@@ -5,16 +5,16 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdKnock {
+public class CmdKnock extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdKnock(xEssentials pl) {
+	public CmdKnock(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -24,17 +24,17 @@ public class CmdKnock {
 				if(sender.hasPermission(PermissionKey.CMD_KNOCK.getPermission())) {
 					XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 					if(xp.isKnock()) {
-						sender.sendMessage(ChatColor.GREEN + "you disabled antiknockback!");
+						sendMessage(ChatColor.GREEN + "you disabled antiknockback!");
 						xp.setKnock(false);
 					} else {
-						sender.sendMessage(ChatColor.GREEN + "you enabled antiknockback!");
+						sendMessage(ChatColor.GREEN + "you enabled antiknockback!");
 						xp.setKnock(true);
 					}
 				} else {
-					Warnings.getWarnings(sender).noPermission();
+					getWarning(WarningType.NO_PERMISSION);
 				}
 			} else {
-				Warnings.getWarnings(sender).consoleMessage();
+				getWarning(WarningType.PLAYER_ONLY);
 			}
 		}
 		return false;

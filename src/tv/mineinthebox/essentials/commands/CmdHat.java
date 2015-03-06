@@ -6,11 +6,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import tv.mineinthebox.essentials.Warnings;
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
-public class CmdHat {
+public class CmdHat extends CommandTemplate {
 	
+	public CmdHat(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
+	}
+
 	public boolean execute(CommandSender sender, String[] args, Command cmd) {
 		if(cmd.getName().equalsIgnoreCase("hat")) {
 			if(sender instanceof Player) {
@@ -18,10 +22,10 @@ public class CmdHat {
 					Player p = (Player) sender;
 					changeHat(p);
 				} else {
-					Warnings.getWarnings(sender).noPermission();
+					getWarning(WarningType.NO_PERMISSION);
 				}
 			} else {
-				Warnings.getWarnings(sender).consoleMessage();
+				getWarning(WarningType.PLAYER_ONLY);
 			}
 		}
 		return false;
@@ -38,7 +42,7 @@ public class CmdHat {
 	private boolean changeHat(Player p) {
 		if(checkHat(p)) {
 			if(p.getInventory().firstEmpty() == -1) {
-				p.sendMessage(ChatColor.RED + "you need a empty slot, so we can backup your old helmet in your inventory");
+				sendMessage(ChatColor.RED + "you need a empty slot, so we can backup your old helmet in your inventory");
 				return true;
 			} else {
 				//the inventory has empty slots lets loop through them

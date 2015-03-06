@@ -9,20 +9,20 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdBoom {
+public class CmdBoom extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdBoom(xEssentials pl) {
+	public CmdBoom(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
-	
-	public boolean execute(CommandSender sender, String[] args, Command cmd) {
+
+	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("boom")) {
 			if(sender.hasPermission(PermissionKey.CMD_BOOM.getPermission())) {
 				if(args.length == 1) {
@@ -35,7 +35,7 @@ public class CmdBoom {
 						}
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(boom.getName());
 						xp.setBoom();
-						sender.sendMessage(ChatColor.GREEN + "You are boomed!");
+						sendMessage(ChatColor.GREEN + "You are boomed!");
 						Bukkit.broadcastMessage(ChatColor.GRAY + "The player " + ChatColor.GREEN +  args[0] + ChatColor.GRAY + " has been boomed by " + ChatColor.GREEN + sender.getName());
 						Location loc = boom.getPlayer().getLocation();
 						loc.setY(loc.getY() + 100);
@@ -43,14 +43,14 @@ public class CmdBoom {
 						Vector vector = loc.toVector().subtract(boom.getLocation().toVector()).normalize();
 						boom.setVelocity(vector.multiply(speed));
 					} else {
-						sender.sendMessage(ChatColor.RED + "This player is not online");
+						sendMessage(ChatColor.RED + "This player is not online");
 					}
 				} else {
-					sender.sendMessage(ChatColor.GREEN + "Syntax: /boom <player> - explodes a player high in the sky.");
+					sendMessage(ChatColor.GREEN + "Syntax: /boom <player> - explodes a player high in the sky.");
 				}
 			}
 		} else {
-			Warnings.getWarnings(sender).noPermission();
+			getWarning(WarningType.NO_PERMISSION);
 		}
 			return false;
 	}

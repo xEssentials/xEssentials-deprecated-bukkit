@@ -7,16 +7,16 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.Kit;
 
-public class CmdKits {
+public class CmdKits extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdKits(xEssentials pl) {
+	public CmdKits(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -35,7 +35,7 @@ public class CmdKits {
 				}
 				sender.sendMessage(ChatColor.GRAY + build.toString());
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;

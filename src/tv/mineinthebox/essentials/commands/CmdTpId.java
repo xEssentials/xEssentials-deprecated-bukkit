@@ -10,18 +10,18 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.Modreq;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdTpId {
+public class CmdTpId extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdTpId(xEssentials pl) {
+	public CmdTpId(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 
@@ -66,14 +66,10 @@ public class CmdTpId {
 		if(cmd.getName().equalsIgnoreCase("tp-id")) {
 			if(sender.hasPermission(PermissionKey.CMD_TP_ID.getPermission())) {
 				if(args.length == 0) {
-					sender.sendMessage(ChatColor.GOLD + ".oO___[tp-id help]___Oo.");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tp-id help " + ChatColor.WHITE + ": shows help");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tp-id <player> <id> " + ChatColor.WHITE + ": teleport to the modreq location");
+					showHelp();
 				} else if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("help")) {
-						sender.sendMessage(ChatColor.GOLD + ".oO___[tp-id help]___Oo.");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tp-id help " + ChatColor.WHITE + ": shows help");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tp-id <player> <id> " + ChatColor.WHITE + ": teleport to the modreq location");
+						showHelp();
 					}
 				} else if(args.length == 2) {
 					if(sender instanceof Player) {
@@ -89,12 +85,12 @@ public class CmdTpId {
 											Location loc = mod.getModreqLocation();
 											loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 											p.teleport(loc, TeleportCause.COMMAND);
-											sender.sendMessage(ChatColor.GREEN + "teleporting to " + args[0] + " his modreq with id: " + id);
+											sendMessage(ChatColor.GREEN + "teleporting to " + args[0] + " his modreq with id: " + id);
 										} else {
-											sender.sendMessage(ChatColor.RED + "not a valid modreq id!");
+											sendMessage(ChatColor.RED + "not a valid modreq id!");
 										}
 									} else {
-										sender.sendMessage(ChatColor.RED + "the second argument needs to be a number!");
+										sendMessage(ChatColor.RED + "the second argument needs to be a number!");
 									}
 								}
 							} else {
@@ -107,24 +103,24 @@ public class CmdTpId {
 											Location loc = mod.getModreqLocation();
 											loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 											p.teleport(loc, TeleportCause.COMMAND);
-											sender.sendMessage(ChatColor.GREEN + "teleporting to " + args[0] + " his modreq with id: " + id);
+											sendMessage(ChatColor.GREEN + "teleporting to " + args[0] + " his modreq with id: " + id);
 										} else {
-											sender.sendMessage(ChatColor.RED + "not a valid modreq id!");
+											sendMessage(ChatColor.RED + "not a valid modreq id!");
 										}
 									} else {
-										sender.sendMessage(ChatColor.RED + "the second argument needs to be a number!");
+										sendMessage(ChatColor.RED + "the second argument needs to be a number!");
 									}
 								}
 							}
 						} else {
-							sender.sendMessage(ChatColor.RED + "this player has never played before!");
+							sendMessage(ChatColor.RED + "this player has never played before!");
 						}
 					} else {
-						Warnings.getWarnings(sender).consoleMessage();
+						getWarning(WarningType.PLAYER_ONLY);
 					}
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;
@@ -140,6 +136,13 @@ public class CmdTpId {
 			return false;
 		}
 		return false;
+	}
+	
+	@Override
+	public void showHelp() {
+		sender.sendMessage(ChatColor.GOLD + ".oO___[tp-id help]___Oo.");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tp-id help " + ChatColor.WHITE + ": shows help");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/tp-id <player> <id> " + ChatColor.WHITE + ": teleport to the modreq location");
 	}
 
 }

@@ -5,25 +5,24 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.Modreq;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdCheck {
+public class CmdCheck extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdCheck(xEssentials pl) {
+	public CmdCheck(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(sender.hasPermission(PermissionKey.CMD_CHECK.getPermission())) {
 			if(args.length == 0) {
-				if(sender instanceof Player) {
 					if(pl.getManagers().getPlayerManager().isOnline(sender.getName())) {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						sender.sendMessage(ChatColor.GOLD + ".oO___[currently open Modreqs]___Oo.");
@@ -31,11 +30,8 @@ public class CmdCheck {
 							sender.sendMessage(ChatColor.GRAY + "id: " + ChatColor.GREEN + mod.getId() + ChatColor.GRAY + " message: " + ChatColor.GREEN + mod.getMessage() + ChatColor.GRAY + " published: " + ChatColor.GREEN + mod.getDate());
 						}
 					} else {
-						sender.sendMessage(ChatColor.RED + "something went wrong please reload xEssentials!");
+						sendMessage(ChatColor.RED + "something went wrong please reload xEssentials!");
 					}
-				} else {
-					Warnings.getWarnings(sender).consoleMessage();
-				}
 			} else if(args.length == 1) {
 				if(args[0].equalsIgnoreCase("list")) {
 					sender.sendMessage(ChatColor.GOLD + ".oO___[Modreq list]___Oo.");
@@ -48,11 +44,10 @@ public class CmdCheck {
 							}
 						}
 					} else {
-						Warnings.getWarnings(sender).noPermission();
+						getWarning(WarningType.NO_PERMISSION);
 					}
 
 				} else {
-					if(sender instanceof Player) {
 						if(pl.getManagers().getPlayerManager().isOnline(sender.getName())) {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 							try {
@@ -62,17 +57,14 @@ public class CmdCheck {
 									sender.sendMessage(ChatColor.GOLD + ".oO___[Modreq id: " + mod.getId() +"]___Oo.");
 									sender.sendMessage(ChatColor.GRAY + "id: " + ChatColor.GREEN + mod.getId() + ChatColor.GRAY + " message: " + ChatColor.GREEN + mod.getMessage() + ChatColor.GRAY + " published: " + ChatColor.GREEN + mod.getDate());
 								} else {
-									sender.sendMessage(ChatColor.RED + "invalid modreq id!");
+									sendMessage(ChatColor.RED + "invalid modreq id!");
 								}
 							} catch(NumberFormatException e) {
-								sender.sendMessage(ChatColor.RED + "this argument needs to be a number!");
+								sendMessage(ChatColor.RED + "this argument needs to be a number!");
 							}
 						} else {
-							sender.sendMessage(ChatColor.RED + "something went wrong please reload xEssentials!");
+							sendMessage(ChatColor.RED + "something went wrong please reload xEssentials!");
 						}
-					} else {
-						Warnings.getWarnings(sender).consoleMessage();
-					}
 				}
 			} else if(args.length == 2) {
 				if(args[0].equalsIgnoreCase("list")) {
@@ -87,10 +79,10 @@ public class CmdCheck {
 										sender.sendMessage(ChatColor.GRAY + "id: " + ChatColor.GREEN + mod.getId() + ChatColor.GRAY + " message: " + ChatColor.GREEN + mod.getMessage() + ChatColor.GRAY + " published: " + ChatColor.GREEN + mod.getDate());
 									}
 								} else {
-									sender.sendMessage(ChatColor.RED + "this player has no modreqs open!");
+									sendMessage(ChatColor.RED + "this player has no modreqs open!");
 								}
 							} else {
-								sender.sendMessage(ChatColor.RED + "something went wrong please reload xEssentials!");
+								sendMessage(ChatColor.RED + "something went wrong please reload xEssentials!");
 							}
 						} else {
 							try {
@@ -101,14 +93,14 @@ public class CmdCheck {
 										sender.sendMessage(ChatColor.GRAY + "id: " + ChatColor.GREEN + mod.getId() + ChatColor.GRAY + " message: " + ChatColor.GREEN + mod.getMessage() + ChatColor.GRAY + " published: " + ChatColor.GREEN + mod.getDate());
 									}
 								} else {
-									sender.sendMessage(ChatColor.RED + "this player has no modreqs open!");
+									sendMessage(ChatColor.RED + "this player has no modreqs open!");
 								}
 							} catch(NullPointerException e) {
-								Warnings.getWarnings(sender).playerHasNeverPlayedBefore();
+								getWarning(WarningType.NEVER_PLAYED_BEFORE);
 							}
 						}
 					} else {
-						Warnings.getWarnings(sender).noPermission();
+						getWarning(WarningType.NO_PERMISSION);
 					}
 				} else {
 					if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) { 
@@ -124,16 +116,16 @@ public class CmdCheck {
 											sender.sendMessage(ChatColor.GOLD + ".oO___[Modreq info for player " + mod.getPlayersName() + " id: " + mod.getId() + "]___Oo.");
 											sender.sendMessage(ChatColor.GRAY + "id: " + ChatColor.GREEN + mod.getId() + ChatColor.GRAY + " message: " + ChatColor.GREEN + mod.getMessage() + ChatColor.GRAY + " published: " + ChatColor.GREEN + mod.getDate());
 										} else {
-											sender.sendMessage(ChatColor.RED + "this is not a valid modreq id!");
+											sendMessage(ChatColor.RED + "this is not a valid modreq id!");
 										}
 									} catch(NumberFormatException e) {
-										sender.sendMessage(ChatColor.RED + "this argument needs to be a number!");
+										sendMessage(ChatColor.RED + "this argument needs to be a number!");
 									}
 								} else {
-									sender.sendMessage(ChatColor.RED + "this player has no modreqs open!");
+									sendMessage(ChatColor.RED + "this player has no modreqs open!");
 								}
 							} else {
-								sender.sendMessage(ChatColor.RED + "something went wrong please reload xEssentials!");
+								sendMessage(ChatColor.RED + "something went wrong please reload xEssentials!");
 							}
 						} else {
 							try {
@@ -146,25 +138,25 @@ public class CmdCheck {
 											sender.sendMessage(ChatColor.GOLD + ".oO___[Modreq info for offline player " + mod.getPlayersName() + " id: " + mod.getId() + "]___Oo.");
 											sender.sendMessage(ChatColor.GRAY + "id: " + ChatColor.GREEN + mod.getId() + ChatColor.GRAY + " message: " + ChatColor.GREEN + mod.getMessage() + ChatColor.GRAY + " published: " + ChatColor.GREEN + mod.getDate());
 										} else {
-											sender.sendMessage(ChatColor.RED + "this is not a valid modreq id!");
+											sendMessage(ChatColor.RED + "this is not a valid modreq id!");
 										}
 									} catch(NumberFormatException e) {
-										sender.sendMessage(ChatColor.RED + "this argument needs to be a number!");
+										sendMessage(ChatColor.RED + "this argument needs to be a number!");
 									}
 								} else {
-									sender.sendMessage(ChatColor.RED + "this player has no modreqs open!");
+									sendMessage(ChatColor.RED + "this player has no modreqs open!");
 								}
 							} catch(NullPointerException e) {
-								Warnings.getWarnings(sender).playerHasNeverPlayedBefore();
+								getWarning(WarningType.NEVER_PLAYED_BEFORE);
 							}
 						}
 					} else {
-						Warnings.getWarnings(sender).noPermission();
+						getWarning(WarningType.NO_PERMISSION);
 					}
 				}
 			}
 		} else {
-			Warnings.getWarnings(sender).noPermission();
+			getWarning(WarningType.NO_PERMISSION);
 		}
 		return false;
 	}

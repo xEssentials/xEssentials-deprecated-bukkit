@@ -5,15 +5,15 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 
-public class CmdTpDeny {
+public class CmdTpDeny extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdTpDeny(xEssentials pl) {
+	public CmdTpDeny(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -23,15 +23,15 @@ public class CmdTpDeny {
 				if(pl.getManagers().getTpaManager().containsKey(sender.getName())) {
 					Player requester = pl.getManagers().getPlayerManager().getOfflinePlayer(pl.getManagers().getTpaManager().get(sender.getName())).getPlayer();
 					if(requester instanceof Player) {
-						requester.sendMessage(ChatColor.RED + sender.getName() + " has denied your tpa request!");
+						sendMessageTo(requester, ChatColor.RED + sender.getName() + " has denied your tpa request!");
 					}
-					sender.sendMessage(ChatColor.GREEN + "successfully denied " + pl.getManagers().getTpaManager().get(sender.getName()) + " his request!");
+					sendMessage(ChatColor.GREEN + "successfully denied " + pl.getManagers().getTpaManager().get(sender.getName()) + " his request!");
 					pl.getManagers().getTpaManager().remove(sender.getName());
 				} else {
-					sender.sendMessage(ChatColor.RED + "you don't have any tpa requests open!");
+					sendMessage(ChatColor.RED + "you don't have any tpa requests open!");
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;

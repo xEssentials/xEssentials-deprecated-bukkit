@@ -16,17 +16,17 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdMenu {
+public class CmdMenu extends CommandTemplate {
 	
 	private final xEssentials pl;
 
-	public CmdMenu(xEssentials pl) {
+	public CmdMenu(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 
@@ -57,8 +57,7 @@ public class CmdMenu {
 				if(sender instanceof Player) {
 					Player p = (Player) sender;
 					if(args.length == 0) {
-						sender.sendMessage(ChatColor.GOLD + ".oO___[quick menu help]___Oo.");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/menu <player> " + ChatColor.WHITE + ": opens a quick menu of this player!");
+						showHelp();
 					} else if(args.length == 1) {
 						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
 							if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
@@ -89,7 +88,7 @@ public class CmdMenu {
 								ItemStack ban = makeButton(Material.FIREBALL, ChatColor.GREEN + "ban the player for playing on this server!", banlore, false);
 								inv.setItem(5, ban);
 
-								p.sendMessage(ChatColor.GREEN + "opening menu for player " + ChatColor.GRAY + xp.getUser());
+								sendMessageTo(p, ChatColor.GREEN + "opening menu for player " + ChatColor.GRAY + xp.getUser());
 
 								p.openInventory(inv);
 								p.playSound(p.getLocation(), Sound.CHEST_OPEN, 1, 0);
@@ -101,20 +100,20 @@ public class CmdMenu {
 								ItemStack ban = makeButton(Material.FIREBALL, ChatColor.GREEN + "ban the player for playing on this server!", banlore, false);
 								inv.setItem(0, ban);
 
-								p.sendMessage(ChatColor.GREEN + "opening menu for player " + ChatColor.GRAY + off.getUser());
+								sendMessageTo(p, ChatColor.GREEN + "opening menu for player " + ChatColor.GRAY + off.getUser());
 
 								p.openInventory(inv);
 								p.playSound(p.getLocation(), Sound.CHEST_OPEN, 1, 0);
 							}
 						} else {
-							sender.sendMessage(ChatColor.RED + "this player has never played before!");
+							sendMessage(ChatColor.RED + "this player has never played before!");
 						}
 					}
 				} else {
-					Warnings.getWarnings(sender).consoleMessage();
+					getWarning(WarningType.PLAYER_ONLY);
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;
@@ -130,6 +129,12 @@ public class CmdMenu {
 		meta.setLore(Arrays.asList(lores));
 		stack.setItemMeta(meta);
 		return stack;
+	}
+
+	@Override
+	public void showHelp() {
+		sender.sendMessage(ChatColor.GOLD + ".oO___[quick menu help]___Oo.");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/menu <player> " + ChatColor.WHITE + ": opens a quick menu of this player!");
 	}
 
 }

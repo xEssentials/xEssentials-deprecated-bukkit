@@ -1,23 +1,23 @@
 package tv.mineinthebox.essentials.commands;
 
-import java.sql.Date;
 import java.util.Arrays;
+import java.util.Date;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdMute {
+public class CmdMute extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdMute(xEssentials pl) {
+	public CmdMute(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -26,35 +26,27 @@ public class CmdMute {
 		if(cmd.getName().equalsIgnoreCase("mute")) {
 			if(sender.hasPermission(PermissionKey.CMD_MUTE.getPermission())) {
 				if(args.length == 0) {
-					sender.sendMessage(ChatColor.GOLD + ".oO___[mute help]___Oo.");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/mute help " + ChatColor.WHITE + ": shows help");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/mute <player> " + ChatColor.WHITE + ": mutes a players for one day");
-					sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/mute <player> <params> " + ChatColor.WHITE + ": mutes a player followed by the params");
-					sender.sendMessage(ChatColor.RED + "Params: " + ChatColor.GRAY + "1D, 1M, 1Y");
+					showHelp();
 				} else if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("help")) {
-						sender.sendMessage(ChatColor.GOLD + ".oO___[mute help]___Oo.");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/mute help " + ChatColor.WHITE + ": shows help");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/mute <player> " + ChatColor.WHITE + ": mutes a players for one day");
-						sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/mute <player> <params> " + ChatColor.WHITE + ": mutes a player followed by the params");
-						sender.sendMessage(ChatColor.RED + "Params: " + ChatColor.GRAY + "1D, 1M, 1Y");
+						showHelp();
 					} else {
 						if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 							Date date = new Date(System.currentTimeMillis());
 							date.setDate(date.getDate() + 1);
 							xp.mute(date.getTime());
-							sender.sendMessage(ChatColor.GREEN + "successfully muted player " + xp.getPlayer().getName() + " for one day!");
-							xp.getPlayer().sendMessage(ChatColor.GREEN + sender.getName() + " has muted you for one day!");
+							sendMessage(ChatColor.GREEN + "successfully muted player " + xp.getPlayer().getName() + " for one day!");
+							sendMessageTo(xp.getPlayer(), ChatColor.GREEN + sender.getName() + " has muted you for one day!");
 						} else {
 							try {
 								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								Date date = new Date(System.currentTimeMillis());
 								date.setDate(date.getDate() + 1);
 								off.mute(date.getTime());
-								sender.sendMessage(ChatColor.GREEN + "successfully muted offline player " + off.getUser() + " for one day!");
+								sendMessage(ChatColor.GREEN + "successfully muted offline player " + off.getUser() + " for one day!");
 							} catch(NullPointerException e) {
-								Warnings.getWarnings(sender).playerHasNeverPlayedBefore();
+								getWarning(WarningType.NEVER_PLAYED_BEFORE);
 							}
 						}
 					}
@@ -80,8 +72,8 @@ public class CmdMute {
 							}
 						}
 						xp.mute(date.getTime());
-						sender.sendMessage(ChatColor.GREEN + "successfully muted player " + xp.getUser() + " till " + date.toString() + "!");
-						xp.getPlayer().sendMessage(ChatColor.GREEN + sender.getName() + " has muted you till " + date.toString());
+						sendMessage(ChatColor.GREEN + "successfully muted player " + xp.getUser() + " till " + date.toString() + "!");
+						sendMessageTo(xp.getPlayer(), ChatColor.GREEN + sender.getName() + " has muted you till " + date.toString());
 					} else {
 						try {
 							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
@@ -104,14 +96,14 @@ public class CmdMute {
 								}
 							}
 							off.mute(date.getTime());
-							sender.sendMessage(ChatColor.GREEN + "successfully muted offline player " + off.getUser() + " till " + date.toString() + "!");
+							sendMessage(ChatColor.GREEN + "successfully muted offline player " + off.getUser() + " till " + date.toString() + "!");
 						} catch(NullPointerException e) {
-							Warnings.getWarnings(sender).playerHasNeverPlayedBefore();
+							getWarning(WarningType.NEVER_PLAYED_BEFORE);
 						}
 					}
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;
@@ -125,6 +117,15 @@ public class CmdMute {
 		} catch(NumberFormatException e) {
 			return false;
 		}
+	}
+
+	@Override
+	public void showHelp() {
+		sender.sendMessage(ChatColor.GOLD + ".oO___[mute help]___Oo.");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/mute help " + ChatColor.WHITE + ": shows help");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/mute <player> " + ChatColor.WHITE + ": mutes a players for one day");
+		sender.sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/mute <player> <params> " + ChatColor.WHITE + ": mutes a player followed by the params");
+		sender.sendMessage(ChatColor.RED + "Params: " + ChatColor.GRAY + "1D, 1M, 1Y");
 	}
 
 }

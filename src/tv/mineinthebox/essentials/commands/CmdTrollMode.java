@@ -5,16 +5,16 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.Warnings;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CmdTrollMode {
+public class CmdTrollMode extends CommandTemplate {
 	
 	private final xEssentials pl;
 	
-	public CmdTrollMode(xEssentials pl) {
+	public CmdTrollMode(xEssentials pl, Command cmd, CommandSender sender) {
+		super(pl, cmd, sender);
 		this.pl = pl;
 	}
 	
@@ -29,16 +29,16 @@ public class CmdTrollMode {
 							p.eject();
 						}
 						xp.setTrollMode(false);
-						sender.sendMessage(ChatColor.GREEN + "you have disabled troll mode!");
+						sendMessage(ChatColor.GREEN + "you have disabled troll mode!");
 					} else {
 						xp.setTrollMode(true);
-						sender.sendMessage(ChatColor.GREEN + "you have enabled troll mode!");
+						sendMessage(ChatColor.GREEN + "you have enabled troll mode!");
 					}
 				} else {
-					Warnings.getWarnings(sender).consoleMessage();
+					getWarning(WarningType.PLAYER_ONLY);
 				}
 			} else {
-				Warnings.getWarnings(sender).noPermission();
+				getWarning(WarningType.NO_PERMISSION);
 			}
 		}
 		return false;
