@@ -109,10 +109,10 @@ public class CmdDone extends CommandTemplate {
 									sendMessageTo(xp.getPlayer(), "comment: " + ChatColor.GREEN + "comment not defined");
 									for(Player a : Bukkit.getOnlinePlayers()) {
 										if(a.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-											sendMessageTo(xp.getPlayer(), "staff member " + sender.getName() + " has closed " + xp.getUser() + " his modreq.");
-											sendMessageTo(xp.getPlayer(), "id: " + ChatColor.GREEN + idNumber);
-											sendMessageTo(xp.getPlayer(), "message: " + ChatColor.GREEN + title);
-											sendMessageTo(xp.getPlayer(), "comment: " + ChatColor.GREEN + "comment not defined");
+											sendMessageTo(a, "staff member " + sender.getName() + " has closed " + xp.getUser() + " his modreq.");
+											sendMessageTo(a, "id: " + ChatColor.GREEN + idNumber);
+											sendMessageTo(a, "message: " + ChatColor.GREEN + title);
+											sendMessageTo(a, "comment: " + ChatColor.GREEN + "comment not defined");
 										}
 									}
 								} else {
