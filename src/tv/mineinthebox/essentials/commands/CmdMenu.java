@@ -62,7 +62,7 @@ public class CmdMenu extends CommandTemplate {
 						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
 							if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
 								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
-								Inventory inv = Bukkit.createInventory(null, 36, ChatColor.DARK_PURPLE + "Quick menu: " + xp.getUser());
+								Inventory inv = Bukkit.createInventory(null, 9, ChatColor.DARK_PURPLE + "Quick menu: " + xp.getUser());
 
 								String[] tntLore = {ChatColor.DARK_PURPLE + "when activated this player gets launched high in the air!", ChatColor.DARK_PURPLE + "then as followed the player falls safely on the ground again:)"};
 								ItemStack tnt = makeButton(Material.TNT, ChatColor.GREEN + "activate boom for this player!", tntLore, false);
@@ -87,6 +87,10 @@ public class CmdMenu extends CommandTemplate {
 								String[] banlore = {ChatColor.DARK_PURPLE + "this will stop the player for playing on this server for ever!"};
 								ItemStack ban = makeButton(Material.FIREBALL, ChatColor.GREEN + "ban the player for playing on this server!", banlore, false);
 								inv.setItem(5, ban);
+								
+								String[] opkitlore = {ChatColor.DARK_PURPLE + "gives you advantage of the most powerfull kits!"};
+								ItemStack opkit = makeButton(Material.DIAMOND_SWORD, ChatColor.GREEN + "OpKit!", opkitlore, true);
+								inv.setItem(6, opkit);
 
 								sendMessageTo(p, ChatColor.GREEN + "opening menu for player " + ChatColor.GRAY + xp.getUser());
 
@@ -94,7 +98,7 @@ public class CmdMenu extends CommandTemplate {
 								p.playSound(p.getLocation(), Sound.CHEST_OPEN, 1, 0);
 							} else {
 								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
-								Inventory inv = Bukkit.createInventory(p, 36, ChatColor.DARK_PURPLE + "Quick menu: " + off.getUser());
+								Inventory inv = Bukkit.createInventory(p, 9, ChatColor.DARK_PURPLE + "Quick menu: " + off.getUser());
 
 								String[] banlore = {ChatColor.DARK_PURPLE + "this will stop the player for playing on this server for ever!"};
 								ItemStack ban = makeButton(Material.FIREBALL, ChatColor.GREEN + "ban the player for playing on this server!", banlore, false);

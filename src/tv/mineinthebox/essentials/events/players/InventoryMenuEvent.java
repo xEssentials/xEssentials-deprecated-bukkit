@@ -46,6 +46,9 @@ public class InventoryMenuEvent implements Listener {
 					} else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "ban the player for playing on this server!")) {
 						e.getWhoClicked().closeInventory();
 						p.performCommand("ban " + xp.getUser());
+					} else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "OpKit!")) {
+						e.getWhoClicked().closeInventory();
+						p.performCommand("opkit");
 					}
 				}
 			} else {
