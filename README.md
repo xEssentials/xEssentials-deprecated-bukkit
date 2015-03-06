@@ -60,5 +60,5 @@ an example how to make such json request through php is easily done by doing thi
 	?>
 ```
 
-#RSS feeds and mojang status:
-we've made 2 configurable crawlers one sents a broadcast every few minutes if the session server is down or the skin server is down(this feature may gets removed later), the other could scan your own website (we recommend using xenforo) which reads your own defined 'news' as a rss url and broadcasts it live as soon when a new topic is made in the hope people would react to it.
+#RSS feeds:
+we made a crawler which tries to read rss feeds and starts to broadcast that to the server, it has been tested with xenforo where we promote news threads live on the server.
