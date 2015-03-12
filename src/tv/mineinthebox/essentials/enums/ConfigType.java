@@ -30,30 +30,32 @@ import tv.mineinthebox.essentials.configurations.VoteConfig;
 
 public enum ConfigType {
 
-	ENTITY("entity.yml"),
-	PLAYER("player.yml"),
-	BAN("ban.yml"),
-	MOTD("motd.yml"),
-	BROADCAST("broadcast.yml"),
-	CHAT("chat.yml"),
-	PVP("pvp.yml"),
-	RULES("rules.yml"),
-	GREYLIST("greylist.yml"),
-	BLOCKS("blocks.yml"),
-	KITS("kits.yml"),
-	COMMAND("commands.yml"),
-	ECONOMY("economy.yml"),
-	SHOP("shops.yml"),
-	PROTECTION("protection.yml"),
-	PORTAL("portal.yml"),
-	MISC("misc.yml"),
-	SIGN("signs.yml"),
-	VOTE("vote.yml"),
-	DEBUG("debug.yml");
+	ENTITY("", "entity.yml"),
+	PLAYER("", "player.yml"),
+	BAN("", "ban.yml"),
+	MOTD("", "motd.yml"),
+	BROADCAST("", "broadcast.yml"),
+	CHAT("", "chat.yml"),
+	PVP("", "pvp.yml"),
+	RULES("", "rules.yml"),
+	GREYLIST("", "greylist.yml"),
+	BLOCKS("", "blocks.yml"),
+	KITS("", "kits.yml"),
+	COMMAND("", "commands.yml"),
+	ECONOMY("", "economy.yml"),
+	SHOP("", "shops.yml"),
+	PROTECTION("", "protection.yml"),
+	PORTAL("", "portal.yml"),
+	MISC("", "misc.yml"),
+	SIGN("", "signs.yml"),
+	VOTE("", "vote.yml"),
+	DEBUG("", "debug.yml");
 
 	private final String name;
+	private final String nicename;
 	
-	private ConfigType(String name) {
+	private ConfigType(String nicename, String name) {
+		this.nicename = nicename;
 		this.name = name;
 	}
 
@@ -120,5 +122,10 @@ public enum ConfigType {
 	 */
 	public String getFileName() {
 		return name;
+	}
+	
+	@Override
+	public String toString() {
+		return nicename;
 	}
 }
