@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.UUID;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -36,6 +37,23 @@ public class xEssentialsPlayerManager {
 			return players.get(name.toLowerCase());
 		}
 		throw new NullPointerException("xEssentialsPlayer: " + name + " is not online!");
+	}
+	
+	/**
+	 * returns the offline player from uuid
+	 * 
+	 * @author xize
+	 * @param id - the uuid
+	 * @return XOfflinePlayer
+	 */
+	public XOfflinePlayer getOfflinePlayer(UUID id) {
+		File f = new File(pl.getDataFolder() + File.separator + "players" + File.separator + id.toString().replace("-", "") + ".yml");
+		if(f.exists()) {
+			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
+			String user = con.getString("user");
+			return getOfflinePlayer(user);
+		}
+		return null;
 	}
 
 	/**

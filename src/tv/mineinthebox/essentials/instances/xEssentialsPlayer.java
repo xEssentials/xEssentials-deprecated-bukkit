@@ -88,9 +88,6 @@ public class xEssentialsPlayer implements XPlayer {
 				//call the custom event whenever we noticed the name has been changed!
 				//Bukkit.getPluginManager().callEvent(new PlayerNameChangeEvent(oldName, player.getName(), player, this));
 				setNameHistory(oldName);
-				if(pl.getConfiguration().getProtectionConfig().isProtectionEnabled()) {
-					pl.getManagers().getProtectionDBManager().updatePlayer(oldName, player.getName());
-				}
 			} else {
 				if(pl.getConfiguration().getDebugConfig().isEnabled()) {
 					xEssentials.log("players name is still intact and matches with: " + UUID, LogType.DEBUG);

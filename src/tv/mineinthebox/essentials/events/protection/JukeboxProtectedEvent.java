@@ -1,5 +1,7 @@
 package tv.mineinthebox.essentials.events.protection;
 
+import java.util.Arrays;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -15,6 +17,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.instances.ProtectedBlock;
 
 public class JukeboxProtectedEvent implements Listener {
 	
@@ -27,7 +30,8 @@ public class JukeboxProtectedEvent implements Listener {
 	@EventHandler(ignoreCancelled = true)
 	public void onPlace(BlockPlaceEvent e) {
 		if(e.getBlock().getType() == Material.JUKEBOX) {
-			pl.getManagers().getProtectionDBManager().register(e.getPlayer().getName(), e.getBlock());
+			ProtectedBlock pblock = new ProtectedBlock(pl, e.getBlock());
+			pblock.addProtection(e.getPlayer().getUniqueId());
 			e.getPlayer().sendMessage(ChatColor.GREEN + "registered private jukebox");
 		}
 	}
@@ -38,9 +42,10 @@ public class JukeboxProtectedEvent implements Listener {
 			return;
 		}
 		if(e.getBlock().getType() == Material.JUKEBOX) {
-			if(pl.getManagers().getProtectionDBManager().isRegistered(e.getBlock())) {
-				if(pl.getManagers().getProtectionDBManager().isOwner(e.getPlayer().getName(), e.getBlock()) || e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-					pl.getManagers().getProtectionDBManager().unregister(e.getPlayer().getName(), e.getBlock());
+			ProtectedBlock pblock = new ProtectedBlock(pl, e.getBlock());
+			if(pblock.isProtected()) {
+				if(pblock.isMember(e.getPlayer().getUniqueId()) || e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
+					pblock.removeAll();
 					e.getPlayer().sendMessage(ChatColor.GREEN + "unregistered that jukebox.");
 				} else {
 					e.getPlayer().sendMessage(pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getBlock().getType().name()));
@@ -54,9 +59,10 @@ public class JukeboxProtectedEvent implements Listener {
 	public void onInteract(PlayerInteractEvent e) {
 		if(e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if(e.getClickedBlock().getType() == Material.JUKEBOX) {
-				if(pl.getManagers().getProtectionDBManager().isRegistered(e.getClickedBlock())) {
-					if(pl.getManagers().getProtectionDBManager().isOwner(e.getPlayer().getName(), e.getClickedBlock()) || e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-						e.getPlayer().sendMessage(ChatColor.GREEN + "opening privated jukebox of " + (pl.getManagers().getProtectionDBManager().isOwner(e.getPlayer().getName(), e.getClickedBlock()) ? "you" : pl.getManagers().getProtectionDBManager().getOwners(e.getClickedBlock())));
+				ProtectedBlock pblock = new ProtectedBlock(pl, e.getClickedBlock());
+				if(pblock.isProtected()) {
+					if(pblock.isMember(e.getPlayer().getUniqueId()) || e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
+						e.getPlayer().sendMessage(ChatColor.GREEN + "opening privated jukebox of " + (pblock.isMember(e.getPlayer().getUniqueId()) ? "you" : Arrays.toString(pblock.getMembers().toArray())));
 					} else {
 						e.getPlayer().sendMessage(pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getClickedBlock().getType().name()));
 						e.setCancelled(true);
@@ -70,7 +76,8 @@ public class JukeboxProtectedEvent implements Listener {
 	public void onPiston(BlockPistonExtendEvent e) {
 		for(Block block : e.getBlocks()) {
 			if(block.getType() == Material.JUKEBOX) {
-				if(pl.getManagers().getProtectionDBManager().isRegistered(block)) {
+				ProtectedBlock pblock = new ProtectedBlock(pl, block);
+				if(pblock.isProtected()) {
 					e.setCancelled(true);
 					break;
 				}
@@ -82,7 +89,8 @@ public class JukeboxProtectedEvent implements Listener {
 	public void onExplosion(EntityExplodeEvent e) {
 		for(Block block : e.blockList()) {
 			if(block.getType() == Material.JUKEBOX) {
-				if(pl.getManagers().getProtectionDBManager().isRegistered(block)) {
+				ProtectedBlock pblock = new ProtectedBlock(pl, block);
+				if(pblock.isProtected()) {
 					e.setCancelled(true);
 				}
 			}

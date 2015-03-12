@@ -14,7 +14,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ProtectionType;
-import tv.mineinthebox.essentials.managers.ProtectionDBManager;
+import tv.mineinthebox.essentials.instances.ProtectedBlock;
+import tv.mineinthebox.essentials.managers.ProtectionManager;
 
 public class RegisterProtectionEvent implements Listener {
 
@@ -34,10 +35,12 @@ public class RegisterProtectionEvent implements Listener {
 		return Arrays.asList(materials);
 	}
 
-	private final ProtectionDBManager manager;
+	private final ProtectionManager manager;
+	private final xEssentials pl;
 	
 	public RegisterProtectionEvent(xEssentials pl) {
 		this.manager = pl.getManagers().getProtectionDBManager();
+		this.pl = pl;
 	}
 	
 	@EventHandler(ignoreCancelled = true)
@@ -46,9 +49,10 @@ public class RegisterProtectionEvent implements Listener {
 			if(manager.hasSession(e.getPlayer().getName())) {
 				ProtectionType type = (ProtectionType) manager.getSessionData(e.getPlayer().getName())[0];
 				if(type == ProtectionType.CREATE) {
-					if(!manager.isRegistered(e.getClickedBlock())) {
+					ProtectedBlock pblock = new ProtectedBlock(pl, e.getClickedBlock());
+					if(!pblock.isProtected()) {
 						if(materials().contains(e.getClickedBlock())) {
-							manager.register(e.getPlayer().getName(), e.getClickedBlock());
+							pblock.addProtection(e.getPlayer().getUniqueId());
 							e.getPlayer().sendMessage(ChatColor.GRAY + "successfully registered permissions for this " + e.getClickedBlock().getType().name() + " block");
 							manager.removeSession(e.getPlayer().getName());
 							e.setCancelled(true);

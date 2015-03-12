@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.instances.ProtectedBlock;
 
 public class BlockProtectedEvent implements Listener {
 
@@ -35,11 +36,12 @@ public class BlockProtectedEvent implements Listener {
 	private boolean canBlockPlaced(Player p, Block block) {
 		for(BlockFace face : faces) {
 			Block block1 = block.getRelative(face);
-			if(pl.getManagers().getProtectionDBManager().isRegistered(block1)) {
+			ProtectedBlock pblock = new ProtectedBlock(pl, block1);
+			if(pblock.isProtected()) {
 				if(p.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 					return true;
 				} else {
-					if(!pl.getManagers().getProtectionDBManager().isOwner(p.getName(), block1)) {
+					if(!pblock.isMember(p.getUniqueId())) {
 						return false;
 					}	
 				}
@@ -51,7 +53,8 @@ public class BlockProtectedEvent implements Listener {
 	private boolean canBlockDestroyed(Block block) {
 		for(BlockFace face : faces) {
 			Block block1 = block.getRelative(face);
-			if(pl.getManagers().getProtectionDBManager().isRegistered(block1)) {
+			ProtectedBlock pblock = new ProtectedBlock(pl, block1);
+			if(pblock.isProtected()) {
 				return true;
 			}
 		}

@@ -1,5 +1,7 @@
 package tv.mineinthebox.essentials.events.protection;
 
+import java.util.UUID;
+
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,14 +13,18 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.enums.ProtectionType;
-import tv.mineinthebox.essentials.managers.ProtectionDBManager;
+import tv.mineinthebox.essentials.instances.ProtectedBlock;
+import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
+import tv.mineinthebox.essentials.managers.ProtectionManager;
 
 public class ModifyProtectionEvent implements Listener {
 	
-	private final ProtectionDBManager manager;
+	private final ProtectionManager manager;
+	private final xEssentials pl;
 	
 	public ModifyProtectionEvent(xEssentials pl) {
 		this.manager = pl.getManagers().getProtectionDBManager();
+		this.pl = pl;
 	}
 
 	@EventHandler(ignoreCancelled = true)
@@ -29,10 +35,11 @@ public class ModifyProtectionEvent implements Listener {
 				Object[] obj = manager.getSessionData(e.getPlayer().getName());
 				ProtectionType type = (ProtectionType)obj[0];
 				if(type == ProtectionType.MODIFY) {
-					String player = (String)obj[1];
-					if(manager.isRegistered(e.getClickedBlock())) {
-						if(manager.isOwner(e.getPlayer().getName(), e.getClickedBlock()) || e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-							manager.register(player, e.getClickedBlock());
+					XOfflinePlayer player = (XOfflinePlayer)obj[1];
+					ProtectedBlock pblock = new ProtectedBlock(pl, e.getClickedBlock());
+					if(pblock.isProtected()) {
+						if(pblock.isMember(e.getPlayer().getUniqueId()) || e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
+							pblock.addProtection(UUID.fromString(player.getUniqueId()));
 							e.getPlayer().sendMessage(ChatColor.GRAY + "successfully registered block permissions for player " + player);
 							manager.removeSession(e.getPlayer().getName());
 							e.setCancelled(true);

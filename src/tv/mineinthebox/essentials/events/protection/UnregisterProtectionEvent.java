@@ -10,14 +10,17 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ProtectionType;
-import tv.mineinthebox.essentials.managers.ProtectionDBManager;
+import tv.mineinthebox.essentials.instances.ProtectedBlock;
+import tv.mineinthebox.essentials.managers.ProtectionManager;
 
 public class UnregisterProtectionEvent implements Listener {
 	
-	private final ProtectionDBManager manager;
+	private final ProtectionManager manager;
+	private final xEssentials pl;
 	
 	public UnregisterProtectionEvent(xEssentials pl) {
 		this.manager = pl.getManagers().getProtectionDBManager();
+		this.pl = pl;
 	}
 
 	@EventHandler(ignoreCancelled = true)
@@ -26,9 +29,10 @@ public class UnregisterProtectionEvent implements Listener {
 			if(manager.hasSession(e.getPlayer().getName())) {
 				ProtectionType type = (ProtectionType)manager.getSessionData(e.getPlayer().getName())[0];
 				if(type == ProtectionType.REMOVE) {
-					if(manager.isRegistered(e.getClickedBlock())) {
-						if(manager.isOwner(e.getPlayer().getName(), e.getClickedBlock())) {
-							manager.unregister(e.getPlayer().getName(), e.getClickedBlock());
+					ProtectedBlock pblock = new ProtectedBlock(pl, e.getClickedBlock());
+					if(pblock.isProtected()) {
+						if(pblock.isMember(e.getPlayer().getUniqueId())) {
+							pblock.removeAll();
 							e.getPlayer().sendMessage(ChatColor.GRAY + "you have successfully unregistered " + e.getClickedBlock().getType().name());
 							manager.removeSession(e.getPlayer().getName());
 							e.setCancelled(true);

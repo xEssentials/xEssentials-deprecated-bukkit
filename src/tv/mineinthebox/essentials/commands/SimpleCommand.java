@@ -231,7 +231,7 @@ public class SimpleCommand implements CommandExecutor, TabCompleter {
 			CmdArrow arrow = new CmdArrow(pl, cmd, sender);
 			return arrow.execute(sender, cmd, args);
 		} else if(cmd.getName().equalsIgnoreCase("test")) {
-			CmdTest test = new CmdTest();
+			CmdTest test = new CmdTest(pl, cmd, sender);
 			return test.execute(sender, cmd, args);
 		} else if(cmd.getName().equalsIgnoreCase("lookup")) {
 			CmdLookup lookup = new CmdLookup(pl, cmd, sender);

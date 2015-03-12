@@ -15,6 +15,7 @@ import org.bukkit.material.Sign;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.hook.LWCHook;
+import tv.mineinthebox.essentials.instances.ProtectedBlock;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class SignEditEvent implements Listener {
@@ -34,14 +35,15 @@ public class SignEditEvent implements Listener {
 			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isEditSignEnabled()) {
 				if(pl.getConfiguration().getProtectionConfig().isProtectionEnabled()) {
-					if(pl.getManagers().getProtectionDBManager().isOwner(e.getPlayer().getName(), other)) {
+					ProtectedBlock pblock = new ProtectedBlock(pl, e.getBlock());
+					if(pblock.isMember(e.getPlayer().getUniqueId())) {
 						signn.setLine(0, e.getLine(0));
 						signn.setLine(1, e.getLine(1));
 						signn.setLine(2, e.getLine(2));
 						signn.setLine(3, e.getLine(3));
 						signn.update(true);
 						e.getPlayer().sendMessage(ChatColor.GREEN + "successfully edited sign.");
-						pl.getManagers().getProtectionDBManager().unregister(e.getPlayer().getName(), e.getBlock());
+						pblock.removeProtection(e.getPlayer().getUniqueId());
 						e.getBlock().setType(Material.AIR);
 						Bukkit.getPluginManager().callEvent(new BlockPlaceEvent(signn.getBlock(), signn, signn.getBlock(), new ItemStack(Material.SIGN, 1), e.getPlayer(), true));
 					} else {

@@ -12,7 +12,7 @@ public class Manager {
 	private BackPackManager backpacks;
 	private GateManager gate;
 	private HomeInviteManager homeInvite;
-	private ProtectionDBManager protectiondb;
+	private ProtectionManager protectiondb;
 	private RegenManager regen;
 	private TpaManager tpa;
 	private TPSManager tps;
@@ -83,9 +83,9 @@ public class Manager {
 	 * @author xize
 	 * @return ProtectionDBManager
 	 */
-	public ProtectionDBManager getProtectionDBManager() {
-		if(!(protectiondb instanceof ProtectionDBManager)) {
-			this.protectiondb = new ProtectionDBManager(pl);
+	public ProtectionManager getProtectionDBManager() {
+		if(!(protectiondb instanceof ProtectionManager)) {
+			this.protectiondb = new ProtectionManager();
 		}
 		return protectiondb;
 	}
