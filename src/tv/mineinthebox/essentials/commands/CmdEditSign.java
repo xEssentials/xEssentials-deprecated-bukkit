@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.interfaces.CommandTemplate;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdEditSign extends CommandTemplate {

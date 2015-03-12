@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.ProtectedBlock;
+import tv.mineinthebox.essentials.interfaces.CommandTemplate;
 
 public class CmdTest extends CommandTemplate {
 

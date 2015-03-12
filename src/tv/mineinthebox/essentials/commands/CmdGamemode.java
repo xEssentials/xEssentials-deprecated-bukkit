@@ -11,6 +11,7 @@ import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.helpers.EnumHelper;
 import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.hook.WorldEditHook;
+import tv.mineinthebox.essentials.interfaces.CommandTemplate;
 
 public class CmdGamemode extends CommandTemplate {
 	

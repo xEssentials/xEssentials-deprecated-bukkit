@@ -11,6 +11,7 @@ import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.events.customevents.OfflinePlayerGreyListedEvent;
 import tv.mineinthebox.essentials.events.customevents.PlayerGreyListedEvent;
 import tv.mineinthebox.essentials.hook.Hooks;
+import tv.mineinthebox.essentials.interfaces.CommandTemplate;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 public class CmdGreylist extends CommandTemplate {

@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.interfaces.CommandTemplate;
 
 public class CmdRules extends CommandTemplate {
 	

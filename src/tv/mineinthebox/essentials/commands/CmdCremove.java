@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.enums.ProtectionType;
+import tv.mineinthebox.essentials.interfaces.CommandTemplate;
 
 
 public class CmdCremove extends CommandTemplate {

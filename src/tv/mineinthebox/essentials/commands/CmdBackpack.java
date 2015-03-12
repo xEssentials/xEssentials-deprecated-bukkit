@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.Backpack;
+import tv.mineinthebox.essentials.interfaces.CommandTemplate;
 
 public class CmdBackpack extends CommandTemplate {
 	

@@ -10,6 +10,7 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.events.customevents.VanishChangeEvent;
 import tv.mineinthebox.essentials.hook.Hooks;
+import tv.mineinthebox.essentials.interfaces.CommandTemplate;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdVanish extends CommandTemplate {

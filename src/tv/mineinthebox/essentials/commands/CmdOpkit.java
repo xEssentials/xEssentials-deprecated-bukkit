@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.OpKit;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.interfaces.CommandTemplate;
 
 @SuppressWarnings("deprecation")
 public class CmdOpkit extends CommandTemplate {

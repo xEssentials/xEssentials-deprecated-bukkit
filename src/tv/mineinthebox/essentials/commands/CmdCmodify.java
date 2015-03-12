@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ProtectionType;
+import tv.mineinthebox.essentials.interfaces.CommandTemplate;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 
 public class CmdCmodify extends CommandTemplate {

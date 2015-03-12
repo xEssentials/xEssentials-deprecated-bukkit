@@ -11,6 +11,7 @@ import org.bukkit.util.Vector;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.interfaces.CommandTemplate;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class CmdBoom extends CommandTemplate {

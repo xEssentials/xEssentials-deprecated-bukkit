@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.TrollBlock;
+import tv.mineinthebox.essentials.interfaces.CommandTemplate;
 
 public class CmdTrollBlock extends CommandTemplate {
 	

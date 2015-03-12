@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.Warp;
+import tv.mineinthebox.essentials.interfaces.CommandTemplate;
 
 public class CmdWarp extends CommandTemplate {
 
