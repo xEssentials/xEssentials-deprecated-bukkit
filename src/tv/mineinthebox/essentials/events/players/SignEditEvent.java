@@ -16,14 +16,13 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.hook.LWCHook;
 import tv.mineinthebox.essentials.instances.ProtectedBlock;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class SignEditEvent implements Listener {
-	
-	private final xEssentials pl;
+public class SignEditEvent extends EventTemplate implements Listener {
 	
 	public SignEditEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "SignEdit");
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -42,14 +41,14 @@ public class SignEditEvent implements Listener {
 						signn.setLine(2, e.getLine(2));
 						signn.setLine(3, e.getLine(3));
 						signn.update(true);
-						e.getPlayer().sendMessage(ChatColor.GREEN + "successfully edited sign.");
+						sendMessage(e.getPlayer(), ChatColor.GREEN + "successfully edited sign.");
 						pblock.removeProtection(e.getPlayer().getUniqueId());
 						e.getBlock().setType(Material.AIR);
 						Bukkit.getPluginManager().callEvent(new BlockPlaceEvent(signn.getBlock(), signn, signn.getBlock(), new ItemStack(Material.SIGN, 1), e.getPlayer(), true));
 					} else {
 						e.getBlock().setType(Material.AIR);
 						e.setCancelled(true);
-						e.getPlayer().sendMessage(ChatColor.RED + "cannot modify sign, this sign does not belongs to you");
+						sendMessage(e.getPlayer(), ChatColor.RED + "cannot modify sign, this sign does not belongs to you");
 					}
 				} else if(Hooks.isLWCEnabled()) {
 					if(LWCHook.isOwner(e.getPlayer(), signn.getBlock())) {
@@ -58,14 +57,14 @@ public class SignEditEvent implements Listener {
 						signn.setLine(2, e.getLine(2));
 						signn.setLine(3, e.getLine(3));
 						signn.update(true);
-						e.getPlayer().sendMessage(ChatColor.GREEN + "successfully edited sign.");
+						sendMessage(e.getPlayer(), ChatColor.GREEN + "successfully edited sign.");
 						LWCHook.removeProtection(e.getBlock());
 						e.getBlock().setType(Material.AIR);
 						Bukkit.getPluginManager().callEvent(new BlockPlaceEvent(signn.getBlock(), signn, signn.getBlock(), new ItemStack(Material.SIGN, 1), e.getPlayer(), true));
 					} else {
 						e.getBlock().setType(Material.AIR);
 						e.setCancelled(true);
-						e.getPlayer().sendMessage(ChatColor.RED + "cannot modify sign, this sign does not belongs to you");
+						sendMessage(e.getPlayer(), ChatColor.RED + "cannot modify sign, this sign does not belongs to you");
 					}
 				}
 			}

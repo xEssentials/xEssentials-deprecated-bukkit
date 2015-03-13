@@ -8,6 +8,7 @@ import tv.mineinthebox.essentials.enums.GreyListCause;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.events.customevents.PlayerGreyListedEvent;
 import tv.mineinthebox.essentials.hook.Hooks;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 import tv.mineinthebox.simpleserver.MimeType;
@@ -15,12 +16,10 @@ import tv.mineinthebox.simpleserver.events.SimpleServerEvent;
 import tv.mineinthebox.simpleserver.events.manager.ServerEvent;
 import tv.mineinthebox.simpleserver.events.manager.ServerListener;
 
-public class GreyListServer implements ServerListener {
-	
-	private final xEssentials pl;
+public class GreyListServer extends EventTemplate implements ServerListener {
 	
 	public GreyListServer(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "GreyList");
 	}
 	
 	@ServerEvent
@@ -39,7 +38,7 @@ public class GreyListServer implements ServerListener {
 						if(off instanceof XPlayer) {
 							XPlayer xp = (XPlayer)off;
 							off.setGreyListed(true);
-							xp.getPlayer().sendMessage(ChatColor.GREEN + "you are successfully promoted to " + pl.getConfiguration().getGreyListConfig().getGroup());
+							sendMessage(xp.getPlayer(), ChatColor.GREEN + "you are successfully promoted to " + pl.getConfiguration().getGreyListConfig().getGroup());
 							if(Hooks.isVaultPermissionsEnabled()) {
 								String oldGroup = pl.getManagers().getVaultManager().getGroup(off.getPlayer().getWorld(), off.getUser());
 								String newgroup = pl.getConfiguration().getGreyListConfig().getGroup();

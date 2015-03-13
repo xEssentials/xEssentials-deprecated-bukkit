@@ -15,9 +15,10 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ProtectionType;
 import tv.mineinthebox.essentials.instances.ProtectedBlock;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 import tv.mineinthebox.essentials.managers.ProtectionManager;
 
-public class RegisterProtectionEvent implements Listener {
+public class RegisterProtectionEvent extends EventTemplate implements Listener {
 
 	private final List<Material> materials() {
 		Material[] materials = {
@@ -36,11 +37,10 @@ public class RegisterProtectionEvent implements Listener {
 	}
 
 	private final ProtectionManager manager;
-	private final xEssentials pl;
 	
 	public RegisterProtectionEvent(xEssentials pl) {
+		super(pl, "Protection");
 		this.manager = pl.getManagers().getProtectionDBManager();
-		this.pl = pl;
 	}
 	
 	@EventHandler(ignoreCancelled = true)
@@ -53,16 +53,16 @@ public class RegisterProtectionEvent implements Listener {
 					if(!pblock.isProtected()) {
 						if(materials().contains(e.getClickedBlock())) {
 							pblock.addProtection(e.getPlayer().getUniqueId());
-							e.getPlayer().sendMessage(ChatColor.GRAY + "successfully registered permissions for this " + e.getClickedBlock().getType().name() + " block");
+							sendMessage(e.getPlayer(), ChatColor.GRAY + "successfully registered permissions for this " + e.getClickedBlock().getType().name() + " block");
 							manager.removeSession(e.getPlayer().getName());
 							e.setCancelled(true);
 						} else {
-							e.getPlayer().sendMessage(ChatColor.RED + "could not register permissions on a block which isnt a permissionable block");
+							sendMessage(e.getPlayer(), ChatColor.RED + "could not register permissions on a block which isnt a permissionable block");
 							manager.removeSession(e.getPlayer().getName());
 							e.setCancelled(true);
 						}
 					} else {
-						e.getPlayer().sendMessage(ChatColor.RED + "this block is already private!");
+						sendMessage(e.getPlayer(), ChatColor.RED + "this block is already private!");
 						manager.removeSession(e.getPlayer().getName());
 						e.setCancelled(true);
 					}

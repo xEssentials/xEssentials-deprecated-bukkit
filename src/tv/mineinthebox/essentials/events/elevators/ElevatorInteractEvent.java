@@ -14,13 +14,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class ElevatorInteractEvent implements Listener {
-	
-	private final xEssentials pl;
+public class ElevatorInteractEvent extends EventTemplate implements Listener {
 	
 	public ElevatorInteractEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Elevator");
 	}
 
 	@EventHandler
@@ -38,9 +37,9 @@ public class ElevatorInteractEvent implements Listener {
 							Sign sign1 = (Sign) block.getState();
 							if(sign1.getLine(0).equalsIgnoreCase(ChatColor.DARK_PURPLE + "[Elevator]")) {
 								if(!isObstructed(sign1)) {
-									e.getPlayer().sendMessage(ChatColor.GREEN + "teleporting you up!");
+									sendMessage(e.getPlayer(), ChatColor.GREEN + "teleporting you up!");
 									if(!sign1.getLine(3).isEmpty()) {
-										e.getPlayer().sendMessage(ChatColor.GREEN + "elevator level: " + ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', sign1.getLine(3)));
+										sendMessage(e.getPlayer(), ChatColor.GREEN + "elevator level: " + ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', sign1.getLine(3)));
 									}
 									Location pdest = sign1.getLocation().clone();
 									pdest.setYaw(e.getPlayer().getLocation().getYaw());
@@ -49,14 +48,14 @@ public class ElevatorInteractEvent implements Listener {
 									sign.getWorld().playEffect(sign.getLocation(), Effect.SMOKE, 10);
 									sign.getWorld().playSound(sign.getLocation(), Sound.FIREWORK_LAUNCH, 1F, 1F);
 								} else {
-									e.getPlayer().sendMessage(ChatColor.RED + "the elevator is obstructed!");
+									sendMessage(e.getPlayer(), ChatColor.RED + "the elevator is obstructed!");
 								}
 								e.setCancelled(true);
 								return;
 							}
 						}
 					}
-					e.getPlayer().sendMessage(ChatColor.RED + "could not find sign to above.");
+					sendMessage(e.getPlayer(), ChatColor.RED + "could not find sign to above.");
 					e.setCancelled(true);
 				}
 			}
@@ -76,9 +75,9 @@ public class ElevatorInteractEvent implements Listener {
 							Sign sign1 = (Sign) block.getState();
 							if(sign1.getLine(0).equalsIgnoreCase(ChatColor.DARK_PURPLE + "[Elevator]")) {
 								if(!isObstructed(sign1)) {
-									e.getPlayer().sendMessage(ChatColor.GREEN + "teleporting you down!");
+									sendMessage(e.getPlayer(), ChatColor.GREEN + "teleporting you down!");
 									if(!sign1.getLine(3).isEmpty()) {
-										e.getPlayer().sendMessage(ChatColor.GREEN + "elevator level: " + ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', sign1.getLine(3)));
+										sendMessage(e.getPlayer(), ChatColor.GREEN + "elevator level: " + ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', sign1.getLine(3)));
 									}
 									Location pdest = sign1.getLocation().clone();
 									pdest.setYaw(e.getPlayer().getLocation().getYaw());
@@ -87,14 +86,14 @@ public class ElevatorInteractEvent implements Listener {
 									sign.getWorld().playEffect(sign.getLocation(), Effect.SMOKE, 10);
 									sign.getWorld().playSound(sign.getLocation(), Sound.FIREWORK_LAUNCH, 1F, 1F);
 								} else {
-									e.getPlayer().sendMessage(ChatColor.RED + "the elevator is obstructed!");
+									sendMessage(e.getPlayer(), ChatColor.RED + "the elevator is obstructed!");
 								}
 								e.setCancelled(true);
 								return;
 							}
 						}
 					}
-					e.getPlayer().sendMessage(ChatColor.RED + "could not find sign to beneath.");
+					sendMessage(e.getPlayer(), ChatColor.RED + "could not find sign to beneath.");
 					e.setCancelled(true);
 				}
 			}

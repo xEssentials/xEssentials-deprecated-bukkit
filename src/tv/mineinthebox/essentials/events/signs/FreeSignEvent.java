@@ -12,24 +12,30 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class FreeSignEvent implements Listener {
+public class FreeSignEvent extends EventTemplate implements Listener {
+	
+	public FreeSignEvent(xEssentials pl) {
+		super(pl, "FreeSign");
+	}
 	
 	@EventHandler
 	public void signCreate(SignChangeEvent e) {
 		if(e.getLine(0).contains("[free]")) {
 			if(e.getPlayer().hasPermission(PermissionKey.SIGN_FREE.getPermission())) {
 				if(e.getLine(1).isEmpty()) {
-					e.getPlayer().sendMessage(ChatColor.GREEN + "you have successfully placed a free sign, now right click the sign with your selected block");
+					sendMessage(e.getPlayer(), ChatColor.GREEN + "you have successfully placed a free sign, now right click the sign with your selected block");
 					e.setLine(0, ChatColor.DARK_BLUE + e.getLine(0));
 					return;
 				} else {
-					e.getPlayer().sendMessage(ChatColor.RED + "you have to leave the second line empty, and put the block with right click in the sign");
+					sendMessage(e.getPlayer(), ChatColor.RED + "you have to leave the second line empty, and put the block with right click in the sign");
 					e.setCancelled(true);
 				}
 			} else {
-				e.getPlayer().sendMessage(ChatColor.RED + "you don't have permission to place these type signs");
+				sendMessage(e.getPlayer(), ChatColor.RED + "you don't have permission to place these type signs");
 				e.setCancelled(true);
 			}
 		} else {
@@ -60,7 +66,7 @@ public class FreeSignEvent implements Listener {
 							e.getPlayer().getWorld().dropItemNaturally(loc, item);
 							e.setCancelled(true);
 						} catch(Exception r) {
-							e.getPlayer().sendMessage(ChatColor.RED + "Error this item is not a vanilla item!, please show us your error in the console");
+							sendMessage(e.getPlayer(), ChatColor.RED + "Error this item is not a vanilla item!, please show us your error in the console");
 							r.printStackTrace();
 						}
 						

@@ -17,13 +17,12 @@ import org.bukkit.event.block.SignChangeEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.Bridge;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class BridgeCreateEvent implements Listener {
-	
-	private final xEssentials pl;
+public class BridgeCreateEvent extends EventTemplate implements Listener {
 	
 	public BridgeCreateEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Bridge");
 	}
 	
 	@EventHandler
@@ -92,13 +91,13 @@ public class BridgeCreateEvent implements Listener {
 					pl.getManagers().getBridgeManager().addBridge(bridge);
 					
 					e.setLine(0, ChatColor.DARK_PURPLE + "[Bridge]");
-					e.getPlayer().sendMessage(ChatColor.GREEN + "you have successfully created a bridge!, and connected them.");
+					sendMessage(e.getPlayer(), ChatColor.GREEN + "you have successfully created a bridge!, and connected them.");
 				} catch(Exception r) {
 					r.printStackTrace();
 				}
 				
 			} else {
-				e.getPlayer().sendMessage(ChatColor.GREEN + "you have successfully placed a bridge sign, but the sign is not connected yet.");
+				sendMessage(e.getPlayer(), ChatColor.GREEN + "you have successfully placed a bridge sign, but the sign is not connected yet.");
 				e.setLine(0, ChatColor.DARK_PURPLE + "[Bridge]");
 			}
 		}

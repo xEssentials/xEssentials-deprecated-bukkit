@@ -23,15 +23,14 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.events.customevents.EssentialsPortalCreateEvent;
 import tv.mineinthebox.essentials.instances.Portal;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class PortalSelectedCreateEvent implements Listener {
+public class PortalSelectedCreateEvent extends EventTemplate implements Listener {
 
 	private final HashMap<String, Block[]> locations = new HashMap<String, Block[]>();
 	
-	private final xEssentials pl;
-	
 	public PortalSelectedCreateEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Portal");
 	}
 
 	@EventHandler
@@ -57,18 +56,18 @@ public class PortalSelectedCreateEvent implements Listener {
 						FileConfiguration con = save(f, frameblocks, portalblocks);
 						Portal portal = new Portal(con, f, pl);
 						portal.setClosed(false);
-						e.getPlayer().sendMessage(ChatColor.GRAY + "portal created with name " + portal.getPortalName() + "!");
+						sendMessage(e.getPlayer(), ChatColor.GRAY + "portal created with name " + portal.getPortalName() + "!");
 						Bukkit.getPluginManager().callEvent(new EssentialsPortalCreateEvent(e.getPlayer(), portal, pl));
 						e.getPlayer().removeMetadata("portal", pl);
 						locations.remove(e.getPlayer().getName());
 					} else {
-						e.getPlayer().sendMessage(ChatColor.RED + "invalid portal, please select more blocks!");
+						sendMessage(e.getPlayer(), ChatColor.RED + "invalid portal, please select more blocks!");
 					}
 				} else {
 					Block[] locs = new Block[2];
 					locs[0] = e.getClickedBlock();
 					locations.put(e.getPlayer().getName(), locs);
-					e.getPlayer().sendMessage(ChatColor.GREEN + "now right click a block to set your second pos!");
+					sendMessage(e.getPlayer(), ChatColor.GREEN + "now right click a block to set your second pos!");
 				}
 				e.setCancelled(true);
 			}

@@ -11,16 +11,16 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChatEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
 @SuppressWarnings("deprecation")
-public class HumanSpamEvent implements Listener {
+public class HumanSpamEvent extends EventTemplate implements Listener {
 	
 	private final HashMap<String, String> message1 = new HashMap<String, String>();
 	private final HashMap<String, String> message2 = new HashMap<String, String>();
 	
-	private final xEssentials pl;
-	
 	public HumanSpamEvent(xEssentials pl) {
+		super(pl, "HumanSpam");
 		this.pl = pl;
 	}
 	
@@ -38,7 +38,7 @@ public class HumanSpamEvent implements Listener {
 			if(message1.get(e.getPlayer().getName()).equalsIgnoreCase(e.getMessage())) {
 				message1.remove(e.getPlayer().getName());
 				message2.put(e.getPlayer().getName(), e.getMessage());
-				e.getPlayer().sendMessage(ChatColor.RED + "Warning if you post one more time the same message you will be kicked!");
+				sendMessage(e.getPlayer(), ChatColor.RED + "Warning if you post one more time the same message you will be kicked!");
 			} else {
 				message1.put(e.getPlayer().getName(), e.getMessage());
 			}

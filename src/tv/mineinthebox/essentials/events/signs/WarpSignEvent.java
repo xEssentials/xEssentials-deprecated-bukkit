@@ -10,13 +10,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class WarpSignEvent implements Listener {
-	
-	private final xEssentials pl;
+public class WarpSignEvent extends EventTemplate implements Listener {
 	
 	public WarpSignEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "WarpSign");
 	}
 	
 	@EventHandler
@@ -25,14 +24,14 @@ public class WarpSignEvent implements Listener {
 			if(e.getPlayer().hasPermission(PermissionKey.SIGN_WARP_SIGN.getPermission())) {
 				if(pl.getManagers().getWarpManager().isWarp(e.getLine(1))) {
 					e.setLine(0, ChatColor.BLUE + "[warp]");
-					e.getPlayer().sendMessage(ChatColor.GREEN + "you have successfully created a warp sign!");
+					sendMessage(e.getPlayer(), ChatColor.GREEN + "you have successfully created a warp sign!");
 				} else {
 					e.getBlock().breakNaturally();
-					e.getPlayer().sendMessage(ChatColor.RED + "invalid warp!");
+					sendMessage(e.getPlayer(), ChatColor.RED + "invalid warp!");
 				}
 			} else {
 				e.getBlock().breakNaturally();
-				e.getPlayer().sendMessage(ChatColor.RED + "you are not allowed to create this kind of signs!");
+				sendMessage(e.getPlayer(), ChatColor.RED + "you are not allowed to create this kind of signs!");
 			}
 		}
 	}

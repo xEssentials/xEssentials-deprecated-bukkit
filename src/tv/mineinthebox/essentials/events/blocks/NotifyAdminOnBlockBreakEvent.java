@@ -11,13 +11,12 @@ import org.bukkit.event.block.BlockBreakEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class NotifyAdminOnBlockBreakEvent implements Listener {
-	
-	private final xEssentials pl;
+public class NotifyAdminOnBlockBreakEvent extends EventTemplate implements Listener {
 	
 	public NotifyAdminOnBlockBreakEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Block Notification");
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -32,7 +31,7 @@ public class NotifyAdminOnBlockBreakEvent implements Listener {
 				if(e.getBlock().getState().getData().getData() == subData) {
 					for(Player p : pl.getOnlinePlayers()) {
 						if(p.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-							p.sendMessage(pl.getConfiguration().getBlockConfig().getNotifyOnBreakMessage().replace("%PLAYER%", e.getPlayer().getName()).replace("%BLOCK%", e.getBlock().getType().name()+":"+subData).replace("%LOCATION%", "x: " + e.getBlock().getX() + " y: " + e.getBlock().getY() + " z: " + e.getBlock().getZ() + " world: " + e.getBlock().getWorld().getName()));
+							sendMessage(p, pl.getConfiguration().getBlockConfig().getNotifyOnBreakMessage().replace("%PLAYER%", e.getPlayer().getName()).replace("%BLOCK%", e.getBlock().getType().name()+":"+subData).replace("%LOCATION%", "x: " + e.getBlock().getX() + " y: " + e.getBlock().getY() + " z: " + e.getBlock().getZ() + " world: " + e.getBlock().getWorld().getName()));
 						}
 					}
 					break;

@@ -11,9 +11,15 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class WildSignEvent implements Listener {
+public class WildSignEvent extends EventTemplate implements Listener {
+	
+	public WildSignEvent(xEssentials pl) {
+		super(pl, "WildSign");
+	}
 	
 	@EventHandler
 	public void onCreate(SignChangeEvent e) {
@@ -22,7 +28,7 @@ public class WildSignEvent implements Listener {
 				e.setLine(0, ChatColor.DARK_GRAY + "[wild]");
 			} else {
 				e.getBlock().breakNaturally();
-				e.getPlayer().sendMessage(ChatColor.RED + "you are not allowed to make these kind of signs!");
+				sendMessage(e.getPlayer(), ChatColor.RED + "you are not allowed to make these kind of signs!");
 			}
 		}
 	}
@@ -44,9 +50,9 @@ public class WildSignEvent implements Listener {
 						Location loc = new Location(e.getPlayer().getWorld(), x, e.getPlayer().getWorld().getHighestBlockYAt(x, z), z);
 						loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 						e.getPlayer().teleport(loc);
-						e.getPlayer().sendMessage(ChatColor.GREEN + "you successfully has teleported to the wild!");	
+						sendMessage(e.getPlayer(), ChatColor.GREEN + "you successfully has teleported to the wild!");	
 					} else {
-						e.getPlayer().sendMessage(ChatColor.RED + "you cannot use this sign!");
+						sendMessage(e.getPlayer(), ChatColor.RED + "you cannot use this sign!");
 					}
 					e.setCancelled(true);
 				}

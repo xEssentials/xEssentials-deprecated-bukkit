@@ -15,16 +15,15 @@ import org.bukkit.inventory.meta.BookMeta;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.events.customevents.PlayerOpenBookEvent;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 @SuppressWarnings("deprecation")
-public class AntiAddvertiseEvent implements Listener {
-	
-	private final xEssentials pl;
+public class AntiAddvertiseEvent extends EventTemplate implements Listener {
 	
 	public AntiAddvertiseEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Anti Addvertise");
 	}
 
 	@EventHandler
@@ -42,7 +41,7 @@ public class AntiAddvertiseEvent implements Listener {
 						XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(e.getBookContents().getAuthor());
 						for(String bookPage : e.getBookContents().getPages()) {
 							if(ipcheck(bookPage, off)) {
-								e.getPlayer().sendMessage(ChatColor.RED + "you cannot open this book, this book contains addvertises from " + off.getUser());
+								sendMessage(e.getPlayer(), ChatColor.RED + "you cannot open this book, this book contains addvertises from " + off.getUser());
 								e.getPlayer().setItemInHand(null);
 								e.setCancelled(true);
 								break;
@@ -62,7 +61,7 @@ public class AntiAddvertiseEvent implements Listener {
 				meta.setAuthor(e.getPlayer().getName());
 				e.setNewBookMeta(meta);
 				e.setSigning(true);
-				e.getPlayer().sendMessage(ChatColor.GREEN + "book automatic signed, by anti addvertise system!");
+				sendMessage(e.getPlayer(), ChatColor.GREEN + "book automatic signed, by anti addvertise system!");
 			}
 		}
 	}

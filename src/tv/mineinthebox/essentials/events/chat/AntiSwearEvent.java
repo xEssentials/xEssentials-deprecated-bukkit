@@ -13,16 +13,15 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
 @SuppressWarnings("deprecation")
-public class AntiSwearEvent implements Listener {
+public class AntiSwearEvent extends EventTemplate implements Listener {
 
 	private final HashMap<String, Integer> warnings = new HashMap<String, Integer>(); 
 	
-	private final xEssentials pl;
-	
 	public AntiSwearEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Anti Swear");
 	}
 
 	@EventHandler
@@ -57,11 +56,11 @@ public class AntiSwearEvent implements Listener {
 								return; //no need to go futher within the message.
 							} else {
 								warnings.put(e.getPlayer().getName(), (level+1));
-								e.getPlayer().sendMessage(pl.getConfiguration().getChatConfig().getWarningMessage().replaceAll("%w", (level+1)+"/"+pl.getConfiguration().getChatConfig().getMaxWarningLevel()));
+								sendMessage(e.getPlayer(), pl.getConfiguration().getChatConfig().getWarningMessage().replaceAll("%w", (level+1)+"/"+pl.getConfiguration().getChatConfig().getMaxWarningLevel()));
 							}
 						} else {
 							warnings.put(e.getPlayer().getName(), 1);
-							e.getPlayer().sendMessage(pl.getConfiguration().getChatConfig().getWarningMessage().replaceAll("%w", "1" + "/"+pl.getConfiguration().getChatConfig().getMaxWarningLevel()));
+							sendMessage(e.getPlayer(), pl.getConfiguration().getChatConfig().getWarningMessage().replaceAll("%w", "1" + "/"+pl.getConfiguration().getChatConfig().getMaxWarningLevel()));
 						}
 					}
 				}

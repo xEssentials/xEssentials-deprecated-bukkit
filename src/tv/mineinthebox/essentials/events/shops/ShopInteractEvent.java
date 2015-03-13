@@ -16,14 +16,13 @@ import org.bukkit.metadata.FixedMetadataValue;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.instances.Shop;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 
-public class ShopInteractEvent implements Listener {
-	
-	private final xEssentials pl;
+public class ShopInteractEvent extends EventTemplate implements Listener {
 	
 	public ShopInteractEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Shop");
 	}
 
 	@EventHandler
@@ -46,19 +45,19 @@ public class ShopInteractEvent implements Listener {
 							if(pl.getConfiguration().getEconomyConfig().isEconomyEnabled()) {
 								pl.getManagers().getEcoManager().depositMoney(e.getPlayer().getName(), shop.getSellPrice());
 								e.getPlayer().getInventory().removeItem(shop.getItem());
-								e.getPlayer().sendMessage(ChatColor.GREEN + "[Shop]" + ChatColor.GRAY + " you selled your items for " + shop.getSellPrice());
+								sendMessage(e.getPlayer(), "you selled your items for " + shop.getSellPrice());
 							} else if(Hooks.isVaultEcoEnabled()) {
 								pl.getManagers().getVaultManager().desposit(e.getPlayer(), shop.getSellPrice());
 								e.getPlayer().getInventory().removeItem(shop.getItem());
-								e.getPlayer().sendMessage(ChatColor.GREEN + "[Shop]" + ChatColor.GRAY + " you selled your items for " + shop.getSellPrice());
+								sendMessage(e.getPlayer(), "you selled your items for " + shop.getSellPrice());
 							} else {
-								e.getPlayer().sendMessage(ChatColor.RED + "no vault installed!");
+								sendMessage(e.getPlayer(), ChatColor.RED + "no vault installed!");
 							}
 						} else {
-							e.getPlayer().sendMessage(ChatColor.RED + "you dont have enough of these items to sell!");
+							sendMessage(e.getPlayer(), ChatColor.RED + "you dont have enough of these items to sell!");
 						}
 					} else {
-						e.getPlayer().sendMessage(ChatColor.RED + "you cannot sell items in this shop!");
+						sendMessage(e.getPlayer(), ChatColor.RED + "you cannot sell items in this shop!");
 					}
 					e.setCancelled(true);
 				} else if(isShopSign(sign.getLines())) {
@@ -70,23 +69,23 @@ public class ShopInteractEvent implements Listener {
 									pl.getManagers().getEcoManager().depositMoney(e.getPlayer().getName(), shop.getSellPrice());
 									e.getPlayer().getInventory().removeItem(shop.getItem());
 									shop.getShopChest().getInventory().addItem(shop.getItem());
-									e.getPlayer().sendMessage(ChatColor.GREEN + "[Shop]" + ChatColor.GRAY + " you selled your items for " + shop.getSellPrice());
+									sendMessage(e.getPlayer(), "you selled your items for " + shop.getSellPrice());
 								} else if(Hooks.isVaultEcoEnabled()) {
 									pl.getManagers().getVaultManager().desposit(e.getPlayer(), shop.getSellPrice());
 									e.getPlayer().getInventory().removeItem(shop.getItem());
 									shop.getShopChest().getInventory().addItem(shop.getItem());
-									e.getPlayer().sendMessage(ChatColor.GREEN + "[Shop]" + ChatColor.GRAY + " you selled your items for " + shop.getSellPrice());
+									sendMessage(e.getPlayer(), "you selled your items for " + shop.getSellPrice());
 								} else {
-									e.getPlayer().sendMessage(ChatColor.RED + "no vault installed!");
+									sendMessage(e.getPlayer(), ChatColor.RED + "no vault installed!");
 								}
 							} else {
-								e.getPlayer().sendMessage(ChatColor.RED + "you dont have enough of these items to sell!");
+								sendMessage(e.getPlayer(), ChatColor.RED + "you dont have enough of these items to sell!");
 							}
 						} else {
-							e.getPlayer().sendMessage(ChatColor.RED + "you cannot sell items in this shop!");
+							sendMessage(e.getPlayer(), ChatColor.RED + "you cannot sell items in this shop!");
 						}
 					} else {
-						e.getPlayer().sendMessage(ChatColor.RED + "this shop does not exist!");
+						sendMessage(e.getPlayer(), ChatColor.RED + "this shop does not exist!");
 					}
 					e.setCancelled(true);
 				}
@@ -106,10 +105,10 @@ public class ShopInteractEvent implements Listener {
 								e.getPlayer().setMetadata("shop", new FixedMetadataValue(pl, sign));
 								e.getPlayer().openInventory(inv);
 							} else {
-								e.getPlayer().sendMessage(ChatColor.RED + "you need atleast have one inventory slot open!");
+								sendMessage(e.getPlayer(), ChatColor.RED + "you need atleast have one inventory slot open!");
 							}
 						} else {
-							e.getPlayer().sendMessage(ChatColor.RED + "you don't have enough money to afford this!");
+							sendMessage(e.getPlayer(), ChatColor.RED + "you don't have enough money to afford this!");
 						}
 					} else if(Hooks.isVaultEcoEnabled()) {
 						if(pl.getManagers().getVaultManager().hasEnough(e.getPlayer().getName(), shop.getBuyPrice())) {
@@ -121,13 +120,13 @@ public class ShopInteractEvent implements Listener {
 								e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.CHEST_OPEN, 1F, 1F);
 								e.getPlayer().openInventory(inv);
 							} else {
-								e.getPlayer().sendMessage(ChatColor.RED + "you need atleast have one inventory slot open!");
+								sendMessage(e.getPlayer(), ChatColor.RED + "you need atleast have one inventory slot open!");
 							}
 						} else {
-							e.getPlayer().sendMessage(ChatColor.RED + "you don't have enough money to afford this!");
+							sendMessage(e.getPlayer(), ChatColor.RED + "you don't have enough money to afford this!");
 						}
 					} else {
-						e.getPlayer().sendMessage(ChatColor.RED + "no vault installed!");
+						sendMessage(e.getPlayer(), ChatColor.RED + "no vault installed!");
 					}
 					e.setCancelled(true);
 				} else if(isShopSign(sign.getLines())) {
@@ -141,12 +140,12 @@ public class ShopInteractEvent implements Listener {
 										pl.getManagers().getEcoManager().depositMoney(sign.getLine(0), shop.getBuyPrice());
 										shop.getShopChest().getInventory().removeItem(shop.getItem());
 										e.getPlayer().getInventory().addItem(shop.getItem());
-										e.getPlayer().sendMessage(ChatColor.GREEN + "[Shop] " + ChatColor.GRAY + "you successfully bought " + shop.getItem().getType().name() + " " + shop.getAmount() + "x for " + shop.getBuyPrice());
+										sendMessage(e.getPlayer(), "you successfully bought " + shop.getItem().getType().name() + " " + shop.getAmount() + "x for " + shop.getBuyPrice());
 									} else {
-										e.getPlayer().sendMessage(ChatColor.RED + "the shop is sold out!");
+										sendMessage(e.getPlayer(), ChatColor.RED + "the shop is sold out!");
 									}
 								} else {
-									e.getPlayer().sendMessage(ChatColor.RED + "you cannot afford this!");
+									sendMessage(e.getPlayer(), ChatColor.RED + "you cannot afford this!");
 								}
 							} else if(Hooks.isVaultEcoEnabled()) {
 								if(pl.getManagers().getVaultManager().hasEnough(e.getPlayer().getName(), shop.getBuyPrice())) {
@@ -155,21 +154,21 @@ public class ShopInteractEvent implements Listener {
 										pl.getManagers().getEcoManager().depositMoney(sign.getLine(0), shop.getBuyPrice());
 										shop.getShopChest().getInventory().removeItem(shop.getItem());
 										e.getPlayer().getInventory().addItem(shop.getItem());
-										e.getPlayer().sendMessage(ChatColor.GREEN + "[Shop] " + ChatColor.GRAY + "you successfully bought " + shop.getItem().getType().name() + " " + shop.getAmount() + "x for " + shop.getBuyPrice());
+										sendMessage(e.getPlayer(), "you successfully bought " + shop.getItem().getType().name() + " " + shop.getAmount() + "x for " + shop.getBuyPrice());
 									} else {
-										e.getPlayer().sendMessage(ChatColor.RED + "the shop is sold out!");
+										sendMessage(e.getPlayer(), ChatColor.RED + "the shop is sold out!");
 									}
 								} else {
-									e.getPlayer().sendMessage(ChatColor.RED + "you cannot afford this!");
+									sendMessage(e.getPlayer(), ChatColor.RED + "you cannot afford this!");
 								}
 							} else {
-								e.getPlayer().sendMessage(ChatColor.RED + "no vault installed!");
+								sendMessage(e.getPlayer(), ChatColor.RED + "no vault installed!");
 							}
 						} else {
-							e.getPlayer().sendMessage(ChatColor.RED + "you need atleast one empty slot!");
+							sendMessage(e.getPlayer(), ChatColor.RED + "you need atleast one empty slot!");
 						}
 					} else {
-						e.getPlayer().sendMessage(ChatColor.RED + "this is not a buy sign!");
+						sendMessage(e.getPlayer(), ChatColor.RED + "this is not a buy sign!");
 					}
 					e.setCancelled(true);
 				}

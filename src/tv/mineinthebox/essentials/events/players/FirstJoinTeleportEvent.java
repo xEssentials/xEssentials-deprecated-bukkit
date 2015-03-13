@@ -14,15 +14,14 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class FirstJoinTeleportEvent implements Listener {
+public class FirstJoinTeleportEvent extends EventTemplate implements Listener {
 
 	//fixes the problem where the player teleports to vanilla spawn.
 	
-	private final xEssentials pl;
-	
 	public FirstJoinTeleportEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Spawn");
 	}
 
 	@EventHandler
@@ -55,10 +54,10 @@ public class FirstJoinTeleportEvent implements Listener {
 							xEssentials.log("did teleportation for first joining player succeeded?: " + (bol ? "success" : "failure"), LogType.DEBUG);
 						}
 					} else {
-						e.getPlayer().sendMessage(ChatColor.RED + "the world does not exists for the spawn!");
+						sendMessage(e.getPlayer(), ChatColor.RED + "the world does not exists for the spawn!");
 					}
 				} else {
-					e.getPlayer().sendMessage(ChatColor.RED + "warning the spawn is not set");
+					sendMessage(e.getPlayer(), ChatColor.RED + "warning the spawn is not set");
 				}
 			} catch(Exception r) {
 				r.printStackTrace();

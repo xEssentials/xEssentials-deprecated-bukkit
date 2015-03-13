@@ -8,10 +8,16 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.helpers.Anvil;
 import tv.mineinthebox.essentials.helpers.Anvil.AnvilDamageType;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class AnvilResetEvent implements Listener {
+public class AnvilResetEvent extends EventTemplate implements Listener {
+	
+	public AnvilResetEvent(xEssentials pl) {
+		super(pl, "Anvil");
+	}
 	
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void onOpenAnvilInventory(PlayerInteractEvent e) {
@@ -21,7 +27,7 @@ public class AnvilResetEvent implements Listener {
 				Anvil anvil = new Anvil(e.getClickedBlock());
 				anvil.setAnvilDamageType(AnvilDamageType.NON_DAMAGED);
 				
-				e.getPlayer().sendMessage(ChatColor.GOLD + "anvil refreshed!");
+				sendMessage(e.getPlayer(), ChatColor.GOLD + "anvil refreshed!");
 			}
 		}
 	}

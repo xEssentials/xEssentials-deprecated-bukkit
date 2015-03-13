@@ -6,12 +6,19 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
-public class BedrockPlaceEvent implements Listener {
+import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
+
+public class BedrockPlaceEvent extends EventTemplate implements Listener {
+	
+	public BedrockPlaceEvent(xEssentials pl) {
+		super(pl, "AntiBedrock");
+	}
 	
 	@EventHandler
 	public void onBedrockPlace(BlockPlaceEvent e) {
 		if(e.getBlock().getType() == Material.BEDROCK) {
-			e.getPlayer().sendMessage(ChatColor.RED + "you are not allowed to place bedrock!");
+			sendMessage(e.getPlayer(), ChatColor.RED + "you are not allowed to place bedrock!");
 			e.setCancelled(true);
 		}
 	}

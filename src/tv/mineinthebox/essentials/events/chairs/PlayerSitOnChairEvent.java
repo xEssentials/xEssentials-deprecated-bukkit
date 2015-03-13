@@ -25,14 +25,13 @@ import org.bukkit.potion.PotionEffectType;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.events.customevents.ChairExitEvent;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class PlayerSitOnChairEvent implements Listener, Runnable {
-	
-	private final xEssentials pl;
+public class PlayerSitOnChairEvent extends EventTemplate implements Listener, Runnable {
 	
 	public PlayerSitOnChairEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Chairs");
 	}
 
 	@EventHandler
@@ -48,7 +47,7 @@ public class PlayerSitOnChairEvent implements Listener, Runnable {
 					chicken.setPassenger(e.getPlayer());
 					chicken.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 10));
 					chicken.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 100));
-					e.getPlayer().sendMessage(ChatColor.GREEN + "you are now sitting on a chair.");
+					sendMessage(e.getPlayer(), ChatColor.GREEN + "you are now sitting on a chair.");
 					pl.getManagers().getChairManager().addChicken(e.getPlayer(), chicken);
 					Bukkit.getScheduler().runTaskTimer(pl, this, 0L, 1L);
 					XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
@@ -62,7 +61,7 @@ public class PlayerSitOnChairEvent implements Listener, Runnable {
 	public void onEject(ChairExitEvent e) {
 		pl.getManagers().getChairManager().removeChicken(e.getPlayer().getName());
 		e.getChairPiece().remove();
-		e.getPlayer().sendMessage(ChatColor.GREEN + "you no longer sit on a chair.");
+		sendMessage(e.getPlayer(), ChatColor.GREEN + "you no longer sit on a chair.");
 		XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		xp.setInChair(false);
 	}

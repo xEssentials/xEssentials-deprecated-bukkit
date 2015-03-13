@@ -16,16 +16,15 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class StaffSafeTeleportEvent implements Listener {
+public class StaffSafeTeleportEvent extends EventTemplate implements Listener {
 
 	private HashMap<String, Integer> staff = new HashMap<String, Integer>();
 	
-	private final xEssentials pl;
-	
 	public StaffSafeTeleportEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "SafeTeleport");
 	}
 
 	@EventHandler
@@ -42,10 +41,10 @@ public class StaffSafeTeleportEvent implements Listener {
 						Bukkit.getScheduler().cancelTask(staff.get(e.getPlayer().getName()));
 						staff.remove(e.getPlayer().getName());
 						staff.put(e.getPlayer().getName(), staffScheduler(e.getPlayer()));
-						e.getPlayer().sendMessage(ChatColor.GRAY + "teleportation safety against damage has been " + ChatColor.GREEN + "enabled!");
+						sendMessage(e.getPlayer(), ChatColor.GRAY + "teleportation safety against damage has been " + ChatColor.GREEN + "enabled!");
 					} else {
 						staff.put(e.getPlayer().getName(), staffScheduler(e.getPlayer()));
-						e.getPlayer().sendMessage(ChatColor.GRAY + "teleportation safety against damage has been " + ChatColor.GREEN + "enabled!");
+						sendMessage(e.getPlayer(), ChatColor.GRAY + "teleportation safety against damage has been " + ChatColor.GREEN + "enabled!");
 					}
 				}
 			}
@@ -68,7 +67,7 @@ public class StaffSafeTeleportEvent implements Listener {
 			if(staff.containsKey(e.getPlayer().getName())) {
 				Bukkit.getScheduler().cancelTask(staff.get(e.getPlayer().getName()));
 				staff.remove(e.getPlayer().getName());
-				e.getPlayer().sendMessage(ChatColor.GRAY + "teleportation safety against damage has been " + ChatColor.RED + "worn off");
+				sendMessage(e.getPlayer(), ChatColor.GRAY + "teleportation safety against damage has been " + ChatColor.RED + "worn off");
 			}
 		}
 	}
@@ -96,7 +95,7 @@ public class StaffSafeTeleportEvent implements Listener {
 			public void run() {
 				if(p instanceof Player) {
 					if(staff.containsKey(p.getName())) {
-						p.sendMessage(ChatColor.GRAY + "teleportation safety against damage has been " + ChatColor.RED + "worn off");
+						sendMessage(p, ChatColor.GRAY + "teleportation safety against damage has been " + ChatColor.RED + "worn off");
 						staff.remove(p.getName());
 					}
 				}

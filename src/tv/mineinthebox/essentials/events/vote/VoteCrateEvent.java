@@ -7,18 +7,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 import tv.mineinthebox.manco.enums.CrateType;
 import tv.mineinthebox.manco.interfaces.Crate;
 
 import com.vexsoftware.votifier.model.Vote;
 import com.vexsoftware.votifier.model.VotifierEvent;
 
-public class VoteCrateEvent implements Listener {
-	
-	private final xEssentials pl;
+public class VoteCrateEvent extends EventTemplate implements Listener {
 	
 	public VoteCrateEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "VoteCrate");
 	}
 
 	@SuppressWarnings("deprecation")
@@ -29,8 +28,8 @@ public class VoteCrateEvent implements Listener {
 			Player p = Bukkit.getPlayer(vote.getUsername());
 				Crate crate = pl.getManagers().getManCoManager().spawnRandomCrate(vote.getUsername());
 				if(p.isOnline()) {
-					p.sendMessage(pl.getConfiguration().getVoteConfig().getVotePersonalMessage().replaceAll("%player%", p.getName()).replaceAll("%reward%", (crate.getType() == CrateType.RARE ? ChatColor.DARK_PURPLE + crate.getCrateName() : crate.getCrateName())));
-					Bukkit.broadcastMessage(pl.getConfiguration().getVoteConfig().getVoteBroadcastMessage().replaceAll("%player%", vote.getUsername()).replaceAll("%reward%", (crate.getType() == CrateType.RARE ? ChatColor.DARK_PURPLE + crate.getCrateName() : crate.getCrateName())));
+					sendMessage(p, pl.getConfiguration().getVoteConfig().getVotePersonalMessage().replaceAll("%player%", p.getName()).replaceAll("%reward%", (crate.getType() == CrateType.RARE ? ChatColor.DARK_PURPLE + crate.getCrateName() : crate.getCrateName())));
+					broadcast(pl.getConfiguration().getVoteConfig().getVoteBroadcastMessage().replaceAll("%player%", vote.getUsername()).replaceAll("%reward%", (crate.getType() == CrateType.RARE ? ChatColor.DARK_PURPLE + crate.getCrateName() : crate.getCrateName())));
 				}
 		}
 	}

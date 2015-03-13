@@ -14,17 +14,17 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.enums.ProtectionType;
 import tv.mineinthebox.essentials.instances.ProtectedBlock;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.managers.ProtectionManager;
 
-public class ModifyProtectionEvent implements Listener {
+public class ModifyProtectionEvent extends EventTemplate implements Listener {
 	
 	private final ProtectionManager manager;
-	private final xEssentials pl;
 	
 	public ModifyProtectionEvent(xEssentials pl) {
+		super(pl, "Protection");
 		this.manager = pl.getManagers().getProtectionDBManager();
-		this.pl = pl;
 	}
 
 	@EventHandler(ignoreCancelled = true)
@@ -40,13 +40,13 @@ public class ModifyProtectionEvent implements Listener {
 					if(pblock.isProtected()) {
 						if(pblock.isMember(e.getPlayer().getUniqueId()) || e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 							pblock.addProtection(UUID.fromString(player.getUniqueId()));
-							e.getPlayer().sendMessage(ChatColor.GRAY + "successfully registered block permissions for player " + player);
+							sendMessage(e.getPlayer(), ChatColor.GRAY + "successfully registered block permissions for player " + player);
 							manager.removeSession(e.getPlayer().getName());
 							e.setCancelled(true);
 						}
 					} else {
 						manager.removeSession(e.getPlayer().getName());
-						e.getPlayer().sendMessage(ChatColor.RED + "could not modify permissions on a unregistered block");
+						sendMessage(e.getPlayer(), ChatColor.RED + "could not modify permissions on a unregistered block");
 						e.setCancelled(true);
 					}
 				}

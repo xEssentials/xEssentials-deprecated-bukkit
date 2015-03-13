@@ -20,14 +20,13 @@ import org.bukkit.util.Vector;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class SignBoomEvent implements Listener {
-	
-	private final xEssentials pl;
+public class SignBoomEvent extends EventTemplate implements Listener {
 	
 	public SignBoomEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "BoomSign");
 	}
 	
 
@@ -59,11 +58,11 @@ public class SignBoomEvent implements Listener {
 		if(s.getLine(0).equalsIgnoreCase("[boom]") && s.getPlayer().hasPermission(PermissionKey.SIGN_BOOM.getPermission())) {
 			s.setLine(0, ChatColor.GOLD + "[Boom]");
 			s.getBlock().getState().update(true);
-			s.getPlayer().sendMessage(ChatColor.GOLD + "[Boom] " + ChatColor.GREEN + "You successfully placed a boom sign!");
+			sendMessage(s.getPlayer(), ChatColor.GOLD + "[Boom] " + ChatColor.GREEN + "You successfully placed a boom sign!");
 		} else {
 			if(s.getLine(0).equalsIgnoreCase("[boom]") && !s.getPlayer().hasPermission(PermissionKey.SIGN_BOOM.getPermission())) {
 				s.getBlock().breakNaturally();
-				s.getPlayer().sendMessage("You are not allowed to place such signs!");
+				sendMessage(s.getPlayer(), "You are not allowed to place such signs!");
 				s.setCancelled(true);		
 			}
 		}
@@ -81,12 +80,12 @@ public class SignBoomEvent implements Listener {
 				if(sign.getLine(0).contains("[Boom]")) {
 					//log.info("Launching dispatch command....");
 					if(s.getPlayer().getGameMode().equals(GameMode.CREATIVE)) {
-						s.getPlayer().sendMessage(ChatColor.GOLD + "[Boom] " + ChatColor.RED + "You need to be survival to do this!");
+						sendMessage(s.getPlayer(), ChatColor.GOLD + "[Boom] " + ChatColor.RED + "You need to be survival to do this!");
 						s.setCancelled(true);
 					} else {
 						//log.info("This player has interacted with this sign");
 						//s.getPlayer().getServer().dispatchCommand(Bukkit.getConsoleSender(), "boom " + s.getPlayer().getName());
-						s.getPlayer().sendMessage(ChatColor.GOLD + "[Boom] " + ChatColor.GREEN + "boooooom!");
+						sendMessage(s.getPlayer(), ChatColor.GOLD + "[Boom] " + ChatColor.GREEN + "boooooom!");
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(s.getPlayer().getName());
 						xp.setBoom();
 						Location loc = s.getPlayer().getLocation();

@@ -11,16 +11,16 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ProtectionType;
 import tv.mineinthebox.essentials.instances.ProtectedBlock;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 import tv.mineinthebox.essentials.managers.ProtectionManager;
 
-public class UnregisterProtectionEvent implements Listener {
+public class UnregisterProtectionEvent extends EventTemplate implements Listener {
 	
 	private final ProtectionManager manager;
-	private final xEssentials pl;
 	
 	public UnregisterProtectionEvent(xEssentials pl) {
+		super(pl, "Protection");
 		this.manager = pl.getManagers().getProtectionDBManager();
-		this.pl = pl;
 	}
 
 	@EventHandler(ignoreCancelled = true)
@@ -33,16 +33,16 @@ public class UnregisterProtectionEvent implements Listener {
 					if(pblock.isProtected()) {
 						if(pblock.isMember(e.getPlayer().getUniqueId())) {
 							pblock.removeAll();
-							e.getPlayer().sendMessage(ChatColor.GRAY + "you have successfully unregistered " + e.getClickedBlock().getType().name());
+							sendMessage(e.getPlayer(), ChatColor.GRAY + "you have successfully unregistered " + e.getClickedBlock().getType().name());
 							manager.removeSession(e.getPlayer().getName());
 							e.setCancelled(true);
 						} else {
-							e.getPlayer().sendMessage(ChatColor.RED + "you are not the owner of this block!");
+							sendMessage(e.getPlayer(), ChatColor.RED + "you are not the owner of this block!");
 							manager.removeSession(e.getPlayer().getName());
 							e.setCancelled(true);
 						}
 					} else {
-						e.getPlayer().sendMessage(ChatColor.RED + "this block was already unregistered.");
+						sendMessage(e.getPlayer(), ChatColor.RED + "this block was already unregistered.");
 						manager.removeSession(e.getPlayer().getName());
 						e.setCancelled(true);
 					}

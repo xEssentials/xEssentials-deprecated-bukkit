@@ -11,13 +11,12 @@ import org.bukkit.metadata.FixedMetadataValue;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.hook.Hooks;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class KillBountyEvent implements Listener {
-	
-	private final xEssentials pl;
+public class KillBountyEvent extends EventTemplate implements Listener {
 	
 	public KillBountyEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "KillBounty");
 	}
 	
 	@EventHandler
@@ -36,7 +35,7 @@ public class KillBountyEvent implements Listener {
 					return;
 				}
 				pl.getManagers().getVaultManager().desposit(p, pl.getConfiguration().getPvpConfig().getKillBountyPrice());
-				p.sendMessage(ChatColor.GOLD + "you earned " + pl.getConfiguration().getPvpConfig().getKillBountyPrice() + "$! by killing " + ChatColor.GREEN + e.getEntity().getType().name().toLowerCase().replace("_", " "));
+				sendMessage(p, ChatColor.GOLD + "you earned " + pl.getConfiguration().getPvpConfig().getKillBountyPrice() + "$! by killing " + ChatColor.GREEN + e.getEntity().getType().name().toLowerCase().replace("_", " "));
 			}
 		}
 	}

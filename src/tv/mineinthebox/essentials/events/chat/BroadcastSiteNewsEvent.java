@@ -4,23 +4,22 @@ import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.events.customevents.RssFeedEvent;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class BroadcastSiteNewsEvent implements Listener {
+public class BroadcastSiteNewsEvent extends EventTemplate implements Listener {
 	
+	public BroadcastSiteNewsEvent(xEssentials pl) {
+		super(pl, "News");
+	}
+
 	@EventHandler
 	public void onBroadCastRss(RssFeedEvent e) {
-		if(e.getRssFeed().getTitle().contains("Maintenance") || e.getRssFeed().getTitle().contains("maintenance") || e.getRssFeed().getTitle().contains("Maintance") || e.getRssFeed().getTitle().contains("maintance")) {
-			e.getPlayer().sendMessage(ChatColor.GREEN + "[news-important]" + ChatColor.GRAY + ChatColor.UNDERLINE + e.getRssFeed().getAuthor() + ChatColor.GRAY + " has posted a new thread!");
-			e.getPlayer().sendMessage(ChatColor.GREEN + "[news-important]" + ChatColor.GRAY + "title: " + e.getRssFeed().getTitle());
-			e.getPlayer().sendMessage(ChatColor.GREEN + "[news-important]" + ChatColor.GRAY + "url: " + e.getRssFeed().getLink());
-			e.getPlayer().sendMessage(ChatColor.GREEN + "[news-important]" + ChatColor.GRAY + "feel free to join on this thread :)!");		
-		} else {
-			e.getPlayer().sendMessage(ChatColor.GREEN + "[news]" + ChatColor.GRAY + ChatColor.UNDERLINE + e.getRssFeed().getAuthor() + ChatColor.GRAY + " has posted a new thread!");
-			e.getPlayer().sendMessage(ChatColor.GREEN + "[news]" + ChatColor.GRAY + "title: " + e.getRssFeed().getTitle());
-			e.getPlayer().sendMessage(ChatColor.GREEN + "[news]" + ChatColor.GRAY + "url: " + e.getRssFeed().getLink());
-			e.getPlayer().sendMessage(ChatColor.GREEN + "[news]" + ChatColor.GRAY + "feel free to join on this thread :)!");
-		}
+			sendMessage(e.getPlayer(), ChatColor.GREEN + "[news]" + ChatColor.GRAY + ChatColor.UNDERLINE + e.getRssFeed().getAuthor() + ChatColor.GRAY + " has posted a new thread!");
+			sendMessage(e.getPlayer(), ChatColor.GREEN + "[news]" + ChatColor.GRAY + "title: " + e.getRssFeed().getTitle());
+			sendMessage(e.getPlayer(), ChatColor.GREEN + "[news]" + ChatColor.GRAY + "url: " + e.getRssFeed().getLink());
+			sendMessage(e.getPlayer(), ChatColor.GREEN + "[news]" + ChatColor.GRAY + "feel free to join on this thread :)!");
 	}
 
 }

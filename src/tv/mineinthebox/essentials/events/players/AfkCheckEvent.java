@@ -16,15 +16,14 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.events.customevents.PlayerAfkEvent;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 @SuppressWarnings("deprecation")
-public class AfkCheckEvent implements Listener {
-	
-	private final xEssentials pl;
+public class AfkCheckEvent extends EventTemplate implements Listener {
 	
 	public AfkCheckEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Afk");
 	}
 
 	@EventHandler
@@ -47,7 +46,7 @@ public class AfkCheckEvent implements Listener {
 						return;
 					}
 					xp.removeAfk();
-					Bukkit.broadcastMessage(ChatColor.GREEN + e.getPlayer().getName() + " is no longer afk");
+					broadcast(ChatColor.GREEN + e.getPlayer().getName() + " is no longer afk");
 					Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), false, true, pl));
 				}
 			} else if(destz > 0.0) {
@@ -57,7 +56,7 @@ public class AfkCheckEvent implements Listener {
 						return;
 					}
 					xp.removeAfk();
-					Bukkit.broadcastMessage(ChatColor.GREEN + e.getPlayer().getName() + " is no longer afk");
+					broadcast(ChatColor.GREEN + e.getPlayer().getName() + " is no longer afk");
 					Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), false, true, pl));
 				}
 			}
@@ -142,7 +141,7 @@ public class AfkCheckEvent implements Listener {
 		for(XPlayer xp : pl.getManagers().getPlayerManager().getPlayers()) {
 			if(e.getMessage().contains(xp.getPlayer().getName())) {
 				if(xp.isAfk()) {
-					e.getPlayer().sendMessage(ChatColor.GREEN + xp.getPlayer().getName() + " has been afk [ " + xp.getAfkReason() + " ]");
+					sendMessage(e.getPlayer(), ChatColor.GREEN + xp.getPlayer().getName() + " has been afk [ " + xp.getAfkReason() + " ]");
 				}
 			}
 		}

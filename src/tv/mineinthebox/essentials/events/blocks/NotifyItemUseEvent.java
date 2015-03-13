@@ -11,13 +11,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class NotifyItemUseEvent implements Listener {
-	
-	private final xEssentials pl;
+public class NotifyItemUseEvent extends EventTemplate implements Listener {
 	
 	public NotifyItemUseEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Item Notification");
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -32,7 +31,7 @@ public class NotifyItemUseEvent implements Listener {
 						if(e.getItem().getDurability() == durabillity) {
 							for(Player p : Bukkit.getOnlinePlayers()) {
 								if(p.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-									p.sendMessage(pl.getConfiguration().getBlockConfig().getNotifyOnConsumeMessage().replace("%PLAYER%", e.getPlayer().getName()).replace("%ITEM%", mat.name()).replace("%LOCATION%", "x: " + e.getClickedBlock().getX() + " y: " + e.getClickedBlock().getY() + " z: " + e.getClickedBlock().getZ() + " world: " + e.getClickedBlock().getWorld().getName()));
+									sendMessage(p, pl.getConfiguration().getBlockConfig().getNotifyOnConsumeMessage().replace("%PLAYER%", e.getPlayer().getName()).replace("%ITEM%", mat.name()).replace("%LOCATION%", "x: " + e.getClickedBlock().getX() + " y: " + e.getClickedBlock().getY() + " z: " + e.getClickedBlock().getZ() + " world: " + e.getClickedBlock().getWorld().getName()));
 								}
 							}
 							break;

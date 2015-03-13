@@ -15,15 +15,14 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.ProtectedBlock;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class BlockProtectedEvent implements Listener {
+public class BlockProtectedEvent extends EventTemplate implements Listener {
 
 	private final BlockFace[] faces = {BlockFace.UP, BlockFace.DOWN, BlockFace.SELF, BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST};
 
-	private final xEssentials pl;
-	
 	public BlockProtectedEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Protection");
 	}
 	
 	/**
@@ -67,7 +66,7 @@ public class BlockProtectedEvent implements Listener {
 			return;
 		}
 		if(!canBlockPlaced(e.getPlayer(), e.getBlock())) {
-			e.getPlayer().sendMessage(pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getBlock().getType().name()));
+			sendMessage(e.getPlayer(), pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getBlock().getType().name()));
 			e.setCancelled(true);
 		}
 	}
@@ -75,7 +74,7 @@ public class BlockProtectedEvent implements Listener {
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onBreak(BlockPlaceEvent e) {
 		if(!canBlockPlaced(e.getPlayer(), e.getBlock())) {
-			e.getPlayer().sendMessage(pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getBlock().getType().name()));
+			sendMessage(e.getPlayer(), pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getBlock().getType().name()));
 			e.setCancelled(true);
 		}
 	}
@@ -84,7 +83,7 @@ public class BlockProtectedEvent implements Listener {
 	public void onBreak(PlayerInteractEvent e) {
 		if(e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if(!canBlockPlaced(e.getPlayer(), e.getClickedBlock())) {
-				e.getPlayer().sendMessage(pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getClickedBlock().getType().name()));
+				sendMessage(e.getPlayer(), pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getClickedBlock().getType().name()));
 				e.setCancelled(true);
 			}
 		}

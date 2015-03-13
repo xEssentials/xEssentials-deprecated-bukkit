@@ -18,13 +18,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.ProtectedBlock;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class JukeboxProtectedEvent implements Listener {
-	
-	private final xEssentials pl;
+public class JukeboxProtectedEvent extends EventTemplate implements Listener {
 	
 	public JukeboxProtectedEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Protection");
 	}
 
 	@EventHandler(ignoreCancelled = true)
@@ -32,7 +31,7 @@ public class JukeboxProtectedEvent implements Listener {
 		if(e.getBlock().getType() == Material.JUKEBOX) {
 			ProtectedBlock pblock = new ProtectedBlock(pl, e.getBlock());
 			pblock.addProtection(e.getPlayer().getUniqueId());
-			e.getPlayer().sendMessage(ChatColor.GREEN + "registered private jukebox");
+			sendMessage(e.getPlayer(), ChatColor.GREEN + "registered private jukebox");
 		}
 	}
 	
@@ -46,9 +45,9 @@ public class JukeboxProtectedEvent implements Listener {
 			if(pblock.isProtected()) {
 				if(pblock.isMember(e.getPlayer().getUniqueId()) || e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 					pblock.removeAll();
-					e.getPlayer().sendMessage(ChatColor.GREEN + "unregistered that jukebox.");
+					sendMessage(e.getPlayer(), ChatColor.GREEN + "unregistered that jukebox.");
 				} else {
-					e.getPlayer().sendMessage(pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getBlock().getType().name()));
+					sendMessage(e.getPlayer(), pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getBlock().getType().name()));
 					e.setCancelled(true);
 				}
 			}
@@ -62,9 +61,9 @@ public class JukeboxProtectedEvent implements Listener {
 				ProtectedBlock pblock = new ProtectedBlock(pl, e.getClickedBlock());
 				if(pblock.isProtected()) {
 					if(pblock.isMember(e.getPlayer().getUniqueId()) || e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-						e.getPlayer().sendMessage(ChatColor.GREEN + "opening privated jukebox of " + (pblock.isMember(e.getPlayer().getUniqueId()) ? "you" : Arrays.toString(pblock.getMembers().toArray())));
+						sendMessage(e.getPlayer(), ChatColor.GREEN + "opening privated jukebox of " + (pblock.isMember(e.getPlayer().getUniqueId()) ? "you" : Arrays.toString(pblock.getMembers().toArray())));
 					} else {
-						e.getPlayer().sendMessage(pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getClickedBlock().getType().name()));
+						sendMessage(e.getPlayer(), pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getClickedBlock().getType().name()));
 						e.setCancelled(true);
 					}
 				}

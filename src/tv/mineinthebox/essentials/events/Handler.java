@@ -178,7 +178,7 @@ public class Handler {
 			setListener(new PlayerBorderEvent(pl));
 		}
 		if(pl.getConfiguration().getChatConfig().isRssBroadcastEnabled()) {
-			setListener(new BroadcastSiteNewsEvent());
+			setListener(new BroadcastSiteNewsEvent(pl));
 		}
 		setListener(new SaveLastLocationEvent(pl));
 		setListener(new TorchEvent(pl));
@@ -246,12 +246,12 @@ public class Handler {
 		setListener(new PlayerRespawnTeleportEvent(pl));
 		setListener(new PotatoMoveEvent(pl));
 		setListener(new AfkCheckEvent(pl));
-		setListener(new PlayerCheckNameEvent());
+		setListener(new PlayerCheckNameEvent(pl));
 		setListener(new PlayerFloorEvent(pl));
 		setListener(new PlayerWallEvent(pl));
 		setListener(new DoubleJumpEvent(pl));
 		if(pl.getConfiguration().getPlayerConfig().isCustomPortalSizeDisabled()) {setListener(new PortalSizeEvent());}
-		if(pl.getConfiguration().getPlayerConfig().isPortalsDisabled()) {setListener(new DisablePortalCreationEvent());}
+		if(pl.getConfiguration().getPlayerConfig().isPortalsDisabled()) {setListener(new DisablePortalCreationEvent(pl));}
 		if(pl.getConfiguration().getPlayerConfig().isHungerCancelled()) {setListener(new HungerEvent());}
 		if(pl.getConfiguration().getPlayerConfig().isKeepInventoryOnDeathEnabled()) {setListener(new PlayerHoldItemsEvent(pl));}
 		if(pl.getConfiguration().getPlayerConfig().isCanEntityStealHatOnPlayersDeath()) {setListener(new EntityUseHeadOnPlayerDeathEvent());}
@@ -262,7 +262,7 @@ public class Handler {
 			setListener(glass);
 			glass.startRegen();
 		}
-		if(pl.getConfiguration().getPlayerConfig().isAutoAnvilEnabled()) {setListener(new AnvilResetEvent());}
+		if(pl.getConfiguration().getPlayerConfig().isAutoAnvilEnabled()) {setListener(new AnvilResetEvent(pl));}
 		if(pl.getConfiguration().getEntityConfig().isRealisticTreesEnabled()) {setListener(new RealisticTreeEvent(pl));}
 		//pvp.yml
 		if(pl.getConfiguration().getPvpConfig().isFakePvpEnabled()) {setListener(new FakePvpEvent(pl));}
@@ -285,7 +285,7 @@ public class Handler {
 			setListener(new ColorSignEvent());	
 		}
 		if(pl.getConfiguration().getSignConfig().isFreeSignEnabled()) {
-			setListener(new FreeSignEvent());	
+			setListener(new FreeSignEvent(pl));	
 		}
 		if(pl.getConfiguration().getSignConfig().isFireworkSignEnabled()) {
 			setListener(new FireworkSignEvent(pl));	
@@ -294,16 +294,16 @@ public class Handler {
 			setListener(new SignBoomEvent(pl));	
 		}
 		if(pl.getConfiguration().getSignConfig().isGetYourHeadSignEnabled()) {
-			setListener(new GetYourHeadSignEvent());	
+			setListener(new GetYourHeadSignEvent(pl));	
 		}
 		if(pl.getConfiguration().getSignConfig().isWarpSignEnabled()) {
 			setListener(new WarpSignEvent(pl));	
 		}
 		if(pl.getConfiguration().getSignConfig().isWildSignEnabled()) {
-			setListener(new WildSignEvent());	
+			setListener(new WildSignEvent(pl));	
 		}
 		if(pl.getConfiguration().getSignConfig().isDispenserEnabled()) {
-			setListener(new DispenseSignEvent());
+			setListener(new DispenseSignEvent(pl));
 		}
 		if(pl.getConfiguration().getShopConfig().isShopEnabled()) {
 			//TO-DO:recreate shops.
@@ -315,8 +315,8 @@ public class Handler {
 
 		//block events
 		if(pl.getConfiguration().getBlockConfig().isNotifyOnBreakEnabled()) {setListener(new NotifyAdminOnBlockBreakEvent(pl));}
-		if(pl.getConfiguration().getBlockConfig().isBedrockBreakDisabled()) {setListener(new BedrockBreakEvent());}
-		if(pl.getConfiguration().getBlockConfig().isBedrockPlaceDisabled()) {setListener(new BedrockPlaceEvent());}
+		if(pl.getConfiguration().getBlockConfig().isBedrockBreakDisabled()) {setListener(new BedrockBreakEvent(pl));}
+		if(pl.getConfiguration().getBlockConfig().isBedrockPlaceDisabled()) {setListener(new BedrockPlaceEvent(pl));}
 		if(pl.getConfiguration().getBlockConfig().isNotifyOnConsumeEnabled()) {setListener(new NotifyItemUseEvent(pl));}
 		if(pl.getConfiguration().getBlockConfig().isBlockBlacklistEnabled()) {setListener(new BlockBlackListEvent(pl));}
 		if(pl.getConfiguration().getBlockConfig().isItemBlacklistEnabled()) {setListener(new ItemBlackListEvent(pl));}
@@ -369,7 +369,7 @@ public class Handler {
 
 		//elevator events
 		if(pl.getConfiguration().getMiscConfig().isElevatorsEnabled()) {
-			setListener(new ElevatorCreateEvent());
+			setListener(new ElevatorCreateEvent(pl));
 			setListener(new ElevatorInteractEvent(pl));
 		}
 

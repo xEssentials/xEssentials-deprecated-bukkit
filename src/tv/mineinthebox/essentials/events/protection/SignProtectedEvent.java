@@ -18,13 +18,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.ProtectedBlock;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class SignProtectedEvent implements Listener {
-	
-	private final xEssentials pl;
+public class SignProtectedEvent extends EventTemplate implements Listener {
 	
 	public SignProtectedEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Protection");
 	}
 
 	@EventHandler(ignoreCancelled = true)
@@ -32,7 +31,7 @@ public class SignProtectedEvent implements Listener {
 		if(e.getBlock().getType() == Material.SIGN_POST || e.getBlock().getType() == Material.WALL_SIGN) {
 			ProtectedBlock pblock = new ProtectedBlock(pl, e.getBlock());
 			pblock.addProtection(e.getPlayer().getUniqueId());
-			e.getPlayer().sendMessage(ChatColor.GREEN + "successfully registered privated sign");
+			sendMessage(e.getPlayer(), ChatColor.GREEN + "successfully registered privated sign");
 		}
 	}
 	
@@ -47,9 +46,9 @@ public class SignProtectedEvent implements Listener {
 			if(pblock.isProtected()) {
 				if(pblock.isMember(e.getPlayer().getUniqueId()) || e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 					pblock.removeAll();
-					e.getPlayer().sendMessage(ChatColor.GREEN + "unregistered that sign.");
+					sendMessage(e.getPlayer(), ChatColor.GREEN + "unregistered that sign.");
 				} else {
-					e.getPlayer().sendMessage(pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getBlock().getType().name()));
+					sendMessage(e.getPlayer(), pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getBlock().getType().name()));
 					e.setCancelled(true);
 				}
 			}
@@ -63,9 +62,9 @@ public class SignProtectedEvent implements Listener {
 				ProtectedBlock pblock = new ProtectedBlock(pl, e.getClickedBlock());
 				if(pblock.isProtected()) {
 					if(pblock.isMember(e.getPlayer().getUniqueId()) || e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-						e.getPlayer().sendMessage(ChatColor.GREEN + "this sign belongs to " + (pblock.isMember(e.getPlayer().getUniqueId()) ? "you" : Arrays.toString(pblock.getMembers().toArray())));
+						sendMessage(e.getPlayer(), ChatColor.GREEN + "this sign belongs to " + (pblock.isMember(e.getPlayer().getUniqueId()) ? "you" : Arrays.toString(pblock.getMembers().toArray())));
 					} else {
-						e.getPlayer().sendMessage(pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getClickedBlock().getType().name()));
+						sendMessage(e.getPlayer(), pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getClickedBlock().getType().name()));
 					}
 				}
 			}

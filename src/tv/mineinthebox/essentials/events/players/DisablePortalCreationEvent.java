@@ -9,9 +9,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.PortalCreateEvent;
 
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class DisablePortalCreationEvent implements Listener {
+public class DisablePortalCreationEvent extends EventTemplate implements Listener {
+	
+	public DisablePortalCreationEvent(xEssentials pl) {
+		super(pl, "Portal");
+	}
 	
 	@EventHandler
 	public void onCreatePortal(PortalCreateEvent e) {
@@ -20,7 +26,7 @@ public class DisablePortalCreationEvent implements Listener {
 		if(p instanceof Player) {
 			if(!p.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 				e.setCancelled(true);
-				p.sendMessage(ChatColor.RED + "portal creation has been disabled on the server!");
+				sendMessage(p, ChatColor.RED + "portal creation has been disabled on the server!");
 			}
 		}
 	}

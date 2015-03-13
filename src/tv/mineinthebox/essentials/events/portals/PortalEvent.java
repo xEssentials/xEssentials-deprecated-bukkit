@@ -18,14 +18,14 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.Portal;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class PortalEvent implements Listener {
+public class PortalEvent extends EventTemplate implements Listener {
 
 	private final HashMap<String, Long> time = new HashMap<String, Long>();
-	private final xEssentials pl;
 	
 	public PortalEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Portal");
 	}
 	
 	
@@ -52,7 +52,7 @@ public class PortalEvent implements Listener {
 							e.setCancelled(true);
 							Long millis = (time.get(e.getPlayer().getName())-System.currentTimeMillis());
 							String msg = String.format("%d:%s", TimeUnit.MILLISECONDS.toMinutes(millis), TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
-							e.getPlayer().sendMessage(ChatColor.GRAY + "cooldown please wait: " + ChatColor.GREEN + msg + ChatColor.GRAY + " minutes");
+							sendMessage(e.getPlayer(), ChatColor.GRAY + "cooldown please wait: " + ChatColor.GREEN + msg + ChatColor.GRAY + " minutes");
 							return;
 						}
 					} else {

@@ -13,13 +13,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class PlayerRespawnTeleportEvent implements Listener {
-	
-	private final xEssentials pl;
+public class PlayerRespawnTeleportEvent extends EventTemplate implements Listener {
 	
 	public PlayerRespawnTeleportEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Respawn");
 	}
 	
 	@EventHandler
@@ -37,12 +36,12 @@ public class PlayerRespawnTeleportEvent implements Listener {
 				if(w instanceof World) {
 					Location loc = new Location(w, x, y, z, yaw, e.getPlayer().getLocation().getPitch());
 					e.setRespawnLocation(loc);
-					e.getPlayer().sendMessage(ChatColor.GREEN + "teleporting to spawn ;-)");
+					sendMessage(e.getPlayer(), ChatColor.GREEN + "teleporting to spawn ;-)");
 				} else {
-					e.getPlayer().sendMessage(ChatColor.RED + "the world does not exists for the spawn!");
+					sendMessage(e.getPlayer(), ChatColor.RED + "the world does not exists for the spawn!");
 				}
 			} else {
-				e.getPlayer().sendMessage(ChatColor.RED + "warning the spawn is not set");
+				sendMessage(e.getPlayer(), ChatColor.RED + "warning the spawn is not set");
 			}
 		} catch(Exception r) {
 			r.printStackTrace();

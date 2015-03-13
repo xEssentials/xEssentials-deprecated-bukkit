@@ -9,13 +9,12 @@ import org.bukkit.event.block.BlockBreakEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.Bridge;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class RemoveBridgeEvent implements Listener {
-	
-	private final xEssentials pl;
+public class RemoveBridgeEvent extends EventTemplate implements Listener {
 	
 	public RemoveBridgeEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Bridge");
 	}
 
 	@EventHandler
@@ -30,7 +29,7 @@ public class RemoveBridgeEvent implements Listener {
 				if(pl.getManagers().getBridgeManager().isBridgeSign(e.getBlock())) {
 					Bridge bridge = pl.getManagers().getBridgeManager().getBridgeBySign(e.getBlock());
 					if(bridge instanceof Bridge) {
-						e.getPlayer().sendMessage(ChatColor.GREEN + "you have successfully removed the bridge!");
+						sendMessage(e.getPlayer(), ChatColor.GREEN + "you have successfully removed the bridge!");
 						bridge.remove();
 					}
 				}

@@ -12,9 +12,15 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Sign;
 
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class DispenseSignEvent implements Listener {
+public class DispenseSignEvent extends EventTemplate implements Listener {
+	
+	public DispenseSignEvent(xEssentials pl) {
+		super(pl, "DispenseSign");
+	}
 	
 	@EventHandler
 	public void onCreate(SignChangeEvent e) {
@@ -25,13 +31,13 @@ public class DispenseSignEvent implements Listener {
 				
 				if(e.getBlock().getRelative(sign.getAttachedFace()).getType() == Material.DISPENSER) {
 					e.setLine(0, ChatColor.BLUE + "[Dispense]");
-					e.getPlayer().sendMessage(ChatColor.GREEN + "you successfully placed a dispense sign!");	
+					sendMessage(e.getPlayer(), ChatColor.GREEN + "you successfully placed a dispense sign!");	
 				} else {
-					e.getPlayer().sendMessage(ChatColor.RED + "your sign has to be attached to a dispenser!");
+					sendMessage(e.getPlayer(), ChatColor.RED + "your sign has to be attached to a dispenser!");
 					e.setCancelled(true);
 				}
 			} else {
-				e.getPlayer().sendMessage(ChatColor.RED + "you are not allowed to make dispense signs!");
+				sendMessage(e.getPlayer(), ChatColor.RED + "you are not allowed to make dispense signs!");
 				e.setCancelled(true);
 			}
 		}

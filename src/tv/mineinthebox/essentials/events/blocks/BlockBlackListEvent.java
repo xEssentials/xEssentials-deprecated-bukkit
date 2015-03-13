@@ -9,14 +9,13 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
 @SuppressWarnings("deprecation")
-public class BlockBlackListEvent implements Listener {
-	
-	private final xEssentials pl;
+public class BlockBlackListEvent extends EventTemplate implements Listener {
 	
 	public BlockBlackListEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "BlockBlackList");
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
@@ -27,7 +26,7 @@ public class BlockBlackListEvent implements Listener {
 			Material mat = Material.getMaterial(mats[0]);
 			if(e.getBlock().getType() == mat) {
 				if(e.getBlock().getData() == subData) {
-					e.getPlayer().sendMessage(ChatColor.RED + "you are not allowed to break this block because this block is blacklisted!");
+					sendMessage(e.getPlayer(), ChatColor.RED + "you are not allowed to break this block because this block is blacklisted!");
 					e.setCancelled(true);
 					break;
 				}
@@ -43,7 +42,7 @@ public class BlockBlackListEvent implements Listener {
 			Material mat = Material.getMaterial(mats[0]);
 			if(e.getBlock().getType() == mat) {
 				if(e.getBlock().getData() == subData) {
-					e.getPlayer().sendMessage(ChatColor.RED + "you are not allowed to place this block because this block is blacklisted!");
+					sendMessage(e.getPlayer(), ChatColor.RED + "you are not allowed to place this block because this block is blacklisted!");
 					e.setCancelled(true);
 					break;
 				}

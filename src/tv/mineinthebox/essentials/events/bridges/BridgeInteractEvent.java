@@ -10,13 +10,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.Bridge;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class BridgeInteractEvent implements Listener {
-	
-	private final xEssentials pl;
+public class BridgeInteractEvent extends EventTemplate implements Listener {
 	
 	public BridgeInteractEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Bridge");
 	}
 	
 	@EventHandler
@@ -29,13 +28,13 @@ public class BridgeInteractEvent implements Listener {
 					if(bridge instanceof Bridge) {
 						if(bridge.isToggled()) {
 							bridge.toggleBridge();
-							e.getPlayer().sendMessage(ChatColor.GREEN + "bridge has been untoggled!");
+							sendMessage(e.getPlayer(), ChatColor.GREEN + "bridge has been untoggled!");
 						} else {
 							bridge.toggleBridge();
-							e.getPlayer().sendMessage(ChatColor.GREEN + "bridge has been toggled!");
+							sendMessage(e.getPlayer(), ChatColor.GREEN + "bridge has been toggled!");
 						}	
 					} else {
-						e.getPlayer().sendMessage(ChatColor.RED + "invalid bridge, perhaps you need to reassign the bridge?");
+						sendMessage(e.getPlayer(), ChatColor.RED + "invalid bridge, perhaps you need to reassign the bridge?");
 					}
 				}
 			}

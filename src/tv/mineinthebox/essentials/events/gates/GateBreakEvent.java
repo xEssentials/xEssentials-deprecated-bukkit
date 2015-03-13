@@ -6,13 +6,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class GateBreakEvent implements Listener {
-	
-	private final xEssentials pl;
+public class GateBreakEvent extends EventTemplate implements Listener {
 	
 	public GateBreakEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Gate");
 	}
 
 	@EventHandler
@@ -22,10 +21,10 @@ public class GateBreakEvent implements Listener {
 		}
 		
 		if(pl.getManagers().getGateManager().isGateFenceBlock(e.getBlock())) {
-			e.getPlayer().sendMessage(ChatColor.RED + "you cannot break this block!");
+			sendMessage(e.getPlayer(), ChatColor.RED + "you cannot break this block!");
 			e.setCancelled(true);
 		} else if(pl.getManagers().getGateManager().isGateFrameBlock(e.getBlock())) {
-			e.getPlayer().sendMessage(ChatColor.RED + "you cannot break this block!");
+			sendMessage(e.getPlayer(), ChatColor.RED + "you cannot break this block!");
 			e.setCancelled(true);
 		}
 	}

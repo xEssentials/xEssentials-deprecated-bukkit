@@ -11,16 +11,15 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class HumanSpamCommandEvent implements Listener {
+public class HumanSpamCommandEvent extends EventTemplate implements Listener {
 	
 	private final HashMap<String, String> cmdmsg1 = new HashMap<String, String>();
 	private final HashMap<String, String> cmdmsg2 = new HashMap<String, String>();
 	
-	private final xEssentials pl;
-	
 	public HumanSpamCommandEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "HumanCommandSpam");
 	}
 	
 	@EventHandler
@@ -38,7 +37,7 @@ public class HumanSpamCommandEvent implements Listener {
 				if(cmdmsg1.get(e.getPlayer().getName()).equalsIgnoreCase(e.getMessage())) {
 					cmdmsg1.remove(e.getPlayer().getName());
 					cmdmsg2.put(e.getPlayer().getName(), e.getMessage());
-					e.getPlayer().sendMessage(ChatColor.RED + "Warning if you post one more time the same message you will be kicked!");
+					sendMessage(e.getPlayer(), ChatColor.RED + "Warning if you post one more time the same message you will be kicked!");
 				} else {
 					cmdmsg1.put(e.getPlayer().getName(), e.getMessage());
 				}

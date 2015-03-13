@@ -18,13 +18,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.instances.ProtectedBlock;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class ChestProtectedEvent implements Listener {
-	
-	private final xEssentials pl;
+public class ChestProtectedEvent extends EventTemplate implements Listener {
 	
 	public ChestProtectedEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Protection");
 	}
 
 	@EventHandler(ignoreCancelled = true)
@@ -32,9 +31,9 @@ public class ChestProtectedEvent implements Listener {
 		if(e.getBlock().getType() == Material.CHEST || e.getBlock().getType() == Material.TRAPPED_CHEST) {
 			ProtectedBlock pblock = new ProtectedBlock(pl, e.getBlock());
 			if(pblock.addProtection(e.getPlayer().getUniqueId())) {
-				e.getPlayer().sendMessage(ChatColor.GREEN + "registered private chest");
+				sendMessage(e.getPlayer(), ChatColor.GREEN + "registered private chest");
 			} else {
-				e.getPlayer().sendMessage(pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getBlock().getType().name()));
+				sendMessage(e.getPlayer(), pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getBlock().getType().name()));
 				e.setCancelled(true);
 			}
 		}
@@ -50,9 +49,9 @@ public class ChestProtectedEvent implements Listener {
 			if(pblock.isProtected()) {
 				if(pblock.isMember(e.getPlayer().getUniqueId()) || e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 					pblock.removeAll();
-					e.getPlayer().sendMessage(ChatColor.GREEN + "unregistered that chest");
+					sendMessage(e.getPlayer(), ChatColor.GREEN + "unregistered that chest");
 				} else {
-					e.getPlayer().sendMessage(pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getBlock().getType().name()));
+					sendMessage(e.getPlayer(), pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getBlock().getType().name()));
 					e.setCancelled(true);
 				}
 			}
@@ -66,9 +65,9 @@ public class ChestProtectedEvent implements Listener {
 				ProtectedBlock pblock = new ProtectedBlock(pl, e.getClickedBlock());
 				if(pblock.isProtected()) {
 					if(pblock.isMember(e.getPlayer().getUniqueId()) || e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-						e.getPlayer().sendMessage(ChatColor.GREEN + "opening privated chest of " + (pblock.isMember(e.getPlayer().getUniqueId()) ? "you" : Arrays.toString(pblock.getMembers().toArray())));
+						sendMessage(e.getPlayer(), ChatColor.GREEN + "opening privated chest of " + (pblock.isMember(e.getPlayer().getUniqueId()) ? "you" : Arrays.toString(pblock.getMembers().toArray())));
 					} else {
-						e.getPlayer().sendMessage(pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getClickedBlock().getType().name()));
+						sendMessage(e.getPlayer(), pl.getConfiguration().getProtectionConfig().getDisallowMessage().replace("%BLOCK%", e.getClickedBlock().getType().name()));
 						e.setCancelled(true);
 					}
 				}

@@ -2,23 +2,22 @@ package tv.mineinthebox.essentials.events.players;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.OpKit;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class OpKitEvent implements Listener {
-	
-	private final xEssentials pl;
+public class OpKitEvent extends EventTemplate implements Listener {
 	
 	public OpKitEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "OpKit");
 	}
 
 	@EventHandler
@@ -28,7 +27,7 @@ public class OpKitEvent implements Listener {
 			if(e.getInventory().getTitle().equalsIgnoreCase(ChatColor.GOLD + "op kit")) {
 				Player p = (Player) e.getWhoClicked();
 				
-				String enjoymsg = String.format(pl.getConfiguration().getCommandConfig().getPrefix(), "Op kit") + pl.getConfiguration().getCommandConfig().getSuffix() +"enjoy your kit!";
+				String enjoymsg = "enjoy your kit!";
 				
 				if(e.getCurrentItem().getType() == OpKit.DIAMOND_KIT.getButton().getType()) {
 					e.getWhoClicked().getInventory().setHelmet(OpKit.DIAMOND_KIT.getHelmet());
@@ -42,7 +41,7 @@ public class OpKitEvent implements Listener {
 					e.getWhoClicked().closeInventory();
 					p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 200));
 					p.playSound(p.getLocation(), Sound.PORTAL_TRAVEL, 1F, 1F);
-					p.sendMessage(enjoymsg);
+					sendMessage(p, enjoymsg);
 					e.setCancelled(true);
 				} else if(e.getCurrentItem().getType() == OpKit.IRON_KIT.getButton().getType()) {
 					e.getWhoClicked().getInventory().setHelmet(OpKit.IRON_KIT.getHelmet());
@@ -56,7 +55,7 @@ public class OpKitEvent implements Listener {
 					e.getWhoClicked().closeInventory();
 					p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 200));
 					p.playSound(p.getLocation(), Sound.PORTAL_TRAVEL, 1F, 1F);
-					p.sendMessage(enjoymsg);
+					sendMessage(p, enjoymsg);
 					e.setCancelled(true);
 				} else if(e.getCurrentItem().getType() == OpKit.STONE_KIT.getButton().getType()) {
 					e.getWhoClicked().getInventory().setHelmet(OpKit.STONE_KIT.getHelmet());
@@ -70,7 +69,7 @@ public class OpKitEvent implements Listener {
 					e.getWhoClicked().closeInventory();
 					p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 200));
 					p.playSound(p.getLocation(), Sound.PORTAL_TRAVEL, 1F, 1F);
-					p.sendMessage(enjoymsg);
+					sendMessage(p, enjoymsg);
 					e.setCancelled(true);
 				} else {
 					e.setCancelled(true);

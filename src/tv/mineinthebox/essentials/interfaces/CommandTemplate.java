@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import tv.mineinthebox.essentials.xEssentials;
 
@@ -21,7 +20,7 @@ public abstract class CommandTemplate extends Template {
 	protected final CommandSender sender;
 	
 	public CommandTemplate(xEssentials pl, Command cmd, CommandSender sender) {
-		super(pl, sender);
+		super(pl);
 		this.cmd = cmd;
 		this.sender = sender;
 	}
@@ -34,7 +33,7 @@ public abstract class CommandTemplate extends Template {
 	}
 	
 	@Override
-	public void sendMessageTo(Player p, String message) {
+	public void sendMessageTo(CommandSender p, String message) {
 		String smsg = ChatColor.stripColor(message);
 		p.sendMessage(String.format(getPrefix(), cmd.getName())+getSuffix()+smsg);
 	}

@@ -11,20 +11,26 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class GetYourHeadSignEvent implements Listener {
+public class GetYourHeadSignEvent extends EventTemplate implements Listener {
+	
+	public GetYourHeadSignEvent(xEssentials pl) {
+		super(pl, "GetYourHeadSign");
+	}
 	
 	@EventHandler
 	public void head(SignChangeEvent s) {
 		if(s.getLine(0).equalsIgnoreCase("[GetYourHead]") && s.getPlayer().hasPermission(PermissionKey.SIGN_GETYOURHEAD.getPermission())) {
 			s.setLine(0, ChatColor.GREEN + "[GetYourHead]");
 			s.getBlock().getState().update(true);
-			s.getPlayer().sendMessage(ChatColor.GOLD + "[GetYourHead] " + ChatColor.GREEN + "You successfully placed a GetYourHead sign!");
+			sendMessage(s.getPlayer(), ChatColor.GOLD + "[GetYourHead] " + ChatColor.GREEN + "You successfully placed a GetYourHead sign!");
 		} else {
 			if(s.getLine(0).equalsIgnoreCase("[GetYourHead]") && !s.getPlayer().hasPermission(PermissionKey.SIGN_GETYOURHEAD.getPermission())) {
 				s.getBlock().breakNaturally();
-				s.getPlayer().sendMessage("You are not allowed to place such signs!");
+				sendMessage(s.getPlayer(), "You are not allowed to place such signs!");
 				s.setCancelled(true);		
 			}
 		}
@@ -45,9 +51,9 @@ public class GetYourHeadSignEvent implements Listener {
 					skull.setAmount(1);
 					if(s.getPlayer().getItemInHand().getType() == Material.AIR) {
 						s.getPlayer().getInventory().setItemInHand(skull);
-						s.getPlayer().sendMessage(ChatColor.GOLD + "[GetYourHead] " + ChatColor.GREEN + "your head has been added in your hand!");	
+						sendMessage(s.getPlayer(), ChatColor.GOLD + "[GetYourHead] " + ChatColor.GREEN + "your head has been added in your hand!");	
 					} else {
-						s.getPlayer().sendMessage(ChatColor.GOLD + "[GetYourHead] " + ChatColor.RED + "your hands need to be empty!");
+						sendMessage(s.getPlayer(), ChatColor.GOLD + "[GetYourHead] " + ChatColor.RED + "your hands need to be empty!");
 					}
 					s.setCancelled(true);
 				}

@@ -17,13 +17,12 @@ import org.bukkit.event.block.SignChangeEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.Gate;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class GateCreateEvent implements Listener {
-	
-	private final xEssentials pl;
+public class GateCreateEvent extends EventTemplate implements Listener {
 	
 	public GateCreateEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Gate");
 	}
 
 	@EventHandler
@@ -54,7 +53,7 @@ public class GateCreateEvent implements Listener {
 				
 				if(!(face instanceof BlockFace)) {
 					e.setCancelled(true);
-					e.getPlayer().sendMessage(ChatColor.RED + "invalid gate shape!");
+					sendMessage(e.getPlayer(), ChatColor.RED + "invalid gate shape!");
 					return;
 				}
 				
@@ -83,7 +82,7 @@ public class GateCreateEvent implements Listener {
 						pilar2.add(block);
 					} else {
 						e.setCancelled(true);
-						e.getPlayer().sendMessage(ChatColor.RED + "invalid gate shape!");
+						sendMessage(e.getPlayer(), ChatColor.RED + "invalid gate shape!");
 						return;
 					}
 				}
@@ -133,7 +132,7 @@ public class GateCreateEvent implements Listener {
 					e.setLine(0, ChatColor.DARK_PURPLE + "[Gate]");
 					Gate gate = new Gate(f, con, pl);
 					pl.getManagers().getGateManager().addGate(gate);
-					e.getPlayer().sendMessage(ChatColor.GREEN + "you have successfully created a gate!");
+					sendMessage(e.getPlayer(), ChatColor.GREEN + "you have successfully created a gate!");
 				} catch(Exception r) {
 					r.printStackTrace();
 				}

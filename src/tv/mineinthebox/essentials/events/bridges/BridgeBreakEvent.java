@@ -6,13 +6,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class BridgeBreakEvent implements Listener {
-	
-	private final xEssentials pl;
+public class BridgeBreakEvent extends EventTemplate implements Listener {
 	
 	public BridgeBreakEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Bridge");
 	}
 
 	@EventHandler
@@ -22,7 +21,7 @@ public class BridgeBreakEvent implements Listener {
 		}
 		
 		if(pl.getManagers().getBridgeManager().isBridgeBlock(e.getBlock())) {
-			e.getPlayer().sendMessage(ChatColor.RED + "you are not allowed to break bridges!");
+			sendMessage(e.getPlayer(), ChatColor.RED + "you are not allowed to break bridges!");
 			e.setCancelled(true);
 		}
 	}

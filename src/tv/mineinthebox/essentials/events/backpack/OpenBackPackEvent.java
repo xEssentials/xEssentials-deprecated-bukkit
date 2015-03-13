@@ -12,12 +12,14 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.Backpack;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class OpenBackPackEvent implements Listener {
+public class OpenBackPackEvent extends EventTemplate implements Listener {
 	
 	private final xEssentials pl;
 	
 	public OpenBackPackEvent(xEssentials pl) {
+		super(pl, "Backpack");
 		this.pl = pl;
 	}
 	
@@ -27,7 +29,7 @@ public class OpenBackPackEvent implements Listener {
 			if(e.getItem() != null) {
 				if(pl.getManagers().getBackPackManager().isBackpack(e.getItem())) {
 					Backpack pack = pl.getManagers().getBackPackManager().getBackpackByItem(e.getItem());
-					e.getPlayer().sendMessage(ChatColor.GREEN + "opening backpack");
+					sendMessage(e.getPlayer(), ChatColor.GREEN + "opening backpack");
 					e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.CHEST_OPEN, 1F, 1F);
 					e.getPlayer().openInventory(pack.getInventory());
 					e.setCancelled(true);
@@ -41,7 +43,7 @@ public class OpenBackPackEvent implements Listener {
 		if(e.getCurrentItem() != null) {
 			if(pl.getManagers().getBackPackManager().getBackpackById(e.getInventory().getTitle()) != null) {
 				if(pl.getManagers().getBackPackManager().isBackpack(e.getCurrentItem())) {
-					((Player)e.getWhoClicked()).sendMessage(ChatColor.RED + "you cannot move backpacks");
+					sendMessage((Player)e.getWhoClicked(), ChatColor.RED + "you cannot move backpacks");
 					e.setCancelled(true);	
 				}
 			}
@@ -55,7 +57,7 @@ public class OpenBackPackEvent implements Listener {
 			pack.setContents(e.getInventory().getContents());
 			e.getPlayer().setItemInHand(pack.getBackPackItem());
 			((Player)e.getPlayer()).playSound(e.getPlayer().getLocation(), Sound.CHEST_CLOSE, 1F, 1F);
-			((Player)e.getPlayer()).sendMessage(ChatColor.GREEN + "closing backpack.");
+			sendMessage((Player)e.getPlayer(), ChatColor.GREEN + "closing backpack.");
 		}
 	}
 

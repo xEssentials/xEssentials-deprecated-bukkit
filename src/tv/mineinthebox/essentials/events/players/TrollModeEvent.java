@@ -10,14 +10,13 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class TrollModeEvent implements Listener {
-	
-	private final xEssentials pl;
+public class TrollModeEvent extends EventTemplate implements Listener {
 	
 	public TrollModeEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "TrollMode");
 	}
 
 	@EventHandler
@@ -27,7 +26,7 @@ public class TrollModeEvent implements Listener {
 			if(e.getRightClicked() instanceof Player) {
 				Player p = (Player) e.getRightClicked();
 				e.getPlayer().setPassenger(p);
-				e.getPlayer().sendMessage(ChatColor.GREEN + "now left click on a block to place the player!");
+				sendMessage(e.getPlayer(), ChatColor.GREEN + "now left click on a block to place the player!");
 			}
 		}
 	}
@@ -41,7 +40,7 @@ public class TrollModeEvent implements Listener {
 					Player p = (Player) xp.getPlayer().getPassenger();
 					p.getVehicle().eject();
 					p.teleport(e.getClickedBlock().getRelative(BlockFace.UP).getLocation());
-					e.getPlayer().sendMessage(ChatColor.GREEN + "placed player now he should be confused!");
+					sendMessage(e.getPlayer(), ChatColor.GREEN + "placed player now he should be confused!");
 					e.setCancelled(true);
 				}
 			}

@@ -16,13 +16,12 @@ import org.bukkit.event.block.BlockRedstoneEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.Portal;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class PortalActivateEvent implements Listener {
-	
-	private final xEssentials pl;
+public class PortalActivateEvent extends EventTemplate implements Listener {
 	
 	public PortalActivateEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Portal");
 	}
 
 	@EventHandler
@@ -79,7 +78,7 @@ public class PortalActivateEvent implements Listener {
 			for(Portal portal : pl.getConfiguration().getPortalConfig().getPortals().values()) {
 				if(portal.getInnerBlocks().contains(e.getBlock())) {
 					if(e.getPlayer().getGameMode() == GameMode.CREATIVE) {
-						e.getPlayer().sendMessage(ChatColor.RED + "you can only break this portal, if you remove this portal.");
+						sendMessage(e.getPlayer(), ChatColor.RED + "you can only break this portal, if you remove this portal.");
 					}
 					e.setCancelled(true);
 					break;

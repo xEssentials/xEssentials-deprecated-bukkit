@@ -11,15 +11,14 @@ import org.bukkit.event.block.BlockBreakEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class RemoveShopEvent implements Listener {
-	
-	private final xEssentials pl;
+public class RemoveShopEvent extends EventTemplate implements Listener {
 	
 	public RemoveShopEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Shop");
 	}
 	
 	@EventHandler
@@ -32,17 +31,17 @@ public class RemoveShopEvent implements Listener {
 				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 				if(xp.isShop(e.getBlock().getLocation())) {
 					xp.removeShop(e.getBlock().getLocation());
-					e.getPlayer().sendMessage(ChatColor.GREEN + "[Shop] " + ChatColor.GRAY + " shop unregistered!");
+					sendMessage(e.getPlayer(), ChatColor.GREEN + "[Shop] " + ChatColor.GRAY + " shop unregistered!");
 				} else if(e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 					for(XOfflinePlayer off : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
 						if(off.isShop(e.getBlock().getLocation())) {
 							off.removeShop(e.getBlock().getLocation());
-							e.getPlayer().sendMessage(ChatColor.GREEN + "[Shop] " + ChatColor.GRAY + " shop of " + off.getUser() + " is unregistered!");
+							sendMessage(e.getPlayer(), ChatColor.GREEN + "[Shop] " + ChatColor.GRAY + " shop of " + off.getUser() + " is unregistered!");
 							return;
 						}
 					}
 				} else {
-					e.getPlayer().sendMessage(ChatColor.RED + "you are not allowed to destroy a shop sign you dont own!");
+					sendMessage(e.getPlayer(), ChatColor.RED + "you are not allowed to destroy a shop sign you dont own!");
 					e.setCancelled(true);
 				}
 			}
@@ -50,7 +49,7 @@ public class RemoveShopEvent implements Listener {
 			if(isSignNearby(e.getBlock())) {
 				Sign sign = getAttachedSign(e.getBlock());
 				if(isShopSign(sign.getLines(), false)) {
-					e.getPlayer().sendMessage(ChatColor.RED + "please remove first the sign in order to destroy the chest!");
+					sendMessage(e.getPlayer(), ChatColor.RED + "please remove first the sign in order to destroy the chest!");
 					e.setCancelled(true);
 				}
 			}
@@ -84,7 +83,7 @@ public class RemoveShopEvent implements Listener {
 				if(lines[1].matches("[0-9]+")) {
 					int amount = Integer.parseInt(lines[1]);
 					if(amount <= 64) {
-						System.out.print("the amount has a good limit of 64");
+						//System.out.print("the amount has a good limit of 64");
 						if(lines[2].matches("(?i)^b \\d+ s \\d+$") || lines[2].matches("(?i)^b \\d+$") || lines[2].matches("(?i)^s \\d+$")) {
 							if(lines[3].matches("([0-9]+):([0-9]+)")) {
 								return true;

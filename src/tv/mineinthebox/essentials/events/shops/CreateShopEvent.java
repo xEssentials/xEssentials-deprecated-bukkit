@@ -11,14 +11,13 @@ import org.bukkit.event.block.SignChangeEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CreateShopEvent implements Listener {
-	
-	private final xEssentials pl;
+public class CreateShopEvent extends EventTemplate implements Listener {
 	
 	public CreateShopEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Shop");
 	}
 
 	@EventHandler
@@ -29,13 +28,13 @@ public class CreateShopEvent implements Listener {
 			if(e.getPlayer().hasPermission(PermissionKey.SIGN_SHOP.getPermission()) && e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 				if(isShopSign(e.getLines(), true)) {
 					e.setLine(0, pl.getConfiguration().getShopConfig().getAdminShopPrefix());
-					e.getPlayer().sendMessage(ChatColor.GREEN + "[Shop]" + ChatColor.GRAY + " you successfully made a admin shop!");
+					sendMessage(e.getPlayer(), "you successfully made a admin shop!");
 				} else {
-					e.getPlayer().sendMessage(ChatColor.RED + "invalid sign!");
+					sendMessage(e.getPlayer(), ChatColor.RED + "invalid sign!");
 					e.setCancelled(true);
 				}
 			} else {
-				e.getPlayer().sendMessage(ChatColor.RED + "you are not allowed to place admin shops!");
+				sendMessage(e.getPlayer(), ChatColor.RED + "you are not allowed to place admin shops!");
 				e.setCancelled(true);
 			}
 		} else if(e.getLine(0).isEmpty()) {
@@ -45,13 +44,13 @@ public class CreateShopEvent implements Listener {
 						e.setLine(0, e.getPlayer().getName());
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 						xp.setShop(e.getBlock().getLocation(), getNearbyChest(e.getBlock()));
-						e.getPlayer().sendMessage(ChatColor.GREEN + "[Shop] " + ChatColor.GRAY + "you successfully created your own shop!");
+						sendMessage(e.getPlayer(), "you successfully created your own shop!");
 					} else {
-						e.getPlayer().sendMessage(ChatColor.RED + "no chest nearby to connect to the shop!");
+						sendMessage(e.getPlayer(), ChatColor.RED + "no chest nearby to connect to the shop!");
 						e.setCancelled(true);
 					}
 				} else {
-					e.getPlayer().sendMessage(ChatColor.RED + "you are not allowed to place sign shops!");
+					sendMessage(e.getPlayer(), ChatColor.RED + "you are not allowed to place sign shops!");
 					e.setCancelled(true);
 				}
 			}

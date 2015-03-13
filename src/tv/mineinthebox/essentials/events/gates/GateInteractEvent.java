@@ -10,13 +10,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.instances.Gate;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class GateInteractEvent implements Listener {
-	
-	private final xEssentials pl;
+public class GateInteractEvent extends EventTemplate implements Listener {
 	
 	public GateInteractEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Gate");
 	}
 
 	@EventHandler
@@ -29,10 +28,10 @@ public class GateInteractEvent implements Listener {
 					if(gate instanceof Gate) {
 						if(gate.isToggled()) {
 							gate.toggleGate();
-							e.getPlayer().sendMessage(ChatColor.GREEN + "untoggled gate!");
+							sendMessage(e.getPlayer(), ChatColor.GREEN + "untoggled gate!");
 						} else {
 							gate.toggleGate();
-							e.getPlayer().sendMessage(ChatColor.GREEN + "gate toggled!");
+							sendMessage(e.getPlayer(), ChatColor.GREEN + "gate toggled!");
 						}
 					}
 				}

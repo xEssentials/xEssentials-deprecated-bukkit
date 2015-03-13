@@ -30,26 +30,26 @@ import tv.mineinthebox.essentials.configurations.VoteConfig;
 
 public enum ConfigType {
 
-	ENTITY("", "entity.yml"),
-	PLAYER("", "player.yml"),
-	BAN("", "ban.yml"),
-	MOTD("", "motd.yml"),
-	BROADCAST("", "broadcast.yml"),
-	CHAT("", "chat.yml"),
-	PVP("", "pvp.yml"),
-	RULES("", "rules.yml"),
-	GREYLIST("", "greylist.yml"),
-	BLOCKS("", "blocks.yml"),
-	KITS("", "kits.yml"),
-	COMMAND("", "commands.yml"),
-	ECONOMY("", "economy.yml"),
-	SHOP("", "shops.yml"),
-	PROTECTION("", "protection.yml"),
-	PORTAL("", "portal.yml"),
-	MISC("", "misc.yml"),
-	SIGN("", "signs.yml"),
-	VOTE("", "vote.yml"),
-	DEBUG("", "debug.yml");
+	ENTITY("Entity", "entity.yml"),
+	PLAYER("Player", "player.yml"),
+	BAN("Ban", "ban.yml"),
+	MOTD("Motd", "motd.yml"),
+	BROADCAST("Broadcast", "broadcast.yml"),
+	CHAT("Chat", "chat.yml"),
+	PVP("Pvp", "pvp.yml"),
+	RULES("Rules", "rules.yml"),
+	GREYLIST("Greylist", "greylist.yml"),
+	BLOCKS("Blocks", "blocks.yml"),
+	KITS("Kits", "kits.yml"),
+	COMMAND("Command", "commands.yml"),
+	ECONOMY("Economy", "economy.yml"),
+	SHOP("Shop", "shops.yml"),
+	PROTECTION("Protection", "protection.yml"),
+	PORTAL("Portal", "portal.yml"),
+	MISC("Misc", "misc.yml"),
+	SIGN("Sign", "signs.yml"),
+	VOTE("Vote", "vote.yml"),
+	DEBUG("Debug", "debug.yml");
 
 	private final String name;
 	private final String nicename;

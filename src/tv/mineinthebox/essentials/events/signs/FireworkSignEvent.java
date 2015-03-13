@@ -22,13 +22,12 @@ import org.bukkit.inventory.meta.FireworkMeta;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.enums.PermissionKey;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class FireworkSignEvent implements Listener {
-	
-	private final xEssentials pl;
+public class FireworkSignEvent extends EventTemplate implements Listener {
 	
 	public FireworkSignEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "FireworkSign");
 	}
 	
 	public HashMap<String, String> colours = new HashMap<String, String>();
@@ -45,18 +44,18 @@ public class FireworkSignEvent implements Listener {
 				if(colours.containsKey(e.getLine(1).toString().toUpperCase().replace(" ", "_")) || e.getLine(1).contains("random")) {
 					e.setLine(0, ChatColor.DARK_BLUE + "[Firework]");
 					e.setLine(1, e.getLine(1).toLowerCase());
-					e.getPlayer().sendMessage(ChatColor.GREEN + "you successfully placed a firework sign!");
+					sendMessage(e.getPlayer(), ChatColor.GREEN + "you successfully placed a firework sign!");
 					e.getBlock().getState().update();
 					colours.clear();
 				} else {
 					e.getBlock().breakNaturally();
-					e.getPlayer().sendMessage(ChatColor.RED + "a colour is needed to create this sign");
+					sendMessage(e.getPlayer(), ChatColor.RED + "a colour is needed to create this sign");
 					colours.clear();
 				}
 			} else {
 				if(e.getLine(0).equalsIgnoreCase("[firework]")) {
 					e.getBlock().breakNaturally();
-					e.getPlayer().sendMessage(ChatColor.RED + "you are not allowed to place these signs\n" + ChatColor.WHITE + "permission: xEssentials.signs.firework");
+					sendMessage(e.getPlayer(), ChatColor.RED + "you are not allowed to place these signs\n" + ChatColor.WHITE + "permission: xEssentials.signs.firework");
 				}
 			}
 		}

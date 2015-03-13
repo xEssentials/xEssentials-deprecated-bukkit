@@ -6,16 +6,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
 import com.vexsoftware.votifier.model.Vote;
 import com.vexsoftware.votifier.model.VotifierEvent;
 
-public class VoteMoneyEvent implements Listener {
-	
-	private final xEssentials pl;
+public class VoteMoneyEvent extends EventTemplate implements Listener {
 	
 	public VoteMoneyEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "VoteMoney");
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -26,9 +25,9 @@ public class VoteMoneyEvent implements Listener {
 			Player p = Bukkit.getPlayer(vote.getUsername());
 				pl.getManagers().getVaultManager().desposit(vote.getUsername(), pl.getConfiguration().getVoteConfig().getMoneyReward());
 				if(p.isOnline()) {
-					p.sendMessage(pl.getConfiguration().getVoteConfig().getVotePersonalMessage().replaceAll("%player%", p.getName()).replaceAll("%reward%", pl.getConfiguration().getVoteConfig().getMoneyReward()+"$"));
+					sendMessage(p, pl.getConfiguration().getVoteConfig().getVotePersonalMessage().replaceAll("%player%", p.getName()).replaceAll("%reward%", pl.getConfiguration().getVoteConfig().getMoneyReward()+"$"));
 				}
-				Bukkit.broadcastMessage(pl.getConfiguration().getVoteConfig().getVoteBroadcastMessage().replaceAll("%player%", vote.getUsername()).replaceAll("%reward%", pl.getConfiguration().getVoteConfig().getMoneyReward()+"$"));
+				broadcast(pl.getConfiguration().getVoteConfig().getVoteBroadcastMessage().replaceAll("%player%", vote.getUsername()).replaceAll("%reward%", pl.getConfiguration().getVoteConfig().getMoneyReward()+"$"));
 		}
 	}
 

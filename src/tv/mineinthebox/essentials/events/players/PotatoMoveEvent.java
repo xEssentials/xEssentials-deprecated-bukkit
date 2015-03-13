@@ -19,14 +19,13 @@ import org.bukkit.util.Vector;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class PotatoMoveEvent implements Listener {
-	
-	private final xEssentials pl;
+public class PotatoMoveEvent extends EventTemplate implements Listener {
 	
 	public PotatoMoveEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Cursed?");
 	}
 
 	@EventHandler
@@ -64,7 +63,7 @@ public class PotatoMoveEvent implements Listener {
 		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
 			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isPotato()) {
-				e.getPlayer().sendMessage(ChatColor.GREEN + "potatos cannot pickup items!");
+				sendMessage(e.getPlayer(), ChatColor.GREEN + "potatos cannot pickup items!");
 				e.setCancelled(true);
 			}	
 		}
@@ -79,7 +78,7 @@ public class PotatoMoveEvent implements Listener {
 		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
 			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isPotato()) {
-				e.getPlayer().sendMessage(ChatColor.GREEN + "potatos cannot place blocks!");
+				sendMessage(e.getPlayer(), ChatColor.GREEN + "potatos cannot place blocks!");
 				e.setCancelled(true);
 			}	
 		}
@@ -90,7 +89,7 @@ public class PotatoMoveEvent implements Listener {
 		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
 			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isPotato()) {
-				e.getPlayer().sendMessage(ChatColor.GREEN + "potatos cannot break blocks!");
+				sendMessage(e.getPlayer(), ChatColor.GREEN + "potatos cannot break blocks!");
 				e.setCancelled(true);
 			}
 		}

@@ -5,14 +5,21 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 
-public class ElevatorCreateEvent implements Listener {
+import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
+
+public class ElevatorCreateEvent extends EventTemplate implements Listener {
+
+	public ElevatorCreateEvent(xEssentials pl) {
+		super(pl, "Elevator");
+	}
 
 	@EventHandler
 	public void elevatorCreate(SignChangeEvent e) {
 		if(e.getLine(0).equalsIgnoreCase("[elevator]")) {
 			if(e.getLine(1).equalsIgnoreCase("up") || e.getLine(2).equalsIgnoreCase("down")) {
 				e.setLine(0, ChatColor.DARK_PURPLE + "[Elevator]");
-				e.getPlayer().sendMessage(ChatColor.GREEN + "you have successfully created a elevator sign");
+				sendMessage(e.getPlayer(), ChatColor.GREEN + "you have successfully created a elevator sign");
 			}
 		}
 	}

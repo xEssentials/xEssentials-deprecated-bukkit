@@ -7,8 +7,9 @@ import org.bukkit.event.Listener;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.events.customevents.PlayerChunkMoveEvent;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 
-public class PlayerBorderEvent implements Listener {
+public class PlayerBorderEvent extends EventTemplate implements Listener {
 	
 	private final int xmax;
 	private final int xmin;
@@ -16,6 +17,7 @@ public class PlayerBorderEvent implements Listener {
 	private final int zmin;
 	
 	public PlayerBorderEvent(xEssentials pl) {
+		super(pl, "Border");
 		this.xmax = (pl.getConfiguration().getPlayerConfig().getSpawnLocation().getBlockX() + (pl.getConfiguration().getPlayerConfig().getWorldBorderSize()/2));
 		this.xmin = (pl.getConfiguration().getPlayerConfig().getSpawnLocation().getBlockX() - (pl.getConfiguration().getPlayerConfig().getWorldBorderSize()/2));
 		this.zmax = (pl.getConfiguration().getPlayerConfig().getSpawnLocation().getBlockZ() + (pl.getConfiguration().getPlayerConfig().getWorldBorderSize()/2));
@@ -34,7 +36,7 @@ public class PlayerBorderEvent implements Listener {
 			loc.setYaw(e.getPlayer().getLocation().getYaw());
 			
 			e.getPlayer().teleport(loc);
-			e.getPlayer().sendMessage(ChatColor.RED + "you are at the worldborder!, please return.");
+			sendMessage(e.getPlayer(), ChatColor.RED + "you are at the worldborder!, please return.");
 		}
 	}
 
