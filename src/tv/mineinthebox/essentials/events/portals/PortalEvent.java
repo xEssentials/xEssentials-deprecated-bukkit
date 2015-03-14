@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Item;
@@ -69,6 +70,7 @@ public class PortalEvent extends EventTemplate implements Listener {
 						return;
 					}
 					//e.setTo(linked.getInnerBlocks()[(linked.getInnerBlocks().length-1)].getLocation());
+					e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.PORTAL_TRAVEL, 1F, 1F);
 					e.setTo(linked.getExitLocation());
 					e.setCancelled(false);
 				} else {
