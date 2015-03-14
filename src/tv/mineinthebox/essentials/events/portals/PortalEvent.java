@@ -31,7 +31,7 @@ public class PortalEvent extends EventTemplate implements Listener {
 	
 	@SuppressWarnings("deprecation")
 	@EventHandler
-	public void onEnter(final PlayerPortalEvent e) {
+	public void onEnter(PlayerPortalEvent e) {
 		if(e.isCancelled()) {
 			return;
 		}
