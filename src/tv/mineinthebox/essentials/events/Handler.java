@@ -89,6 +89,7 @@ import tv.mineinthebox.essentials.events.players.OpKitEvent;
 import tv.mineinthebox.essentials.events.players.PlayerBorderEvent;
 import tv.mineinthebox.essentials.events.players.PlayerCheckNameEvent;
 import tv.mineinthebox.essentials.events.players.PlayerDeathBackEvent;
+import tv.mineinthebox.essentials.events.players.PlayerFixPortalSoundEvent;
 import tv.mineinthebox.essentials.events.players.PlayerFloorEvent;
 import tv.mineinthebox.essentials.events.players.PlayerForceRespawnEvent;
 import tv.mineinthebox.essentials.events.players.PlayerHoldItemsEvent;
@@ -250,6 +251,7 @@ public class Handler {
 		setListener(new PlayerFloorEvent(pl));
 		setListener(new PlayerWallEvent(pl));
 		setListener(new DoubleJumpEvent(pl));
+		setListener(new PlayerFixPortalSoundEvent(pl));
 		if(pl.getConfiguration().getPlayerConfig().isCustomPortalSizeDisabled()) {setListener(new PortalSizeEvent());}
 		if(pl.getConfiguration().getPlayerConfig().isPortalsDisabled()) {setListener(new DisablePortalCreationEvent(pl));}
 		if(pl.getConfiguration().getPlayerConfig().isHungerCancelled()) {setListener(new HungerEvent());}
