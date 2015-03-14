@@ -23,7 +23,7 @@ public class UnregisterProtectionEvent extends EventTemplate implements Listener
 		this.manager = pl.getManagers().getProtectionDBManager();
 	}
 
-	@EventHandler(ignoreCancelled = true)
+	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
 		if(e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if(manager.hasSession(e.getPlayer().getName())) {
