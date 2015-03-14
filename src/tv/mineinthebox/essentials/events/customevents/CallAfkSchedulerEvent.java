@@ -12,14 +12,13 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.interfaces.EventTemplate;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class CallAfkSchedulerEvent implements Listener {
-	
-	private final xEssentials pl;
+public class CallAfkSchedulerEvent extends EventTemplate implements Listener {
 	
 	public CallAfkSchedulerEvent(xEssentials pl) {
-		this.pl = pl;
+		super(pl, "Afk");
 	}
 
 	private HashMap<String, Location> PlayerLocations = new HashMap<String, Location>();
@@ -37,7 +36,7 @@ public class CallAfkSchedulerEvent implements Listener {
 							if(!xp.isVanished()) {
 								if(!xp.isFishing()) {
 									if(!xp.isAfk()) {
-										Bukkit.broadcastMessage(ChatColor.GREEN + p.getName() + " has been afk");
+										broadcast(ChatColor.GREEN + p.getName() + " has been afk");
 										xp.setAfk("no reason given in");
 										Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), true, false, pl));
 									}
