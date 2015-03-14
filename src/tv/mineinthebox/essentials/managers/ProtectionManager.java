@@ -23,7 +23,7 @@ public class ProtectionManager {
 	}
 	
 	public Object[] getSessionData(String player) {
-		return session.get(player);
+		return session.get(player.toLowerCase());
 	}
 	
 	public boolean hasSession(String player) {
