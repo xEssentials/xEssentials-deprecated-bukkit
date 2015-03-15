@@ -21,12 +21,12 @@ import tv.mineinthebox.essentials.helpers.MojangUUID;
 import tv.mineinthebox.essentials.helpers.OnlinePlayersHelper;
 import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
-import tv.mineinthebox.essentials.interfaces.xEssentialsApi;
+import tv.mineinthebox.essentials.interfaces.xEssentialsAPI;
 import tv.mineinthebox.essentials.managers.Manager;
 import tv.mineinthebox.simpleserver.SimpleServer;
 
 
-public class xEssentials extends JavaPlugin implements xEssentialsApi {
+public class xEssentials extends JavaPlugin implements xEssentialsAPI {
 
 	private GlobalConfiguration conf;
 	private Handler handler;
