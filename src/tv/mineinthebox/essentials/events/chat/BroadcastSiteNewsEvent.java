@@ -16,10 +16,10 @@ public class BroadcastSiteNewsEvent extends EventTemplate implements Listener {
 
 	@EventHandler
 	public void onBroadCastRss(RssFeedEvent e) {
-			sendMessage(e.getPlayer(), ChatColor.GREEN + "[news]" + ChatColor.GRAY + ChatColor.UNDERLINE + e.getRssFeed().getAuthor() + ChatColor.GRAY + " has posted a new thread!");
-			sendMessage(e.getPlayer(), ChatColor.GREEN + "[news]" + ChatColor.GRAY + "title: " + e.getRssFeed().getTitle());
-			sendMessage(e.getPlayer(), ChatColor.GREEN + "[news]" + ChatColor.GRAY + "url: " + e.getRssFeed().getLink());
-			sendMessage(e.getPlayer(), ChatColor.GREEN + "[news]" + ChatColor.GRAY + "feel free to join on this thread :)!");
+			sendMessage(e.getPlayer(), e.getRssFeed().getAuthor() + ChatColor.GRAY + " has posted a new thread!");
+			sendMessage(e.getPlayer(), "title: " + e.getRssFeed().getTitle());
+			sendMessage(e.getPlayer(), "url: " + e.getRssFeed().getLink());
+			sendMessage(e.getPlayer(), "feel free to join on this thread :)!");
 	}
 
 }

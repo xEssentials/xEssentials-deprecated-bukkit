@@ -36,7 +36,7 @@ public class BroadcastConfig extends Configuration {
 	 * @return String
 	 */
 	public String getPrefix() {
-		return con.getString("broadcast.prefix");
+		return ChatColor.translateAlternateColorCodes('&', con.getString("broadcast.prefix"));
 	}
 	
 	/**
