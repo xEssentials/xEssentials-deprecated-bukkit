@@ -26,6 +26,7 @@ public class PlayerBorderEvent extends EventTemplate implements Listener {
 	
 	@EventHandler
 	public void onBorder(PlayerChunkMoveEvent e) {
+		//TODO: handle spawn
 		int x = e.getPlayer().getLocation().getBlockX();
 		int z = e.getPlayer().getLocation().getBlockZ();
 		if(!(x <= xmax && x >= xmin && z <= zmax && z >= zmin)) {
