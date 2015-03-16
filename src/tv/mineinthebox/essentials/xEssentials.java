@@ -93,7 +93,7 @@ public class xEssentials extends JavaPlugin implements xEssentialsAPI {
 		}
 		getManagers().getBackPackManager().loadBackpacks();
 		
-		getManagers().getMinigamesManager().enablePlugins();
+		//getManagers().getMinigamesManager().enablePlugins();
 		
 		log("has been enabled", LogType.INFO);
 	}

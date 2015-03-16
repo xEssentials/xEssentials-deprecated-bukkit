@@ -1,5 +1,6 @@
 package tv.mineinthebox.essentials.minigames;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 
-public abstract class MinigameLoader {
+public abstract class MinigameLoader extends ClassLoader {
 
 	private final File datafolder;
 
@@ -52,8 +53,10 @@ public abstract class MinigameLoader {
 					if(entry != null) {
 						input = jar.getInputStream(entry);
 						FileConfiguration con = YamlConfiguration.loadConfiguration(input);
+						String name = con.getString("name");
 						try {
-							String name = con.getString("name");
+							xEssentials.log("clazz: " + con.getString("main"), LogType.DEBUG);
+							
 							Class<?> main = Class.forName(con.getString("main"));
 							Class<? extends MinigamePlugin> clazz;
 							try {
@@ -123,7 +126,8 @@ public abstract class MinigameLoader {
 								xEssentials.log("plugin " + name +" does not extend MinigamePlugin!", LogType.SEVERE);
 							}
 						} catch(ClassNotFoundException e) {
-							xEssentials.log("could not find main class for plugin name!", LogType.SEVERE);
+							xEssentials.log("could not find main class for plugin " + name, LogType.SEVERE);
+							e.printStackTrace();
 						}
 					} else {
 						xEssentials.log("invalid minigame: " + f.getName().replace(".yml", "") + " missing module-info.yml!", LogType.SEVERE);
