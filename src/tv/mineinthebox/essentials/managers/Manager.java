@@ -5,6 +5,7 @@ import tv.mineinthebox.essentials.events.customevents.CallEssentialsBroadcastEve
 import tv.mineinthebox.essentials.events.customevents.CallRssFeedEvent;
 import tv.mineinthebox.essentials.events.entity.RealisticGlassEvent;
 import tv.mineinthebox.essentials.hook.VaultHook;
+import tv.mineinthebox.essentials.minigames.MinigameManager;
 import tv.mineinthebox.simpleserver.SimpleServer;
 
 public class Manager {
@@ -31,6 +32,7 @@ public class Manager {
 	private TeleportManager teleport;
 	private WorldGuardManager worldguard;
 	private CommandManager commandmanager;
+	private MinigameManager minigames;
 	
 	private final xEssentials pl;
 	
@@ -324,5 +326,18 @@ public class Manager {
 			this.commandmanager = new CommandManager(pl);
 		}
 		return commandmanager;
+	}
+	
+	/**
+	 * returns the MinigameManager
+	 * 
+	 * @author xize
+	 * @return MinigameManager
+	 */
+	public MinigameManager getMinigamesManager() {
+		if(!(minigames instanceof MinigameManager)) {
+			this.minigames = new MinigameManager(pl);
+		}
+		return minigames;
 	}
 }

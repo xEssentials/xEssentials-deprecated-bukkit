@@ -92,6 +92,9 @@ public class xEssentials extends JavaPlugin implements xEssentialsAPI {
 			getManagers().getRealisticWaterManager().start();
 		}
 		getManagers().getBackPackManager().loadBackpacks();
+		
+		getManagers().getMinigamesManager().enablePlugins();
+		
 		log("has been enabled", LogType.INFO);
 	}
 
