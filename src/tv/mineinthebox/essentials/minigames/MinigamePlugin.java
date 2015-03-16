@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 
 import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.interfaces.xEssentialsAPI;
 
 public abstract class MinigamePlugin {
@@ -190,6 +191,17 @@ public abstract class MinigamePlugin {
 	 */
 	public ResourcePack getResourcePack() {
 		return resourcepack;
+	}
+	
+	/**
+	 * sents a log message to the console
+	 * 
+	 * @author xize
+	 * @param message - the message
+	 * @param type - the log type
+	 */
+	public void log(String message, LogType type) {
+		xEssentials.log("["+name+"]"+message, type);
 	}
 	
 }
