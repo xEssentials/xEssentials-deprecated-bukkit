@@ -30,7 +30,7 @@ public abstract class MinigameArena {
 	 * returns the type of minigame
 	 * 
 	 * @author xize
-	 * @return MinigmaeType
+	 * @return MinigameType
 	 */
 	public abstract MinigameType getType();
 	
