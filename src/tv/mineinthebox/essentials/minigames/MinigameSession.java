@@ -1,9 +1,13 @@
 package tv.mineinthebox.essentials.minigames;
 
+import java.util.HashMap;
+
 import org.bukkit.entity.Player;
 
 
-public interface MinigameSession {
+public abstract class MinigameSession {
+	
+	protected final HashMap<String, HashMap<String, Object>> data = new HashMap<String, HashMap<String, Object>>();
 	
 	/**
 	 * creates a session of this player
@@ -11,7 +15,9 @@ public interface MinigameSession {
 	 * @author xize
 	 * @param p - the player
 	 */
-	public void createSession(Player p);
+	public void createSession(Player p) {
+		data.put(p.getName().toLowerCase(), new HashMap<String, Object>());
+	}
 	
 	/**
 	 * stops the session of this player
@@ -19,7 +25,9 @@ public interface MinigameSession {
 	 * @author xize
 	 * @param p - the player
 	 */
-	public void stopSession(Player p);
+	public void stopSession(Player p) {
+		data.remove(p.getName().toLowerCase());
+	}
 	
 	/**
 	 * returns true if the player has a session, otherwise false
@@ -27,7 +35,9 @@ public interface MinigameSession {
 	 * @author xize
 	 * @param p - the player
 	 */
-	public void hasSession(Player p);
+	public boolean hasSession(Player p) {
+		return data.containsKey(p.getName().toLowerCase());
+	}
 	
 	/**
 	 * returns true if the given data exists otherwise false
@@ -37,7 +47,9 @@ public interface MinigameSession {
 	 * @param key - the key
 	 * @return boolean
 	 */
-	public boolean hasSessionData(Player p, String key);
+	public boolean hasSessionData(Player p, String key) {
+		return data.get(p.getName().toLowerCase()).containsKey(key);
+	}
 	
 	/**
 	 * tries to return a object
@@ -47,7 +59,9 @@ public interface MinigameSession {
 	 * @param key - the key
 	 * @return Object
 	 */
-	public Object getSessionData(Player p, String key);
+	public Object getSessionData(Player p, String key) {
+		return data.get(p.getName().toLowerCase()).get(key);
+	}
 	
 	/**
 	 * tries to add a object to the session data
@@ -57,7 +71,9 @@ public interface MinigameSession {
 	 * @param key - the key
 	 * @param obj - the object
 	 */
-	public void addSessionData(Player p, String key, Object obj);
+	public void addSessionData(Player p, String key, Object obj) {
+		data.get(p).put(key, obj);
+	}
 	
 	/**
 	 * returns true if the session matches with the given data otherwise false
@@ -65,13 +81,13 @@ public interface MinigameSession {
 	 * @author xize
 	 * @return boolean
 	 */
-	public boolean isSessionComplete();
+	public abstract boolean isSessionComplete();
 	
 	/**
 	 * processes what is needed to create a arena
 	 * 
 	 * @author xize
 	 */
-	public void processSession();
+	public abstract void processSession();
 	
 }
