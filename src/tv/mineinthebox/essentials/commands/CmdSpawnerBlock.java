@@ -1,9 +1,8 @@
 package tv.mineinthebox.essentials.commands;
 
-import java.util.Set;
+import java.util.HashSet;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -24,13 +23,14 @@ public class CmdSpawnerBlock extends CommandTemplate {
 		this.pl = pl;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("spawnerblock")) {
 			if(sender instanceof Player) {
 				if(sender.hasPermission(PermissionKey.CMD_SPAWNER_BLOCK.getPermission())) {
 					if(args.length == 0) {
 						Player p = (Player) sender;
-						Block block = p.getTargetBlock((Set<Material>)null, 30);
+						Block block = p.getTargetBlock((HashSet<Byte>)null, 30);
 						SpawnerBlock spawner = new SpawnerBlock(block, EntityType.ZOMBIE, pl);
 						spawner.start();
 						sendMessage(ChatColor.GREEN + block.getType().name().toLowerCase() + " is now a tempory zombie spawner.");
@@ -41,7 +41,7 @@ public class CmdSpawnerBlock extends CommandTemplate {
 							for(EntityType type : EntityType.values()) {
 								if(type.name().equalsIgnoreCase(args[0])) {
 									Player p = (Player) sender;
-									Block block = p.getTargetBlock((Set<Material>)null, 30);
+									Block block = p.getTargetBlock((HashSet<Byte>)null, 30);
 									SpawnerBlock spawner = new SpawnerBlock(block, type, pl);
 									spawner.start();
 									sendMessage(ChatColor.GREEN + block.getType().name().toLowerCase() + " is now a tempory " + type.name().toLowerCase() + " spawner.");
