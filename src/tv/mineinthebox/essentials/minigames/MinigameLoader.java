@@ -49,6 +49,7 @@ public abstract class MinigameLoader {
 						InputStream input = jarfile.getInputStream(entry);
 						FileConfiguration con = YamlConfiguration.loadConfiguration(input);
 
+						MinigameHandler handler = new MinigameHandler(pl);
 						String name = con.getString("name");
 						String[] authors = con.getString("authors").split(", ");
 						String description = con.getString("description");
@@ -65,7 +66,7 @@ public abstract class MinigameLoader {
 							if(obj.getClass().getSuperclass() == MinigamePlugin.class) {
 								MinigamePlugin game = (MinigamePlugin) obj;
 								setField(game, "pl", pl);
-								setField(game, "handler", new MinigameHandler(pl));
+								setField(game, "handler", handler);
 								setField(game, "name", name);
 								setField(game, "authors", authors);
 								setField(game, "version", version);
