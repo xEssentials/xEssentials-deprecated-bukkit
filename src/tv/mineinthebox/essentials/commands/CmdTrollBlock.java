@@ -1,7 +1,6 @@
 package tv.mineinthebox.essentials.commands;
 
 import java.util.HashSet;
-import java.util.Set;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -32,7 +31,7 @@ public class CmdTrollBlock extends CommandTemplate {
 				if(sender instanceof Player) {
 					Player p = (Player) sender;
 					ItemStack item = new ItemStack(Material.GOLDEN_APPLE, 1);
-					Block block = p.getTargetBlock((Set<Material>)null, 15);
+					Block block = p.getTargetBlock((HashSet<Byte>)null, 15);
 					TrollBlock tblock = new TrollBlock(p.getTargetBlock((HashSet<Byte>)null, 15), item, p, pl);
 					tblock.startTroll();
 					sendMessage(ChatColor.GREEN + block.getType().name().toLowerCase().replace("_", "") + " is now a troll block!");
