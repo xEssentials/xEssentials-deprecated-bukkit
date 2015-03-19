@@ -81,7 +81,7 @@ public abstract class MinigameSession {
 	 * @author xize
 	 * @return boolean
 	 */
-	public abstract boolean isSessionComplete(tv.mineinthebox.essentials.interfaces.XPlayer p);
+	public abstract boolean isSessionComplete(XPlayer p);
 	
 	/**
 	 * processes what is needed to create a arena
