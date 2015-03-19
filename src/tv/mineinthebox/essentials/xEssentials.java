@@ -150,6 +150,8 @@ public class xEssentials extends JavaPlugin implements xEssentialsAPI {
 			getManagers().getRealisticWaterManager().stop();
 		}
 		log("has been disabled!", LogType.INFO);
+		
+		getManagers().getMinigamesManager().disablePlugins();
 	}
 
 	/**

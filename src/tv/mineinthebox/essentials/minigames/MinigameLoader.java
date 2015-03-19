@@ -112,6 +112,8 @@ public abstract class MinigameLoader {
 		while(it.hasNext()) {
 			MinigamePlugin pl = it.next();
 			pl.onDisable();
+			pl.getHandlers().stopListeners();
+			it.remove();
 		}
 	}
 

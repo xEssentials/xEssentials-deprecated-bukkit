@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 
 import tv.mineinthebox.essentials.xEssentials;
@@ -30,7 +31,6 @@ public class MinigameHandler {
 			unregisterEvent(it.next());
 			it.remove();
 		}
-		pl.getConfiguration().reload();
 	}
 	
 	
@@ -40,7 +40,7 @@ public class MinigameHandler {
 	}
 	
 	public void unregisterEvent(Listener listener) {
-		listeners.remove(listener);
+		HandlerList.unregisterAll(listener);
 	}
 
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 
 import org.bukkit.ChatColor;
+import org.bukkit.event.Listener;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
@@ -218,6 +219,16 @@ public abstract class MinigamePlugin {
 	 */
 	public ClassLoader getClassLoader() {
 		return loader;
+	}
+	
+	/**
+	 * registers the listener
+	 * 
+	 * @author xize
+	 * @param listener - the listener to be registered
+	 */
+	public void registerListener(Listener listener) {
+		getHandlers().registerEvent(listener);
 	}
 	
 	protected enum GameLog {
