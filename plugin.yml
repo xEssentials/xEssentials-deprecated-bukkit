@@ -371,3 +371,7 @@ commands:
      description: opens a opkit selector
      permission: xEssentials.command.opkit
      aliases: []
+  emptycommand:
+     description: its empty
+     permission: xEssentials.isAdmin
+     aliases: []

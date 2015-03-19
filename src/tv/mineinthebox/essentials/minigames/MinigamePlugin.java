@@ -2,17 +2,22 @@ package tv.mineinthebox.essentials.minigames;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.bukkit.ChatColor;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.server.ServerCommandEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.interfaces.xEssentialsAPI;
 
-public abstract class MinigamePlugin {
+public abstract class MinigamePlugin implements Listener {
 	
 	private final HashMap<String, MinigameArena> arenas = new HashMap<String, MinigameArena>();
+	private final Map<String, MinigameCommandExecutor> commands = new HashMap<String, MinigameCommandExecutor>();
 	
 	private xEssentials pl;
 	private MinigameHandler handler;
@@ -231,6 +236,10 @@ public abstract class MinigamePlugin {
 		getHandlers().registerEvent(listener);
 	}
 	
+	public void setExecutor(String command, MinigameCommandExecutor executor) {
+		commands.put(command.toLowerCase(), executor);
+	}
+	
 	protected enum GameLog {
 		WARNING(LogType.MINIGAME_SEVERE),
 		INFO(LogType.MINIGAME_INFO);
@@ -243,6 +252,42 @@ public abstract class MinigamePlugin {
 		
 		public LogType getType() {
 			return type;
+		}
+	}
+	
+	@EventHandler
+	public void onCommand(PlayerCommandPreprocessEvent e) {
+		String[] array = e.getMessage().split(" ");
+		
+		String[] args = new String[array.length-1];
+		
+		for(int i = 0; i < args.length; i++) {
+			args[i] = array[i+1];
+		}
+		
+		String cmd = array[0].replaceFirst("/", "");
+		
+		if(commands.containsKey(cmd.toLowerCase())) {
+			commands.get(cmd.toLowerCase()).execute(e.getPlayer(), cmd, args);
+			e.setCancelled(true);
+		}
+	}
+	
+	@EventHandler
+	public void onCommand(ServerCommandEvent e) {
+		String[] array = e.getCommand().split(" ");
+		
+		String[] args = new String[array.length-1];
+		
+		for(int i = 0; i < args.length; i++) {
+			args[i] = array[i+1];
+		}
+		
+		String cmd = array[0].replaceFirst("/", "");
+		
+		if(commands.containsKey(cmd.toLowerCase())) {
+			commands.get(cmd.toLowerCase()).execute(e.getSender(), cmd, args);
+			e.setCommand("emptycommand");
 		}
 	}
 	

@@ -74,6 +74,7 @@ public abstract class MinigameLoader {
 								setField(game, "datafolder", new File(data + File.separator + name));
 								setField(game, "isEnabled", true);
 								setField(game, "loader", child);
+								game.getHandlers().registerEvent(game);
 								game.onEnable();
 								plugins.add(game);
 							} else {
