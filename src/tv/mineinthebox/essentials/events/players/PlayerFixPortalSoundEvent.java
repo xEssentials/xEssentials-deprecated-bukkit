@@ -18,6 +18,10 @@ public class PlayerFixPortalSoundEvent implements Listener {
 	
 	@EventHandler
 	public void onSound(final PlayerPortalEvent e) {
+		if(e.isCancelled()) {
+			return;
+		}
+		
 		new BukkitRunnable() {
 
 			@Override

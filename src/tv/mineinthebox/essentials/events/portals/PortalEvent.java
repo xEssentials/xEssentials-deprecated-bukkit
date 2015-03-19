@@ -10,6 +10,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPortalEvent;
 import org.bukkit.event.player.PlayerKickEvent;
@@ -30,7 +31,7 @@ public class PortalEvent extends EventTemplate implements Listener {
 	
 	
 	@SuppressWarnings("deprecation")
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onEnter(PlayerPortalEvent e) {
 		if(e.isCancelled()) {
 			return;
