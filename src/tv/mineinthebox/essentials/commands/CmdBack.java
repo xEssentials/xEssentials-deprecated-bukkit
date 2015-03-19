@@ -30,7 +30,6 @@ public class CmdBack extends CommandTemplate {
 						Player p = (Player)sender;
 						if(manager.hasLastLocation(p.getName())) {
 							Location loc = manager.getLastLocation(p.getName());
-							loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 							p.teleport(loc);
 							sendMessage(ChatColor.GREEN + "teleporting to your last location!");
 						} else {
@@ -44,7 +43,6 @@ public class CmdBack extends CommandTemplate {
 					if(sender instanceof Player) {
 						if(manager.hasLastLocation(p.getName())) {
 							Location loc = manager.getLastLocation(p.getName());
-							loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 							p.teleport(loc);
 							sendMessageTo(p, ChatColor.GREEN + sender.getName() + " has teleported you to your last location");
 							sendMessage(ChatColor.GREEN + "teleported " + p.getName() + " to his last location");

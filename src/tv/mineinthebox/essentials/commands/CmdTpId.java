@@ -84,7 +84,6 @@ public class CmdTpId extends CommandTemplate {
 										if(xp.isValidModreqId(id)) {
 											Modreq mod = xp.getModreq(id);
 											Location loc = mod.getModreqLocation();
-											loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 											p.teleport(loc, TeleportCause.COMMAND);
 											sendMessage(ChatColor.GREEN + "teleporting to " + args[0] + " his modreq with id: " + id);
 										} else {
@@ -102,7 +101,6 @@ public class CmdTpId extends CommandTemplate {
 										if(off.isValidModreqId(id)) {
 											Modreq mod = off.getModreq(id);
 											Location loc = mod.getModreqLocation();
-											loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 											p.teleport(loc, TeleportCause.COMMAND);
 											sendMessage(ChatColor.GREEN + "teleporting to " + args[0] + " his modreq with id: " + id);
 										} else {

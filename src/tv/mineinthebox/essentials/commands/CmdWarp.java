@@ -60,7 +60,6 @@ public class CmdWarp extends CommandTemplate {
 							Player p = (Player) sender;
 							if(pl.getManagers().getWarpManager().isWarp(args[0])) {
 								Warp warp = pl.getManagers().getWarpManager().getWarp(args[0], (Player)sender);
-								warp.getWarpLocation().getWorld().refreshChunk(warp.getWarpLocation().getChunk().getX(), warp.getWarpLocation().getChunk().getZ());
 								p.teleport(warp.getWarpLocation(), TeleportCause.COMMAND);
 								sendMessage(ChatColor.GREEN + "teleporting to warp " + warp.getWarpName());
 							} else {
@@ -75,7 +74,6 @@ public class CmdWarp extends CommandTemplate {
 					if(p instanceof Player) {
 						if(pl.getManagers().getWarpManager().isWarp(args[1])) {
 							Warp warp = pl.getManagers().getWarpManager().getWarp(args[1], (Player)sender);
-							warp.getWarpLocation().getWorld().refreshChunk(warp.getWarpLocation().getChunk().getX(), warp.getWarpLocation().getChunk().getZ());
 							p.teleport(warp.getWarpLocation(), TeleportCause.COMMAND);
 							sendMessageTo(p, ChatColor.GREEN + "teleporting to warp " + warp.getWarpName());
 						} else {

@@ -71,8 +71,8 @@
 	</build>
 	<repositories>
 		<repository>
-			<id>bukkit-repo</id>
-			<url>http://repo.bukkit.org/content/groups/public/</url>
+			<id>spigot-repo</id>
+			<url>https://hub.spigotmc.org/nexus</url>
 		</repository>
 		<repository>
 			<id>sk89q-repo</id>
@@ -93,6 +93,12 @@
 	</repositories>
 	<dependencies>
 		<dependency>
+			<groupId>org.bukkit</groupId>
+			<artifactId>bukkit</artifactId>
+			<version>1.8-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>com.sk89q</groupId>
 			<artifactId>worldedit</artifactId>
 			<scope>provided</scope>
@@ -103,6 +109,12 @@
 			<artifactId>worldguard</artifactId>
 			<scope>provided</scope>
 			<version>LATEST</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>bukkit</artifactId>
+					<groupId>org.bukkit</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
@@ -131,7 +143,6 @@
 			<groupId>com.vexsoftware</groupId>
 			<artifactId>votifier</artifactId>
 			<version>1.9</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>tv.mineinthebox.simpleserver</groupId>
@@ -139,10 +150,9 @@
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>org.bukkit</groupId>
-			<artifactId>bukkit</artifactId>
-			<version>LATEST</version>
-			<scope>provided</scope>
+			<groupId>CTF</groupId>
+			<artifactId>CTF</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	<scm>

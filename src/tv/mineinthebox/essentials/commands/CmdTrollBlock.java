@@ -1,7 +1,10 @@
 package tv.mineinthebox.essentials.commands;
 
+import java.util.Set;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -21,15 +24,15 @@ public class CmdTrollBlock extends CommandTemplate {
 		this.pl = pl;
 	}
 	
-	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("trollblock")) {
 			if(sender.hasPermission(PermissionKey.CMD_TROLLBLOCK.getPermission())) {
 				if(sender instanceof Player) {
 					Player p = (Player) sender;
 					ItemStack item = new ItemStack(Material.GOLDEN_APPLE, 1);
-					TrollBlock block = new TrollBlock(p.getTargetBlock(null, 100), item, p, pl);
-					block.startTroll();
+					Block block = p.getTargetBlock((Set<Material>)null, 15);
+					TrollBlock tblock = new TrollBlock(p.getTargetBlock((Set<Material>)null, 15), item, p, pl);
+					tblock.startTroll();
 					sendMessage(ChatColor.GREEN + block.getType().name().toLowerCase().replace("_", "") + " is now a troll block!");
 				} else {
 					getWarning(WarningType.PLAYER_ONLY);

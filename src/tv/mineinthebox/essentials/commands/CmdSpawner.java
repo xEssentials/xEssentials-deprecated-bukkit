@@ -1,5 +1,7 @@
 package tv.mineinthebox.essentials.commands;
 
+import java.util.Set;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -20,7 +22,6 @@ public class CmdSpawner extends CommandTemplate {
 		super(pl, cmd, sender);
 	}
 
-	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("spawner")) {
 			if(sender instanceof Player) {
@@ -55,7 +56,7 @@ public class CmdSpawner extends CommandTemplate {
 									} else if(type == EntityType.PLAYER) {
 										sendMessage(ChatColor.RED + "player entities cannot used through Bukkit");
 									} else {
-										Block block = p.getTargetBlock(null, 50);
+										Block block = p.getTargetBlock((Set<Material>)null, 50);
 										if(block.getType() == Material.MOB_SPAWNER) {
 											CreatureSpawner spawner = (CreatureSpawner) block.getState();
 											String old = spawner.getSpawnedType().name();

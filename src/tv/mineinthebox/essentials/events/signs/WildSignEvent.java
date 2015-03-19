@@ -48,7 +48,6 @@ public class WildSignEvent extends EventTemplate implements Listener {
 						int x = randx.nextInt(xRadius)+e.getPlayer().getLocation().getBlockX();
 						int z = randz.nextInt(zRadius)+e.getPlayer().getLocation().getBlockZ();
 						Location loc = new Location(e.getPlayer().getWorld(), x, e.getPlayer().getWorld().getHighestBlockYAt(x, z), z);
-						loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 						e.getPlayer().teleport(loc);
 						sendMessage(e.getPlayer(), ChatColor.GREEN + "you successfully has teleported to the wild!");	
 					} else {

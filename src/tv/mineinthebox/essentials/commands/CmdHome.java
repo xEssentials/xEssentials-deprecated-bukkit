@@ -90,7 +90,6 @@ public class CmdHome extends CommandTemplate {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.hasHome()) {
 							Home home = xp.getHome("default");
-							home.getLocation().getWorld().refreshChunk(home.getLocation().getChunk().getX(), home.getLocation().getChunk().getZ());
 							if(xp.getPlayer().isInsideVehicle()) {
 								if(xp.getPlayer().getVehicle() instanceof LivingEntity) {
 									LivingEntity entity = (LivingEntity) xp.getPlayer().getVehicle();
@@ -143,7 +142,6 @@ public class CmdHome extends CommandTemplate {
 										return false;
 									}
 									Location loc = off.getHome("default").getLocation();
-									loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 									if(p.isInsideVehicle()) {
 										if(p.getVehicle() instanceof LivingEntity) {
 											LivingEntity entity = (LivingEntity) p.getVehicle();
@@ -174,7 +172,6 @@ public class CmdHome extends CommandTemplate {
 									if(xp.hasHome()) {
 										if(xp.isValidHome(args[0])) {
 											Location loc = xp.getHome(args[0]).getLocation();
-											loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 											if(xp.getPlayer().isInsideVehicle()) {
 												if(xp.getPlayer().getVehicle() instanceof LivingEntity) {
 													LivingEntity entity = (LivingEntity) xp.getPlayer().getVehicle();
@@ -247,7 +244,6 @@ public class CmdHome extends CommandTemplate {
 									if(off.hasHome()) {
 										if(off.isValidHome(args[1])) {
 											Location loc = off.getHome(args[1]).getLocation();
-											loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 											if(p.isInsideVehicle()) {
 												if(p.getVehicle() instanceof LivingEntity) {
 													LivingEntity entity = (LivingEntity) p.getVehicle();

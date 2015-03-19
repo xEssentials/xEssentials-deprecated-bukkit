@@ -3,6 +3,8 @@ package tv.mineinthebox.essentials.minigames;
 import java.io.File;
 import java.util.HashMap;
 
+import org.bukkit.ChatColor;
+
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.interfaces.xEssentialsAPI;
@@ -18,9 +20,10 @@ public abstract class MinigamePlugin {
 	private double version;
 	private String description;
 	private File datafolder;
-	private ResourcePack resourcepack;
-	
 	private boolean isEnabled = false;
+	private ClassLoader loader;
+	
+	private ResourcePack resourcepack;
 	
 	/**
 	 * the onEnable start method
@@ -200,8 +203,33 @@ public abstract class MinigamePlugin {
 	 * @param message - the message
 	 * @param type - the log type
 	 */
-	public void log(String message, LogType type) {
-		xEssentials.log("["+name+"]"+message, type);
+	public void log(String message, GameLog type) {
+		xEssentials.log(ChatColor.GREEN + "["+name+"]"+ChatColor.WHITE+message, type.getType());
+	}
+	
+	/**
+	 * gets the class loader
+	 * 
+	 * @author xize
+	 * @return ClassLoader
+	 */
+	public ClassLoader getClassLoader() {
+		return loader;
+	}
+	
+	protected enum GameLog {
+		WARNING(LogType.MINIGAME_SEVERE),
+		INFO(LogType.MINIGAME_INFO);
+		
+		private final LogType type;
+		
+		private GameLog(LogType type) {
+			this.type = type;
+		}
+		
+		public LogType getType() {
+			return type;
+		}
 	}
 	
 }

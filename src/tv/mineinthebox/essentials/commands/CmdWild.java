@@ -35,7 +35,6 @@ public class CmdWild extends CommandTemplate {
 						int x = randx.nextInt(xRadius)+p.getLocation().getBlockX();
 						int z = randz.nextInt(zRadius)+p.getLocation().getBlockZ();
 						Location loc = new Location(p.getWorld(), x, p.getWorld().getHighestBlockYAt(x, z), z);
-						loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 						p.teleport(loc);
 						sendMessage(ChatColor.GREEN + "you successfully has teleported to the wild!");
 					} else {
@@ -49,7 +48,6 @@ public class CmdWild extends CommandTemplate {
 						int x = randx.nextInt()+p.getLocation().getBlockX();
 						int z = randz.nextInt()+p.getLocation().getBlockX();
 						Location loc = new Location(p.getWorld(), x, p.getWorld().getHighestBlockYAt(x, z), z);
-						loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 						p.teleport(loc);
 						sendMessageTo(p, ChatColor.GREEN + "you successfully has teleported to the wild!");	
 					} else {
