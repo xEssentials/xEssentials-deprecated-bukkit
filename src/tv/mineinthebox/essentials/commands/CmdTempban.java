@@ -87,7 +87,7 @@ public class CmdTempban extends CommandTemplate {
 						String banMessage = Arrays.toString(newArgs).replace(args[0], "").replace("[", "").replace(",", "").replace("]", "");
 						xp.setTempbanned(date.getTime(), banMessage, sender.getName());
 						xp.getPlayer().kickPlayer(banMessage);
-						sendMessage(ChatColor.GREEN + "successfully tempbanned player " + xp.getUser() + " till " + date.toString());
+						sendMessage(ChatColor.GREEN + "successfully tempbanned player " + xp.getName() + " till " + date.toString());
 					} else {
 						try {
 							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
@@ -95,7 +95,7 @@ public class CmdTempban extends CommandTemplate {
 							String[] newArgs = getClearDescription(args);
 							String banMessage = Arrays.toString(newArgs).replace(args[0], "").replace("[", "").replace(",", "").replace("]", "");
 							off.setTempbanned(date.getTime(), banMessage, sender.getName());
-							sendMessage(ChatColor.GREEN + "successfully tempbanned player " + off.getUser() + " till " + date.toString());
+							sendMessage(ChatColor.GREEN + "successfully tempbanned player " + off.getName() + " till " + date.toString());
 						} catch(NullPointerException e) {
 							try {
 								File f = new File(pl.getDataFolder() + File.separator + "players" + File.separator + args[0].toLowerCase() + ".yml");

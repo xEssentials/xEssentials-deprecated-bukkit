@@ -36,7 +36,7 @@ public class RemoveShopEvent extends EventTemplate implements Listener {
 					for(XOfflinePlayer off : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
 						if(off.isShop(e.getBlock().getLocation())) {
 							off.removeShop(e.getBlock().getLocation());
-							sendMessage(e.getPlayer(), ChatColor.GREEN + "[Shop] " + ChatColor.GRAY + " shop of " + off.getUser() + " is unregistered!");
+							sendMessage(e.getPlayer(), ChatColor.GREEN + "[Shop] " + ChatColor.GRAY + " shop of " + off.getName() + " is unregistered!");
 							return;
 						}
 					}

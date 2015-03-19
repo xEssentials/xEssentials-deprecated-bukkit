@@ -41,26 +41,26 @@ public class CmdGreylist extends CommandTemplate {
 								if(Hooks.isVaultPermissionsEnabled()) {
 									String oldGroup = pl.getManagers().getVaultManager().getGroup(xp.getPlayer());
 									String newGroup = pl.getConfiguration().getGreyListConfig().getGroup();
-									pl.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), xp.getUser(), newGroup);
+									pl.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), xp.getName(), newGroup);
 									Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(xp.getPlayer(), newGroup, oldGroup, GreyListCause.COMMAND, pl));
 								} else {
 									sendMessage(ChatColor.RED + "no vault installed!");
 									return false;
 								}
-								sendMessage(ChatColor.GREEN + "you successfully greylisted " + xp.getUser());
+								sendMessage(ChatColor.GREEN + "you successfully greylisted " + xp.getName());
 							} else {
 								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 								off.setGreyListed(true);
 								if(Hooks.isVaultPermissionsEnabled()) {
-									String oldGroup = pl.getManagers().getVaultManager().getGroup(Bukkit.getWorlds().get(0), off.getUser());
+									String oldGroup = pl.getManagers().getVaultManager().getGroup(Bukkit.getWorlds().get(0), off.getName());
 									String newGroup = pl.getConfiguration().getGreyListConfig().getGroup();
-									pl.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), off.getUser(), newGroup);
-									Bukkit.getPluginManager().callEvent(new OfflinePlayerGreyListedEvent(off.getUser(), newGroup, oldGroup, GreyListCause.COMMAND, pl));
+									pl.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), off.getName(), newGroup);
+									Bukkit.getPluginManager().callEvent(new OfflinePlayerGreyListedEvent(off.getName(), newGroup, oldGroup, GreyListCause.COMMAND, pl));
 								} else {
 									sendMessage(ChatColor.RED + "no vault installed!");
 									return false;
 								}
-								sendMessage(ChatColor.GREEN + "you successfully greylisted offline player " + off.getUser());
+								sendMessage(ChatColor.GREEN + "you successfully greylisted offline player " + off.getName());
 							}
 						} else {
 							sendMessage(ChatColor.RED + "this player has never played before!");
@@ -72,23 +72,23 @@ public class CmdGreylist extends CommandTemplate {
 								xp.setGreyListed(false);
 								if(Hooks.isVaultPermissionsEnabled()) {
 									String DefaultGroup = pl.getManagers().getVaultManager().getDefaultGroup();
-									pl.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), xp.getUser(), DefaultGroup);
+									pl.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), xp.getName(), DefaultGroup);
 								} else {
 									sendMessage(ChatColor.RED + "no vault intalled!");
 									return false;
 								}
-								sendMessage(ChatColor.GREEN + "you have successfully removed " + xp.getUser() + " from the greylist!");
+								sendMessage(ChatColor.GREEN + "you have successfully removed " + xp.getName() + " from the greylist!");
 							} else {
 								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 								off.setGreyListed(false);
 								if(Hooks.isVaultPermissionsEnabled()) {
 									String DefaultGroup = pl.getManagers().getVaultManager().getDefaultGroup();
-									pl.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), off.getUser(), DefaultGroup);
+									pl.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), off.getName(), DefaultGroup);
 								} else {
 									sendMessage(ChatColor.RED + "no vault intalled!");
 									return false;
 								}
-								sendMessage(ChatColor.GREEN + "you have successfully removed " + off.getUser() + " from the greylist!");
+								sendMessage(ChatColor.GREEN + "you have successfully removed " + off.getName() + " from the greylist!");
 							}
 						} else {
 							sendMessage(ChatColor.RED + "this player has never played before!");

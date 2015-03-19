@@ -40,7 +40,7 @@ public class CmdCheck extends CommandTemplate {
 						for(XOfflinePlayer off : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
 							if(off.hasModreqsOpen()) {
 								for(Modreq mod : off.getModreqs()) {
-									sender.sendMessage(ChatColor.GRAY + "id: " + ChatColor.GREEN + mod.getId() + ChatColor.GRAY + " message: " + ChatColor.GREEN + mod.getMessage() + ChatColor.GRAY + " published: " + ChatColor.GREEN + mod.getDate() + ChatColor.GRAY + " by: " + ChatColor.GREEN + off.getUser());	
+									sender.sendMessage(ChatColor.GRAY + "id: " + ChatColor.GREEN + mod.getId() + ChatColor.GRAY + " message: " + ChatColor.GREEN + mod.getMessage() + ChatColor.GRAY + " published: " + ChatColor.GREEN + mod.getDate() + ChatColor.GRAY + " by: " + ChatColor.GREEN + off.getName());	
 								}
 							}
 						}

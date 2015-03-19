@@ -31,8 +31,8 @@ public class CmdBan extends CommandTemplate {
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
 		for(XOfflinePlayer name : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
-			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
-				s.add(name.getUser());
+			if(name.getName().toUpperCase().startsWith(p.toUpperCase())) {
+				s.add(name.getName());
 			}
 		}
 		return s;
@@ -73,7 +73,7 @@ public class CmdBan extends CommandTemplate {
 							try {
 								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								off.setPermBanned("The ban hammer has spoken!", sender.getName());
-								sendMessage(ChatColor.GREEN + "successfully banned player " + off.getUser());
+								sendMessage(ChatColor.GREEN + "successfully banned player " + off.getName());
 							} catch(NullPointerException e) {
 								try {
 									File f = new File(pl.getDataFolder() + File.separator + "players" + File.separator + args[0].toLowerCase() + ".yml");

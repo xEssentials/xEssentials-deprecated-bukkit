@@ -51,8 +51,8 @@ public class ChatHighLightEvent implements Listener {
 	public void onTabComplete(PlayerChatTabCompleteEvent e) {
 		e.getTabCompletions().clear();
 		for(XOfflinePlayer off : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
-				if(off.getUser().toUpperCase().startsWith(e.getLastToken().toUpperCase())) {
-					e.getTabCompletions().add(off.getUser());
+				if(off.getName().toUpperCase().startsWith(e.getLastToken().toUpperCase())) {
+					e.getTabCompletions().add(off.getName());
 				}
 		}
 	}

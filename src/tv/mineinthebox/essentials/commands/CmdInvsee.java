@@ -26,8 +26,8 @@ public class CmdInvsee extends CommandTemplate {
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
 		for(XOfflinePlayer name : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
-			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
-				s.add(name.getUser());
+			if(name.getName().toUpperCase().startsWith(p.toUpperCase())) {
+				s.add(name.getName());
 			} else if("help".toUpperCase().startsWith(p.toUpperCase())) {
 				s.add("help");
 			}
@@ -71,7 +71,7 @@ public class CmdInvsee extends CommandTemplate {
 								if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
 									XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 									p.openInventory(xp.getOnlineInventory());
-									sendMessage(ChatColor.GREEN + "opening live inventory of player " + xp.getUser());
+									sendMessage(ChatColor.GREEN + "opening live inventory of player " + xp.getName());
 								} else {
 									sendMessage(ChatColor.RED + "this player does not exist in the global HashMap please reload xEssentials");
 								}
@@ -80,7 +80,7 @@ public class CmdInvsee extends CommandTemplate {
 									XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 									if(off.hasOfflineInventory()) {
 										p.openInventory(off.getOfflineInventory(p));
-										sendMessage(ChatColor.GREEN + "opening offline inventory of player " + off.getUser());
+										sendMessage(ChatColor.GREEN + "opening offline inventory of player " + off.getName());
 									} else {
 										sendMessage(ChatColor.RED + "this player does not have a saved inventory");
 									}

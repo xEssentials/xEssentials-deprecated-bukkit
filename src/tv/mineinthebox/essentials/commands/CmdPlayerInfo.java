@@ -26,8 +26,8 @@ public class CmdPlayerInfo extends CommandTemplate {
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
 		for(XOfflinePlayer name : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
-			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
-				s.add(name.getUser());
+			if(name.getName().toUpperCase().startsWith(p.toUpperCase())) {
+				s.add(name.getName());
 			}
 		}
 		return s;
@@ -58,7 +58,7 @@ public class CmdPlayerInfo extends CommandTemplate {
 					} else {
 						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
 							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
-							sender.sendMessage(ChatColor.GOLD + ".oO___[showing information about " + off.getUser() + "]___Oo.");
+							sender.sendMessage(ChatColor.GOLD + ".oO___[showing information about " + off.getName() + "]___Oo.");
 							sender.sendMessage(ChatColor.GRAY + "file name: " + ChatColor.GREEN + off.getUniqueId()+".yml");
 							if(pl.getConfiguration().getGreyListConfig().isEnabled()) {
 								sender.sendMessage(ChatColor.GRAY + "is greylisted: " + off.isGreyListed());

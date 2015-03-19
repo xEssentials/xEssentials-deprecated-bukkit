@@ -41,7 +41,7 @@ public class AntiAddvertiseEvent extends EventTemplate implements Listener {
 						XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(e.getBookContents().getAuthor());
 						for(String bookPage : e.getBookContents().getPages()) {
 							if(ipcheck(bookPage, off)) {
-								sendMessage(e.getPlayer(), ChatColor.RED + "you cannot open this book, this book contains addvertises from " + off.getUser());
+								sendMessage(e.getPlayer(), ChatColor.RED + "you cannot open this book, this book contains addvertises from " + off.getName());
 								e.getPlayer().setItemInHand(null);
 								e.setCancelled(true);
 								break;

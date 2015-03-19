@@ -26,8 +26,8 @@ public class CmdProc extends CommandTemplate {
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
 		for(XOfflinePlayer name : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
-			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
-				s.add(name.getUser());
+			if(name.getName().toUpperCase().startsWith(p.toUpperCase())) {
+				s.add(name.getName());
 			}
 		}
 		return s;
@@ -67,10 +67,10 @@ public class CmdProc extends CommandTemplate {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 							if(xp.hasProc()) {
 								xp.setProc(false);
-								sendMessage(ChatColor.GREEN + "proc has been disabled for player " + xp.getUser() + "!");
+								sendMessage(ChatColor.GREEN + "proc has been disabled for player " + xp.getName() + "!");
 							} else {
 								xp.setProc(true);
-								sendMessage(ChatColor.GREEN + "proc has been enabled for player " + xp.getUser() + "!");
+								sendMessage(ChatColor.GREEN + "proc has been enabled for player " + xp.getName() + "!");
 							}
 						}
 					} else {

@@ -31,8 +31,8 @@ public class CmdDone extends CommandTemplate {
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
 		for(XOfflinePlayer name : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
-			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
-				s.add(name.getUser());
+			if(name.getName().toUpperCase().startsWith(p.toUpperCase())) {
+				s.add(name.getName());
 			}
 		}
 		return s;
@@ -110,7 +110,7 @@ public class CmdDone extends CommandTemplate {
 									sendMessageTo(xp.getPlayer(), "comment: " + ChatColor.GREEN + "comment not defined");
 									for(Player a : Bukkit.getOnlinePlayers()) {
 										if(a.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-											sendMessageTo(a, "staff member " + sender.getName() + " has closed " + xp.getUser() + " his modreq.");
+											sendMessageTo(a, "staff member " + sender.getName() + " has closed " + xp.getName() + " his modreq.");
 											sendMessageTo(a, "id: " + ChatColor.GREEN + idNumber);
 											sendMessageTo(a, "message: " + ChatColor.GREEN + title);
 											sendMessageTo(a, "comment: " + ChatColor.GREEN + "comment not defined");
@@ -145,7 +145,7 @@ public class CmdDone extends CommandTemplate {
 										off.setModreqDoneMessage(s);
 										for(Player a : Bukkit.getOnlinePlayers()) {
 											if(a.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-												sendMessageTo(a.getPlayer(), "staff member " + sender.getName() + " has closed offline player " + off.getUser() + " his modreq.");
+												sendMessageTo(a.getPlayer(), "staff member " + sender.getName() + " has closed offline player " + off.getName() + " his modreq.");
 												sendMessageTo(a.getPlayer(), "id: " + ChatColor.GREEN + idNumber);
 												sendMessageTo(a.getPlayer(), "message: " + ChatColor.GREEN + title);
 												sendMessageTo(a.getPlayer(), "comment: " + ChatColor.GREEN + "comment not defined");
@@ -196,7 +196,7 @@ public class CmdDone extends CommandTemplate {
 								sendMessageTo(xp.getPlayer(), "comment: " + ChatColor.GREEN + comment);
 								for(Player a : Bukkit.getOnlinePlayers()) {
 									if(a.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-										sendMessageTo(a.getPlayer(), "staff member " + sender.getName() + " has closed " + xp.getUser() + " his modreq.");
+										sendMessageTo(a.getPlayer(), "staff member " + sender.getName() + " has closed " + xp.getName() + " his modreq.");
 										sendMessageTo(a.getPlayer(), "id: " + ChatColor.GREEN + idNumber);
 										sendMessageTo(a.getPlayer(), "message: " + ChatColor.GREEN + title);
 										sendMessageTo(a.getPlayer(), "comment: " + ChatColor.GREEN + comment);
@@ -228,7 +228,7 @@ public class CmdDone extends CommandTemplate {
 									off.setModreqDoneMessage(s);
 									for(Player a : Bukkit.getOnlinePlayers()) {
 										if(a.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-											sendMessageTo(a.getPlayer(), "staff member " + sender.getName() + " has closed offline player " + off.getUser() + " his modreq.");
+											sendMessageTo(a.getPlayer(), "staff member " + sender.getName() + " has closed offline player " + off.getName() + " his modreq.");
 											sendMessageTo(a.getPlayer(), "id: " + ChatColor.GREEN + idNumber);
 											sendMessageTo(a.getPlayer(), "message: " + ChatColor.GREEN + title);
 											sendMessageTo(a.getPlayer(), "comment: " + ChatColor.GREEN + comment);

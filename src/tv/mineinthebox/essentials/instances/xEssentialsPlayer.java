@@ -332,6 +332,14 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		return con.getString("user");
 	}
+	
+	@Override
+	public String getName() {
+		if(!player.getName().equalsIgnoreCase(con.getString("user"))) {
+			con.set("user", player.getName());
+		}
+		return con.getString("user");
+	}
 
 	@Override
 	public boolean isFishing() {

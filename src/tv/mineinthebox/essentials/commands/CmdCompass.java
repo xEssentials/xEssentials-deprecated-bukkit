@@ -26,8 +26,8 @@ public class CmdCompass extends CommandTemplate {
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
 		for(XOfflinePlayer name : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
-			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
-				s.add(name.getUser());
+			if(name.getName().toUpperCase().startsWith(p.toUpperCase())) {
+				s.add(name.getName());
 			}
 		}
 		return s;
@@ -60,8 +60,8 @@ public class CmdCompass extends CommandTemplate {
 					} else if(args.length == 1) {
 						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
 							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
-							xp.setCompass(off.getUser());
-							sendMessage(ChatColor.GREEN + "you have successfully added " + off.getUser() + " to your clock!");
+							xp.setCompass(off.getName());
+							sendMessage(ChatColor.GREEN + "you have successfully added " + off.getName() + " to your clock!");
 						} else {
 							sendMessage(ChatColor.RED + "this player has never played before!");
 						}

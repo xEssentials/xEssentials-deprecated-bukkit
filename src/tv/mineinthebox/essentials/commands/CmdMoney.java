@@ -32,8 +32,8 @@ public class CmdMoney extends CommandTemplate {
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
 		for(XOfflinePlayer name : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
-			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
-				s.add(name.getUser());
+			if(name.getName().toUpperCase().startsWith(p.toUpperCase())) {
+				s.add(name.getName());
 			}
 		}
 		return s;
@@ -84,7 +84,7 @@ public class CmdMoney extends CommandTemplate {
 						SortedMap<Double, String> map = new TreeMap<Double, String>().descendingMap();
 						for(XOfflinePlayer off : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
 							if(off.hasMoney()) {
-								map.put(off.getMoney(), off.getUser());
+								map.put(off.getMoney(), off.getName());
 							}
 						}
 						Iterator<Entry<Double, String>> it = map.entrySet().iterator();
@@ -119,11 +119,11 @@ public class CmdMoney extends CommandTemplate {
 								if(pl.getManagers().getPlayerManager().isOnline(args[1])) {
 									XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[1]);
 									xp.clearMoney();
-									sendMessage(ChatColor.GREEN + "you successfully cleared "+ xp.getUser() +" banks money!");
+									sendMessage(ChatColor.GREEN + "you successfully cleared "+ xp.getName() +" banks money!");
 								} else {
 									XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 									off.clearMoney();
-									sendMessage(ChatColor.GREEN + "you successfully cleared "+ off.getUser() +" banks money!");
+									sendMessage(ChatColor.GREEN + "you successfully cleared "+ off.getName() +" banks money!");
 								}
 							} else {
 								getWarning(WarningType.NEVER_PLAYED_BEFORE);
@@ -143,9 +143,9 @@ public class CmdMoney extends CommandTemplate {
 										Double money = Double.parseDouble(args[2]);
 										if(xp.hasEnoughMoney(money)) {
 											xp.payMoney(money, xpp);
-											sendMessage(ChatColor.GREEN + "you have successfully paid " + xpp.getUser() + " " + money + pl.getConfiguration().getEconomyConfig().getCurency());
+											sendMessage(ChatColor.GREEN + "you have successfully paid " + xpp.getName() + " " + money + pl.getConfiguration().getEconomyConfig().getCurency());
 											sendMessageTo(xpp.getPlayer(), ChatColor.GREEN + sender.getName() + " has paid " + money + pl.getConfiguration().getEconomyConfig().getCurency() + " to you!");
-											Bukkit.getPluginManager().callEvent(new PlayerTransactionEvent(xp.getPlayer(), money, xpp.getUser()));
+											Bukkit.getPluginManager().callEvent(new PlayerTransactionEvent(xp.getPlayer(), money, xpp.getName()));
 										} else {
 											sendMessage(ChatColor.RED + "you don't have enough money to pay this player!");
 										}
@@ -158,8 +158,8 @@ public class CmdMoney extends CommandTemplate {
 										Double money = Double.parseDouble(args[2]);
 										if(xp.hasEnoughMoney(money)) {
 											xp.payMoney(money, off);
-											sendMessage(ChatColor.GREEN + "you have successfully paid " + off.getUser() + " " + money + pl.getConfiguration().getEconomyConfig().getCurency());
-											Bukkit.getPluginManager().callEvent(new PlayerTransactionEvent(xp.getPlayer(), money, off.getUser()));
+											sendMessage(ChatColor.GREEN + "you have successfully paid " + off.getName() + " " + money + pl.getConfiguration().getEconomyConfig().getCurency());
+											Bukkit.getPluginManager().callEvent(new PlayerTransactionEvent(xp.getPlayer(), money, off.getName()));
 										} else {
 											sendMessage(ChatColor.RED + "you don't have enough money to pay this player!");
 										}
@@ -181,7 +181,7 @@ public class CmdMoney extends CommandTemplate {
 									try {
 										Double money = Double.parseDouble(args[2]);
 										xp.depositMoney(money);
-										sendMessage(ChatColor.GREEN + "you successfully gave " + xp.getUser() + " " + money + pl.getConfiguration().getEconomyConfig().getCurency());
+										sendMessage(ChatColor.GREEN + "you successfully gave " + xp.getName() + " " + money + pl.getConfiguration().getEconomyConfig().getCurency());
 										sendMessageTo(xp.getPlayer(), ChatColor.GREEN + sender.getName() + " has given you " + money + pl.getConfiguration().getEconomyConfig().getCurency());
 									} catch(NumberFormatException e) {
 										sendMessage(ChatColor.RED + "invalid money usage on the third argument!");
@@ -191,7 +191,7 @@ public class CmdMoney extends CommandTemplate {
 									try {
 										Double money = Double.parseDouble(args[2]);
 										off.depositMoney(money);
-										sendMessage(ChatColor.GREEN + "you successfully gave " + off.getUser() + " " + money + pl.getConfiguration().getEconomyConfig().getCurency());
+										sendMessage(ChatColor.GREEN + "you successfully gave " + off.getName() + " " + money + pl.getConfiguration().getEconomyConfig().getCurency());
 									} catch(NumberFormatException e) {
 										sendMessage(ChatColor.RED + "invalid money usage on the third argument!");
 									}
@@ -211,7 +211,7 @@ public class CmdMoney extends CommandTemplate {
 										Double money = Double.parseDouble(args[2]);
 										xp.clearMoney();
 										xp.depositMoney(money);
-										sendMessage(ChatColor.GREEN + "you successfully reset the balance of player " + xp.getUser() + " to " + money + pl.getConfiguration().getEconomyConfig().getCurency());
+										sendMessage(ChatColor.GREEN + "you successfully reset the balance of player " + xp.getName() + " to " + money + pl.getConfiguration().getEconomyConfig().getCurency());
 										sendMessageTo(xp.getPlayer(), ChatColor.GREEN + sender.getName() + " has reset your bank balance to " + money + pl.getConfiguration().getEconomyConfig().getCurency());
 									} catch(NumberFormatException e) {
 										sendMessage(ChatColor.RED + "invalid money usage on the third argument!");
@@ -222,7 +222,7 @@ public class CmdMoney extends CommandTemplate {
 										Double money = Double.parseDouble(args[2]);
 										off.clearMoney();
 										off.depositMoney(money);
-										sendMessage(ChatColor.GREEN + "you successfully reset the balance of player " + off.getUser() + " to " + money + pl.getConfiguration().getEconomyConfig().getCurency());
+										sendMessage(ChatColor.GREEN + "you successfully reset the balance of player " + off.getName() + " to " + money + pl.getConfiguration().getEconomyConfig().getCurency());
 									} catch(NumberFormatException e) {
 										sendMessage(ChatColor.RED + "invalid money usage on the third argument!");
 									}
@@ -242,7 +242,7 @@ public class CmdMoney extends CommandTemplate {
 										Double money = Double.parseDouble(args[2]);
 										if(xp.hasEnoughMoney(money)) {
 											xp.payMoney(money);
-											sendMessage(ChatColor.GREEN + "you successfully withdrawed " + money + " from " + xp.getUser() + " his bank!");
+											sendMessage(ChatColor.GREEN + "you successfully withdrawed " + money + " from " + xp.getName() + " his bank!");
 										} else {
 											sendMessage(ChatColor.RED + "you cannot withdraw more money which the player doesn't have!");
 										}
@@ -255,7 +255,7 @@ public class CmdMoney extends CommandTemplate {
 										Double money = Double.parseDouble(args[2]);
 										if(off.hasEnoughMoney(money)) {
 											off.payMoney(money);
-											sendMessage(ChatColor.GREEN + "you successfully withdrawed " + money + " from " + off.getUser() + " his bank!");
+											sendMessage(ChatColor.GREEN + "you successfully withdrawed " + money + " from " + off.getName() + " his bank!");
 										} else {
 											sendMessage(ChatColor.RED + "you cannot withdraw more money which the player doesn't have!");
 										}

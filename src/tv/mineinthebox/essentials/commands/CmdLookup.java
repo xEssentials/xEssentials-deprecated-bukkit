@@ -56,7 +56,7 @@ public class CmdLookup extends CommandTemplate {
 						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
 							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							try {
-								EnumMap<ServiceType, List<String>> messages = getLookupReasons(off.getUser());
+								EnumMap<ServiceType, List<String>> messages = getLookupReasons(off.getName());
 								for(ServiceType type : ServiceType.values()) {
 									if(messages.containsKey(type)) {
 										sender.sendMessage(ChatColor.GOLD + ".oO___["+type.getService()+"]___Oo.");
@@ -70,7 +70,7 @@ public class CmdLookup extends CommandTemplate {
 									}
 								}
 							} catch (Exception e) {
-								xEssentials.log("could not lookup ban status of player " + off.getUser() + " on api.fishbans.com", LogType.SEVERE);
+								xEssentials.log("could not lookup ban status of player " + off.getName() + " on api.fishbans.com", LogType.SEVERE);
 							}
 						} else {
 							try {

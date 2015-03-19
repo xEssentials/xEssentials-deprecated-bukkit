@@ -33,16 +33,16 @@ public class GreyListServer extends EventTemplate implements ServerListener {
 						e.setMimeType(MimeType.MIME_JSON);
 						e.setContent("{\"xEssentials\": {\"response\": \"success\"}}\n\r".getBytes());
 						if(pl.getConfiguration().getDebugConfig().isEnabled()) {
-							xEssentials.log("player: " + off.getUser() + " has been greylisted, result: " + off.isGreyListed() + " if this is true its wrong", LogType.DEBUG);	
+							xEssentials.log("player: " + off.getName() + " has been greylisted, result: " + off.isGreyListed() + " if this is true its wrong", LogType.DEBUG);	
 						}
 						if(off instanceof XPlayer) {
 							XPlayer xp = (XPlayer)off;
 							off.setGreyListed(true);
 							sendMessage(xp.getPlayer(), ChatColor.GREEN + "you are successfully promoted to " + pl.getConfiguration().getGreyListConfig().getGroup());
 							if(Hooks.isVaultPermissionsEnabled()) {
-								String oldGroup = pl.getManagers().getVaultManager().getGroup(off.getPlayer().getWorld(), off.getUser());
+								String oldGroup = pl.getManagers().getVaultManager().getGroup(off.getPlayer().getWorld(), off.getName());
 								String newgroup = pl.getConfiguration().getGreyListConfig().getGroup();
-								pl.getManagers().getVaultManager().setGroup(off.getPlayer().getWorld(), off.getUser(), newgroup);
+								pl.getManagers().getVaultManager().setGroup(off.getPlayer().getWorld(), off.getName(), newgroup);
 								Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(off.getPlayer(), newgroup, oldGroup, GreyListCause.SITE, pl));
 							}
 						} else {
@@ -50,13 +50,13 @@ public class GreyListServer extends EventTemplate implements ServerListener {
 							if(Hooks.isVaultPermissionsEnabled()) {
 								String oldGroup = pl.getManagers().getVaultManager().getGroup(off.getLastLocation().getWorld(), user);
 								String newgroup = pl.getConfiguration().getGreyListConfig().getGroup();
-								pl.getManagers().getVaultManager().setGroup(off.getLastLocation().getWorld(), off.getUser(), newgroup);
+								pl.getManagers().getVaultManager().setGroup(off.getLastLocation().getWorld(), off.getName(), newgroup);
 								Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(off.getPlayer(), newgroup, oldGroup, GreyListCause.SITE, pl));
 							}
 						}
 					} else {
 						if(pl.getConfiguration().getDebugConfig().isEnabled()) {
-							xEssentials.log("player: " + off.getUser() + " was already greylisted", LogType.DEBUG);	
+							xEssentials.log("player: " + off.getName() + " was already greylisted", LogType.DEBUG);	
 						}
 						e.setMimeType(MimeType.MIME_JSON);
 						e.setContent("{\"xEssentials\": {\"response\": \"greylisted\"}}\n\r".getBytes());

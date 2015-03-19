@@ -32,7 +32,7 @@ public class CmdUnban extends CommandTemplate {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 							if(xp.isPermBanned() || xp.isTempBanned()) {
 								xp.unban();
-								sendMessage(ChatColor.GREEN + xp.getUser() + " has been unbanned!");
+								sendMessage(ChatColor.GREEN + xp.getName() + " has been unbanned!");
 							} else {
 								sendMessage(ChatColor.RED + "this player is not banned!");
 							}
@@ -41,7 +41,7 @@ public class CmdUnban extends CommandTemplate {
 								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								if(off.isPermBanned() || off.isTempBanned()) {
 									off.unban();
-									sendMessage(ChatColor.GREEN + off.getUser() + " has been unbanned!");
+									sendMessage(ChatColor.GREEN + off.getName() + " has been unbanned!");
 								} else {
 									sendMessage(ChatColor.RED + "this player is not banned!");
 								}

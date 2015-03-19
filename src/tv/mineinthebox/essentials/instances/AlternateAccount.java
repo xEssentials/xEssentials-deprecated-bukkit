@@ -32,14 +32,14 @@ public class AlternateAccount {
 	private JSONObject json;
 
 	public AlternateAccount(xEssentialsPlayer xp, xEssentials pl) {
-		this.name = xp.getUser();
+		this.name = xp.getName();
 		this.pl = pl;
 		List<String> list = new ArrayList<String>();
 		List<XOfflinePlayer> list2 = new ArrayList<XOfflinePlayer>();
 		for(XOfflinePlayer offs : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
-			if(!xp.getUser().equalsIgnoreCase(offs.getUser())) {
+			if(!xp.getName().equalsIgnoreCase(offs.getName())) {
 				if(xp.getIp().equalsIgnoreCase(offs.getIp())) {
-					list.add(offs.getUser());
+					list.add(offs.getName());
 					list2.add(offs);
 				}
 			}
@@ -51,14 +51,14 @@ public class AlternateAccount {
 	}
 
 	public AlternateAccount(xEssentialsOfflinePlayer xp, xEssentials pl) {
-		this.name = xp.getUser();
+		this.name = xp.getName();
 		this.pl = pl;
 		List<String> list = new ArrayList<String>();
 		List<XOfflinePlayer> list2 = new ArrayList<XOfflinePlayer>();
 		for(XOfflinePlayer offs : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
-			if(!xp.getUser().equalsIgnoreCase(offs.getUser())) {
+			if(!xp.getName().equalsIgnoreCase(offs.getName())) {
 				if(xp.getIp().equalsIgnoreCase(offs.getIp())) {
-					list.add(offs.getUser());
+					list.add(offs.getName());
 					list2.add(offs);
 				}
 			}
@@ -97,13 +97,13 @@ public class AlternateAccount {
 		List<String> list = new ArrayList<String>();
 		for(XOfflinePlayer offliner : off) {
 			if(offliner.isPermBanned()) {
-				list.add(BanType.BANNED.getPrefix()+ChatColor.GRAY+offliner.getUser());
+				list.add(BanType.BANNED.getPrefix()+ChatColor.GRAY+offliner.getName());
 			} else if(offliner.isTempBanned()) {
-				list.add(BanType.TEMPBANNED.getPrefix()+ChatColor.GRAY+offliner.getUser());
+				list.add(BanType.TEMPBANNED.getPrefix()+ChatColor.GRAY+offliner.getName());
 			} else if(offliner.isBannedBefore()) {
-				list.add(BanType.BANNED_BEFORE.getPrefix()+ChatColor.GRAY+offliner.getUser());
+				list.add(BanType.BANNED_BEFORE.getPrefix()+ChatColor.GRAY+offliner.getName());
 			} else {
-				list.add(BanType.NEVER_BANNED.getPrefix()+ChatColor.GRAY+offliner.getUser());
+				list.add(BanType.NEVER_BANNED.getPrefix()+ChatColor.GRAY+offliner.getName());
 			}
 		}
 		String[] args = list.toArray(new String[list.size()]);

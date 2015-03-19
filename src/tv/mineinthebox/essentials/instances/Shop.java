@@ -21,8 +21,8 @@ public class Shop {
 		this.chest = chest;
 		this.sign = sign;
 		this.owner = off;
-		if(!this.sign.getLine(0).equalsIgnoreCase(off.getUser())) {
-			this.sign.setLine(0, off.getUser());
+		if(!this.sign.getLine(0).equalsIgnoreCase(off.getName())) {
+			this.sign.setLine(0, off.getName());
 			this.sign.update();
 		}
 	}

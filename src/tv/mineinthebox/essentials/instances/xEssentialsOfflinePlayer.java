@@ -118,6 +118,12 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		save();
 		return con.getString("user");
 	}
+	
+	@Override
+	public String getName() {
+		save();
+		return con.getString("user");
+	}
 
 	@Override
 	public boolean isMuted() {

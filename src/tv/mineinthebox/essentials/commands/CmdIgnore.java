@@ -26,8 +26,8 @@ public class CmdIgnore extends CommandTemplate {
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
 		for(XOfflinePlayer name : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
-			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
-				s.add(name.getUser());
+			if(name.getName().toUpperCase().startsWith(p.toUpperCase())) {
+				s.add(name.getName());
 			}
 		}
 		return s;
@@ -53,7 +53,7 @@ public class CmdIgnore extends CommandTemplate {
 					} else if(args.length == 1) {
 						if(!sender.getName().equalsIgnoreCase(args[0])) {
 							if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-								String name = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getUser();
+								String name = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getName();
 								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 								if(xp.hasIgnoredPlayers()) {
 									if(xp.getIgnoredPlayers().contains(name)) {

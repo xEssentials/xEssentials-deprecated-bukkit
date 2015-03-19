@@ -31,8 +31,8 @@ public class CmdTeleport extends CommandTemplate {
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
 		for(XOfflinePlayer name : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
-			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
-				s.add(name.getUser());
+			if(name.getName().toUpperCase().startsWith(p.toUpperCase())) {
+				s.add(name.getName());
 			}
 		}
 		return s;
@@ -76,13 +76,13 @@ public class CmdTeleport extends CommandTemplate {
 									}
 								}
 								p.getPlayer().teleport(to.getPlayer());
-								sendMessage(ChatColor.GREEN + "teleporting to online location of player " + xp.getUser() + " ;-)");
+								sendMessage(ChatColor.GREEN + "teleporting to online location of player " + xp.getName() + " ;-)");
 							} else {
 								if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
 									XOfflinePlayer offliner = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 									offliner.getLastLocation().getWorld().refreshChunk(offliner.getLastLocation().getChunk().getX(), offliner.getLastLocation().getChunk().getZ());
 									p.getPlayer().teleport(offliner.getLastLocation(), TeleportCause.COMMAND);
-									sendMessage(ChatColor.GREEN + "teleporting to last offline location of player " + offliner.getUser() + " ;-)");
+									sendMessage(ChatColor.GREEN + "teleporting to last offline location of player " + offliner.getName() + " ;-)");
 								} else {
 									getWarning(WarningType.NEVER_PLAYED_BEFORE);	
 								}

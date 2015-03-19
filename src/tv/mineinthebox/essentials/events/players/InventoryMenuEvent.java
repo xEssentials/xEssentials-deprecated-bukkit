@@ -30,22 +30,22 @@ public class InventoryMenuEvent implements Listener {
 				if(isButton(e.getCurrentItem())) {
 					if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "activate boom for this player!")) {
 						e.getWhoClicked().closeInventory();
-						p.performCommand("boom " + xp.getUser());
+						p.performCommand("boom " + xp.getName());
 					} else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "activate the magic potato curse!")) {
 						e.getWhoClicked().closeInventory();
-						p.performCommand("potato " + xp.getUser());
+						p.performCommand("potato " + xp.getName());
 					} else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "kick the player")) {
 						e.getWhoClicked().closeInventory();
-						p.performCommand("kick " + xp.getUser());
+						p.performCommand("kick " + xp.getName());
 					} else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "TNT rain, this will rain tnt uopen them!")) {
 						e.getWhoClicked().closeInventory();
-						p.performCommand("nuke " + xp.getUser());
+						p.performCommand("nuke " + xp.getName());
 					} else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "fake TNT rain, this will rain tnt uopen them!")) {
 						e.getWhoClicked().closeInventory();
-						p.performCommand("fakenuke " + xp.getUser());
+						p.performCommand("fakenuke " + xp.getName());
 					} else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "ban the player for playing on this server!")) {
 						e.getWhoClicked().closeInventory();
-						p.performCommand("ban " + xp.getUser());
+						p.performCommand("ban " + xp.getName());
 					} else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "OpKit!")) {
 						e.getWhoClicked().closeInventory();
 						p.performCommand("opkit");
@@ -56,7 +56,7 @@ public class InventoryMenuEvent implements Listener {
 				Player p = (Player) e.getWhoClicked();
 				if(e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "ban the player for playing on this server!")) {
 					e.getWhoClicked().closeInventory();
-					p.performCommand("ban " + off.getUser());
+					p.performCommand("ban " + off.getName());
 				}
 			}
 		}

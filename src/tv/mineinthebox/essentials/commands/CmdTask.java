@@ -37,7 +37,7 @@ public class CmdTask extends CommandTemplate {
 							PlayerTaskEnum playerenum = PlayerTaskEnum.PLAYER;
 							String command = Arrays.toString(args).replace("[", "").replace(",", "").replace("]", "").replace(args[0]+" ", "").replace(args[1] + " ", "");
 							off.PrepareLoginTask(command, playerenum);
-							sendMessage(ChatColor.GREEN + "successfully saved Player command for relog for player " + off.getUser() + "!");
+							sendMessage(ChatColor.GREEN + "successfully saved Player command for relog for player " + off.getName() + "!");
 						} else {
 							sendMessage(ChatColor.RED + "this player has never played on this server!");
 						}
@@ -47,7 +47,7 @@ public class CmdTask extends CommandTemplate {
 							PlayerTaskEnum playerenum = PlayerTaskEnum.CONSOLE;
 							String command = Arrays.toString(args).replace("[", "").replace(",", "").replace("]", "").replace(args[0] + " ", "").replace(args[1]+ " ", "");
 							off.PrepareLoginTask(command, playerenum);
-							sendMessage(ChatColor.GREEN + "successfully saved CONSOLE command for relog for player " + off.getUser() + "!");
+							sendMessage(ChatColor.GREEN + "successfully saved CONSOLE command for relog for player " + off.getName() + "!");
 						} else {
 							sendMessage(ChatColor.RED + "this player has never played on this server!");
 						}

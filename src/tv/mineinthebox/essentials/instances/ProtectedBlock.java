@@ -81,7 +81,7 @@ public class ProtectedBlock extends ProtectionDatabase {
 			while(set.next()) {
 				UUID id = UUID.fromString(set.getString("member"));
 				XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(id);
-				members.add(off.getUser());
+				members.add(off.getName());
 			}
 			close();
 		} catch(SQLException e) {

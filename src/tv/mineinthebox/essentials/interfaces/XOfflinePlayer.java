@@ -37,15 +37,22 @@ public interface XOfflinePlayer {
 	
 	public void PrepareLoginTask(String command, PlayerTaskEnum task);
 
-	/**
-	 * 
+	/** 
 	 * @author xize
 	 * @param gets the username from the configuration of this player, this will also get updated whenever the name does not match with the uniqueID
 	 * @return String 
-	 *
+	 * @deprecated use geName() instead.
 	 */
 	public String getUser();
 
+	/**
+	 * returns the username of this player, this name will also be updated when the player changes his name
+	 * 
+	 * @author xize
+	 * @return String
+	 */
+	public String getName();
+	
 	/**
 	 * @author xize
 	 * @param returns true when this player is muted

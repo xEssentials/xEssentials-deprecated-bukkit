@@ -26,8 +26,8 @@ public class CmdDoubleJump extends CommandTemplate {
 	private List<String> getPlayerByName(String p) {
 		List<String> s = new ArrayList<String>();
 		for(XOfflinePlayer name : pl.getManagers().getPlayerManager().getOfflinePlayers()) {
-			if(name.getUser().toUpperCase().startsWith(p.toUpperCase())) {
-				s.add(name.getUser());
+			if(name.getName().toUpperCase().startsWith(p.toUpperCase())) {
+				s.add(name.getName());
 			}
 		}
 		return s;
@@ -65,11 +65,11 @@ public class CmdDoubleJump extends CommandTemplate {
 								if(xp.hasDoubleJump()) {
 									xp.setDoubleJump(false);
 									sendMessageTo(xp.getPlayer(), ChatColor.GREEN + sender.getName() + " has turned off your double jump");
-									sendMessage(ChatColor.GREEN + "disabled double jump on online player " + xp.getUser());
+									sendMessage(ChatColor.GREEN + "disabled double jump on online player " + xp.getName());
 								} else {
 									xp.setDoubleJump(false);
 									sendMessageTo(xp.getPlayer(), ChatColor.GREEN + sender.getName() + " has turned on your double jump");
-									sendMessage(ChatColor.GREEN + "enabled double jump on online player " + xp.getUser());
+									sendMessage(ChatColor.GREEN + "enabled double jump on online player " + xp.getName());
 								}
 							} else {
 								sendMessage(ChatColor.RED + "player is offline!");

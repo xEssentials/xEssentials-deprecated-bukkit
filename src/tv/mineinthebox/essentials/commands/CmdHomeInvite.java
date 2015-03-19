@@ -36,7 +36,7 @@ public class CmdHomeInvite extends CommandTemplate {
 							if(pl.getManagers().getHomeInviteManager().containsKey(sender.getName())) {
 								Player p = (Player) sender;
 								Home home = pl.getManagers().getHomeInviteManager().getRequestedHome(sender.getName());
-								sendMessage(ChatColor.GREEN + "you have accepted " + ChatColor.GRAY + pl.getManagers().getHomeInviteManager().get(sender.getName()).getUser() + ChatColor.GREEN + " his home request!");
+								sendMessage(ChatColor.GREEN + "you have accepted " + ChatColor.GRAY + pl.getManagers().getHomeInviteManager().get(sender.getName()).getName() + ChatColor.GREEN + " his home request!");
 								p.teleport(home.getLocation(), TeleportCause.COMMAND);
 								XOfflinePlayer off = pl.getManagers().getHomeInviteManager().get(sender.getName());
 								if(off.getPlayer() instanceof Player) {
@@ -53,7 +53,7 @@ public class CmdHomeInvite extends CommandTemplate {
 								if(off.getPlayer() instanceof Player) {
 									sendMessageTo(off.getPlayer(), ChatColor.RED + "your invite has been canceled by " + ChatColor.GRAY + sender.getName());
 								}
-								sendMessage(ChatColor.GREEN + "successfully canceled home invite for player " + ChatColor.GRAY + off.getUser());
+								sendMessage(ChatColor.GREEN + "successfully canceled home invite for player " + ChatColor.GRAY + off.getName());
 								pl.getManagers().getHomeInviteManager().remove(sender.getName());
 								pl.getManagers().getHomeInviteManager().removeRequestedHome(sender.getName());
 							} else {
@@ -72,7 +72,7 @@ public class CmdHomeInvite extends CommandTemplate {
 										}
 										pl.getManagers().getHomeInviteManager().put(victem.getName(), xp);
 										if(pl.getManagers().getHomeInviteManager().setRequestedHome(victem.getName(), "default")) {
-											delayed(victem.getName(), xp.getUser());
+											delayed(victem.getName(), xp.getName());
 											sendMessage(ChatColor.GREEN + "you successfully sended a home request to " + ChatColor.GRAY + victem.getName());
 											sendMessageTo(victem, ChatColor.GRAY + sender.getName() + ChatColor.GREEN + " has invited you to his default home type:");
 											sendMessageTo(victem, ChatColor.GREEN + "/hi accept - you get teleported to his home");
@@ -103,7 +103,7 @@ public class CmdHomeInvite extends CommandTemplate {
 									}
 									pl.getManagers().getHomeInviteManager().put(victem.getName(), xp);
 									if(pl.getManagers().getHomeInviteManager().setRequestedHome(victem.getName(), args[1])) {
-										delayed(victem.getName(), xp.getUser());
+										delayed(victem.getName(), xp.getName());
 										sendMessage(ChatColor.GREEN + "you successfully sended a home request to " + ChatColor.GRAY + victem.getName());
 										sendMessageTo(victem, ChatColor.GRAY + sender.getName() + ChatColor.GREEN + " has invited you to his default home type:");
 										sendMessageTo(victem, ChatColor.GREEN + "/hi accept - you get teleported to his home");
