@@ -106,6 +106,9 @@ public abstract class MinigamePlugin {
 	 * @return File
 	 */
 	public File getDataFolder() {
+		if(!datafolder.isDirectory()) {
+			datafolder.mkdir();
+		}
 		return datafolder;
 	}
 	
