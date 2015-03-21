@@ -7,6 +7,8 @@ import java.io.IOException;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.FileConfigurationOptions;
+import org.bukkit.entity.Player;
 
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.enums.ConfigType;
@@ -24,7 +26,7 @@ public class ChatConfig extends Configuration {
 	 * @return boolean
 	 */
 	public boolean isChatHighLightEnabled() {
-		return con.getBoolean("chat.enable.playerHighlights");
+		return con.getBoolean("chat.enable.player-highlights");
 	}
 
 	/**
@@ -54,7 +56,7 @@ public class ChatConfig extends Configuration {
 	 * @return boolean
 	 */
 	public boolean isAntiAdvertiseEnabled() {
-		return con.getBoolean("chat.enable.antiAddvertise");
+		return con.getBoolean("chat.enable.anti-addvertise");
 	}
 	
 	/**
@@ -64,7 +66,7 @@ public class ChatConfig extends Configuration {
 	 * @return boolean
 	 */
 	public boolean isRssBroadcastEnabled() {
-		return con.getBoolean("rss.useRssBroadcast");
+		return con.getBoolean("rss.use-rss-broadcast");
 	}
 	
 	/**
@@ -74,7 +76,7 @@ public class ChatConfig extends Configuration {
 	 * @return String
 	 */
 	public String getRssUrl() {
-		return con.getString("rss.useRssUrl");
+		return con.getString("rss.use-rss-url");
 	}
 	
 	/**
@@ -142,6 +144,64 @@ public class ChatConfig extends Configuration {
 		return ChatColor.translateAlternateColorCodes('&', con.getString("swearfilter.warning.message"));
 	}
 
+	/**
+	 * returns the default permission less prefix which is default
+	 * 
+	 * @author xize
+	 * @return String
+	 */
+	public String getGlobalPrefix() {
+		return ChatColor.translateAlternateColorCodes('&', con.getString("chat.format.group.global.prefix"));
+	}
+	
+	/**
+	 * returns the default permission less suffix which is default
+	 * 
+	 * @author xize
+	 * @return String
+	 */
+	public String getGlobalSuffix() {
+		return ChatColor.translateAlternateColorCodes('&', con.getString("chat.format.group.global.suffix"));
+	}
+	
+	/**
+	 * returns the prefix for the player based on his permission, if he doesn't have any permission global will be returned
+	 * 
+	 * @author xize
+	 * @param p - the player
+	 * @return String
+	 */
+	public String getPrefixByPlayer(Player p) {
+		String prefix = ChatColor.translateAlternateColorCodes('&', con.getString("chat.format.group.global.prefix"));
+		for(String group : con.getConfigurationSection("chat.format.group").getKeys(false)) {
+			if(!group.equalsIgnoreCase("global")) {
+				if(p.hasPermission("xEssentials.chatgroup."+group)) {
+					return ChatColor.translateAlternateColorCodes('&', con.getString("chat.format.group."+group+".prefix"));
+				}
+			}
+		}
+		return prefix;
+	}
+	
+	/**
+	 * returns the suffix for the player based on his permission, if he doesn't have any permission global will be returned
+	 * 
+	 * @author xize
+	 * @param p - the player
+	 * @return String
+	 */
+	public String getSuffixByPlayer(Player p) {
+		String suffix = ChatColor.translateAlternateColorCodes('&', con.getString("chat.format.group.global.suffix"));
+		for(String group : con.getConfigurationSection("chat.format.group").getKeys(false)) {
+			if(!group.equalsIgnoreCase("global")) {
+				if(p.hasPermission("xEssentials.chatgroup."+group)) {
+					return ChatColor.translateAlternateColorCodes('&', con.getString("chat.format.group."+group+".suffix"));
+				}
+			}
+		}
+		return suffix;
+	}
+
 	@Override
 	public String getName() {
 		return getType().name();
@@ -165,23 +225,30 @@ public class ChatConfig extends Configuration {
 	@Override
 	public void generateConfig() {
 		if(!isGenerated()) {
-			con.set("chat.enable.playerHighlights", false);
+
+			FileConfigurationOptions opt = con.options();
+			opt.header("when defining a new chat format group, each group has its own permission\nif we would create one called somegroup the permission would be xEssentials.chatgroup.somegroup\nif the player has not any permission he gets the global prefix and suffix\nnote that if the player has * permissions his prefix and suffix should be straight under the global prefix and suffix as it works hierarchical");
+			con.set("chat.enable.player-highlights", false);
 			con.set("chat.enable.smilleys", false);
 			con.set("chat.enable.hashtag", "&e@");
-			con.set("chat.enable.antiAddvertise", false);
+			con.set("chat.enable.anti-addvertise", false);
+			con.set("chat.format.group.global.prefix", "&2[citizen]&f");
+			con.set("chat.format.group.global.suffix", "&7");
+			con.set("chat.format.group.somegroup.prefix", "&2[somegroup]&f");
+			con.set("chat.format.group.somegroup.suffix", "&7");
 			con.set("swearfilter.enable", false);
+			con.set("swearfilter.warning.enable", false);
+			con.set("swearfilter.warning.level", 3);
+			con.set("swearfilter.warning.punish-command", "/kick %p you shouldn't spam people!");
+			con.set("swearfilter.warning.message", "&cplease dont swear, you are now at warning %w");
 			con.set("swearfilter.words", new String[] {
 					"fuck",
 					"suck",
 					"shit",
 					"ass"
 			});
-			con.set("swearfilter.warning.enable", false);
-			con.set("swearfilter.warning.level", 3);
-			con.set("swearfilter.warning.punish-command", "/kick %p you shouldn't spam people!");
-			con.set("swearfilter.warning.message", "&cplease dont swear, you are now at warning %w");
-			con.set("rss.useRssBroadcast", false);
-			con.set("rss.useRssUrl", "https://mojang.com/feed/");
+			con.set("rss.use-rss-broadcast", false);
+			con.set("rss.use-rss-url", "https://mojang.com/feed/");
 			try {
 				con.save(f);
 			} catch (IOException e) {

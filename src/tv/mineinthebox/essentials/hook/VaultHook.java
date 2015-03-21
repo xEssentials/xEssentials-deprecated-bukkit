@@ -173,6 +173,7 @@ public class VaultHook {
 	 * @param group - the group
 	 * @return String
 	 */
+	@Deprecated
 	public String getSuffix(String player, String group) {
 		if(!(chat instanceof Chat)) {
 			return "";

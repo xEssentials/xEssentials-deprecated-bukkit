@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
@@ -12,7 +11,6 @@ import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
-import tv.mineinthebox.essentials.hook.Hooks;
 import tv.mineinthebox.essentials.instances.xEssentialsOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 
@@ -100,11 +98,7 @@ public class PlayerChatHighLightEvent extends PlayerEvent implements Cancellable
 	 * @return
 	 */
 	public String getSuffix() {
-		if(Hooks.isVaultChatEnabled()) {
-			return ChatColor.translateAlternateColorCodes('&', pl.getManagers().getVaultManager().getSuffix(getPlayer().getName(), pl.getManagers().getVaultManager().getGroup(getPlayer())));
-		} else {
-			return ChatColor.RESET+"";
-		}
+		return pl.getConfiguration().getChatConfig().getSuffixByPlayer(player);
 	}
 
 	@Override

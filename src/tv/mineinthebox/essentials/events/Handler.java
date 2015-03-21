@@ -29,6 +29,7 @@ import tv.mineinthebox.essentials.events.chairs.PlayerSitOnChairEvent;
 import tv.mineinthebox.essentials.events.chat.AntiAddvertiseEvent;
 import tv.mineinthebox.essentials.events.chat.AntiSwearEvent;
 import tv.mineinthebox.essentials.events.chat.BroadcastSiteNewsEvent;
+import tv.mineinthebox.essentials.events.chat.ChatFormatEvent;
 import tv.mineinthebox.essentials.events.chat.ChatHighLightEvent;
 import tv.mineinthebox.essentials.events.chat.ChatSmilleyEvent;
 import tv.mineinthebox.essentials.events.chat.DrunkChatEvent;
@@ -215,6 +216,7 @@ public class Handler {
 		if(pl.getConfiguration().getChatConfig().isSwearFilterEnabled()) {
 			setListener(new AntiSwearEvent(pl));
 		}
+		setListener(new ChatFormatEvent(pl));
 		setListener(new DrunkChatEvent(pl));
 		setListener(new SilenceChatEvent(pl));
 		setListener(new PlayerIgnorePlayerChatEvent(pl));
