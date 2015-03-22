@@ -2,7 +2,7 @@ package tv.mineinthebox.essentials.minigames;
 
 import java.util.HashMap;
 
-import tv.mineinthebox.essentials.interfaces.XPlayer;
+import org.bukkit.entity.Player;
 
 
 public abstract class MinigameSession {
@@ -10,32 +10,32 @@ public abstract class MinigameSession {
 	protected final HashMap<String, HashMap<String, Object>> data = new HashMap<String, HashMap<String, Object>>();
 	
 	/**
-	 * creates a session of this XPlayer
+	 * creates a session of this Player
 	 * 
 	 * @author xize
-	 * @param p - the XPlayer
+	 * @param p - the Player
 	 */
-	public void createSession(XPlayer p) {
+	public void createSession(Player p) {
 		data.put(p.getName().toLowerCase(), new HashMap<String, Object>());
 	}
 	
 	/**
-	 * stops the session of this XPlayer
+	 * stops the session of this Player
 	 * 
 	 * @author xize
-	 * @param p - the XPlayer
+	 * @param p - the Player
 	 */
-	public void stopSession(XPlayer p) {
+	public void stopSession(Player p) {
 		data.remove(p.getName().toLowerCase());
 	}
 	
 	/**
-	 * returns true if the XPlayer has a session, otherwise false
+	 * returns true if the Player has a session, otherwise false
 	 * 
 	 * @author xize
-	 * @param p - the XPlayer
+	 * @param p - the Player
 	 */
-	public boolean hasSession(XPlayer p) {
+	public boolean hasSession(Player p) {
 		return data.containsKey(p.getName().toLowerCase());
 	}
 	
@@ -43,11 +43,11 @@ public abstract class MinigameSession {
 	 * returns true if the given data exists otherwise false
 	 * 
 	 * @author xize
-	 * @param p - the XPlayer
+	 * @param p - the Player
 	 * @param key - the key
 	 * @return boolean
 	 */
-	public boolean hasSessionData(XPlayer p, String key) {
+	public boolean hasSessionData(Player p, String key) {
 		return data.get(p.getName().toLowerCase()).containsKey(key);
 	}
 	
@@ -55,11 +55,11 @@ public abstract class MinigameSession {
 	 * tries to return a object
 	 * 
 	 * @author xize
-	 * @param p - the XPlayer
+	 * @param p - the Player
 	 * @param key - the key
 	 * @return Object
 	 */
-	public Object getSessionData(XPlayer p, String key) {
+	public Object getSessionData(Player p, String key) {
 		return data.get(p.getName().toLowerCase()).get(key);
 	}
 	
@@ -67,11 +67,11 @@ public abstract class MinigameSession {
 	 * tries to add a object to the session data
 	 * 
 	 * @author xize
-	 * @param p - the XPlayer
+	 * @param p - the Player
 	 * @param key - the key
 	 * @param obj - the object
 	 */
-	public void addSessionData(XPlayer p, String key, Object obj) {
+	public void addSessionData(Player p, String key, Object obj) {
 		data.get(p).put(key, obj);
 	}
 	
@@ -81,13 +81,13 @@ public abstract class MinigameSession {
 	 * @author xize
 	 * @return boolean
 	 */
-	public abstract boolean isSessionComplete(XPlayer p);
+	public abstract boolean isSessionComplete(Player p);
 	
 	/**
 	 * processes what is needed to create a arena
 	 * 
 	 * @author xize
 	 */
-	public abstract void processSession(XPlayer p);
+	public abstract void processSession(Player p);
 	
 }
