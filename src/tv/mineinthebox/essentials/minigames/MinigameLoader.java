@@ -28,6 +28,9 @@ public abstract class MinigameLoader {
 	public MinigameLoader(xEssentials pl) {
 		this.pl = pl;
 		this.data = new File(pl.getDataFolder() + File.separator + "minigames");
+		if(!this.data.isDirectory()) {
+			this.data.mkdir();
+		}
 	}
 
 	/**
