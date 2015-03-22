@@ -30,8 +30,13 @@ public class CmdSpawnmob extends CommandTemplate {
 							Player p = (Player) sender;
 							if(EnumHelper.isDefined(EntityType.class, args[0].toUpperCase())) {
 								EntityType type = EnumHelper.getEnum(EntityType.class, args[0].toUpperCase());
-								p.getWorld().spawnEntity(p.getLocation(), type);
-								sendMessage("an "+ type.name().toLowerCase() +" has been spawned!");
+								boolean success = pl.getConfiguration().getEntityConfig().canEntitySpawn(type, p.getLocation().getBlock().getBiome());
+								if(success) {
+									p.getWorld().spawnEntity(p.getLocation(), type);
+									sendMessage("an "+ type.name().toLowerCase() +" has been spawned!");
+								} else {
+									sendMessage("could not spawn entity "+ type.name().toLowerCase() +" it has been blocked by xEssentials!");
+								}
 							} else {
 								sendMessage(ChatColor.RED + "invalid entity given in!");
 							}
