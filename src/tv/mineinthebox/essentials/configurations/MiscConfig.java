@@ -1,11 +1,8 @@
 package tv.mineinthebox.essentials.configurations;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
 
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import tv.mineinthebox.essentials.Configuration;
@@ -15,6 +12,24 @@ public class MiscConfig extends Configuration {
 	
 	public  MiscConfig(File f, FileConfiguration con) {
 		super(f, con);
+		preconfig.put("gates.enable", true);
+		preconfig.put("gates.redstone-powered", true);
+		preconfig.put("gates.max-size", 100);
+		preconfig.put("bridges.enable", true);
+		preconfig.put("bridges.max-size", 100);
+		preconfig.put("elevator.enable", true);
+		preconfig.put("elevator.obstruction-space", 10);
+		preconfig.put("chairs.enable", true);
+		preconfig.put("chairs.ignore-monsters", true);
+		String[] bookData = {
+				"in dundrom village we've found new special gear, but herobrine had killed us...",
+				"herobrine had losed from the army of villagers and was not able to speak to the preconfigference...",
+				"notch had a nightmare about guardians snabling his feets...",
+				"herobrine died by listening Knife party...",
+				"Knife party ancidentaly found Herobrine on the toilet and started to party..."
+		};
+		preconfig.put("bookcases.enable", true);
+		preconfig.put("bookcases.texts", bookData);
 	}
 	
 	/**
@@ -140,57 +155,5 @@ public class MiscConfig extends Configuration {
 	@Override
 	public ConfigType getType() {
 		return ConfigType.MISC;
-	}
-	
-	@Override
-	public boolean isGenerated() {
-		return f.exists();
-	}
-	
-	@Override
-	public boolean isGeneratedOnce() {
-		return true;
-	}
-	
-	@Override
-	public void generateConfig() {
-		if(!isGenerated()) {
-			con.set("gates.enable", true);
-			con.set("gates.redstone-powered", true);
-			con.set("gates.max-size", 100);
-			con.set("bridges.enable", true);
-			con.set("bridges.max-size", 100);
-			con.set("elevator.enable", true);
-			con.set("elevator.obstruction-space", 10);
-			con.set("chairs.enable", true);
-			con.set("chairs.ignore-monsters", true);
-			String[] bookData = {
-					"in dundrom village we've found new special gear, but herobrine had killed us...",
-					"herobrine had losed from the army of villagers and was not able to speak to the conference...",
-					"notch had a nightmare about guardians snabling his feets...",
-					"herobrine died by listening Knife party...",
-					"Knife party ancidentaly found Herobrine on the toilet and started to party..."
-			};
-			con.set("bookcases.enable", true);
-			con.set("bookcases.texts", bookData);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	@Override
-	public void reload() {
-		try {
-			con.load(f);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InvalidConfigurationException e) {
-			e.printStackTrace();
-		}
 	}
 }

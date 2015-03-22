@@ -1,13 +1,9 @@
 package tv.mineinthebox.essentials.configurations;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.enums.ConfigType;
@@ -16,6 +12,12 @@ public class VoteConfig extends Configuration {
 	
 	public VoteConfig(File f, FileConfiguration con) {
 		super(f, con);
+		preconfig.put("vote.enable", false);
+		preconfig.put("vote.personal-message", "&6[&3VOTE&6]: &3you have been voted to mineinthebox!, because you did enjoy your %reward%!");
+		preconfig.put("vote.broadcast", "&6[&3VOTE&6]&3: %player% has voted for mineinthebox and earned %reward%, you can do to by visiting %uri%");
+		preconfig.put("vote.reward-type.money.enable", false);
+		preconfig.put("vote.reward-type.money.price", 80.0);
+		preconfig.put("vote.reward-type.crate.enable", false);
 	}
 	
 	/**
@@ -87,46 +89,4 @@ public class VoteConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.VOTE;
 	}
-	
-	@Override
-	public boolean isGenerated() {
-		return f.exists();
-	}
-	
-	@Override
-	public boolean isGeneratedOnce() {
-		return true;
-	}
-
-	@Override
-	public void generateConfig() {
-		if(!isGenerated()) {
-			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-			con.set("vote.enable", false);
-			con.set("vote.personal-message", "&6[&3VOTE&6]: &3you have been voted to mineinthebox!, because you did enjoy your %reward%!");
-			con.set("vote.broadcast", "&6[&3VOTE&6]&3: %player% has voted for mineinthebox and earned %reward%, you can do to by visiting %uri%");
-			con.set("vote.reward-type.money.enable", false);
-			con.set("vote.reward-type.money.price", 80.0);
-			con.set("vote.reward-type.crate.enable", false);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	@Override
-	public void reload() {
-		try {
-			con.load(f);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InvalidConfigurationException e) {
-			e.printStackTrace();
-		}
-	}
-
 }

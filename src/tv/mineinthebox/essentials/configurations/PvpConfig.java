@@ -1,10 +1,8 @@
 package tv.mineinthebox.essentials.configurations;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import tv.mineinthebox.essentials.Configuration;
@@ -14,6 +12,12 @@ public class PvpConfig extends Configuration {
 	
 	public PvpConfig(File f, FileConfiguration con) {
 		super(f, con);
+		preconfig.put("disable-pvp.enable", false);
+		preconfig.put("disable-pvp.fakepvp", false);
+		preconfig.put("createClientSideGraveyard", false);
+		preconfig.put("killBounty.enable", false);
+		preconfig.put("killBounty.earn", 5.0);
+		preconfig.put("npcReplaceLoggers", false);
 	}
 	
 	/**
@@ -85,16 +89,6 @@ public class PvpConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.PVP;
 	}
-	
-	@Override
-	public boolean isGenerated() {
-		return f.exists();
-	}
-	
-	@Override
-	public boolean isGeneratedOnce() {
-		return true;
-	}
 
 	@Override
 	public void generateConfig() {
@@ -112,18 +106,4 @@ public class PvpConfig extends Configuration {
 			}
 		}
 	}
-
-	@Override
-	public void reload() {
-		try {
-			con.load(f);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InvalidConfigurationException e) {
-			e.printStackTrace();
-		}
-	}
-
 }

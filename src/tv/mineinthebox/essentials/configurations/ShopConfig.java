@@ -1,11 +1,9 @@
 package tv.mineinthebox.essentials.configurations;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import tv.mineinthebox.essentials.Configuration;
@@ -15,6 +13,8 @@ public class ShopConfig extends Configuration {
 	
 	public ShopConfig(File f, FileConfiguration con) {
 		super(f, con);
+		preconfig.put("shop.enable", false);
+		preconfig.put("shop.admin.shop-admin-prefix", "Admin Shop");
 	}
 	
 	/**
@@ -46,16 +46,6 @@ public class ShopConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.SHOP;
 	}
-	
-	@Override
-	public boolean isGenerated() {
-		return f.exists();
-	}
-	
-	@Override
-	public boolean isGeneratedOnce() {
-		return true;
-	}
 
 	@Override
 	public void generateConfig() {
@@ -69,18 +59,4 @@ public class ShopConfig extends Configuration {
 			}
 		}
 	}
-
-	@Override
-	public void reload() {
-		try {
-			con.load(f);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InvalidConfigurationException e) {
-			e.printStackTrace();
-		}
-	}
-
 }

@@ -1,11 +1,8 @@
 package tv.mineinthebox.essentials.configurations;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import tv.mineinthebox.essentials.Configuration;
@@ -15,6 +12,13 @@ public class ProtectionConfig extends Configuration {
 
 	public ProtectionConfig(File f, FileConfiguration con) {
 		super(f, con);
+		preconfig.put("protection.enable", false);
+		preconfig.put("protection.protect.signs", false);
+		preconfig.put("protection.protect.chests", false);
+		preconfig.put("protection.protect.furnace", false);
+		preconfig.put("protection.protect.jukebox", false);
+		preconfig.put("protection.protect.dispenser", false);
+		preconfig.put("protection.message.disallow", "&cthis %BLOCK% has been protected by a spell");
 	}
 
 	/**
@@ -96,46 +100,4 @@ public class ProtectionConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.PROTECTION;
 	}
-
-	@Override
-	public boolean isGenerated() {
-		return f.exists();
-	}
-	
-	@Override
-	public boolean isGeneratedOnce() {
-		return true;
-	}
-
-	@Override
-	public void generateConfig() {
-		if(!isGenerated()) {
-			con.set("protection.enable", false);
-			con.set("protection.protect.signs", false);
-			con.set("protection.protect.chests", false);
-			con.set("protection.protect.furnace", false);
-			con.set("protection.protect.jukebox", false);
-			con.set("protection.protect.dispenser", false);
-			con.set("protection.message.disallow", "&cthis %BLOCK% has been protected by a spell");
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	@Override
-	public void reload() {
-		try {
-			con.load(f);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InvalidConfigurationException e) {
-			e.printStackTrace();
-		}
-	}
-
 }

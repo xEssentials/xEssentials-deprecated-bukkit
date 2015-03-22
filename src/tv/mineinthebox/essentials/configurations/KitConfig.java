@@ -12,7 +12,6 @@ import java.util.Map;
 import org.bukkit.Material;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.FileConfigurationOptions;
 import org.bukkit.inventory.ItemStack;
 
 import tv.mineinthebox.essentials.Configuration;
@@ -23,14 +22,20 @@ public class KitConfig extends Configuration {
 
 	private final HashMap<String, Kit> kitss = new HashMap<String, Kit>();
 
+	@SuppressWarnings("deprecation")
 	public KitConfig(File f, FileConfiguration con) {
 		super(f, con);
 
-		if(isGenerated()) {
-			Kit[] kits = parseKits(con);
-			for(Kit kit : kits) {
-				kitss.put(kit.getKitName(), kit);
-			}
+		preconfig.put("cooldown.isEnabled", true);
+		preconfig.put("cooldown.time", 100);
+
+		if(!con.contains("kit")) {
+			String[] DiamondKit = {Material.DIAMOND_PICKAXE.getId()+":0:1", Material.DIAMOND_SPADE.name()+":0:1", Material.DIAMOND_AXE.name()+":0:1", Material.DIAMOND_SWORD+":0:1", Material.MELON+":0:30"};
+			String[] IronKit = {Material.IRON_PICKAXE.getId()+":0:1", Material.IRON_SPADE.name()+":0:1", Material.IRON_AXE.name()+":0:1", Material.IRON_SWORD+":0:1", Material.MELON+":0:30"};
+			String[] WoodKit = {Material.WOOD_PICKAXE.getId()+":0:1", Material.WOOD_SPADE.name()+":0:1", Material.WOOD_AXE.name()+":0:1", Material.WOOD_SWORD+":0:1", Material.MELON+":0:30"};
+			preconfig.put("kit.diamondkit", DiamondKit);
+			preconfig.put("kit.ironkit", IronKit);
+			preconfig.put("kit.woodkit", WoodKit);
 		}
 	}
 
@@ -116,36 +121,13 @@ public class KitConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.KITS;
 	}
-
-	@Override
-	public boolean isGenerated() {
-		return f.exists();
-	}
-
-	@Override
-	public boolean isGeneratedOnce() {
-		return true;
-	}
-
-	@SuppressWarnings("deprecation")
+	
 	@Override
 	public void generateConfig() {
-		if(!isGenerated()) {
-			FileConfigurationOptions opt = con.options();
-			opt.header("this kit has customizeable permissions!\nfor each kit name its like xEssentials.kit.<nameofkit>\nhowever this is a little scheme how to use the data value system:\nid:subdata:amount");
-			String[] DiamondKit = {Material.DIAMOND_PICKAXE.getId()+":0:1", Material.DIAMOND_SPADE.name()+":0:1", Material.DIAMOND_AXE.name()+":0:1", Material.DIAMOND_SWORD+":0:1", Material.MELON+":0:30"};
-			String[] IronKit = {Material.IRON_PICKAXE.getId()+":0:1", Material.IRON_SPADE.name()+":0:1", Material.IRON_AXE.name()+":0:1", Material.IRON_SWORD+":0:1", Material.MELON+":0:30"};
-			String[] WoodKit = {Material.WOOD_PICKAXE.getId()+":0:1", Material.WOOD_SPADE.name()+":0:1", Material.WOOD_AXE.name()+":0:1", Material.WOOD_SWORD+":0:1", Material.MELON+":0:30"};
-			con.set("cooldown.isEnabled", true);
-			con.set("cooldown.time", 100);
-			con.set("kit.diamondkit", DiamondKit);
-			con.set("kit.ironkit", IronKit);
-			con.set("kit.woodkit", WoodKit);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		super.generateConfig();
+		Kit[] kits = parseKits(con);
+		for(Kit kit : kits) {
+			kitss.put(kit.getKitName(), kit);
 		}
 	}
 

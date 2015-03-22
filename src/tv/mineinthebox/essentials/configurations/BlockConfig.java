@@ -1,14 +1,11 @@
 package tv.mineinthebox.essentials.configurations;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import tv.mineinthebox.essentials.Configuration;
@@ -18,6 +15,20 @@ public class BlockConfig extends Configuration {
 	
 	public BlockConfig(File f, FileConfiguration con) {
 		super(f, con);
+		preconfig.put("disable-bedrock-place", false);
+		preconfig.put("disable-bedrock-break", false);
+		preconfig.put("notify-admin-on-block-break.enable", false);
+		preconfig.put("notify-admin-on-block-break.message", "&2%PLAYER% &7has tried to break &2%BLOCK%&7 at &2%LOCATION%");
+		String[] blocks = {Material.GLASS.name(), Material.DIAMOND_ORE.name(), "2:0", Material.COBBLESTONE.name()+":2"};
+		preconfig.put("notify-admin-on-block-break.blocks", Arrays.asList(blocks).toArray());
+		preconfig.put("notify-admin-on-item-use.enable", false);
+		preconfig.put("notify-admin-on-item-use.message", "&2%PLAYER% &7has tried to use &2%ITEM% &7at &2%LOCATION%");
+		String[] items = {Material.FLINT_AND_STEEL.name(), Material.FIREBALL.name(), Material.FIRE.name()};
+		preconfig.put("notify-admin-on-item-use.items", Arrays.asList(items).toArray());
+		preconfig.put("block.blacklist.enable", false);
+		preconfig.put("block.blacklist.blocks", blocks);
+		preconfig.put("item.blacklist.enable", false);
+		preconfig.put("item.blacklist.items", items);
 	}
 	
 	/**
@@ -148,54 +159,6 @@ public class BlockConfig extends Configuration {
 	@Override
 	public ConfigType getType() {
 		return ConfigType.BLOCKS;
-	}
-	
-	@Override
-	public boolean isGenerated() {
-		return f.exists();
-	}
-	
-	@Override
-	public boolean isGeneratedOnce() {
-		return true;
-	}
-
-	@Override
-	public void generateConfig() {
-		if(!isGenerated()) {
-			con.set("disable-bedrock-place", false);
-			con.set("disable-bedrock-break", false);
-			con.set("notify-admin-on-block-break.enable", false);
-			con.set("notify-admin-on-block-break.message", "&2%PLAYER% &7has tried to break &2%BLOCK%&7 at &2%LOCATION%");
-			String[] blocks = {Material.GLASS.name(), Material.DIAMOND_ORE.name(), "2:0", Material.COBBLESTONE.name()+":2"};
-			con.set("notify-admin-on-block-break.blocks", Arrays.asList(blocks).toArray());
-			con.set("notify-admin-on-item-use.enable", false);
-			con.set("notify-admin-on-item-use.message", "&2%PLAYER% &7has tried to use &2%ITEM% &7at &2%LOCATION%");
-			String[] items = {Material.FLINT_AND_STEEL.name(), Material.FIREBALL.name(), Material.FIRE.name()};
-			con.set("notify-admin-on-item-use.items", Arrays.asList(items).toArray());
-			con.set("block.blacklist.enable", false);
-			con.set("block.blacklist.blocks", blocks);
-			con.set("item.blacklist.enable", false);
-			con.set("item.blacklist.items", items);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	@Override
-	public void reload() {
-		try {
-			con.load(f);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InvalidConfigurationException e) {
-			e.printStackTrace();
-		}
 	}
 
 }

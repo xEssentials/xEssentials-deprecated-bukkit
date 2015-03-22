@@ -1,13 +1,10 @@
 package tv.mineinthebox.essentials.configurations;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -19,6 +16,22 @@ public class PlayerConfig extends Configuration {
 	
 	public PlayerConfig(xEssentials pl, File f, FileConfiguration con) {
 		super(pl, f, con);
+		preconfig.put("cache-offline-profiles.amount", 10);
+		preconfig.put("world-border.enable", false);
+		preconfig.put("world-border.radius", 5000);
+		preconfig.put("useSeperatedInventorys", false);
+		preconfig.put("save-playerInventory", false);
+		preconfig.put("godmode-inAfk", false);
+		preconfig.put("entitysCanUseHeadOnPlayerDeath", false);
+		preconfig.put("canDefaultUseMoreHomes", false);
+		preconfig.put("maxHomes", 3);
+		preconfig.put("broadcast-achievements", false);
+		preconfig.put("auto-refresh-anvil", false);
+		preconfig.put("KeepInventoryOnDeath", false);
+		preconfig.put("CancelHunger", false);
+		preconfig.put("PortalCreation.DisableCustomSizes", false);
+		preconfig.put("PortalCreation.DisablePortalCreation", false);
+		preconfig.put("force-respawn", false);
 	}
 
 	/**
@@ -223,56 +236,6 @@ public class PlayerConfig extends Configuration {
 	@Override
 	public ConfigType getType() {
 		return ConfigType.PLAYER;
-	}
-	
-	@Override
-	public boolean isGenerated() {
-		return f.exists();
-	}
-	
-	@Override
-	public boolean isGeneratedOnce() {
-		return true;
-	}
-
-	@Override
-	public void generateConfig() {
-		if(!isGenerated()) {
-			con.set("cache-offline-profiles.amount", 10);
-			con.set("world-border.enable", false);
-			con.set("world-border.radius", 5000);
-			con.set("useSeperatedInventorys", false);
-			con.set("save-playerInventory", false);
-			con.set("godmode-inAfk", false);
-			con.set("entitysCanUseHeadOnPlayerDeath", false);
-			con.set("canDefaultUseMoreHomes", false);
-			con.set("maxHomes", 3);
-			con.set("broadcast-achievements", false);
-			con.set("auto-refresh-anvil", false);
-			con.set("KeepInventoryOnDeath", false);
-			con.set("CancelHunger", false);
-			con.set("PortalCreation.DisableCustomSizes", false);
-			con.set("PortalCreation.DisablePortalCreation", false);
-			con.set("force-respawn", false);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	@Override
-	public void reload() {
-		try {
-			con.load(f);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InvalidConfigurationException e) {
-			e.printStackTrace();
-		}
 	}
 
 }

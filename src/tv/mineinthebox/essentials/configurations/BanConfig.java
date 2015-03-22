@@ -1,10 +1,7 @@
 package tv.mineinthebox.essentials.configurations;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import tv.mineinthebox.essentials.Configuration;
@@ -14,6 +11,14 @@ public class BanConfig extends Configuration {
 	
 	public BanConfig(File f, FileConfiguration con) {
 		super(f, con);
+		preconfig.put("ban.system.enablePwnAgeProtection", false);
+		preconfig.put("ban.system.enableAntiFloodSpam", false);
+		preconfig.put("ban.system.enableHumanSpamProtection", false);
+		preconfig.put("ban.system.PwnAgeProtection.banMessage", "[PwnAge] spam hacks");
+		preconfig.put("ban.system.AntiFloodSpam.banMessage", "[FloodSpam] spam hacks");
+		preconfig.put("ban.system.HumanSpamProtection.banMessage", "[normal spam] dont spam!");
+		preconfig.put("ban.system.showAlternateAccounts", false);
+		preconfig.put("ban.system.services.fishbans", false);
 	}
 	
 	/**
@@ -104,47 +109,5 @@ public class BanConfig extends Configuration {
 	@Override
 	public ConfigType getType() {
 		return ConfigType.BAN;
-	}
-	
-	@Override
-	public boolean isGenerated() {
-		return f.exists();
-	}
-	
-	@Override
-	public boolean isGeneratedOnce() {
-		return true;
-	}
-
-	@Override
-	public void generateConfig() {
-		if(!isGenerated()) {
-			con.set("ban.system.enablePwnAgeProtection", false);
-			con.set("ban.system.enableAntiFloodSpam", false);
-			con.set("ban.system.enableHumanSpamProtection", false);
-			con.set("ban.system.PwnAgeProtection.banMessage", "[PwnAge] spam hacks");
-			con.set("ban.system.AntiFloodSpam.banMessage", "[FloodSpam] spam hacks");
-			con.set("ban.system.HumanSpamProtection.banMessage", "[normal spam] dont spam!");
-			con.set("ban.system.showAlternateAccounts", false);
-			con.set("ban.system.services.fishbans", false);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	@Override
-	public void reload() {
-		try {
-			con.load(f);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InvalidConfigurationException e) {
-			e.printStackTrace();
-		}
 	}
 }

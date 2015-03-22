@@ -48,7 +48,7 @@ public class GlobalConfiguration {
 		}
 	}};
 	private final xEssentials pl;
-	
+
 	private boolean isSilenceToggled = false;
 
 	public GlobalConfiguration(xEssentials pl) {
@@ -277,11 +277,11 @@ public class GlobalConfiguration {
 		if(pl.getManagers().getRealisticWaterManager().isRunning()) {
 			pl.getManagers().getRealisticWaterManager().stop();
 		}
-		
+
 		for(Configuration conf : configurations.values()) {
 			conf.reload();
 		}
-		
+
 		HandleCommandManager();
 		if(getGreyListConfig().isEnabled()) {
 			SimpleServer server = pl.getManagers().getGreylistManager();
@@ -309,7 +309,7 @@ public class GlobalConfiguration {
 		customhandler.startCustomEvents();
 		return true;
 	}
-	
+
 	/**
 	 * handles all the internal commands of xEssentials
 	 * 
@@ -342,7 +342,7 @@ public class GlobalConfiguration {
 			}
 		}
 	}
-	
+
 	/**
 	 * toggles silence chat
 	 * 
@@ -351,7 +351,7 @@ public class GlobalConfiguration {
 	public void toggleSillenceChat() {
 		this.isSilenceToggled = !this.isSilenceToggled;
 	}
-	
+
 	/**
 	 * returns true if chat is silenced, otherwise false
 	 * 
@@ -361,7 +361,7 @@ public class GlobalConfiguration {
 	public boolean isChatSillenced() {
 		return this.isSilenceToggled;
 	}
-	
+
 	/**
 	 * returns all the material names
 	 * 
@@ -377,14 +377,10 @@ public class GlobalConfiguration {
 			File f = new File(pl.getDataFolder() + File.separator + type.getFileName());
 			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
 			Configuration conf = ConfigType.getNewConfiguration(pl, f, con, type);
-			if(conf.isGeneratedOnce()) {
-				if(!conf.isGenerated()) {
-					conf.generateConfig();
-				}
-			} else {
-				//Entity config and command config.
+			if(!conf.isGenerated()) {
 				conf.generateConfig();
 			}
+			conf.validate();
 			configurations.put(type, conf);
 		}
 	}

@@ -1,13 +1,10 @@
 package tv.mineinthebox.essentials.configurations;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import tv.mineinthebox.essentials.Configuration;
@@ -17,6 +14,14 @@ public class BroadcastConfig extends Configuration {
 	
 	public BroadcastConfig(File f, FileConfiguration con) {
 		super(f, con);
+		ArrayList<String> list = new ArrayList<String>();
+		list.add("&ebroadcast 1");
+		list.add("&ebroadcast 2");
+		list.add("&ebroadcast 3");
+		preconfig.put("broadcast.enable", false);
+		preconfig.put("broadcast.prefix", "&e[broadcast]");
+		preconfig.put("broadcast.suffix", "&2");
+		preconfig.put("broadcast.messages", list);
 	}
 	
 	/**
@@ -68,48 +73,6 @@ public class BroadcastConfig extends Configuration {
 	@Override
 	public ConfigType getType() {
 		return ConfigType.BROADCAST;
-	}
-	
-	@Override
-	public boolean isGenerated() {
-		return f.exists();
-	}
-	
-	@Override
-	public boolean isGeneratedOnce() {
-		return true;
-	}
-
-	@Override
-	public void generateConfig() {
-		if(!isGenerated()) {
-			ArrayList<String> list = new ArrayList<String>();
-			list.add("&ebroadcast 1");
-			list.add("&ebroadcast 2");
-			list.add("&ebroadcast 3");
-			con.set("broadcast.enable", false);
-			con.set("broadcast.prefix", "&e[broadcast]");
-			con.set("broadcast.suffix", "&2");
-			con.set("broadcast.messages", list);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	@Override
-	public void reload() {
-		try {
-			con.load(f);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InvalidConfigurationException e) {
-			e.printStackTrace();
-		}
 	}
 
 }

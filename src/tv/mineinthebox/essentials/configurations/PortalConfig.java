@@ -1,11 +1,8 @@
 package tv.mineinthebox.essentials.configurations;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.HashMap;
 
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -20,6 +17,8 @@ public class PortalConfig extends Configuration {
 	
 	public PortalConfig(xEssentials pl, File f, FileConfiguration con) {
 		super(pl, f, con);
+		preconfig.put("portals.enable", false);
+		preconfig.put("portals.cooldown", 30);
 	}
 
 	/**
@@ -103,41 +102,4 @@ public class PortalConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.PORTAL;
 	}
-	
-	@Override
-	public boolean isGenerated() {
-		return f.exists();
-	}
-	
-	@Override
-	public boolean isGeneratedOnce() {
-		return true;
-	}
-
-	@Override
-	public void generateConfig() {
-		if(!isGenerated()) {
-			con.set("portals.enable", false);
-			con.set("portals.cooldown", 30);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	@Override
-	public void reload() {
-		try {
-			con.load(f);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InvalidConfigurationException e) {
-			e.printStackTrace();
-		}
-	}
-
 }

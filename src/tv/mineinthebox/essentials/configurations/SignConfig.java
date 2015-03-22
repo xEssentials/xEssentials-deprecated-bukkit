@@ -1,10 +1,6 @@
 package tv.mineinthebox.essentials.configurations;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import tv.mineinthebox.essentials.Configuration;
@@ -14,6 +10,14 @@ public class SignConfig extends Configuration {
 	
 	public SignConfig(File f, FileConfiguration con) {
 		super(f, con);
+		preconfig.put("signs.colorsign.enable", true);
+		preconfig.put("signs.fireworksign.enable", true);
+		preconfig.put("signs.freesign.enable", true);
+		preconfig.put("signs.getyourheadsign.enable", true);
+		preconfig.put("signs.signboom.enable", true);
+		preconfig.put("signs.warpsign.enable", true);
+		preconfig.put("signs.wildsign.enable", true);
+		preconfig.put("signs.dispenser.enable", true);
 	}
 
 	/**
@@ -105,47 +109,4 @@ public class SignConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.SIGN;
 	}
-	
-	@Override
-	public boolean isGenerated() {
-		return f.exists();
-	}
-	
-	@Override
-	public boolean isGeneratedOnce() {
-		return true;
-	}
-
-	@Override
-	public void generateConfig() {
-		if(!isGenerated()) {
-			con.set("signs.colorsign.enable", true);
-			con.set("signs.fireworksign.enable", true);
-			con.set("signs.freesign.enable", true);
-			con.set("signs.getyourheadsign.enable", true);
-			con.set("signs.signboom.enable", true);
-			con.set("signs.warpsign.enable", true);
-			con.set("signs.wildsign.enable", true);
-			con.set("signs.dispenser.enable", true);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	@Override
-	public void reload() {
-		try {
-			con.load(f);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InvalidConfigurationException e) {
-			e.printStackTrace();
-		}
-	}
-
 }

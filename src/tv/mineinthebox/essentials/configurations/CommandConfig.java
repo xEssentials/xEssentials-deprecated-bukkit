@@ -1,43 +1,55 @@
 package tv.mineinthebox.essentials.configurations;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.FileConfigurationOptions;
-import org.bukkit.configuration.file.YamlConfiguration;
 
 import tv.mineinthebox.essentials.Configuration;
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.commands.CommandList;
 import tv.mineinthebox.essentials.enums.ConfigType;
-import tv.mineinthebox.essentials.enums.LogType;
 
 public class CommandConfig extends Configuration {
-
-	private final HashMap<String, Boolean> commands = new HashMap<String, Boolean>();
-
+	
+	private final List<String> cmdlist;
+	
 	public CommandConfig(xEssentials pl, File f, FileConfiguration con) {
 		super(pl, f, con);
+		preconfig.put("global-command-display.prefix", "&2[%s]:  ");
+		preconfig.put("global-command-display.suffix", "&7");
+		CommandList list = new CommandList();
+		List<String> commands = new ArrayList<String>(Arrays.asList(list.getAllCommands));
+		this.cmdlist = commands;
+		//blacklist, this will be handle by the configuration it self.
+		commands.remove("money");
+		commands.remove("cprivate");
+		commands.remove("cmodify");
+		commands.remove("cremove");
+		commands.remove("portals");
+		for(String command : commands) {
+			preconfig.put("command."+command+".enable", true);
+		}
 	}
-
 
 	/**
 	 * returns a HashMap with the commands
 	 * 
 	 * @author xize
-	 * @return HashMap<String, Boolean>
+	 * @return Map<String, Boolean>
 	 */
-	public HashMap<String, Boolean> getCommandList() {
-		return commands;
+	public Map<String, Boolean> getCommandList() {
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		for(String command : cmdlist) {
+			map.put(command, con.getBoolean("command."+command+".enable"));
+		}
+		return map;
 	}
 	
 	/**
@@ -118,95 +130,5 @@ public class CommandConfig extends Configuration {
 	@Override
 	public ConfigType getType() {
 		return ConfigType.COMMAND;
-	}
-
-	@Override
-	public boolean isGenerated() {
-		return f.exists();
-	}
-
-	@Override
-	public boolean isGeneratedOnce() {
-		return false;
-	}
-
-	@Override
-	public void generateConfig() {
-		if(!isGenerated()) {
-			FileConfiguration con = YamlConfiguration.loadConfiguration(f);
-			FileConfigurationOptions opt = con.options();
-			opt.header("here you can specify whenever a command should be unregistered or not\nfor example you got a other plugin which has the /home command this would basicly conflict with xEssentials\nhereby you can change the behaviour by unregistering xEssentials commands here.");
-			CommandList list = new CommandList();
-			List<String> commands = new ArrayList<String>(Arrays.asList(list.getAllCommands));
-
-			con.set("global-command-display.prefix", "&2[%s]:  ");
-			con.set("global-command-display.suffix", "&7");
-			
-			//blacklist, this will be handle by the configuration it self.
-			commands.remove("money");
-			commands.remove("cprivate");
-			commands.remove("cmodify");
-			commands.remove("cremove");
-			commands.remove("portals");
-
-			for(String command : commands) {
-				con.set("command."+command+".enable", true);
-			}
-
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			reload();
-		} else {
-			CommandList commandlist = new CommandList();
-			List<String> commands = new ArrayList<String>(Arrays.asList(commandlist.getAllCommands));
-
-			//blacklist, this will be handle by the configuration it self.
-			commands.remove("money");
-			commands.remove("cprivate");
-			commands.remove("cmodify");
-			commands.remove("cremove");
-			commands.remove("portals");
-
-			List<String> orginal = Arrays.asList(con.getConfigurationSection("command").getKeys(false).toArray(new String[0]));
-
-			if(commands.size() != orginal.size()) {
-				xEssentials.log("new commands detected!, adding them right now inside the command config!", LogType.INFO);
-				for(String cmd : commands) {
-					if(!orginal.contains(cmd)) {
-						xEssentials.log("registering new command: " + cmd + " in commands.yml", LogType.INFO);
-						con.set("command."+cmd+".enable", true);
-					}
-				}
-				try {
-					con.save(f);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				reload();
-			} else {
-				xEssentials.log("there where no newer commands found to be added in commands.yml", LogType.INFO);
-			}
-		}
-	}
-
-	@Override
-	public void reload() {
-		commands.clear();
-		try {
-			con.load(f);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InvalidConfigurationException e) {
-			e.printStackTrace();
-		}
-		
-		generateConfig();
-		
 	}
 }
