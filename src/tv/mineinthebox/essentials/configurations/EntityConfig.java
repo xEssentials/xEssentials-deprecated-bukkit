@@ -1,31 +1,54 @@
 package tv.mineinthebox.essentials.configurations;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.bukkit.block.Biome;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
 
 import tv.mineinthebox.essentials.Configuration;
-import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.ConfigType;
-import tv.mineinthebox.essentials.enums.LogType;
 
 
 public class EntityConfig extends Configuration {
 
-	private final HashMap<String, Map<Boolean, String[]>> entitys = new HashMap<String, Map<Boolean, String[]>>();
-
 	public EntityConfig(File f, FileConfiguration con) {
 		super(f, con);
+		preconfig.put("disable-weather", false);
+		preconfig.put("disable-firespread", false);
+		preconfig.put("disable-explosion", false);
+		preconfig.put("disable-firework", false);
+		preconfig.put("disable-wither-grief", false);
+		preconfig.put("disable-enderman-grief", false);
+		preconfig.put("disable-enderdragon-grief", false);
+		preconfig.put("disable-leave-decay", false);
+		preconfig.put("regen-explosions", false);
+		preconfig.put("zombie-custom-aggro.enable", false);
+		preconfig.put("zombie-custom-aggro.range", 10);
+		preconfig.put("disable-spawneggs", false);
+		preconfig.put("log.spawnEggs", false);
+		preconfig.put("realistic-blood", false);
+		preconfig.put("realistic-trees", false);
+		preconfig.put("realistic-water", false);
+		preconfig.put("realistic-glass", false);
+		preconfig.put("cleanup-on-chunkunload", false);
+		preconfig.put("remove-flying-projectiles-on-chunkload", false);
+		preconfig.put("disable-stone-pressureplates-for-mobs", false);
+
+		for(EntityType type : EntityType.values()) {
+			if(type.isAlive() && type.isSpawnable()) {
+				String[] biomes = new String[Biome.values().length];
+				for(int i = 0; i < biomes.length; i++) {
+					biomes[i] = Biome.values()[i].name();
+				}
+				String mob = serialize_name(type.name());
+				preconfig.put("mob-allow-spawn."+mob+".can-spawn", true);
+				preconfig.put("mob-allow-spawn."+mob+".biomes", Arrays.toString(biomes));
+			}
+		}
 	}
 
 	/**
@@ -187,15 +210,32 @@ public class EntityConfig extends Configuration {
 	public boolean isProjectileRemovalEnabled() {
 		return con.getBoolean("remove-flying-projectiles-on-chunkload");
 	}
-
+	
 	/**
-	 * returns the entity configuration which could spawn and which not
+	 * returns true if the entity can spawn otherwise false
 	 * 
 	 * @author xize
-	 * @return HashMap<String, Map<Boolean, String[]>>
+	 * @param type - the Entity type
+	 * @param biome - the biome tpye
+	 * @return boolean
 	 */
-	public HashMap<String, Map<Boolean, String[]>> getEntitySpawnMap() {
-		return entitys;
+	public boolean canEntitySpawn(EntityType type, Biome biome) {
+		boolean bol1 = con.getBoolean("mob-allow-spawn."+serialize_name(type.name())+".can-spawn");
+		String cleanbiomes = con.getString("mob-allow-spawn."+serialize_name(type.name())+".biomes").replace("[", "").replace("]", "");
+		String[] biomes = cleanbiomes.split(", ");
+		List<String> biomelist = new ArrayList<String>();
+		for(String biomee : biomes) {
+			biomelist.add(biomee);
+		}
+		if(bol1) {
+			if(biomelist.contains(biome.name())) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -246,117 +286,6 @@ public class EntityConfig extends Configuration {
 	@Override
 	public ConfigType getType() {
 		return ConfigType.ENTITY;
-	}
-
-	@Override
-	public boolean isGenerated() {
-		return f.exists();
-	}
-
-	@Override
-	public boolean isGeneratedOnce() {
-		return false;
-	}
-
-	@Override
-	public void generateConfig() {
-		if(!isGenerated()) {
-			con.set("disable-weather", false);
-			con.set("disable-firespread", false);
-			con.set("disable-explosion", false);
-			con.set("disable-firework", false);
-			con.set("disable-wither-grief", false);
-			con.set("disable-enderman-grief", false);
-			con.set("disable-enderdragon-grief", false);
-			con.set("disable-leave-decay", false);
-			con.set("regen-explosions", false);
-			con.set("zombie-custom-aggro.enable", false);
-			con.set("zombie-custom-aggro.range", 10);
-			con.set("disable-spawneggs", false);
-			con.set("log.spawnEggs", false);
-			con.set("realistic-blood", false);
-			con.set("realistic-trees", false);
-			con.set("realistic-water", false);
-			con.set("realistic-glass", false);
-			con.set("cleanup-on-chunkunload", false);
-			con.set("remove-flying-projectiles-on-chunkload", false);
-			con.set("disable-stone-pressureplates-for-mobs", false);
-			for(EntityType entity : EntityType.values()) {
-				if(entity.isAlive()) {
-					if(entity != EntityType.PLAYER && !entity.name().contains("ARMOR")) {
-						//con.set("mobs.allowToSpawn." + serialize_name(entity.name()), true);
-						con.set("mobs.allowToSpawn."+serialize_name(entity.name()) + ".canSpawn", true);
-
-						String biomes = "";
-
-						for(Biome biome : Biome.values()) {
-							biomes += (biome.name() + ",");
-						}
-
-						con.set("mobs.allowToSpawn."+serialize_name(entity.name()) + ".allowedBiomes", Arrays.asList(biomes.split(",")).toArray());
-					}
-				}
-			}
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			reload();
-		} else {
-			//because if the file exist we go check if the entitys are up to date if its not we surely update it.
-			List<String> entitys = Arrays.asList(con.getConfigurationSection("mobs.allowToSpawn").getKeys(false).toArray(new String[0]));
-			List<String> newentities = new ArrayList<String>();
-			for(EntityType entity : EntityType.values()) {
-				if(entity.isAlive()) {
-					if(entity != EntityType.PLAYER && !entity.name().contains("ARMOR")) {
-						newentities.add(serialize_name(entity.name()));
-					}
-				}
-			}
-			if(entitys.size() != newentities.size()) {
-				xEssentials.log("new entities detected!, adding them right now inside the entity config!", LogType.INFO);
-				for(String entity : newentities) {
-					if(!entitys.contains(entity)) {
-						xEssentials.log("found new entity: " + entity + " adding now to entity.yml", LogType.INFO);
-						con.set("mobs.allowToSpawn."+serialize_name(entity) + ".canSpawn", true);
-
-						String biomes = "";
-
-						for(Biome biome : Biome.values()) {
-							biomes += (biome.name() + ",");
-						}
-
-						con.set("mobs.allowToSpawn."+serialize_name(entity) + ".allowedBiomes", Arrays.asList(biomes.split(",")).toArray());
-						try {
-							con.save(f);
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					}
-				}
-			} else {
-				xEssentials.log("there where no newer entitys found to be added in entity.yml", LogType.INFO);
-			}
-		}
-	}
-
-	@Override
-	public void reload() {
-		entitys.clear();
-		try {
-			con.load(f);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InvalidConfigurationException e) {
-			e.printStackTrace();
-		}
-
-		generateConfig();
-
 	}
 
 	private String serialize_name(String mob) {
