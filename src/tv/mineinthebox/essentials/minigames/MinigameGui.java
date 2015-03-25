@@ -25,18 +25,20 @@ public class MinigameGui implements Runnable {
 		this.pl = pl;
 		this.button = new ItemStack(mat);
 		ItemMeta meta = this.button.getItemMeta();
-		meta.setDisplayName(title);
+		meta.setDisplayName(ChatColor.RED +""+ ChatColor.BOLD + ChatColor.stripColor(title));
 		List<String> lores = new ArrayList<String>();
-		lores.add(ChatColor.GOLD + "Arena: %arena%");
-		lores.add(ChatColor.GOLD + "Type:  %type%");
-		lores.add(ChatColor.GOLD + "Online: %onlinecount%");
-		lores.add(ChatColor.GOLD + "Status: %status%");
+		lores.add("");
+		lores.add(ChatColor.GOLD + "Arena: " + ChatColor.GRAY + "%arena%");
+		lores.add(ChatColor.GOLD + "Type: " + ChatColor.GRAY + "%type%");
+		lores.add(ChatColor.GOLD + "Online: " + ChatColor.GRAY + "%onlinecount%");
+		lores.add(ChatColor.GOLD + "Status: " + ChatColor.GRAY + "%status%");
+		lores.add("");
 		for(String desc : description) {
 			lores.add(desc);
 		}
 		meta.setLore(lores);
 		this.button.setItemMeta(meta);
-		this.inv = Bukkit.createInventory(null, 9, "server selector");
+		this.inv = Bukkit.createInventory(null, 9, "game selector");
 		this.task = Bukkit.getScheduler().runTaskTimer((xEssentials)pl.getMinigameApi(), this, 3L, 8L);
 	}
 	
