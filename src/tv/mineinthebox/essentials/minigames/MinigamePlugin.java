@@ -1,17 +1,22 @@
 package tv.mineinthebox.essentials.minigames;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.server.ServerCommandEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
+import tv.mineinthebox.essentials.interfaces.XPlayer;
 import tv.mineinthebox.essentials.interfaces.xEssentialsAPI;
 
 public abstract class MinigamePlugin implements Listener {
@@ -28,6 +33,7 @@ public abstract class MinigamePlugin implements Listener {
 	private File datafolder;
 	private boolean isEnabled = false;
 	private ClassLoader loader;
+	private MinigameGui gui;
 	
 	private ResourcePack resourcepack;
 	
@@ -44,6 +50,25 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 */
 	public abstract void onDisable();
+	
+	/**
+	 * returns the minigame Gui
+	 * 
+	 * @author xize
+	 * @return MinigameGui
+	 */
+	public MinigameGui getMinigameGui() {
+		return gui;
+	}
+	
+	
+	public void setMinigameGui(MinigameGui gui) {
+		this.gui = gui;
+	}
+	
+	public boolean hasMinigameGui() {
+		return (gui instanceof MinigameGui);
+	}
 	
 	/**
 	 * returns the name of the minigame
@@ -150,6 +175,17 @@ public abstract class MinigamePlugin implements Listener {
 	}
 	
 	/**
+	 * returns true if an arena is found with that name otherwise false
+	 * 
+	 * @author xize
+	 * @param name - the name
+	 * @return boolean
+	 */
+	public boolean isArena(String name) {
+		return arenas.containsKey(name.toLowerCase());
+	}
+	
+	/**
 	 * returns all the arenas
 	 * 
 	 * @author xize
@@ -162,6 +198,14 @@ public abstract class MinigamePlugin implements Listener {
 			a[i] = arena;
 			i++;	
 		}
+		Arrays.sort(a, new Comparator<MinigameArena>() {
+
+			@Override
+			public int compare(MinigameArena o1, MinigameArena o2) {
+				return Integer.valueOf(o1.getPlayers().size()).compareTo(o2.getPlayers().size());
+			}
+			
+		});
 		return a;
 	}
 	
@@ -288,6 +332,17 @@ public abstract class MinigamePlugin implements Listener {
 		if(commands.containsKey(cmd.toLowerCase())) {
 			commands.get(cmd.toLowerCase()).execute(e.getSender(), cmd, args);
 			e.setCommand("emptycommand");
+		}
+	}
+	
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onTeleport(PlayerTeleportEvent e) {
+		for(MinigameArena arena : getArenas()) {
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			if(arena.isInArena(xp)) {
+				xp.getPlayer().sendMessage(ChatColor.RED + "you are inside an arena, you cannot teleport when being inside a game!");
+				e.setCancelled(true);
+			}
 		}
 	}
 	
