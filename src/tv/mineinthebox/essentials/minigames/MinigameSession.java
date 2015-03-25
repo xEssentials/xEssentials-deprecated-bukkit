@@ -1,34 +1,17 @@
 package tv.mineinthebox.essentials.minigames;
 
-import java.io.File;
 import java.util.HashMap;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 
 public abstract class MinigameSession {
 	
 	protected final MinigamePlugin pl;
-	protected final String arena;
-	protected final int maxplayers;
-	protected final int score;
-	protected final File f;
-	protected final FileConfiguration con;
 	protected final HashMap<String, HashMap<String, Object>> data = new HashMap<String, HashMap<String, Object>>();
 	
-	public MinigameSession(MinigamePlugin pl, String arena, int maxplayers, int score) {
+	public MinigameSession(MinigamePlugin pl) {
 		this.pl = pl;
-		this.arena = arena;
-		this.maxplayers = maxplayers;
-		this.score = score;
-		this.f = new File(pl.getDataFolder() + File.separator + arena + ".yml");
-		this.con = YamlConfiguration.loadConfiguration(f);
-		
-		con.set("arena.name", arena);
-		con.set("arena.maxplayers", maxplayers);
-		con.set("arena.score", score);
 	}
 	
 	/**
