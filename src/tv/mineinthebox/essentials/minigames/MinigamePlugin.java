@@ -202,7 +202,10 @@ public abstract class MinigamePlugin implements Listener {
 
 			@Override
 			public int compare(MinigameArena o1, MinigameArena o2) {
-				return Integer.valueOf(o1.getPlayers().size()).compareTo(o2.getPlayers().size());
+				if(o1.players.size() > o2.players.size() && !o1.isFull()) {
+					return -1;
+				}
+				return 0;
 			}
 			
 		});
