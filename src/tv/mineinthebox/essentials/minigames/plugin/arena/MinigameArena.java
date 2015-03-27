@@ -109,12 +109,12 @@ public abstract class MinigameArena {
 			public void run() {
 				if(i > 0) {
 					for(XPlayer xp : players) {
-						xp.getPlayer().sendMessage(ChatColor.GREEN + "["+getName()+"]" + ChatColor.GRAY + "counting down: " + seconds + "s");
+						xp.getPlayer().sendMessage(ChatColor.GREEN + "["+getType().getName()+"]" + ChatColor.GRAY + "counting down: " + i + "s");
 						xp.getPlayer().playSound(xp.getPlayer().getLocation(), clocktick, 1F, 1F);
 					}
 				} else {
 					for(XPlayer xp : players) {
-						xp.getPlayer().sendMessage(ChatColor.GREEN + "["+getName()+"]" + ChatColor.GRAY + "game started!");
+						xp.getPlayer().sendMessage(ChatColor.GREEN + "["+getType().getName()+"]" + ChatColor.GRAY + "game started!");
 						xp.getPlayer().playSound(xp.getPlayer().getLocation(), gamestart, 1F, 1F);
 					}
 					setStarted(true);
