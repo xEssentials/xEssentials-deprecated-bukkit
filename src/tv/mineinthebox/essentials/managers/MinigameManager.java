@@ -5,7 +5,7 @@ import java.util.Set;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.minigames.MinigameLoader;
-import tv.mineinthebox.essentials.minigames.MinigamePlugin;
+import tv.mineinthebox.essentials.minigames.plugin.MinigamePlugin;
 
 public class MinigameManager extends MinigameLoader{
 	

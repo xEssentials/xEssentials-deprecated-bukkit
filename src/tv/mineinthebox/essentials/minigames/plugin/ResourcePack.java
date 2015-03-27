@@ -1,4 +1,4 @@
-package tv.mineinthebox.essentials.minigames;
+package tv.mineinthebox.essentials.minigames.plugin;
 
 import java.io.File;
 

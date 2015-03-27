@@ -1,4 +1,4 @@
-package tv.mineinthebox.essentials.minigames;
+package tv.mineinthebox.essentials.minigames.plugin.gui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,8 @@ import org.bukkit.scheduler.BukkitTask;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
+import tv.mineinthebox.essentials.minigames.plugin.MinigamePlugin;
+import tv.mineinthebox.essentials.minigames.plugin.arena.MinigameArena;
 
 public class MinigameGui implements Runnable {
 	

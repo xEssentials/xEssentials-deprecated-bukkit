@@ -1,4 +1,4 @@
-package tv.mineinthebox.essentials.minigames;
+package tv.mineinthebox.essentials.minigames.plugin.arena;
 
 import java.io.File;
 import java.util.HashSet;
@@ -11,6 +11,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
+import tv.mineinthebox.essentials.minigames.plugin.MinigamePlugin;
 
 public abstract class MinigameArena {
 

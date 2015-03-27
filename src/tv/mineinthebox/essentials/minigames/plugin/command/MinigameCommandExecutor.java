@@ -1,4 +1,4 @@
-package tv.mineinthebox.essentials.minigames;
+package tv.mineinthebox.essentials.minigames.plugin.command;
 
 import org.bukkit.command.CommandSender;
 

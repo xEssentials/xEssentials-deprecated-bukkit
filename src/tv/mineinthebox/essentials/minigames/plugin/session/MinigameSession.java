@@ -1,8 +1,10 @@
-package tv.mineinthebox.essentials.minigames;
+package tv.mineinthebox.essentials.minigames.plugin.session;
 
 import java.util.HashMap;
 
 import org.bukkit.entity.Player;
+
+import tv.mineinthebox.essentials.minigames.plugin.MinigamePlugin;
 
 
 public abstract class MinigameSession {

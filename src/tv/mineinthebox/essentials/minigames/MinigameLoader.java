@@ -17,6 +17,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
+import tv.mineinthebox.essentials.minigames.plugin.MinigamePlugin;
+import tv.mineinthebox.essentials.minigames.plugin.handler.MinigameHandler;
 
 public abstract class MinigameLoader {
 

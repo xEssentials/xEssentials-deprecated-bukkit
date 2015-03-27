@@ -1,4 +1,4 @@
-package tv.mineinthebox.essentials.minigames;
+package tv.mineinthebox.essentials.minigames.plugin;
 
 import java.io.File;
 import java.util.Arrays;
@@ -18,6 +18,10 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 import tv.mineinthebox.essentials.interfaces.xEssentialsAPI;
+import tv.mineinthebox.essentials.minigames.plugin.arena.MinigameArena;
+import tv.mineinthebox.essentials.minigames.plugin.command.MinigameCommandExecutor;
+import tv.mineinthebox.essentials.minigames.plugin.gui.MinigameGui;
+import tv.mineinthebox.essentials.minigames.plugin.handler.MinigameHandler;
 
 public abstract class MinigamePlugin implements Listener {
 	
@@ -202,7 +206,7 @@ public abstract class MinigamePlugin implements Listener {
 
 			@Override
 			public int compare(MinigameArena o1, MinigameArena o2) {
-				if(o1.players.size() > o2.players.size() && !o1.isFull()) {
+				if(o1.getPlayers().size() > o2.getPlayers().size() && !o1.isFull()) {
 					return -1;
 				}
 				return 0;

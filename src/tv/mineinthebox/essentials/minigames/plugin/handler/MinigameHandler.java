@@ -1,4 +1,4 @@
-package tv.mineinthebox.essentials.minigames;
+package tv.mineinthebox.essentials.minigames.plugin.handler;
 
 import java.util.HashSet;
 import java.util.Iterator;
