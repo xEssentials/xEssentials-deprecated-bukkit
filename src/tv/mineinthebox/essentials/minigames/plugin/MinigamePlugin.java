@@ -240,7 +240,7 @@ public abstract class MinigamePlugin implements Listener {
 	public xEssentialsAPI getEssentialsApi() {
 		return (xEssentialsAPI) pl;
 	}
-	
+
 	/**
 	 * returns the xEssentials Plugin
 	 * 
@@ -320,7 +320,7 @@ public abstract class MinigamePlugin implements Listener {
 			return type;
 		}
 	}
-	
+
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
 		if(hasMinigameGui()) {
@@ -328,6 +328,13 @@ public abstract class MinigamePlugin implements Listener {
 				if(e.getCurrentItem() != null) {
 					Player p = (Player)e.getWhoClicked();
 					XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
+
+					if(xp.isInArena()) {
+						p.closeInventory();
+						p.sendMessage(ChatColor.RED + "you are already joined in a game!");
+						e.setCancelled(true);
+						return;
+					}
 					
 					String arenaname = e.getCurrentItem().getItemMeta().getLore().get(0).split(": ")[1];
 					MinigameArena arena = getArena(arenaname);
@@ -343,7 +350,7 @@ public abstract class MinigamePlugin implements Listener {
 			}
 		}
 	}
-	
+
 	@EventHandler
 	public void onClick(InventoryCloseEvent e) {
 		if(hasMinigameGui()) {
@@ -394,12 +401,10 @@ public abstract class MinigamePlugin implements Listener {
 	public void onTeleport(PlayerTeleportEvent e) {
 		//TODO: rewrite event, so XPlayer will stores its arena as tempory meta.
 		if(e.getCause() == TeleportCause.COMMAND) {
-			for(MinigameArena arena : getArenas()) {
-				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
-				if(arena.isInArena(xp)) {
-					xp.getPlayer().sendMessage(ChatColor.RED + "you are inside an arena, you cannot teleport when being inside a game!");
-					e.setCancelled(true);
-				}
+			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
+			if(xp.isInArena()) {
+				xp.getPlayer().sendMessage(ChatColor.RED + "you are inside an arena, you cannot teleport when being inside a game!");
+				e.setCancelled(true);
 			}
 		}
 	}
