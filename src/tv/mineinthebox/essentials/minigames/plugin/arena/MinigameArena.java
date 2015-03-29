@@ -9,7 +9,6 @@ import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 import tv.mineinthebox.essentials.minigames.plugin.MinigamePlugin;
 
@@ -132,7 +131,7 @@ public abstract class MinigameArena {
 				}
 				i--;
 			}
-		}.runTaskTimer((xEssentials)pl.getMinigameApi(), 10L, 20L);
+		}.runTaskTimer(pl.getEssentialsPlugin(), 10L, 20L);
 	}
 	
 	/**

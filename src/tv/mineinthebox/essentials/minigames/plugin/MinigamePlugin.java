@@ -233,8 +233,18 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @return xEssentialsAPI
 	 */
-	public xEssentialsAPI getMinigameApi() {
+	public xEssentialsAPI getEssentialsApi() {
 		return (xEssentialsAPI) pl;
+	}
+	
+	/**
+	 * returns the xEssentials Plugin
+	 * 
+	 * @author xize
+	 * @return xEssentials
+	 */
+	public xEssentials getEssentialsPlugin() {
+		return pl;
 	}
 
 	/**

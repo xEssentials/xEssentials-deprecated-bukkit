@@ -11,7 +11,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitTask;
 
-import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 import tv.mineinthebox.essentials.minigames.plugin.MinigamePlugin;
 import tv.mineinthebox.essentials.minigames.plugin.arena.MinigameArena;
@@ -41,7 +40,7 @@ public class MinigameGui implements Runnable {
 		meta.setLore(lores);
 		this.button.setItemMeta(meta);
 		this.inv = Bukkit.createInventory(null, 9, "game selector");
-		this.task = Bukkit.getScheduler().runTaskTimer((xEssentials)pl.getMinigameApi(), this, 3L, 8L);
+		this.task = Bukkit.getScheduler().runTaskTimer(pl.getEssentialsPlugin(), this, 3L, 8L);
 	}
 	
 	public MinigameGui(MinigamePlugin pl, String title, String[] description, Material mat, short subdata) {
@@ -60,7 +59,7 @@ public class MinigameGui implements Runnable {
 		meta.setLore(lores);
 		this.button.setItemMeta(meta);
 		this.inv = Bukkit.createInventory(null, 9, "server selector");
-		this.task = Bukkit.getScheduler().runTaskTimer((xEssentials)pl.getMinigameApi(), this, 3L, 8L);
+		this.task = Bukkit.getScheduler().runTaskTimer(pl.getEssentialsPlugin(), this, 3L, 8L);
 	}
 	
 	public ItemStack getButton() {
@@ -115,7 +114,7 @@ public class MinigameGui implements Runnable {
 	 */
 	public void start() {
 		if(task == null) {
-			Bukkit.getScheduler().runTaskTimer((xEssentials)pl.getMinigameApi(), this, 3L, 8L);
+			Bukkit.getScheduler().runTaskTimer(pl.getEssentialsPlugin(), this, 3L, 8L);
 		}
 	}
 	
