@@ -137,6 +137,11 @@ public class xEssentialsPlayer implements XPlayer {
 	}
 
 	@Override
+	public boolean isOnline() {
+		return true;
+	}
+	
+	@Override
 	public boolean isGreyListed() {
 		if(con.contains("isDefault")) {
 			if(!con.getBoolean("isDefault")) {

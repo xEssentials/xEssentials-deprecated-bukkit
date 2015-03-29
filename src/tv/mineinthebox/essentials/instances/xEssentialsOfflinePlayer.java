@@ -79,6 +79,11 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			this.con = YamlConfiguration.loadConfiguration(this.f);
 		}
 	}
+	
+	@Override
+	public boolean isOnline() {
+		return false;
+	}
 
 	@Override
 	public boolean isGreyListed() {

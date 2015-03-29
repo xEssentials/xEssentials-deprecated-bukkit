@@ -44,6 +44,14 @@ public interface XOfflinePlayer {
 	 * @deprecated use geName() instead.
 	 */
 	public String getUser();
+	
+	/**
+	 * returns true if player is online, otherwise false
+	 * 
+	 * @author xize
+	 * @return boolean
+	 */
+	public boolean isOnline();
 
 	/**
 	 * returns the username of this player, this name will also be updated when the player changes his name
