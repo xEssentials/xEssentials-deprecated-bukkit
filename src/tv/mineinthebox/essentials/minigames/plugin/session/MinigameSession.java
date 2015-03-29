@@ -11,9 +11,11 @@ public abstract class MinigameSession {
 	
 	protected final MinigamePlugin pl;
 	protected final HashMap<String, HashMap<String, Object>> data = new HashMap<String, HashMap<String, Object>>();
+	private final String[] keys;
 	
-	public MinigameSession(MinigamePlugin pl) {
+	public MinigameSession(MinigamePlugin pl, String... keys) {
 		this.pl = pl;
+		this.keys = keys;
 	}
 	
 	/**
@@ -88,7 +90,14 @@ public abstract class MinigameSession {
 	 * @author xize
 	 * @return boolean
 	 */
-	public abstract boolean isSessionComplete(Player p);
+	public boolean isSessionComplete(Player p) {
+		for(String key : keys) {
+			if(!this.hasSessionData(p, key)) {
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	/**
 	 * processes what is needed to create a arena
