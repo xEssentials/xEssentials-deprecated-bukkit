@@ -17,8 +17,7 @@ public class CmdTest extends CommandTemplate {
 		if(cmd.getName().equalsIgnoreCase("test")) {
 			if(args.length == 0) {
 				if(sender instanceof Player) {
-				
-					
+					sendMessage("hi this is a highlight test, your name is " + sender.getName());
 				}
 			}
 		}
