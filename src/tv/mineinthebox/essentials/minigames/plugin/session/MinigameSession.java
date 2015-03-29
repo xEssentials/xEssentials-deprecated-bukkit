@@ -75,9 +75,8 @@ public abstract class MinigameSession {
 	 * @param key - the key
 	 * @return Object
 	 */
-	@SuppressWarnings("unchecked")
-	public <T> T getSessionData(Player p, String key) {
-		return (T) data.get(p.getName().toLowerCase()).get(key);
+	public Object getSessionData(Player p, String key) {
+		return data.get(p.getName().toLowerCase()).get(key);
 	}
 
 	/**
