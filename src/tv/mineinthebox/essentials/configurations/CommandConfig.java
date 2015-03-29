@@ -24,6 +24,7 @@ public class CommandConfig extends Configuration {
 		super(pl, f, con);
 		preconfig.put("global-command-display.prefix", "&2[%s]:  ");
 		preconfig.put("global-command-display.suffix", "&7");
+		preconfig.put("global-command-display.player-highlight", "&e@");
 		CommandList list = new CommandList();
 		List<String> commands = new ArrayList<String>(Arrays.asList(list.getAllCommands));
 		this.cmdlist = commands;
@@ -36,6 +37,16 @@ public class CommandConfig extends Configuration {
 		for(String command : commands) {
 			preconfig.put("command."+command+".enable", true);
 		}
+	}
+	
+	/**
+	 * returns the player highlight style
+	 * 
+	 * @author xize
+	 * @return String
+	 */
+	public String getPlayerHighLight() {
+		return ChatColor.translateAlternateColorCodes('&', con.getString("global-command-display.player-highlight"));
 	}
 
 	/**

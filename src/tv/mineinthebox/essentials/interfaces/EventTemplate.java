@@ -22,6 +22,17 @@ public class EventTemplate extends Template {
 	 */
 	public void sendMessage(CommandSender p, String message) {
 		String smsg = ChatColor.stripColor(message);
+		String[] split = smsg.split(" ");
+		for(String s : split) {
+			if(pl.getManagers().getPlayerManager().isEssentialsPlayer(s)) {
+				XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(s);
+				if(off.isOnline()) {
+					smsg = smsg.replace(s, pl.getConfiguration().getCommandConfig().getPlayerHighLight() + off.getName() + getSuffix());
+				} else {
+					smsg = smsg.replace(s, ChatColor.GRAY + "[Offline]" + pl.getConfiguration().getCommandConfig().getPlayerHighLight() + off.getName() + getSuffix());
+				}
+			}
+		}
 		p.sendMessage(String.format(getPrefix(), prefix)+getSuffix()+smsg);
 	}
 	
@@ -33,6 +44,17 @@ public class EventTemplate extends Template {
 	@Override
 	public void sendMessageTo(CommandSender p, String message) {
 		String smsg = ChatColor.stripColor(message);
+		String[] split = smsg.split(" ");
+		for(String s : split) {
+			if(pl.getManagers().getPlayerManager().isEssentialsPlayer(s)) {
+				XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(s);
+				if(off.isOnline()) {
+					smsg = smsg.replace(s, pl.getConfiguration().getCommandConfig().getPlayerHighLight() + off.getName() + getSuffix());
+				} else {
+					smsg = smsg.replace(s, ChatColor.GRAY + "[Offline]" + pl.getConfiguration().getCommandConfig().getPlayerHighLight() + off.getName() + getSuffix());
+				}
+			}
+		}
 		p.sendMessage(String.format(getPrefix(), prefix)+getSuffix()+smsg);
 	}
 	
@@ -44,6 +66,17 @@ public class EventTemplate extends Template {
 	@Override
 	public void broadcast(String message) {
 		String smsg = ChatColor.stripColor(message);
+		String[] split = smsg.split(" ");
+		for(String s : split) {
+			if(pl.getManagers().getPlayerManager().isEssentialsPlayer(s)) {
+				XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(s);
+				if(off.isOnline()) {
+					smsg = smsg.replace(s, pl.getConfiguration().getCommandConfig().getPlayerHighLight() + off.getName() + getSuffix());
+				} else {
+					smsg = smsg.replace(s, ChatColor.GRAY + "[Offline]" + pl.getConfiguration().getCommandConfig().getPlayerHighLight() + off.getName() + getSuffix());
+				}
+			}
+		}
 		Bukkit.broadcastMessage(String.format(getPrefix(), prefix)+getSuffix()+smsg);
 	}
 
