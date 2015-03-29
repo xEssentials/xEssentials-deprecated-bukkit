@@ -34,7 +34,7 @@ public abstract class MinigameArena {
 	 * @return String
 	 */
 	public String getName() {
-		return con.getString("arena.name");
+		return f.getName().replace(".yml", "");
 	}
 	
 	/**
@@ -45,6 +45,16 @@ public abstract class MinigameArena {
 	 */
 	public int getMaxPlayers() {
 		return con.getInt("arena.maxplayers");
+	}
+	
+	/**
+	 * returns true if the arena has max players, otherwise false
+	 * 
+	 * @author xize
+	 * @return boolean
+	 */
+	public boolean hasMaxPlayers() {
+		return con.contains("arena.maxplayers");
 	}
 	
 	/**
@@ -142,7 +152,7 @@ public abstract class MinigameArena {
 	 * @return int
 	 */
 	public int getMaxScore() {
-		return con.getInt("arena.score");
+		return (hasScore() ? con.getInt("arena.score") : 0);
 	}
 
 	/**
