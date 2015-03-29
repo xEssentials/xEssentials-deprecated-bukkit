@@ -292,7 +292,7 @@ public abstract class MinigamePlugin implements Listener {
 		commands.put(command.toLowerCase(), executor);
 	}
 
-	protected enum GameLog {
+	public enum GameLog {
 		WARNING(LogType.MINIGAME_SEVERE),
 		INFO(LogType.MINIGAME_INFO);
 
