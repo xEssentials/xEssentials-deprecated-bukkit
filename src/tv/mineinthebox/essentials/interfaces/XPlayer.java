@@ -17,8 +17,33 @@ import tv.mineinthebox.essentials.instances.Modreq;
 import tv.mineinthebox.essentials.instances.RestrictedCommand;
 import tv.mineinthebox.essentials.instances.Shop;
 import tv.mineinthebox.essentials.minigames.plugin.arena.MinigameArena;
+import tv.mineinthebox.essentials.minigames.plugin.session.MinigameSession;
 
 public interface XPlayer extends XOfflinePlayer {
+	
+	/**
+	 * returns true if the player has an open game arena session, otherwise false
+	 * 
+	 * @author xize
+	 * @return boolean
+	 */
+	public boolean hasSession();
+	
+	/**
+	 * returns the minigame session
+	 * 
+	 * @author xize
+	 * @return MinigameSession
+	 */
+	public MinigameSession getSession();
+	
+	/**
+	 * sets the session
+	 * 
+	 * @author xize
+	 * @param sess - the session
+	 */
+	public void setSession(MinigameSession sess);
 	
 	/**
 	 * returns true if the player is inside a minigame arena, otherwise false

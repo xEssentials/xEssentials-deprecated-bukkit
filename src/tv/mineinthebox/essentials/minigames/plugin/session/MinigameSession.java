@@ -2,8 +2,10 @@ package tv.mineinthebox.essentials.minigames.plugin.session;
 
 import java.util.HashMap;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import tv.mineinthebox.essentials.interfaces.XPlayer;
 import tv.mineinthebox.essentials.minigames.plugin.MinigamePlugin;
 
 
@@ -25,6 +27,11 @@ public abstract class MinigameSession {
 	 * @param p - the Player
 	 */
 	public void createSession(Player p) {
+		XPlayer xp = pl.getEssentialsApi().getManagers().getPlayerManager().getPlayer(p.getName());
+		if(xp.hasSession()) {
+			p.sendMessage(ChatColor.RED + "you cannot make a session, you got a session open from a other plugin named: " + xp.getSession().getPlugin().getName());
+			return;
+		}
 		data.put(p.getName().toLowerCase(), new HashMap<String, Object>());
 	}
 
@@ -98,6 +105,16 @@ public abstract class MinigameSession {
 			}
 		}
 		return true;
+	}
+	
+	/**
+	 * returns the plugin
+	 * 
+	 * @author xize
+	 * @return MinigamePlugin
+	 */
+	public MinigamePlugin getPlugin() {
+		return pl;
 	}
 
 	/**

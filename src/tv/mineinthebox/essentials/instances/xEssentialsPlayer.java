@@ -44,6 +44,7 @@ import tv.mineinthebox.essentials.events.players.FakeNukeEvent;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 import tv.mineinthebox.essentials.minigames.plugin.arena.MinigameArena;
+import tv.mineinthebox.essentials.minigames.plugin.session.MinigameSession;
 
 @SuppressWarnings("deprecation")
 public class xEssentialsPlayer implements XPlayer {
@@ -57,6 +58,7 @@ public class xEssentialsPlayer implements XPlayer {
 	private BukkitTask spectate;
 	private BukkitTask pwnagetask;
 	private MinigameArena arena;
+	private MinigameSession session;
 
 	public xEssentialsPlayer(Player player, String UUID, xEssentials pl) {
 		this.pl = pl;
@@ -136,6 +138,21 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		setLastLoginTime(System.currentTimeMillis());
 		save();
+	}
+	
+	@Override
+	public boolean hasSession() {
+		return session != null;
+	}
+
+	@Override
+	public MinigameSession getSession() {
+		return session;
+	}
+
+	@Override
+	public void setSession(MinigameSession sess) {
+		this.session = sess;
 	}
 	
 	@Override
@@ -1668,5 +1685,4 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		return false;
 	}
-	
 }

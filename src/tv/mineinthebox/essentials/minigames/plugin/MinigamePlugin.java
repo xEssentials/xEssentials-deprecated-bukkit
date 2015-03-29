@@ -15,12 +15,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.event.server.ServerCommandEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
@@ -305,8 +302,31 @@ public abstract class MinigamePlugin implements Listener {
 		getHandlers().registerEvent(listener);
 	}
 
+	/**
+	 * registers a command
+	 * 
+	 * @author xize
+	 * @param command - the command
+	 * @param executor - the executor
+	 */
 	public void setExecutor(String command, MinigameCommandExecutor executor) {
 		commands.put(command.toLowerCase(), executor);
+	}
+	
+	
+	/**
+	 * attemps to stop the whole plugin!
+	 * 
+	 * @author xize
+	 */
+	public void stopAll() {
+		pl.onDisable();
+		getHandlers().stopListeners();
+		commands.clear();
+		arenas.clear();
+		setDefaultResourcePack(null);
+		setMinigameGui(null);
+		setEnabled(false);
 	}
 
 	public enum GameLog {
@@ -399,21 +419,6 @@ public abstract class MinigamePlugin implements Listener {
 			e.setCommand("emptycommand");
 		}
 	}
-	
-	/**
-	 * attemps to stop the whole plugin!
-	 * 
-	 * @author xize
-	 */
-	public void stopAll() {
-		pl.onDisable();
-		getHandlers().stopListeners();
-		commands.clear();
-		arenas.clear();
-		setDefaultResourcePack(null);
-		setMinigameGui(null);
-		setEnabled(false);
-	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onTeleport(PlayerTeleportEvent e) {
@@ -423,46 +428,6 @@ public abstract class MinigamePlugin implements Listener {
 			if(xp.isInArena()) {
 				xp.getPlayer().sendMessage(ChatColor.RED + "you are inside an arena, you cannot teleport when being inside a game!");
 				e.setCancelled(true);
-			}
-		}
-	}
-	
-	@EventHandler
-	public void onQuit(PlayerQuitEvent e) {
-		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			final XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
-			if(xp.isInArena()) {
-				new BukkitRunnable() {
-
-					@Override
-					public void run() {
-						if(!xp.getPlayer().isOnline()) {
-							xp.getArena().leaveArena(xp);
-							xp.setArena(null);
-						}
-					}
-					
-				}.runTaskLater(pl, 15L);
-			}
-		}
-	}
-	
-	@EventHandler
-	public void onQuit(PlayerKickEvent e) {
-		if(pl.getManagers().getPlayerManager().isOnline(e.getPlayer().getName())) {
-			final XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
-			if(xp.isInArena()) {
-				new BukkitRunnable() {
-
-					@Override
-					public void run() {
-						if(!xp.getPlayer().isOnline()) {
-							xp.getArena().leaveArena(xp);
-							xp.setArena(null);
-						}
-					}
-					
-				}.runTaskLater(pl, 15L);
 			}
 		}
 	}
