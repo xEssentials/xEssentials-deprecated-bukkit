@@ -13,7 +13,7 @@ public abstract class MinigameSession {
 	protected final HashMap<String, HashMap<String, Object>> data = new HashMap<String, HashMap<String, Object>>();
 	private final String[] keys;
 	
-	public MinigameSession(MinigamePlugin pl, String... keys) {
+	public MinigameSession(MinigamePlugin pl, String[] keys) {
 		this.pl = pl;
 		this.keys = keys;
 	}
