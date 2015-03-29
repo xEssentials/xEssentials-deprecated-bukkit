@@ -320,7 +320,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 */
 	public void stopAll() {
-		pl.onDisable();
+		onDisable();
 		getHandlers().stopListeners();
 		commands.clear();
 		arenas.clear();
