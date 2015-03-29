@@ -7,9 +7,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
@@ -314,6 +318,39 @@ public abstract class MinigamePlugin implements Listener {
 
 		public LogType getType() {
 			return type;
+		}
+	}
+	
+	@EventHandler
+	public void onClick(InventoryClickEvent e) {
+		if(hasMinigameGui()) {
+			if(e.getInventory().getTitle().equalsIgnoreCase(ChatColor.DARK_PURPLE + "game selector")) {
+				if(e.getCurrentItem() != null) {
+					Player p = (Player)e.getWhoClicked();
+					XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
+					
+					String arenaname = e.getCurrentItem().getItemMeta().getLore().get(0).split(": ")[1];
+					MinigameArena arena = getArena(arenaname);
+					if(arena.isFull()) {
+						p.closeInventory();
+						p.sendMessage(ChatColor.RED + "this game is full!");
+					} else {
+						p.closeInventory();
+						arena.joinArena(xp);
+					}
+					e.setCancelled(true);
+				}
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onClick(InventoryCloseEvent e) {
+		if(hasMinigameGui()) {
+			if(e.getInventory().getTitle().equalsIgnoreCase(ChatColor.DARK_PURPLE + "game selector")) {
+				Player p = (Player)e.getPlayer();
+				p.playSound(p.getLocation(), Sound.CHEST_CLOSE, 1F, 1F);
+			}
 		}
 	}
 

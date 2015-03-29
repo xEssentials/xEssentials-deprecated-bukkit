@@ -42,7 +42,7 @@ public class MinigameGui {
 		meta.setLore(lores);
 		this.button.setItemMeta(meta);
 		
-		this.inv = Bukkit.createInventory(null, 9, "game selector"); {
+		this.inv = Bukkit.createInventory(null, 9, ChatColor.DARK_PURPLE + "game selector"); {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
@@ -126,5 +126,9 @@ public class MinigameGui {
 				break;
 			}
 		}
+	}
+	
+	public Inventory getInventory() {
+		return inv;
 	}
 }
