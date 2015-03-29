@@ -64,12 +64,14 @@ public abstract class MinigameSession {
 	 * tries to return a object
 	 * 
 	 * @author xize
+	 * @param <T>
 	 * @param p - the Player
 	 * @param key - the key
 	 * @return Object
 	 */
-	public Object getSessionData(Player p, String key) {
-		return data.get(p.getName().toLowerCase()).get(key);
+	@SuppressWarnings("unchecked")
+	public <T> T getSessionData(Player p, String key) {
+		return (T) data.get(p.getName().toLowerCase()).get(key);
 	}
 	
 	/**
