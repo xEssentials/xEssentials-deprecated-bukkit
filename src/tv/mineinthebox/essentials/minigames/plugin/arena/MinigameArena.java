@@ -110,7 +110,7 @@ public abstract class MinigameArena {
 	 * @param seconds - the seconds
 	 * @param sound - the sound being player
 	 */
-	public synchronized void doCountdown(final int seconds, final Sound clocktick, final Sound gamestart) {
+	public void doCountdown(final int seconds, final Sound clocktick, final Sound gamestart) {
 		new BukkitRunnable() {
 
 			int i = seconds;
