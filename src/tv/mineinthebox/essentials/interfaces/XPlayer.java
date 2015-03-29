@@ -16,8 +16,34 @@ import tv.mineinthebox.essentials.instances.Home;
 import tv.mineinthebox.essentials.instances.Modreq;
 import tv.mineinthebox.essentials.instances.RestrictedCommand;
 import tv.mineinthebox.essentials.instances.Shop;
+import tv.mineinthebox.essentials.minigames.plugin.arena.MinigameArena;
 
 public interface XPlayer extends XOfflinePlayer {
+	
+	/**
+	 * returns true if the player is inside a minigame arena, otherwise false
+	 * 
+	 * @author xize
+	 * @return boolean
+	 */
+	public boolean isInArena();
+	
+	/**
+	 * returns the minigame arena
+	 * 
+	 * @author xize
+	 * @return MinigameArena
+	 */
+	public MinigameArena getArena();
+	
+	/**
+	 * sets the player inside a arena
+	 * 
+	 * @author xize
+	 * @param arena - the arena
+	 */
+	public void setArena(MinigameArena arena);
+	
 	/**
 	 * @author xize
 	 * @param returns true whenever the player is greylisted
