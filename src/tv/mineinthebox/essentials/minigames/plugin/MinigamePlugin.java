@@ -71,11 +71,11 @@ public abstract class MinigamePlugin implements Listener {
 	}
 
 
-	protected final void setMinigameGui(MinigameGui gui) {
+	public final void setMinigameGui(MinigameGui gui) {
 		this.gui = gui;
 	}
 
-	final boolean hasMinigameGui() {
+	public final boolean hasMinigameGui() {
 		return (gui instanceof MinigameGui);
 	}
 
@@ -95,7 +95,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @return String[]
 	 */
-	final String[] getAuthors() {
+	public final String[] getAuthors() {
 		return authors;
 	}
 
@@ -105,7 +105,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @return double
 	 */
-	final double getVersion() {
+	public final double getVersion() {
 		return version;
 	}
 
@@ -115,7 +115,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @return String
 	 */
-	final String getDescription() {
+	public final String getDescription() {
 		return description;
 	}
 
@@ -237,7 +237,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @return xEssentialsAPI
 	 */
-	final xEssentialsAPI getEssentialsApi() {
+	public final xEssentialsAPI getEssentialsApi() {
 		return (xEssentialsAPI) pl;
 	}
 
@@ -257,7 +257,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @param f - the file
 	 */
-	final void setDefaultResourcePack(File f) {
+	public final void setDefaultResourcePack(File f) {
 		this.resourcepack = new ResourcePack(f);
 	}
 
@@ -267,7 +267,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @return ResourcePack
 	 */
-	final ResourcePack getResourcePack() {
+	public final ResourcePack getResourcePack() {
 		return resourcepack;
 	}
 
@@ -278,7 +278,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @param message - the message
 	 * @param type - the log type
 	 */
-	protected final void log(String message, GameLog type) {
+	public final void log(String message, GameLog type) {
 		xEssentials.log(ChatColor.GREEN + "["+name+"]"+ChatColor.WHITE+message, type.getType());
 	}
 
@@ -298,7 +298,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @param listener - the listener to be registered
 	 */
-	protected final void registerListener(Listener listener) {
+	public final void registerListener(Listener listener) {
 		getHandlers().registerEvent(listener);
 	}
 
@@ -309,7 +309,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @param command - the command
 	 * @param executor - the executor
 	 */
-	protected final void setExecutor(String command, MinigameCommandExecutor executor) {
+	public final void setExecutor(String command, MinigameCommandExecutor executor) {
 		commands.put(command.toLowerCase(), executor);
 	}
 
@@ -345,7 +345,7 @@ public abstract class MinigamePlugin implements Listener {
 	}
 
 	@EventHandler
-	final void onClick(InventoryClickEvent e) {
+	public final void onClick(InventoryClickEvent e) {
 		if(hasMinigameGui()) {
 			if(e.getInventory().getTitle().equalsIgnoreCase(ChatColor.DARK_PURPLE + "game selector")) {
 				if(e.getCurrentItem() != null) {
@@ -375,7 +375,7 @@ public abstract class MinigamePlugin implements Listener {
 	}
 
 	@EventHandler
-	final void onClick(InventoryCloseEvent e) {
+	public final void onClick(InventoryCloseEvent e) {
 		if(hasMinigameGui()) {
 			if(e.getInventory().getTitle().equalsIgnoreCase(ChatColor.DARK_PURPLE + "game selector")) {
 				Player p = (Player)e.getPlayer();
@@ -385,7 +385,7 @@ public abstract class MinigamePlugin implements Listener {
 	}
 
 	@EventHandler
-	final void onCommand(PlayerCommandPreprocessEvent e) {
+	public final void onCommand(PlayerCommandPreprocessEvent e) {
 		String[] array = e.getMessage().split(" ");
 
 		String[] args = new String[array.length-1];
@@ -403,7 +403,7 @@ public abstract class MinigamePlugin implements Listener {
 	}
 
 	@EventHandler
-	final void onCommand(ServerCommandEvent e) {
+	public final void onCommand(ServerCommandEvent e) {
 		String[] array = e.getCommand().split(" ");
 
 		String[] args = new String[array.length-1];
@@ -421,7 +421,7 @@ public abstract class MinigamePlugin implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	final void onTeleport(PlayerTeleportEvent e) {
+	public final void onTeleport(PlayerTeleportEvent e) {
 		//TODO: rewrite event, so XPlayer will stores its arena as tempory meta.
 		if(e.getCause() == TeleportCause.COMMAND) {
 			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
