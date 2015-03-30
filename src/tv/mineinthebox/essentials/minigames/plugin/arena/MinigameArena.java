@@ -1,30 +1,12 @@
 package tv.mineinthebox.essentials.minigames.plugin.arena;
 
-import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Sound;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import tv.mineinthebox.essentials.interfaces.XPlayer;
-import tv.mineinthebox.essentials.minigames.plugin.MinigamePlugin;
 
-public abstract class MinigameArena {
-
-	protected MinigamePlugin pl;
-	protected File f;
-	protected FileConfiguration con;
-	protected final Set<XPlayer> players = new HashSet<XPlayer>();
-	protected boolean isStarted = false;
-
-	public MinigameArena(MinigamePlugin pl, File f, FileConfiguration con) {
-		this.pl = pl;
-		this.f = f;
-		this.con = con;
-	}
+public interface MinigameArena {
 
 	/**
 	 * returns the name
@@ -32,19 +14,15 @@ public abstract class MinigameArena {
 	 * @author xize
 	 * @return String
 	 */
-	public String getName() {
-		return f.getName().replace(".yml", "");
-	}
+	public String getName();
 	
 	/**
-	 * returns the max amount of players allowed!
+	 * returns the type of minigame
 	 * 
 	 * @author xize
-	 * @return int
+	 * @return MinigameType
 	 */
-	public int getMaxPlayers() {
-		return con.getInt("arena.maxplayers");
-	}
+	public MinigameType getType();
 	
 	/**
 	 * returns true if the arena has max players, otherwise false
@@ -52,19 +30,15 @@ public abstract class MinigameArena {
 	 * @author xize
 	 * @return boolean
 	 */
-	public boolean hasMaxPlayers() {
-		return con.contains("arena.maxplayers");
-	}
+	public boolean hasMaxPlayers();
 	
 	/**
-	 * returns a list of players
+	 * returns the max amount of players allowed!
 	 * 
 	 * @author xize
-	 * @return Set<XPlayer>
+	 * @return int
 	 */
-	public Set<XPlayer> getPlayers() {
-		return players;
-	}
+	public int getMaxPlayers();
 	
 	/**
 	 * returns a status String for e.g buttons in inventory menus
@@ -72,15 +46,7 @@ public abstract class MinigameArena {
 	 * @author xize
 	 * @return String
 	 */
-	public String getArenaStatus() {
-		if(isFull()) {
-			return ChatColor.RED + "FULL!";
-		} else if(isStarted() && !isFull()) {
-			return ChatColor.GREEN + "GAME STARTED! but players can still join";
-		} else {
-			return ChatColor.GREEN + "OPEN!";
-		}
-	}
+	public String getArenaStatus();
 	
 	/**
 	 * returns true if the game is started otherwise false
@@ -88,9 +54,7 @@ public abstract class MinigameArena {
 	 * @author xize
 	 * @return boolean
 	 */
-	public boolean isStarted() {
-		return isStarted;
-	}
+	public boolean isStarted();
 	
 	/**
 	 * sets the game to started or stopped
@@ -98,41 +62,7 @@ public abstract class MinigameArena {
 	 * @author xize
 	 * @param bol - the boolean
 	 */
-	public void setStarted(boolean bol) {
-		this.isStarted = bol;
-	}
-
-	/**
-	 * does a countdown based on the parameters given in
-	 * 
-	 * @author xize
-	 * @param seconds - the seconds
-	 * @param sound - the sound being player
-	 */
-	public void doCountdown(final int seconds, final Sound clocktick, final Sound gamestart) {
-		new BukkitRunnable() {
-
-			int i = seconds;
-
-			@Override
-			public void run() {
-				if(i > 0) {
-					for(XPlayer xp : players) {
-						xp.getPlayer().sendMessage(ChatColor.GREEN + "["+getType().getName()+"]" + ChatColor.GRAY + "counting down: " + i + "s");
-						xp.getPlayer().playSound(xp.getPlayer().getLocation(), clocktick, 1F, 1F);
-					}
-				} else {
-					for(XPlayer xp : players) {
-						xp.getPlayer().sendMessage(ChatColor.GREEN + "["+getType().getName()+"]" + ChatColor.GRAY + "game started!");
-						xp.getPlayer().playSound(xp.getPlayer().getLocation(), gamestart, 1F, 1F);
-					}
-					setStarted(true);
-					cancel();
-				}
-				i--;
-			}
-		}.runTaskTimer(pl.getEssentialsPlugin(), 10L, 20L);
-	}
+	public void setStarted(boolean bol);
 	
 	/**
 	 * returns true if the arena some sort of score system, otherwise false
@@ -140,9 +70,7 @@ public abstract class MinigameArena {
 	 * @author xize
 	 * @return boolean
 	 */
-	public boolean hasScore() {
-		return con.contains("arena.score");
-	}
+	public boolean hasScore();
 	
 	/**
 	 * returns the max score!
@@ -150,17 +78,7 @@ public abstract class MinigameArena {
 	 * @author xize
 	 * @return int
 	 */
-	public int getMaxScore() {
-		return (hasScore() ? con.getInt("arena.score") : 0);
-	}
-
-	/**
-	 * returns the type of minigame
-	 * 
-	 * @author xize
-	 * @return MinigameType
-	 */
-	public abstract MinigameType getType();
+	public int getMaxScore();
 
 	/**
 	 * lets a player join the arena
@@ -168,7 +86,7 @@ public abstract class MinigameArena {
 	 * @author xize
 	 * @param xp - the player
 	 */
-	public abstract void joinArena(XPlayer xp);
+	public void joinArena(XPlayer xp);
 
 	/**
 	 * lets a player leave the arena
@@ -176,7 +94,7 @@ public abstract class MinigameArena {
 	 * @author xize
 	 * @param xp - the player
 	 */
-	public abstract void leaveArena(XPlayer xp);
+	public void leaveArena(XPlayer xp);
 
 	/**
 	 * returns true if the player exists inside the arena, otherwise false
@@ -185,7 +103,7 @@ public abstract class MinigameArena {
 	 * @param xp - the player
 	 * @return boolean
 	 */
-	public abstract boolean isInArena(XPlayer xp);
+	public boolean isInArena(XPlayer xp);
 
 	/**
 	 * returns true if the arena is full
@@ -193,7 +111,7 @@ public abstract class MinigameArena {
 	 * @author xize
 	 * @return boolean
 	 */
-	public abstract boolean isFull();
+	public boolean isFull();
 
 	/**
 	 * returns true if the arena has teams
@@ -201,20 +119,38 @@ public abstract class MinigameArena {
 	 * @author xize
 	 * @return boolean
 	 */
-	public abstract boolean hasTeams();
+	public boolean hasTeams();
 
+	/**
+	 * returns the players
+	 * 
+	 * @author xize
+	 * @return Set<String>
+	 */
+	public ArrayList<String> getPlayers();
+	
+	/**
+	 * a simple countdown method
+	 * 
+	 * @author xize
+	 * @param seconds - the seconds
+	 * @param clocktick - the clock tick sound
+	 * @param gamestart - the starters sound
+	 */
+	public void docCountdown(final int seconds, final Sound clocktick, final Sound gamestart);
+	
 	/**
 	 * resets the arena to default
 	 * 
 	 * @author xize
 	 */
-	public abstract void reset();
+	public void reset();
 
 	/**
 	 * removes the arena, from whenever the storage is
 	 * 
 	 * @author xize
 	 */
-	public abstract void remove();
+	public void remove();
 
 }
