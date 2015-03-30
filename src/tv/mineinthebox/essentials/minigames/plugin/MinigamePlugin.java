@@ -66,16 +66,16 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @return MinigameGui
 	 */
-	public MinigameGui getMinigameGui() {
+	public final MinigameGui getMinigameGui() {
 		return gui;
 	}
 
 
-	public void setMinigameGui(MinigameGui gui) {
+	protected final void setMinigameGui(MinigameGui gui) {
 		this.gui = gui;
 	}
 
-	public boolean hasMinigameGui() {
+	final boolean hasMinigameGui() {
 		return (gui instanceof MinigameGui);
 	}
 
@@ -85,7 +85,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @return String
 	 */
-	public String getName() {
+	public final String getName() {
 		return name;
 	}
 
@@ -95,7 +95,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @return String[]
 	 */
-	public String[] getAuthors() {
+	final String[] getAuthors() {
 		return authors;
 	}
 
@@ -105,7 +105,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @return double
 	 */
-	public double getVersion() {
+	final double getVersion() {
 		return version;
 	}
 
@@ -115,7 +115,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @return String
 	 */
-	public String getDescription() {
+	final String getDescription() {
 		return description;
 	}
 
@@ -125,7 +125,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @return boolean
 	 */
-	public boolean isEnabled() {
+	public final boolean isEnabled() {
 		return isEnabled;
 	}
 
@@ -135,7 +135,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @param bol - true if plugin is set to enabled, otherwise false
 	 */
-	public void setEnabled(boolean bol) {
+	public final void setEnabled(boolean bol) {
 		this.isEnabled = bol;
 	}
 
@@ -145,7 +145,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @return File
 	 */
-	public File getDataFolder() {
+	public final File getDataFolder() {
 		if(!datafolder.isDirectory()) {
 			datafolder.mkdir();
 		}
@@ -158,7 +158,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @param arena the arena
 	 */
-	public void registerArena(MinigameArena arena) {
+	public final void registerArena(MinigameArena arena) {
 		arenas.put(arena.getName().toLowerCase(), arena);
 	}
 
@@ -168,7 +168,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @param arena - the arena
 	 */
-	public void unregisterArena(MinigameArena arena) {
+	public final void unregisterArena(MinigameArena arena) {
 		arenas.remove(arena.getName().toLowerCase());
 	}
 
@@ -179,7 +179,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @param name - the arena
 	 * @return MinigameArena
 	 */
-	public MinigameArena getArena(String name) {
+	public final MinigameArena getArena(String name) {
 		return arenas.get(name.toLowerCase());
 	}
 
@@ -190,7 +190,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @param name - the name
 	 * @return boolean
 	 */
-	public boolean isArena(String name) {
+	public final boolean isArena(String name) {
 		return arenas.containsKey(name.toLowerCase());
 	}
 
@@ -200,8 +200,8 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @return MinigameArena[]
 	 */
-	public MinigameArena[] getArenas() {
-		MinigameArena[] a = new MinigameArena[arenas.size()];
+	public final MinigameArena[] getArenas() {
+		MinigameArena[] a = new MinigameArena[arenas.values().size()];
 		int i = 0;
 		for(MinigameArena arena : arenas.values()) {
 			a[i] = arena;
@@ -227,7 +227,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @return MinigameHandler
 	 */
-	public MinigameHandler getHandlers() {
+	public final MinigameHandler getHandlers() {
 		return handler;
 	}
 
@@ -237,7 +237,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @return xEssentialsAPI
 	 */
-	public xEssentialsAPI getEssentialsApi() {
+	final xEssentialsAPI getEssentialsApi() {
 		return (xEssentialsAPI) pl;
 	}
 
@@ -247,7 +247,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @return xEssentials
 	 */
-	public xEssentials getEssentialsPlugin() {
+	public final xEssentials getEssentialsPlugin() {
 		return pl;
 	}
 
@@ -257,7 +257,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @param f - the file
 	 */
-	public void setDefaultResourcePack(File f) {
+	final void setDefaultResourcePack(File f) {
 		this.resourcepack = new ResourcePack(f);
 	}
 
@@ -267,7 +267,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @return ResourcePack
 	 */
-	public ResourcePack getResourcePack() {
+	final ResourcePack getResourcePack() {
 		return resourcepack;
 	}
 
@@ -278,7 +278,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @param message - the message
 	 * @param type - the log type
 	 */
-	public void log(String message, GameLog type) {
+	protected final void log(String message, GameLog type) {
 		xEssentials.log(ChatColor.GREEN + "["+name+"]"+ChatColor.WHITE+message, type.getType());
 	}
 
@@ -288,7 +288,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @return ClassLoader
 	 */
-	public ClassLoader getClassLoader() {
+	final ClassLoader getClassLoader() {
 		return loader;
 	}
 
@@ -298,7 +298,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @param listener - the listener to be registered
 	 */
-	public void registerListener(Listener listener) {
+	protected final void registerListener(Listener listener) {
 		getHandlers().registerEvent(listener);
 	}
 
@@ -309,17 +309,17 @@ public abstract class MinigamePlugin implements Listener {
 	 * @param command - the command
 	 * @param executor - the executor
 	 */
-	public void setExecutor(String command, MinigameCommandExecutor executor) {
+	protected final void setExecutor(String command, MinigameCommandExecutor executor) {
 		commands.put(command.toLowerCase(), executor);
 	}
-	
-	
+
+
 	/**
 	 * attemps to stop the whole plugin!
 	 * 
 	 * @author xize
 	 */
-	public void stopAll() {
+	public final void stopAll() {
 		onDisable();
 		getHandlers().stopListeners();
 		commands.clear();
@@ -339,13 +339,13 @@ public abstract class MinigamePlugin implements Listener {
 			this.type = type;
 		}
 
-		public LogType getType() {
+		final LogType getType() {
 			return type;
 		}
 	}
 
 	@EventHandler
-	public void onClick(InventoryClickEvent e) {
+	final void onClick(InventoryClickEvent e) {
 		if(hasMinigameGui()) {
 			if(e.getInventory().getTitle().equalsIgnoreCase(ChatColor.DARK_PURPLE + "game selector")) {
 				if(e.getCurrentItem() != null) {
@@ -358,8 +358,8 @@ public abstract class MinigamePlugin implements Listener {
 						e.setCancelled(true);
 						return;
 					}
-					
-					String arenaname = e.getCurrentItem().getItemMeta().getLore().get(0).split(": ")[1];
+
+					String arenaname = ChatColor.stripColor(e.getCurrentItem().getItemMeta().getLore().get(1).split(": ")[1]);
 					MinigameArena arena = getArena(arenaname);
 					if(arena.isFull()) {
 						p.closeInventory();
@@ -375,7 +375,7 @@ public abstract class MinigamePlugin implements Listener {
 	}
 
 	@EventHandler
-	public void onClick(InventoryCloseEvent e) {
+	final void onClick(InventoryCloseEvent e) {
 		if(hasMinigameGui()) {
 			if(e.getInventory().getTitle().equalsIgnoreCase(ChatColor.DARK_PURPLE + "game selector")) {
 				Player p = (Player)e.getPlayer();
@@ -385,7 +385,7 @@ public abstract class MinigamePlugin implements Listener {
 	}
 
 	@EventHandler
-	public void onCommand(PlayerCommandPreprocessEvent e) {
+	final void onCommand(PlayerCommandPreprocessEvent e) {
 		String[] array = e.getMessage().split(" ");
 
 		String[] args = new String[array.length-1];
@@ -403,7 +403,7 @@ public abstract class MinigamePlugin implements Listener {
 	}
 
 	@EventHandler
-	public void onCommand(ServerCommandEvent e) {
+	final void onCommand(ServerCommandEvent e) {
 		String[] array = e.getCommand().split(" ");
 
 		String[] args = new String[array.length-1];
@@ -421,7 +421,7 @@ public abstract class MinigamePlugin implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onTeleport(PlayerTeleportEvent e) {
+	final void onTeleport(PlayerTeleportEvent e) {
 		//TODO: rewrite event, so XPlayer will stores its arena as tempory meta.
 		if(e.getCause() == TeleportCause.COMMAND) {
 			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
