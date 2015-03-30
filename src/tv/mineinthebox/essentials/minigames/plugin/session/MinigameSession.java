@@ -1,24 +1,9 @@
 package tv.mineinthebox.essentials.minigames.plugin.session;
 
-import java.util.HashMap;
-
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.interfaces.XPlayer;
-import tv.mineinthebox.essentials.minigames.plugin.MinigamePlugin;
 
-
-public abstract class MinigameSession {
-
-	protected final MinigamePlugin pl;
-	protected final HashMap<String, HashMap<String, Object>> data = new HashMap<String, HashMap<String, Object>>();
-	private final String[] keys;
-
-	public MinigameSession(MinigamePlugin pl, String[] keys) {
-		this.pl = pl;
-		this.keys = keys;
-	}
+public interface MinigameSession {
 
 	/**
 	 * creates a session of this Player
@@ -26,14 +11,7 @@ public abstract class MinigameSession {
 	 * @author xize
 	 * @param p - the Player
 	 */
-	public void createSession(Player p) {
-		XPlayer xp = pl.getEssentialsApi().getManagers().getPlayerManager().getPlayer(p.getName());
-		if(xp.hasSession()) {
-			p.sendMessage(ChatColor.RED + "you cannot make a session, you got a session open from a other plugin named: " + xp.getSession().getPlugin().getName());
-			return;
-		}
-		data.put(p.getName().toLowerCase(), new HashMap<String, Object>());
-	}
+	public void createSession(Player p);
 
 	/**
 	 * stops the session of this Player
@@ -41,9 +19,7 @@ public abstract class MinigameSession {
 	 * @author xize
 	 * @param p - the Player
 	 */
-	public void stopSession(Player p) {
-		data.remove(p.getName().toLowerCase());
-	}
+	public void stopSession(Player p);
 
 	/**
 	 * returns true if the Player has a session, otherwise false
@@ -51,9 +27,7 @@ public abstract class MinigameSession {
 	 * @author xize
 	 * @param p - the Player
 	 */
-	public boolean hasSession(Player p) {
-		return data.containsKey(p.getName().toLowerCase());
-	}
+	public boolean hasSession(Player p);
 
 	/**
 	 * returns true if the given data exists otherwise false
@@ -63,9 +37,7 @@ public abstract class MinigameSession {
 	 * @param key - the key
 	 * @return boolean
 	 */
-	public boolean hasSessionData(Player p, String key) {
-		return data.get(p.getName().toLowerCase()).containsKey(key);
-	}
+	public boolean hasSessionData(Player p, String key);
 
 	/**
 	 * tries to return a object
@@ -75,9 +47,7 @@ public abstract class MinigameSession {
 	 * @param key - the key
 	 * @return Object
 	 */
-	public Object getSessionData(Player p, String key) {
-		return data.get(p.getName().toLowerCase()).get(key);
-	}
+	public Object getSessionData(Player p, String key);
 
 	/**
 	 * tries to add a object to the session data
@@ -87,9 +57,7 @@ public abstract class MinigameSession {
 	 * @param key - the key
 	 * @param obj - the object
 	 */
-	public void addSessionData(Player p, String key, Object obj) {
-		data.get(p.getName().toLowerCase()).put(key, obj);
-	}
+	public void addSessionData(Player p, String key, Object obj);
 
 	/**
 	 * returns true if the session matches with the given data otherwise false
@@ -97,24 +65,7 @@ public abstract class MinigameSession {
 	 * @author xize
 	 * @return boolean
 	 */
-	public boolean isSessionComplete(Player p) {
-		for(String key : keys) {
-			if(!hasSessionData(p, key)) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	/**
-	 * returns the plugin
-	 * 
-	 * @author xize
-	 * @return MinigamePlugin
-	 */
-	public MinigamePlugin getPlugin() {
-		return pl;
-	}
+	public boolean isSessionComplete(Player p);
 
 	/**
 	 * processes what is needed to create a arena
