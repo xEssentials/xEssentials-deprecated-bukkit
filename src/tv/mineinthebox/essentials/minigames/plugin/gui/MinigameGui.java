@@ -6,19 +6,15 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.entity.HumanEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 import tv.mineinthebox.essentials.minigames.plugin.MinigamePlugin;
 import tv.mineinthebox.essentials.minigames.plugin.arena.MinigameArena;
 
-public class MinigameGui {
+public class MinigameGui implements Runnable {
 	
 	private final ItemStack button;
 	private final MinigamePlugin pl;
@@ -41,20 +37,8 @@ public class MinigameGui {
 		}
 		meta.setLore(lores);
 		this.button.setItemMeta(meta);
-		
-		this.inv = Bukkit.createInventory(null, 9, ChatColor.DARK_PURPLE + "game selector"); {
-			new BukkitRunnable() {
-				@Override
-				public void run() {
-					inv.clear();
-					for(HumanEntity human : inv.getViewers()) {
-						Player p = (Player) human;
-						p.playSound(p.getLocation(), Sound.NOTE_PLING, 1F, 1F);
-					}
-					updateGUI();
-				}
-			}.runTaskTimer(pl.getEssentialsPlugin(), 10L, 20L);
-		}
+		this.inv = Bukkit.createInventory(null, 9, ChatColor.DARK_PURPLE + "game selector");
+		Bukkit.getScheduler().runTaskTimer(pl.getEssentialsPlugin(), this, 3L, 8L);
 	}
 	
 	public MinigameGui(MinigamePlugin pl, String title, String[] description, Material mat, short subdata) {
@@ -65,22 +49,15 @@ public class MinigameGui {
 		List<String> lores = new ArrayList<String>();
 		lores.add(ChatColor.GOLD + "Arena: %arena%");
 		lores.add(ChatColor.GOLD + "Type:  %type%");
-		lores.add(ChatColor.GOLD + "online: %onlinecount%");
+		lores.add(ChatColor.GOLD + "Online: %onlinecount%");
 		lores.add(ChatColor.GOLD + "Status: %status%");
 		for(String desc : description) {
 			lores.add(desc);
 		}
 		meta.setLore(lores);
 		this.button.setItemMeta(meta);
-		this.inv = Bukkit.createInventory(null, 9, "game selector"); {
-			new BukkitRunnable() {
-				@Override
-				public void run() {
-					inv.clear();
-					updateGUI();
-				}
-			}.runTaskTimer(pl.getEssentialsPlugin(), 3L, 8L);
-		}
+		this.inv = Bukkit.createInventory(null, 9, ChatColor.DARK_PURPLE + "game selector");
+		Bukkit.getScheduler().runTaskTimer(pl.getEssentialsPlugin(), this, 3L, 8L);
 	}
 	
 	public ItemStack getButton() {
@@ -117,18 +94,22 @@ public class MinigameGui {
 	}
 	
 	private void updateGUI() {
+		inv.clear();
 		MinigameArena[] arenas = pl.getArenas();
+		
 		for(int i = 0; i < 8; i++) {
 			if(i < arenas.length) {
 				MinigameArena arena = arenas[i];
+				
 				inv.addItem(getButtonByArena(arena));
 			} else {
 				break;
 			}
 		}
 	}
-	
-	public Inventory getInventory() {
-		return inv;
+
+	@Override
+	public void run() {
+		updateGUI();
 	}
 }
