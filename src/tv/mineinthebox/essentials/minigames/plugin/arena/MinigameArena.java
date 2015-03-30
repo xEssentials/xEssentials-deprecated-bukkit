@@ -1,6 +1,6 @@
 package tv.mineinthebox.essentials.minigames.plugin.arena;
 
-import java.util.ArrayList;
+import java.util.Set;
 
 import org.bukkit.Sound;
 
@@ -127,7 +127,7 @@ public interface MinigameArena {
 	 * @author xize
 	 * @return Set<String>
 	 */
-	public ArrayList<String> getPlayers();
+	public Set<XPlayer> getPlayers();
 	
 	/**
 	 * a simple countdown method
