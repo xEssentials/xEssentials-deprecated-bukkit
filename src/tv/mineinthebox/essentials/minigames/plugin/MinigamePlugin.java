@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
@@ -320,6 +321,12 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 */
 	public final void stopAll() {
+		Iterator<MinigameArena> it = arenas.values().iterator();
+		while(it.hasNext()) {
+			MinigameArena arena = it.next();
+			arena.reset();
+			it.remove();
+		}
 		onDisable();
 		getHandlers().stopListeners();
 		commands.clear();
