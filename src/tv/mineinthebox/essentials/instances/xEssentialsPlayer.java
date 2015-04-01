@@ -41,13 +41,14 @@ import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.enums.PlayerTaskEnum;
 import tv.mineinthebox.essentials.events.players.FakeNukeEvent;
+import tv.mineinthebox.essentials.interfaces.MinigamePlayer;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 import tv.mineinthebox.essentials.minigames.plugin.arena.MinigameArena;
 import tv.mineinthebox.essentials.minigames.plugin.session.MinigameSession;
 
 @SuppressWarnings("deprecation")
-public class xEssentialsPlayer implements XPlayer {
+public class xEssentialsPlayer implements MinigamePlayer, XPlayer {
 
 	private final Player player;
 	private final File f;
