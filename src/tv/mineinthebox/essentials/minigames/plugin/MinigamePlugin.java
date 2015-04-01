@@ -439,7 +439,7 @@ public abstract class MinigamePlugin implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public final void onTeleport(PlayerTeleportEvent e) {
-		//TODO: rewrite event, so XPlayer will stores its arena as tempory meta.
+		//TODO: rewrite event, so MinigamePlayer will stores its arena as tempory meta.
 		if(e.getCause() == TeleportCause.COMMAND) {
 			MinigamePlayer mp = getPlayer(e.getPlayer().getName());
 			
