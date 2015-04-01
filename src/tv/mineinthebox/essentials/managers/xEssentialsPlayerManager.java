@@ -47,8 +47,8 @@ public class xEssentialsPlayerManager {
 	 */
 	public XPlayer getPlayer(String name) {
 		for(String a : players.keySet()) {
-			if(a.startsWith(name)) {
-				return players.get(a);
+			if(a.startsWith(name.toLowerCase())) {
+				return players.get(a.toLowerCase());
 			}
 		}
 		throw new NullPointerException("xEssentialsPlayer: " + name + " is not online!");
