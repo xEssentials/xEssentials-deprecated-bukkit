@@ -46,7 +46,7 @@ public abstract class MinigamePlugin implements Listener {
 	private MinigameGui gui;
 
 	private ResourcePack resourcepack;
-
+	
 	/**
 	 * the onEnable start method
 	 * 
@@ -289,7 +289,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 * @return ClassLoader
 	 */
-	final ClassLoader getClassLoader() {
+	public final ClassLoader getClassLoader() {
 		return loader;
 	}
 
