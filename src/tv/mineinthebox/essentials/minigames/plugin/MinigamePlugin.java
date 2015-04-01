@@ -60,7 +60,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 */
 	public abstract void onDisable();
-
+	
 	/**
 	 * returns the minigame Gui
 	 * 
