@@ -7,6 +7,15 @@ import tv.mineinthebox.essentials.minigames.plugin.session.MinigameSession;
 
 public interface MinigamePlayer {
 	
+	
+	/**
+	 * returns the name of the player
+	 * 
+	 * @author xize
+	 * @return String
+	 */
+	public String getName();
+	
 	/**
 	 * returns true if the player has an open game arena session, otherwise false
 	 * 

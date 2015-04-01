@@ -46,7 +46,7 @@ public abstract class MinigamePlugin implements Listener {
 	private MinigameGui gui;
 
 	private ResourcePack resourcepack;
-	
+
 	/**
 	 * the onEnable start method
 	 * 
@@ -60,7 +60,7 @@ public abstract class MinigamePlugin implements Listener {
 	 * @author xize
 	 */
 	public abstract void onDisable();
-	
+
 	/**
 	 * returns the minigame Gui
 	 * 
@@ -313,7 +313,7 @@ public abstract class MinigamePlugin implements Listener {
 	public final void setExecutor(String command, MinigameCommandExecutor executor) {
 		commands.put(command.toLowerCase(), executor);
 	}
-	
+
 	/**
 	 * returns the minigame player
 	 * 
@@ -367,8 +367,10 @@ public abstract class MinigamePlugin implements Listener {
 		if(hasMinigameGui()) {
 			if(e.getInventory().getTitle().equalsIgnoreCase(ChatColor.DARK_PURPLE + "game selector")) {
 				if(e.getCurrentItem() != null) {
+					
 					Player p = (Player)e.getWhoClicked();
 					MinigamePlayer mp = getPlayer(p.getName());
+					
 					if(mp.isInArena()) {
 						p.closeInventory();
 						p.sendMessage(ChatColor.RED + "you are already joined in a game!");
@@ -376,16 +378,22 @@ public abstract class MinigamePlugin implements Listener {
 						return;
 					}
 
-					String arenaname = ChatColor.stripColor(e.getCurrentItem().getItemMeta().getLore().get(1).split(": ")[1]);
-					MinigameArena arena = getArena(arenaname);
-					if(arena.isFull()) {
-						p.closeInventory();
-						p.sendMessage(ChatColor.RED + "this game is full!");
+					if(e.getCurrentItem().hasItemMeta()) {
+						String arenaname = ChatColor.stripColor(e.getCurrentItem().getItemMeta().getLore().get(1).split(": ")[1]);
+						MinigameArena arena = getArena(arenaname);
+						if(arena.isFull()) {
+							p.closeInventory();
+							p.sendMessage(ChatColor.RED + "this game is full!");
+						} else {
+							p.closeInventory();
+							arena.joinArena(mp);
+						}
+						e.setCancelled(true);
 					} else {
 						p.closeInventory();
-						arena.joinArena(mp);
+						e.setCancelled(true);
+						p.sendMessage(ChatColor.RED + "arenas are empty!");
 					}
-					e.setCancelled(true);
 				}
 			}
 		}
@@ -442,7 +450,7 @@ public abstract class MinigamePlugin implements Listener {
 		//TODO: rewrite event, so MinigamePlayer will stores its arena as tempory meta.
 		if(e.getCause() == TeleportCause.COMMAND) {
 			MinigamePlayer mp = getPlayer(e.getPlayer().getName());
-			
+
 			if(mp.isInArena()) {
 				mp.getBukkitPlayer().sendMessage(ChatColor.RED + "you are inside an arena, you cannot teleport when being inside a game!");
 				e.setCancelled(true);
