@@ -10,7 +10,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import tv.mineinthebox.essentials.interfaces.XPlayer;
+import tv.mineinthebox.essentials.interfaces.MinigamePlayer;
 import tv.mineinthebox.essentials.minigames.plugin.MinigamePlugin;
 import tv.mineinthebox.essentials.minigames.plugin.arena.MinigameArena;
 
@@ -89,8 +89,8 @@ public class MinigameGui implements Runnable {
 	 * @author xize
 	 * @param xp - the player
 	 */
-	public void openGui(XPlayer xp) {
-		xp.getPlayer().openInventory(inv);
+	public void openGui(MinigamePlayer mp) {
+		mp.getBukkitPlayer().openInventory(inv);
 	}
 	
 	private void updateGUI() {

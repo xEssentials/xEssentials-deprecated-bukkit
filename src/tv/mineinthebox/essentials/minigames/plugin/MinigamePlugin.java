@@ -22,7 +22,7 @@ import org.bukkit.event.server.ServerCommandEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
-import tv.mineinthebox.essentials.interfaces.XPlayer;
+import tv.mineinthebox.essentials.interfaces.MinigamePlayer;
 import tv.mineinthebox.essentials.interfaces.xEssentialsAPI;
 import tv.mineinthebox.essentials.minigames.plugin.arena.MinigameArena;
 import tv.mineinthebox.essentials.minigames.plugin.command.MinigameCommandExecutor;
@@ -313,6 +313,17 @@ public abstract class MinigamePlugin implements Listener {
 	public final void setExecutor(String command, MinigameCommandExecutor executor) {
 		commands.put(command.toLowerCase(), executor);
 	}
+	
+	/**
+	 * returns the minigame player
+	 * 
+	 * @author xize
+	 * @param name - the name of the player
+	 * @return MinigamePlayer
+	 */
+	public final MinigamePlayer getPlayer(String name) {
+		return (MinigamePlayer) pl.getManagers().getPlayerManager().getPlayer(name);
+	}
 
 
 	/**
@@ -357,9 +368,8 @@ public abstract class MinigamePlugin implements Listener {
 			if(e.getInventory().getTitle().equalsIgnoreCase(ChatColor.DARK_PURPLE + "game selector")) {
 				if(e.getCurrentItem() != null) {
 					Player p = (Player)e.getWhoClicked();
-					XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
-
-					if(xp.isInArena()) {
+					MinigamePlayer mp = getPlayer(p.getName());
+					if(mp.isInArena()) {
 						p.closeInventory();
 						p.sendMessage(ChatColor.RED + "you are already joined in a game!");
 						e.setCancelled(true);
@@ -373,7 +383,7 @@ public abstract class MinigamePlugin implements Listener {
 						p.sendMessage(ChatColor.RED + "this game is full!");
 					} else {
 						p.closeInventory();
-						arena.joinArena(xp);
+						arena.joinArena(mp);
 					}
 					e.setCancelled(true);
 				}
@@ -431,9 +441,10 @@ public abstract class MinigamePlugin implements Listener {
 	public final void onTeleport(PlayerTeleportEvent e) {
 		//TODO: rewrite event, so XPlayer will stores its arena as tempory meta.
 		if(e.getCause() == TeleportCause.COMMAND) {
-			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
-			if(xp.isInArena()) {
-				xp.getPlayer().sendMessage(ChatColor.RED + "you are inside an arena, you cannot teleport when being inside a game!");
+			MinigamePlayer mp = getPlayer(e.getPlayer().getName());
+			
+			if(mp.isInArena()) {
+				mp.getBukkitPlayer().sendMessage(ChatColor.RED + "you are inside an arena, you cannot teleport when being inside a game!");
 				e.setCancelled(true);
 			}
 		}

@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.bukkit.Sound;
 
+import tv.mineinthebox.essentials.interfaces.MinigamePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public interface MinigameArena {
@@ -84,9 +85,9 @@ public interface MinigameArena {
 	 * lets a player join the arena
 	 * 
 	 * @author xize
-	 * @param xp - the player
+	 * @param mp - the player
 	 */
-	public void joinArena(XPlayer xp);
+	public void joinArena(MinigamePlayer mp);
 
 	/**
 	 * lets a player leave the arena
