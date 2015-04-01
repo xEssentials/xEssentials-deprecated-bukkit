@@ -3,7 +3,6 @@ package tv.mineinthebox.essentials.interfaces;
 import java.util.List;
 
 import org.bukkit.Location;
-import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -131,8 +130,6 @@ public interface XPlayer extends XOfflinePlayer {
 	 * @return void
 	 */
 	public void fakenuke();
-
-	abstract boolean isFallingBreakAble(Block block);
 
 	/**
 	 * @author xize
