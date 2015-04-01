@@ -5,7 +5,6 @@ import java.util.Set;
 import org.bukkit.Sound;
 
 import tv.mineinthebox.essentials.interfaces.MinigamePlayer;
-import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public interface MinigameArena {
 
@@ -95,7 +94,7 @@ public interface MinigameArena {
 	 * @author xize
 	 * @param xp - the player
 	 */
-	public void leaveArena(XPlayer xp);
+	public void leaveArena(MinigamePlayer xp);
 
 	/**
 	 * returns true if the player exists inside the arena, otherwise false
@@ -104,7 +103,7 @@ public interface MinigameArena {
 	 * @param xp - the player
 	 * @return boolean
 	 */
-	public boolean isInArena(XPlayer xp);
+	public boolean isInArena(MinigamePlayer xp);
 
 	/**
 	 * returns true if the arena is full
@@ -128,7 +127,7 @@ public interface MinigameArena {
 	 * @author xize
 	 * @return Set<String>
 	 */
-	public Set<XPlayer> getPlayers();
+	public Set<MinigamePlayer> getPlayers();
 	
 	/**
 	 * a simple countdown method
