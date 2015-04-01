@@ -31,7 +31,7 @@ public class CmdExplode extends CommandTemplate {
 					}
 				} else if(args.length == 1) {
 					if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-						Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+						Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getBukkitPlayer();
 						if(p instanceof Player) {
 							p.getWorld().createExplosion(p.getLocation(), 6f);
 							sendMessageTo(p, ChatColor.GRAY + "you got exploded!");	

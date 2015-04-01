@@ -29,7 +29,7 @@ public class CmdSetWarp extends CommandTemplate {
 					} else if(!pl.getManagers().getWarpManager().isWarp(args[0])) {
 						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(sender.getName())) {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
-							pl.getManagers().getWarpManager().setWarp(args[0], xp.getPlayer(), xp.getPlayer().getLocation());
+							pl.getManagers().getWarpManager().setWarp(args[0], xp.getBukkitPlayer(), xp.getBukkitPlayer().getLocation());
 							sendMessage(ChatColor.GREEN + "you successfully saved your warp!");
 						} else {
 							getWarning(WarningType.PLAYER_ONLY);

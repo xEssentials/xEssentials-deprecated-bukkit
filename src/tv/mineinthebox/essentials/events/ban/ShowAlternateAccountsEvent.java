@@ -25,22 +25,22 @@ public class ShowAlternateAccountsEvent implements Listener {
 				if(xp.hasAlternateAccounts()) {
 					for(XPlayer player : pl.getManagers().getPlayerManager().getPlayers()) {
 						if(player.isStaff()) {
-							player.getPlayer().sendMessage(ChatColor.GOLD + "-----------------------------------------------------");
-							player.getPlayer().sendMessage(ChatColor.GOLD + ".oO___[Alternate Accounts for player " + xp.getUser()+"]___Oo.");
+							player.getBukkitPlayer().sendMessage(ChatColor.GOLD + "-----------------------------------------------------");
+							player.getBukkitPlayer().sendMessage(ChatColor.GOLD + ".oO___[Alternate Accounts for player " + xp.getUser()+"]___Oo.");
 							if(pl.getConfiguration().getBanConfig().isFishbansEnabled()) {
 								if(xp.getAlternateAccounts().isListedOnService()) {
 									try {
-										player.getPlayer().sendMessage(xp.getAlternateAccounts().getServiceLookupResultMessage());
+										player.getBukkitPlayer().sendMessage(xp.getAlternateAccounts().getServiceLookupResultMessage());
 									} catch (Exception e1) {
 										xEssentials.log("could not lookup ban status of player " + xp.getUser() + " on api.fishbans.com", LogType.SEVERE);
 									}
 								} else {
-									player.getPlayer().sendMessage("player is not banned on any service.");
+									player.getBukkitPlayer().sendMessage("player is not banned on any service.");
 								}
 							}
-							player.getPlayer().sendMessage(ChatColor.GREEN + xp.getUser() + ChatColor.GRAY + " has may alternate accounts!");
-							player.getPlayer().sendMessage(xp.getAlternateAccounts().getAltsDetailed());
-							player.getPlayer().sendMessage(ChatColor.GOLD + "-----------------------------------------------------");
+							player.getBukkitPlayer().sendMessage(ChatColor.GREEN + xp.getUser() + ChatColor.GRAY + " has may alternate accounts!");
+							player.getBukkitPlayer().sendMessage(xp.getAlternateAccounts().getAltsDetailed());
+							player.getBukkitPlayer().sendMessage(ChatColor.GOLD + "-----------------------------------------------------");
 						}
 					}
 				}

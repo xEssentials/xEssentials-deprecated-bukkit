@@ -39,8 +39,8 @@ public class CmdHomeInvite extends CommandTemplate {
 								sendMessage(ChatColor.GREEN + "you have accepted " + ChatColor.GRAY + pl.getManagers().getHomeInviteManager().get(sender.getName()).getName() + ChatColor.GREEN + " his home request!");
 								p.teleport(home.getLocation(), TeleportCause.COMMAND);
 								XOfflinePlayer off = pl.getManagers().getHomeInviteManager().get(sender.getName());
-								if(off.getPlayer() instanceof Player) {
-									sendMessageTo(off.getPlayer(), ChatColor.GRAY + sender.getName() + ChatColor.GREEN + " has accepted your home request");
+								if(off.getBukkitPlayer() instanceof Player) {
+									sendMessageTo(off.getBukkitPlayer(), ChatColor.GRAY + sender.getName() + ChatColor.GREEN + " has accepted your home request");
 								}
 								pl.getManagers().getHomeInviteManager().remove(sender.getName());
 								pl.getManagers().getHomeInviteManager().removeRequestedHome(sender.getName());
@@ -50,8 +50,8 @@ public class CmdHomeInvite extends CommandTemplate {
 						} else if(args[0].equalsIgnoreCase("deny")) {
 							if(pl.getManagers().getHomeInviteManager().containsKey(sender.getName())) {
 								XOfflinePlayer off = pl.getManagers().getHomeInviteManager().get(sender.getName());
-								if(off.getPlayer() instanceof Player) {
-									sendMessageTo(off.getPlayer(), ChatColor.RED + "your invite has been canceled by " + ChatColor.GRAY + sender.getName());
+								if(off.getBukkitPlayer() instanceof Player) {
+									sendMessageTo(off.getBukkitPlayer(), ChatColor.RED + "your invite has been canceled by " + ChatColor.GRAY + sender.getName());
 								}
 								sendMessage(ChatColor.GREEN + "successfully canceled home invite for player " + ChatColor.GRAY + off.getName());
 								pl.getManagers().getHomeInviteManager().remove(sender.getName());
@@ -63,7 +63,7 @@ public class CmdHomeInvite extends CommandTemplate {
 							if(!pl.getManagers().getHomeInviteManager().containsKey(args[0])) {
 								XOfflinePlayer xp = pl.getManagers().getPlayerManager().getOfflinePlayer(sender.getName());
 								if(xp.hasHome()) {
-									Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+									Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getBukkitPlayer();
 									if(victem instanceof Player) {
 										XPlayer xpp = pl.getManagers().getPlayerManager().getPlayer(victem.getName());
 										if(xpp.isVanished()) {
@@ -94,7 +94,7 @@ public class CmdHomeInvite extends CommandTemplate {
 						if(!pl.getManagers().getHomeInviteManager().containsKey(args[0])) {
 							XOfflinePlayer xp = pl.getManagers().getPlayerManager().getOfflinePlayer(sender.getName());
 							if(xp.hasHome()) {
-								Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+								Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getBukkitPlayer();
 								if(victem instanceof Player) {
 									XPlayer xpp = pl.getManagers().getPlayerManager().getPlayer(victem.getName());
 									if(xpp.isVanished()) {
@@ -137,8 +137,8 @@ public class CmdHomeInvite extends CommandTemplate {
 			@Override
 			public void run() {
 				if(pl.getManagers().getHomeInviteManager().containsKey(requester)) {
-					Player rp = pl.getManagers().getPlayerManager().getOfflinePlayer(victem).getPlayer();
-					Player vp = pl.getManagers().getPlayerManager().getOfflinePlayer(requester).getPlayer();
+					Player rp = pl.getManagers().getPlayerManager().getOfflinePlayer(victem).getBukkitPlayer();
+					Player vp = pl.getManagers().getPlayerManager().getOfflinePlayer(requester).getBukkitPlayer();
 					if(rp instanceof Player) {
 						sendMessageTo(rp, ChatColor.GRAY + requester + ChatColor.RED + " has not accepted your home request, over time.");
 					}

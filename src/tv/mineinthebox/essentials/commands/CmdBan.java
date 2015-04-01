@@ -68,7 +68,7 @@ public class CmdBan extends CommandTemplate {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 							xp.setPermBanned("The ban hammer has spoken!", sender.getName());
 							sendMessage(ChatColor.GREEN + "successfully banned player " + xp.getUser());
-							xp.getPlayer().kickPlayer(xp.getBanMessage());
+							xp.getBukkitPlayer().kickPlayer(xp.getBanMessage());
 						} else {
 							try {
 								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
@@ -103,7 +103,7 @@ public class CmdBan extends CommandTemplate {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 						String message = Arrays.toString(args).replace(args[0], "").replace("[", "").replace(",", "").replace("]", "");
 						xp.setPermBanned(message, sender.getName());
-						xp.getPlayer().kickPlayer(message);
+						xp.getBukkitPlayer().kickPlayer(message);
 					} else {
 						try {
 							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);

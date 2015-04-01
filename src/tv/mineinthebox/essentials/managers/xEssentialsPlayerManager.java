@@ -32,9 +32,24 @@ public class xEssentialsPlayerManager {
 	 * @return xEssentialsPlayer
 	 * @throws NullPointerException when the player is not found.
 	 */
-	public XPlayer getPlayer(String name) {
+	public XPlayer getPlayerExact(String name) {
 		if(players.containsKey(name.toLowerCase())) {
 			return players.get(name.toLowerCase());
+		}
+		throw new NullPointerException("xEssentialsPlayer: " + name + " is not online!");
+	}
+	
+	/**
+	 * @author xize
+	 * @param name - returns the player.
+	 * @return xEssentialsPlayer
+	 * @throws NullPointerException when the player is not found.
+	 */
+	public XPlayer getPlayer(String name) {
+		for(String a : players.keySet()) {
+			if(a.startsWith(name)) {
+				return players.get(a);
+			}
 		}
 		throw new NullPointerException("xEssentialsPlayer: " + name + " is not online!");
 	}

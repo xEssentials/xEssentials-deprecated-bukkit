@@ -64,11 +64,11 @@ public class CmdDoubleJump extends CommandTemplate {
 								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 								if(xp.hasDoubleJump()) {
 									xp.setDoubleJump(false);
-									sendMessageTo(xp.getPlayer(), ChatColor.GREEN + sender.getName() + " has turned off your double jump");
+									sendMessageTo(xp.getBukkitPlayer(), ChatColor.GREEN + sender.getName() + " has turned off your double jump");
 									sendMessage(ChatColor.GREEN + "disabled double jump on online player " + xp.getName());
 								} else {
 									xp.setDoubleJump(false);
-									sendMessageTo(xp.getPlayer(), ChatColor.GREEN + sender.getName() + " has turned on your double jump");
+									sendMessageTo(xp.getBukkitPlayer(), ChatColor.GREEN + sender.getName() + " has turned on your double jump");
 									sendMessage(ChatColor.GREEN + "enabled double jump on online player " + xp.getName());
 								}
 							} else {

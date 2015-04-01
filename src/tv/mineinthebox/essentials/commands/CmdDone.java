@@ -101,13 +101,13 @@ public class CmdDone extends CommandTemplate {
 									Date date = mod.getDate();
 									if(sender instanceof Player) {
 										Player p = (Player) sender;
-										Bukkit.getPluginManager().callEvent(new ModreqDoneEvent(xp.getPlayer(), title, "comment not defined", author, id, date, p));
+										Bukkit.getPluginManager().callEvent(new ModreqDoneEvent(xp.getBukkitPlayer(), title, "comment not defined", author, id, date, p));
 									}
 									xp.removeModreq(id);
-									sendMessageTo(xp.getPlayer(), "staff member " + sender.getName() + " has closed your modreq.");
-									sendMessageTo(xp.getPlayer(), "id: " + ChatColor.GREEN + idNumber);
-									sendMessageTo(xp.getPlayer(), "message: " + ChatColor.GREEN + title);
-									sendMessageTo(xp.getPlayer(), "comment: " + ChatColor.GREEN + "comment not defined");
+									sendMessageTo(xp.getBukkitPlayer(), "staff member " + sender.getName() + " has closed your modreq.");
+									sendMessageTo(xp.getBukkitPlayer(), "id: " + ChatColor.GREEN + idNumber);
+									sendMessageTo(xp.getBukkitPlayer(), "message: " + ChatColor.GREEN + title);
+									sendMessageTo(xp.getBukkitPlayer(), "comment: " + ChatColor.GREEN + "comment not defined");
 									for(Player a : Bukkit.getOnlinePlayers()) {
 										if(a.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 											sendMessageTo(a, "staff member " + sender.getName() + " has closed " + xp.getName() + " his modreq.");
@@ -187,13 +187,13 @@ public class CmdDone extends CommandTemplate {
 								Date date = mod.getDate();
 								if(sender instanceof Player) {
 									Player p = (Player) sender;
-									Bukkit.getPluginManager().callEvent(new ModreqDoneEvent(xp.getPlayer(), title, comment, author, id, date, p));
+									Bukkit.getPluginManager().callEvent(new ModreqDoneEvent(xp.getBukkitPlayer(), title, comment, author, id, date, p));
 								}
 								xp.removeModreq(id);
-								sendMessageTo(xp.getPlayer(), "staff member " + sender.getName() + " has closed your modreq.");
-								sendMessageTo(xp.getPlayer(), "id: " + ChatColor.GREEN + idNumber);
-								sendMessageTo(xp.getPlayer(), "message: " + ChatColor.GREEN + title);
-								sendMessageTo(xp.getPlayer(), "comment: " + ChatColor.GREEN + comment);
+								sendMessageTo(xp.getBukkitPlayer(), "staff member " + sender.getName() + " has closed your modreq.");
+								sendMessageTo(xp.getBukkitPlayer(), "id: " + ChatColor.GREEN + idNumber);
+								sendMessageTo(xp.getBukkitPlayer(), "message: " + ChatColor.GREEN + title);
+								sendMessageTo(xp.getBukkitPlayer(), "comment: " + ChatColor.GREEN + comment);
 								for(Player a : Bukkit.getOnlinePlayers()) {
 									if(a.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 										sendMessageTo(a.getPlayer(), "staff member " + sender.getName() + " has closed " + xp.getName() + " his modreq.");

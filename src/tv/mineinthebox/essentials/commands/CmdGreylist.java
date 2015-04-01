@@ -39,10 +39,10 @@ public class CmdGreylist extends CommandTemplate {
 								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[1]);
 								xp.setGreyListed(true);
 								if(Hooks.isVaultPermissionsEnabled()) {
-									String oldGroup = pl.getManagers().getVaultManager().getGroup(xp.getPlayer());
+									String oldGroup = pl.getManagers().getVaultManager().getGroup(xp.getBukkitPlayer());
 									String newGroup = pl.getConfiguration().getGreyListConfig().getGroup();
 									pl.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), xp.getName(), newGroup);
-									Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(xp.getPlayer(), newGroup, oldGroup, GreyListCause.COMMAND, pl));
+									Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(xp.getBukkitPlayer(), newGroup, oldGroup, GreyListCause.COMMAND, pl));
 								} else {
 									sendMessage(ChatColor.RED + "no vault installed!");
 									return false;

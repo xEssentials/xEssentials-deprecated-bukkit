@@ -66,7 +66,7 @@ public class CmdInvsee extends CommandTemplate {
 					if(sender instanceof Player) {
 						if(sender.hasPermission(PermissionKey.CMD_INVSEE.getPermission())) {
 							Player p = (Player) sender;
-							Player a = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+							Player a = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getBukkitPlayer();
 							if(a instanceof Player) {
 								if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
 									XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);

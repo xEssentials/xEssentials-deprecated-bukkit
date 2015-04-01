@@ -25,8 +25,8 @@ public class CmdTrollMode extends CommandTemplate {
 				if(sender instanceof Player) {
 					XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 					if(xp.isTrollMode()) {
-						if(xp.getPlayer().getPassenger() instanceof Player) {
-							Player p = (Player) xp.getPlayer().getPassenger();
+						if(xp.getBukkitPlayer().getPassenger() instanceof Player) {
+							Player p = (Player) xp.getBukkitPlayer().getPassenger();
 							p.eject();
 						}
 						xp.setTrollMode(false);

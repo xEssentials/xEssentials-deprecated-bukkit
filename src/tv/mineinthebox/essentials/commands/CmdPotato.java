@@ -33,11 +33,11 @@ public class CmdPotato extends CommandTemplate {
 					if(sender instanceof Player) {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						xp.vanish();
-						Item item = xp.getPlayer().getWorld().dropItem(xp.getPlayer().getLocation(), new ItemStack(Material.POTATO_ITEM));
-						xp.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 100));
-						xp.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 100));
-						xp.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 3));
-						xp.getPlayer().getWorld().playSound(xp.getPlayer().getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
+						Item item = xp.getBukkitPlayer().getWorld().dropItem(xp.getBukkitPlayer().getLocation(), new ItemStack(Material.POTATO_ITEM));
+						xp.getBukkitPlayer().addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 100));
+						xp.getBukkitPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 100));
+						xp.getBukkitPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 3));
+						xp.getBukkitPlayer().getWorld().playSound(xp.getBukkitPlayer().getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
 						sendMessage(ChatColor.GREEN + "you are turned into a potato!");
 						xp.setPotato(item);
 						onPotatoSchedule(xp.getUser());
@@ -45,19 +45,19 @@ public class CmdPotato extends CommandTemplate {
 						getWarning(WarningType.PLAYER_ONLY);
 					}
 				} else if(args.length == 1) {
-					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getBukkitPlayer();
 					if(p instanceof Player) {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 						xp.vanish();
-						Item item = xp.getPlayer().getWorld().dropItem(xp.getPlayer().getLocation(), new ItemStack(Material.POTATO_ITEM));
-						xp.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 100));
-						xp.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 100));
-						xp.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 3));
-						xp.getPlayer().getWorld().playSound(xp.getPlayer().getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
-						sendMessageTo(xp.getPlayer(), ChatColor.GREEN + "you are turned into a potato!");
+						Item item = xp.getBukkitPlayer().getWorld().dropItem(xp.getBukkitPlayer().getLocation(), new ItemStack(Material.POTATO_ITEM));
+						xp.getBukkitPlayer().addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 100));
+						xp.getBukkitPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 100));
+						xp.getBukkitPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 3));
+						xp.getBukkitPlayer().getWorld().playSound(xp.getBukkitPlayer().getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
+						sendMessageTo(xp.getBukkitPlayer(), ChatColor.GREEN + "you are turned into a potato!");
 						xp.setPotato(item);
 						onPotatoSchedule(xp.getUser());
-						sendMessage(ChatColor.GREEN + "you successfully changed " + xp.getPlayer().getName() + " into a potato!");
+						sendMessage(ChatColor.GREEN + "you successfully changed " + xp.getBukkitPlayer().getName() + " into a potato!");
 					} else {
 						sender.sendMessage(ChatColor.RED + "the player is not online!");
 					}
@@ -78,10 +78,10 @@ public class CmdPotato extends CommandTemplate {
 				if(xp instanceof XPlayer) {
 					if(xp.isPotato()) {
 						xp.unvanish(true);
-						sendMessageTo(xp.getPlayer(), ChatColor.GREEN + "you are not longer cursed as potato!");
-						xp.getPlayer().removePotionEffect(PotionEffectType.BLINDNESS);
-						xp.getPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
-						xp.getPlayer().removePotionEffect(PotionEffectType.SPEED);
+						sendMessageTo(xp.getBukkitPlayer(), ChatColor.GREEN + "you are not longer cursed as potato!");
+						xp.getBukkitPlayer().removePotionEffect(PotionEffectType.BLINDNESS);
+						xp.getBukkitPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
+						xp.getBukkitPlayer().removePotionEffect(PotionEffectType.SPEED);
 						xp.removePotato();
 					}
 				}

@@ -30,7 +30,7 @@ public class CmdUnmute extends CommandTemplate {
 						if(xp.isMuted()) {
 							xp.unmute();
 							sendMessage(ChatColor.GREEN + "you successfully unmuted the player " + xp.getName());
-							sendMessageTo(xp.getPlayer(), ChatColor.GREEN + sender.getName() + " has unmuted your chat!");
+							sendMessageTo(xp.getBukkitPlayer(), ChatColor.GREEN + sender.getName() + " has unmuted your chat!");
 						} else {
 							sendMessage(ChatColor.RED + "this player is already unmuted!");
 						}

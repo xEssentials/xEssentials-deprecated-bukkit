@@ -47,7 +47,7 @@ public class AfkCheckEvent extends EventTemplate implements Listener {
 					}
 					xp.removeAfk();
 					broadcast(ChatColor.GREEN + e.getPlayer().getName() + " is no longer afk");
-					Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), false, true, pl));
+					Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getBukkitPlayer(), false, true, pl));
 				}
 			} else if(destz > 0.0) {
 				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
@@ -57,7 +57,7 @@ public class AfkCheckEvent extends EventTemplate implements Listener {
 					}
 					xp.removeAfk();
 					broadcast(ChatColor.GREEN + e.getPlayer().getName() + " is no longer afk");
-					Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), false, true, pl));
+					Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getBukkitPlayer(), false, true, pl));
 				}
 			}
 		}
@@ -139,9 +139,9 @@ public class AfkCheckEvent extends EventTemplate implements Listener {
 	@EventHandler
 	public void chatAfk(PlayerChatEvent e) {
 		for(XPlayer xp : pl.getManagers().getPlayerManager().getPlayers()) {
-			if(e.getMessage().contains(xp.getPlayer().getName())) {
+			if(e.getMessage().contains(xp.getBukkitPlayer().getName())) {
 				if(xp.isAfk()) {
-					sendMessage(e.getPlayer(), ChatColor.GREEN + xp.getPlayer().getName() + " has been afk [ " + xp.getAfkReason() + " ]");
+					sendMessage(e.getPlayer(), ChatColor.GREEN + xp.getBukkitPlayer().getName() + " has been afk [ " + xp.getAfkReason() + " ]");
 				}
 			}
 		}

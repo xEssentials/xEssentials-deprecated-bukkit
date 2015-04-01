@@ -63,7 +63,7 @@ public class CmdSpawn extends CommandTemplate {
 				}
 			} else if(args.length == 1) {
 				if(sender.hasPermission(PermissionKey.CMD_SPAWN_OTHERS.getPermission())) {
-					Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+					Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getBukkitPlayer();
 					if(victem instanceof Player) {
 						try {
 							File f = new File(pl.getDataFolder() + File.separator + "spawn.yml");

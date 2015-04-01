@@ -22,7 +22,7 @@ public class PlayerIgnorePlayerChatEvent implements Listener {
 		for(XPlayer xp : pl.getManagers().getPlayerManager().getPlayers()) {
 			if(xp.hasIgnoredPlayers()) {
 				if(xp.getIgnoredPlayers().contains(e.getPlayer().getName())) {
-					e.getRecipients().remove(xp.getPlayer());
+					e.getRecipients().remove(xp.getBukkitPlayer());
 				}
 			}
 		}

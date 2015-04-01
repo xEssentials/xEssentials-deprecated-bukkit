@@ -39,7 +39,7 @@ public class CmdClaim extends CommandTemplate {
 								int id = Integer.parseInt(args[1]);
 								if(xp.isValidModreqId(id)) {
 									Modreq mod = xp.getModreq(id);
-									Player p = xp.getPlayer();
+									Player p = xp.getBukkitPlayer();
 									sendMessageTo(p, sender.getName() + " has claimed your modreq with id: "+ChatColor.GREEN + mod.getId());
 									sendMessage("successfully claimed modreq of player " + p.getName() + " with id: " + ChatColor.GREEN + mod.getId());
 								} else {

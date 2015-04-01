@@ -70,7 +70,7 @@ public class CmdWarp extends CommandTemplate {
 						}
 					}
 				} else if(args.length == 2) {
-					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getBukkitPlayer();
 					if(p instanceof Player) {
 						if(pl.getManagers().getWarpManager().isWarp(args[1])) {
 							Warp warp = pl.getManagers().getWarpManager().getWarp(args[1], (Player)sender);

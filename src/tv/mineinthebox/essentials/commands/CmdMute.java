@@ -37,8 +37,8 @@ public class CmdMute extends CommandTemplate {
 							Date date = new Date(System.currentTimeMillis());
 							date.setDate(date.getDate() + 1);
 							xp.mute(date.getTime());
-							sendMessage(ChatColor.GREEN + "successfully muted player " + xp.getPlayer().getName() + " for one day!");
-							sendMessageTo(xp.getPlayer(), ChatColor.GREEN + sender.getName() + " has muted you for one day!");
+							sendMessage(ChatColor.GREEN + "successfully muted player " + xp.getBukkitPlayer().getName() + " for one day!");
+							sendMessageTo(xp.getBukkitPlayer(), ChatColor.GREEN + sender.getName() + " has muted you for one day!");
 						} else {
 							try {
 								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
@@ -74,7 +74,7 @@ public class CmdMute extends CommandTemplate {
 						}
 						xp.mute(date.getTime());
 						sendMessage(ChatColor.GREEN + "successfully muted player " + xp.getName() + " till " + date.toString() + "!");
-						sendMessageTo(xp.getPlayer(), ChatColor.GREEN + sender.getName() + " has muted you till " + date.toString());
+						sendMessageTo(xp.getBukkitPlayer(), ChatColor.GREEN + sender.getName() + " has muted you till " + date.toString());
 					} else {
 						try {
 							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);

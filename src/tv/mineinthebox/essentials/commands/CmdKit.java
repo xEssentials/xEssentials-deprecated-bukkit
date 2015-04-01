@@ -64,19 +64,19 @@ public class CmdKit extends CommandTemplate {
 										} else {
 											xp.removeKitCoolDown();
 											Kit kit = kits.get(args[0]);
-											xp.getPlayer().getInventory().addItem(kit.getKitItems());
+											xp.getBukkitPlayer().getInventory().addItem(kit.getKitItems());
 											sendMessage(ChatColor.GREEN + "enjoy your " + kit.getKitName() + "!");
 											xp.setKitCooldown(System.currentTimeMillis());
 										}
 									} else {
 										Kit kit = kits.get(args[0]);
-										xp.getPlayer().getInventory().addItem(kit.getKitItems());
+										xp.getBukkitPlayer().getInventory().addItem(kit.getKitItems());
 										sendMessage(ChatColor.GREEN + "enjoy your " + kit.getKitName() + "!");
 										xp.setKitCooldown(System.currentTimeMillis());
 									}
 								} else {
 									Kit kit = kits.get(args[0]);
-									xp.getPlayer().getInventory().addItem(kit.getKitItems());
+									xp.getBukkitPlayer().getInventory().addItem(kit.getKitItems());
 									sendMessage(ChatColor.GREEN + "enjoy your " + kit.getKitName() + "!");
 								}
 							} else {

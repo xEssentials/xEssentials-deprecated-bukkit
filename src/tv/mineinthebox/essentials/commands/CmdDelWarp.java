@@ -36,7 +36,7 @@ public class CmdDelWarp extends CommandTemplate {
 		} else {
 			if(pl.getManagers().getPlayerManager().isEssentialsPlayer(sender.getName())) {
 				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
-				for(Warp warp : pl.getManagers().getWarpManager().getWarps(xp.getPlayer())) {
+				for(Warp warp : pl.getManagers().getWarpManager().getWarps(xp.getBukkitPlayer())) {
 					if(warp.getWarpName().toLowerCase().startsWith(p.toLowerCase())) {
 						tabs.add(warp.getWarpName());
 					}

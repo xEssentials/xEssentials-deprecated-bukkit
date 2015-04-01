@@ -67,16 +67,16 @@ public class CmdVanish extends CommandTemplate {
 							if(xp.isVanished()) {
 								xp.unvanish(true);
 								if(Hooks.isWorldGuardEnabled()) {
-									Bukkit.broadcastMessage(pl.getManagers().getWorldGuardManager().sendJoinMessage(xp.getPlayer()));
+									Bukkit.broadcastMessage(pl.getManagers().getWorldGuardManager().sendJoinMessage(xp.getBukkitPlayer()));
 								} else {
 									if(xp.isStaff()) {
-										if(xp.getPlayer().getName().equalsIgnoreCase("Xeph0re")) {
-											Bukkit.broadcastMessage(ChatColor.GRAY + "Developer of xEssentials " + ChatColor.GREEN + xp.getPlayer().getName() + ChatColor.GRAY + " has joined the game!");
+										if(xp.getBukkitPlayer().getName().equalsIgnoreCase("Xeph0re")) {
+											Bukkit.broadcastMessage(ChatColor.GRAY + "Developer of xEssentials " + ChatColor.GREEN + xp.getBukkitPlayer().getName() + ChatColor.GRAY + " has joined the game!");
 										} else {
-											Bukkit.broadcastMessage(ChatColor.GRAY + "Staff member " + ChatColor.GREEN + xp.getPlayer().getName() + ChatColor.GRAY + " has joined the game!");	
+											Bukkit.broadcastMessage(ChatColor.GRAY + "Staff member " + ChatColor.GREEN + xp.getBukkitPlayer().getName() + ChatColor.GRAY + " has joined the game!");	
 										}
 									} else {
-										Bukkit.broadcastMessage(ChatColor.GREEN + "player " + ChatColor.GRAY + xp.getPlayer().getName() + ChatColor.GREEN + " has joined the game!");
+										Bukkit.broadcastMessage(ChatColor.GREEN + "player " + ChatColor.GRAY + xp.getBukkitPlayer().getName() + ChatColor.GREEN + " has joined the game!");
 									}
 								}
 							} else {
@@ -85,16 +85,16 @@ public class CmdVanish extends CommandTemplate {
 						} else if(args[0].equalsIgnoreCase("fq") || args[0].equalsIgnoreCase("fakequit")) {
 							xp.vanish();
 							if(Hooks.isWorldGuardEnabled()) {
-								Bukkit.broadcastMessage(pl.getManagers().getWorldGuardManager().sendQuitMessage(xp.getPlayer()));
+								Bukkit.broadcastMessage(pl.getManagers().getWorldGuardManager().sendQuitMessage(xp.getBukkitPlayer()));
 							} else {
 								if(xp.isStaff()) {
-									if(xp.getPlayer().getName().equalsIgnoreCase("Xeph0re")) {
-										Bukkit.broadcastMessage(ChatColor.GRAY + "Developer of xEssentials " + ChatColor.GREEN + xp.getPlayer().getName() + ChatColor.GRAY + " has left the game!");
+									if(xp.getBukkitPlayer().getName().equalsIgnoreCase("Xeph0re")) {
+										Bukkit.broadcastMessage(ChatColor.GRAY + "Developer of xEssentials " + ChatColor.GREEN + xp.getBukkitPlayer().getName() + ChatColor.GRAY + " has left the game!");
 									} else {
-										Bukkit.broadcastMessage(ChatColor.GRAY + "Staff member " + ChatColor.GREEN + xp.getPlayer().getName() + ChatColor.GRAY + " has left the game!");	
+										Bukkit.broadcastMessage(ChatColor.GRAY + "Staff member " + ChatColor.GREEN + xp.getBukkitPlayer().getName() + ChatColor.GRAY + " has left the game!");	
 									}
 								} else {
-									Bukkit.broadcastMessage(ChatColor.GREEN + "player " + ChatColor.GRAY + xp.getPlayer().getName() + ChatColor.GREEN + " has left the game!");
+									Bukkit.broadcastMessage(ChatColor.GREEN + "player " + ChatColor.GRAY + xp.getBukkitPlayer().getName() + ChatColor.GREEN + " has left the game!");
 								}
 							}
 						}

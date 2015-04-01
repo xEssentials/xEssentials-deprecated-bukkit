@@ -30,7 +30,7 @@ public class CmdTpa extends CommandTemplate {
 						if(args[0].equalsIgnoreCase("help")) {
 							showHelp();
 						} else {
-							final Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+							final Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getBukkitPlayer();
 							final String victemName = victem.getName();
 							final String senderName = sender.getName();
 							if(victem instanceof Player) {

@@ -36,8 +36,8 @@ public class TrollModeEvent extends EventTemplate implements Listener {
 		if(e.getAction() == Action.LEFT_CLICK_BLOCK) {
 			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 			if(xp.isTrollMode()) {
-				if(xp.getPlayer().getPassenger() instanceof Player) {
-					Player p = (Player) xp.getPlayer().getPassenger();
+				if(xp.getBukkitPlayer().getPassenger() instanceof Player) {
+					Player p = (Player) xp.getBukkitPlayer().getPassenger();
 					p.getVehicle().eject();
 					p.teleport(e.getClickedBlock().getRelative(BlockFace.UP).getLocation());
 					sendMessage(e.getPlayer(), ChatColor.GREEN + "placed player now he should be confused!");

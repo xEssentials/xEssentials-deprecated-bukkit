@@ -41,7 +41,7 @@ public class CmdWild extends CommandTemplate {
 						getWarning(WarningType.PLAYER_ONLY);
 					}
 				} else if(args.length == 1) {
-					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getBukkitPlayer();
 					if(p instanceof Player) {
 						Random randx = new Random(xRadius);
 						Random randz = new Random(zRadius);

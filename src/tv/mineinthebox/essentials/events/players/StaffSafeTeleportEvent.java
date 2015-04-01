@@ -34,7 +34,7 @@ public class StaffSafeTeleportEvent extends EventTemplate implements Listener {
 			if(xp.isStaff()) {
 				if(xp.isVanished()) {
 					return;
-				} else if(xp.getPlayer().getGameMode() == GameMode.CREATIVE) {
+				} else if(xp.getBukkitPlayer().getGameMode() == GameMode.CREATIVE) {
 					return;
 				} else {
 					if(staff.containsKey(e.getPlayer().getName())) {

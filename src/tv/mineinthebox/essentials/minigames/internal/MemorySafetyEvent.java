@@ -26,7 +26,7 @@ public class MemorySafetyEvent implements Listener {
 
 					@Override
 					public void run() {
-						if(!xp.getPlayer().isOnline()) {
+						if(!xp.getBukkitPlayer().isOnline()) {
 							xp.getArena().leaveArena(xp);
 							xp.setArena(null);
 						}
@@ -46,7 +46,7 @@ public class MemorySafetyEvent implements Listener {
 
 					@Override
 					public void run() {
-						if(!xp.getPlayer().isOnline()) {
+						if(!xp.getBukkitPlayer().isOnline()) {
 							xp.getArena().leaveArena(xp);
 							xp.setArena(null);
 						}

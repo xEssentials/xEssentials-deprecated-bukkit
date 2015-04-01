@@ -39,7 +39,7 @@ public class CmdBack extends CommandTemplate {
 						getWarning(WarningType.PLAYER_ONLY);
 					}
 				} else if(args.length == 1) {
-					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getBukkitPlayer();
 					if(sender instanceof Player) {
 						if(manager.hasLastLocation(p.getName())) {
 							Location loc = manager.getLastLocation(p.getName());

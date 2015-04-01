@@ -21,8 +21,8 @@ public class PowerToolEvent implements Listener {
 	public void onPowerTool(PlayerInteractEvent e) {
 		XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 		if(e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {
-			if(xp.hasPowerTool() && xp.getPlayer().hasPermission(PermissionKey.CMD_POWERTOOL.getPermission())) {
-				xp.getPlayer().performCommand(xp.getPowerTool());
+			if(xp.hasPowerTool() && xp.getBukkitPlayer().hasPermission(PermissionKey.CMD_POWERTOOL.getPermission())) {
+				xp.getBukkitPlayer().performCommand(xp.getPowerTool());
 				e.setCancelled(true);
 			}
 		}

@@ -44,7 +44,7 @@ public class CmdTempban extends CommandTemplate {
 							Date date = new Date(System.currentTimeMillis());
 							date.setDate(date.getDate()+1);
 							xp.setTempbanned(date.getTime(), "the ban hammer has  spoken!", sender.getName());
-							xp.getPlayer().kickPlayer("the ban hammer has spoken!");
+							xp.getBukkitPlayer().kickPlayer("the ban hammer has spoken!");
 							sendMessage(ChatColor.GREEN + "player successfully tempbanned for 1 day");
 						} else {
 							try {
@@ -86,7 +86,7 @@ public class CmdTempban extends CommandTemplate {
 						String[] newArgs = getClearDescription(args);
 						String banMessage = Arrays.toString(newArgs).replace(args[0], "").replace("[", "").replace(",", "").replace("]", "");
 						xp.setTempbanned(date.getTime(), banMessage, sender.getName());
-						xp.getPlayer().kickPlayer(banMessage);
+						xp.getBukkitPlayer().kickPlayer(banMessage);
 						sendMessage(ChatColor.GREEN + "successfully tempbanned player " + xp.getName() + " till " + date.toString());
 					} else {
 						try {

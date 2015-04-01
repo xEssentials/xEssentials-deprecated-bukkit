@@ -166,7 +166,7 @@ public class VanishEvent extends EventTemplate implements Listener {
 			if(xp.isVanished()) {
 				for(XPlayer a : pl.getManagers().getPlayerManager().getPlayers()) {
 					if(a.isStaff()) {
-						sendMessage(a.getPlayer(), ChatColor.GREEN + "[vanish]" + ChatColor.GRAY + e.getPlayer().getName() + " has joined silenced!");
+						sendMessage(a.getBukkitPlayer(), ChatColor.GREEN + "[vanish]" + ChatColor.GRAY + e.getPlayer().getName() + " has joined silenced!");
 					}
 				}
 			}
@@ -180,7 +180,7 @@ public class VanishEvent extends EventTemplate implements Listener {
 			if(xp.isVanished()) {
 				for(XPlayer a : pl.getManagers().getPlayerManager().getPlayers()) {
 					if(a.isStaff()) {
-						sendMessage(a.getPlayer(), ChatColor.GREEN + "[vanish]" + ChatColor.GRAY + e.getPlayer().getName() + " has left silenced!");
+						sendMessage(a.getBukkitPlayer(), ChatColor.GREEN + "[vanish]" + ChatColor.GRAY + e.getPlayer().getName() + " has left silenced!");
 					}
 				}
 			}

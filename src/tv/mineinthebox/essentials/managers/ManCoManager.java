@@ -53,7 +53,7 @@ public class ManCoManager {
 			XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(player);
 			CratePlayer cratePlayer = api.getCratePlayer(player);
 			Crate crate = api.getCrates()[rand.nextInt(api.getCrates().length)];
-			return api.spawnCrate(cratePlayer, crate, xp.getPlayer().getLocation());
+			return api.spawnCrate(cratePlayer, crate, xp.getBukkitPlayer().getLocation());
 		}
 		return null;
 	}

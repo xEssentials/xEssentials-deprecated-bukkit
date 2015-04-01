@@ -22,9 +22,9 @@ public interface XOfflinePlayer {
 	/**
 	 * @author xize
 	 * @param gets the player if online
-	 * @return
+	 * @return Player
 	 */
-	public Player getPlayer();
+	public Player getBukkitPlayer();
 
 	/**
 	 * 

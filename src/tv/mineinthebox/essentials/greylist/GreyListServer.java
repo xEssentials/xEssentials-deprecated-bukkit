@@ -38,12 +38,12 @@ public class GreyListServer extends EventTemplate implements ServerListener {
 						if(off instanceof XPlayer) {
 							XPlayer xp = (XPlayer)off;
 							off.setGreyListed(true);
-							sendMessage(xp.getPlayer(), ChatColor.GREEN + "you are successfully promoted to " + pl.getConfiguration().getGreyListConfig().getGroup());
+							sendMessage(xp.getBukkitPlayer(), ChatColor.GREEN + "you are successfully promoted to " + pl.getConfiguration().getGreyListConfig().getGroup());
 							if(Hooks.isVaultPermissionsEnabled()) {
-								String oldGroup = pl.getManagers().getVaultManager().getGroup(off.getPlayer().getWorld(), off.getName());
+								String oldGroup = pl.getManagers().getVaultManager().getGroup(off.getBukkitPlayer().getWorld(), off.getName());
 								String newgroup = pl.getConfiguration().getGreyListConfig().getGroup();
-								pl.getManagers().getVaultManager().setGroup(off.getPlayer().getWorld(), off.getName(), newgroup);
-								Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(off.getPlayer(), newgroup, oldGroup, GreyListCause.SITE, pl));
+								pl.getManagers().getVaultManager().setGroup(off.getBukkitPlayer().getWorld(), off.getName(), newgroup);
+								Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(off.getBukkitPlayer(), newgroup, oldGroup, GreyListCause.SITE, pl));
 							}
 						} else {
 							off.setGreyListed(true);
@@ -51,7 +51,7 @@ public class GreyListServer extends EventTemplate implements ServerListener {
 								String oldGroup = pl.getManagers().getVaultManager().getGroup(off.getLastLocation().getWorld(), user);
 								String newgroup = pl.getConfiguration().getGreyListConfig().getGroup();
 								pl.getManagers().getVaultManager().setGroup(off.getLastLocation().getWorld(), off.getName(), newgroup);
-								Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(off.getPlayer(), newgroup, oldGroup, GreyListCause.SITE, pl));
+								Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(off.getBukkitPlayer(), newgroup, oldGroup, GreyListCause.SITE, pl));
 							}
 						}
 					} else {

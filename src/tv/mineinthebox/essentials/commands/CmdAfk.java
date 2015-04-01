@@ -31,13 +31,13 @@ public class CmdAfk extends CommandTemplate {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						xp.setAfk("no reason given in");
 						broadcast(ChatColor.GREEN + sender.getName() + " has been afk");
-						Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), true, false, pl));
+						Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getBukkitPlayer(), true, false, pl));
 					} else  {
 						String message = Arrays.toString(args).replace("[", "").replace(",", "").replace("]", "");
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						xp.setAfk(message);
 						broadcast(ChatColor.GREEN + sender.getName() + " has been afk [ "+xp.getAfkReason()+" ]");
-						Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), true, false, pl));
+						Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getBukkitPlayer(), true, false, pl));
 					}
 				} else {
 					getWarning(WarningType.NO_PERMISSION);

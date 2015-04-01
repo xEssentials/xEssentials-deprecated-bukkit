@@ -30,7 +30,7 @@ public class CmdSmite extends CommandTemplate {
 						getWarning(WarningType.PLAYER_ONLY);
 					}
 				} else if(args.length == 1) {
-					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getBukkitPlayer();
 					if(p instanceof Player) {
 						p.getWorld().strikeLightning(p.getLocation());
 						sendMessage(ChatColor.GRAY + "you got smited!");

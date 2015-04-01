@@ -26,7 +26,7 @@ public class CompassEvent implements Listener {
 			if(e.getPlayer().getItemInHand().getType() == Material.WATCH) {
 				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(e.getPlayer().getName());
 				if(xp.hasCompass()) {
-					Player p = xp.getCompass().getPlayer();
+					Player p = xp.getCompass().getBukkitPlayer();
 					if(p instanceof Player) {
 						Vector direction = p.getLocation().toVector().subtract(e.getPlayer().getLocation().toVector()).normalize().multiply(2);
 						e.getPlayer().setVelocity(direction);

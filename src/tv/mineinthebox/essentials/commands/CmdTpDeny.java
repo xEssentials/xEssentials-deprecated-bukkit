@@ -22,7 +22,7 @@ public class CmdTpDeny extends CommandTemplate {
 		if(cmd.getName().equalsIgnoreCase("tpdeny")) {
 			if(sender.hasPermission(PermissionKey.CMD_TP_DENY.getPermission())) {
 				if(pl.getManagers().getTpaManager().containsKey(sender.getName())) {
-					Player requester = pl.getManagers().getPlayerManager().getOfflinePlayer(pl.getManagers().getTpaManager().get(sender.getName())).getPlayer();
+					Player requester = pl.getManagers().getPlayerManager().getOfflinePlayer(pl.getManagers().getTpaManager().get(sender.getName())).getBukkitPlayer();
 					if(requester instanceof Player) {
 						sendMessageTo(requester, ChatColor.RED + sender.getName() + " has denied your tpa request!");
 					}

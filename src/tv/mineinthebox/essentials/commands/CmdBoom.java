@@ -27,7 +27,7 @@ public class CmdBoom extends CommandTemplate {
 		if(cmd.getName().equalsIgnoreCase("boom")) {
 			if(sender.hasPermission(PermissionKey.CMD_BOOM.getPermission())) {
 				if(args.length == 1) {
-					Player boom = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+					Player boom = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getBukkitPlayer();
 					if(boom instanceof Player) {
 						if(boom.getGameMode() == GameMode.CREATIVE) {
 							boom.setGameMode(GameMode.SURVIVAL);

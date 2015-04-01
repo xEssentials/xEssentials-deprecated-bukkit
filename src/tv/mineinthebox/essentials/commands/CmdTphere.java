@@ -33,16 +33,16 @@ public class CmdTphere extends CommandTemplate {
 						if(sender instanceof Player) {
 							XPlayer p = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 							XOfflinePlayer victem = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
-							if(victem.getPlayer() instanceof Player) {
+							if(victem.getBukkitPlayer() instanceof Player) {
 								if(p.isVanished()) {
-									if(victem.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
+									if(victem.getBukkitPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 										victem.getEssentialsPlayer().vanish();
-										sendMessageTo(victem.getPlayer(), ChatColor.GREEN + "the player you teleported to has been vanished, now you are vanished to!");	
+										sendMessageTo(victem.getBukkitPlayer(), ChatColor.GREEN + "the player you teleported to has been vanished, now you are vanished to!");	
 									}
 								}
-								sendMessage(ChatColor.GREEN + "teleported " + victem.getPlayer().getName() + " to you!");
-								sendMessageTo(victem.getPlayer(), ChatColor.GREEN + sender.getName() + " has teleported you to his location!");
-								victem.getPlayer().teleport(p.getPlayer(), TeleportCause.COMMAND);
+								sendMessage(ChatColor.GREEN + "teleported " + victem.getBukkitPlayer().getName() + " to you!");
+								sendMessageTo(victem.getBukkitPlayer(), ChatColor.GREEN + sender.getName() + " has teleported you to his location!");
+								victem.getBukkitPlayer().teleport(p.getBukkitPlayer(), TeleportCause.COMMAND);
 							} else {
 								sendMessage(ChatColor.RED + "could not find a online player with that name!");
 							}

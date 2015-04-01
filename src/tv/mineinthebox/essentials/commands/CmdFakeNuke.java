@@ -27,30 +27,30 @@ public class CmdFakeNuke extends CommandTemplate {
 				if(args.length == 0) {
 					if(sender instanceof Player) {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
-						for(Entity entity : xp.getPlayer().getNearbyEntities(40, 40, 40)) {
+						for(Entity entity : xp.getBukkitPlayer().getNearbyEntities(40, 40, 40)) {
 							if(entity instanceof Player) {
 								Player p = (Player) entity;
 								p.sendMessage(ChatColor.GRAY + "May death rain upon them");
 							}
 						}
 						sender.sendMessage(ChatColor.GRAY + "May death rain upon them");
-						xp.getPlayer().getWorld().playSound(xp.getPlayer().getLocation(), Sound.FUSE, 0.98F, 0.98F);
+						xp.getBukkitPlayer().getWorld().playSound(xp.getBukkitPlayer().getLocation(), Sound.FUSE, 0.98F, 0.98F);
 						xp.fakenuke();
 					} else {
 						getWarning(WarningType.PLAYER_ONLY);
 					}
 				} else if(args.length == 1) {
-					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getBukkitPlayer();
 					if(p instanceof Player) {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
-						for(Entity entity : xp.getPlayer().getNearbyEntities(40, 40, 40)) {
+						for(Entity entity : xp.getBukkitPlayer().getNearbyEntities(40, 40, 40)) {
 							if(entity instanceof Player) {
 								Player r = (Player) entity;
 								r.sendMessage(ChatColor.GRAY + "May death rain upon them");
 							}
 						}
 						sender.sendMessage(ChatColor.GRAY + "May death rain upon them");
-						xp.getPlayer().getWorld().playSound(xp.getPlayer().getLocation(), Sound.FUSE, 0.98F, 0.98F);
+						xp.getBukkitPlayer().getWorld().playSound(xp.getBukkitPlayer().getLocation(), Sound.FUSE, 0.98F, 0.98F);
 						xp.fakenuke();
 					} else {
 						sendMessage(ChatColor.RED + "this player is not online!");

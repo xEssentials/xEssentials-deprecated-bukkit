@@ -80,16 +80,16 @@ public class AntiAddvertiseEvent extends EventTemplate implements Listener {
 		Matcher matcher = compiledPattern.matcher(a);
 		while (matcher.find()) {
 			xp.setPermBanned("You are banned for addvertising.", "CONSOLE");
-			xp.getPlayer().kickPlayer("You are banned for addvertising.");
+			xp.getBukkitPlayer().kickPlayer("You are banned for addvertising.");
 			return a.toString().replace(matcher.group(), "***.***.***:****");
 		}
 		if(a.toLowerCase().contains("no-ip.org")) {
 			xp.setPermBanned("You are banned for addvertising.", "CONSOLE");
-			xp.getPlayer().kickPlayer("You are banned for addvertising.");
+			xp.getBukkitPlayer().kickPlayer("You are banned for addvertising.");
 			return a.toString().toLowerCase().replace("no-ip.org", "*****.***");
 		} else if(a.toLowerCase().contains("kicks-ass.net")) {
 			xp.setPermBanned("You are banned for addvertising.", "CONSOLE");
-			xp.getPlayer().kickPlayer("You are banned for addvertising.");
+			xp.getBukkitPlayer().kickPlayer("You are banned for addvertising.");
 			return a.toString().toLowerCase().replace("kicks-ass.net", "*********.***");
 		}
 		String url = "mc\\.([a-z0-9])+\\.(.*?)";
@@ -98,7 +98,7 @@ public class AntiAddvertiseEvent extends EventTemplate implements Listener {
 		while(match.find()) {
 			//log.info(match.group());
 			xp.setPermBanned("You are banned for addvertising.", "CONSOLE");
-			xp.getPlayer().kickPlayer("You are banned for addvertising.");
+			xp.getBukkitPlayer().kickPlayer("You are banned for addvertising.");
 			return a.toString().toLowerCase().replace(match.group().toString(), "mc.*****.***");
 		}
 		String nfoServers = "(.*?)\\.nfoservers\\.com";
@@ -107,7 +107,7 @@ public class AntiAddvertiseEvent extends EventTemplate implements Listener {
 		while(matchNfo.find()) {
 			//log.info(match.group());
 			xp.setPermBanned("You are banned for addvertising.", "CONSOLE");
-			xp.getPlayer().kickPlayer("You are banned for addvertising.");
+			xp.getBukkitPlayer().kickPlayer("You are banned for addvertising.");
 			return a.toString().toLowerCase().replace(matchNfo.group().toString(), "***.*****.***");
 		}
 		return a;
@@ -120,21 +120,21 @@ public class AntiAddvertiseEvent extends EventTemplate implements Listener {
 		Matcher matcher = compiledPattern.matcher(a);
 		while (matcher.find()) {
 			off.setPermBanned("You are banned for addvertising.", "CONSOLE");
-			if(off.getPlayer() instanceof Player) {
-				off.getPlayer().kickPlayer("You are banned for addvertising.");	
+			if(off.getBukkitPlayer() instanceof Player) {
+				off.getBukkitPlayer().kickPlayer("You are banned for addvertising.");	
 			}
 			return true;
 		}
 		if(a.toLowerCase().contains("no-ip.org")) {
 			off.setPermBanned("You are banned for addvertising.", "CONSOLE");
-			if(off.getPlayer() instanceof Player) {
-				off.getPlayer().kickPlayer("You are banned for addvertising.");	
+			if(off.getBukkitPlayer() instanceof Player) {
+				off.getBukkitPlayer().kickPlayer("You are banned for addvertising.");	
 			}
 			return true;
 		} else if(a.toLowerCase().contains("kicks-ass.net")) {
 			off.setPermBanned("You are banned for addvertising.", "CONSOLE");
-			if(off.getPlayer() instanceof Player) {
-				off.getPlayer().kickPlayer("You are banned for addvertising.");	
+			if(off.getBukkitPlayer() instanceof Player) {
+				off.getBukkitPlayer().kickPlayer("You are banned for addvertising.");	
 			}
 			return true;
 		}
@@ -144,8 +144,8 @@ public class AntiAddvertiseEvent extends EventTemplate implements Listener {
 		while(match.find()) {
 			//log.info(match.group());
 			off.setPermBanned("You are banned for addvertising.", "CONSOLE");
-			if(off.getPlayer() instanceof Player) {
-				off.getPlayer().kickPlayer("You are banned for addvertising.");	
+			if(off.getBukkitPlayer() instanceof Player) {
+				off.getBukkitPlayer().kickPlayer("You are banned for addvertising.");	
 			}
 			return true;
 		}
@@ -155,8 +155,8 @@ public class AntiAddvertiseEvent extends EventTemplate implements Listener {
 		while(matchNfo.find()) {
 			//log.info(match.group());
 			off.setPermBanned("You are banned for addvertising.", "CONSOLE");
-			if(off.getPlayer() instanceof Player) {
-				off.getPlayer().kickPlayer("You are banned for addvertising.");	
+			if(off.getBukkitPlayer() instanceof Player) {
+				off.getBukkitPlayer().kickPlayer("You are banned for addvertising.");	
 			}
 			return true;
 		}

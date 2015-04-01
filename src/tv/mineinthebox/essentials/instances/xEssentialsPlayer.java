@@ -41,14 +41,13 @@ import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.enums.PlayerTaskEnum;
 import tv.mineinthebox.essentials.events.players.FakeNukeEvent;
-import tv.mineinthebox.essentials.interfaces.MinigamePlayer;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 import tv.mineinthebox.essentials.minigames.plugin.arena.MinigameArena;
 import tv.mineinthebox.essentials.minigames.plugin.session.MinigameSession;
 
 @SuppressWarnings("deprecation")
-public class xEssentialsPlayer implements MinigamePlayer, XPlayer {
+public class xEssentialsPlayer implements XPlayer {
 
 	private final Player player;
 	private final File f;
@@ -286,15 +285,15 @@ public class xEssentialsPlayer implements MinigamePlayer, XPlayer {
 	@Override
 	public void setSpeed(int i) {
 		con.set("isSpeed", true);
-		getPlayer().setWalkSpeed(i);
-		getPlayer().setFlySpeed(i);
+		getBukkitPlayer().setWalkSpeed(i);
+		getBukkitPlayer().setFlySpeed(i);
 	}
 
 	@Override
 	public void removeSpeed() {
 		con.set("isSpeed", false);
-		getPlayer().setWalkSpeed(0.2f);
-		getPlayer().setFlySpeed(0.1f);
+		getBukkitPlayer().setWalkSpeed(0.2f);
+		getBukkitPlayer().setFlySpeed(0.1f);
 	}
 
 	@Override
@@ -919,7 +918,7 @@ public class xEssentialsPlayer implements MinigamePlayer, XPlayer {
 	}
 
 	@Override
-	public Player getPlayer() {
+	public Player getBukkitPlayer() {
 		return player;
 	}
 

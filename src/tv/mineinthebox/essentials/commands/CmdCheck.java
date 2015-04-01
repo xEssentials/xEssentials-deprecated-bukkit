@@ -70,7 +70,7 @@ public class CmdCheck extends CommandTemplate {
 			} else if(args.length == 2) {
 				if(args[0].equalsIgnoreCase("list")) {
 					if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-						Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]).getPlayer();
+						Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]).getBukkitPlayer();
 						if(victem instanceof Player) {
 							if(pl.getManagers().getPlayerManager().isOnline(args[1])) {
 								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[1]);
@@ -105,7 +105,7 @@ public class CmdCheck extends CommandTemplate {
 					}
 				} else {
 					if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) { 
-						Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getPlayer();
+						Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]).getBukkitPlayer();
 						if(p instanceof Player) {
 							if(pl.getManagers().getPlayerManager().isOnline(args[0])) { 
 								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);

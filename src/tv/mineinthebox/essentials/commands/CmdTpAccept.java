@@ -24,7 +24,7 @@ public class CmdTpAccept extends CommandTemplate {
 			if(sender.hasPermission(PermissionKey.CMD_TP_ACCEPT.getPermission())) {
 				if(pl.getManagers().getTpaManager().containsKey(sender.getName())) {
 					Player p = (Player) sender;
-					Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(pl.getManagers().getTpaManager().get(sender.getName())).getPlayer();
+					Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(pl.getManagers().getTpaManager().get(sender.getName())).getBukkitPlayer();
 					if(victem instanceof Player) {
 						victem.teleport(p, TeleportCause.COMMAND);
 						sendMessageTo(victem, ChatColor.GREEN + sender.getName() + " has successfully accepted your tpa request!");

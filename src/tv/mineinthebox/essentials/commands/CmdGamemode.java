@@ -107,7 +107,7 @@ public class CmdGamemode extends CommandTemplate {
 				}
 			} else if(args.length == 2) {
 				if(sender.hasPermission(PermissionKey.CMD_GAMEMODE.getPermission())) {
-					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]).getPlayer();
+					Player p = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]).getBukkitPlayer();
 					if(p instanceof Player) {
 						if(args[0].equalsIgnoreCase("s") || args[0].equalsIgnoreCase("0")) {
 							if(p.getGameMode() != GameMode.SURVIVAL) {

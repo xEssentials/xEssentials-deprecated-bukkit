@@ -105,9 +105,9 @@ public class PotatoMoveEvent extends EventTemplate implements Listener {
 			if(xp instanceof XPlayer) {	
 				if(xp.isPotato()) {
 					xp.unvanish();
-					xp.getPlayer().removePotionEffect(PotionEffectType.BLINDNESS);
-					xp.getPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
-					xp.getPlayer().removePotionEffect(PotionEffectType.SPEED);
+					xp.getBukkitPlayer().removePotionEffect(PotionEffectType.BLINDNESS);
+					xp.getBukkitPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
+					xp.getBukkitPlayer().removePotionEffect(PotionEffectType.SPEED);
 					Item potato = xp.getPotato();
 					potato.remove();
 					xp.removePotato();
@@ -126,9 +126,9 @@ public class PotatoMoveEvent extends EventTemplate implements Listener {
 			if(xp instanceof XPlayer) {	
 				if(xp.isPotato()) {
 					xp.unvanish();
-					xp.getPlayer().removePotionEffect(PotionEffectType.BLINDNESS);
-					xp.getPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
-					xp.getPlayer().removePotionEffect(PotionEffectType.SPEED);
+					xp.getBukkitPlayer().removePotionEffect(PotionEffectType.BLINDNESS);
+					xp.getBukkitPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
+					xp.getBukkitPlayer().removePotionEffect(PotionEffectType.SPEED);
 					Item potato = xp.getPotato();
 					potato.remove();
 					xp.removePotato();

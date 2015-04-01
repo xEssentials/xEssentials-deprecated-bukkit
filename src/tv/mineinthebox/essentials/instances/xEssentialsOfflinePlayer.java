@@ -104,7 +104,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	}
 
 	@Override
-	public Player getPlayer() {
+	public Player getBukkitPlayer() {
 		Player p = Bukkit.getPlayer(UUID.fromString(getUniqueId()));
 		if(p instanceof Player) {
 			return p;

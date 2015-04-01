@@ -90,21 +90,21 @@ public class CmdHome extends CommandTemplate {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.hasHome()) {
 							Home home = xp.getHome("default");
-							if(xp.getPlayer().isInsideVehicle()) {
-								if(xp.getPlayer().getVehicle() instanceof LivingEntity) {
-									LivingEntity entity = (LivingEntity) xp.getPlayer().getVehicle();
-									xp.getPlayer().getVehicle().eject();
-									xp.getPlayer().teleport(home.getLocation(), TeleportCause.COMMAND);
+							if(xp.getBukkitPlayer().isInsideVehicle()) {
+								if(xp.getBukkitPlayer().getVehicle() instanceof LivingEntity) {
+									LivingEntity entity = (LivingEntity) xp.getBukkitPlayer().getVehicle();
+									xp.getBukkitPlayer().getVehicle().eject();
+									xp.getBukkitPlayer().teleport(home.getLocation(), TeleportCause.COMMAND);
 									entity.teleport(home.getLocation(), TeleportCause.COMMAND);
-									entity.setPassenger(xp.getPlayer());
+									entity.setPassenger(xp.getBukkitPlayer());
 									sendMessage(ChatColor.GREEN + "teleporting to your default home!");
 								} else {
-									xp.getPlayer().getVehicle().eject();
-									xp.getPlayer().teleport(home.getLocation(), TeleportCause.COMMAND);
+									xp.getBukkitPlayer().getVehicle().eject();
+									xp.getBukkitPlayer().teleport(home.getLocation(), TeleportCause.COMMAND);
 									sendMessage(ChatColor.GREEN + "teleporting to your default home!");
 								}
 							} else {
-								xp.getPlayer().teleport(home.getLocation(), TeleportCause.COMMAND);
+								xp.getBukkitPlayer().teleport(home.getLocation(), TeleportCause.COMMAND);
 								sendMessage(ChatColor.GREEN + "teleporting to your default home!");	
 							}
 						} else {
@@ -172,22 +172,22 @@ public class CmdHome extends CommandTemplate {
 									if(xp.hasHome()) {
 										if(xp.isValidHome(args[0])) {
 											Location loc = xp.getHome(args[0]).getLocation();
-											if(xp.getPlayer().isInsideVehicle()) {
-												if(xp.getPlayer().getVehicle() instanceof LivingEntity) {
-													LivingEntity entity = (LivingEntity) xp.getPlayer().getVehicle();
-													xp.getPlayer().getVehicle().eject();
-													xp.getPlayer().teleport(loc, TeleportCause.COMMAND);
+											if(xp.getBukkitPlayer().isInsideVehicle()) {
+												if(xp.getBukkitPlayer().getVehicle() instanceof LivingEntity) {
+													LivingEntity entity = (LivingEntity) xp.getBukkitPlayer().getVehicle();
+													xp.getBukkitPlayer().getVehicle().eject();
+													xp.getBukkitPlayer().teleport(loc, TeleportCause.COMMAND);
 													entity.teleport(loc, TeleportCause.COMMAND);
-													entity.setPassenger(xp.getPlayer());
+													entity.setPassenger(xp.getBukkitPlayer());
 													sendMessage(ChatColor.GREEN + "teleporting to your custom home " + args[0]);
 												} else {
-													xp.getPlayer().getVehicle().eject();
+													xp.getBukkitPlayer().getVehicle().eject();
 													sendMessage(ChatColor.GREEN + "teleporting to your custom home " + args[0]);
-													xp.getPlayer().teleport(loc, TeleportCause.COMMAND);
+													xp.getBukkitPlayer().teleport(loc, TeleportCause.COMMAND);
 												}
 											} else {
 												sendMessage(ChatColor.GREEN + "teleporting to your custom home " + args[0]);
-												xp.getPlayer().teleport(loc, TeleportCause.COMMAND);	
+												xp.getBukkitPlayer().teleport(loc, TeleportCause.COMMAND);	
 											}
 										} else {
 											sendMessage(ChatColor.RED + "invalid home!");

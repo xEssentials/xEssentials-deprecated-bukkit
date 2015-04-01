@@ -38,7 +38,7 @@ public class CallAfkSchedulerEvent extends EventTemplate implements Listener {
 									if(!xp.isAfk()) {
 										broadcast(ChatColor.GREEN + p.getName() + " has been afk");
 										xp.setAfk("no reason given in");
-										Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), true, false, pl));
+										Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getBukkitPlayer(), true, false, pl));
 									}
 								}
 							}
@@ -62,7 +62,7 @@ public class CallAfkSchedulerEvent extends EventTemplate implements Listener {
 			if(xp.isAfk()) {
 				xp.removeAfk();
 				Bukkit.broadcastMessage(ChatColor.GREEN + e.getPlayer().getName() + " is no longer afk");
-				Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), false, true, pl));
+				Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getBukkitPlayer(), false, true, pl));
 			}
 			PlayerLocations.remove(e.getPlayer().getName());
 		}
@@ -75,7 +75,7 @@ public class CallAfkSchedulerEvent extends EventTemplate implements Listener {
 			if(xp.isAfk()) {
 				xp.removeAfk();
 				Bukkit.broadcastMessage(ChatColor.GREEN + e.getPlayer().getName() + " is no longer afk");
-				Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getPlayer(), false, true,pl));
+				Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getBukkitPlayer(), false, true,pl));
 			}
 			PlayerLocations.remove(e.getPlayer().getName());
 		}

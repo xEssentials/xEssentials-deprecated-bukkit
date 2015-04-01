@@ -70,18 +70,18 @@ public class CmdTeleport extends CommandTemplate {
 							if(to instanceof Player) {
 								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 								if(xp.isVanished()) {
-									if(p.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
+									if(p.getBukkitPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 										p.vanish();
-										sendMessageTo(p.getPlayer(), ChatColor.GREEN + "the player you teleported to has been vanished, now you are vanished to!");	
+										sendMessageTo(p.getBukkitPlayer(), ChatColor.GREEN + "the player you teleported to has been vanished, now you are vanished to!");	
 									}
 								}
-								p.getPlayer().teleport(to.getPlayer());
+								p.getBukkitPlayer().teleport(to.getPlayer());
 								sendMessage(ChatColor.GREEN + "teleporting to online location of player " + xp.getName() + " ;-)");
 							} else {
 								if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
 									XOfflinePlayer offliner = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 									offliner.getLastLocation().getWorld().refreshChunk(offliner.getLastLocation().getChunk().getX(), offliner.getLastLocation().getChunk().getZ());
-									p.getPlayer().teleport(offliner.getLastLocation(), TeleportCause.COMMAND);
+									p.getBukkitPlayer().teleport(offliner.getLastLocation(), TeleportCause.COMMAND);
 									sendMessage(ChatColor.GREEN + "teleporting to last offline location of player " + offliner.getName() + " ;-)");
 								} else {
 									getWarning(WarningType.NEVER_PLAYED_BEFORE);	
@@ -98,7 +98,7 @@ public class CmdTeleport extends CommandTemplate {
 				if(args[0].equalsIgnoreCase("crate")) {
 					if(sender.hasPermission(PermissionKey.CMD_TELEPORT.getPermission())) {
 						if(sender instanceof Player) {
-							Player to = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]).getPlayer();
+							Player to = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]).getBukkitPlayer();
 							Player p = (Player) sender;
 							if(to instanceof Player) {
 								if(Hooks.isManCoEnabled()) {
