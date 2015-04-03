@@ -13,7 +13,7 @@ import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import tv.mineinthebox.essentials.xEssentials;
-import tv.mineinthebox.essentials.instances.SlowUpdatableBlock;
+import tv.mineinthebox.essentials.instances.SlowUpdateBlock;
 
 public class RealisticTreeEvent implements Listener {
 	
@@ -50,11 +50,10 @@ public class RealisticTreeEvent implements Listener {
 						p.playEffect(loc.add(0, 1, 0), Effect.STEP_SOUND, Material.LEAVES.getId());
 					}
 				}
-				SlowUpdatableBlock slow = new SlowUpdatableBlock(loc, 400L, pl);
+				SlowUpdateBlock slow = new SlowUpdateBlock(loc, 400L, pl);
 				slow.startUpdate();
 				e.setCancelled(true);
 			}
 		}
 	}
-
 }

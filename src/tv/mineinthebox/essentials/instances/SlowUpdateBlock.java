@@ -6,13 +6,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import tv.mineinthebox.essentials.xEssentials;
 
-public class SlowUpdatableBlock {
+public class SlowUpdateBlock {
 	
 	private final Location loc;
 	private final long time;
 	private final xEssentials pl;
 	
-	public SlowUpdatableBlock(Location loc, long time, xEssentials pl) {
+	public SlowUpdateBlock(Location loc, long time, xEssentials pl) {
 		this.loc = loc;
 		this.time = time;
 		this.pl = pl;
