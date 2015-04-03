@@ -110,4 +110,9 @@ public class BanConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.BAN;
 	}
+	
+	@Override
+	public boolean hasAlternativeReload() {
+		return false;
+	}
 }

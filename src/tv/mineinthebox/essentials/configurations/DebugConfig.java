@@ -33,5 +33,10 @@ public class DebugConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.DEBUG;
 	}
+	
+	@Override
+	public boolean hasAlternativeReload() {
+		return false;
+	}
 
 }

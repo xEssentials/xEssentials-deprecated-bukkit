@@ -72,4 +72,9 @@ public class MotdConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.MOTD;
 	}
+	
+	@Override
+	public boolean hasAlternativeReload() {
+		return false;
+	}
 }

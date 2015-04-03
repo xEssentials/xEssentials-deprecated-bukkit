@@ -55,4 +55,9 @@ public class EconomyConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.ECONOMY;
 	}
+	
+	@Override
+	public boolean hasAlternativeReload() {
+		return false;
+	}
 }

@@ -65,4 +65,9 @@ public class RulesConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.RULES;
 	}
+	
+	@Override
+	public boolean hasAlternativeReload() {
+		return false;
+	}
 }

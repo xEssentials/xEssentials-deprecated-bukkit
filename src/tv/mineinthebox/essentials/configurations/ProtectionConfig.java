@@ -100,4 +100,9 @@ public class ProtectionConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.PROTECTION;
 	}
+	
+	@Override
+	public boolean hasAlternativeReload() {
+		return false;
+	}
 }

@@ -1,8 +1,6 @@
 package tv.mineinthebox.essentials.configurations;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Material;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 
@@ -36,6 +33,11 @@ public class KitConfig extends Configuration {
 			preconfig.put("kit.diamondkit", DiamondKit);
 			preconfig.put("kit.ironkit", IronKit);
 			preconfig.put("kit.woodkit", WoodKit);
+		}
+		
+		Kit[] kits = parseKits(con);
+		for(Kit kit : kits) {
+			kitss.put(kit.getKitName(), kit);
 		}
 	}
 
@@ -67,6 +69,15 @@ public class KitConfig extends Configuration {
 	 */
 	public Map<String, Kit> getConfigKits() {
 		return Collections.unmodifiableMap(kitss);
+	}
+	
+	public void reloadKits() {
+		kitss.clear();
+		reload();
+		Kit[] kits = parseKits(con);
+		for(Kit kit : kits) {
+			kitss.put(kit.getKitName(), kit);
+		}
 	}
 
 	@SuppressWarnings("deprecation")
@@ -123,30 +134,7 @@ public class KitConfig extends Configuration {
 	}
 	
 	@Override
-	public void generateConfig() {
-		super.generateConfig();
-		Kit[] kits = parseKits(con);
-		for(Kit kit : kits) {
-			kitss.put(kit.getKitName(), kit);
-		}
+	public boolean hasAlternativeReload() {
+		return true;
 	}
-
-	@Override
-	public void reload() {
-		kitss.clear();
-		try {
-			con.load(f);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InvalidConfigurationException e) {
-			e.printStackTrace();
-		}
-		Kit[] kits = parseKits(con);
-		for(Kit kit : kits) {
-			kitss.put(kit.getKitName(), kit);
-		}
-	}
-
 }

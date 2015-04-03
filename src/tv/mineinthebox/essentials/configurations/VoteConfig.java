@@ -89,4 +89,9 @@ public class VoteConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.VOTE;
 	}
+	
+	@Override
+	public boolean hasAlternativeReload() {
+		return false;
+	}
 }

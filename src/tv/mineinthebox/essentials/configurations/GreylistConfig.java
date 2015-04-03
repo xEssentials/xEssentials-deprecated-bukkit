@@ -55,5 +55,10 @@ public class GreylistConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.GREYLIST;
 	}
+	
+	@Override
+	public boolean hasAlternativeReload() {
+		return false;
+	}
 
 }

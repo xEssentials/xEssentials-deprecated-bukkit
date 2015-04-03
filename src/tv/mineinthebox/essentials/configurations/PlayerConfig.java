@@ -237,5 +237,10 @@ public class PlayerConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.PLAYER;
 	}
+	
+	@Override
+	public boolean hasAlternativeReload() {
+		return false;
+	}
 
 }

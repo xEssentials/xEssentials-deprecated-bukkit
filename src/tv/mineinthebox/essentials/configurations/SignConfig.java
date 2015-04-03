@@ -1,6 +1,7 @@
 package tv.mineinthebox.essentials.configurations;
 
 import java.io.File;
+
 import org.bukkit.configuration.file.FileConfiguration;
 
 import tv.mineinthebox.essentials.Configuration;
@@ -108,5 +109,10 @@ public class SignConfig extends Configuration {
 	@Override
 	public ConfigType getType() {
 		return ConfigType.SIGN;
+	}
+	
+	@Override
+	public boolean hasAlternativeReload() {
+		return false;
 	}
 }

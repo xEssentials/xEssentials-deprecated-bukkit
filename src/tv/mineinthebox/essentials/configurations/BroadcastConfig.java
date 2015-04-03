@@ -74,5 +74,10 @@ public class BroadcastConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.BROADCAST;
 	}
+	
+	@Override
+	public boolean hasAlternativeReload() {
+		return false;
+	}
 
 }

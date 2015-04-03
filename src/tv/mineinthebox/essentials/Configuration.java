@@ -49,12 +49,20 @@ public abstract class Configuration {
 	public abstract ConfigType getType();
 	
 	/**
+	 * returns true if the config has an alternative reload
+	 * 
+	 * @author xize
+	 * @return boolean
+	 */
+	public abstract boolean hasAlternativeReload();
+	
+	/**
 	 * returns true if the configuration has been generated and saved to a file, otherwise false
 	 * 
 	 * @author xize
 	 * @return boolean
 	 */
-	public boolean isGenerated() {
+	public final boolean isGenerated() {
 		return f.exists();
 	}
 
@@ -63,7 +71,7 @@ public abstract class Configuration {
 	 * 
 	 * @author xize
 	 */
-	public void generateConfig() {
+	public final void generateConfig() {
 		Iterator<Entry<String, Object>> it = preconfig.entrySet().iterator();
 		while(it.hasNext()) {
 			Entry<String, Object> entry = it.next();
@@ -90,16 +98,12 @@ public abstract class Configuration {
 	 * 
 	 * @author xize
 	 */
-	public void validate() {
+	public final void validate() {
 		if(isGenerated()) {
 			Iterator<Entry<String, Object>> it = preconfig.entrySet().iterator();
 			boolean needsUpdate = false;
 			while(it.hasNext()) {
 				Entry<String, Object> entry = it.next();
-				
-				if(getType() == ConfigType.ENTITY) {
-					//xEssentials.log("key is: " + entry.getKey(), LogType.DEBUG);
-				}
 				
 				if(!con.contains(entry.getKey()) || !con.isSet(entry.getKey())) {
 					needsUpdate = true;
@@ -116,13 +120,10 @@ public abstract class Configuration {
 				try {
 					con.load(f);
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (InvalidConfigurationException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -134,7 +135,7 @@ public abstract class Configuration {
 	 * 
 	 * @author xize
 	 */
-	public void reload() {
+	public final void reload() {
 		try {
 			con.load(f);
 		} catch (FileNotFoundException e) {

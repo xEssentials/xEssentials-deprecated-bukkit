@@ -1,7 +1,6 @@
 package tv.mineinthebox.essentials.configurations;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -89,21 +88,10 @@ public class PvpConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.PVP;
 	}
-
+	
 	@Override
-	public void generateConfig() {
-		if(!isGenerated()) {
-			con.set("disable-pvp.enable", false);
-			con.set("disable-pvp.fakepvp", false);
-			con.set("createClientSideGraveyard", false);
-			con.set("killBounty.enable", false);
-			con.set("killBounty.earn", 5.0);
-			con.set("npcReplaceLoggers", false);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+	public boolean hasAlternativeReload() {
+		return false;
 	}
+	
 }

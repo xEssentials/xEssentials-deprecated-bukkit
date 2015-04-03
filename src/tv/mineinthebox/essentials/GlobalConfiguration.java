@@ -257,6 +257,7 @@ public class GlobalConfiguration {
 	}
 
 	public boolean reload() {
+		pl.getManagers().getMinigamesManager().disablePlugins();
 		Handler handler = new Handler(pl);
 		handler.stop();
 		if(pl.getManagers().getBroadcastManager().isRunning()) {
@@ -279,7 +280,14 @@ public class GlobalConfiguration {
 		}
 
 		for(Configuration conf : configurations.values()) {
-			conf.reload();
+			if(conf.hasAlternativeReload()) {
+				if(conf.getType() == ConfigType.KITS) {
+					KitConfig kconf = (KitConfig) conf;
+					kconf.reloadKits();
+				}
+			} else {
+				conf.reload();
+			}
 		}
 
 		HandleCommandManager();
@@ -307,6 +315,7 @@ public class GlobalConfiguration {
 		handler.start();
 		CustomEventHandler customhandler = new CustomEventHandler(pl);
 		customhandler.startCustomEvents();
+		pl.getManagers().getMinigamesManager().enablePlugins();
 		return true;
 	}
 

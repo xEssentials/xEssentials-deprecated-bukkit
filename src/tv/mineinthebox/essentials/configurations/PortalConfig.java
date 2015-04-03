@@ -102,4 +102,9 @@ public class PortalConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.PORTAL;
 	}
+	
+	@Override
+	public boolean hasAlternativeReload() {
+		return false;
+	}
 }

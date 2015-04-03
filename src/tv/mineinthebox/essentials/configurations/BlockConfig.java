@@ -160,5 +160,10 @@ public class BlockConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.BLOCKS;
 	}
+	
+	@Override
+	public boolean hasAlternativeReload() {
+		return false;
+	}
 
 }

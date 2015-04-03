@@ -1,7 +1,6 @@
 package tv.mineinthebox.essentials.configurations;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -46,17 +45,9 @@ public class ShopConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.SHOP;
 	}
-
+	
 	@Override
-	public void generateConfig() {
-		if(!isGenerated()) {
-			con.set("shop.enable", false);
-			con.set("shop.admin.shop-admin-prefix", "Admin Shop");
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+	public boolean hasAlternativeReload() {
+		return false;
 	}
 }

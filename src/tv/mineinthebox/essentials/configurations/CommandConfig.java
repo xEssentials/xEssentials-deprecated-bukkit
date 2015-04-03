@@ -142,4 +142,9 @@ public class CommandConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.COMMAND;
 	}
+	
+	@Override
+	public boolean hasAlternativeReload() {
+		return false;
+	}
 }

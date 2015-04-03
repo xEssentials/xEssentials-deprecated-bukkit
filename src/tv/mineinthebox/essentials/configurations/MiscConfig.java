@@ -156,4 +156,9 @@ public class MiscConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.MISC;
 	}
+	
+	@Override
+	public boolean hasAlternativeReload() {
+		return false;
+	}
 }

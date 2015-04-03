@@ -287,6 +287,11 @@ public class EntityConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.ENTITY;
 	}
+	
+	@Override
+	public boolean hasAlternativeReload() {
+		return false;
+	}
 
 	private String serialize_name(String mob) {
 		return mob.toString().toLowerCase();

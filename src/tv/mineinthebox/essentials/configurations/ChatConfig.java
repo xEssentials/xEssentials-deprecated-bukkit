@@ -230,4 +230,9 @@ public class ChatConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.CHAT;
 	}
+	
+	@Override
+	public boolean hasAlternativeReload() {
+		return false;
+	}
 }
