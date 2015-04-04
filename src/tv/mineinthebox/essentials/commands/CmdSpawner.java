@@ -46,30 +46,28 @@ public class CmdSpawner extends CommandTemplate {
 					} else if(args.length == 1) {
 						Player p = (Player) sender;
 						if(args[0].equalsIgnoreCase("give")) {
-							sendMessage(ChatColor.GREEN + "added spawner in your inventory");
+							sendMessage("added spawner in your inventory");
 							p.getInventory().addItem(new ItemStack(Material.MOB_SPAWNER));
 						} else {
 							try {
 								EntityType type = EntityType.valueOf(args[0].toUpperCase());
 								if(type.isAlive()) {
-									if(type == EntityType.WITHER) {
-										sendMessage(ChatColor.RED + "you are not allowed to make wither spawners");
-									} else if(type == EntityType.PLAYER) {
-										sendMessage(ChatColor.RED + "player entities cannot used through Bukkit");
+									if(type == EntityType.PLAYER) {
+										sendMessage("player entities cannot used through Bukkit");
 									} else {
 										Block block = p.getTargetBlock((HashSet<Byte>)null, 50);
 										if(block.getType() == Material.MOB_SPAWNER) {
 											CreatureSpawner spawner = (CreatureSpawner) block.getState();
 											String old = spawner.getSpawnedType().name();
-											sendMessage(ChatColor.GREEN + "successfully changed spawner from " + old.toLowerCase() + " to " + type.name().toLowerCase());
+											sendMessage("successfully changed spawner from " + old.toLowerCase() + " to " + type.name().toLowerCase());
 											spawner.setSpawnedType(type);
 										}
 									}
 								} else {
-									sendMessage(ChatColor.RED + "this is not a peacefull mob or a hostile mob");
+									sendMessage("this is not a peacefull mob or a hostile mob");
 								}
 							} catch(IllegalArgumentException e) {
-								sendMessage(ChatColor.RED + "this mob does not exist!");
+								sendMessage("this mob does not exist!");
 							}
 						}
 					}
