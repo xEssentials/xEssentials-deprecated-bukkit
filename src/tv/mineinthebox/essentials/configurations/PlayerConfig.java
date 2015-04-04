@@ -20,7 +20,6 @@ public class PlayerConfig extends Configuration {
 		preconfig.put("world-border.enable", false);
 		preconfig.put("world-border.radius", 5000);
 		preconfig.put("useSeperatedInventorys", false);
-		preconfig.put("save-playerInventory", false);
 		preconfig.put("godmode-inAfk", false);
 		preconfig.put("entitysCanUseHeadOnPlayerDeath", false);
 		preconfig.put("canDefaultUseMoreHomes", false);
@@ -72,16 +71,6 @@ public class PlayerConfig extends Configuration {
 	 */
 	public int getWorldBorderSize() {
 		return con.getInt("world-border.radius");
-	}
-
-	/**
-	 * returns true if inventory's should be saved, otherwise false
-	 * 
-	 * @author xize
-	 * @return boolean
-	 */
-	public boolean isSaveInventoryEnabled() {
-		return con.getBoolean("save-playerInventory");
 	}
 
 	/**

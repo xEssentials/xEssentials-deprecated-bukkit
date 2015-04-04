@@ -172,11 +172,6 @@ public class Handler {
 		if(pl.getConfiguration().getPlayerConfig().isSeperatedInventorysEnabled()) {
 			setListener(new GameModeInvChangeEvent(pl));
 		}
-		if(pl.getConfiguration().getPlayerConfig().isSaveInventoryEnabled()) {
-			setListener(new SaveLastInventoryEvent(pl));
-		} else if(pl.getConfiguration().getPvpConfig().isReplaceNpcEnabled()) {
-			setListener(new SaveLastInventoryEvent(pl));
-		}
 		if(pl.getConfiguration().getPlayerConfig().isWorldBorderEnabled()) {
 			setListener(new PlayerBorderEvent(pl));
 		}
@@ -229,10 +224,11 @@ public class Handler {
 		if(Hooks.isWorldGuardEnabled()) {
 			setListener(new WorldGuardMonsterEvent(pl));
 		}
+		if(pl.getConfiguration().getPlayerConfig().isAutoRespawnEnabled()) {setListener(new PlayerForceRespawnEvent(pl));}
 		setListener(new OpKitEvent(pl));
 		setListener(new PlayerShootbowSoundEvent());
 		setListener(new SignEditEvent(pl));
-		if(pl.getConfiguration().getPlayerConfig().isAutoRespawnEnabled()) {setListener(new PlayerForceRespawnEvent(pl));}
+		setListener(new SaveLastInventoryEvent(pl));
 		setListener(new AntiKnockBackEvent(pl));
 		setListener(new FirstJoinTeleportEvent(pl));
 		setListener(new MobProcEvent(pl));
