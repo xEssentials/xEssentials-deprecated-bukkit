@@ -889,4 +889,20 @@ public interface XPlayer extends MinigamePlayer, XOfflinePlayer {
 	@Override
 	public void sendMessage(String prefix, String message);
 	
+	/**
+	 * returns true if the player has messages from the message pool
+	 * 
+	 * @author xize
+	 * @return boolean
+	 */
+	public boolean hasMessages();
+	
+	/**
+	 * returns messages from the offline message pool
+	 * 
+	 * @author xize
+	 * @return List<String>
+	 */
+	public List<String> getMessages();
+	
 }

@@ -10,7 +10,6 @@ import java.util.UUID;
 
 import org.bukkit.BanList.Type;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -345,6 +344,17 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		}
 		return false;
 	}
+	
+	@Override
+	public void setModreqDoneMessage(String message) {
+		con.set("modreq.done.message", message);
+		try {
+			con.save(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		save();
+	}
 
 	@Override
 	public boolean isValidModreqId(int id) {
@@ -395,17 +405,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		}
 		Modreq[] modreqs = items.toArray(new Modreq[items.size()]);
 		return modreqs;
-	}
-
-	@Override
-	public void setModreqDoneMessage(String message) {
-		con.set("modreq.done.message", message);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		save();
 	}
 
 	@Override
@@ -721,9 +720,9 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	}
 
 	@Override
-	public void sendMessage(String prefix, String message) {
+	public void sendMessage(String name, String message) {
 		List<String> a = con.getStringList("messagepool");
-		a.add(prefix+ChatColor.stripColor(message));
+		a.add(message);
 		con.set("messagepool", a.toArray());
 		save();
 	}

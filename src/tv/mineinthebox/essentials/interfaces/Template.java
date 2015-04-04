@@ -62,7 +62,7 @@ public abstract class Template {
 	 * @author xize
 	 * @param message - the message
 	 */
-	public abstract void sendMessage(String message);
+	public void sendMessage(String message) {}
 	
 	/**
 	 * sents out a formatted message to the player in the same style as the command
@@ -71,7 +71,7 @@ public abstract class Template {
 	 * @param p - the player
 	 * @param message - the message
 	 */
-	public abstract void sendMessageTo(CommandSender p, String message);
+	public void sendMessageTo(CommandSender p, String message) {}
 	
 	/**
 	 * broadcast the message in the same style as the command it self
@@ -79,7 +79,7 @@ public abstract class Template {
 	 * @author xize
 	 * @param message - the message
 	 */
-	public abstract void broadcast(String message);
+	public void broadcast(String message) {}
 	
 	/**
 	 * sents a warning to the sender

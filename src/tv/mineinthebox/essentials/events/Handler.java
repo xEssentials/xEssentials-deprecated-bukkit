@@ -97,6 +97,7 @@ import tv.mineinthebox.essentials.events.players.PlayerHoldItemsEvent;
 import tv.mineinthebox.essentials.events.players.PlayerJoinMessageEvent;
 import tv.mineinthebox.essentials.events.players.PlayerQuitMessageEvent;
 import tv.mineinthebox.essentials.events.players.PlayerRespawnTeleportEvent;
+import tv.mineinthebox.essentials.events.players.PlayerSendPooledMessageEvent;
 import tv.mineinthebox.essentials.events.players.PlayerShootbowSoundEvent;
 import tv.mineinthebox.essentials.events.players.PlayerTaskLoginEvent;
 import tv.mineinthebox.essentials.events.players.PlayerWallEvent;
@@ -225,6 +226,7 @@ public class Handler {
 			setListener(new WorldGuardMonsterEvent(pl));
 		}
 		if(pl.getConfiguration().getPlayerConfig().isAutoRespawnEnabled()) {setListener(new PlayerForceRespawnEvent(pl));}
+		setListener(new PlayerSendPooledMessageEvent(pl));
 		setListener(new OpKitEvent(pl));
 		setListener(new PlayerShootbowSoundEvent());
 		setListener(new SignEditEvent(pl));

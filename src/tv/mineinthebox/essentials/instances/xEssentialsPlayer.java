@@ -49,10 +49,10 @@ import tv.mineinthebox.essentials.minigames.plugin.session.MinigameSession;
 @SuppressWarnings("deprecation")
 public class xEssentialsPlayer implements XPlayer {
 
+	private final xEssentials pl;
 	private final Player player;
 	private final File f;
 	private final FileConfiguration con;
-	private final xEssentials pl;
 	private Item Potato;
 	private AlternateAccount accounts;
 	private BukkitTask spectate;
@@ -825,6 +825,17 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		return false;
 	}
+	
+	@Override
+	public void setModreqDoneMessage(String message) {
+		con.set("modreq.done.message", message);
+		try {
+			con.save(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		save();
+	}
 
 	@Override
 	public String getModreqDoneMessage() {
@@ -1566,11 +1577,6 @@ public class xEssentialsPlayer implements XPlayer {
 	}
 
 	@Override
-	public void setModreqDoneMessage(String message) {
-		con.set("modreq.done.message", message);
-	}
-
-	@Override
 	public XPlayer getEssentialsPlayer() {
 		return pl.getManagers().getPlayerManager().getPlayer(getName());
 	}
@@ -1622,6 +1628,19 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void sendMessage(String prefix, String message) {
 		player.sendMessage(prefix + message);
+	}
+	
+	@Override
+	public boolean hasMessages() {
+		return con.contains("messagepool");
+	}
+
+	@Override
+	public List<String> getMessages() {
+		List<String> messages = new ArrayList<String>();
+		messages.addAll(con.getStringList("messagepool"));
+		con.set("messagepool", null);
+		return messages;
 	}
 
 	@Override

@@ -269,6 +269,14 @@ public interface XOfflinePlayer {
 	public boolean hasModreqsOpen();
 
 	/**
+	 * sets the modreq done message for next login
+	 * 
+	 * @author xize
+	 * @param message - the message
+	 */
+	public void setModreqDoneMessage(String message);
+	
+	/**
 	 * returns true if the modreq ticket id is valid, otherwise false
 	 * 
 	 * @author xize
@@ -301,15 +309,6 @@ public interface XOfflinePlayer {
 	 * @return Modreq[]
 	 */
 	public Modreq[] getModreqs();
-	
-	/**
-	 * sets the modreq done message for next login
-	 * 
-	 * @author xize
-	 * @param message - the message
-	 */
-	public void setModreqDoneMessage(String message);
-
 	/**
 	 * clears the inventory on reload
 	 * 
@@ -514,10 +513,10 @@ public interface XOfflinePlayer {
 	 * saves an themed message to the message pool
 	 * 
 	 * @author xize
-	 * @param prefix - the prefix
+	 * @param prefix - the name
 	 * @param message - the message
 	 */
-	public void sendMessage(String prefix, String message);
+	public void sendMessage(String name, String message);
 	
 	/**
 	 * saves the playerdata
