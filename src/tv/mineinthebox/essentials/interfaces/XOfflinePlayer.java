@@ -158,7 +158,7 @@ public interface XOfflinePlayer {
 	/**
 	 * @author xize
 	 * @param get the Unique ID of this player
-	 * @return Long
+	 * @return String
 	 */
 	public String getUniqueId();
 
