@@ -48,9 +48,9 @@ public class GreyListServer extends EventTemplate implements ServerListener {
 						} else {
 							off.setGreyListed(true);
 							if(Hooks.isVaultPermissionsEnabled()) {
-								String oldGroup = pl.getManagers().getVaultManager().getGroup(off.getLastLocation().getWorld(), user);
+								String oldGroup = pl.getManagers().getVaultManager().getGroup(off.getLocation().getWorld(), user);
 								String newgroup = pl.getConfiguration().getGreyListConfig().getGroup();
-								pl.getManagers().getVaultManager().setGroup(off.getLastLocation().getWorld(), off.getName(), newgroup);
+								pl.getManagers().getVaultManager().setGroup(off.getLocation().getWorld(), off.getName(), newgroup);
 								Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(off.getBukkitPlayer(), newgroup, oldGroup, GreyListCause.SITE, pl));
 							}
 						}

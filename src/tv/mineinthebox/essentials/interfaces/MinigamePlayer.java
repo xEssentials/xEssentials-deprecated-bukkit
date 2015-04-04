@@ -7,15 +7,6 @@ import tv.mineinthebox.essentials.minigames.plugin.session.MinigameSession;
 
 public interface MinigamePlayer {
 	
-	
-	/**
-	 * returns the name of the player
-	 * 
-	 * @author xize
-	 * @return String
-	 */
-	public String getName();
-	
 	/**
 	 * returns true if the player has an open game arena session, otherwise false
 	 * 
@@ -75,9 +66,9 @@ public interface MinigamePlayer {
 	 * @param loads the inventory of the player, unlike the saveSurvivalInventory, this will be used for minigames.
 	 */
 	public void loadInventory();
-
+	
 	/**
-	 * returns the player instance
+	 * returns the Bukkit player
 	 * 
 	 * @author xize
 	 * @return Player

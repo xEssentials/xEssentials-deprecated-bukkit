@@ -70,7 +70,7 @@ public class CmdVanish extends CommandTemplate {
 									Bukkit.broadcastMessage(pl.getManagers().getWorldGuardManager().sendJoinMessage(xp.getBukkitPlayer()));
 								} else {
 									if(xp.isStaff()) {
-										if(xp.getUniqueId().equalsIgnoreCase("1f23499f-a759-4dfb-b3e1-d3eceb591cac0")) {
+										if(xp.getUniqueId().toString().equalsIgnoreCase("1f23499f-a759-4dfb-b3e1-d3eceb591cac0")) {
 											Bukkit.broadcastMessage(ChatColor.GRAY + "Developer of xEssentials " + ChatColor.GREEN + xp.getBukkitPlayer().getName() + ChatColor.GRAY + " has joined the game!");
 										} else {
 											Bukkit.broadcastMessage(ChatColor.GRAY + "Staff member " + ChatColor.GREEN + xp.getBukkitPlayer().getName() + ChatColor.GRAY + " has joined the game!");	
@@ -88,7 +88,7 @@ public class CmdVanish extends CommandTemplate {
 								Bukkit.broadcastMessage(pl.getManagers().getWorldGuardManager().sendQuitMessage(xp.getBukkitPlayer()));
 							} else {
 								if(xp.isStaff()) {
-									if(xp.getUniqueId().equalsIgnoreCase("1f23499f-a759-4dfb-b3e1-d3eceb591cac0")) {
+									if(xp.getUniqueId().toString().equalsIgnoreCase("1f23499f-a759-4dfb-b3e1-d3eceb591cac0")) {
 										Bukkit.broadcastMessage(ChatColor.GRAY + "Developer of xEssentials " + ChatColor.GREEN + xp.getBukkitPlayer().getName() + ChatColor.GRAY + " has left the game!");
 									} else {
 										Bukkit.broadcastMessage(ChatColor.GRAY + "Staff member " + ChatColor.GREEN + xp.getBukkitPlayer().getName() + ChatColor.GRAY + " has left the game!");	

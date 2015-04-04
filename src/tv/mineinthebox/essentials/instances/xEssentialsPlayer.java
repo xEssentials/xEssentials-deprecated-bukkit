@@ -362,14 +362,6 @@ public class xEssentialsPlayer implements XPlayer {
 		con.set("ip", player.getAddress().getAddress().getHostAddress());
 		return true;
 	}
-
-	@Override
-	public String getUser() {
-		if(!player.getName().equalsIgnoreCase(con.getString("user"))) {
-			con.set("user", player.getName());
-		}
-		return con.getString("user");
-	}
 	
 	@Override
 	public String getName() {
@@ -517,8 +509,8 @@ public class xEssentialsPlayer implements XPlayer {
 	}
 
 	@Override
-	public String getUniqueId() {
-		return player.getUniqueId().toString();
+	public UUID getUniqueId() {
+		return player.getUniqueId();
 	}
 
 	@Override
@@ -717,11 +709,6 @@ public class xEssentialsPlayer implements XPlayer {
 	}
 
 	@Override
-	public void unsetNoPickUp() {
-		con.set("noPickUp", false);
-	}
-
-	@Override
 	public void saveCreativeInventory() {
 		if(con.contains("inventory.creative")) {
 			con.set("inventory.creative.inv", null);
@@ -829,12 +816,6 @@ public class xEssentialsPlayer implements XPlayer {
 			con.set("offlineInventory.contents", null);
 		}
 		con.set("offlineInventory.contents", player.getInventory().getContents());
-	}
-
-	@Override
-	public Inventory getOnlineInventory() {
-		Inventory inv = player.getInventory();
-		return inv;
 	}
 
 	@Override
@@ -966,6 +947,11 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		return false;
 	}
+	
+	@Override
+	public XOfflinePlayer getCompass() {
+		return pl.getManagers().getPlayerManager().getOfflinePlayer(con.getString("isCompass.follow"));
+	}
 
 	@Override
 	public void setCompass(Player p) {
@@ -982,11 +968,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void removeCompass() {
 		con.set("isCompass", null);
-	}
-
-	@Override
-	public XOfflinePlayer getCompass() {
-		return pl.getManagers().getPlayerManager().getOfflinePlayer(con.getString("isCompass.follow"));
 	}
 
 	@Override
@@ -1285,7 +1266,7 @@ public class xEssentialsPlayer implements XPlayer {
 
 	@Override
 	public boolean hasCustomName() {
-		return (player.getDisplayName().equals(getUser()) ? false : true);
+		return (player.getDisplayName().equals(getName()) ? false : true);
 	}
 
 	@Override
@@ -1550,7 +1531,7 @@ public class xEssentialsPlayer implements XPlayer {
 				block.setType(Material.CHEST);
 			}
 			Chest chest = (Chest)block.getState();
-			return new Shop(chest, sign, pl.getManagers().getPlayerManager().getOfflinePlayer(getUser()));
+			return new Shop(chest, sign, pl.getManagers().getPlayerManager().getOfflinePlayer(getName()));
 		}
 		return null;
 	}
@@ -1569,7 +1550,7 @@ public class xEssentialsPlayer implements XPlayer {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Inventory getOfflineInventory(Player viewer) {
+	public Inventory getInventory() {
 		Inventory inv = Bukkit.createInventory(null, InventoryType.PLAYER);
 		if(hasOfflineInventory()) {
 			Object obj = con.get("offlineInventory.contents");
@@ -1591,15 +1572,12 @@ public class xEssentialsPlayer implements XPlayer {
 
 	@Override
 	public XPlayer getEssentialsPlayer() {
-		return pl.getManagers().getPlayerManager().getPlayer(getUser());
+		return pl.getManagers().getPlayerManager().getPlayer(getName());
 	}
 
 	@Override
-	public Location getLastLocation() {
-		if(con.contains("lastLocation")) {
-			return new Location(Bukkit.getWorld(con.getString("lastLocation.world")), con.getDouble("lastLocation.x"), con.getDouble("lastLocation.y"), con.getDouble("lastLocation.z"), con.getInt("lastLocation.yaw"), con.getInt("lastLocation.pitch"));
-		}
-		return null;
+	public Location getLocation() {
+		return player.getLocation();
 	}
 
 	@Override
@@ -1640,6 +1618,11 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		this.pwnagetask = task;
 	}
+	
+	@Override
+	public void sendMessage(String prefix, String message) {
+		player.sendMessage(prefix + message);
+	}
 
 	@Override
 	public void save() {
@@ -1669,7 +1652,7 @@ public class xEssentialsPlayer implements XPlayer {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((getUser() == null) ? 0 : getUser().hashCode());
+		result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
 		result = prime * result + ((getUniqueId() == null) ? 0 : getUniqueId().hashCode());
 		return result;
 	}
@@ -1679,7 +1662,7 @@ public class xEssentialsPlayer implements XPlayer {
 		if(obj.getClass() == this.getClass()) {
 			if(obj instanceof xEssentialsPlayer) {
 				xEssentialsPlayer xp = (xEssentialsPlayer) obj;
-				return xp.getUser().equalsIgnoreCase(this.getUser()) && xp.getUniqueId().equals(this.getUniqueId());
+				return xp.getName().equalsIgnoreCase(this.getName()) && xp.getUniqueId().equals(this.getUniqueId());
 			}
 		}
 		return false;

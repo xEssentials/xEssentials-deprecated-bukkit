@@ -25,7 +25,7 @@ public class CmdNick extends CommandTemplate {
 				if(args.length == 0) {
 					if(sender instanceof Player) {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
-						xp.setCustomName(xp.getUser());
+						xp.setCustomName(xp.getName());
 						sendMessage("successfully setted your name back to default.");
 						for(Player p : pl.getOnlinePlayers()) {
 							if(p.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
@@ -41,17 +41,17 @@ public class CmdNick extends CommandTemplate {
 					sendMessage("successfully setted your name back to " + xp.getCustomName());
 					for(Player p : pl.getOnlinePlayers()) {
 						if(p.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-							sendMessageTo(p, xp.getUser() + " has changed his name to " + xp.getCustomName());
+							sendMessageTo(p, xp.getName() + " has changed his name to " + xp.getCustomName());
 						}
 					}
 				} else if(args.length == 2) {
 					if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 						xp.setCustomName(ChatColor.translateAlternateColorCodes('&', args[1]));
-						sendMessage("successfully setted "+xp.getUser()+" his name back to " + xp.getCustomName());
+						sendMessage("successfully setted "+xp.getName()+" his name back to " + xp.getCustomName());
 						for(Player p : pl.getOnlinePlayers()) {
 							if(p.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-								sendMessageTo(p, xp.getUser() + " has changed his name to " + xp.getCustomName());
+								sendMessageTo(p, xp.getName() + " has changed his name to " + xp.getCustomName());
 							}
 						}	
 					} else {

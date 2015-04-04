@@ -1,6 +1,7 @@
 package tv.mineinthebox.essentials.interfaces;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -15,38 +16,49 @@ import tv.mineinthebox.essentials.instances.Shop;
 
 public interface XOfflinePlayer {
 
+	/**
+	 * returns true if the player has been greylisted otherwise false
+	 * 
+	 * @author xize
+	 * @return boolean
+	 */
 	public boolean isGreyListed();
 
+	/**
+	 * sets the player greylisted when true, otherwise false
+	 * 
+	 * @author xize
+	 * @param bol - the boolean
+	 */
 	public void setGreyListed(boolean bol);
 
 	/**
+	 * returns the Bukkit player instance
+	 * 
 	 * @author xize
-	 * @param gets the player if online
 	 * @return Player
 	 */
 	public Player getBukkitPlayer();
 
 	/**
+	 * returns the ip address of the player
 	 * 
 	 * @author xize
-	 * @param gets the ip adress of this player
 	 * @return String
-	 * 
 	 */
 	public String getIp();
 	
-	public void PrepareLoginTask(String command, PlayerTaskEnum task);
-
-	/** 
+	/**
+	 * saves an task for next time this player logs on
+	 * 
 	 * @author xize
-	 * @param gets the username from the configuration of this player, this will also get updated whenever the name does not match with the uniqueID
-	 * @return String 
-	 * @deprecated use geName() instead.
+	 * @param command - the command
+	 * @param task - the type task
 	 */
-	public String getUser();
+	public void PrepareLoginTask(String command, PlayerTaskEnum task);
 	
 	/**
-	 * returns true if player is online, otherwise false
+	 * returns true if the player is online, otherwise flase
 	 * 
 	 * @author xize
 	 * @return boolean
@@ -54,404 +66,463 @@ public interface XOfflinePlayer {
 	public boolean isOnline();
 
 	/**
-	 * returns the username of this player, this name will also be updated when the player changes his name
+	 * returns the name of this player
 	 * 
 	 * @author xize
 	 * @return String
 	 */
 	public String getName();
-	
+
 	/**
+	 * returns true if the player is muted, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true when this player is muted
 	 * @return boolean
 	 */
 	public boolean isMuted();
-
+	
 	/**
+	 * unmutes the player
+	 * 
 	 * @author xize
-	 * @param removes the mute
-	 * @return void
 	 */
 	public void unmute();
 
 	/**
+	 * mutes an player based on the time given in
+	 * 
 	 * @author xize
-	 * @param mutes the player for chatting
-	 * @param time - where the milliseconds are the modified date.
-	 * @return void
+	 * @param time - the time how long the mute should be
 	 */
 	public void mute(Long time);
 
 	/**
+	 * returns the muted time (if applicable)
+	 * 
 	 * @author xize
-	 * @param get the modified time in milliseconds
 	 * @return Long
 	 */
 	public Long getMutedTime();
 
 	/**
+	 * returns true if the player is perm banned, otherwise false
+	 * 
 	 * @author xize
-	 * @param check whenever this player is perm banned
 	 * @return boolean
 	 */
 	public boolean isPermBanned();
 
 	/**
+	 * permanently bans the player 
+	 * 
 	 * @author xize
-	 * @param sets the player permbanned
-	 * @return void
+	 * @param reason - the reason
+	 * @param who - the player who issued the ban
 	 */
 	public void setPermBanned(String reason, String who);
 
 	/**
+	 * returns the ban reason
+	 * 
 	 * @author xize
-	 * @param gets the ban message of this player
 	 * @return String
 	 */
 	public String getBanMessage();
 
 	/**
+	 * returns true if the player has been tempory banned
 	 * 
 	 * @author xize
-	 * @param returns true if the player is temp banned
 	 * @return boolean
-	 * 
 	 */
 	public boolean isTempBanned();
 
 	/**
+	 * tempory bans an player based on given time, reason and the issuer
+	 * 
 	 * @author xize
-	 * @param bans a player tempory (Long time, String reason, String who)
-	 * @return boolean
+	 * @param time - the time when it expires
+	 * @param reason - the reason why the person is banned
+	 * @param who - the issuer
 	 */
 	public void setTempbanned(Long time, String reason, String who);
 
 	/**
+	 * returns the tempory ban reason
+	 * 
 	 * @author xize
-	 * @param gets the tempory ban message
 	 * @return String
 	 */
 	public String getTempBanMessage();
 
 	/**
+	 * unbans the player
+	 * 
 	 * @author xize
-	 * @param unbans the player for both Tempbanned or PermBanned
-	 * @return void
 	 */
 	public void unban();
 
 	/**
+	 * returns true if the player was banned before
+	 * 
 	 * @author xize
-	 * @param returns true whenever the player is banned before
 	 * @return boolean
 	 */
 	public boolean isBannedBefore();
 
 	/**
+	 * returns the remaining tempory ban time of this player
+	 * 
 	 * @author xize
-	 * @param gets the time remaining of the ban
 	 * @return Long
 	 */
 	public Long getTempbanRemaining();
 
 	/**
+	 * returns the unique id associated with this player in a friendly non server freezing manner
+	 * 
 	 * @author xize
-	 * @param get the Unique ID of this player
-	 * @return String
+	 * @return UUID
 	 */
-	public String getUniqueId();
+	public UUID getUniqueId();
 
 	/**
+	 * returns true if the player has an home, otherwise false
 	 * 
 	 * @author xize
-	 * @param checks whenever the player has set his home
 	 * @return boolean
-	 * 
 	 */
 	public boolean hasHome();
 
 	/**
+	 * returns true if the home is valid, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true if the home name is valid within the String
+	 * @param home - the home name
 	 * @return boolean
 	 */
 	public boolean isValidHome(String home);
 
 	/**
+	 * returns an List with homes, if the player has no homes set we return an empty List
 	 * 
 	 * @author xize
-	 * @param gets all homes of this player!
 	 * @return List<Home>
-	 * 
 	 */
 	public List<Home> getAllHomes();
 
 	/**
-	 * @author xize
-	 * @param homeName
-	 * @return Home
-	 * @throws NullPointerException
+	 * returns the home based by name, null if the home is invalid
 	 * 
+	 * @author xize
+	 * @param homeName - the home name
+	 * @return Home
 	 */
 	public Home getHome(String homeName);
-
+	
 	/**
+	 * returns the amount of homes this player has
+	 * 
 	 * @author xize
-	 * @param gets the fixed size of all the homes from this player
 	 * @return int
 	 */
 	public int getAmountOfHomes();
 
 	/**
+	 * attempts to remove the home by name
+	 * 
 	 * @author xize
-	 * @param remove the home
-	 * @param home
-	 * @return void
+	 * @param home - the home name
 	 */
 	public void removeHome(String home);
 
-
 	/**
+	 * returns the last location seen of this player
+	 * 
 	 * @author xize
-	 * @param gets the last location of this player
 	 * @return Location
 	 */
-	public Location getLastLocation();
-
+	public Location getLocation();
+	
 	/**
+	 * returns true if the player has an saved inventory
+	 * 
 	 * @author xize
-	 * @param checks whenever the player has a offline inventory
 	 * @return boolean
 	 */
 	public boolean hasOfflineInventory();
 
 	/**
+	 * attempts to open the inventory of the offline player
+	 * 
 	 * @author xize
-	 * @param returns the offline inventory
 	 * @return Inventory
 	 */
-	public Inventory getOfflineInventory(Player viewer);
+	public Inventory getInventory();
 
 	/**
+	 * returns true if the player has any modreqs open
+	 * 
 	 * @author xize
-	 * @param checks whenever this player has open modreqs
 	 * @return boolean
 	 */
 	public boolean hasModreqsOpen();
 
 	/**
+	 * returns true if the modreq ticket id is valid, otherwise false
+	 * 
 	 * @author xize
-	 * @param checks whenever a id is a valid ID
+	 * @param id - the id
 	 * @return boolean
 	 */
 	public boolean isValidModreqId(int id);
 
 	/**
+	 * returns the Modreq ticket if any found
+	 * 
 	 * @author xize
-	 * @param gets the Modreq object containing all data
+	 * @param id - the ticket id
 	 * @return Modreq
 	 */
 	public Modreq getModreq(int id);
 
 	/**
+	 * attempts to remove the modreq
+	 * 
 	 * @author xize
-	 * @param removes a modreq
-	 * @return void
-	 * @throws NullPointerException when the node doesn't exist
+	 * @param id - the ticket id
 	 */
 	public void removeModreq(int id);
 
 	/**
+	 * returns all the modreqs of this player
+	 * 
 	 * @author xize
-	 * @param returns a array of modreqs for this player
 	 * @return Modreq[]
 	 */
 	public Modreq[] getModreqs();
-
-
+	
 	/**
+	 * sets the modreq done message for next login
+	 * 
 	 * @author xize
-	 * @param set the last modreq done message for this player when used /done
-	 * @return void
+	 * @param message - the message
 	 */
 	public void setModreqDoneMessage(String message);
 
 	/**
+	 * clears the inventory on reload
+	 * 
 	 * @author xize
-	 * @param clear the inventory on players relogs!
-	 * @return void
 	 */
 	public void ClearInventoryOnRelog();
 
 	/**
+	 * attempts to return the players alternate accounts
+	 * 
 	 * @author xize
-	 * @param get the alternate accounts of this player!
 	 * @return AlternateAccount
 	 */
 	public AlternateAccount getAlternateAccounts();
-
+	
 	/**
+	 * returns true if the player has alternate accounts, otherwise false
+	 * 
 	 * @author xize
-	 * @param check whenever the player has alternate accounts!
 	 * @return boolean
 	 */
 	public boolean hasAlternateAccounts();
 
 	/**
+	 * returns true if the offline player has command restrictions, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true if the player has command restrictions
 	 * @return boolean
 	 */
 	public boolean hasCommandRestrictions();
 
 	/**
+	 * sets a task command ready which gets fired on next login!
+	 * 
 	 * @author xize
-	 * @param command - the command+args which needs to be disabled
-	 * @param reason - the reason why the command is blocked for the player
-	 * @param taskCommand - an aditional task: command+args, if null we ignore this.
-	 * @return void
+	 * @param command - the command
+	 * @param reason - the reason
+	 * @param taskCommand - the task command
 	 */
 	public void setCommandRestriction(String command, String reason, String taskCommand);
 
 	/**
+	 * returns an List with restricted commands
+	 * 
 	 * @author xize
-	 * @param returns a list of all command restrictions for this player
-	 * @return CommandRestriction[]
+	 * @return List<RestrictedCommand>
 	 */
 	public List<RestrictedCommand> getCommandRestrictions();
 
 	/**
+	 * returns true if the restriction exists on the command, otherwise false
+	 * 
 	 * @author xize
-	 * @param check if the player has a restriction inside the list, make sure to use hasCommandRestrictions() first.
+	 * @param command - the possible command where the restriction is set on
 	 * @return boolean
 	 */
 	public boolean hasContainedRestriction(String command);
 
 	/**
+	 * removes the restriction from the command
+	 * 
 	 * @author xize
-	 * @param remove the command restriction
-	 * @return void
+	 * @param cmd - the command where the restriction should be removed from
 	 */
 	public void removeCommandRestriction(RestrictedCommand cmd);
 
 	/**
+	 * returns the balance of the player
+	 * 
 	 * @author xize
-	 * @param returns the total amount of Essentials money of this player
 	 * @return double
 	 */
 	public double getMoney();
-
+	
 	/**
+	 * returns true if the player has money, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true if the player has money if its 0.0 or the config entry doesn't exist it is false
-	 * @return boolean
+	 * @return double
 	 */
 	public boolean hasMoney();
 	
 	/**
+	 * pays a offline player, true if the transaction succeeded, otherwise false
+	 * 
 	 * @author xize
-	 * @param price - the price the player is gonna be to pay
-	 * @param toPayTo - the retriever
-	 * @return boolean - if the player has no money it will be false.
+	 * @param price - the price
+	 * @param toPayTo - to who
+	 * @return boolean
 	 */
 	public boolean payMoney(double price, XOfflinePlayer toPayTo);
 	
 	/**
+	 * pays a online player, true if the transaction succeeded, otherwise false
+	 * 
 	 * @author xize
-	 * @param price - the price the player is gonna be to pay
-	 * @param toPayTo - the retriever
-	 * @return boolean - if the player has no money it will be false.
+	 * @param price - the price
+	 * @param toPayTo - the player to pay to
+	 * @return boolean
 	 */
 	public boolean payMoney(double price, XPlayer toPayTo);
 
 	/**
 	 * @author xize
-	 * @param price - the price which gets withdrawed
+	 * @param price - removes money (same as withdrawing money)
 	 * @return boolean
 	 */
 	public boolean payMoney(double price);
 	
 	/**
+	 * adds money to the player
+	 * 
 	 * @author xize
-	 * @param price - this will add money to the players bank
+	 * @param price - the amount which gets added to the balance
 	 */
 	public void depositMoney(double price);
-	
+
 	/**
+	 * removes money from the player
+	 * 
 	 * @author xize
-	 * @param price - to be removed
+	 * @param price - the price
+	 * @return boolean
 	 */
 	public boolean withdrawMoney(double price);
 	
 	/**
+	 * returns true if the player has enough money, otherwise false
+	 * 
 	 * @author xize
-	 * @param price - the price
+	 * @param price - the amount of money
 	 * @return boolean
 	 */
 	public boolean hasEnoughMoney(double price);
 
 	/**
+	 * clears the players balance
+	 * 
 	 * @author xize
-	 * @param clear the money of the player
-	 * @return void
 	 */
 	public void clearMoney();
 	
 	/**
+	 * returns the players name history
+	 * 
 	 * @author xize
-	 * @param returns atleast 8 results of this players name history
-	 * @return List<String>()
+	 * @return List<String>
 	 */
 	public List<String> getNameHistory();
 	
 	/**
+	 * returns true if this player has an name history, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true if the player has name history
 	 * @return boolean
 	 */
 	public boolean hasNameHistory();
 	
 	/**
+	 * returns true if the player has an saved inventory
+	 * 
 	 * @author xize
-	 * @param returns true whenever the player has a saved inventory
 	 * @return boolean
 	 */
 	public boolean hasSavedInventory();
 	
-	
 	/**
+	 * returns the online instance of this player
+	 * 
 	 * @author xize
-	 * @param returns the essentials player
-	 * @return xEssentialsPlayer
+	 * @return XPlayer
 	 */
 	public XPlayer getEssentialsPlayer();
 	
 	/**
+	 * returns true if the location is an shop, otherwise false
+	 * 
 	 * @author xize
-	 * @param loc - checks if the location is a shop sign.
+	 * @param loc - the location
 	 * @return boolean
 	 */
 	public boolean isShop(Location loc);
 	
 	/**
+	 * returns the shop by location
+	 * 
 	 * @author xize
-	 * @param loc - returns the shop by location
+	 * @param loc - the location
 	 * @return Shop
 	 */
 	public Shop getShop(Location loc);
 	
 	/**
+	 * removes the shop
+	 * 
 	 * @author xize
-	 * @param removes the shop by location
-	 * @param loc - the location of the shop
+	 * @param loc
 	 */
 	public void removeShop(Location loc);
 	
 	/**
+	 * saves an themed message to the message pool
+	 * 
 	 * @author xize
-	 * @param gets updated at every call so we know that the configuration stored in the memory is still recent with the flat saved file!
-	 * @return void
+	 * @param prefix - the prefix
+	 * @param message - the message
+	 */
+	public void sendMessage(String prefix, String message);
+	
+	/**
+	 * saves the playerdata
+	 * 
+	 * @author xize
 	 */
 	public void save();
 

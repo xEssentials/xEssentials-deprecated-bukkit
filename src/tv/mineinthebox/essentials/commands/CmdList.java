@@ -30,13 +30,13 @@ public class CmdList extends CommandTemplate {
 					List<String> players = new ArrayList<String>();
 					for(XPlayer xp : pl.getManagers().getPlayerManager().getPlayers()) {
 						if(xp.isPotato()) {
-							players.add(ChatColor.GREEN + "(Potato)"+ChatColor.GRAY + xp.getUser());
+							players.add(ChatColor.GREEN + "(Potato)"+ChatColor.GRAY + xp.getName());
 						} else if(xp.isVanished()) {
-							players.add(ChatColor.GREEN + "(Vanished)"+ChatColor.GRAY + xp.getUser());
+							players.add(ChatColor.GREEN + "(Vanished)"+ChatColor.GRAY + xp.getName());
 						} else if(xp.isAfk()) {
-							players.add(ChatColor.DARK_GRAY + "(AFK)" + ChatColor.GRAY + xp.getUser());	
+							players.add(ChatColor.DARK_GRAY + "(AFK)" + ChatColor.GRAY + xp.getName());	
 						} else {
-							players.add(ChatColor.GRAY + xp.getUser());
+							players.add(ChatColor.GRAY + xp.getName());
 						}
 					}
 					if(!players.isEmpty()) {
@@ -54,11 +54,11 @@ public class CmdList extends CommandTemplate {
 				List<String> players = new ArrayList<String>();
 				for(XPlayer xp : pl.getManagers().getPlayerManager().getPlayers()) {
 					if(xp.isPotato()) {
-						players.add(ChatColor.GREEN + "(Potato)" + ChatColor.GRAY + xp.getUser());
+						players.add(ChatColor.GREEN + "(Potato)" + ChatColor.GRAY + xp.getName());
 					} else if(xp.isAfk()) {
-						players.add(ChatColor.DARK_GRAY + "(AFK)" + ChatColor.GRAY + xp.getUser());
+						players.add(ChatColor.DARK_GRAY + "(AFK)" + ChatColor.GRAY + xp.getName());
 					} else if(!xp.isVanished()) {
-						players.add(ChatColor.GRAY + xp.getUser());
+						players.add(ChatColor.GRAY + xp.getName());
 					}
 				}
 				if(!players.isEmpty()) {

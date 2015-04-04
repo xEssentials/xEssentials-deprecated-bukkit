@@ -1,7 +1,5 @@
 package tv.mineinthebox.essentials.events.protection;
 
-import java.util.UUID;
-
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -39,7 +37,7 @@ public class ModifyProtectionEvent extends EventTemplate implements Listener {
 					ProtectedBlock pblock = new ProtectedBlock(pl, e.getClickedBlock());
 					if(pblock.isProtected()) {
 						if(pblock.isMember(e.getPlayer().getUniqueId()) || e.getPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-							pblock.addProtection(UUID.fromString(player.getUniqueId()));
+							pblock.addProtection(player.getUniqueId());
 							sendMessage(e.getPlayer(), ChatColor.GRAY + "successfully registered block permissions for player " + player);
 							manager.removeSession(e.getPlayer().getName());
 							e.setCancelled(true);

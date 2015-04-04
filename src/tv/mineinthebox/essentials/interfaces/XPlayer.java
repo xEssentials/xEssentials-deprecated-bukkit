@@ -10,1073 +10,883 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 
-import tv.mineinthebox.essentials.instances.AlternateAccount;
-import tv.mineinthebox.essentials.instances.Home;
-import tv.mineinthebox.essentials.instances.Modreq;
-import tv.mineinthebox.essentials.instances.RestrictedCommand;
-import tv.mineinthebox.essentials.instances.Shop;
-
 public interface XPlayer extends MinigamePlayer, XOfflinePlayer {
 	
 	/**
+	 * binds an command to an ItemStack
+	 * 
 	 * @author xize
-	 * @param returns true whenever the player is greylisted
-	 * @return boolean
-	 */
-	public boolean isGreyListed();
-
-	/**
-	 * @author xize
-	 * @param set the player as greylisted
-	 * @return void
-	 */
-	public void setGreyListed(boolean bol);
-
-	/**
-	 * @author xize
-	 * @param set the powertool of a player
-	 * @return void
+	 * @param item - the item in hand
+	 * @param command - the command
 	 */
 	public void setPowerTool(ItemStack item, String command);
 
 	/**
+	 * returns true if the player has set the powertool on the current item in hand
+	 * 
 	 * @author xize
-	 * @param when true the player has a powertool otherwise false
 	 * @return boolean
 	 */
 	public boolean hasPowerTool();
 
 	/**
+	 * returns the command which is binded on the item in hand
+	 * 
 	 * @author xize
-	 * @param get the command from the power tool
 	 * @return String
 	 */
 	public String getPowerTool();
 
 	/**
+	 * removes the powertool currently attached on hand
+	 * 
 	 * @author xize
-	 * @param removes the powertool
-	 * @return void
 	 */
 	public void removePowerTool();
 
 	/**
+	 * launches a nuke cloud of tnt on the player
+	 * 
 	 * @author xize
-	 * @param returns true if a player has a login task
-	 * @return boolean
-	 */
-	public boolean hasLoginTask();
-
-	/**
-	 * @author xize
-	 * @param nukes the player with a massive explosion rain
-	 * @return void
 	 */
 	public void nuke();
 
 	/**
+	 * launches a fake nuke cloud of tnt on the player
+	 * 
 	 * @author xize
-	 * @param nukes the player with a massive explosion rain but as fake
-	 * @return void
 	 */
 	public void fakenuke();
 
 	/**
+	 * returns true if the player has an login task, otherwise false
+	 * 
 	 * @author xize
-	 * @param peform a login task
-	 * @return void
+	 * @return boolean
+	 */
+	public boolean hasLoginTask();
+	
+	/**
+	 * performs the login task
+	 * 
+	 * @author xize
 	 */
 	public void performLoginTask();
 
 	/**
+	 * returns true if custom speed has been enabled, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true whenever the speed is enabled
 	 * @return boolean
 	 */
 	public boolean isSpeedEnabled();
 
 	/**
+	 * sets the walk and fly speed
+	 * 
 	 * @author xize
-	 * @param sets the speed of a player
-	 * @return void
+	 * @param i - the speed
 	 */
 	public void setSpeed(int i);
 
 	/**
+	 * removes the speed
+	 * 
 	 * @author xize
-	 * @param removes the walk speed
-	 * @return void
 	 */
 	public void removeSpeed();
 
 	/**
+	 * returns true if the player is an staff member
+	 * 
 	 * @author xize
-	 * @param returns whenever the player is staff and has permission: xEssentials.isStaff
 	 * @return boolean
 	 */
 	public boolean isStaff();
 
 	/**
+	 * returns true if the player is inside an boom event
+	 * 
 	 * @author xize
-	 * @param checks whenever the player is boomed
 	 * @return boolean
 	 */
 	public boolean isBoom();
 
 	/**
+	 * launchers the player in the air without giving the player damage!
+	 * 
 	 * @author xize
-	 * @param set the boom status of this player
-	 * @return void
 	 */
 	public void setBoom();
 
 	/**
+	 * removes the boom ability from the player so the player can get damage again
+	 * 
 	 * @author xize
-	 * @param remove the boom status of this player
-	 * @return void
 	 */
 	public void removeBoom();
 
 	/**
+	 * returns true if the player is potato cursed, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true whenever the player is cursed to be a potato!
 	 * @return boolean
 	 */
 	public boolean isPotato();
+
 	/**
+	 * removes the potato curse
+	 * 
 	 * @author xize
-	 * @param remove potato curse of this player!
-	 * @return void
 	 */
 	public void removePotato();
 
 	/**
+	 * potato curse the player
+	 * 
 	 * @author xize
-	 * @param set a potato curse of this player!
-	 * @return void
+	 * @param potato - the potato
 	 */
 	public void setPotato(Item potato);
 
 	/**
+	 * returns the potato item
+	 * 
 	 * @author xize
-	 * @param gets the Potato Item
 	 * @return Item
-	 * @throws NullPointerException
 	 */
 	public Item getPotato();
-
-	/**
-	 * 
-	 * @author xize
-	 * @param gets the ip adress of this player
-	 * @return String
-	 * 
-	 */
-	public String getIp();
-
-	/**
-	 * 
-	 * @author xize
-	 * @param set the ip of this player
-	 * @return boolean
-	 * 
-	 */
 	
+	/**
+	 * sets the ip of the player
+	 * 
+	 * @author xize
+	 * @return boolean
+	 */
 	public boolean setIp();
 
 	/**
+	 * returns true if the player is fishing, otherwise false
 	 * 
 	 * @author xize
-	 * @param gets the username from the configuration of this player, this will also get updated whenever the name does not match with the uniqueID
-	 * @return String 
-	 *
-	 */
-	public String getUser();
-
-	/**
-	 * @author xize
-	 * @param returns true whenever the player is fishing
 	 * @return boolean
 	 */
 	public boolean isFishing();
 
 	/**
+	 * returns true if the player afk, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true when this player is muted
-	 * @return boolean
-	 */
-	public boolean isMuted();
-
-	/**
-	 * @author xize
-	 * @param
 	 * @return boolean
 	 */
 	public boolean isAfk();
+
 	/**
+	 * returns the afk reason
+	 * 
 	 * @author xize
-	 * @param returns the afk reason
 	 * @return String
 	 */
 	public String getAfkReason();
 
 	/**
+	 * removes afk status from the player
+	 * 
 	 * @author xize
-	 * @param remove the player from afk
-	 * @return void
 	 */
 	public void removeAfk();
 
 	/**
+	 * sets the player to afk
+	 * 
 	 * @author xize
-	 * @param set the player to afk
-	 * @return void
+	 * @param message - the message
 	 */
 	public void setAfk(String message);
 
 	/**
-	 * @author xize
-	 * @param removes the mute
-	 * @return void
-	 */
-	public void unmute();
-
-	/**
-	 * @author xize
-	 * @param mutes the player for chatting
-	 * @param time - where the milliseconds are the modified date.
-	 * @return void
-	 */
-	public void mute(Long time);
-
-	/**
-	 * @author xize
-	 * @param get the modified time in milliseconds
-	 * @return Long
-	 */
-	public Long getMutedTime();
-
-	/**
-	 * @author xize
-	 * @param check whenever this player is perm banned
-	 * @return boolean
-	 */
-	public boolean isPermBanned();
-
-	/**
-	 * @author xize
-	 * @param sets the player permbanned
-	 * @return void
-	 */
-	public void setPermBanned(String reason, String who);
-
-	/**
-	 * @author xize
-	 * @param gets the ban message of this player
-	 * @return String
-	 */
-	public String getBanMessage();
-
-	/**
+	 * returns true if the player is in fly mode
 	 * 
 	 * @author xize
-	 * @param returns true if the player is temp banned
 	 * @return boolean
-	 * 
-	 */
-	public boolean isTempBanned();
-
-	/**
-	 * @author xize
-	 * @param bans a player tempory (Long time, String reason, String who)
-	 * @return boolean
-	 */
-	public void setTempbanned(Long time, String reason, String who);
-
-	/**
-	 * @author xize
-	 * @param gets the tempory ban message
-	 * @return String
-	 */
-	public String getTempBanMessage();
-
-	/**
-	 * @author xize
-	 * @param unbans the player for both Tempbanned or PermBanned
-	 * @return void
-	 */
-	public void unban();
-
-	/**
-	 * @author xize
-	 * @param returns true whenever the player is banned before
-	 * @return boolean
-	 */
-	public boolean isBannedBefore();
-
-	/**
-	 * @author xize
-	 * @param gets the time remaining of the ban
-	 * @return Long
-	 */
-	public Long getTempbanRemaining();
-
-	/**
-	 * 
-	 * @author xize
-	 * @param get the Unique ID of this player
-	 * @return String
-	 */
-	public String getUniqueId();
-
-	/**
-	 * 
-	 * @author xize
-	 * @param checks whenever fly is enabled for this player
-	 * @return boolean
-	 * 
 	 */
 	public boolean isFlying();
 
 	/**
+	 * enables or disables fly mode
+	 * 
 	 * @author xize
-	 * @param set the fly mode of the player
-	 * @return void
+	 * @param bol - the boolean
 	 */
 	public void setFlying(boolean bol);
 
 	/**
+	 * returns true if the player is in torch mode
 	 * 
 	 * @author xize
-	 * @param checks whenever torch is enabled for this player
 	 * @return boolean
-	 * 
 	 */
 	public boolean isTorch();
 
 	/**
+	 * sets the torch mode of this player
+	 * 
 	 * @author xize
-	 * @param set the torch mode to false or on
-	 * @return void
+	 * @param bol - the boolean
 	 */
 	public void setTorch(boolean bol);
 
 	/**
+	 * returns true if the player is in firefly mode, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true whenever firefly is enabled otherwise false
 	 * @return boolean
 	 */
 	public boolean isFirefly();
 
 	/**
+	 * sets the firefly mode of this player
+	 * 
 	 * @author xize
-	 * @param set firefly for this player
-	 * @return void
+	 * @param bol - the boolean
 	 */
 	public void setFirefly(boolean bol);
 
 	/**
+	 * sets the home of the player
 	 * 
 	 * @author xize
-	 * @param checks whenever the player has set his home
-	 * @return boolean
-	 * 
-	 */
-	public boolean hasHome();
-
-	/**
-	 * @author xize
-	 * @param returns true if the home name is valid within the String
-	 * @return boolean
-	 */
-	public boolean isValidHome(String home);
-
-	/**
-	 * 
-	 * @author xize
-	 * @param gets all homes of this player!
-	 * @return List<Home>
-	 * 
-	 */
-	public List<Home> getAllHomes();
-
-	/**
-	 * @author xize
-	 * @param homeName
-	 * @return Home
-	 * @throws NullPointerException
-	 * 
-	 */
-	public Home getHome(String homeName);
-
-	/**
-	 * @author xize
-	 * @param gets the fixed size of all the homes from this player
-	 * @return int
-	 */
-	public int getAmountOfHomes();
-
-	/**
-	 * @author xize
-	 * @param allows the player to set his home!, the key world default is the default home!
-	 * @return void
+	 * @param home - the home name
 	 */
 	public void setHome(String home);
 
 	/**
+	 * returns true if the player is vanished
+	 * 
 	 * @author xize
-	 * @param remove the home
-	 * @param home
-	 * @return void
-	 */
-	public void removeHome(String home);
-
-	/**
-	 * @author xize
-	 * @param is true when vanished otherwise false
 	 * @return boolean
 	 */
 	public boolean isVanished();
 
 	/**
+	 * vanishes the player
+	 * 
 	 * @author xize
-	 * @param vanish the current player for all others
-	 * @return void
 	 */
 	public void vanish();
 
 	/**
+	 * unvanishes the player
+	 * 
 	 * @author xize
-	 * @param unvanish the player for all others
-	 * @return void
 	 */
 	public void unvanish();
 
 	/**
+	 * unvanishes the player either silenced or unsilenced
+	 * 
 	 * @author xize
-	 * @param unvanish the player for all others
-	 * @return void
+	 * @param silenced - whenever the unvanish state should be silenced or un-silenced
 	 */
-	public void unvanish(boolean sillenced);
+	public void unvanish(boolean silenced);
 
 	/**
+	 * returns true the player has vanish effects on, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true whenever the player has vanish effects
 	 * @return boolean
 	 */
 	public boolean hasVanishEffects();
 
 	/**
+	 * sets the effect of vanish
+	 * 
 	 * @author xize
-	 * @param sets the vanish effects of this player
 	 * @param bol - the boolean
 	 */
 	public void setVanishEffects(boolean bol);
 
 	/**
+	 * returns true if no-pickup for vanished is enabled, otherwise false
+	 * 
 	 * @author xize
-	 * @param checks whenever the player has no pick up enabled this is for item drops and interaction for vanish
 	 * @return boolean
 	 */
 	public boolean isNoPickUpEnabled();
 
 	/**
+	 * enables or disabled no-pickup for vanish
+	 * 
 	 * @author xize
-	 * @param sets the pickup state of this player only affects while vanished
-	 * @return void
+	 * @param bol - the boolean
 	 */
 	public void setNoPickUp(boolean bol);
-
+	
 	/**
+	 * saves the surival inventory
+	 * 
 	 * @author xize
-	 * @param unsets the pickup state of this player only affects while vanished
-	 * @return void
 	 */
-	public void unsetNoPickUp();
-
+	public void saveSurvivalInventory();
+	
 	/**
+	 * saves the creative inventory
+	 * 
 	 * @author xize
-	 * @param set the creative inventory in the config
-	 * @return void
 	 */
 	public void saveCreativeInventory();
 
 	/**
+	 * returns true if the player has an saved survival inventory
+	 * 
 	 * @author xize
-	 * @param set the survival inventory in the config
-	 * @return void
-	 */
-	public void saveSurvivalInventory();
-
-	/**
-	 * @author xize
-	 * @param checks whenever the player has a saved instance of the survival inventory
 	 * @return boolean
 	 */
 	public boolean hasSurvivalInventory();
 
 	/**
+	 * returns true if the player has an saved creative inventory
+	 * 
 	 * @author xize
-	 * @param checks whenever the player has a saved instance of the creative inventory
 	 * @return boolean
 	 */
 	public boolean hasCreativeInventory();
 
 	/**
+	 * returns the survival inventory
+	 * 
 	 * @author xize
-	 * @param returns the survival inventory
 	 * @return ItemStack[]
 	 */
 	public ItemStack[] getSurvivalInventory();
 
 	/**
+	 * returns the survival inventory's armor contents
+	 * 
 	 * @author xize
-	 * @param returns the survival armor
 	 * @return ItemStack[]
 	 */
 	public ItemStack[] getSurvivalArmorInventory();
 
 	/**
+	 * returns the creative inventory
+	 * 
 	 * @author xize
-	 * @param returns the creative inventory
 	 * @return ItemStack[]
 	 */
 	public ItemStack[] getCreativeInventory();
 
 	/**
+	 * returns the creative's armor contents
+	 * 
 	 * @author xize
-	 * @param returns the creative armor
 	 * @return ItemStack[]
 	 */
 	public ItemStack[] getCreativeArmorInventory();
 
 	/**
+	 * saves the current inventory for offline usage
+	 * 
 	 * @author xize
-	 * @param save the inventory for offline view
-	 * @return void
 	 */
 	public void saveOfflineInventory();
 
 	/**
+	 * returns the online Inventory of this player
+	 * 
 	 * @author xize
-	 * @param returns the online inventory
 	 * @return Inventory
 	 */
-	public Inventory getOnlineInventory();
+	@Override
+	public Inventory getInventory();
 
 	/**
+	 * returns true if the player has a modreq done message, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true whenever the player has a modreq done message
 	 * @return boolean
 	 */
 	public boolean hasModreqDoneMessage();
 
 	/**
+	 * returns the modreq done message
+	 * 
 	 * @author xize
-	 * @param returns the modreq done message
 	 * @return String
 	 */
 	public String getModreqDoneMessage();
 
 	/**
+	 * removes the modreq done message
+	 * 
 	 * @author xize
-	 * @param remove the modreq done message
-	 * @return void
 	 */
 	public void removeGetModregDoneMessage();
 
 	/**
+	 * create a modreq on this player
+	 * 
 	 * @author xize
-	 * @param checks whenever this player has open modreqs
-	 * @return boolean
-	 */
-	public boolean hasModreqsOpen();
-
-	/**
-	 * @author xize
-	 * @param checks whenever a id is a valid ID
-	 * @return boolean
-	 */
-	public boolean isValidModreqId(int id);
-
-	/**
-	 * @author xize
-	 * @param gets the Modreq object containing all data
-	 * @return Modreq
-	 */
-	public Modreq getModreq(int id);
-
-	/**
-	 * @author xize
-	 * @param removes a modreq
-	 * @return void
-	 * @throws NullPointerException when the node doesn't exist
-	 */
-	public void removeModreq(int id);
-
-	/**
-	 * @author xize
-	 * @param returns a array of modreqs for this player
-	 * @return Modreq[]
-	 */
-	public Modreq[] getModreqs();
-
-	/**
-	 * @author xize
-	 * @param create a new modreq with a new ID
-	 * @return void
+	 * @param message - the modreq message
 	 */
 	public void createModreq(String message);
 
 	/**
+	 * returns true if the inventory should be cleared on relog
+	 * 
 	 * @author xize
-	 * @param returns the player
-	 * @return Player
-	 */
-	public Player getBukkitPlayer();
-
-	/**
-	 * @author xize
-	 * @param returns the boolean whenever the inventory needs to be cleared on relog
 	 * @return boolean
 	 */
 	public boolean isInventoryClearanceOnRelog();
-	
-	/**
-	 * @author xize
-	 * @param clears the inventory on relog
-	 * @return void
-	 */
-	public void ClearInventoryOnRelog();
 
 	/**
+	 * returns true if the player has an compass target set
+	 * 
 	 * @author xize
-	 * @param get the alternate accounts of this player!
-	 * @return AlternateAccount
-	 */
-	public AlternateAccount getAlternateAccounts();
-
-	/**
-	 * @author xize
-	 * @param check whenever the player has alternate accounts!
 	 * @return boolean
 	 */
-	public boolean hasAlternateAccounts();
-
 	public boolean hasCompass();
-
-	public void setCompass(Player p);
-
-	public void setCompass(String p);
-
-	public void removeCompass();
-
+	
+	/**
+	 * returns the player of this compass
+	 * 
+	 * @author xize
+	 * @return XOfflinePlayer
+	 */
 	public XOfflinePlayer getCompass();
 
 	/**
+	 * sets the compass to an player
+	 * 
 	 * @author xize
-	 * @param set the silence state of the player
-	 * @param boolean
-	 * @return void
+	 * @param p - the player
+	 */
+	public void setCompass(Player p);
+
+	/**
+	 * sets the compass to an player
+	 * 
+	 * @author xize
+	 * @param p - the players name
+	 */
+	public void setCompass(String p);
+
+	/**
+	 * removes the compass
+	 * 
+	 * @author xize
+	 */
+	public void removeCompass();
+
+	/**
+	 * true to silence the players chat, false to enable chat
+	 * 
+	 * @author xize
+	 * @param bol - the boolean
 	 */
 	public void setSilenced(boolean bol);
 
 	/**
+	 * returns true if the player has silenced his chat, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true whenever the player has silenced the chat
 	 * @return boolean
 	 */
 	public boolean isSilenced();
 
 	/**
+	 * adds the player to the ignore list
+	 * 
 	 * @author xize
-	 * @param add a player to this players ignore list, this means that this player ignores the chat by the called name.
-	 * @return void
+	 * @param s - the player
 	 */
 	public void addIgnoredPlayer(String s);
 
 	/**
+	 * returns a list of ignored players by this player
+	 * 
 	 * @author xize
-	 * @param get a list of all player names which get ignored by this player
-	 * @return List<String>()
+	 * @return List<String>
 	 */
 	public List<String> getIgnoredPlayers();
 
 	/**
+	 * returns true if this player has ignored players
+	 * 
 	 * @author xize
-	 * @param returns true whenever the player ignores a player
 	 * @return boolean
 	 */
 	public boolean hasIgnoredPlayers();
 
 	/**
+	 * removes a ignored player
+	 * 
 	 * @author xize
-	 * @param remove a player from the ignore list
-	 * @return void
+	 * @param s - the player
 	 */
 	public void removeIgnoredPlayer(String s);
 
 	/**
+	 * returns true if the players movements are frozen, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true whenever the player is freezed
 	 * @return boolean
 	 */
 	public boolean isFreezed();
 
 	/**
+	 * sets the freeze mode of this player
+	 * 
 	 * @author xize
-	 * @param freezes the player or unfreeze the player
-	 * @param void
+	 * @param bol - true to freeze, false to unfreeze
 	 */
 	public void setFreezed(boolean bol);
 
 	/**
+	 * returns true when this player has trollmode activated
+	 * 
 	 * @author xize
-	 * @param returns true whenever a player has trollmode enabled!
 	 * @return boolean
 	 */
 	public boolean isTrollMode();
 
 	/**
+	 * sets the trollmode on this player
+	 * 
 	 * @author xize
-	 * @param enabled trollmode or disable trollmode
-	 * @return void
+	 * @param bol - true to enable trollmode, false to disable
 	 */
 	public void setTrollMode(boolean bol);
 
 	/**
+	 * sets the kit's cooldown time
+	 * 
 	 * @author xize
-	 * @param returns true if the player has command restrictions
-	 * @return boolean
-	 */
-	public boolean hasCommandRestrictions();
-
-	/**
-	 * @author xize
-	 * @param command - the command+args which needs to be disabled
-	 * @param reason - the reason why the command is blocked for the player
-	 * @param taskCommand - an aditional task: command+args, if null we ignore this.
-	 * @return void
-	 */
-	public void setCommandRestriction(String command, String reason, String taskCommand);
-
-	/**
-	 * @author xize
-	 * @param returns a list of all command restrictions for this player
-	 * @return List<CommandRestriction>();
-	 */
-	public List<RestrictedCommand> getCommandRestrictions();
-
-	/**
-	 * @author xize
-	 * @param check if the player has a restriction inside the list, make sure to use hasCommandRestrictions() first.
-	 * @return boolean
-	 */
-	public boolean hasContainedRestriction(String command);
-
-	/**
-	 * @author xize
-	 * @param remove the command restriction
-	 * @return void
-	 */
-	public void removeCommandRestriction(RestrictedCommand cmd);
-
-	/**
-	 * @author xize
-	 * @param set the kit cooldown
-	 * @return void
+	 * @param cooldown - the cooldown time
 	 */
 	public void setKitCooldown(Long cooldown);
 
 	/**
+	 * removes the kit cooldown on the player
+	 * 
 	 * @author xize
-	 * @param remove the kit cooldown
-	 * @return void
 	 */
 	public void removeKitCoolDown();
 
 	/**
+	 * returns the kit cooldown
+	 * 
 	 * @author xize
-	 * @param return the saved cooldown of this player
 	 * @return Long
 	 */
 	public Long getKitCooldown();
 
 	/**
+	 * returns true if the player has an kit cooldown
+	 * 
 	 * @author xize
-	 * @param returns true whenever the player has the cooldown else false
 	 * @return boolean
 	 */
 	public boolean hasKitCooldown();
 
 	/**
+	 * sets the oldname inside the history
+	 * 
 	 * @author xize
-	 * @param set the old name in the history
-	 * @param oldName - old name
+	 * @param oldName - the oldname
 	 */
 	public void setNameHistory(String oldName);
 
 	/**
+	 * sets the proc mode of this player
+	 * 
 	 * @author xize
-	 * @param returns atleast 8 results of this players name history
-	 * @return List<String>()
-	 */
-	public List<String> getNameHistory();
-
-	/**
-	 * @author xize
-	 * @param returns true if the player has name history
-	 * @return boolean
-	 */
-	public boolean hasNameHistory();
-
-	/**
-	 * @author xize
-	 * @param returns true whenever the player has a saved inventory
-	 * @return boolean
-	 */
-	public boolean hasSavedInventory();
-
-	/**
-	 * @author xize
-	 * @param bol - when the boolean is true enable procs, else disable procs
+	 * @param bol - true to enable proc, false to disable proc
 	 */
 	public void setProc(boolean bol);
 	
-	public void setCustomName(String name);
-	
-	public boolean hasCustomName();
-	
-	public String getCustomName();
-	
-	public void saveLastLocation();
-
 	/**
+	 * returns true if the player has proc set
+	 * 
 	 * @author xize
-	 * @param return true when the player has procs
 	 * @return boolean
 	 */
 	public boolean hasProc();
 
 	/**
+	 * sets the nickname of this player
+	 * 
 	 * @author xize
-	 * @param bol - sets the anti knockback of this player.
+	 * @param name - the new custom name
 	 */
-	public void setKnock(boolean bol);
-
+	public void setCustomName(String name);
+	
 	/**
+	 * returns true if the player has an custom nickname
+	 * 
 	 * @author xize
-	 * @param returns the state of the anti knockback.
+	 * @return boolean
+	 */
+	public boolean hasCustomName();
+	
+	/**
+	 * returns the nickname/custom name of this player
+	 * 
+	 * @author xize
+	 * @return String
+	 */
+	public String getCustomName();
+	
+	/**
+	 * saves the last location of the player
+	 * 
+	 * @author xize
+	 */
+	public void saveLastLocation();
+	
+	/**
+	 * returns the location of online player
+	 * 
+	 * @author xize
+	 */
+	public Location getLocation();
+	
+	/**
+	 * returns true if the player has no knock back enabled
+	 * 
+	 * @author xize
 	 * @return boolean
 	 */
 	public boolean isKnock();
 	
 	/**
+	 * sets no knock back mode to this player
+	 * 
 	 * @author xize
-	 * @param sets the player in a chair.
+	 * @param bol - true to enable knock, false to disable
+	 */
+	public void setKnock(boolean bol);
+
+	/**
+	 * allows a player to sit on a chair
+	 * 
+	 * @author xize
+	 * @param bol - true when a player sits, false to not let him sit
 	 */
 	public void setInChair(boolean bol);
 	
 	/**
+	 * returns true if the player sit inside a chair, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true if the player sits in a chair
 	 * @return boolean
 	 */
 	public boolean isInChair();
 	
 	/**
+	 * sets the state of doublejump
+	 * 
 	 * @author xize
-	 * @param toggles double jump
-	 * @param bol - true when enabled, false when disabled.
+	 * @param bol - true to enable double jump false to disable
 	 */
 	public void setDoubleJump(boolean bol);
 	
 	/**
+	 * returns true if the player has double jump enabled, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true if the player has double jump else false
 	 * @return boolean
 	 */
 	public boolean hasDoubleJump();
 	
 	/**
+	 * returns true if spectate is enabled, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true if the player has spectate on
 	 * @return boolean
 	 */
 	public boolean isSpectate();
 	
 	/**
+	 * stops spectator mode of this player
+	 * 
 	 * @author xize
-	 * @param stops the spectate
 	 */
 	public void stopSpectate();
 	
 	/**
+	 * enabled spectate mode on this player
+	 * 
 	 * @author xize
-	 * @param spectates a player.
-	 * @param p
+	 * @param pa - the player who gets spected by this player
 	 */
 	public void spectate(final Player pa);
 	
 	/**
+	 * returns true if sign edit is enabled, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true when edit mode is enabled
 	 * @return boolean
 	 */
 	public boolean isEditSignEnabled();
 	
 	/**
+	 * sets the signedit state
+	 * 
 	 * @author xize
-	 * @param bol - sets the mode whenever a player edits a sign
+	 * @param bol - true to enabled sign edit mode, false to disable
 	 */
 	public void setEditSign(boolean bol);
 	
 	/**
+	 * returns true if the player has drunk chat enabled, otherwise false
+	 * 
 	 * @author xize
-	 * @param returns true when player is in drunk mode
 	 * @return boolean
 	 */
 	public boolean isDrunk();
 	
 	/**
+	 * sets the drunk chat
+	 * 
 	 * @author xize
-	 * <p>sets the chat mode of the player</p>
-	 * @param bol - if true the player has changed into drunk chat mode, otherwise false
+	 * @param bol - true to enable drunk chat, false to disable
 	 */
 	public void setDrunk(boolean bol);
 	
 	/**
+	 * returns a converted drunk message in return
+	 * 
 	 * @author xize
-	 * <p>returns a converted message which looks drunky</p>
-	 * @see XPlayer#isDrunk()
-	 * @param message - the message to be converted to
+	 * @param message - the message
+	 * @param bol - toggle key space
 	 * @return String
 	 */
 	public String getDrunkMessageFrom(String message, boolean bol);
 
 	/**
+	 * returns true if floor mode is enabled, otherwise false
+	 * 
 	 * @author xize
-	 * <p>returns true if floor mode is activated otherwise false</p>
 	 * @return boolean
 	 */
 	public boolean isFloorMode();
 	
 	/**
+	 * enables or disables floor mode on this player
+	 * 
 	 * @author xize
-	 * <p>enables or disables floor mode, this allows a player to build floors</p>
-	 * @param bol - when true build mode is activated, otherwise deactivated
-	 * @param range - the range of the floor mode
+	 * @param bol - true to enable floormode, false to disable
+	 * @param range - the range
 	 */
 	public void setFloorMode(boolean bol, int range);
 	
 	/**
+	 * returns the floor mode range
+	 * 
 	 * @author xize
-	 * <p>returns the size of the floor</p>
 	 * @return int
 	 */
 	public int getFloorModeRange();
 	
 	/**
+	 * returns true if player is in wallmode, otherwise false
+	 * 
 	 * @author xize
-	 * <p>returns true if wallmode is activated otherwise false</p>
 	 * @return boolean
 	 */
 	public boolean isWallMode();
 	
 	/**
+	 * enables or disables the wall mode
+	 * 
 	 * @author xize
-	 * <p>enables or disables wall mode</p>
-	 * @param bol - if true it enables wallmode, otherwise false
-	 * @param range - the range how heigh the wall should be.
+	 * @param bol - true to enable wall mode, false to disable wallmode
+	 * @param range - the range
 	 */
 	public void setWallMode(boolean bol, int range);
-	
+
 	/**
+	 * returns the wall mode range
+	 * 
 	 * @author xize
-	 * <p>sets the range of wall mode</p>
 	 * @return int
 	 */
 	public int getWallModeRange();
 	
 	/**
+	 * sets the shop based on location
+	 * 
 	 * @author xize
-	 * <p>sets a shop on the current location with the chest, note the chest has to be somehow attached to the chest (north, east, south, west)</p>
 	 * @param loc - the location
 	 * @param chest - the chest
 	 */
 	public void setShop(Location loc, Chest chest);
 	
 	/**
+	 * sets the warning level of pwnage spam
+	 * 
 	 * @author xize
-	 * <p>returns true if the location is a shop, otherwise false</p>
-	 * @param loc - the location
-	 */
-	public boolean isShop(Location loc);
-	
-	/**
-	 * @author xize
-	 * <p>gets the shop by an location</p>
-	 * @see XPlayer#isShop(Location)
-	 * @param loc - the location
-	 */
-	public Shop getShop(Location loc);
-	
-	/**
-	 * @author xize
-	 * <p>removes the shop from a location</p>
-	 * @see XPlayer#isShop(Location)
-	 * @param loc - the location
-	 */
-	public void removeShop(Location loc);
-	
-	/**
-	 * @author xize
-	 * <p>sets the warning level of the anti-pwnage system</p>
-	 * @param level - the level of the relogs
+	 * @param level - the warning level
 	 */
 	public void setPwnageLevel(int level);
-	
+
 	/**
+	 * returns true if this player has pwnage warnings
+	 * 
 	 * @author xize
-	 * <p>returns true if the player has a anti-pwnage level otherwise false<p>
 	 * @return boolean
 	 */
 	public boolean hasPwnageLevel();
 	
 	/**
+	 * returns anti pwnage warning level
+	 * 
 	 * @author xize
-	 * <p>returns the current anti-pwnage warning level</p>
-	 * @see XPlayer#hasPwnageLevel()
 	 * @return int
 	 */
 	public int getPwnageLevel();
 	
 	/**
+	 * sets the anti-pwnage scheduler
+	 * 
 	 * @author xize
-	 * <p>returns the time when the player was last logged in</p>
-	 * @see XPlayer#hasLastLoginTime()
-	 * @return long
+	 * @param task - the task
+	 */
+	public void setPwnageScheduler(BukkitTask task);
+	
+	/**
+	 * returns last login time of this player
+	 * 
+	 * @author xize
+	 * @return Long
 	 */
 	public long getLastLoginTime();
 	
 	/**
+	 * sets the last login time
+	 * 
 	 * @author xize
-	 * <p>sets the last login time</p>
-	 * @param time - login time
+	 * @param time - the time
 	 */
 	public void setLastLoginTime(long time);
-	
+
 	/**
+	 * returns true if the player has last login data, otherwise false
+	 * 
 	 * @author xize
-	 * <p>returns true if the player has a last login time if not false</p>
 	 * @return boolean
 	 */
 	public boolean hasLastLoginTime();
 	
 	/**
+	 * sends an themed message to the player
+	 * 
 	 * @author xize
-	 * <p>sets the anti-pwnage task and checks if the player logs in in a certain time</p>
-	 * @param task - the anti-pwnage task
+	 * @param prefix - the prefix
+	 * @param message - the message
 	 */
-	public void setPwnageScheduler(BukkitTask task);
+	@Override
+	public void sendMessage(String prefix, String message);
+	
 }

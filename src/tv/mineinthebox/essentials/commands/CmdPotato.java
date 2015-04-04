@@ -39,7 +39,7 @@ public class CmdPotato extends CommandTemplate {
 						xp.getBukkitPlayer().getWorld().playSound(xp.getBukkitPlayer().getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
 						sendMessage("you are turned into a potato!");
 						xp.setPotato(item);
-						onPotatoSchedule(xp.getUser());
+						onPotatoSchedule(xp.getName());
 					} else {
 						getWarning(WarningType.PLAYER_ONLY);
 					}
@@ -55,7 +55,7 @@ public class CmdPotato extends CommandTemplate {
 						xp.getBukkitPlayer().getWorld().playSound(xp.getBukkitPlayer().getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
 						sendMessageTo(xp.getBukkitPlayer(), "you are turned into a potato!");
 						xp.setPotato(item);
-						onPotatoSchedule(xp.getUser());
+						onPotatoSchedule(xp.getName());
 						sendMessage("you successfully changed " + xp.getBukkitPlayer().getName() + " into a potato!");
 					} else {
 						sender.sendMessage("the player is not online!");

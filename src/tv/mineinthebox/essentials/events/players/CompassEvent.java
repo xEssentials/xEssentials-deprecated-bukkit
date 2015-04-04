@@ -31,7 +31,7 @@ public class CompassEvent implements Listener {
 						Vector direction = p.getLocation().toVector().subtract(e.getPlayer().getLocation().toVector()).normalize().multiply(2);
 						e.getPlayer().setVelocity(direction);
 					} else {
-						Location loc = xp.getCompass().getLastLocation();
+						Location loc = xp.getCompass().getLocation();
 						Vector direction = loc.toVector().subtract(e.getPlayer().getLocation().toVector()).normalize().multiply(2);
 						e.getPlayer().setVelocity(direction);
 					}

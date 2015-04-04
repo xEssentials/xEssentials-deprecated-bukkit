@@ -80,8 +80,8 @@ public class CmdTeleport extends CommandTemplate {
 							} else {
 								if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
 									XOfflinePlayer offliner = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
-									offliner.getLastLocation().getWorld().refreshChunk(offliner.getLastLocation().getChunk().getX(), offliner.getLastLocation().getChunk().getZ());
-									p.getBukkitPlayer().teleport(offliner.getLastLocation(), TeleportCause.COMMAND);
+									offliner.getLocation().getWorld().refreshChunk(offliner.getLocation().getChunk().getX(), offliner.getLocation().getChunk().getZ());
+									p.getBukkitPlayer().teleport(offliner.getLocation(), TeleportCause.COMMAND);
 									sendMessage("teleporting to last offline location of player " + offliner.getName() + " ;-)");
 								} else {
 									getWarning(WarningType.NEVER_PLAYED_BEFORE);	

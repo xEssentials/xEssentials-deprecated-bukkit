@@ -67,7 +67,7 @@ public class CmdBan extends CommandTemplate {
 						if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 							xp.setPermBanned("The ban hammer has spoken!", sender.getName());
-							sendMessage("successfully banned player " + xp.getUser());
+							sendMessage("successfully banned player " + xp.getName());
 							xp.getBukkitPlayer().kickPlayer(xp.getBanMessage());
 						} else {
 							try {

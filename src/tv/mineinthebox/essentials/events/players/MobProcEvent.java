@@ -47,7 +47,7 @@ public class MobProcEvent implements Listener, Runnable {
 				Player p = (Player) e.getDamager();
 				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.hasProc()) {
-					if(player.containsKey(xp.getUser())) {
+					if(player.containsKey(xp.getName())) {
 						monster.setHealth(0);
 					}
 				}

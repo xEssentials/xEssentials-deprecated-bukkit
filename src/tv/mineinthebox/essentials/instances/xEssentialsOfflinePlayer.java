@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import org.bukkit.BanList.Type;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -41,18 +42,18 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	public xEssentialsOfflinePlayer(String player, xEssentials pl) {
 		this.pl = pl;	
 		this.f = pl.getManagers().getPlayerManager().getOfflinePlayerFile(player);
-			this.player = player;
-			if(!this.f.getName().equals(null)) {
-				if(this.f.exists()){
-					this.con = YamlConfiguration.loadConfiguration(this.f);	
-				} else {
-					throw new NullPointerException();
-				}
+		this.player = player;
+		if(!this.f.getName().equals(null)) {
+			if(this.f.exists()){
+				this.con = YamlConfiguration.loadConfiguration(this.f);	
 			} else {
 				throw new NullPointerException();
 			}
+		} else {
+			throw new NullPointerException();
+		}
 	}
-	
+
 	//this is ment for a dummy profile.
 	public xEssentialsOfflinePlayer(OfflinePlayer offliner, xEssentials pl) {
 		this.pl = pl;
@@ -79,7 +80,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			this.con = YamlConfiguration.loadConfiguration(this.f);
 		}
 	}
-	
+
 	@Override
 	public boolean isOnline() {
 		return false;
@@ -105,7 +106,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 
 	@Override
 	public Player getBukkitPlayer() {
-		Player p = Bukkit.getPlayer(UUID.fromString(getUniqueId()));
+		Player p = Bukkit.getPlayer(getUniqueId());
 		if(p instanceof Player) {
 			return p;
 		}
@@ -118,12 +119,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		return con.getString("ip");
 	}
 
-	@Override
-	public String getUser() {
-		save();
-		return con.getString("user");
-	}
-	
 	@Override
 	public String getName() {
 		save();
@@ -247,14 +242,13 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	}
 
 	@Override
-	public String getUniqueId() {
+	public UUID getUniqueId() {
 		save();
 		if(con.contains("uuid")) {
-			return con.getString("uuid");
-		}  else {
 			String uid = f.getName().replace(".yml", "");
-			return (uid.substring(0, 8) + "-" + uid.substring(8, 12) + "-" + uid.substring(12, 16) + "-" + uid.substring(16, 20) + "-" +uid.substring(20, 32));
+			return UUID.fromString((uid.substring(0, 8) + "-" + uid.substring(8, 12) + "-" + uid.substring(12, 16) + "-" + uid.substring(16, 20) + "-" +uid.substring(20, 32)));
 		}
+		return null;
 	}
 
 	@Override
@@ -314,7 +308,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	}
 
 	@Override
-	public Location getLastLocation() {
+	public Location getLocation() {
 		save();
 		if(con.contains("lastLocation")) {
 			return new Location(Bukkit.getWorld(con.getString("lastLocation.world")), con.getDouble("lastLocation.x"), con.getDouble("lastLocation.y"), con.getDouble("lastLocation.z"), con.getInt("lastLocation.yaw"), con.getInt("lastLocation.pitch"));
@@ -333,7 +327,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public Inventory getOfflineInventory(Player viewer) {
+	public Inventory getInventory() {
 		save();
 		Inventory inv = Bukkit.createInventory(null, InventoryType.PLAYER);
 		if(hasOfflineInventory()) {
@@ -627,7 +621,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 
 	@Override
 	public XPlayer getEssentialsPlayer() {
-		return pl.getManagers().getPlayerManager().getPlayer(getUser());
+		return pl.getManagers().getPlayerManager().getPlayer(getName());
 	}
 
 	@Override
@@ -672,7 +666,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		}
 		save();
 	}
-	
+
 	@Override
 	public void PrepareLoginTask(String command, PlayerTaskEnum task) {
 		con.set("task.command", command);
@@ -710,7 +704,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((getUser() == null) ? 0 : getUser().hashCode());
+		result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
 		result = prime * result + ((getUniqueId() == null) ? 0 : getUniqueId().hashCode());
 		return result;
 	}
@@ -720,9 +714,17 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		if(obj.getClass() == this.getClass()) {
 			if(obj instanceof xEssentialsOfflinePlayer) {
 				xEssentialsPlayer xp = (xEssentialsPlayer) obj;
-				return xp.getUser().equalsIgnoreCase(this.getUser()) && xp.getUniqueId().equals(this.getUniqueId());
+				return xp.getName().equalsIgnoreCase(this.getName()) && xp.getUniqueId().equals(this.getUniqueId());
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void sendMessage(String prefix, String message) {
+		List<String> a = con.getStringList("messagepool");
+		a.add(prefix+ChatColor.stripColor(message));
+		con.set("messagepool", a.toArray());
+		save();
 	}
 }

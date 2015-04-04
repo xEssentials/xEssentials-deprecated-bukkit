@@ -44,11 +44,11 @@ public class CmdFly extends CommandTemplate {
 							if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
 								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 								if(xp.isFlying()) {
-									sendMessage("you successfully disabled fly for player " + xp.getUser());
+									sendMessage("you successfully disabled fly for player " + xp.getName());
 									sendMessageTo(xp.getBukkitPlayer(), sender.getName() + " disabled your fly mode");
 									xp.setFlying(false);
 								} else {
-									sendMessage("you successfully enabled fly for player " + xp.getUser());
+									sendMessage("you successfully enabled fly for player " + xp.getName());
 									sendMessageTo(xp.getBukkitPlayer(), sender.getName() + " enabled your fly mode");
 									xp.setFlying(true);
 								}

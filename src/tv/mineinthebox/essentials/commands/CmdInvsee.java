@@ -70,7 +70,7 @@ public class CmdInvsee extends CommandTemplate {
 							if(a instanceof Player) {
 								if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
 									XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
-									p.openInventory(xp.getOnlineInventory());
+									p.openInventory(xp.getInventory());
 									sendMessage("opening live inventory of player " + xp.getName());
 								} else {
 									sendMessage("this player does not exist in the global HashMap please reload xEssentials");
@@ -79,7 +79,7 @@ public class CmdInvsee extends CommandTemplate {
 								try {
 									XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 									if(off.hasOfflineInventory()) {
-										p.openInventory(off.getOfflineInventory(p));
+										p.openInventory(off.getInventory());
 										sendMessage("opening offline inventory of player " + off.getName());
 									} else {
 										sendMessage("this player does not have a saved inventory");
