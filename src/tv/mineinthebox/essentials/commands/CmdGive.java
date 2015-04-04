@@ -59,7 +59,7 @@ public class CmdGive extends CommandTemplate {
 					if(args[0].equalsIgnoreCase("help")) {
 						showHelp();
 					} else {
-						sendMessage(ChatColor.RED + "we don't know much about this argument!");
+						sendMessage("we don't know much about this argument!");
 					}
 				} else if(args.length == 2) {
 					try {
@@ -69,24 +69,24 @@ public class CmdGive extends CommandTemplate {
 								String[] data = args[1].split(":");
 								if(isNumberic(data[0])) {
 									if(!isNumberic(data[1])) {
-										sendMessage(ChatColor.RED + "the sub data value needs to be a number!");
+										sendMessage("the sub data value needs to be a number!");
 										return false;
 									}
 									Material mat = Material.getMaterial(Integer.parseInt(data[0]));
 									Short dura = Short.parseShort(data[1]);
 									ItemStack item = new ItemStack(mat, 1);
 									item.setDurability(dura);
-									sendMessage(ChatColor.GRAY + "giving " + item.getType().name() + ":"+dura + " amount: 1 to player " + p.getName());
+									sendMessage("giving " + item.getType().name() + ":"+dura + " amount: 1 to player " + p.getName());
 									try {
 										p.getInventory().addItem(item);
-										sendMessageTo(p, ChatColor.GREEN + "you retrieved items from " + sender.getName());
+										sendMessageTo(p,"you retrieved items from " + sender.getName());
 									} catch(IllegalArgumentException e) {
-										sendMessage(ChatColor.RED + p.getName() + " is to full");
+										sendMessage(p.getName() + " is to full");
 									}
 								} else {
 									Material mat = Material.getMaterial(data[0].toUpperCase());
 									if(!isNumberic(data[1])) {
-										sendMessage(ChatColor.RED + "the sub data value needs to be a number!");
+										sendMessage("the sub data value needs to be a number!");
 										return false;
 									}
 									Short dura = Short.parseShort(data[1]);
@@ -94,9 +94,9 @@ public class CmdGive extends CommandTemplate {
 									item.setDurability(dura);
 									try {
 										p.getInventory().addItem(item);
-										sendMessageTo(p, ChatColor.GREEN + "you retrieved items from " + sender.getName());
+										sendMessageTo(p, "you retrieved items from " + sender.getName());
 									} catch(IllegalArgumentException e) {
-										sendMessage(ChatColor.RED + p.getName() + " is to full");
+										sendMessage(p.getName() + " is to full");
 									}
 								}						
 							} else {
@@ -105,26 +105,26 @@ public class CmdGive extends CommandTemplate {
 									ItemStack item = new ItemStack(mat, 1);
 									try {
 										p.getInventory().addItem(item);
-										sendMessageTo(p, ChatColor.GREEN + "you retrieved items from " + sender.getName());
+										sendMessageTo(p, "you retrieved items from " + sender.getName());
 									} catch(IllegalArgumentException e) {
-										sendMessage(ChatColor.RED + p.getName() + " is to full");
+										sendMessage(p.getName() + " is to full");
 									}
 								} else {
 									Material mat = Material.getMaterial(args[1].toUpperCase());
 									ItemStack item = new ItemStack(mat, 1);
 									try {
 										p.getInventory().addItem(item);
-										sendMessageTo(p, ChatColor.GREEN + "you retrieved items from " + sender.getName());
+										sendMessageTo(p, "you retrieved items from " + sender.getName());
 									} catch(IllegalArgumentException e) {
-										sendMessage(ChatColor.RED + p.getName() + " is to full");
+										sendMessage(p.getName() + " is to full");
 									}
 								}
 							}
 						} else {
-							sendMessage(ChatColor.RED + "this player is not online!");
+							sendMessage("this player is not online!");
 						}
 					} catch(NullPointerException e) {
-						sendMessage(ChatColor.RED + "invalid item!");
+						sendMessage("invalid item!");
 					}
 				} else if(args.length == 3) {
 					try {
@@ -136,24 +136,24 @@ public class CmdGive extends CommandTemplate {
 									String[] data = args[1].split(":");
 									if(isNumberic(data[0])) {
 										if(!isNumberic(data[1])) {
-											sendMessage(ChatColor.RED + "the sub data value needs to be a number!");
+											sendMessage("the sub data value needs to be a number!");
 											return false;
 										}
 										Material mat = Material.getMaterial(Integer.parseInt(data[0]));
 										Short dura = Short.parseShort(data[1]);
 										ItemStack item = new ItemStack(mat, amount);
 										item.setDurability(dura);
-										sendMessage(ChatColor.GRAY + "giving " + item.getType().name() + ":"+dura + " amount: 1 to player " + p.getName());
+										sendMessage("giving " + item.getType().name() + ":"+dura + " amount: 1 to player " + p.getName());
 										try {
 											p.getInventory().addItem(item);
-											sendMessageTo(p, ChatColor.GREEN + "you retrieved items from " + sender.getName());
+											sendMessageTo(p, "you retrieved items from " + sender.getName());
 										} catch(IllegalArgumentException e) {
-											sendMessage(ChatColor.RED + p.getName() + " is to full");
+											sendMessage(p.getName() + " is to full");
 										}
 									} else {
 										Material mat = Material.getMaterial(data[0].toUpperCase());
 										if(!isNumberic(data[1])) {
-											sendMessage(ChatColor.RED + "the sub data value needs to be a number!");
+											sendMessage("the sub data value needs to be a number!");
 											return false;
 										}
 										Short dura = Short.parseShort(data[1]);
@@ -161,9 +161,9 @@ public class CmdGive extends CommandTemplate {
 										item.setDurability(dura);
 										try {
 											p.getInventory().addItem(item);
-											sendMessageTo(p, ChatColor.GREEN + "you retrieved items from " + sender.getName());
+											sendMessageTo(p, "you retrieved items from " + sender.getName());
 										} catch(IllegalArgumentException e) {
-											sendMessage(ChatColor.RED + p.getName() + " is to full");
+											sendMessage(p.getName() + " is to full");
 										}
 									}
 								} else {
@@ -172,29 +172,29 @@ public class CmdGive extends CommandTemplate {
 										ItemStack item = new ItemStack(mat, amount);
 										try {
 											p.getInventory().addItem(item);
-											sendMessageTo(p, ChatColor.GREEN + "you retrieved items from " + sender.getName());
+											sendMessageTo(p, "you retrieved items from " + sender.getName());
 										} catch(IllegalArgumentException e) {
-											sendMessage(ChatColor.RED + p.getName() + " is to full");
+											sendMessage(p.getName() + " is to full");
 										}
 									} else {
 										Material mat = Material.getMaterial(args[1].toUpperCase());
 										ItemStack item = new ItemStack(mat, amount);
 										try {
 											p.getInventory().addItem(item);
-											sendMessageTo(p, ChatColor.GREEN + "you retrieved items from " + sender.getName());
+											sendMessageTo(p, "you retrieved items from " + sender.getName());
 										} catch(IllegalArgumentException e) {
-											sendMessage(ChatColor.RED + p.getName() + " is to full");
+											sendMessage(p.getName() + " is to full");
 										}
 									}
 								}
 							} else {
-								sendMessage(ChatColor.RED + "invalid amount given in!");
+								sendMessage("invalid amount given in!");
 							}
 						} else {
-							sendMessage(ChatColor.RED + "this player is not online!");
+							sendMessage("this player is not online!");
 						}
 					} catch(NullPointerException e) {
-						sendMessage(ChatColor.RED + "invalid item!");
+						sendMessage("invalid item!");
 					}
 				}
 			} else {

@@ -2,7 +2,6 @@ package tv.mineinthebox.essentials.commands;
 
 import java.util.Random;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -36,7 +35,7 @@ public class CmdWild extends CommandTemplate {
 						int z = randz.nextInt(zRadius)+p.getLocation().getBlockZ();
 						Location loc = new Location(p.getWorld(), x, p.getWorld().getHighestBlockYAt(x, z), z);
 						p.teleport(loc);
-						sendMessage(ChatColor.GREEN + "you successfully has teleported to the wild!");
+						sendMessage("you successfully has teleported to the wild!");
 					} else {
 						getWarning(WarningType.PLAYER_ONLY);
 					}
@@ -49,9 +48,9 @@ public class CmdWild extends CommandTemplate {
 						int z = randz.nextInt()+p.getLocation().getBlockX();
 						Location loc = new Location(p.getWorld(), x, p.getWorld().getHighestBlockYAt(x, z), z);
 						p.teleport(loc);
-						sendMessageTo(p, ChatColor.GREEN + "you successfully has teleported to the wild!");	
+						sendMessageTo(p, "you successfully has teleported to the wild!");	
 					} else {
-						sender.sendMessage(ChatColor.RED + "this player is not online!");
+						sender.sendMessage("this player is not online!");
 					}
 				}
 			} else {

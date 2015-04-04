@@ -1,6 +1,5 @@
 package tv.mineinthebox.essentials.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -24,10 +23,10 @@ public class CmdEditSign extends CommandTemplate {
 				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 				if(xp.isEditSignEnabled()) {
 					xp.setEditSign(false);
-					sendMessage(ChatColor.GREEN + "you have disabled editsign modus");
+					sendMessage("you have disabled editsign modus");
 				} else {
 					xp.setEditSign(true);
-					sendMessage(ChatColor.GREEN + "you have enabled editsign modus");
+					sendMessage("you have enabled editsign modus");
 				}
 			} else {
 				getWarning(WarningType.PLAYER_ONLY);

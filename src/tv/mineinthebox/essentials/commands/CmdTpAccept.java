@@ -1,6 +1,5 @@
 package tv.mineinthebox.essentials.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -27,15 +26,15 @@ public class CmdTpAccept extends CommandTemplate {
 					Player victem = pl.getManagers().getPlayerManager().getOfflinePlayer(pl.getManagers().getTpaManager().get(sender.getName())).getBukkitPlayer();
 					if(victem instanceof Player) {
 						victem.teleport(p, TeleportCause.COMMAND);
-						sendMessageTo(victem, ChatColor.GREEN + sender.getName() + " has successfully accepted your tpa request!");
-						sendMessage(ChatColor.GREEN + "you have successfully accepted " + victem.getName() + " his tpa request!");
+						sendMessageTo(victem, sender.getName() + " has successfully accepted your tpa request!");
+						sendMessage("you have successfully accepted " + victem.getName() + " his tpa request!");
 						pl.getManagers().getTpaManager().remove(sender.getName());
 					} else {
-						sendMessage(ChatColor.RED + "the player went offline!");
+						sendMessage("the player went offline!");
 						pl.getManagers().getTpaManager().remove(sender.getName());
 					}
 				} else {
-					sendMessage(ChatColor.RED + "you don't have tpa requests open!");
+					sendMessage("you don't have tpa requests open!");
 				}
 			} else {
 				getWarning(WarningType.NO_PERMISSION);

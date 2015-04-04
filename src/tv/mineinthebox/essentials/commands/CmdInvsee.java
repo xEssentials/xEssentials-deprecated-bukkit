@@ -71,18 +71,18 @@ public class CmdInvsee extends CommandTemplate {
 								if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
 									XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 									p.openInventory(xp.getOnlineInventory());
-									sendMessage(ChatColor.GREEN + "opening live inventory of player " + xp.getName());
+									sendMessage("opening live inventory of player " + xp.getName());
 								} else {
-									sendMessage(ChatColor.RED + "this player does not exist in the global HashMap please reload xEssentials");
+									sendMessage("this player does not exist in the global HashMap please reload xEssentials");
 								}
 							} else {
 								try {
 									XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 									if(off.hasOfflineInventory()) {
 										p.openInventory(off.getOfflineInventory(p));
-										sendMessage(ChatColor.GREEN + "opening offline inventory of player " + off.getName());
+										sendMessage("opening offline inventory of player " + off.getName());
 									} else {
-										sendMessage(ChatColor.RED + "this player does not have a saved inventory");
+										sendMessage("this player does not have a saved inventory");
 									}
 								} catch(NullPointerException e) {
 									getWarning(WarningType.NEVER_PLAYED_BEFORE);

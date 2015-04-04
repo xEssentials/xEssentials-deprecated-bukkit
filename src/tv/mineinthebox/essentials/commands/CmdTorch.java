@@ -1,6 +1,5 @@
 package tv.mineinthebox.essentials.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -28,13 +27,13 @@ public class CmdTorch extends CommandTemplate {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 						if(xp.isTorch()) {
 							xp.setTorch(false);
-							sendMessageTo(p, ChatColor.GREEN + "successfully disabled torch");
+							sendMessageTo(p, "successfully disabled torch");
 						} else {
 							xp.setTorch(true);
-							sendMessageTo(p, ChatColor.GREEN + "successfully enabled torch");
+							sendMessageTo(p, "successfully enabled torch");
 						}
 					} else {
-						sendMessage(ChatColor.RED + "you where not found in our global HashMap, please reload xEssentials in order to fix this problem");
+						sendMessage("you where not found in our global HashMap, please reload xEssentials in order to fix this problem");
 					}
 				} else {
 					getWarning(WarningType.PLAYER_ONLY);

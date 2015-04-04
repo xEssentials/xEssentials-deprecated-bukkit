@@ -85,12 +85,12 @@ public class CmdTpId extends CommandTemplate {
 											Modreq mod = xp.getModreq(id);
 											Location loc = mod.getModreqLocation();
 											p.teleport(loc, TeleportCause.COMMAND);
-											sendMessage(ChatColor.GREEN + "teleporting to " + args[0] + " his modreq with id: " + id);
+											sendMessage("teleporting to " + args[0] + " his modreq with id: " + id);
 										} else {
-											sendMessage(ChatColor.RED + "not a valid modreq id!");
+											sendMessage("not a valid modreq id!");
 										}
 									} else {
-										sendMessage(ChatColor.RED + "the second argument needs to be a number!");
+										sendMessage("the second argument needs to be a number!");
 									}
 								}
 							} else {
@@ -102,17 +102,17 @@ public class CmdTpId extends CommandTemplate {
 											Modreq mod = off.getModreq(id);
 											Location loc = mod.getModreqLocation();
 											p.teleport(loc, TeleportCause.COMMAND);
-											sendMessage(ChatColor.GREEN + "teleporting to " + args[0] + " his modreq with id: " + id);
+											sendMessage("teleporting to " + args[0] + " his modreq with id: " + id);
 										} else {
-											sendMessage(ChatColor.RED + "not a valid modreq id!");
+											sendMessage("not a valid modreq id!");
 										}
 									} else {
-										sendMessage(ChatColor.RED + "the second argument needs to be a number!");
+										sendMessage("the second argument needs to be a number!");
 									}
 								}
 							}
 						} else {
-							sendMessage(ChatColor.RED + "this player has never played before!");
+							sendMessage("this player has never played before!");
 						}
 					} else {
 						getWarning(WarningType.PLAYER_ONLY);

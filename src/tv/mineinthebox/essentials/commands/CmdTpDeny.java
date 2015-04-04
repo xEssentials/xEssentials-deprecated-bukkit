@@ -1,6 +1,5 @@
 package tv.mineinthebox.essentials.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -24,12 +23,12 @@ public class CmdTpDeny extends CommandTemplate {
 				if(pl.getManagers().getTpaManager().containsKey(sender.getName())) {
 					Player requester = pl.getManagers().getPlayerManager().getOfflinePlayer(pl.getManagers().getTpaManager().get(sender.getName())).getBukkitPlayer();
 					if(requester instanceof Player) {
-						sendMessageTo(requester, ChatColor.RED + sender.getName() + " has denied your tpa request!");
+						sendMessageTo(requester, sender.getName() + " has denied your tpa request!");
 					}
-					sendMessage(ChatColor.GREEN + "successfully denied " + pl.getManagers().getTpaManager().get(sender.getName()) + " his request!");
+					sendMessage("successfully denied " + pl.getManagers().getTpaManager().get(sender.getName()) + " his request!");
 					pl.getManagers().getTpaManager().remove(sender.getName());
 				} else {
-					sendMessage(ChatColor.RED + "you don't have any tpa requests open!");
+					sendMessage("you don't have any tpa requests open!");
 				}
 			} else {
 				getWarning(WarningType.NO_PERMISSION);

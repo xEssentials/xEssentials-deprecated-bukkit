@@ -27,36 +27,36 @@ public class CmdSethome extends CommandTemplate {
 						if(pl.getManagers().getPlayerManager().isOnline(sender.getName())) {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 							xp.setHome("default");
-							sendMessage(ChatColor.GREEN + "successfully set default home ;-)");
+							sendMessage("successfully set default home ;-)");
 						} else {
-							sendMessage(ChatColor.RED + "something went wrong, please relog");
+							sendMessage("something went wrong, please relog");
 						}
 					} else if(args.length == 1) {
 						if(args[0].equalsIgnoreCase("help")) {
 							showHelp();
 						} else if(args[0].equalsIgnoreCase("list")) {
-							sendMessage(ChatColor.RED + "you cannot use this name!");
+							sendMessage("you cannot use this name!");
 						} else if(args[0].equalsIgnoreCase("delete")) {
-							sendMessage(ChatColor.RED + "you cannot use this name!");
+							sendMessage("you cannot use this name!");
 						} else if(args[0].equalsIgnoreCase("remove")) {
-							sendMessage(ChatColor.RED + "you cannot use this name!");
+							sendMessage("you cannot use this name!");
 						} else if(args[0].equalsIgnoreCase("default")) {
-							sendMessage(ChatColor.RED + "you cannot use this name!, use /sethome instead");
+							sendMessage("you cannot use this name!, use /sethome instead");
 						} else {
 							if(sender.hasPermission(PermissionKey.MULTIPLE_HOMES.getPermission()) || pl.getConfiguration().getPlayerConfig().canUseMoreHomes()) {
 								if(!pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
 									XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 									if(xp.isStaff()) {
 										xp.setHome(args[0]);
-										sendMessage(ChatColor.GREEN + "you successfully set your new custom home!");
+										sendMessage("you successfully set your new custom home!");
 									} else if(!(xp.getAmountOfHomes() > (pl.getConfiguration().getPlayerConfig().getMaxHomesAllowed())-1)) {
 										xp.setHome(args[0]);
-										sendMessage(ChatColor.GREEN + "you successfully set your new custom home!");
+										sendMessage("you successfully set your new custom home!");
 									} else {
-										sendMessage(ChatColor.RED + "you reached above the limit to set homes!");
+										sendMessage("you reached above the limit to set homes!");
 									}
 								} else {
-									sendMessage(ChatColor.RED + "you cannot set a home on a players name!");
+									sendMessage("you cannot set a home on a players name!");
 								}
 							} else {
 								getWarning(WarningType.NO_PERMISSION);

@@ -26,7 +26,7 @@ public class CmdCmodify extends CommandTemplate {
 				if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
 					XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 					pl.getManagers().getProtectionDBManager().addSession(sender.getName(), off, ProtectionType.MODIFY);
-					sendMessage(ChatColor.GREEN + "right click on a block to change permissions");
+					sendMessage("right click on a block to change permissions");
 				} else {
 					getWarning(WarningType.NEVER_PLAYED_BEFORE);
 				}

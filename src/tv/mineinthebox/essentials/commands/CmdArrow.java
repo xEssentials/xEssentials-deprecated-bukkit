@@ -2,7 +2,6 @@ package tv.mineinthebox.essentials.commands;
 
 import java.util.Random;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -35,11 +34,11 @@ public class CmdArrow extends CommandTemplate {
 					for(Entity entity : p.getNearbyEntities(20, 20, 20)) {
 						if(entity instanceof Player) {
 							Player p1 = (Player) entity;
-							sendMessageTo(p1, ChatColor.GRAY + sender.getName() + " used a arrow machine gun uopen them all >:) !");
+							sendMessageTo(p1, sender.getName() + " used a arrow machine gun uopen them all >:) !");
 						}
 					}
 					
-					sendMessage(ChatColor.GRAY + sender.getName() + " used a arrow machine gun uopen them all >:) !");
+					sendMessage(sender.getName() + " used a arrow machine gun uopen them all >:) !");
 					
 					for(int i = 0; i < loops; i++) {
 						int x = rand.nextInt(range);

@@ -1,7 +1,6 @@
 package tv.mineinthebox.essentials.commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -24,7 +23,7 @@ public class CmdFire extends CommandTemplate {
 					if(sender instanceof Player) {
 						Player p = (Player) sender;
 						p.setFireTicks(100);
-						sendMessage(ChatColor.GREEN + "you have ignited yourself.");
+						sendMessage("you have ignited yourself.");
 					} else {
 						getWarning(WarningType.PLAYER_ONLY);
 					}
@@ -32,9 +31,9 @@ public class CmdFire extends CommandTemplate {
 					Player p = Bukkit.getPlayer(args[0]);
 					if(p instanceof Player) {
 						p.setFireTicks(100);
-						sendMessage(ChatColor.GREEN + "you have ignited " + p.getName());
+						sendMessage("you have ignited " + p.getName());
 					} else {
-						sender.sendMessage(ChatColor.RED + "player is not online");
+						sendMessage("player is not online");
 					}
 				}
 			} else {

@@ -32,12 +32,12 @@ public class CmdVanish extends CommandTemplate {
 						if(xp.isVanished()) {
 							xp.unvanish();
 							xp.setNoPickUp(false);
-							sendMessage(ChatColor.GREEN + "you are successfully unvanished ;-)");
+							sendMessage("you are successfully unvanished ;-)");
 							Bukkit.getPluginManager().callEvent(new VanishChangeEvent(p, xp));
 						} else {
 							xp.vanish();
 							xp.setNoPickUp(true);
-							sendMessage(ChatColor.GREEN + "you are successfully vanished ;-)");
+							sendMessage("you are successfully vanished ;-)");
 							Bukkit.getPluginManager().callEvent(new VanishChangeEvent(p, xp));
 						}
 					} else if(args.length == 1) {
@@ -47,21 +47,21 @@ public class CmdVanish extends CommandTemplate {
 							if(xp.isVanished()) {
 								if(xp.isNoPickUpEnabled()) {
 									xp.setNoPickUp(false);
-									sendMessage(ChatColor.GREEN + "successfully disabled nopickup, you can now pickup items and interact with chests");
+									sendMessage("successfully disabled nopickup, you can now pickup items and interact with chests");
 								} else {
 									xp.setNoPickUp(true);
-									sendMessage(ChatColor.GREEN + "successfully enabled nopickup, you can now not pickup items and interact with chests");
+									sendMessage("successfully enabled nopickup, you can now not pickup items and interact with chests");
 								}
 							} else {
-								sendMessage(ChatColor.RED + "you can only use this option while being vanished!");
+								sendMessage("you can only use this option while being vanished!");
 							}
 						} else if(args[0].equalsIgnoreCase("effect")) {
 							if(xp.hasVanishEffects()) {
 								xp.setVanishEffects(false);
-								sendMessage(ChatColor.GREEN + "successfully disabled vanish effects for yourself");
+								sendMessage("successfully disabled vanish effects for yourself");
 							} else {
 								xp.setVanishEffects(true);
-								sendMessage(ChatColor.GREEN + "successfully enabled vanish effects for yourself");
+								sendMessage("successfully enabled vanish effects for yourself");
 							}
 						} else if(args[0].equalsIgnoreCase("fj") || args[0].equalsIgnoreCase("fakejoin")) {
 							if(xp.isVanished()) {
@@ -70,7 +70,7 @@ public class CmdVanish extends CommandTemplate {
 									Bukkit.broadcastMessage(pl.getManagers().getWorldGuardManager().sendJoinMessage(xp.getBukkitPlayer()));
 								} else {
 									if(xp.isStaff()) {
-										if(xp.getBukkitPlayer().getName().equalsIgnoreCase("Xeph0re")) {
+										if(xp.getUniqueId().equalsIgnoreCase("1f23499f-a759-4dfb-b3e1-d3eceb591cac0")) {
 											Bukkit.broadcastMessage(ChatColor.GRAY + "Developer of xEssentials " + ChatColor.GREEN + xp.getBukkitPlayer().getName() + ChatColor.GRAY + " has joined the game!");
 										} else {
 											Bukkit.broadcastMessage(ChatColor.GRAY + "Staff member " + ChatColor.GREEN + xp.getBukkitPlayer().getName() + ChatColor.GRAY + " has joined the game!");	
@@ -80,7 +80,7 @@ public class CmdVanish extends CommandTemplate {
 									}
 								}
 							} else {
-								sendMessage(ChatColor.RED + "you can't fake join a server when you are already unvanished!");
+								sendMessage("you can't fake join a server when you are already unvanished!");
 							}
 						} else if(args[0].equalsIgnoreCase("fq") || args[0].equalsIgnoreCase("fakequit")) {
 							xp.vanish();
@@ -88,7 +88,7 @@ public class CmdVanish extends CommandTemplate {
 								Bukkit.broadcastMessage(pl.getManagers().getWorldGuardManager().sendQuitMessage(xp.getBukkitPlayer()));
 							} else {
 								if(xp.isStaff()) {
-									if(xp.getBukkitPlayer().getName().equalsIgnoreCase("Xeph0re")) {
+									if(xp.getUniqueId().equalsIgnoreCase("1f23499f-a759-4dfb-b3e1-d3eceb591cac0")) {
 										Bukkit.broadcastMessage(ChatColor.GRAY + "Developer of xEssentials " + ChatColor.GREEN + xp.getBukkitPlayer().getName() + ChatColor.GRAY + " has left the game!");
 									} else {
 										Bukkit.broadcastMessage(ChatColor.GRAY + "Staff member " + ChatColor.GREEN + xp.getBukkitPlayer().getName() + ChatColor.GRAY + " has left the game!");	

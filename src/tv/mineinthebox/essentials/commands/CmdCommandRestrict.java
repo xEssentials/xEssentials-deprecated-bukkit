@@ -39,7 +39,7 @@ public class CmdCommandRestrict extends CommandTemplate {
 								sender.sendMessage(ChatColor.GREEN +""+ i + ChatColor.GRAY + ": " + off.getCommandRestrictions().get(i).getCommand());
 							}
 						} else {
-							sendMessage(ChatColor.RED + off.getName() + " doesn't have any command restrictions!");
+							sendMessage(off.getName() + " doesn't have any command restrictions!");
 						}
 					} else {
 						createRestriction(args, sender);
@@ -53,12 +53,12 @@ public class CmdCommandRestrict extends CommandTemplate {
 									XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 									RestrictedCommand restriction = off.getCommandRestrictions().get(i);
 									off.removeCommandRestriction(restriction);
-									sendMessage(ChatColor.GREEN + "you have successfully removed the command restriction of player " + off.getName());
+									sendMessage("you have successfully removed the command restriction of player " + off.getName());
 								} catch(IndexOutOfBoundsException e) {
-									sendMessage(ChatColor.RED + "this id does not exist!");
+									sendMessage("this id does not exist!");
 								}
 							} else {
-								sendMessage(ChatColor.RED + "the third argument is not a number!");
+								sendMessage("the third argument is not a number!");
 							}
 						} else {
 							getWarning(WarningType.NEVER_PLAYED_BEFORE);
@@ -88,12 +88,12 @@ public class CmdCommandRestrict extends CommandTemplate {
 					XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(playername);
 					if(!off.hasContainedRestriction(restrictedCommand)) {
 						off.setCommandRestriction(restrictedCommand, message, null);
-						sendMessage(ChatColor.GREEN + "you have successfully set the restricted command for player " + off.getName());
+						sendMessage("you have successfully set the restricted command for player " + off.getName());
 					} else {
-						sendMessage(ChatColor.RED + "this player has already this command restricted!");
+						sendMessage("this player has already this command restricted!");
 					}
 				} else {
-					sendMessage(ChatColor.RED + "this player has never played before!");
+					sendMessage("this player has never played before!");
 				}
 			} else if(split.length == 4) {
 				String playername = split[0];
@@ -104,18 +104,18 @@ public class CmdCommandRestrict extends CommandTemplate {
 					XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(playername);
 					if(!off.hasContainedRestriction(restrictedCommand)) {
 						off.setCommandRestriction(restrictedCommand, message, taskcommand);
-						sendMessage(ChatColor.GREEN + "you have successfully set the restricted command for player " + off.getName());
+						sendMessage("you have successfully set the restricted command for player " + off.getName());
 					} else {
-						sendMessage(ChatColor.RED + "this player has already this command restricted!");
+						sendMessage("this player has already this command restricted!");
 					}
 				} else {
-					sendMessage(ChatColor.RED + "this player has never played before!");
+					sendMessage("this player has never played before!");
 				}
 			} else {
-				sendMessage(ChatColor.RED + "invalid arguments!");
+				sendMessage("invalid arguments!");
 			}
 		} else {
-			sendMessage(ChatColor.RED + "we don't know much about these arguments!");
+			sendMessage("we don't know much about these arguments!");
 		}
 	}
 

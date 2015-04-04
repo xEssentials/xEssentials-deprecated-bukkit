@@ -3,7 +3,6 @@ package tv.mineinthebox.essentials.commands;
 import java.io.File;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -45,12 +44,12 @@ public class CmdSpawn extends CommandTemplate {
 								if(w instanceof World) {
 									Location loc = new Location(w, x, y, z, yaw, p.getLocation().getPitch());
 									p.teleport(loc, TeleportCause.COMMAND);
-									sendMessage(ChatColor.GREEN + "teleporting to spawn ;-)");
+									sendMessage("teleporting to spawn ;-)");
 								} else {
-									sendMessage(ChatColor.RED + "the world does not exists for the spawn!");
+									sendMessage("the world does not exists for the spawn!");
 								}
 							} else {
-								sendMessage(ChatColor.RED + "warning the spawn is not set");
+								sendMessage("warning the spawn is not set");
 							}
 						} catch(Exception e) {
 							e.printStackTrace();
@@ -78,19 +77,19 @@ public class CmdSpawn extends CommandTemplate {
 								if(w instanceof World) {
 									Location loc = new Location(w, x, y, z, yaw, victem.getLocation().getPitch());
 									victem.teleport(loc, TeleportCause.COMMAND);
-									sendMessageTo(victem, ChatColor.GREEN + sender.getName() +  " teleported you to spawn ;-)");
-									sendMessage(ChatColor.GREEN + "successfully teleported " + victem.getName() + " to spawn ;-)");
+									sendMessageTo(victem, sender.getName() +  " teleported you to spawn ;-)");
+									sendMessage("successfully teleported " + victem.getName() + " to spawn ;-)");
 								} else {
-									sendMessage(ChatColor.RED + "the world does not exists for the spawn!");
+									sendMessage("the world does not exists for the spawn!");
 								}
 							} else {
-								sendMessage(ChatColor.RED + "warning the spawn is not set");
+								sendMessage("warning the spawn is not set");
 							}
 						} catch(Exception e) {
 							e.printStackTrace();
 						}
 					} else {
-						sendMessage(ChatColor.RED + "this player is not online!");
+						sendMessage("this player is not online!");
 					}
 				} else {
 					getWarning(WarningType.NO_PERMISSION);

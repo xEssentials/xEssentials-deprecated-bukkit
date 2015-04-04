@@ -44,7 +44,7 @@ public class CmdOpkit extends CommandTemplate {
 			if(sender.hasPermission(PermissionKey.CMD_OPKIT.getPermission())) {
 				if(sender instanceof Player) {
 					Player p = (Player) sender;
-					sendMessage(ChatColor.GRAY + "opening opkit selector!");
+					sendMessage("opening opkit selector!");
 					p.playSound(p.getLocation(), Sound.CHEST_OPEN, 1F, 1F);
 					p.openInventory(inv);
 				} else {

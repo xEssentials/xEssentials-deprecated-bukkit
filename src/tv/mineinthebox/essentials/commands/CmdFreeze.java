@@ -50,7 +50,7 @@ public class CmdFreeze extends CommandTemplate {
 					showHelp();
 				} else if(args.length == 1) {
 					if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-						sendMessage(ChatColor.RED + "player is not online!");
+						sendMessage("player is not online!");
 					} else {
 						getWarning(WarningType.NEVER_PLAYED_BEFORE);
 					}

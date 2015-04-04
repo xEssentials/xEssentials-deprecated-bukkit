@@ -80,7 +80,7 @@ public class CmdPortals extends CommandTemplate {
 							sender.sendMessage(ChatColor.GOLD + ".oO___[portal list]____Oo.");
 							sender.sendMessage(build.toString());
 						} else {
-							sendMessage(ChatColor.RED + "no portals where found!");
+							sendMessage("no portals where found!");
 						}
 					}
 				} else if(args.length == 2) {
@@ -89,17 +89,17 @@ public class CmdPortals extends CommandTemplate {
 						if(!f.exists()) {
 							Player p = (Player) sender;
 							p.setMetadata("portal", new FixedMetadataValue(pl, args[1]));
-							sendMessage(ChatColor.GREEN + "now right click a block to set your first pos!");
+							sendMessage("now right click a block to set your first pos!");
 						} else {
-							sendMessage(ChatColor.RED + "this portal name does already exist!");
+							sendMessage("this portal name does already exist!");
 						}
 					} else if(args[0].equalsIgnoreCase("remove")) {
 						try {
 							Portal portal = pl.getConfiguration().getPortalConfig().getPortal(args[1]);
 							portal.remove();
-							sendMessage(ChatColor.GREEN + "you have successfully removed portal " + args[1]);
+							sendMessage("you have successfully removed portal " + args[1]);
 						} catch(Exception e) {
-							sendMessage(ChatColor.RED + "this portal does not exist!");
+							sendMessage("this portal does not exist!");
 						}
 					} else if(args[0].equalsIgnoreCase("teleport")) {
 						World w = Bukkit.getWorld(args[1]);
@@ -107,12 +107,12 @@ public class CmdPortals extends CommandTemplate {
 							if(sender instanceof Player) {
 								Player p = (Player) sender;
 								p.teleport(w.getSpawnLocation());
-								sendMessage(ChatColor.GREEN + "teleported to spawn location of the world " + w.getName());
+								sendMessage("teleported to spawn location of the world " + w.getName());
 							} else {
 								getWarning(WarningType.PLAYER_ONLY);
 							}
 						} else {
-							sendMessage(ChatColor.RED + "world is not loaded.");
+							sendMessage("world is not loaded.");
 						}
 					}
 				} else if(args.length == 3) {
@@ -121,9 +121,9 @@ public class CmdPortals extends CommandTemplate {
 							Portal portal1 = pl.getConfiguration().getPortalConfig().getPortal(args[1]);
 							Portal portal2 = pl.getConfiguration().getPortalConfig().getPortal(args[2]);
 							portal1.linkPortal(portal2.getPortalName(), true);
-							sendMessage(ChatColor.GREEN + "you have successfully linked portal " + portal1.getPortalName() + " to " + portal2.getPortalName());
+							sendMessage("you have successfully linked portal " + portal1.getPortalName() + " to " + portal2.getPortalName());
 						} catch(Exception e) {
-							sendMessage(ChatColor.RED + "one of the portals has a invalid name!");
+							sendMessage("one of the portals has a invalid name!");
 						}
 					}
 				}

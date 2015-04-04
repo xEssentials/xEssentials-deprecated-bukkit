@@ -2,7 +2,6 @@ package tv.mineinthebox.essentials.commands;
 
 import java.util.HashSet;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
@@ -34,7 +33,7 @@ public class CmdTrollBlock extends CommandTemplate {
 					Block block = p.getTargetBlock((HashSet<Byte>)null, 15);
 					TrollBlock tblock = new TrollBlock(p.getTargetBlock((HashSet<Byte>)null, 15), item, p, pl);
 					tblock.startTroll();
-					sendMessage(ChatColor.GREEN + block.getType().name().toLowerCase().replace("_", "") + " is now a troll block!");
+					sendMessage(block.getType().name().toLowerCase().replace("_", "") + " is now a troll block!");
 				} else {
 					getWarning(WarningType.PLAYER_ONLY);
 				}

@@ -1,7 +1,5 @@
 package tv.mineinthebox.essentials.commands;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -36,18 +34,18 @@ public class CmdBoom extends CommandTemplate {
 						}
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(boom.getName());
 						xp.setBoom();
-						sendMessage(ChatColor.GREEN + "You are boomed!");
-						Bukkit.broadcastMessage(ChatColor.GRAY + "The player " + ChatColor.GREEN +  args[0] + ChatColor.GRAY + " has been boomed by " + ChatColor.GREEN + sender.getName());
+						sendMessage("You are boomed!");
+						broadcast("The player " + args[0] + " has been boomed by " + sender.getName());
 						Location loc = boom.getPlayer().getLocation();
 						loc.setY(loc.getY() + 100);
 						int speed = 10;
 						Vector vector = loc.toVector().subtract(boom.getLocation().toVector()).normalize();
 						boom.setVelocity(vector.multiply(speed));
 					} else {
-						sendMessage(ChatColor.RED + "This player is not online");
+						sendMessage("This player is not online");
 					}
 				} else {
-					sendMessage(ChatColor.GREEN + "Syntax: /boom <player> - explodes a player high in the sky.");
+					sendMessage("Syntax: /boom <player> - explodes a player high in the sky.");
 				}
 			}
 		} else {

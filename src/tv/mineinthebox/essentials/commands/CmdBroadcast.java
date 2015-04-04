@@ -45,7 +45,7 @@ public class CmdBroadcast extends CommandTemplate {
 							con.set("broadcast.enable", false);
 							con.save(f);
 							pl.getConfiguration().reload();
-							sendMessage(ChatColor.GREEN + "successfully disabled broadcast!");
+							sendMessage("successfully disabled broadcast!");
 						} catch(Exception e) {
 							e.printStackTrace();
 						}
@@ -56,7 +56,7 @@ public class CmdBroadcast extends CommandTemplate {
 							con.set("broadcast.enable", true);
 							con.save(f);
 							pl.getConfiguration().reload();
-							sendMessage(ChatColor.GREEN + "successfully enabled broadcast!");
+							sendMessage("successfully enabled broadcast!");
 						} catch(Exception e) {
 							e.printStackTrace();
 						}
@@ -77,14 +77,14 @@ public class CmdBroadcast extends CommandTemplate {
 								con.set("broadcast.messages", list);
 								con.save(f);
 								pl.getConfiguration().reload();
-								sendMessage(ChatColor.GREEN + "you have successfully removed broadcast id: " + id);
+								sendMessage("you have successfully removed broadcast id: " + id);
 							} catch(Exception e) {
 								e.printStackTrace();
 							}
 						} catch(NumberFormatException e) {
-							sendMessage(ChatColor.RED + args[1] + " needs to be a number!");
+							sendMessage(args[1] + " needs to be a number!");
 						} catch(IndexOutOfBoundsException e) {
-							sendMessage(ChatColor.RED + "id does not exist!");
+							sendMessage("id does not exist!");
 						}
 					}
 				} else if(args.length > 2) {
@@ -101,7 +101,7 @@ public class CmdBroadcast extends CommandTemplate {
 							con.set("broadcast.messages", list);
 							con.save(f);
 							pl.getConfiguration().reload();
-							sendMessage(ChatColor.GREEN + "you have successfully added the new broadcast!");
+							sendMessage("you have successfully added the new broadcast!");
 						} catch(Exception e) {
 							e.printStackTrace();
 						}

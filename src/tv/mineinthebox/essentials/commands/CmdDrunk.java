@@ -1,7 +1,6 @@
 package tv.mineinthebox.essentials.commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -29,10 +28,10 @@ public class CmdDrunk extends CommandTemplate {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.isDrunk()) {
 							xp.setDrunk(false);
-							sendMessage(ChatColor.GREEN + "you have successfully disabled drunk chat");
+							sendMessage("you have successfully disabled drunk chat");
 						} else {
 							xp.setDrunk(true);
-							sendMessage(ChatColor.GREEN + "you have successfully enabled drunk chat");
+							sendMessage("you have successfully enabled drunk chat");
 						}
 					} else {
 						getWarning(WarningType.PLAYER_ONLY);
@@ -43,16 +42,16 @@ public class CmdDrunk extends CommandTemplate {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 						if(xp.isDrunk()) {
 							xp.setDrunk(false);
-							sendMessageTo(p, ChatColor.GREEN + sender.getName() + " has successfully disabled drunk chat on you");
-							sendMessage(ChatColor.GREEN + "you have disabled drunk mode for " + p.getName());
+							sendMessageTo(p, sender.getName() + " has successfully disabled drunk chat on you");
+							sendMessage("you have disabled drunk mode for " + p.getName());
 						} else {
 							xp.setDrunk(true);
-							sendMessageTo(p, ChatColor.GREEN + sender.getName() + " has successfully enabled drunk chat on you");
-							sendMessage(ChatColor.GREEN + "you have enabled drunk mode for " + p.getName());
+							sendMessageTo(p, sender.getName() + " has successfully enabled drunk chat on you");
+							sendMessage("you have enabled drunk mode for " + p.getName());
 						}
 					} else {
 						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
-							sendMessage(ChatColor.RED + "player is offline!");
+							sendMessage("player is offline!");
 						} else {
 							getWarning(WarningType.NEVER_PLAYED_BEFORE);
 						}

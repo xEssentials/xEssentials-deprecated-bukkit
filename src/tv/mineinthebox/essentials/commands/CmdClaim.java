@@ -29,7 +29,7 @@ public class CmdClaim extends CommandTemplate {
 					if(args[0].equalsIgnoreCase("help")) {
 						showHelp();
 					} else {
-						sendMessage(ChatColor.RED + "you forgot to use the tickets ID as second argument");
+						sendMessage("you forgot to use the tickets ID as second argument");
 					}
 				} else {
 					if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
@@ -40,19 +40,19 @@ public class CmdClaim extends CommandTemplate {
 								if(xp.isValidModreqId(id)) {
 									Modreq mod = xp.getModreq(id);
 									Player p = xp.getBukkitPlayer();
-									sendMessageTo(p, sender.getName() + " has claimed your modreq with id: "+ChatColor.GREEN + mod.getId());
-									sendMessage("successfully claimed modreq of player " + p.getName() + " with id: " + ChatColor.GREEN + mod.getId());
+									sendMessageTo(p, sender.getName() + " has claimed your modreq with id: "+ mod.getId());
+									sendMessage("successfully claimed modreq of player " + p.getName() + " with id: " + mod.getId());
 								} else {
-									sendMessage(ChatColor.RED + "this is a invalid modreq id");
+									sendMessage("this is a invalid modreq id");
 								}
 							} catch(NumberFormatException e) {
-								sendMessage(ChatColor.RED + "second argument need to be a number only!");
+								sendMessage("second argument need to be a number only!");
 							}
 						} else {
-							sendMessage(ChatColor.RED + "could not claim any modreq ticket");
+							sendMessage("could not claim any modreq ticket");
 						}
 					} else {
-						sendMessage(ChatColor.RED + "could not claim a ticket when a player is offline!");
+						sendMessage("could not claim a ticket when a player is offline!");
 					}
 				}
 			} else {

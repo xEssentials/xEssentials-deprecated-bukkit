@@ -25,17 +25,17 @@ public class CmdSetWarp extends CommandTemplate {
 					showHelp();
 				} else if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("help")) {
-						sendMessage(ChatColor.RED + "you cannot make a warp named help.");
+						sendMessage("you cannot make a warp named help.");
 					} else if(!pl.getManagers().getWarpManager().isWarp(args[0])) {
 						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(sender.getName())) {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 							pl.getManagers().getWarpManager().setWarp(args[0], xp.getBukkitPlayer(), xp.getBukkitPlayer().getLocation());
-							sendMessage(ChatColor.GREEN + "you successfully saved your warp!");
+							sendMessage("you successfully saved your warp!");
 						} else {
 							getWarning(WarningType.PLAYER_ONLY);
 						}
 					} else {
-						sendMessage(ChatColor.RED + "you cannot set this warp, this warp already exist!");
+						sendMessage("you cannot set this warp, this warp already exist!");
 					}
 				}
 			} else {

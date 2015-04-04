@@ -1,6 +1,5 @@
 package tv.mineinthebox.essentials.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -30,10 +29,10 @@ public class CmdTrollMode extends CommandTemplate {
 							p.eject();
 						}
 						xp.setTrollMode(false);
-						sendMessage(ChatColor.GREEN + "you have disabled troll mode!");
+						sendMessage("you have disabled troll mode!");
 					} else {
 						xp.setTrollMode(true);
-						sendMessage(ChatColor.GREEN + "you have enabled troll mode!");
+						sendMessage("you have enabled troll mode!");
 					}
 				} else {
 					getWarning(WarningType.PLAYER_ONLY);

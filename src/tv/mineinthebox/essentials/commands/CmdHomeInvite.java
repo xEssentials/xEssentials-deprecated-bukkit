@@ -36,28 +36,28 @@ public class CmdHomeInvite extends CommandTemplate {
 							if(pl.getManagers().getHomeInviteManager().containsKey(sender.getName())) {
 								Player p = (Player) sender;
 								Home home = pl.getManagers().getHomeInviteManager().getRequestedHome(sender.getName());
-								sendMessage(ChatColor.GREEN + "you have accepted " + ChatColor.GRAY + pl.getManagers().getHomeInviteManager().get(sender.getName()).getName() + ChatColor.GREEN + " his home request!");
+								sendMessage("you have accepted " + pl.getManagers().getHomeInviteManager().get(sender.getName()).getName() + " his home request!");
 								p.teleport(home.getLocation(), TeleportCause.COMMAND);
 								XOfflinePlayer off = pl.getManagers().getHomeInviteManager().get(sender.getName());
 								if(off.getBukkitPlayer() instanceof Player) {
-									sendMessageTo(off.getBukkitPlayer(), ChatColor.GRAY + sender.getName() + ChatColor.GREEN + " has accepted your home request");
+									sendMessageTo(off.getBukkitPlayer(), sender.getName() + " has accepted your home request");
 								}
 								pl.getManagers().getHomeInviteManager().remove(sender.getName());
 								pl.getManagers().getHomeInviteManager().removeRequestedHome(sender.getName());
 							} else {
-								sendMessage(ChatColor.RED + "you don't have home requests open!");
+								sendMessage("you don't have home requests open!");
 							}
 						} else if(args[0].equalsIgnoreCase("deny")) {
 							if(pl.getManagers().getHomeInviteManager().containsKey(sender.getName())) {
 								XOfflinePlayer off = pl.getManagers().getHomeInviteManager().get(sender.getName());
 								if(off.getBukkitPlayer() instanceof Player) {
-									sendMessageTo(off.getBukkitPlayer(), ChatColor.RED + "your invite has been canceled by " + ChatColor.GRAY + sender.getName());
+									sendMessageTo(off.getBukkitPlayer(), "your invite has been canceled by " + sender.getName());
 								}
-								sendMessage(ChatColor.GREEN + "successfully canceled home invite for player " + ChatColor.GRAY + off.getName());
+								sendMessage("successfully canceled home invite for player " + off.getName());
 								pl.getManagers().getHomeInviteManager().remove(sender.getName());
 								pl.getManagers().getHomeInviteManager().removeRequestedHome(sender.getName());
 							} else {
-								sendMessage(ChatColor.RED + "you don't have home requests open!");
+								sendMessage("you don't have home requests open!");
 							}
 						} else {
 							if(!pl.getManagers().getHomeInviteManager().containsKey(args[0])) {
@@ -67,27 +67,27 @@ public class CmdHomeInvite extends CommandTemplate {
 									if(victem instanceof Player) {
 										XPlayer xpp = pl.getManagers().getPlayerManager().getPlayer(victem.getName());
 										if(xpp.isVanished()) {
-											sendMessage(ChatColor.RED + "player is not online!");
+											sendMessage("player is not online!");
 											return false;
 										}
 										pl.getManagers().getHomeInviteManager().put(victem.getName(), xp);
 										if(pl.getManagers().getHomeInviteManager().setRequestedHome(victem.getName(), "default")) {
 											delayed(victem.getName(), xp.getName());
-											sendMessage(ChatColor.GREEN + "you successfully sended a home request to " + ChatColor.GRAY + victem.getName());
-											sendMessageTo(victem, ChatColor.GRAY + sender.getName() + ChatColor.GREEN + " has invited you to his default home type:");
-											sendMessageTo(victem, ChatColor.GREEN + "/hi accept - you get teleported to his home");
-											sendMessageTo(victem, ChatColor.GREEN + "/hi deny - you don't get teleported to his home");
+											sendMessage("you successfully sended a home request to " + victem.getName());
+											sendMessageTo(victem, sender.getName() + " has invited you to his default home type:");
+											sendMessageTo(victem, "/hi accept - you get teleported to his home");
+											sendMessageTo(victem, "/hi deny - you don't get teleported to his home");
 										} else {
-											sendMessage(ChatColor.RED + "you don't have set any home!");
+											sendMessage("you don't have set any home!");
 										}
 									} else {
-										sendMessage(ChatColor.RED + "player is not online!");
+										sendMessage("player is not online!");
 									}
 								} else {
-									sendMessage(ChatColor.RED + "you don't have any homes set!");
+									sendMessage("you don't have any homes set!");
 								}
 							} else {
-								sendMessage(ChatColor.RED + "you cannot invite this player when he already is invited by you!");
+								sendMessage("you cannot invite this player when he already is invited by you!");
 							}
 						}
 					} else if(args.length == 2) {
@@ -98,27 +98,27 @@ public class CmdHomeInvite extends CommandTemplate {
 								if(victem instanceof Player) {
 									XPlayer xpp = pl.getManagers().getPlayerManager().getPlayer(victem.getName());
 									if(xpp.isVanished()) {
-										sendMessage(ChatColor.RED + "player is not online!");
+										sendMessage("player is not online!");
 										return false;
 									}
 									pl.getManagers().getHomeInviteManager().put(victem.getName(), xp);
 									if(pl.getManagers().getHomeInviteManager().setRequestedHome(victem.getName(), args[1])) {
 										delayed(victem.getName(), xp.getName());
-										sendMessage(ChatColor.GREEN + "you successfully sended a home request to " + ChatColor.GRAY + victem.getName());
-										sendMessageTo(victem, ChatColor.GRAY + sender.getName() + ChatColor.GREEN + " has invited you to his default home type:");
-										sendMessageTo(victem, ChatColor.GREEN + "/hi accept - you get teleported to his home");
-										sendMessageTo(victem, ChatColor.GREEN + "/hi deny - you don't get teleported to his home");
+										sendMessage("you successfully sended a home request to " + victem.getName());
+										sendMessageTo(victem, sender.getName() + " has invited you to his default home type:");
+										sendMessageTo(victem, "/hi accept - you get teleported to his home");
+										sendMessageTo(victem, "/hi deny - you don't get teleported to his home");
 									} else {
-										sendMessage(ChatColor.RED + "you don't have set any home!");
+										sendMessage("you don't have set any home!");
 									}
 								} else {
-									sendMessage(ChatColor.RED + "player is not online!");
+									sendMessage("player is not online!");
 								}
 							} else {
-								sendMessage(ChatColor.RED + "you don't have any homes set!");
+								sendMessage("you don't have any homes set!");
 							}
 						} else {
-							sendMessage(ChatColor.RED + "you cannot invite this player when he already is invited by you!");
+							sendMessage("you cannot invite this player when he already is invited by you!");
 						}
 					}
 				} else {
@@ -140,10 +140,10 @@ public class CmdHomeInvite extends CommandTemplate {
 					Player rp = pl.getManagers().getPlayerManager().getOfflinePlayer(victem).getBukkitPlayer();
 					Player vp = pl.getManagers().getPlayerManager().getOfflinePlayer(requester).getBukkitPlayer();
 					if(rp instanceof Player) {
-						sendMessageTo(rp, ChatColor.GRAY + requester + ChatColor.RED + " has not accepted your home request, over time.");
+						sendMessageTo(rp, requester + " has not accepted your home request, over time.");
 					}
 					if(vp instanceof Player) {
-						sendMessageTo(vp, ChatColor.GRAY + victem + ChatColor.GREEN + " his home invite has been over time and canceled out.");
+						sendMessageTo(vp, victem + " his home invite has been over time and canceled out.");
 					}
 					pl.getManagers().getHomeInviteManager().remove(requester);
 					pl.getManagers().getHomeInviteManager().removeRequestedHome(requester);

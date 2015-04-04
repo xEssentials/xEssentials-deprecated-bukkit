@@ -1,6 +1,5 @@
 package tv.mineinthebox.essentials.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -21,7 +20,7 @@ public class CmdHand extends CommandTemplate {
 			if(sender.hasPermission(PermissionKey.CMD_HAND.getPermission())) {
 				if(sender instanceof Player) {
 					Player p = (Player) sender;
-					sendMessage(ChatColor.GRAY + "the item in your hand has a data value of: " + ChatColor.GREEN + p.getItemInHand().getType().getId() + "("+p.getItemInHand().getType().name()+")" + ChatColor.GRAY + " and has a sub data value of: " + ChatColor.GREEN + p.getItemInHand().getDurability());
+					sendMessage("the item in your hand has a data value of: " + p.getItemInHand().getType().getId() + "("+p.getItemInHand().getType().name()+") and has a sub data value of: " + p.getItemInHand().getDurability());
 				} else {
 					getWarning(WarningType.PLAYER_ONLY);
 				}

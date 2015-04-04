@@ -27,12 +27,12 @@ public class CmdGetChunkFile extends CommandTemplate {
 						Chunk chunk = p.getLocation().getChunk();
 						int x = chunk.getX() >> 5; //or do (chunk.getX()/32)
 						int z = chunk.getZ() >> 5; //or do (chunk.getZ()/32)
-						sendMessage(ChatColor.GRAY + "the chunk is called in this file: r." + x + "."+z+".mca in folder " + Bukkit.getWorldContainer().toString() + "/"+p.getWorld().getName());
+						sendMessage("the chunk is called in this file: r." + x + "."+z+".mca in folder " + Bukkit.getWorldContainer().toString() + "/"+p.getWorld().getName());
 					} else if(args.length == 1) {
 						if(args[0].equalsIgnoreCase("help")) {
 							showHelp();
 						} else {
-							sendMessage(ChatColor.RED + "unknown argument!");
+							sendMessage("unknown argument!");
 						}
 					} else if(args.length == 2) {
 						try {
@@ -44,9 +44,9 @@ public class CmdGetChunkFile extends CommandTemplate {
 							int x = chunk.getX() >> 5;
 							int z= chunk.getZ() >> 5;
 							
-							sendMessage(ChatColor.GRAY + "the chunk is called in this file: r." + x + "."+z+".mca in folder " + Bukkit.getWorldContainer().toString() + "/"+p.getWorld().getName());
+							sendMessage("the chunk is called in this file: r." + x + "."+z+".mca in folder " + Bukkit.getWorldContainer().toString() + "/"+p.getWorld().getName());
 						} catch(NumberFormatException e) {
-							sendMessage(ChatColor.RED + "last 2 arguments have to be a number!");
+							sendMessage("last 2 arguments have to be a number!");
 						}
 					}
 				} else {

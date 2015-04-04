@@ -44,10 +44,10 @@ public class CmdGreylist extends CommandTemplate {
 									pl.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), xp.getName(), newGroup);
 									Bukkit.getPluginManager().callEvent(new PlayerGreyListedEvent(xp.getBukkitPlayer(), newGroup, oldGroup, GreyListCause.COMMAND, pl));
 								} else {
-									sendMessage(ChatColor.RED + "no vault installed!");
+									sendMessage("no vault installed!");
 									return false;
 								}
-								sendMessage(ChatColor.GREEN + "you successfully greylisted " + xp.getName());
+								sendMessage("you successfully greylisted " + xp.getName());
 							} else {
 								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 								off.setGreyListed(true);
@@ -57,13 +57,13 @@ public class CmdGreylist extends CommandTemplate {
 									pl.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), off.getName(), newGroup);
 									Bukkit.getPluginManager().callEvent(new OfflinePlayerGreyListedEvent(off.getName(), newGroup, oldGroup, GreyListCause.COMMAND, pl));
 								} else {
-									sendMessage(ChatColor.RED + "no vault installed!");
+									sendMessage("no vault installed!");
 									return false;
 								}
-								sendMessage(ChatColor.GREEN + "you successfully greylisted offline player " + off.getName());
+								sendMessage("you successfully greylisted offline player " + off.getName());
 							}
 						} else {
-							sendMessage(ChatColor.RED + "this player has never played before!");
+							sendMessage("this player has never played before!");
 						}
 					} else if(args[0].equalsIgnoreCase("remove")) {
 						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[1])) {
@@ -74,10 +74,10 @@ public class CmdGreylist extends CommandTemplate {
 									String DefaultGroup = pl.getManagers().getVaultManager().getDefaultGroup();
 									pl.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), xp.getName(), DefaultGroup);
 								} else {
-									sendMessage(ChatColor.RED + "no vault intalled!");
+									sendMessage("no vault intalled!");
 									return false;
 								}
-								sendMessage(ChatColor.GREEN + "you have successfully removed " + xp.getName() + " from the greylist!");
+								sendMessage("you have successfully removed " + xp.getName() + " from the greylist!");
 							} else {
 								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[1]);
 								off.setGreyListed(false);
@@ -85,13 +85,13 @@ public class CmdGreylist extends CommandTemplate {
 									String DefaultGroup = pl.getManagers().getVaultManager().getDefaultGroup();
 									pl.getManagers().getVaultManager().setGroup(Bukkit.getWorlds().get(0), off.getName(), DefaultGroup);
 								} else {
-									sendMessage(ChatColor.RED + "no vault intalled!");
+									sendMessage("no vault intalled!");
 									return false;
 								}
-								sendMessage(ChatColor.GREEN + "you have successfully removed " + off.getName() + " from the greylist!");
+								sendMessage("you have successfully removed " + off.getName() + " from the greylist!");
 							}
 						} else {
-							sendMessage(ChatColor.RED + "this player has never played before!");
+							sendMessage("this player has never played before!");
 						}
 					}
 				}

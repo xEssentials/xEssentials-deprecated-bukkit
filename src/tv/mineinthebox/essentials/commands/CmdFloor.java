@@ -27,10 +27,10 @@ public class CmdFloor extends CommandTemplate {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.isFloorMode()) {
 							xp.setFloorMode(false, xp.getFloorModeRange());
-							sendMessage(ChatColor.GRAY + "floor mode disabled!");
+							sendMessage("floor mode disabled!");
 						} else {
 							xp.setFloorMode(true, 8);
-							sendMessage(ChatColor.GRAY + "floor mode is enabled!");
+							sendMessage("floor mode is enabled!");
 						}
 					} else if(args.length == 1) {
 						if(args[0].equalsIgnoreCase("help")) {
@@ -39,7 +39,7 @@ public class CmdFloor extends CommandTemplate {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 							int range = Integer.parseInt(args[0]);
 							xp.setFloorMode(true, range);
-							sendMessage(ChatColor.GRAY + "floor mode is enabled!");
+							sendMessage("floor mode is enabled!");
 						}
 					}
 				} else {

@@ -32,20 +32,20 @@ public class CmdSpectate extends CommandTemplate {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 							if(xp.isSpectate()) {
 								xp.stopSpectate();
-								sendMessage(ChatColor.GREEN + "successfully stopped spectate.");
+								sendMessage("successfully stopped spectate.");
 							} else {
-								sendMessage(ChatColor.RED + "you never spectated someone!");
+								sendMessage("you never spectated someone!");
 							}
 						} else {
 							Player target = Bukkit.getPlayer(args[0]);
 							if(target instanceof Player) {
 								if(sender.getName().equalsIgnoreCase(target.getName())) {
-									sendMessage(ChatColor.RED + "you cannot spectate yourself!");
+									sendMessage("you cannot spectate yourself!");
 									return false;
 								}
 								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 								xp.spectate(target);
-								sendMessage(ChatColor.GREEN + "successfully spectating player " + target.getName());
+								sendMessage("successfully spectating player " + target.getName());
 							}
 						}
 					}

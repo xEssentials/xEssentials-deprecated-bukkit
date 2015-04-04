@@ -3,7 +3,6 @@ package tv.mineinthebox.essentials.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -53,10 +52,10 @@ public class CmdDoubleJump extends CommandTemplate {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.hasDoubleJump()) {
 							xp.setDoubleJump(false);
-							sendMessage(ChatColor.GREEN + "disabled double jump");
+							sendMessage("disabled double jump");
 						} else {
 							xp.setDoubleJump(true);
-							sendMessage(ChatColor.GREEN + "enabled double jump");
+							sendMessage("enabled double jump");
 						}
 					} else if(args.length == 1) {
 						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
@@ -64,15 +63,15 @@ public class CmdDoubleJump extends CommandTemplate {
 								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 								if(xp.hasDoubleJump()) {
 									xp.setDoubleJump(false);
-									sendMessageTo(xp.getBukkitPlayer(), ChatColor.GREEN + sender.getName() + " has turned off your double jump");
-									sendMessage(ChatColor.GREEN + "disabled double jump on online player " + xp.getName());
+									sendMessageTo(xp.getBukkitPlayer(), sender.getName() + " has turned off your double jump");
+									sendMessage("disabled double jump on online player " + xp.getName());
 								} else {
 									xp.setDoubleJump(false);
-									sendMessageTo(xp.getBukkitPlayer(), ChatColor.GREEN + sender.getName() + " has turned on your double jump");
-									sendMessage(ChatColor.GREEN + "enabled double jump on online player " + xp.getName());
+									sendMessageTo(xp.getBukkitPlayer(), sender.getName() + " has turned on your double jump");
+									sendMessage("enabled double jump on online player " + xp.getName());
 								}
 							} else {
-								sendMessage(ChatColor.RED + "player is offline!");
+								sendMessage("player is offline!");
 							}
 						} else {
 							getWarning(WarningType.NEVER_PLAYED_BEFORE);

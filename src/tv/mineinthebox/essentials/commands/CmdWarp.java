@@ -61,9 +61,9 @@ public class CmdWarp extends CommandTemplate {
 							if(pl.getManagers().getWarpManager().isWarp(args[0])) {
 								Warp warp = pl.getManagers().getWarpManager().getWarp(args[0], (Player)sender);
 								p.teleport(warp.getWarpLocation(), TeleportCause.COMMAND);
-								sendMessage(ChatColor.GREEN + "teleporting to warp " + warp.getWarpName());
+								sendMessage("teleporting to warp " + warp.getWarpName());
 							} else {
-								sendMessage(ChatColor.RED + "warp doesn't exist!");
+								sendMessage("warp doesn't exist!");
 							}
 						} else {
 							getWarning(WarningType.PLAYER_ONLY);
@@ -75,9 +75,9 @@ public class CmdWarp extends CommandTemplate {
 						if(pl.getManagers().getWarpManager().isWarp(args[1])) {
 							Warp warp = pl.getManagers().getWarpManager().getWarp(args[1], (Player)sender);
 							p.teleport(warp.getWarpLocation(), TeleportCause.COMMAND);
-							sendMessageTo(p, ChatColor.GREEN + "teleporting to warp " + warp.getWarpName());
+							sendMessageTo(p, "teleporting to warp " + warp.getWarpName());
 						} else {
-							sendMessage(ChatColor.RED + "warp doesn't exist!");
+							sendMessage("warp doesn't exist!");
 						}
 					} else {
 						getWarning(WarningType.NEVER_PLAYED_BEFORE);

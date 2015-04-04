@@ -1,6 +1,5 @@
 package tv.mineinthebox.essentials.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -27,14 +26,14 @@ public class CmdFly extends CommandTemplate {
 						if(pl.getManagers().getPlayerManager().isOnline(sender.getName())) {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 							if(xp.isFlying()) {
-								sendMessage(ChatColor.GRAY + "successfully disabled fly mode");
+								sendMessage("successfully disabled fly mode");
 								xp.setFlying(false);
 							} else {
-								sendMessage(ChatColor.GRAY + "successfully enabled fly mode");
+								sendMessage("successfully enabled fly mode");
 								xp.setFlying(true);
 							}
 						} else {
-							sendMessage(ChatColor.RED + "something went wrong, please reload pl");
+							sendMessage("something went wrong, please reload pl");
 						}
 					} else {
 						getWarning(WarningType.PLAYER_ONLY);
@@ -45,19 +44,19 @@ public class CmdFly extends CommandTemplate {
 							if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
 								XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 								if(xp.isFlying()) {
-									sendMessage(ChatColor.GRAY + "you successfully disabled fly for player " + xp.getUser());
-									sendMessageTo(xp.getBukkitPlayer(), ChatColor.GRAY + sender.getName() + " disabled your fly mode");
+									sendMessage("you successfully disabled fly for player " + xp.getUser());
+									sendMessageTo(xp.getBukkitPlayer(), sender.getName() + " disabled your fly mode");
 									xp.setFlying(false);
 								} else {
-									sendMessage(ChatColor.GRAY + "you successfully enabled fly for player " + xp.getUser());
-									sendMessageTo(xp.getBukkitPlayer(), ChatColor.GRAY + sender.getName() + " enabled your fly mode");
+									sendMessage("you successfully enabled fly for player " + xp.getUser());
+									sendMessageTo(xp.getBukkitPlayer(), sender.getName() + " enabled your fly mode");
 									xp.setFlying(true);
 								}
 							} else {
-								sendMessage(ChatColor.RED + "player not online!");
+								sendMessage("player not online!");
 							}
 						} else {
-							sendMessage(ChatColor.RED + "player does not exist!");
+							sendMessage("player does not exist!");
 						}
 					}
 				}

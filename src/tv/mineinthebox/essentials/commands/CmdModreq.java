@@ -40,13 +40,13 @@ public class CmdModreq extends CommandTemplate {
 								Modreq mod = xp.getModreq((lastID-1));
 								for(Player p : Bukkit.getOnlinePlayers()) {
 									if(p.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-										sendMessageTo(p, ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY  + sender.getName() + ChatColor.GRAY + " has created a new modreq!");
-										sendMessageTo(p, ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY + "id: " + ChatColor.GREEN + mod.getId() + ChatColor.GRAY + " message: " + ChatColor.GREEN + mod.getMessage() + ChatColor.GRAY + " date: " + ChatColor.GREEN + mod.getDate());
+										sendMessageTo(p, "[Modreq]" + sender.getName() + " has created a new modreq!");
+										sendMessageTo(p, "[Modreq]" + "id: " + mod.getId() +" message: " + mod.getMessage() + " date: " + mod.getDate());
 									}
 								}
-								sendMessage(ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY + "successfully created a modreq!");
+								sendMessage("[Modreq]" + "successfully created a modreq!");
 							} else {
-								sendMessage(ChatColor.RED + "something went wrong please reload xEssentials!");
+								sendMessage("something went wrong please reload xEssentials!");
 							}
 						}
 					} else {
@@ -58,13 +58,13 @@ public class CmdModreq extends CommandTemplate {
 							Modreq mod = xp.getModreq((lastID-1));
 							for(Player p : Bukkit.getOnlinePlayers()) {
 								if(p.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-									sendMessageTo(p, ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY  + sender.getName() + ChatColor.GRAY + " has created a new modreq!");
-									sendMessageTo(p, ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY + "id: " + ChatColor.GREEN + mod.getId() + ChatColor.GRAY + " message: " + ChatColor.GREEN + mod.getMessage() + ChatColor.GRAY + " date: " + ChatColor.GREEN + mod.getDate());
+									sendMessageTo(p, "[Modreq]" + sender.getName() +" has created a new modreq!");
+									sendMessageTo(p,"[Modreq]" + "id: " + mod.getId() + " message: " + mod.getMessage() + " date: " + mod.getDate());
 								}
 							}
-							sendMessage(ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY + "successfully created a modreq!");
+							sendMessage("[Modreq]" + "successfully created a modreq!");
 						} else {
-							sendMessage(ChatColor.RED + "something went wrong please reload xEssentials!");
+							sendMessage("something went wrong please reload xEssentials!");
 						}
 					}
 				} else {

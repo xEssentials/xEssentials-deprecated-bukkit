@@ -33,7 +33,7 @@ public class CmdSpawnerBlock extends CommandTemplate {
 						Block block = p.getTargetBlock((HashSet<Byte>)null, 30);
 						SpawnerBlock spawner = new SpawnerBlock(block, EntityType.ZOMBIE, pl);
 						spawner.start();
-						sendMessage(ChatColor.GREEN + block.getType().name().toLowerCase() + " is now a tempory zombie spawner.");
+						sendMessage(block.getType().name().toLowerCase() + " is now a tempory zombie spawner.");
 					} else if(args.length == 1) {
 						if(args[0].equalsIgnoreCase("help")) {
 							showHelp();
@@ -44,11 +44,11 @@ public class CmdSpawnerBlock extends CommandTemplate {
 									Block block = p.getTargetBlock((HashSet<Byte>)null, 30);
 									SpawnerBlock spawner = new SpawnerBlock(block, type, pl);
 									spawner.start();
-									sendMessage(ChatColor.GREEN + block.getType().name().toLowerCase() + " is now a tempory " + type.name().toLowerCase() + " spawner.");
+									sendMessage(block.getType().name().toLowerCase() + " is now a tempory " + type.name().toLowerCase() + " spawner.");
 									return true;
 								}
 							}
-							sendMessage(ChatColor.RED + "could not find any entity named as " + args[0]);
+							sendMessage("could not find any entity named as " + args[0]);
 						}
 					}
 				} else {

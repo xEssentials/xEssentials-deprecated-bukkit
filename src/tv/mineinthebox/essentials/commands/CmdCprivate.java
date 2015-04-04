@@ -1,6 +1,5 @@
 package tv.mineinthebox.essentials.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -24,7 +23,7 @@ public class CmdCprivate extends CommandTemplate {
 			if(sender instanceof Player) {
 				if(sender.hasPermission(PermissionKey.CMD_CPRIVATE.getPermission())) {
 					pl.getManagers().getProtectionDBManager().addSession(sender.getName(), ProtectionType.CREATE);
-					sendMessage(ChatColor.GREEN + "right click the block you want to register!");
+					sendMessage("right click the block you want to register!");
 				} else {
 					getWarning(WarningType.NO_PERMISSION);
 				}

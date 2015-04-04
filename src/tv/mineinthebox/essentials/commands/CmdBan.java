@@ -67,13 +67,13 @@ public class CmdBan extends CommandTemplate {
 						if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 							xp.setPermBanned("The ban hammer has spoken!", sender.getName());
-							sendMessage(ChatColor.GREEN + "successfully banned player " + xp.getUser());
+							sendMessage("successfully banned player " + xp.getUser());
 							xp.getBukkitPlayer().kickPlayer(xp.getBanMessage());
 						} else {
 							try {
 								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								off.setPermBanned("The ban hammer has spoken!", sender.getName());
-								sendMessage(ChatColor.GREEN + "successfully banned player " + off.getName());
+								sendMessage("successfully banned player " + off.getName());
 							} catch(NullPointerException e) {
 								try {
 									File f = new File(pl.getDataFolder() + File.separator + "players" + File.separator + args[0].toLowerCase() + ".yml");
@@ -91,7 +91,7 @@ public class CmdBan extends CommandTemplate {
 									con.set("torch", false);
 									con.set("firefly", false);
 									con.save(f);
-									sendMessage(ChatColor.GREEN + "successfully banned player " + args[0] + " however keep in mind this player has never played before");
+									sendMessage("successfully banned player " + args[0] + " however keep in mind this player has never played before");
 								} catch(Exception r) {
 									r.printStackTrace();
 								}
@@ -127,7 +127,7 @@ public class CmdBan extends CommandTemplate {
 								con.set("torch", false);
 								con.set("firefly", false);
 								con.save(f);
-								sendMessage(ChatColor.GREEN + "successfully banned player " + args[0] + " however keep in mind this player has never played before");
+								sendMessage("successfully banned player " + args[0] + " however keep in mind this player has never played before");
 							} catch(Exception r) {
 								r.printStackTrace();
 							}

@@ -58,20 +58,20 @@ public class CmdIgnore extends CommandTemplate {
 								if(xp.hasIgnoredPlayers()) {
 									if(xp.getIgnoredPlayers().contains(name)) {
 										xp.removeIgnoredPlayer(name);
-										sendMessage(ChatColor.GREEN + "you successfully stopped ignoring player " + name);
+										sendMessage("you successfully stopped ignoring player " + name);
 									} else {
 										xp.addIgnoredPlayer(name);
-										sendMessage(ChatColor.GREEN + "you are now ignoring player " + name);
+										sendMessage("you are now ignoring player " + name);
 									}
 								} else {
 									xp.addIgnoredPlayer(name);
-									sendMessage(ChatColor.GREEN + "you are now ignoring player " + name);
+									sendMessage("you are now ignoring player " + name);
 								}
 							} else {
 								getWarning(WarningType.NEVER_PLAYED_BEFORE);
 							}
 						} else {
-							sendMessage(ChatColor.RED + "you cannot ignore yourself...");
+							sendMessage("you cannot ignore yourself...");
 						}
 					}
 				} else {

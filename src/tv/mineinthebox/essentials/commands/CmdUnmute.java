@@ -29,19 +29,19 @@ public class CmdUnmute extends CommandTemplate {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 						if(xp.isMuted()) {
 							xp.unmute();
-							sendMessage(ChatColor.GREEN + "you successfully unmuted the player " + xp.getName());
-							sendMessageTo(xp.getBukkitPlayer(), ChatColor.GREEN + sender.getName() + " has unmuted your chat!");
+							sendMessage("you successfully unmuted the player " + xp.getName());
+							sendMessageTo(xp.getBukkitPlayer(), sender.getName() + " has unmuted your chat!");
 						} else {
-							sendMessage(ChatColor.RED + "this player is already unmuted!");
+							sendMessage("this player is already unmuted!");
 						}
 					} else {
 						try {
 							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							if(off.isMuted()) {
 								off.unmute();
-								sendMessage(ChatColor.GREEN + "you successfully unmuted the offline player " + off.getName() + "!");
+								sendMessage("you successfully unmuted the offline player " + off.getName() + "!");
 							} else {
-								sendMessage(ChatColor.RED + "this offline player is already unmuted!");
+								sendMessage("this offline player is already unmuted!");
 							}
 						} catch(NullPointerException e) {
 							getWarning(WarningType.NEVER_PLAYED_BEFORE);

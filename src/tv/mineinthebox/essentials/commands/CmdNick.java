@@ -26,10 +26,10 @@ public class CmdNick extends CommandTemplate {
 					if(sender instanceof Player) {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						xp.setCustomName(xp.getUser());
-						sendMessage(ChatColor.GREEN + "successfully setted your name back to default.");
+						sendMessage("successfully setted your name back to default.");
 						for(Player p : pl.getOnlinePlayers()) {
 							if(p.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-								sendMessageTo(p, ChatColor.GRAY + xp.getCustomName() + ChatColor.GRAY + " has changed his name back to default.");
+								sendMessageTo(p, xp.getCustomName() + " has changed his name back to default.");
 							}
 						}
 					} else {
@@ -38,24 +38,24 @@ public class CmdNick extends CommandTemplate {
 				} else if(args.length == 1) {
 					XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 					xp.setCustomName(ChatColor.translateAlternateColorCodes('&', args[0]));
-					sendMessage(ChatColor.GREEN + "successfully setted your name back to " + xp.getCustomName());
+					sendMessage("successfully setted your name back to " + xp.getCustomName());
 					for(Player p : pl.getOnlinePlayers()) {
 						if(p.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-							sendMessageTo(p, ChatColor.GRAY + xp.getUser() + ChatColor.GRAY + " has changed his name to " + xp.getCustomName());
+							sendMessageTo(p, xp.getUser() + " has changed his name to " + xp.getCustomName());
 						}
 					}
 				} else if(args.length == 2) {
 					if(pl.getManagers().getPlayerManager().isOnline(args[0])) {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 						xp.setCustomName(ChatColor.translateAlternateColorCodes('&', args[1]));
-						sendMessage(ChatColor.GREEN + "successfully setted "+xp.getUser()+" his name back to " + xp.getCustomName());
+						sendMessage("successfully setted "+xp.getUser()+" his name back to " + xp.getCustomName());
 						for(Player p : pl.getOnlinePlayers()) {
 							if(p.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
-								sendMessageTo(p, ChatColor.GRAY + xp.getUser() + ChatColor.GRAY + " has changed his name to " + xp.getCustomName());
+								sendMessageTo(p, xp.getUser() + " has changed his name to " + xp.getCustomName());
 							}
 						}	
 					} else {
-						sendMessage(ChatColor.RED + "player is not online.");
+						sendMessage("player is not online.");
 					}
 				}
 			} else {

@@ -105,25 +105,25 @@ public class CmdDone extends CommandTemplate {
 									}
 									xp.removeModreq(id);
 									sendMessageTo(xp.getBukkitPlayer(), "staff member " + sender.getName() + " has closed your modreq.");
-									sendMessageTo(xp.getBukkitPlayer(), "id: " + ChatColor.GREEN + idNumber);
-									sendMessageTo(xp.getBukkitPlayer(), "message: " + ChatColor.GREEN + title);
-									sendMessageTo(xp.getBukkitPlayer(), "comment: " + ChatColor.GREEN + "comment not defined");
+									sendMessageTo(xp.getBukkitPlayer(), "id: " + idNumber);
+									sendMessageTo(xp.getBukkitPlayer(), "message: " + title);
+									sendMessageTo(xp.getBukkitPlayer(), "comment: " + "comment not defined");
 									for(Player a : Bukkit.getOnlinePlayers()) {
 										if(a.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 											sendMessageTo(a, "staff member " + sender.getName() + " has closed " + xp.getName() + " his modreq.");
-											sendMessageTo(a, "id: " + ChatColor.GREEN + idNumber);
-											sendMessageTo(a, "message: " + ChatColor.GREEN + title);
-											sendMessageTo(a, "comment: " + ChatColor.GREEN + "comment not defined");
+											sendMessageTo(a, "id: " + idNumber);
+											sendMessageTo(a, "message: " + title);
+											sendMessageTo(a, "comment: " + "comment not defined");
 										}
 									}
 								} else {
-									sendMessage(ChatColor.RED + "invalid modreq id!");
+									sendMessage("invalid modreq id!");
 								}
 							} catch(NumberFormatException e) {
-								sendMessage(ChatColor.RED + "second argument needs to be a number!");
+								sendMessage("second argument needs to be a number!");
 							}
 						} else {
-							sendMessage(ChatColor.RED + "this player has no modreqs open!");
+							sendMessage("this player has no modreqs open!");
 						}
 					} else {
 						try {
@@ -141,24 +141,26 @@ public class CmdDone extends CommandTemplate {
 											title = mod.getMessage();
 										}
 										off.removeModreq(id);
-										String s = (ChatColor.GREEN + "staff member " + sender.getName() + " has closed your modreq.,"+ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY + "id: " + ChatColor.GREEN + idNumber + ","+ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY + "message: " + ChatColor.GREEN + title+","+ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY + "comment: " + ChatColor.GREEN + "comment not defined").replace('\u00A7', '&');
+										//serialize modreq comma is the separator
+										//TODO: add compatabillity for XPlayer where an sendMessage template gets added.
+										String s = "staff member " + sender.getName() + " has closed your modreq.,"+ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY + "id: " + ChatColor.GREEN + idNumber + ","+ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY + "message: " + ChatColor.GREEN + title+","+ChatColor.GREEN + "[Modreq]" + ChatColor.GRAY + "comment: " + ChatColor.GREEN + "comment not defined".replace('\u00A7', '&');
 										off.setModreqDoneMessage(s);
 										for(Player a : Bukkit.getOnlinePlayers()) {
 											if(a.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 												sendMessageTo(a.getPlayer(), "staff member " + sender.getName() + " has closed offline player " + off.getName() + " his modreq.");
-												sendMessageTo(a.getPlayer(), "id: " + ChatColor.GREEN + idNumber);
-												sendMessageTo(a.getPlayer(), "message: " + ChatColor.GREEN + title);
-												sendMessageTo(a.getPlayer(), "comment: " + ChatColor.GREEN + "comment not defined");
+												sendMessageTo(a.getPlayer(), "id: " + idNumber);
+												sendMessageTo(a.getPlayer(), "message: " + title);
+												sendMessageTo(a.getPlayer(), "comment: comment not defined");
 											}
 										}
 									} else {
-										sendMessage(ChatColor.RED + "invalid modreq id!");
+										sendMessage("invalid modreq id!");
 									}
 								} catch(NumberFormatException e) {
-									sendMessage(ChatColor.RED + "second argument needs to be a number!");
+									sendMessage("second argument needs to be a number!");
 								}
 							} else {
-								sendMessage(ChatColor.RED + "this player has no modreqs open!");
+								sendMessage("this player has no modreqs open!");
 							}
 						} catch(NullPointerException e) {
 							getWarning(WarningType.NEVER_PLAYED_BEFORE);
@@ -191,22 +193,22 @@ public class CmdDone extends CommandTemplate {
 								}
 								xp.removeModreq(id);
 								sendMessageTo(xp.getBukkitPlayer(), "staff member " + sender.getName() + " has closed your modreq.");
-								sendMessageTo(xp.getBukkitPlayer(), "id: " + ChatColor.GREEN + idNumber);
-								sendMessageTo(xp.getBukkitPlayer(), "message: " + ChatColor.GREEN + title);
-								sendMessageTo(xp.getBukkitPlayer(), "comment: " + ChatColor.GREEN + comment);
+								sendMessageTo(xp.getBukkitPlayer(), "id: " + idNumber);
+								sendMessageTo(xp.getBukkitPlayer(), "message: " + title);
+								sendMessageTo(xp.getBukkitPlayer(), "comment: " + comment);
 								for(Player a : Bukkit.getOnlinePlayers()) {
 									if(a.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 										sendMessageTo(a.getPlayer(), "staff member " + sender.getName() + " has closed " + xp.getName() + " his modreq.");
-										sendMessageTo(a.getPlayer(), "id: " + ChatColor.GREEN + idNumber);
-										sendMessageTo(a.getPlayer(), "message: " + ChatColor.GREEN + title);
-										sendMessageTo(a.getPlayer(), "comment: " + ChatColor.GREEN + comment);
+										sendMessageTo(a.getPlayer(), "id: " + idNumber);
+										sendMessageTo(a.getPlayer(), "message: " + title);
+										sendMessageTo(a.getPlayer(), "comment: " + comment);
 									}
 								}
 							} else {
-								sendMessage(ChatColor.RED + "invalid modreq id!");
+								sendMessage("invalid modreq id!");
 							}
 						} catch(NumberFormatException e) {
-							sendMessage(ChatColor.RED + "second argument needs to be a number!");
+							sendMessage("second argument needs to be a number!");
 						}
 					} else {
 						try {
@@ -229,16 +231,16 @@ public class CmdDone extends CommandTemplate {
 									for(Player a : Bukkit.getOnlinePlayers()) {
 										if(a.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 											sendMessageTo(a.getPlayer(), "staff member " + sender.getName() + " has closed offline player " + off.getName() + " his modreq.");
-											sendMessageTo(a.getPlayer(), "id: " + ChatColor.GREEN + idNumber);
-											sendMessageTo(a.getPlayer(), "message: " + ChatColor.GREEN + title);
-											sendMessageTo(a.getPlayer(), "comment: " + ChatColor.GREEN + comment);
+											sendMessageTo(a.getPlayer(), "id: " + idNumber);
+											sendMessageTo(a.getPlayer(), "message: " + title);
+											sendMessageTo(a.getPlayer(), "comment: " + comment);
 										}
 									}
 								} else {
-									sendMessage(ChatColor.RED + "invalid modreq id!");
+									sendMessage("invalid modreq id!");
 								}
 							} catch(NumberFormatException e) {
-								sendMessage(ChatColor.RED + "second argument needs to be a number!");
+								sendMessage("second argument needs to be a number!");
 							}
 						} catch(NullPointerException e) {
 							getWarning(WarningType.NEVER_PLAYED_BEFORE);

@@ -3,7 +3,6 @@ package tv.mineinthebox.essentials.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -53,10 +52,10 @@ public class CmdProc extends CommandTemplate {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.hasProc()) {
 							xp.setProc(false);
-							sendMessage(ChatColor.GREEN + "proc has been disabled");
+							sendMessage("proc has been disabled");
 						} else {
 							xp.setProc(true);
-							sendMessage(ChatColor.GREEN + "proc has been enabled!");
+							sendMessage("proc has been enabled!");
 						}
 					} else {
 						getWarning(WarningType.PLAYER_ONLY);
@@ -67,10 +66,10 @@ public class CmdProc extends CommandTemplate {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(args[0]);
 							if(xp.hasProc()) {
 								xp.setProc(false);
-								sendMessage(ChatColor.GREEN + "proc has been disabled for player " + xp.getName() + "!");
+								sendMessage("proc has been disabled for player " + xp.getName() + "!");
 							} else {
 								xp.setProc(true);
-								sendMessage(ChatColor.GREEN + "proc has been enabled for player " + xp.getName() + "!");
+								sendMessage("proc has been enabled for player " + xp.getName() + "!");
 							}
 						}
 					} else {

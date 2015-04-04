@@ -36,7 +36,7 @@ public class CmdTpa extends CommandTemplate {
 							if(victem instanceof Player) {
 								XPlayer xpp = pl.getManagers().getPlayerManager().getPlayer(victem.getName());
 								if(xpp.isVanished()) {
-									sendMessage(ChatColor.RED + "this player is offline!");
+									sendMessage("this player is offline!");
 									return false;
 								}
 								if(!(pl.getManagers().getTpaManager().containsKey(victem.getName()) || pl.getManagers().getTpaManager().containsValue(victem.getName()))) {
@@ -48,24 +48,24 @@ public class CmdTpa extends CommandTemplate {
 											if(pl.getManagers().getTpaManager().containsKey(victemName)) {
 												pl.getManagers().getTpaManager().remove(victemName);
 												if(sender instanceof Player) {
-													sendMessage(ChatColor.RED + "the tpa request to player " + victemName + " has been over time!");
+													sendMessage("the tpa request to player " + victemName + " has been over time!");
 												}
 												if(victem instanceof Player) {
-													sendMessageTo(victem, ChatColor.RED + "the tpa request from " + senderName + " been canceled out");
+													sendMessageTo(victem, "the tpa request from " + senderName + " been canceled out");
 												}
 											}
 										}
 
 									}, 5000);
-									sendMessage(ChatColor.GREEN + "tpa request sent to player " + victem.getName());
-									sendMessageTo(victem, ChatColor.GREEN + sender.getName() + " wants to teleport to you");
-									sendMessageTo(victem, ChatColor.GREEN + "type: " + ChatColor.GRAY + "/tpaccept - so the player can teleport to you");
-									sendMessageTo(victem, ChatColor.GREEN + "type: " + ChatColor.GRAY + "/tpdeny - so the player cannot teleport to you");
+									sendMessage("tpa request sent to player " + victem.getName());
+									sendMessageTo(victem, sender.getName() + " wants to teleport to you");
+									sendMessageTo(victem, "type: " + ChatColor.GRAY + "/tpaccept - so the player can teleport to you");
+									sendMessageTo(victem, "type: " + ChatColor.GRAY + "/tpdeny - so the player cannot teleport to you");
 								} else {
-									sendMessage(ChatColor.RED + "this player has to many tpa requests open!");
+									sendMessage("this player has to many tpa requests open!");
 								}
 							} else {
-								sendMessage(ChatColor.RED + "this player is offline!");
+								sendMessage("this player is offline!");
 							}
 						}
 					}

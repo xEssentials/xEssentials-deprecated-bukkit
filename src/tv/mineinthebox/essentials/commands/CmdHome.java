@@ -97,18 +97,18 @@ public class CmdHome extends CommandTemplate {
 									xp.getBukkitPlayer().teleport(home.getLocation(), TeleportCause.COMMAND);
 									entity.teleport(home.getLocation(), TeleportCause.COMMAND);
 									entity.setPassenger(xp.getBukkitPlayer());
-									sendMessage(ChatColor.GREEN + "teleporting to your default home!");
+									sendMessage("teleporting to your default home!");
 								} else {
 									xp.getBukkitPlayer().getVehicle().eject();
 									xp.getBukkitPlayer().teleport(home.getLocation(), TeleportCause.COMMAND);
-									sendMessage(ChatColor.GREEN + "teleporting to your default home!");
+									sendMessage("teleporting to your default home!");
 								}
 							} else {
 								xp.getBukkitPlayer().teleport(home.getLocation(), TeleportCause.COMMAND);
-								sendMessage(ChatColor.GREEN + "teleporting to your default home!");	
+								sendMessage("teleporting to your default home!");	
 							}
 						} else {
-							sendMessage(ChatColor.RED + "you don't have set any home!");
+							sendMessage("you don't have set any home!");
 						}
 					} else {
 						getWarning(WarningType.PLAYER_ONLY);
@@ -138,7 +138,7 @@ public class CmdHome extends CommandTemplate {
 									Player p = (Player) sender;
 									XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 									if(!off.hasHome()) {
-										sendMessage(ChatColor.RED + off.getName() + " has no home set!");
+										sendMessage(off.getName() + " has no home set!");
 										return false;
 									}
 									Location loc = off.getHome("default").getLocation();
@@ -149,21 +149,21 @@ public class CmdHome extends CommandTemplate {
 											p.teleport(loc, TeleportCause.COMMAND);
 											entity.teleport(loc, TeleportCause.COMMAND);
 											entity.setPassenger(p);
-											sendMessage(ChatColor.GREEN + "teleporting to " + off.getName() + " his default home!");
+											sendMessage("teleporting to " + off.getName() + " his default home!");
 										} else {
 											p.getPlayer().getVehicle().eject();
-											sendMessage(ChatColor.GREEN + "teleporting to " + off.getName() + " his default home!");
+											sendMessage("teleporting to " + off.getName() + " his default home!");
 											p.teleport(loc, TeleportCause.COMMAND);
 										}
 									} else {
-										sendMessage(ChatColor.GREEN + "teleporting to " + off.getName() + " his default home!");
+										sendMessage("teleporting to " + off.getName() + " his default home!");
 										p.teleport(loc, TeleportCause.COMMAND);	
 									}
 								} else {
 									getWarning(WarningType.PLAYER_ONLY);
 								}
 							} else {
-								sendMessage(ChatColor.RED + "your home is a players name now which is not allowed");
+								sendMessage("your home is a players name now which is not allowed");
 							}
 						} else {
 							if(sender.hasPermission(PermissionKey.MULTIPLE_HOMES.getPermission()) || pl.getConfiguration().getPlayerConfig().canUseMoreHomes()) {
@@ -179,21 +179,21 @@ public class CmdHome extends CommandTemplate {
 													xp.getBukkitPlayer().teleport(loc, TeleportCause.COMMAND);
 													entity.teleport(loc, TeleportCause.COMMAND);
 													entity.setPassenger(xp.getBukkitPlayer());
-													sendMessage(ChatColor.GREEN + "teleporting to your custom home " + args[0]);
+													sendMessage("teleporting to your custom home " + args[0]);
 												} else {
 													xp.getBukkitPlayer().getVehicle().eject();
-													sendMessage(ChatColor.GREEN + "teleporting to your custom home " + args[0]);
+													sendMessage("teleporting to your custom home " + args[0]);
 													xp.getBukkitPlayer().teleport(loc, TeleportCause.COMMAND);
 												}
 											} else {
-												sendMessage(ChatColor.GREEN + "teleporting to your custom home " + args[0]);
+												sendMessage("teleporting to your custom home " + args[0]);
 												xp.getBukkitPlayer().teleport(loc, TeleportCause.COMMAND);	
 											}
 										} else {
-											sendMessage(ChatColor.RED + "invalid home!");
+											sendMessage("invalid home!");
 										}
 									} else {
-										sendMessage(ChatColor.RED + "you don't have any home set!");
+										sendMessage("you don't have any home set!");
 									}
 								} else {
 									getWarning(WarningType.PLAYER_ONLY);
@@ -209,9 +209,9 @@ public class CmdHome extends CommandTemplate {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 							if(xp.isValidHome(args[1])) {
 								xp.removeHome(args[1]);
-								sendMessage(ChatColor.GREEN + "home successfully removed!");
+								sendMessage("home successfully removed!");
 							} else {
-								sendMessage(ChatColor.RED + "invalid home name!");
+								sendMessage("invalid home name!");
 							}
 						} else {
 							getWarning(WarningType.PLAYER_ONLY);
@@ -230,7 +230,7 @@ public class CmdHome extends CommandTemplate {
 									sendMessage(ChatColor.GRAY + Arrays.toString(homes).replace("[", "").replace("]", ""));
 								}
 							} else {
-								sendMessage(ChatColor.RED + "this player has never played before!");
+								sendMessage("this player has never played before!");
 							}
 						} else {
 							getWarning(WarningType.NO_PERMISSION);
@@ -251,24 +251,24 @@ public class CmdHome extends CommandTemplate {
 													p.teleport(loc, TeleportCause.COMMAND);
 													entity.teleport(loc, TeleportCause.COMMAND);
 													entity.setPassenger(p);
-													sendMessage(ChatColor.GREEN + "teleporting to " + off.getName() + " his custom home " + args[1]);
+													sendMessage("teleporting to " + off.getName() + " his custom home " + args[1]);
 												} else {
 													p.getVehicle().eject();
-													sendMessage(ChatColor.GREEN + "teleporting to " + off.getName() + " his custom home " + args[1]);
+													sendMessage("teleporting to " + off.getName() + " his custom home " + args[1]);
 													p.teleport(loc, TeleportCause.COMMAND);
 												}
 											} else {
-												sendMessage(ChatColor.GREEN + "teleporting to " + off.getName() + " his custom home " + args[1]);
+												sendMessage("teleporting to " + off.getName() + " his custom home " + args[1]);
 												p.teleport(loc, TeleportCause.COMMAND);	
 											}
 										} else {
-											sendMessage(ChatColor.RED + "invalid home!");
+											sendMessage("invalid home!");
 										}
 									} else {
-										sendMessage(ChatColor.RED + off.getName() + " has no homes set!");
+										sendMessage(off.getName() + " has no homes set!");
 									}
 								} else {
-									sendMessage(ChatColor.RED + "this player has never played before!");
+									sendMessage("this player has never played before!");
 								}
 							} else {
 								getWarning(WarningType.PLAYER_ONLY);

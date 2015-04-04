@@ -1,6 +1,5 @@
 package tv.mineinthebox.essentials.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -31,9 +30,9 @@ public class CmdBack extends CommandTemplate {
 						if(manager.hasLastLocation(p.getName())) {
 							Location loc = manager.getLastLocation(p.getName());
 							p.teleport(loc);
-							sendMessage(ChatColor.GREEN + "teleporting to your last location!");
+							sendMessage("teleporting to your last location!");
 						} else {
-							sendMessage(ChatColor.RED + "no location data found for /back");
+							sendMessage("no location data found for /back");
 						}
 					} else {
 						getWarning(WarningType.PLAYER_ONLY);
@@ -44,13 +43,13 @@ public class CmdBack extends CommandTemplate {
 						if(manager.hasLastLocation(p.getName())) {
 							Location loc = manager.getLastLocation(p.getName());
 							p.teleport(loc);
-							sendMessageTo(p, ChatColor.GREEN + sender.getName() + " has teleported you to your last location");
-							sendMessage(ChatColor.GREEN + "teleported " + p.getName() + " to his last location");
+							sendMessageTo(p, sender.getName() + " has teleported you to your last location");
+							sendMessage("teleported " + p.getName() + " to his last location");
 						} else {
-							sendMessage(ChatColor.RED + "no location data found for /back");
+							sendMessage("no location data found for /back");
 						}
 					} else {
-						sendMessage(ChatColor.RED + "this player is not online!");
+						sendMessage("this player is not online!");
 					}
 				}
 			} else {

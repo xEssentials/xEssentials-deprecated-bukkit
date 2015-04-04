@@ -93,7 +93,7 @@ public class CmdMenu extends CommandTemplate {
 								ItemStack opkit = makeButton(Material.DIAMOND_SWORD, ChatColor.GREEN + "OpKit!", opkitlore, true);
 								inv.setItem(6, opkit);
 
-								sendMessageTo(p, ChatColor.GREEN + "opening menu for player " + ChatColor.GRAY + xp.getName());
+								sendMessageTo(p, "opening menu for player " + xp.getName());
 
 								p.openInventory(inv);
 								p.playSound(p.getLocation(), Sound.CHEST_OPEN, 1, 0);
@@ -105,13 +105,13 @@ public class CmdMenu extends CommandTemplate {
 								ItemStack ban = makeButton(Material.FIREBALL, ChatColor.GREEN + "ban the player for playing on this server!", banlore, false);
 								inv.setItem(0, ban);
 
-								sendMessageTo(p, ChatColor.GREEN + "opening menu for player " + ChatColor.GRAY + off.getName());
+								sendMessageTo(p, "opening menu for player " + off.getName());
 
 								p.openInventory(inv);
 								p.playSound(p.getLocation(), Sound.CHEST_OPEN, 1, 0);
 							}
 						} else {
-							sendMessage(ChatColor.RED + "this player has never played before!");
+							sendMessage("this player has never played before!");
 						}
 					}
 				} else {

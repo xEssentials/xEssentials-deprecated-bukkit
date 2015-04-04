@@ -53,7 +53,7 @@ public class CmdFakeNuke extends CommandTemplate {
 						xp.getBukkitPlayer().getWorld().playSound(xp.getBukkitPlayer().getLocation(), Sound.FUSE, 0.98F, 0.98F);
 						xp.fakenuke();
 					} else {
-						sendMessage(ChatColor.RED + "this player is not online!");
+						sendMessage("this player is not online!");
 					}
 				}
 			} else {

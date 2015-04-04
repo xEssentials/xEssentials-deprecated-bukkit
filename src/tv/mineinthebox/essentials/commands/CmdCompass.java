@@ -3,7 +3,6 @@ package tv.mineinthebox.essentials.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -53,17 +52,17 @@ public class CmdCompass extends CommandTemplate {
 					if(args.length == 0) {
 						if(xp.hasCompass()) {
 							xp.removeCompass();
-							sendMessage(ChatColor.GREEN + "you have successfully unbinded the player from your clock!");
+							sendMessage("you have successfully unbinded the player from your clock!");
 						} else {
-							sendMessage(ChatColor.RED + "you don't have any player set on your compass!, use /compass player instead use /compass alone to unbind the command from your clock");
+							sendMessage("you don't have any player set on your compass!, use /compass player instead use /compass alone to unbind the command from your clock");
 						}
 					} else if(args.length == 1) {
 						if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
 							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 							xp.setCompass(off.getName());
-							sendMessage(ChatColor.GREEN + "you have successfully added " + off.getName() + " to your clock!");
+							sendMessage("you have successfully added " + off.getName() + " to your clock!");
 						} else {
-							sendMessage(ChatColor.RED + "this player has never played before!");
+							sendMessage("this player has never played before!");
 						}
 					}
 				} else {

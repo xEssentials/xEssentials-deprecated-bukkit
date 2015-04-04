@@ -1,6 +1,5 @@
 package tv.mineinthebox.essentials.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -27,12 +26,12 @@ public class CmdMore extends CommandTemplate {
 						item.setAmount(64);
 						if(p.getInventory().firstEmpty() > -1) {
 							p.getInventory().addItem(item);
-							sendMessage(ChatColor.GREEN + "you have successfully cloned the item in your hand!");
+							sendMessage("you have successfully cloned the item in your hand!");
 						} else {
-							sendMessage(ChatColor.RED + "you inventory is to full to clone your item in hand!");
+							sendMessage("you inventory is to full to clone your item in hand!");
 						}
 					} else {
-						sendMessage(ChatColor.RED + "you cannot copy your stack as air!");
+						sendMessage("you cannot copy your stack as air!");
 					}
 				} else {
 					getWarning(WarningType.NO_PERMISSION);

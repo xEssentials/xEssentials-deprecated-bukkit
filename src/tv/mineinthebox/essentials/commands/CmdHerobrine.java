@@ -1,6 +1,5 @@
 package tv.mineinthebox.essentials.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -45,7 +44,7 @@ public class CmdHerobrine extends CommandTemplate {
 						zombe.getEquipment().setItemInHand(new ItemStack(Material.DIAMOND_SWORD,1));
 						zombe.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 10), false);
 						zombe.setCustomName("Herobrine");
-						sendMessage(ChatColor.GREEN + "you have successfully summoned a Herobrine!");
+						sendMessage("you have successfully summoned a Herobrine!");
 					} else {
 						getWarning(WarningType.PLAYER_ONLY);
 					}
@@ -66,9 +65,9 @@ public class CmdHerobrine extends CommandTemplate {
 						zombe.getEquipment().setItemInHand(new ItemStack(Material.DIAMOND_SWORD,1));
 						zombe.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 10), false);
 						zombe.setCustomName("Herobrine");
-						sendMessage(ChatColor.GREEN + "you have successfully summoned a Herobrine! near player " + p.getName());
+						sendMessage("you have successfully summoned a Herobrine! near player " + p.getName());
 					} else {
-						sendMessage(ChatColor.RED + "this player is not online!");
+						sendMessage("this player is not online!");
 					}
 				}
 			} else {

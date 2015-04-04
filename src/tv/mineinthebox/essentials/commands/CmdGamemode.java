@@ -55,9 +55,9 @@ public class CmdGamemode extends CommandTemplate {
 									if(Hooks.isWorldeditEnabled()) {
 										WorldEditHook.turnOffWand(p);
 									}
-									sendMessage(ChatColor.GREEN + "you successfully set your gamemode to survival!");
+									sendMessage("you successfully set your gamemode to survival!");
 								} else {
-									sendMessage(ChatColor.RED + "you are already set in this gamemode");
+									sendMessage("you are already set in this gamemode");
 								}
 							} else if(args[0].equalsIgnoreCase("c") || args[0].equalsIgnoreCase("1")) {
 								if(p.getGameMode() != GameMode.CREATIVE) {
@@ -65,31 +65,31 @@ public class CmdGamemode extends CommandTemplate {
 									if(Hooks.isWorldeditEnabled()) {
 										WorldEditHook.turnOffWand(p);
 									}
-									sendMessage(ChatColor.GREEN + "you successfully set your gamemode to creative!");
+									sendMessage("you successfully set your gamemode to creative!");
 								} else {
-									sendMessage(ChatColor.RED + "you are already set in this gamemode");
+									sendMessage("you are already set in this gamemode");
 								}
 							} else if(args[0].equalsIgnoreCase("adventure") || args[0].equalsIgnoreCase("2")) {
 								if(EnumHelper.isDefined(GameMode.class, "ADVENTURE")) {
 									if(p.getGameMode() != EnumHelper.getEnum(GameMode.class, "ADVENTURE")) {
 										p.setGameMode(EnumHelper.getEnum(GameMode.class, "ADVENTURE"));
-										sendMessage(ChatColor.GREEN + "you successfully set your gamemode to adventure!");
+										sendMessage("you successfully set your gamemode to adventure!");
 									} else {
-										sendMessage(ChatColor.RED + "you are already set in this gamemode");
+										sendMessage("you are already set in this gamemode");
 									}
 								} else {
-									sendMessage(ChatColor.RED + "adventure seems not to be existed in your server!");
+									sendMessage("adventure seems not to be existed in your server!");
 								}
 							} else if(args[0].equalsIgnoreCase("spectate") || args[0].equalsIgnoreCase("3")) {
 								if(EnumHelper.isDefined(GameMode.class, "SPECTATOR")) {
 									if(p.getGameMode() != EnumHelper.getEnum(GameMode.class, "SPECTATOR")) {
 										p.setGameMode(EnumHelper.getEnum(GameMode.class, "SPECTATOR"));
-										sendMessage(ChatColor.GREEN + "you successfully set your gamemode to spectate!");
+										sendMessage("you successfully set your gamemode to spectate!");
 									} else {
-										sendMessage(ChatColor.RED + "you are already set in this gamemode");
+										sendMessage("you are already set in this gamemode");
 									}
 								} else {
-									sendMessage(ChatColor.RED + "spectate seems not be existed in your server!");
+									sendMessage("spectate seems not be existed in your server!");
 								}
 							}
 						} else {
@@ -100,7 +100,7 @@ public class CmdGamemode extends CommandTemplate {
 					}
 				} else {
 					if(sender.hasPermission(PermissionKey.CMD_GAMEMODE.getPermission())) {
-						sendMessage(ChatColor.RED + "warning a invalid gamemode argument!");
+						sendMessage("warning a invalid gamemode argument!");
 					} else {
 						getWarning(WarningType.NO_PERMISSION);
 					}
@@ -115,10 +115,10 @@ public class CmdGamemode extends CommandTemplate {
 								if(Hooks.isWorldeditEnabled()) {
 									WorldEditHook.turnOffWand(p);
 								}
-								sendMessageTo(p, ChatColor.GREEN + sender.getName() + " has set your gamemode to survival!");
-								sendMessage(ChatColor.GREEN + "you successfully set the gamemode to survival for player " + p.getName() + "!");
+								sendMessageTo(p, sender.getName() + " has set your gamemode to survival!");
+								sendMessage("you successfully set the gamemode to survival for player " + p.getName() + "!");
 							} else {
-								sendMessage(ChatColor.RED + "the player is already set in this gamemode");
+								sendMessage("the player is already set in this gamemode");
 							}
 						} else if(args[0].equalsIgnoreCase("c") || args[0].equalsIgnoreCase("1")) {
 							if(p.getGameMode() != GameMode.CREATIVE) {
@@ -126,38 +126,38 @@ public class CmdGamemode extends CommandTemplate {
 								if(Hooks.isWorldeditEnabled()) {
 									WorldEditHook.turnOffWand(p);
 								}
-								sendMessageTo(p, ChatColor.GREEN + sender.getName() + " has set your gamemode to creative!");
-								sendMessage(ChatColor.GREEN + "you successfully set the gamemode to creative for player " + p.getName() + "!");
+								sendMessageTo(p, sender.getName() + " has set your gamemode to creative!");
+								sendMessage("you successfully set the gamemode to creative for player " + p.getName() + "!");
 							} else {
-								sendMessage(ChatColor.RED + "the player is already set in this gamemode");
+								sendMessage("the player is already set in this gamemode");
 							}
 						} else if(args[0].equalsIgnoreCase("adventure") || args[0].equalsIgnoreCase("2")) {
 							if(EnumHelper.isDefined(GameMode.class, "ADVENTURE")) {
 								if(p.getGameMode() != EnumHelper.getEnum(GameMode.class, "ADVENTURE")) {
 									p.setGameMode((GameMode) EnumHelper.getEnum(GameMode.class, "ADVENTURE"));
-									sendMessageTo(p, ChatColor.GREEN + sender.getName() + " has set your gamemode to adventure!");
-									sendMessage(ChatColor.GREEN + "you successfully set the gamemode to adventure for player " + p.getName() + "!");
+									sendMessageTo(p, sender.getName() + " has set your gamemode to adventure!");
+									sendMessage("you successfully set the gamemode to adventure for player " + p.getName() + "!");
 								} else {
-									sendMessage(ChatColor.RED + "the player is already set in this gamemode");
+									sendMessage("the player is already set in this gamemode");
 								}
 							} else {
-								sender.sendMessage(ChatColor.RED + "adventure seems not be existed in your server!");
+								sender.sendMessage("adventure seems not be existed in your server!");
 							}
 						}  else if(args[0].equalsIgnoreCase("spectate") || args[0].equalsIgnoreCase("3")) {
 							if(EnumHelper.isDefined(GameMode.class, "SPECTATOR")) {
 								if(p.getGameMode() != EnumHelper.getEnum(GameMode.class, "SPECTATOR")) {
 									p.setGameMode((GameMode) EnumHelper.getEnum(GameMode.class, "SPECTATOR"));
-									sendMessageTo(p, ChatColor.GREEN + sender.getName() + " has set your gamemode to spectate!");
-									sendMessage(ChatColor.GREEN + "you successfully set the gamemode to spectate for player " + p.getName() + "!");
+									sendMessageTo(p, sender.getName() + " has set your gamemode to spectate!");
+									sendMessage("you successfully set the gamemode to spectate for player " + p.getName() + "!");
 								} else {
-									sendMessage(ChatColor.RED + "the player is already set in this gamemode");
+									sendMessage("the player is already set in this gamemode");
 								}
 							} else {
-								sendMessage(ChatColor.RED + "spectate seems not be existed in your server!");
+								sendMessage("spectate seems not be existed in your server!");
 							}
 						}
 					} else {
-						sendMessage(ChatColor.RED + "this player is not online");
+						sendMessage("this player is not online");
 					}
 				} else {
 					getWarning(WarningType.NO_PERMISSION);

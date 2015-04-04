@@ -59,31 +59,31 @@ public class CmdKit extends CommandTemplate {
 										long cooldown = xp.getKitCooldown() / 1000L + (long)pl.getConfiguration().getKitConfig().getCoolDown() - System.currentTimeMillis() / 1000L;
 										if(cooldown > 0L) {
 											DecimalFormat df = new DecimalFormat("#.##");
-											sendMessage(ChatColor.RED + "you cannot use kits at this time please wait " + df.format((double)cooldown/60.0D) + " seconds!");
+											sendMessage("you cannot use kits at this time please wait " + df.format((double)cooldown/60.0D) + " seconds!");
 											return false;
 										} else {
 											xp.removeKitCoolDown();
 											Kit kit = kits.get(args[0]);
 											xp.getBukkitPlayer().getInventory().addItem(kit.getKitItems());
-											sendMessage(ChatColor.GREEN + "enjoy your " + kit.getKitName() + "!");
+											sendMessage("enjoy your " + kit.getKitName() + "!");
 											xp.setKitCooldown(System.currentTimeMillis());
 										}
 									} else {
 										Kit kit = kits.get(args[0]);
 										xp.getBukkitPlayer().getInventory().addItem(kit.getKitItems());
-										sendMessage(ChatColor.GREEN + "enjoy your " + kit.getKitName() + "!");
+										sendMessage("enjoy your " + kit.getKitName() + "!");
 										xp.setKitCooldown(System.currentTimeMillis());
 									}
 								} else {
 									Kit kit = kits.get(args[0]);
 									xp.getBukkitPlayer().getInventory().addItem(kit.getKitItems());
-									sendMessage(ChatColor.GREEN + "enjoy your " + kit.getKitName() + "!");
+									sendMessage("enjoy your " + kit.getKitName() + "!");
 								}
 							} else {
 								getWarning(WarningType.NO_PERMISSION);
 							}
 						} else {
-							sendMessage(ChatColor.RED + "this kit does not exist!");
+							sendMessage("this kit does not exist!");
 						}
 					}
 				} else {

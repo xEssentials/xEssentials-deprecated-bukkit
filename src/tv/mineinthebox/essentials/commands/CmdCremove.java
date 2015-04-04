@@ -1,6 +1,5 @@
 package tv.mineinthebox.essentials.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -25,7 +24,7 @@ public class CmdCremove extends CommandTemplate {
 			if(sender instanceof Player) {
 				if(sender.hasPermission(PermissionKey.CMD_CREMOVE.getPermission())) {
 					pl.getManagers().getProtectionDBManager().addSession(sender.getName(), ProtectionType.REMOVE);
-					sendMessage(ChatColor.GREEN + "right click the block you want to unregister!");
+					sendMessage("right click the block you want to unregister!");
 				} else {
 					getWarning(WarningType.NO_PERMISSION);
 				}

@@ -1,6 +1,5 @@
 package tv.mineinthebox.essentials.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -25,10 +24,10 @@ public class CmdKnock extends CommandTemplate {
 				if(sender.hasPermission(PermissionKey.CMD_KNOCK.getPermission())) {
 					XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 					if(xp.isKnock()) {
-						sendMessage(ChatColor.GREEN + "you disabled antiknockback!");
+						sendMessage("you disabled antiknockback!");
 						xp.setKnock(false);
 					} else {
-						sendMessage(ChatColor.GREEN + "you enabled antiknockback!");
+						sendMessage("you enabled antiknockback!");
 						xp.setKnock(true);
 					}
 				} else {

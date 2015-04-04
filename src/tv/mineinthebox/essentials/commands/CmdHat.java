@@ -1,6 +1,5 @@
 package tv.mineinthebox.essentials.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -43,7 +42,7 @@ public class CmdHat extends CommandTemplate {
 	private boolean changeHat(Player p) {
 		if(checkHat(p)) {
 			if(p.getInventory().firstEmpty() == -1) {
-				sendMessage(ChatColor.RED + "you need a empty slot, so we can backup your old helmet in your inventory");
+				sendMessage("you need a empty slot, so we can backup your old helmet in your inventory");
 				return true;
 			} else {
 				//the inventory has empty slots lets loop through them

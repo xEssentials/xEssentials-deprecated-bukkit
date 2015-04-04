@@ -33,17 +33,17 @@ public class CmdNether extends CommandTemplate {
 						if(w instanceof World) {
 							loc.setWorld(Bukkit.getWorld(loc.getWorld().getName()+"_nether"));	
 						} else {
-							sendMessage(ChatColor.RED + "it doesn't looks that this world has a nether maybe you are in the END?");
+							sendMessage("it doesn't looks that this world has a nether maybe you are in the END?");
 							return false;
 						}
-						sendMessage(ChatColor.GRAY + "teleporting to the exact nether location!");
+						sendMessage("teleporting to the exact nether location!");
 						p.teleport(loc, TeleportCause.COMMAND);	
 					} else if(args.length == 1) {
 						if(args[0].equalsIgnoreCase("help")) {
 							sendMessage(ChatColor.GOLD + ".oO___[nether]___Oo.");
 							sendMessage(ChatColor.RED + "Admin: " + ChatColor.GRAY + "/nether " + ChatColor.WHITE + ": attemps to teleport to the nether on exact /8 coords where you stay");
 						} else {
-							sendMessage(ChatColor.RED + "unknown argument!");
+							sendMessage("unknown argument!");
 						}
 					}
 				} else {

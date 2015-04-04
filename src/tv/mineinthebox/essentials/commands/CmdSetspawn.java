@@ -2,7 +2,6 @@ package tv.mineinthebox.essentials.commands;
 
 import java.io.File;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -37,7 +36,7 @@ public class CmdSetspawn extends CommandTemplate {
 						con.set("world", p.getWorld().getName());
 						con.save(f);
 						p.getWorld().setSpawnLocation(p.getLocation().getBlockX(), p.getLocation().getBlockY(), p.getLocation().getBlockZ());
-						sendMessage(ChatColor.GREEN + "spawn successfully set ;-)");
+						sendMessage("spawn successfully set ;-)");
 					} catch(Exception e) {
 						e.printStackTrace();
 					}

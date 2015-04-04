@@ -1,6 +1,5 @@
 package tv.mineinthebox.essentials.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -27,13 +26,13 @@ public class CmdFirefly extends CommandTemplate {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.isFirefly()) {
 							xp.setFirefly(false);
-							sendMessage(ChatColor.GREEN + "you successfully disabled firefly!");
+							sendMessage("you successfully disabled firefly!");
 						} else {
 							xp.setFirefly(true);
-							sendMessage(ChatColor.GREEN + "you successfully enabled firefly!");
+							sendMessage("you successfully enabled firefly!");
 						}
 					} else {
-						sendMessage(ChatColor.RED + "you don't seems to be listed at our global list, please reload pl");
+						sendMessage("you don't seems to be listed at our global list, please reload pl");
 					}
 				} else {
 					getWarning(WarningType.NO_PERMISSION);

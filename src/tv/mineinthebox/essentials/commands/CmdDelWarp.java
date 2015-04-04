@@ -76,23 +76,23 @@ public class CmdDelWarp extends CommandTemplate {
 							Warp warp = pl.getManagers().getWarpManager().getWarp(args[0].toLowerCase(), (Player)sender);
 							if(sender.hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 								warp.removeWarp();
-								sendMessage(ChatColor.GREEN + "you successfully removed the warp ");
+								sendMessage("you successfully removed the warp ");
 							} else {
-								sendMessage(ChatColor.RED + "you dont have permission to remove the warp");
+								sendMessage("you dont have permission to remove the warp");
 							}
 						} else {
-							sendMessage(ChatColor.RED + "warp does not exist!");
+							sendMessage("warp does not exist!");
 						}
 					} else {
 						if(pl.getManagers().getWarpManager().isWarp(args[0].toLowerCase())) {
 							Warp warp = pl.getManagers().getWarpManager().getWarp(args[0].toLowerCase(), (Player)sender);
 							if(warp.isOwner()) {
-								sendMessage(ChatColor.GREEN + "you successfully removed the warp ");
+								sendMessage("you successfully removed the warp ");
 							} else {
-								sendMessage(ChatColor.RED + "you are not the owner of this warp!");
+								sendMessage("you are not the owner of this warp!");
 							}
 						} else {
-							sendMessage(ChatColor.RED + "warp does not exist!");
+							sendMessage("warp does not exist!");
 						}
 					}
 				}

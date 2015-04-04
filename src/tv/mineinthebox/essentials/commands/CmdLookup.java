@@ -106,7 +106,7 @@ public class CmdLookup extends CommandTemplate {
 										sender.sendMessage(argss[0] + ": " + ChatColor.GRAY + argss[1]);
 									}
 								} else {
-									sendMessage(ChatColor.RED + "this player is not banned on this service!");
+									sendMessage("this player is not banned on this service!");
 								}
 							} catch (Exception e) {
 								e.printStackTrace();
@@ -114,7 +114,7 @@ public class CmdLookup extends CommandTemplate {
 							}
 						}
 					} catch(IllegalArgumentException r) {
-						sendMessage(ChatColor.RED + "invalid service name!");
+						sendMessage("invalid service name!");
 					}
 				}
 			} else {

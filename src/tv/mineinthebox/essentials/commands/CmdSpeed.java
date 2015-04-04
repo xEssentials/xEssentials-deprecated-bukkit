@@ -1,6 +1,5 @@
 package tv.mineinthebox.essentials.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -26,10 +25,10 @@ public class CmdSpeed extends CommandTemplate {
 					XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 					if(xp.isSpeedEnabled()) {
 						xp.removeSpeed();
-						sendMessage(ChatColor.GREEN + "speed disabled!");
+						sendMessage("speed disabled!");
 					} else {
 						xp.setSpeed(1);
-						sendMessage(ChatColor.GREEN + "speed enabled!");
+						sendMessage("speed enabled!");
 					}
 				} else {
 					getWarning(WarningType.PLAYER_ONLY);

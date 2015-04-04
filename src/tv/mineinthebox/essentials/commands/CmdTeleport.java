@@ -72,17 +72,17 @@ public class CmdTeleport extends CommandTemplate {
 								if(xp.isVanished()) {
 									if(p.getBukkitPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 										p.vanish();
-										sendMessageTo(p.getBukkitPlayer(), ChatColor.GREEN + "the player you teleported to has been vanished, now you are vanished to!");	
+										sendMessageTo(p.getBukkitPlayer(), "the player you teleported to has been vanished, now you are vanished to!");	
 									}
 								}
 								p.getBukkitPlayer().teleport(to.getPlayer());
-								sendMessage(ChatColor.GREEN + "teleporting to online location of player " + xp.getName() + " ;-)");
+								sendMessage("teleporting to online location of player " + xp.getName() + " ;-)");
 							} else {
 								if(pl.getManagers().getPlayerManager().isEssentialsPlayer(args[0])) {
 									XOfflinePlayer offliner = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 									offliner.getLastLocation().getWorld().refreshChunk(offliner.getLastLocation().getChunk().getX(), offliner.getLastLocation().getChunk().getZ());
 									p.getBukkitPlayer().teleport(offliner.getLastLocation(), TeleportCause.COMMAND);
-									sendMessage(ChatColor.GREEN + "teleporting to last offline location of player " + offliner.getName() + " ;-)");
+									sendMessage("teleporting to last offline location of player " + offliner.getName() + " ;-)");
 								} else {
 									getWarning(WarningType.NEVER_PLAYED_BEFORE);	
 								}
@@ -105,15 +105,15 @@ public class CmdTeleport extends CommandTemplate {
 									if(pl.getManagers().getManCoManager().hasCrate(to)) {
 										Location loc = pl.getManagers().getManCoManager().getCrateLocation(to);
 										p.teleport(loc, TeleportCause.COMMAND);
-										sendMessage(ChatColor.GREEN + "teleporting to " + to.getName() + " his ManCo crate ;-)");
+										sendMessage("teleporting to " + to.getName() + " his ManCo crate ;-)");
 									} else {
-										sendMessage(ChatColor.RED + "this player doesn't own any ManCo crate!");
+										sendMessage("this player doesn't own any ManCo crate!");
 									}
 								} else {
-									sendMessage(ChatColor.RED + "ManCo is not enabled on this server!\nsee:\nhttp://dev.bukkit.org/bukkit-plugins/manco-supply-crates/");
+									sendMessage("ManCo is not enabled on this server!\nsee:\nhttp://dev.bukkit.org/bukkit-plugins/manco-supply-crates/");
 								}
 							} else {
-								sendMessage(ChatColor.RED + "player is not online so the crate has been destroyed!");
+								sendMessage("player is not online so the crate has been destroyed!");
 							}
 						} else {
 							getWarning(WarningType.PLAYER_ONLY);
@@ -130,12 +130,12 @@ public class CmdTeleport extends CommandTemplate {
 									Location loc = pl.getManagers().getWorldGuardManager().getRegionLocation(args[1], p.getWorld());
 									loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 									p.teleport(loc, TeleportCause.COMMAND);
-									sendMessage(ChatColor.GREEN + "teleporting to region " + args[1] + " ;-)");
+									sendMessage("teleporting to region " + args[1] + " ;-)");
 								} else {
-									sendMessage(ChatColor.RED + "region with that name whas not found to teleport to!");
+									sendMessage("region with that name whas not found to teleport to!");
 								}
 							} else {
-								sendMessage(ChatColor.RED + "WorldGuard and WorldEdit are not enabled on this server!\nsee:\nhttp://dev.bukkit.org/bukkit-plugins/worldedit/");
+								sendMessage("WorldGuard and WorldEdit are not enabled on this server!\nsee:\nhttp://dev.bukkit.org/bukkit-plugins/worldedit/");
 							}
 						} else {
 							getWarning(WarningType.PLAYER_ONLY);
@@ -150,14 +150,14 @@ public class CmdTeleport extends CommandTemplate {
 						if(p1 instanceof Player) {
 							if(p2 instanceof Player) {
 								p1.teleport(p2);
-								sendMessageTo(p1, ChatColor.GREEN + sender.getName() + " teleports you to " + p2.getName() + " ;-)");
-								sendMessageTo(p2, ChatColor.GREEN + p1.getName() + " has been teleported to you by " + sender.getName());
-								sendMessage(ChatColor.GREEN + "you successfully teleported player " + p1.getName() + " to player " + p2.getName());
+								sendMessageTo(p1, sender.getName() + " teleports you to " + p2.getName() + " ;-)");
+								sendMessageTo(p2, p1.getName() + " has been teleported to you by " + sender.getName());
+								sendMessage("you successfully teleported player " + p1.getName() + " to player " + p2.getName());
 							} else {
-								sendMessage(ChatColor.RED + "this player is not online!");
+								sendMessage("this player is not online!");
 							}
 						} else {
-							sendMessage(ChatColor.RED + "this player is not online!");
+							sendMessage("this player is not online!");
 						}
 					} else {
 						getWarning(WarningType.NO_PERMISSION);
@@ -174,9 +174,9 @@ public class CmdTeleport extends CommandTemplate {
 							Location loc = new Location(p.getWorld(), x, y, z);
 							loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 							p.teleport(loc, TeleportCause.COMMAND);
-							sendMessage(ChatColor.GREEN + "teleporting to x:"+x + " y:"+y + " z:"+z + " ;-)");
+							sendMessage("teleporting to x:"+x + " y:"+y + " z:"+z + " ;-)");
 						} catch(NumberFormatException e) {
-							sendMessage(ChatColor.RED + "these are invalid coordinates to teleport to!");
+							sendMessage("these are invalid coordinates to teleport to!");
 						}
 					} else {
 						getWarning(WarningType.PLAYER_ONLY);
@@ -198,9 +198,9 @@ public class CmdTeleport extends CommandTemplate {
 								Location loc = new Location(w, x, y, z);
 								loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 								p.teleport(loc, TeleportCause.COMMAND);
-								sendMessage(ChatColor.GREEN + "teleporting to " + w.getName() + " x:" + x + " y:" + y + " z:"+z+" ;-)");
+								sendMessage("teleporting to " + w.getName() + " x:" + x + " y:" + y + " z:"+z+" ;-)");
 							} catch(NumberFormatException e) {
-								sendMessage(ChatColor.RED + "these are invalid coordinates to teleport to!");
+								sendMessage("these are invalid coordinates to teleport to!");
 							}
 						} else {
 							getWarning(WarningType.PLAYER_ONLY);
@@ -213,13 +213,13 @@ public class CmdTeleport extends CommandTemplate {
 							Location loc = new Location(victem.getWorld(), x, y, z);
 							loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 							victem.teleport(loc, TeleportCause.COMMAND);
-							sendMessageTo(victem, ChatColor.GREEN + "you are teleported by " + sender.getName() + "to x:" + x + " y:" + y + " z:" + z + " ;-)");
-							sendMessage(ChatColor.GREEN + "successfully teleported " + victem.getName() + "to x:" + x + " y:" + y + " z:" + z + " ;-)");
+							sendMessageTo(victem, "you are teleported by " + sender.getName() + "to x:" + x + " y:" + y + " z:" + z + " ;-)");
+							sendMessage("successfully teleported " + victem.getName() + "to x:" + x + " y:" + y + " z:" + z + " ;-)");
 						} catch(NumberFormatException e) {
-							sender.sendMessage(ChatColor.RED + "these are invalid coordinates to teleport to!");
+							sender.sendMessage("these are invalid coordinates to teleport to!");
 						}
 					} else {
-						sendMessage(ChatColor.RED + "we are sorry we don't know about these arguments!");
+						sendMessage("we are sorry we don't know about these arguments!");
 					}
 				} else {
 					getWarning(WarningType.NO_PERMISSION);
@@ -236,16 +236,16 @@ public class CmdTeleport extends CommandTemplate {
 							Location loc = new Location(w, x, y, z);
 							loc.getWorld().refreshChunk(loc.getChunk().getX(), loc.getChunk().getZ());
 							victem.teleport(loc, TeleportCause.COMMAND);
-							sendMessageTo(victem, ChatColor.GREEN + "you are teleported by " + sender.getName() + "to world: " + w.getName() + " x:" + x + " y:" + y + " z:" + z + " ;-)");
-							sendMessage(ChatColor.GREEN + "successfully teleported " + victem.getName() + "to world: " + w.getName() + " x:" + x + " y:" + y + " z:" + z + " ;-)");
+							sendMessageTo(victem, "you are teleported by " + sender.getName() + "to world: " + w.getName() + " x:" + x + " y:" + y + " z:" + z + " ;-)");
+							sendMessage("successfully teleported " + victem.getName() + "to world: " + w.getName() + " x:" + x + " y:" + y + " z:" + z + " ;-)");
 						} else {
-							sendMessage(ChatColor.RED + "invalid world to teleport to!");
+							sendMessage("invalid world to teleport to!");
 						}
 					} catch(NumberFormatException e) {
-						sendMessage(ChatColor.RED + "these are invalid coordinates to teleport to!");
+						sendMessage("these are invalid coordinates to teleport to!");
 					}
 				} else {
-					sendMessage(ChatColor.RED + "we don't know much about these arguments!");
+					sendMessage("we don't know much about these arguments!");
 				}
 			}
 		}

@@ -3,7 +3,6 @@ package tv.mineinthebox.essentials.commands;
 import java.util.Arrays;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -30,13 +29,13 @@ public class CmdAfk extends CommandTemplate {
 					if(args.length == 0) {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						xp.setAfk("no reason given in");
-						broadcast(ChatColor.GREEN + sender.getName() + " has been afk");
+						broadcast(sender.getName() + " has been afk");
 						Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getBukkitPlayer(), true, false, pl));
 					} else  {
 						String message = Arrays.toString(args).replace("[", "").replace(",", "").replace("]", "");
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						xp.setAfk(message);
-						broadcast(ChatColor.GREEN + sender.getName() + " has been afk [ "+xp.getAfkReason()+" ]");
+						broadcast(sender.getName() + " has been afk [ "+xp.getAfkReason()+" ]");
 						Bukkit.getPluginManager().callEvent(new PlayerAfkEvent(xp.getBukkitPlayer(), true, false, pl));
 					}
 				} else {

@@ -37,15 +37,15 @@ public class CmdMute extends CommandTemplate {
 							Date date = new Date(System.currentTimeMillis());
 							date.setDate(date.getDate() + 1);
 							xp.mute(date.getTime());
-							sendMessage(ChatColor.GREEN + "successfully muted player " + xp.getBukkitPlayer().getName() + " for one day!");
-							sendMessageTo(xp.getBukkitPlayer(), ChatColor.GREEN + sender.getName() + " has muted you for one day!");
+							sendMessage("successfully muted player " + xp.getBukkitPlayer().getName() + " for one day!");
+							sendMessageTo(xp.getBukkitPlayer(),sender.getName() + " has muted you for one day!");
 						} else {
 							try {
 								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								Date date = new Date(System.currentTimeMillis());
 								date.setDate(date.getDate() + 1);
 								off.mute(date.getTime());
-								sendMessage(ChatColor.GREEN + "successfully muted offline player " + off.getName() + " for one day!");
+								sendMessage("successfully muted offline player " + off.getName() + " for one day!");
 							} catch(NullPointerException e) {
 								getWarning(WarningType.NEVER_PLAYED_BEFORE);
 							}
@@ -73,8 +73,8 @@ public class CmdMute extends CommandTemplate {
 							}
 						}
 						xp.mute(date.getTime());
-						sendMessage(ChatColor.GREEN + "successfully muted player " + xp.getName() + " till " + date.toString() + "!");
-						sendMessageTo(xp.getBukkitPlayer(), ChatColor.GREEN + sender.getName() + " has muted you till " + date.toString());
+						sendMessage("successfully muted player " + xp.getName() + " till " + date.toString() + "!");
+						sendMessageTo(xp.getBukkitPlayer(), sender.getName() + " has muted you till " + date.toString());
 					} else {
 						try {
 							XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
@@ -97,7 +97,7 @@ public class CmdMute extends CommandTemplate {
 								}
 							}
 							off.mute(date.getTime());
-							sendMessage(ChatColor.GREEN + "successfully muted offline player " + off.getName() + " till " + date.toString() + "!");
+							sendMessage("successfully muted offline player " + off.getName() + " till " + date.toString() + "!");
 						} catch(NullPointerException e) {
 							getWarning(WarningType.NEVER_PLAYED_BEFORE);
 						}

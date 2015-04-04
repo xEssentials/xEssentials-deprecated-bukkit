@@ -37,14 +37,14 @@ public class CmdTphere extends CommandTemplate {
 								if(p.isVanished()) {
 									if(victem.getBukkitPlayer().hasPermission(PermissionKey.IS_ADMIN.getPermission())) {
 										victem.getEssentialsPlayer().vanish();
-										sendMessageTo(victem.getBukkitPlayer(), ChatColor.GREEN + "the player you teleported to has been vanished, now you are vanished to!");	
+										sendMessageTo(victem.getBukkitPlayer(), "the player you teleported to has been vanished, now you are vanished to!");	
 									}
 								}
-								sendMessage(ChatColor.GREEN + "teleported " + victem.getBukkitPlayer().getName() + " to you!");
+								sendMessage("teleported " + victem.getBukkitPlayer().getName() + " to you!");
 								sendMessageTo(victem.getBukkitPlayer(), ChatColor.GREEN + sender.getName() + " has teleported you to his location!");
 								victem.getBukkitPlayer().teleport(p.getBukkitPlayer(), TeleportCause.COMMAND);
 							} else {
-								sendMessage(ChatColor.RED + "could not find a online player with that name!");
+								sendMessage("could not find a online player with that name!");
 							}
 						} else {
 							getWarning(WarningType.PLAYER_ONLY);

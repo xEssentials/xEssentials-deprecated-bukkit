@@ -1,6 +1,5 @@
 package tv.mineinthebox.essentials.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
@@ -29,10 +28,10 @@ public class CmdNuke extends CommandTemplate {
 						for(Entity entity : xp.getBukkitPlayer().getNearbyEntities(40, 40, 40)) {
 							if(entity instanceof Player) {
 								Player p = (Player) entity;
-								sendMessageTo(p, ChatColor.GRAY + "May death rain upon them");
+								sendMessageTo(p, "May death rain upon them");
 							}
 						}
-						sendMessage(ChatColor.GRAY + "May death rain upon them");
+						sendMessage("May death rain upon them");
 						xp.nuke();
 					} else {
 						getWarning(WarningType.PLAYER_ONLY);
@@ -44,13 +43,13 @@ public class CmdNuke extends CommandTemplate {
 						for(Entity entity : xp.getBukkitPlayer().getNearbyEntities(40, 40, 40)) {
 							if(entity instanceof Player) {
 								Player r = (Player) entity;
-								sendMessageTo(r, ChatColor.GRAY + "May death rain upon them");
+								sendMessageTo(r, "May death rain upon them");
 							}
 						}
-						sendMessage(ChatColor.GRAY + "May death rain upon them");
+						sendMessage("May death rain upon them");
 						xp.nuke();
 					} else {
-						sendMessage(ChatColor.RED + "this player is not online!");
+						sendMessage("this player is not online!");
 					}
 				}
 			} else {

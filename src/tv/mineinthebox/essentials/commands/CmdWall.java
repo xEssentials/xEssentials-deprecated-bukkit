@@ -27,10 +27,10 @@ public class CmdWall extends CommandTemplate {
 						XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 						if(xp.isWallMode()) {
 							xp.setWallMode(false, xp.getWallModeRange());
-							sendMessage(ChatColor.GRAY + "wall mode disabled!");
+							sendMessage("wall mode disabled!");
 						} else {
 							xp.setWallMode(true, 8);
-							sendMessage(ChatColor.GRAY + "wall mode is enabled!");
+							sendMessage("wall mode is enabled!");
 						}
 					} else if(args.length == 1) {
 						if(args[0].equalsIgnoreCase("help")) {
@@ -39,7 +39,7 @@ public class CmdWall extends CommandTemplate {
 							XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(sender.getName());
 							int range = Integer.parseInt(args[0]);
 							xp.setWallMode(true, range);
-							sendMessage(ChatColor.GRAY + "wall mode is enabled!");
+							sendMessage("wall mode is enabled!");
 						}
 					}
 				} else {
