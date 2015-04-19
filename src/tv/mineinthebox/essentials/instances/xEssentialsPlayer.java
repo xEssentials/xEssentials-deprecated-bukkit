@@ -1668,7 +1668,7 @@ public class xEssentialsPlayer implements XPlayer {
 
 					@Override
 					public void run() {
-						if(effect != null && player.isOnline()) {
+						if(effect != null && player.isOnline() && !isVanished()) {
 							EffectType.playEffect(player.getWorld(), effect, player.getLocation().add(0, 2, 0), 0.25, 0, 0.25, 0, 10);
 						} else {
 							cancel();
