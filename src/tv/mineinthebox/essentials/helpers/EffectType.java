@@ -78,7 +78,7 @@ public enum EffectType {
 	 * @param zoffset - the z offset
 	 * @param particledata - the particle data
 	 */
-	public static final void playEffect(World w, EffectType type, Location loc, int xoffset, int yoffset, int zoffset, int particledata, int amount) {
+	public static final void playEffect(World w, EffectType type, Location loc, double xoffset, double yoffset, double zoffset, int particledata, int amount) {
 		Object packet = createPacket(type, loc, xoffset, yoffset, zoffset, particledata, amount);
 		
 		if(packet == null) {
@@ -104,14 +104,14 @@ public enum EffectType {
 		}
 	}
 
-	private final static Object createPacket(EffectType type, Location loc, int xoffset, int yoffset, int zoffset, int particledata, int amount) {
+	private final static Object createPacket(EffectType type, Location loc, double xoffset, double yoffset, double zoffset, int particledata, int amount) {
 		try {
 			Class<?> enumClass = Class.forName("net.minecraft.server."+getVersion()+".EnumParticle");
 			Object e = enumClass.getMethod("valueOf", String.class).invoke(null, type.name());
 
-			float x = Float.valueOf(loc.getBlockX());
-			float y = Float.valueOf(loc.getBlockY());
-			float z = Float.valueOf(loc.getBlockZ());
+			float x = (float)loc.getX();
+			float y = (float)loc.getY();
+			float z = (float)loc.getZ();
 
 			Object packet  = Class.forName("net.minecraft.server."+getVersion()+".PacketPlayOutWorldParticles").getConstructor(new Class<?>[] {
 					Class.forName("net.minecraft.server."+getVersion()+".EnumParticle"),

@@ -41,6 +41,7 @@ import tv.mineinthebox.essentials.enums.LogType;
 import tv.mineinthebox.essentials.enums.PermissionKey;
 import tv.mineinthebox.essentials.enums.PlayerTaskEnum;
 import tv.mineinthebox.essentials.events.players.FakeNukeEvent;
+import tv.mineinthebox.essentials.helpers.EffectType;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 import tv.mineinthebox.essentials.minigames.plugin.arena.MinigameArena;
@@ -59,6 +60,8 @@ public class xEssentialsPlayer implements XPlayer {
 	private BukkitTask pwnagetask;
 	private MinigameArena arena;
 	private MinigameSession session;
+	private EffectType effect;
+	private BukkitTask effect_task;
 
 	public xEssentialsPlayer(Player player, String UUID, xEssentials pl) {
 		this.pl = pl;
@@ -1642,6 +1645,40 @@ public class xEssentialsPlayer implements XPlayer {
 		con.set("messagepool", null);
 		return messages;
 	}
+	
+	@Override
+	public boolean hasEffects() {
+		return (this.effect != null && effect_task instanceof BukkitTask);
+	}
+
+	@Override
+	public void setEffect(EffectType type) {
+		if(type == null) {
+			if(effect_task instanceof BukkitTask) {
+				effect_task.cancel();
+				this.effect_task = null;
+				this.effect = null;
+			}
+		} else {
+			if(effect_task instanceof BukkitTask) {
+				this.effect = type;
+			} else {
+				this.effect = type;
+				this.effect_task = new BukkitRunnable() {
+
+					@Override
+					public void run() {
+						if(effect != null && player.isOnline()) {
+							EffectType.playEffect(player.getWorld(), effect, player.getLocation().add(0, 2, 0), 0.25, 0, 0.25, 0, 10);
+						} else {
+							cancel();
+						}
+					}
+					
+				}.runTaskTimer(pl, 0L, 5L);
+			}
+		}
+	}
 
 	@Override
 	public void save() {
@@ -1686,4 +1723,5 @@ public class xEssentialsPlayer implements XPlayer {
 		}
 		return false;
 	}
+	
 }

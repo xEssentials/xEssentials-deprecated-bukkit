@@ -10,6 +10,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 
+import tv.mineinthebox.essentials.helpers.EffectType;
+
 public interface XPlayer extends MinigamePlayer, XOfflinePlayer {
 	
 	/**
@@ -904,5 +906,21 @@ public interface XPlayer extends MinigamePlayer, XOfflinePlayer {
 	 * @return List<String>
 	 */
 	public List<String> getMessages();
+	
+	/**
+	 * returns true if the player has effects, otherwise false
+	 * 
+	 * @author xize
+	 * @return boolean
+	 */
+	public boolean hasEffects();
+	
+	/**
+	 * sets the effect of the player
+	 * 
+	 * @author xize
+	 * @param effect - the effects, null to disable the scheduler
+	 */
+	public void setEffect(EffectType effect);
 	
 }

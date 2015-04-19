@@ -290,6 +290,9 @@ public class SimpleCommand implements CommandExecutor, TabCompleter {
 		} else if(cmd.getName().equalsIgnoreCase("opkit")) {
 			CmdOpkit opkit = new CmdOpkit(pl, cmd, sender);
 			return opkit.execute(sender, cmd, args);
+		} else if(cmd.getName().equalsIgnoreCase("effect")) {
+			CmdEffect effect = new CmdEffect(pl, cmd, sender);
+			return effect.execute(sender, cmd, args);
 		}
 		return false;
 	}
@@ -356,6 +359,9 @@ public class SimpleCommand implements CommandExecutor, TabCompleter {
 		} else if(cmd.getName().equalsIgnoreCase("doublejump")) {
 			CmdDoubleJump jump = new CmdDoubleJump(pl, cmd, sender);
 			return jump.onTabComplete(sender, cmd, args);
+		} else if(cmd.getName().equalsIgnoreCase("effect")) {
+			CmdEffect effect = new CmdEffect(pl, cmd, sender);
+			return effect.onTabComplete(sender, cmd, args);
 		}
 		return null;
 	}

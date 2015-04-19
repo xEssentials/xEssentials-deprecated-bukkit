@@ -375,3 +375,7 @@ commands:
      description: its empty
      permission: xEssentials.isAdmin
      aliases: []
+  effect:
+     description: sets an effect on a player
+     permission: xEssentials.command.effect
+     aliases: []
