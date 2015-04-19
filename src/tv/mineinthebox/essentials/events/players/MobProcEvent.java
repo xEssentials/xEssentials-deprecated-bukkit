@@ -23,6 +23,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitTask;
 
 import tv.mineinthebox.essentials.xEssentials;
+import tv.mineinthebox.essentials.helpers.EffectType;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
 public class MobProcEvent implements Listener, Runnable {
@@ -73,6 +74,7 @@ public class MobProcEvent implements Listener, Runnable {
 					for(int i =0; i < 5; i++) {
 						p.getWorld().playEffect(new Location(p.getWorld(), rand.nextInt(10), rand.nextInt(4), rand.nextInt(10)), Effect.MOBSPAWNER_FLAMES, 100, 10);
 						//ParticleEffect.HAPPY_VILLAGER.display(p.getLocation(), rand.nextInt(10), rand.nextInt(4), rand.nextInt(10), 100, 10);	
+						EffectType.playEffect(p.getWorld(), EffectType.VILLAGER_HAPPY, p.getLocation(), rand.nextInt(10), rand.nextInt(4), rand.nextInt(10), 1, 10);
 					}
 					p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 3));
 					Date date = new Date(System.currentTimeMillis());
