@@ -32,6 +32,7 @@ import tv.mineinthebox.essentials.events.chat.BroadcastSiteNewsEvent;
 import tv.mineinthebox.essentials.events.chat.ChatFormatEvent;
 import tv.mineinthebox.essentials.events.chat.ChatHighLightEvent;
 import tv.mineinthebox.essentials.events.chat.ChatSmilleyEvent;
+import tv.mineinthebox.essentials.events.chat.ChatSmilleyParticleEvent;
 import tv.mineinthebox.essentials.events.chat.DrunkChatEvent;
 import tv.mineinthebox.essentials.events.chat.MuteEvent;
 import tv.mineinthebox.essentials.events.chat.PlayerIgnorePlayerChatEvent;
@@ -218,7 +219,12 @@ public class Handler {
 		setListener(new SilenceChatEvent(pl));
 		setListener(new PlayerIgnorePlayerChatEvent(pl));
 		if(pl.getConfiguration().getChatConfig().isChatHighLightEnabled()) {setListener(new ChatHighLightEvent(pl));}
-		if(pl.getConfiguration().getChatConfig().isSmilleysEnabled()) {setListener(new ChatSmilleyEvent());}
+		if(pl.getConfiguration().getChatConfig().isSmilleysEnabled()) {
+			setListener(new ChatSmilleyEvent());
+			if(pl.getConfiguration().getChatConfig().isSmilleyParticlesEnabled()) {
+				setListener(new ChatSmilleyParticleEvent());
+			}
+		}
 		if(pl.getConfiguration().getChatConfig().isAntiAdvertiseEnabled()) {setListener(new AntiAddvertiseEvent(pl));}
 		setListener(new MuteEvent(pl));
 		//player.yml

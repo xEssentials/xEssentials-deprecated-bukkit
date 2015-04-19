@@ -14,7 +14,8 @@ public class ChatConfig extends Configuration {
 	public ChatConfig(File f, FileConfiguration con) {
 		super(f, con);
 		preconfig.put("chat.enable.player-highlights", false);
-		preconfig.put("chat.enable.smilleys", false);
+		preconfig.put("chat.enable.smilleys.enable", false);
+		preconfig.put("chat.enable.smilleys.useParticles", false);
 		preconfig.put("chat.enable.hashtag", "&e@");
 		preconfig.put("chat.enable.anti-addvertise", false);
 		preconfig.put("chat.format.group.global.prefix", "&2[citizen]&f");
@@ -55,7 +56,17 @@ public class ChatConfig extends Configuration {
 	 * @return boolean
 	 */
 	public boolean isSmilleysEnabled() {
-		return con.getBoolean("chat.enable.smilleys");
+		return con.getBoolean("chat.enable.smilleys.enable");
+	}
+	
+	/**
+	 * returns true if the smilley particles are enabled otherwise false
+	 * 
+	 * @author xzie
+	 * @return boolean
+	 */
+	public boolean isSmilleyParticlesEnabled() {
+		return con.getBoolean("chat.enable.smilleys.useParticles");
 	}
 
 	/**
