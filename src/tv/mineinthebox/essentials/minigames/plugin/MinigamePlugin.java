@@ -45,8 +45,6 @@ public abstract class MinigamePlugin implements Listener {
 	private ClassLoader loader;
 	private MinigameGui gui;
 
-	private ResourcePack resourcepack;
-
 	/**
 	 * the onEnable start method
 	 * 
@@ -253,26 +251,6 @@ public abstract class MinigamePlugin implements Listener {
 	}
 
 	/**
-	 * sets a default resource pack for every player joining the arena!
-	 * 
-	 * @author xize
-	 * @param f - the file
-	 */
-	public final void setDefaultResourcePack(File f) {
-		this.resourcepack = new ResourcePack(f);
-	}
-
-	/**
-	 * returns the ResourcePack
-	 * 
-	 * @author xize
-	 * @return ResourcePack
-	 */
-	public final ResourcePack getResourcePack() {
-		return resourcepack;
-	}
-
-	/**
 	 * sents a log message to the console
 	 * 
 	 * @author xize
@@ -342,7 +320,6 @@ public abstract class MinigamePlugin implements Listener {
 		getHandlers().stopListeners();
 		commands.clear();
 		arenas.clear();
-		setDefaultResourcePack(null);
 		setMinigameGui(null);
 		setEnabled(false);
 	}
