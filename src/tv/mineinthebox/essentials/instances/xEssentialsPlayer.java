@@ -144,6 +144,14 @@ public class xEssentialsPlayer implements XPlayer {
 	}
 	
 	@Override
+	public String getName() {
+		if(!player.getName().equalsIgnoreCase(con.getString("user"))) {
+			con.set("user", player.getName());
+		}
+		return con.getString("user");
+	}
+	
+	@Override
 	public boolean hasSession() {
 		return session != null;
 	}
@@ -364,14 +372,6 @@ public class xEssentialsPlayer implements XPlayer {
 	public boolean setIp() {
 		con.set("ip", player.getAddress().getAddress().getHostAddress());
 		return true;
-	}
-	
-	@Override
-	public String getName() {
-		if(!player.getName().equalsIgnoreCase(con.getString("user"))) {
-			con.set("user", player.getName());
-		}
-		return con.getString("user");
 	}
 
 	@Override

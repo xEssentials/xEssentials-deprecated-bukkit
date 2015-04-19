@@ -139,6 +139,10 @@ public interface MinigameArena {
 	 */
 	public void doCountdown(final int seconds, final Sound clocktick, final Sound gamestart);
 	
+	public boolean hasLeaderBoard();
+	
+	public Leaderboard getLeaderBoard();
+	
 	/**
 	 * resets the arena to default
 	 * 
