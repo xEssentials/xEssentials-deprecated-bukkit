@@ -61,7 +61,7 @@ public enum EffectType {
 	 * @param zoffset - the z offset
 	 * @param particledata - the particle data
 	 */
-	public static final void playEffect(Player p, EffectType type, Location loc, int xoffset, int yoffset, int zoffset, int particledata, int amount) {
+	public static final void playEffect(Player p, EffectType type, Location loc, double xoffset, double yoffset, double zoffset, int particledata, int amount) {
 		Object packet = createPacket(type, loc, xoffset, yoffset, zoffset, particledata, amount);
 		sendPacket(p, packet);
 	}
@@ -128,6 +128,7 @@ public enum EffectType {
 			}).newInstance(e, true, x, y, z, (float)xoffset, (float)yoffset, (float)zoffset, (float)particledata, amount, new int[] {0, 0});
 			return packet;
 		} catch(Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
