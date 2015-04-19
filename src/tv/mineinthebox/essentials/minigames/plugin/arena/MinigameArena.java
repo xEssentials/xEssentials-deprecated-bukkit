@@ -137,7 +137,7 @@ public interface MinigameArena {
 	 * @param clocktick - the clock tick sound
 	 * @param gamestart - the starters sound
 	 */
-	public void docCountdown(final int seconds, final Sound clocktick, final Sound gamestart);
+	public void doCountdown(final int seconds, final Sound clocktick, final Sound gamestart);
 	
 	/**
 	 * resets the arena to default
