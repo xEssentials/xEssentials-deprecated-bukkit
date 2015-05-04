@@ -29,15 +29,19 @@ import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.PlayerTaskEnum;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
+import tv.mineinthebox.essentials.minigames.plugin.MinigameType;
+import tv.mineinthebox.essentials.minigames.plugin.arena.GameStatus;
 
 public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 
 	private final File f;
 	private final FileConfiguration con;
+	private final xEssentials pl;
+	
 	private String player;
 	private AlternateAccount accounts;
-	private final xEssentials pl;
-
+	private GameStatus status;
+	
 	public xEssentialsOfflinePlayer(String player, xEssentials pl) {
 		this.pl = pl;	
 		this.f = pl.getManagers().getPlayerManager().getOfflinePlayerFile(player);
@@ -676,6 +680,26 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			e.printStackTrace();
 		}
 		save();
+	}
+	
+	@Override
+	public GameStatus getGameStatus(MinigameType type) {
+		if(status != null && status.getType().equals(type)) {
+			return status;
+		} else {
+			this.status = new GameStatus(type, f, con);
+			return status;
+		} 
+	}
+
+	@Override
+	public boolean hasGameStatus(MinigameType type) {
+		if(status != null && status.getType().equals(type)) {
+			return (status.matchesPlayed() > 0 ? true : false);
+		} else {
+			this.status = new GameStatus(type, f, con);
+			return (status.matchesPlayed() > 0 ? true : false);	
+		} 
 	}
 
 	@Override

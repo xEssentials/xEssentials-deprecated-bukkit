@@ -44,6 +44,8 @@ import tv.mineinthebox.essentials.events.players.FakeNukeEvent;
 import tv.mineinthebox.essentials.helpers.EffectType;
 import tv.mineinthebox.essentials.interfaces.XOfflinePlayer;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
+import tv.mineinthebox.essentials.minigames.plugin.MinigameType;
+import tv.mineinthebox.essentials.minigames.plugin.arena.GameStatus;
 import tv.mineinthebox.essentials.minigames.plugin.arena.MinigameArena;
 import tv.mineinthebox.essentials.minigames.plugin.session.MinigameSession;
 
@@ -62,7 +64,8 @@ public class xEssentialsPlayer implements XPlayer {
 	private MinigameSession session;
 	private EffectType effect;
 	private BukkitTask effect_task;
-
+	private GameStatus status;
+	
 	public xEssentialsPlayer(Player player, String UUID, xEssentials pl) {
 		this.pl = pl;
 		if(pl.getConfiguration().getDebugConfig().isEnabled()) {
@@ -149,36 +152,6 @@ public class xEssentialsPlayer implements XPlayer {
 			con.set("user", player.getName());
 		}
 		return con.getString("user");
-	}
-	
-	@Override
-	public boolean hasSession() {
-		return session != null;
-	}
-
-	@Override
-	public MinigameSession getSession() {
-		return session;
-	}
-
-	@Override
-	public void setSession(MinigameSession sess) {
-		this.session = sess;
-	}
-	
-	@Override
-	public boolean isInArena() {
-		return (arena != null);
-	}
-
-	@Override
-	public MinigameArena getArena() {
-		return arena;
-	}
-
-	@Override
-	public void setArena(MinigameArena arena) {
-		this.arena = arena;
 	}
 
 	@Override
@@ -1678,6 +1651,56 @@ public class xEssentialsPlayer implements XPlayer {
 				}.runTaskTimer(pl, 0L, 5L);
 			}
 		}
+	}
+	
+	@Override
+	public boolean hasSession() {
+		return session != null;
+	}
+
+	@Override
+	public MinigameSession getSession() {
+		return session;
+	}
+
+	@Override
+	public void setSession(MinigameSession sess) {
+		this.session = sess;
+	}
+	
+	@Override
+	public boolean isInArena() {
+		return (arena != null);
+	}
+
+	@Override
+	public MinigameArena getArena() {
+		return arena;
+	}
+
+	@Override
+	public void setArena(MinigameArena arena) {
+		this.arena = arena;
+	}
+	
+	@Override
+	public GameStatus getGameStatus(MinigameType type) {
+		if(status != null && status.getType().equals(type)) {
+			return status;
+		} else {
+			this.status = new GameStatus(type, f, con);
+			return status;
+		} 
+	}
+
+	@Override
+	public boolean hasGameStatus(MinigameType type) {
+		if(status != null && status.getType().equals(type)) {
+			return (status.matchesPlayed() > 0 ? true : false);
+		} else {
+			this.status = new GameStatus(type, f, con);
+			return (status.matchesPlayed() > 0 ? true : false);	
+		} 
 	}
 
 	@Override

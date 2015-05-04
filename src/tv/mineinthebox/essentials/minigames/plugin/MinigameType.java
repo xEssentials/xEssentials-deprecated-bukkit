@@ -1,4 +1,4 @@
-package tv.mineinthebox.essentials.minigames.plugin.arena;
+package tv.mineinthebox.essentials.minigames.plugin;
 
 public abstract class MinigameType {
 	

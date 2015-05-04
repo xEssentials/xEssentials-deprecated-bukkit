@@ -1,8 +1,7 @@
-package tv.mineinthebox.essentials.interfaces;
+package tv.mineinthebox.essentials.minigames.plugin.arena;
 
 import org.bukkit.entity.Player;
 
-import tv.mineinthebox.essentials.minigames.plugin.arena.MinigameArena;
 import tv.mineinthebox.essentials.minigames.plugin.session.MinigameSession;
 
 public interface MinigamePlayer {

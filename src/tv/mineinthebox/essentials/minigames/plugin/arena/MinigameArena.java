@@ -4,7 +4,7 @@ import java.util.Set;
 
 import org.bukkit.Sound;
 
-import tv.mineinthebox.essentials.interfaces.MinigamePlayer;
+import tv.mineinthebox.essentials.minigames.plugin.MinigameType;
 
 public interface MinigameArena {
 
@@ -141,7 +141,7 @@ public interface MinigameArena {
 	
 	public boolean hasLeaderBoard();
 	
-	public Leaderboard getLeaderBoard();
+	public LeaderBoard getLeaderBoard();
 	
 	/**
 	 * resets the arena to default

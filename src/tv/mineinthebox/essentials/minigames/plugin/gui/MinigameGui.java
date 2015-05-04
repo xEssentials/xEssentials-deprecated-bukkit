@@ -10,9 +10,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import tv.mineinthebox.essentials.interfaces.MinigamePlayer;
 import tv.mineinthebox.essentials.minigames.plugin.MinigamePlugin;
 import tv.mineinthebox.essentials.minigames.plugin.arena.MinigameArena;
+import tv.mineinthebox.essentials.minigames.plugin.arena.MinigamePlayer;
 
 public class MinigameGui implements Runnable {
 	

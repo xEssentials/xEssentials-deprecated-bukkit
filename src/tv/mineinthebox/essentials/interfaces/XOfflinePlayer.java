@@ -13,8 +13,9 @@ import tv.mineinthebox.essentials.instances.Home;
 import tv.mineinthebox.essentials.instances.Modreq;
 import tv.mineinthebox.essentials.instances.RestrictedCommand;
 import tv.mineinthebox.essentials.instances.Shop;
+import tv.mineinthebox.essentials.minigames.plugin.arena.MinigameOfflinePlayer;
 
-public interface XOfflinePlayer {
+public interface XOfflinePlayer extends MinigameOfflinePlayer {
 
 	/**
 	 * returns true if the player has been greylisted otherwise false

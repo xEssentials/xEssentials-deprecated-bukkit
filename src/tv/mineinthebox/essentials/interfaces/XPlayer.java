@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 
 import tv.mineinthebox.essentials.helpers.EffectType;
+import tv.mineinthebox.essentials.minigames.plugin.arena.MinigamePlayer;
 
 public interface XPlayer extends MinigamePlayer, XOfflinePlayer {
 	

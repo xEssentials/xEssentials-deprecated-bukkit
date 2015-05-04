@@ -28,9 +28,9 @@ import tv.mineinthebox.essentials.events.customevents.ChairExitEvent;
 import tv.mineinthebox.essentials.interfaces.EventTemplate;
 import tv.mineinthebox.essentials.interfaces.XPlayer;
 
-public class PlayerSitOnChairEvent extends EventTemplate implements Listener, Runnable {
+public class PlayerSitOnChairEvent_org extends EventTemplate implements Listener, Runnable {
 	
-	public PlayerSitOnChairEvent(xEssentials pl) {
+	public PlayerSitOnChairEvent_org(xEssentials pl) {
 		super(pl, "Chairs");
 	}
 

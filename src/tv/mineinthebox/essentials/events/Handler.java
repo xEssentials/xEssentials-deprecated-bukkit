@@ -25,7 +25,7 @@ import tv.mineinthebox.essentials.events.bridges.BridgeGriefPreventionEvent;
 import tv.mineinthebox.essentials.events.bridges.BridgeInteractEvent;
 import tv.mineinthebox.essentials.events.bridges.RemoveBridgeEvent;
 import tv.mineinthebox.essentials.events.chairs.ChairDisableMonsterEvent;
-import tv.mineinthebox.essentials.events.chairs.PlayerSitOnChairEvent;
+import tv.mineinthebox.essentials.events.chairs.ChairEvent;
 import tv.mineinthebox.essentials.events.chat.AntiAddvertiseEvent;
 import tv.mineinthebox.essentials.events.chat.AntiSwearEvent;
 import tv.mineinthebox.essentials.events.chat.BroadcastSiteNewsEvent;
@@ -64,9 +64,9 @@ import tv.mineinthebox.essentials.events.gates.GateGriefPreventionEvent;
 import tv.mineinthebox.essentials.events.gates.GateInteractEvent;
 import tv.mineinthebox.essentials.events.gates.GateRedstoneEvent;
 import tv.mineinthebox.essentials.events.gates.RemoveGateEvent;
+import tv.mineinthebox.essentials.events.motd.MotdVanishEvent;
 import tv.mineinthebox.essentials.events.motd.NormalMotdEvent;
 import tv.mineinthebox.essentials.events.motd.RandomMotdEvent;
-import tv.mineinthebox.essentials.events.motd.MotdVanishEvent;
 import tv.mineinthebox.essentials.events.players.AchievementEvent;
 import tv.mineinthebox.essentials.events.players.AfkCheckEvent;
 import tv.mineinthebox.essentials.events.players.AntiKnockBackEvent;
@@ -384,7 +384,7 @@ public class Handler {
 
 		//chair events
 		if(pl.getConfiguration().getMiscConfig().isChairsEnabled()) {
-			setListener(new PlayerSitOnChairEvent(pl));
+			setListener(new ChairEvent(pl));
 			if(pl.getConfiguration().getMiscConfig().isChairMonsterOff()) {
 				setListener(new ChairDisableMonsterEvent(pl));
 			}

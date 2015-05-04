@@ -22,9 +22,9 @@ import org.bukkit.event.server.ServerCommandEvent;
 
 import tv.mineinthebox.essentials.xEssentials;
 import tv.mineinthebox.essentials.enums.LogType;
-import tv.mineinthebox.essentials.interfaces.MinigamePlayer;
 import tv.mineinthebox.essentials.interfaces.xEssentialsAPI;
 import tv.mineinthebox.essentials.minigames.plugin.arena.MinigameArena;
+import tv.mineinthebox.essentials.minigames.plugin.arena.MinigamePlayer;
 import tv.mineinthebox.essentials.minigames.plugin.command.MinigameCommandExecutor;
 import tv.mineinthebox.essentials.minigames.plugin.gui.MinigameGui;
 import tv.mineinthebox.essentials.minigames.plugin.handler.MinigameHandler;
