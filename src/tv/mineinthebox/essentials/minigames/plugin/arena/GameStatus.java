@@ -156,7 +156,7 @@ public class GameStatus {
 		return type;
 	}
 	
-	private void reload() {
+	public void reload() {
 		try {
 			con.save(f);
 		} catch (IOException e) {
@@ -172,5 +172,4 @@ public class GameStatus {
 			e.printStackTrace();
 		}
 	}
-	
 }

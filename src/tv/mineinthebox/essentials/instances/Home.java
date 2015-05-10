@@ -3,11 +3,11 @@ package tv.mineinthebox.essentials.instances;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.Configuration;
 
 public class Home {
 	
-	private final FileConfiguration con;
+	private final Configuration con;
 	private final String HomeId;
 	
 	/**
@@ -17,7 +17,7 @@ public class Home {
 	 * @return a home interface
 	 */
 	
-	public Home(FileConfiguration con, String HomeId) {
+	public Home(Configuration con, String HomeId) {
 		this.con = con;
 		this.HomeId = HomeId;
 	}

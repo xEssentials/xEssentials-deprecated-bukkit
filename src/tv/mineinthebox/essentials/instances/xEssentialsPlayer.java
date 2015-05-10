@@ -81,7 +81,9 @@ public class xEssentialsPlayer implements XPlayer {
 			if(pl.getConfiguration().getDebugConfig().isEnabled()) {
 				xEssentials.log("profile found, checking for a possible name change!", LogType.DEBUG);
 			}
-			this.con = YamlConfiguration.loadConfiguration(this.f);
+			
+			this.con = YamlConfiguration.loadConfiguration(f);
+			
 			if(!this.con.getString("user").equalsIgnoreCase(player.getName())) {
 				if(pl.getConfiguration().getDebugConfig().isEnabled()) {
 					xEssentials.log("the players name is changed from " + this.con.getString("user") + " to " + player.getName(), LogType.DEBUG);
@@ -89,12 +91,7 @@ public class xEssentialsPlayer implements XPlayer {
 				String oldName = this.con.getString("user");
 				this.con.set("user", player.getName());
 				this.con.set("ip", player.getAddress().getAddress().getHostAddress());
-				try {
-					this.con.save(f);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				save();
 				//call the custom event whenever we noticed the name has been changed!
 				//Bukkit.getPluginManager().callEvent(new PlayerNameChangeEvent(oldName, player.getName(), player, this));
 				setNameHistory(oldName);
@@ -103,12 +100,7 @@ public class xEssentialsPlayer implements XPlayer {
 					xEssentials.log("players name is still intact and matches with: " + UUID, LogType.DEBUG);
 				}
 				this.con.set("ip", player.getAddress().getAddress().getHostAddress());
-				try {
-					this.con.save(f);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				save();
 			}
 		} else {
 			//check if the player file is just a normal name if it is we rename the file to the UUID spec, then cancelling futher code execution.
@@ -121,10 +113,10 @@ public class xEssentialsPlayer implements XPlayer {
 					xEssentials.log("profile of "+player.getName()+" has been successfull found and renamed to the uuid spec", LogType.DEBUG);
 				}
 				possiblename.renameTo(this.f);
-				this.con = YamlConfiguration.loadConfiguration(this.f);
+				this.con = YamlConfiguration.loadConfiguration(f);
 				return;
 			}
-			this.con = YamlConfiguration.loadConfiguration(this.f);
+			this.con = YamlConfiguration.loadConfiguration(f);
 			this.con.set("isDefault", true);
 			this.con.set("ip", player.getAddress().getAddress().getHostAddress());
 			this.con.set("user", player.getName());
@@ -135,12 +127,7 @@ public class xEssentialsPlayer implements XPlayer {
 			if(pl.getConfiguration().getEconomyConfig().isEconomyEnabled()){
 				this.con.set("money", pl.getConfiguration().getEconomyConfig().getStartersMoney());
 			}
-			try {
-				this.con.save(this.f);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			save();
 		}
 		setLastLoginTime(System.currentTimeMillis());
 		save();
@@ -805,11 +792,6 @@ public class xEssentialsPlayer implements XPlayer {
 	@Override
 	public void setModreqDoneMessage(String message) {
 		con.set("modreq.done.message", message);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		save();
 	}
 
@@ -1705,25 +1687,38 @@ public class xEssentialsPlayer implements XPlayer {
 
 	@Override
 	public void save() {
-		try {
-			if(f.canWrite()) {
+		if(f.canWrite()) {
+			try {
 				con.save(f);
-				con.load(f);	
-			} else {
-				f.setReadable(true, false);
-				f.setWritable(true, false);
-				con.save(f);
-				con.load(f);
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			try {
+				con.load(f);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InvalidConfigurationException e) {
+				e.printStackTrace();
+			}
+		} else {
+			f.setReadable(true, false);
+			f.setWritable(true, false);
+			try {
+				con.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			try {
+				con.load(f);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InvalidConfigurationException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

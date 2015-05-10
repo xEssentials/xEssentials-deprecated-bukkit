@@ -48,7 +48,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		this.player = player;
 		if(!this.f.getName().equals(null)) {
 			if(this.f.exists()){
-				this.con = YamlConfiguration.loadConfiguration(this.f);	
+				this.con = YamlConfiguration.loadConfiguration(f);
 			} else {
 				throw new NullPointerException();
 			}
@@ -62,7 +62,7 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		this.pl = pl;
 		this.f = new File(pl.getDataFolder() + File.separator + "players" + File.separator + "town-"+offliner.getName() + ".yml");
 		if(!this.f.exists()) {
-			this.con = YamlConfiguration.loadConfiguration(this.f);
+			this.con = YamlConfiguration.loadConfiguration(f);
 			this.con.set("isDefault", true);
 			this.con.set("ip", "fake");
 			this.con.set("user", "town-"+offliner.getName());
@@ -73,14 +73,9 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			if(pl.getConfiguration().getEconomyConfig().isEconomyEnabled()){
 				this.con.set("money", pl.getConfiguration().getEconomyConfig().getStartersMoney());
 			}
-			try {
-				this.con.save(this.f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 			save();
 		} else {
-			this.con = YamlConfiguration.loadConfiguration(this.f);
+			this.con = YamlConfiguration.loadConfiguration(f);
 		}
 	}
 
@@ -141,11 +136,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	@Override
 	public void unmute() {
 		con.set("muted", null);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		save();
 	}
 
@@ -153,11 +143,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	public void mute(Long time) {
 		con.set("muted.isMuted", true);
 		con.set("muted.mutedTime", time);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		save();
 	}
 
@@ -175,11 +160,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	public void setPermBanned(String reason, String who) {
 		Bukkit.getServer().getBanList(Type.NAME).addBan(player, reason, null, who).save();
 		con.set("banned.isBanned", true);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		save();
 	}
 
@@ -206,11 +186,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		Date date = new Date(time);
 		Bukkit.getServer().getBanList(Type.NAME).addBan(player, reason, date, who).save();
 		con.set("tempbanned.isBanned", true);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		save();
 	}
 
@@ -302,11 +277,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	public void removeHome(String home) {
 		save();
 		con.set("homes."+home.toLowerCase(), null);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		save();
 	}
 
@@ -352,11 +322,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	@Override
 	public void setModreqDoneMessage(String message) {
 		con.set("modreq.done.message", message);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		save();
 	}
 
@@ -384,11 +349,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			if(con.getConfigurationSection("modreqs").getKeys(true).isEmpty()) {
 				con.set("modreqs", null);
 			}
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 			save();
 		} else {
 			throw new NullPointerException("you cannot remove a configuration node for a modreq wich doesn't exists!");
@@ -415,11 +375,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	public void ClearInventoryOnRelog() {
 		save();
 		con.set("ClearInventory", true);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		save();
 	}
 
@@ -460,21 +415,11 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 			List<String> list = new ArrayList<String>(con.getStringList("command-restrictions"));
 			list.add(command+","+reason);
 			con.set("command-restrictions", list);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 			save();	
 		} else {
 			List<String> list = new ArrayList<String>(con.getStringList("command-restrictions"));
 			list.add(command+","+reason+","+taskCommand);
 			con.set("command-restrictions", list);
-			try {
-				con.save(f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 			save();
 		}
 	}
@@ -505,11 +450,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		List<String> list = new ArrayList<String>(con.getStringList("command-restrictions"));
 		list.remove(cmd.getSerializedKey());
 		con.set("command-restrictions", list);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		save();
 	}
 
@@ -575,11 +515,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	public void depositMoney(double price) {
 		save();
 		con.set("money", getMoney()+price);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		save();
 	}
 
@@ -596,11 +531,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	public void clearMoney() {
 		save();
 		con.set("money", null);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		save();
 	}
 
@@ -662,11 +592,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 		save();
 		UUID id = UUID.nameUUIDFromBytes(((loc.getWorld().getName())+":"+loc.getBlockX()+":"+loc.getBlockY()+":"+loc.getBlockZ()).getBytes());
 		con.set("shops."+id.toString(), null);
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		save();
 	}
 
@@ -674,11 +599,6 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 	public void PrepareLoginTask(String command, PlayerTaskEnum task) {
 		con.set("task.command", command);
 		con.set("task.type", task.name());
-		try {
-			con.save(f);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		save();
 	}
 	
@@ -704,22 +624,38 @@ public class xEssentialsOfflinePlayer implements XOfflinePlayer {
 
 	@Override
 	public void save() {
-		try {
-			if(f.canWrite()) {
+		if(f.canWrite()) {
+			try {
 				con.save(f);
-				con.load(f);	
-			} else {
-				f.setReadable(true, false);
-				f.setWritable(true, false);
-				con.save(f);
-				con.load(f);
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InvalidConfigurationException e) {
-			e.printStackTrace();
+			try {
+				con.load(f);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InvalidConfigurationException e) {
+				e.printStackTrace();
+			}	
+		} else {
+			f.setReadable(true, false);
+			f.setWritable(true, false);
+			try {
+				con.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			try {
+				con.load(f);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InvalidConfigurationException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

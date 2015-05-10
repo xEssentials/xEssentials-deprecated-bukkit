@@ -5,11 +5,11 @@ import java.util.Date;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.Configuration;
 
 public class Modreq {
 	
-	private final FileConfiguration con;
+	private final Configuration con;
 	private int id;
 	
 	/**
@@ -17,7 +17,7 @@ public class Modreq {
 	 * @param use the players configuration, and the id of the modreq.
 	 * @throws NullPointerException when no modreq node exists in this configuration.
 	 */
-	public Modreq(FileConfiguration con, int id) {
+	public Modreq(Configuration con, int id) {
 		if(con.contains("modreqs."+"modreq"+id)) {
 			this.con = con;
 			this.id = id;	
