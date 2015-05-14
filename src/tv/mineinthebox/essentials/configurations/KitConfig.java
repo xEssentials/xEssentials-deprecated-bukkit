@@ -25,19 +25,21 @@ public class KitConfig extends Configuration {
 
 		preconfig.put("cooldown.isEnabled", true);
 		preconfig.put("cooldown.time", 100);
-
-		if(!con.contains("kit")) {
+		
+		if(!isGenerated() || !con.contains("kit")) {
 			String[] DiamondKit = {Material.DIAMOND_PICKAXE.getId()+":0:1", Material.DIAMOND_SPADE.name()+":0:1", Material.DIAMOND_AXE.name()+":0:1", Material.DIAMOND_SWORD+":0:1", Material.MELON+":0:30"};
 			String[] IronKit = {Material.IRON_PICKAXE.getId()+":0:1", Material.IRON_SPADE.name()+":0:1", Material.IRON_AXE.name()+":0:1", Material.IRON_SWORD+":0:1", Material.MELON+":0:30"};
 			String[] WoodKit = {Material.WOOD_PICKAXE.getId()+":0:1", Material.WOOD_SPADE.name()+":0:1", Material.WOOD_AXE.name()+":0:1", Material.WOOD_SWORD+":0:1", Material.MELON+":0:30"};
 			preconfig.put("kit.diamondkit", DiamondKit);
 			preconfig.put("kit.ironkit", IronKit);
 			preconfig.put("kit.woodkit", WoodKit);
-		}
-		
-		Kit[] kits = parseKits(con);
-		for(Kit kit : kits) {
-			kitss.put(kit.getKitName(), kit);
+			generateConfig();
+			reloadKits();
+		} else {
+			Kit[] kits = parseKits(con);
+			for(Kit kit : kits) {
+				kitss.put(kit.getKitName(), kit);
+			}
 		}
 	}
 
@@ -70,7 +72,7 @@ public class KitConfig extends Configuration {
 	public Map<String, Kit> getConfigKits() {
 		return Collections.unmodifiableMap(kitss);
 	}
-	
+
 	public void reloadKits() {
 		kitss.clear();
 		reload();
@@ -132,7 +134,7 @@ public class KitConfig extends Configuration {
 	public ConfigType getType() {
 		return ConfigType.KITS;
 	}
-	
+
 	@Override
 	public boolean hasAlternativeReload() {
 		return true;
