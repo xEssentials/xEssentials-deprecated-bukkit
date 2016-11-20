@@ -18,7 +18,7 @@ public class FakeNukeEvent implements Listener {
 			FallingBlock entity = (FallingBlock) e.getEntity();
 			if(blocks.contains(entity)) {
 				e.setCancelled(true);
-				entity.getWorld().playSound(entity.getLocation(), Sound.EXPLODE, 0.8F, 0.8F);
+				entity.getWorld().playSound(entity.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 0.8F, 0.8F);
 				blocks.remove(entity);
 			}
 		}

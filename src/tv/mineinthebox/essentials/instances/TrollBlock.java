@@ -195,26 +195,26 @@ public class TrollBlock implements Runnable {
 	}
 
 	private void paranoidSounds_1(Player p) {
-		playSound(p, p.getLocation(), Sound.WOLF_DEATH);
+		playSound(p, p.getLocation(), Sound.ENTITY_WOLF_DEATH);
 	}
 
 	private void paranoidSounds_2(Player p) {
-		playSound(p, p.getLocation(), Sound.CREEPER_HISS);
+		playSound(p, p.getLocation(), Sound.ENTITY_CREEPER_PRIMED);
 	}
 
 	private void paranoidSounds_3(Player p) {
-		playSound(p, p.getLocation(), Sound.GHAST_SCREAM);	
+		playSound(p, p.getLocation(), Sound.ENTITY_GHAST_SCREAM);	
 	}
 	
 	private void paranoidSounds_4(Player p) {
-		playSound(p, p.getLocation(), Sound.COW_WALK);	
+		playSound(p, p.getLocation(), Sound.ENTITY_COW_STEP);	
 	}
 	
 	private void paranoidSounds_5(Player p) {
-		playSound(p, p.getLocation(), Sound.FALL_BIG);	
+		playSound(p, p.getLocation(), Sound.ENTITY_GENERIC_BIG_FALL);	
 	}
 	
 	private void paranoidSounds_6(Player p) {
-		playSound(p, p.getLocation(), Sound.EXPLODE);	
+		playSound(p, p.getLocation(), Sound.ENTITY_GENERIC_EXPLODE);	
 	}
 }

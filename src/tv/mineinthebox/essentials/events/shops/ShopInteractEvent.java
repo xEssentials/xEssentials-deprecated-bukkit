@@ -117,7 +117,7 @@ public class ShopInteractEvent extends EventTemplate implements Listener {
 								for(int i = 0; i < inv.getSize(); i++) {
 									inv.setItem(i, shop.getItem());
 								}
-								e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.CHEST_OPEN, 1F, 1F);
+								e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.BLOCK_CHEST_OPEN, 1F, 1F);
 								e.getPlayer().openInventory(inv);
 							} else {
 								sendMessage(e.getPlayer(), ChatColor.RED + "you need atleast have one inventory slot open!");

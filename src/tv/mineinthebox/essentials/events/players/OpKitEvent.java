@@ -40,7 +40,7 @@ public class OpKitEvent extends EventTemplate implements Listener {
 					e.getWhoClicked().getInventory().addItem(OpKit.DIAMOND_KIT.getPickAxe());
 					e.getWhoClicked().closeInventory();
 					p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 200));
-					p.playSound(p.getLocation(), Sound.PORTAL_TRAVEL, 1F, 1F);
+					p.playSound(p.getLocation(), Sound.BLOCK_PORTAL_TRAVEL, 1F, 1F);
 					sendMessage(p, enjoymsg);
 					e.setCancelled(true);
 				} else if(e.getCurrentItem().getType() == OpKit.IRON_KIT.getButton().getType()) {
@@ -54,7 +54,7 @@ public class OpKitEvent extends EventTemplate implements Listener {
 					e.getWhoClicked().getInventory().addItem(OpKit.IRON_KIT.getPickAxe());
 					e.getWhoClicked().closeInventory();
 					p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 200));
-					p.playSound(p.getLocation(), Sound.PORTAL_TRAVEL, 1F, 1F);
+					p.playSound(p.getLocation(), Sound.BLOCK_PORTAL_TRAVEL, 1F, 1F);
 					sendMessage(p, enjoymsg);
 					e.setCancelled(true);
 				} else if(e.getCurrentItem().getType() == OpKit.STONE_KIT.getButton().getType()) {
@@ -68,7 +68,7 @@ public class OpKitEvent extends EventTemplate implements Listener {
 					e.getWhoClicked().getInventory().addItem(OpKit.STONE_KIT.getPickAxe());
 					e.getWhoClicked().closeInventory();
 					p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 200));
-					p.playSound(p.getLocation(), Sound.PORTAL_TRAVEL, 1F, 1F);
+					p.playSound(p.getLocation(), Sound.BLOCK_PORTAL_TRAVEL, 1F, 1F);
 					sendMessage(p, enjoymsg);
 					e.setCancelled(true);
 				} else {
@@ -81,7 +81,7 @@ public class OpKitEvent extends EventTemplate implements Listener {
 	@EventHandler
 	public void onClose(InventoryCloseEvent e) {
 		if(e.getInventory().getTitle().equalsIgnoreCase(ChatColor.GOLD + "op kit")) {
-			((Player)e.getPlayer()).playSound(e.getPlayer().getLocation(), Sound.CHEST_CLOSE, 1F, 1F);
+			((Player)e.getPlayer()).playSound(e.getPlayer().getLocation(), Sound.BLOCK_CHEST_CLOSE, 1F, 1F);
 		}
 	}
 

@@ -39,6 +39,7 @@ public class CmdHat extends CommandTemplate {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	private boolean changeHat(Player p) {
 		if(checkHat(p)) {
 			if(p.getInventory().firstEmpty() == -1) {

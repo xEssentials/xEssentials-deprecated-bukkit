@@ -16,6 +16,7 @@ public class CmdMore extends CommandTemplate {
 		super(pl, cmd, sender);
 	}
 
+	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("more")) {
 			if(sender instanceof Player) {

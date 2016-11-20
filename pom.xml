@@ -72,65 +72,32 @@
 	<repositories>
 		<repository>
 			<id>spigot-repo</id>
-			<url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
+			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
 		</repository>
 		<repository>
 			<id>sk89q-repo</id>
-			<url>http://maven.sk89q.com/repo/</url>
-		</repository>
-		<repository>
-			<id>lwc</id>
-			<url>http://andune.com/nexus/content/repositories/public/</url>
+			<url>https://maven.sk89q.com/repo/</url>
 		</repository>
 		<repository>
 			<id>vault-repo</id>
-			<url>http://nexus.theyeticave.net/content/repositories/pub_releases</url>
+			<url>http://nexus.hc.to/content/repositories/pub_releases</url>
 		</repository>
 		<repository>
-			<id>mitb-repo</id>
-			<url>http://ci.mineinthebox.tv:8080/plugin/repository/everything/</url>
+			<id>votifier</id>
+			<url>http://repo.howaner.de/</url>
 		</repository>
 	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>org.bukkit</groupId>
 			<artifactId>bukkit</artifactId>
-			<version>1.8.3-R0.1-SNAPSHOT</version>
-			
-		</dependency>
-		<dependency>
-			<groupId>com.sk89q</groupId>
-			<artifactId>worldedit</artifactId>
-			<scope>provided</scope>
 			<version>LATEST</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sk89q</groupId>
-			<artifactId>worldguard</artifactId>
-			<scope>provided</scope>
-			<version>LATEST</version>
-		</dependency>
-		<dependency>
-			<groupId>com.googlecode.json-simple</groupId>
-			<artifactId>json-simple</artifactId>
-			<version>LATEST</version>
-		</dependency>
-		<dependency>
-			<groupId>net.milkbowl.vault</groupId>
-			<artifactId>VaultAPI</artifactId>
-			<scope>provided</scope>
-			<version>LATEST</version>
-		</dependency>
-		<dependency>
-			<groupId>com.griefcraft</groupId>
-			<artifactId>LWC</artifactId>
-			<version>4.2.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>tv.mineinthebox.manco</groupId>
-			<artifactId>ManCo</artifactId>
-			<version>3.0</version>
+			<groupId>com.sk89q.worldguard</groupId>
+			<artifactId>worldguard-legacy</artifactId>
+			<version>LATEST</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -139,9 +106,24 @@
 			<version>1.9</version>
 		</dependency>
 		<dependency>
-			<groupId>tv.mineinthebox.simpleserver</groupId>
-			<artifactId>SimpleHttpServer</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<groupId>net.milkbowl.vault</groupId>
+			<artifactId>Vault</artifactId>
+			<version>LATEST</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>tv.mineinthebox.manco</groupId>
+			<artifactId>ManCo</artifactId>
+			<version>2.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}${file.separator}repo${file.separator}ManCo-2.0.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.griefcraft</groupId>
+			<artifactId>LWC</artifactId>
+			<version>LATEST</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}${file.separator}repo${file.separator}LWC.jar</systemPath>
 		</dependency>
 	</dependencies>
 	<scm>
@@ -153,8 +135,4 @@
 		<name>xEssentials</name>
 		<url>https://github.com/xEssentials</url>
 	</organization>
-	<ciManagement>
-		<system>jenkins</system>
-		<url>http://ci.mineinthebox.tv:8080/</url>
-	</ciManagement>
 </project>

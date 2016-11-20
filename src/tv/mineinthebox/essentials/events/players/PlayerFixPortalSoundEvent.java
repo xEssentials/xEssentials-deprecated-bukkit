@@ -16,6 +16,7 @@ public class PlayerFixPortalSoundEvent implements Listener {
 		this.pl = pl;
 	}
 	
+	@Deprecated
 	@EventHandler
 	public void onSound(final PlayerPortalEvent e) {
 		if(e.isCancelled()) {
@@ -26,7 +27,7 @@ public class PlayerFixPortalSoundEvent implements Listener {
 
 			@Override
 			public void run() {
-				e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.PORTAL_TRAVEL, 1F, 1F);
+				e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.BLOCK_PORTAL_TRAVEL, 1F, 1F);
 			}
 			
 		}.runTaskLater(pl, 5L);

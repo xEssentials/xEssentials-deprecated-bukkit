@@ -211,7 +211,7 @@ public class CmdGive extends CommandTemplate {
 				return true;
 			}
 		} catch(NumberFormatException e) {
-			return false;
+			
 		}
 		return false;
 	}

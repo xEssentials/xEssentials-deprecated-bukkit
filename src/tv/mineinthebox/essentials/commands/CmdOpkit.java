@@ -45,7 +45,7 @@ public class CmdOpkit extends CommandTemplate {
 				if(sender instanceof Player) {
 					Player p = (Player) sender;
 					sendMessage("opening opkit selector!");
-					p.playSound(p.getLocation(), Sound.CHEST_OPEN, 1F, 1F);
+					p.playSound(p.getLocation(), Sound.BLOCK_CHEST_OPEN, 1F, 1F);
 					p.openInventory(inv);
 				} else {
 					getWarning(WarningType.PLAYER_ONLY);

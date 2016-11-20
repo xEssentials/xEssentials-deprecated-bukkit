@@ -20,6 +20,7 @@ public class CmdPowerTool extends CommandTemplate {
 		this.pl = pl;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("powertool")) {
 			if(sender.hasPermission(PermissionKey.CMD_POWERTOOL.getPermission())) {

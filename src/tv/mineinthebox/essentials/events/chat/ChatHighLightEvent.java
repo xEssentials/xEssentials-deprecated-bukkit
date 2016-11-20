@@ -31,9 +31,9 @@ public class ChatHighLightEvent implements Listener {
 						e.setMessage(e.getMessage().replaceAll(name, ChatColor.GRAY+"[offline]"+e.getHashTag()+name+e.getSuffix()));
 					} else {
 						xp.getBukkitPlayer().getWorld().playEffect(xp.getBukkitPlayer().getLocation(), Effect.MOBSPAWNER_FLAMES, 100);
-						xp.getBukkitPlayer().playSound(xp.getBukkitPlayer().getLocation(), Sound.NOTE_PIANO, 10, 100);
-						xp.getBukkitPlayer().playSound(xp.getBukkitPlayer().getLocation(), Sound.NOTE_BASS_DRUM, 10, 100);
-						xp.getBukkitPlayer().playSound(xp.getBukkitPlayer().getLocation(), Sound.NOTE_SNARE_DRUM, 10, 100);
+						xp.getBukkitPlayer().playSound(xp.getBukkitPlayer().getLocation(), Sound.BLOCK_NOTE_HARP, 10, 100);
+						xp.getBukkitPlayer().playSound(xp.getBukkitPlayer().getLocation(), Sound.BLOCK_NOTE_BASEDRUM, 10, 100);
+						xp.getBukkitPlayer().playSound(xp.getBukkitPlayer().getLocation(), Sound.BLOCK_NOTE_SNARE, 10, 100);
 						e.setMessage(e.getMessage().replaceAll(name, e.getHashTag()+name+e.getSuffix()));	
 					}
 				} else {

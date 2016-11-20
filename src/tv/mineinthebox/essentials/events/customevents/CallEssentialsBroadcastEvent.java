@@ -69,9 +69,9 @@ public class CallEssentialsBroadcastEvent {
 					for(Player p : pl.getOnlinePlayers()) {
 						if(message.contains("%p")) {
 							p.sendMessage(getPrefix() + getSuffix() + message.replaceAll("%p",ChatColor.GREEN + pl.getConfiguration().getChatConfig().getHashTag() + p.getName() + getSuffix()));
-							p.getWorld().playSound(p.getPlayer().getLocation(), Sound.NOTE_PIANO, 10, 100);
-							p.getWorld().playSound(p.getPlayer().getLocation(), Sound.NOTE_BASS_DRUM, 10, 100);
-							p.getWorld().playSound(p.getPlayer().getLocation(), Sound.NOTE_SNARE_DRUM, 10, 100);
+							p.getWorld().playSound(p.getPlayer().getLocation(), Sound.BLOCK_NOTE_HARP, 10, 100);
+							p.getWorld().playSound(p.getPlayer().getLocation(), Sound.BLOCK_NOTE_BASEDRUM, 10, 100);
+							p.getWorld().playSound(p.getPlayer().getLocation(), Sound.BLOCK_NOTE_SNARE, 10, 100);
 							Bukkit.getPluginManager().callEvent(new EssentialsBroadcastEvent(message, p.getName()));
 						} else {
 							p.sendMessage(getPrefix() + getSuffix() + message);
@@ -85,9 +85,9 @@ public class CallEssentialsBroadcastEvent {
 						for(Player p : pl.getOnlinePlayers()) {
 							if(message.contains("%p")) {
 								p.sendMessage(getPrefix() + getSuffix() + message.replaceAll("%p",ChatColor.GREEN + p.getName() + getSuffix()));
-								p.getWorld().playSound(p.getPlayer().getLocation(), Sound.NOTE_PIANO, 10, 100);
-								p.getWorld().playSound(p.getPlayer().getLocation(), Sound.NOTE_BASS_DRUM, 10, 100);
-								p.getWorld().playSound(p.getPlayer().getLocation(), Sound.NOTE_SNARE_DRUM, 10, 100);
+								p.getWorld().playSound(p.getPlayer().getLocation(), Sound.BLOCK_NOTE_HARP, 10, 100);
+								p.getWorld().playSound(p.getPlayer().getLocation(), Sound.BLOCK_NOTE_BASEDRUM, 10, 100);
+								p.getWorld().playSound(p.getPlayer().getLocation(), Sound.BLOCK_NOTE_SNARE, 10, 100);
 								Bukkit.getPluginManager().callEvent(new EssentialsBroadcastEvent(message, p.getName()));
 							} else {
 								p.sendMessage(getPrefix() + getSuffix() + message);

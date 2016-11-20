@@ -30,7 +30,7 @@ public class OpenBackPackEvent extends EventTemplate implements Listener {
 				if(pl.getManagers().getBackPackManager().isBackpack(e.getItem())) {
 					Backpack pack = pl.getManagers().getBackPackManager().getBackpackByItem(e.getItem());
 					sendMessage(e.getPlayer(), ChatColor.GREEN + "opening backpack");
-					e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.CHEST_OPEN, 1F, 1F);
+					e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.BLOCK_CHEST_OPEN, 1F, 1F);
 					e.getPlayer().openInventory(pack.getInventory());
 					e.setCancelled(true);
 				}
@@ -56,7 +56,7 @@ public class OpenBackPackEvent extends EventTemplate implements Listener {
 		if(pack instanceof Backpack) {
 			pack.setContents(e.getInventory().getContents());
 			e.getPlayer().setItemInHand(pack.getBackPackItem());
-			((Player)e.getPlayer()).playSound(e.getPlayer().getLocation(), Sound.CHEST_CLOSE, 1F, 1F);
+			((Player)e.getPlayer()).playSound(e.getPlayer().getLocation(), Sound.BLOCK_CHEST_CLOSE, 1F, 1F);
 			sendMessage((Player)e.getPlayer(), ChatColor.GREEN + "closing backpack.");
 		}
 	}

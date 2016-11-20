@@ -21,7 +21,7 @@ public class PlayerShootbowSoundEvent implements Listener {
 				Arrow arrow = (Arrow)e.getDamager();
 				if(arrow.getShooter() instanceof Player) {
 					Player p = (Player) arrow.getShooter();
-					p.playSound(p.getLocation(), Sound.NOTE_PLING, 2F, 1F);
+					p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 2F, 1F);
 				}
 			}
 		}

@@ -41,16 +41,16 @@ public class AdminShopInventoryEvent extends EventTemplate implements Listener {
 						if(pl.getManagers().getEcoManager().hasEnough(e.getWhoClicked().getName(), shop.getBuyPrice())) {
 							pl.getManagers().getEcoManager().withdrawMoney(p.getName(), shop.getBuyPrice());
 							p.getInventory().addItem(shop.getItem());
-							p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1F, 1F);
+							p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_YES, 1F, 1F);
 							sendMessage(p, " you successfully bought a item from the admin shop!");
 						} else {
 							sendMessage(p, ChatColor.RED + "you cannot afford this!");
-							p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1F, 1F);
+							p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1F, 1F);
 							p.closeInventory();
 						}
 					} else {
 						sendMessage(p, ChatColor.RED + "please make sure you have atleast one empty slot!");
-						p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1F, 1F);
+						p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1F, 1F);
 						p.closeInventory();
 					}
 				} else if(Hooks.isVaultEcoEnabled()) {
@@ -58,16 +58,16 @@ public class AdminShopInventoryEvent extends EventTemplate implements Listener {
 						if(pl.getManagers().getVaultManager().hasEnough(e.getWhoClicked().getName(), shop.getBuyPrice())) {
 							pl.getManagers().getVaultManager().withdraw(p.getName(), shop.getBuyPrice());
 							p.getInventory().addItem(shop.getItem());
-							p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1F, 1F);
+							p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_YES, 1F, 1F);
 							sendMessage(p," you successfully bought a item from the admin shop!");
 						} else {
 							sendMessage(p, ChatColor.RED + "you cannot afford this!");
-							p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1F, 1F);
+							p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1F, 1F);
 							p.closeInventory();
 						}
 					} else {
 						sendMessage(p, ChatColor.RED + "please make sure you have atleast one empty slot!");
-						p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1F, 1F);
+						p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1F, 1F);
 						p.closeInventory();
 					}
 				}

@@ -96,7 +96,7 @@ public class CmdMenu extends CommandTemplate {
 								sendMessageTo(p, "opening menu for player " + xp.getName());
 
 								p.openInventory(inv);
-								p.playSound(p.getLocation(), Sound.CHEST_OPEN, 1, 0);
+								p.playSound(p.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 0);
 							} else {
 								XOfflinePlayer off = pl.getManagers().getPlayerManager().getOfflinePlayer(args[0]);
 								Inventory inv = Bukkit.createInventory(p, 9, ChatColor.DARK_PURPLE + "Quick menu: " + off.getName());
@@ -108,7 +108,7 @@ public class CmdMenu extends CommandTemplate {
 								sendMessageTo(p, "opening menu for player " + off.getName());
 
 								p.openInventory(inv);
-								p.playSound(p.getLocation(), Sound.CHEST_OPEN, 1, 0);
+								p.playSound(p.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 0);
 							}
 						} else {
 							sendMessage("this player has never played before!");

@@ -24,6 +24,7 @@ public class CmdHerobrine extends CommandTemplate {
 		this.pl = pl;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public boolean execute(CommandSender sender, Command cmd, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("herobrine")) {
 			if(sender.hasPermission(PermissionKey.CMD_HEROBRINE.getPermission())) {

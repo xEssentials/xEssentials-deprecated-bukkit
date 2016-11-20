@@ -46,7 +46,7 @@ public class ElevatorInteractEvent extends EventTemplate implements Listener {
 									pdest.setPitch(e.getPlayer().getLocation().getPitch());
 									e.getPlayer().teleport(pdest);
 									sign.getWorld().playEffect(sign.getLocation(), Effect.SMOKE, 10);
-									sign.getWorld().playSound(sign.getLocation(), Sound.FIREWORK_LAUNCH, 1F, 1F);
+									sign.getWorld().playSound(sign.getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 1F, 1F);
 								} else {
 									sendMessage(e.getPlayer(), ChatColor.RED + "the elevator is obstructed!");
 								}
@@ -84,7 +84,7 @@ public class ElevatorInteractEvent extends EventTemplate implements Listener {
 									pdest.setPitch(e.getPlayer().getLocation().getPitch());
 									e.getPlayer().teleport(pdest);
 									sign.getWorld().playEffect(sign.getLocation(), Effect.SMOKE, 10);
-									sign.getWorld().playSound(sign.getLocation(), Sound.FIREWORK_LAUNCH, 1F, 1F);
+									sign.getWorld().playSound(sign.getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 1F, 1F);
 								} else {
 									sendMessage(e.getPlayer(), ChatColor.RED + "the elevator is obstructed!");
 								}

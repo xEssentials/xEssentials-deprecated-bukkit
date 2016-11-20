@@ -70,7 +70,7 @@ public class MobProcEvent implements Listener, Runnable {
 				XPlayer xp = pl.getManagers().getPlayerManager().getPlayer(p.getName());
 				if(xp.hasProc()) {
 					Random rand = new Random();
-					p.getWorld().playSound(p.getLocation(), Sound.ENDERDRAGON_GROWL, 1F, 1F);
+					p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_GROWL, 1F, 1F);
 					for(int i =0; i < 5; i++) {
 						p.getWorld().playEffect(new Location(p.getWorld(), rand.nextInt(10), rand.nextInt(4), rand.nextInt(10)), Effect.MOBSPAWNER_FLAMES, 100, 10);
 						//ParticleEffect.HAPPY_VILLAGER.display(p.getLocation(), rand.nextInt(10), rand.nextInt(4), rand.nextInt(10), 100, 10);	

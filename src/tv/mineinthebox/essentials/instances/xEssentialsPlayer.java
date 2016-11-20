@@ -622,8 +622,8 @@ public class xEssentialsPlayer implements XPlayer {
 				LavaPilar pilar = new LavaPilar(pilars, pl);
 				pilar.startTask();
 			}
-			player.getWorld().playSound(player.getLocation(), Sound.WITHER_SPAWN, 1F, 1F);
-			player.getWorld().playSound(player.getLocation(), Sound.WITHER_IDLE, 1F, 1F);
+			player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_SPAWN, 1F, 1F);
+			player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_AMBIENT, 1F, 1F);
 		}
 		con.set("isVanished", false);
 		con.set("noPickUp", false);
@@ -637,8 +637,8 @@ public class xEssentialsPlayer implements XPlayer {
 			}
 		}
 		if(hasVanishEffects() && !sillenced) {
-			player.getWorld().playSound(player.getLocation(), Sound.WITHER_SPAWN, 1F, 1F);
-			player.getWorld().playSound(player.getLocation(), Sound.WITHER_IDLE, 1F, 1F);
+			player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_SPAWN, 1F, 1F);
+			player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_AMBIENT, 1F, 1F);
 			player.getWorld().strikeLightning(player.getLocation().add(0, -120, 0));
 		}
 		con.set("isVanished", false);

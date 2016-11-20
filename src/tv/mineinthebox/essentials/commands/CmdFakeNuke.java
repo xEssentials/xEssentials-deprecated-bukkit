@@ -34,7 +34,7 @@ public class CmdFakeNuke extends CommandTemplate {
 							}
 						}
 						sender.sendMessage(ChatColor.GRAY + "May death rain upon them");
-						xp.getBukkitPlayer().getWorld().playSound(xp.getBukkitPlayer().getLocation(), Sound.FUSE, 0.98F, 0.98F);
+						xp.getBukkitPlayer().getWorld().playSound(xp.getBukkitPlayer().getLocation(), Sound.ENTITY_TNT_PRIMED, 0.98F, 0.98F);
 						xp.fakenuke();
 					} else {
 						getWarning(WarningType.PLAYER_ONLY);
@@ -50,7 +50,7 @@ public class CmdFakeNuke extends CommandTemplate {
 							}
 						}
 						sender.sendMessage(ChatColor.GRAY + "May death rain upon them");
-						xp.getBukkitPlayer().getWorld().playSound(xp.getBukkitPlayer().getLocation(), Sound.FUSE, 0.98F, 0.98F);
+						xp.getBukkitPlayer().getWorld().playSound(xp.getBukkitPlayer().getLocation(), Sound.ENTITY_TNT_PRIMED, 0.98F, 0.98F);
 						xp.fakenuke();
 					} else {
 						sendMessage("this player is not online!");

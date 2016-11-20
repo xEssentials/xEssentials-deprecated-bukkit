@@ -381,7 +381,7 @@ public abstract class MinigamePlugin implements Listener {
 		if(hasMinigameGui()) {
 			if(e.getInventory().getTitle().equalsIgnoreCase(ChatColor.DARK_PURPLE + "game selector")) {
 				Player p = (Player)e.getPlayer();
-				p.playSound(p.getLocation(), Sound.CHEST_CLOSE, 1F, 1F);
+				p.playSound(p.getLocation(), Sound.BLOCK_CHEST_CLOSE, 1F, 1F);
 			}
 		}
 	}

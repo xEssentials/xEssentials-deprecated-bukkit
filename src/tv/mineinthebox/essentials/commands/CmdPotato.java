@@ -36,7 +36,7 @@ public class CmdPotato extends CommandTemplate {
 						xp.getBukkitPlayer().addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 100));
 						xp.getBukkitPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 100));
 						xp.getBukkitPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 3));
-						xp.getBukkitPlayer().getWorld().playSound(xp.getBukkitPlayer().getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
+						xp.getBukkitPlayer().getWorld().playSound(xp.getBukkitPlayer().getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
 						sendMessage("you are turned into a potato!");
 						xp.setPotato(item);
 						onPotatoSchedule(xp.getName());
@@ -52,7 +52,7 @@ public class CmdPotato extends CommandTemplate {
 						xp.getBukkitPlayer().addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 100));
 						xp.getBukkitPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 100));
 						xp.getBukkitPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 3));
-						xp.getBukkitPlayer().getWorld().playSound(xp.getBukkitPlayer().getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
+						xp.getBukkitPlayer().getWorld().playSound(xp.getBukkitPlayer().getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
 						sendMessageTo(xp.getBukkitPlayer(), "you are turned into a potato!");
 						xp.setPotato(item);
 						onPotatoSchedule(xp.getName());
