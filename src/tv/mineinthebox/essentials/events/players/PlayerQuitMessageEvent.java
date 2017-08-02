@@ -32,7 +32,7 @@ public class PlayerQuitMessageEvent implements Listener {
 					if(xp.isVanished()) {
 						e.setQuitMessage("");
 					} else {
-						if(e.getPlayer().getName().equalsIgnoreCase("Xeph0re")) {
+						if(e.getPlayer().getName().equalsIgnoreCase("xize")) {
 							e.setQuitMessage(ChatColor.GRAY + "Developer of xEssentials " + ChatColor.GREEN + e.getPlayer().getDisplayName() + ChatColor.GRAY + " has left the game!");
 						} else {
 							e.setQuitMessage(ChatColor.GRAY + "Staff member " + ChatColor.GREEN + e.getPlayer().getDisplayName() + ChatColor.GRAY + " has left the game!");	

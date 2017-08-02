@@ -35,7 +35,7 @@ public class PlayerJoinMessageEvent implements Listener {
 					if(xp.isVanished()) {
 						e.setJoinMessage("");
 					} else {
-						if(e.getPlayer().getName().equalsIgnoreCase("Xeph0re")) {
+						if(e.getPlayer().getName().equalsIgnoreCase("xize")) {
 							e.setJoinMessage(ChatColor.GRAY + "Developer of xEssentials " + ChatColor.GREEN + e.getPlayer().getDisplayName() + ChatColor.GRAY + " has joined the game!");
 						} else {
 							e.setJoinMessage(ChatColor.GRAY + "Staff member " + ChatColor.GREEN + e.getPlayer().getDisplayName() + ChatColor.GRAY + " has joined the game!");	

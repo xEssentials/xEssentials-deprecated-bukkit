@@ -65,7 +65,7 @@ public class WorldGuardHook_org {
 			for(ProtectedRegion region : wg.getRegionManager(p.getPlayer().getWorld()).getApplicableRegions(p.getPlayer().getLocation())) {
 				if(region.getFlag(DefaultFlag.MOB_SPAWNING) == State.DENY) {
 					String message;
-					if(p.getName().equalsIgnoreCase("Xeph0re")) {
+					if(p.getName().equalsIgnoreCase("xize")) {
 						message = ChatColor.GRAY + "a safe Developer of xEssentials " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has been appeared!";	
 					} else {
 						message = ChatColor.GRAY + "a safe staff member " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has been appeared!";	
@@ -74,7 +74,7 @@ public class WorldGuardHook_org {
 				}
 			}
 			String message;
-			if(p.getName().equalsIgnoreCase("Xeph0re")) {
+			if(p.getName().equalsIgnoreCase("xize")) {
 				message = ChatColor.GRAY + "a wild Developer of xEssentials " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has been appeared!";	
 			} else {
 				message = ChatColor.GRAY + "a wild staff member " + ChatColor.GREEN + p.getDisplayName() + ChatColor.GRAY + " has been appeared!";	
